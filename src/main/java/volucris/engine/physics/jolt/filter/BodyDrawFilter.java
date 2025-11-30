@@ -1,0 +1,147 @@
+package volucris.engine.physics.jolt.filter;
+
+import java.lang.foreign.Arena;
+import java.lang.foreign.FunctionDescriptor;
+import java.lang.foreign.MemoryLayout;
+import java.lang.foreign.MemorySegment;
+import java.lang.foreign.StructLayout;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
+import java.lang.invoke.MethodHandles.Lookup;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+import volucris.engine.physics.jolt.Jolt;
+import volucris.engine.physics.jolt.body.Body;
+import volucris.engine.utils.VolucrisRuntimeException;
+
+import static java.lang.foreign.ValueLayout.*;
+import static volucris.engine.utils.FFMUtils.*;
+
+/**
+ * Class function to filter out bodies for debug rendering, returns true if body
+ * should be rendered.
+ */
+public abstract class BodyDrawFilter {
+
+	private static final ArrayList<WeakReference<BodyDrawFilter>> BODY_DRAW_FILTERS;
+
+	private static final StructLayout LAYOUT;
+
+	private static final MethodHandle JPH_BODY_DRAW_FILTER_SET_PROCS;
+	private static final MethodHandle JPH_BODY_DRAW_FILTER_CREATE;
+	private static final MethodHandle JPH_BODY_DRAW_FILTER_DESTROY;
+
+	private static final VarHandle SHOULD_DRAW;
+
+	private static final MemorySegment JPH_BODY_DRAW_FILTER_PROCS;
+
+	private static MemorySegment SHOULD_DRAW_ADDR;
+
+	private static int count;
+
+	private final MemorySegment jphbodyDrawFilter;
+	private final MemorySegment userData;
+
+	static {
+		// @formatter:off
+		LAYOUT = MemoryLayout.structLayout(
+				ADDRESS.withName("ShouldDraw")
+			).withName("JPH_BodyDrawFilter_Procs");
+		//@formatter:on
+
+		SHOULD_DRAW = varHandle(LAYOUT, "ShouldDraw");
+
+		JPH_BODY_DRAW_FILTER_SET_PROCS = downcallHandleVoid("JPH_BodyDrawFilter_SetProcs", ADDRESS);
+		JPH_BODY_DRAW_FILTER_CREATE = downcallHandle("JPH_BodyDrawFilter_Create", ADDRESS, ADDRESS);
+		JPH_BODY_DRAW_FILTER_DESTROY = downcallHandleVoid("JPH_BodyDrawFilter_Destroy", ADDRESS);
+
+		JPH_BODY_DRAW_FILTER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+
+		fillProcs();
+		setProcs();
+
+		BODY_DRAW_FILTERS = new ArrayList<WeakReference<BodyDrawFilter>>();
+	}
+
+	public BodyDrawFilter() {
+		try {
+			int index = count++;
+
+			Arena arena = Arena.ofAuto();
+
+			userData = arena.allocateFrom(JAVA_INT, index);
+
+			MethodHandle method = JPH_BODY_DRAW_FILTER_CREATE;
+			MemorySegment segment = (MemorySegment) method.invokeExact(userData);
+
+			jphbodyDrawFilter = segment.reinterpret(arena, s -> destroy(s));
+
+			BODY_DRAW_FILTERS.add(index, new WeakReference<BodyDrawFilter>(this));
+		} catch (Throwable e) {
+			throw new VolucrisRuntimeException("Jolt: Cannot create body draw filter.");
+		}
+	}
+
+	/**
+	 * Filter function.
+	 * 
+	 * @param body The body
+	 * @return true if the body should be rendered.
+	 */
+	protected abstract boolean shouldDraw(Body body);
+
+	private static void setProcs() {
+		try {
+			MethodHandle method = JPH_BODY_DRAW_FILTER_SET_PROCS;
+			method.invokeExact(JPH_BODY_DRAW_FILTER_PROCS);
+		} catch (Throwable e) {
+			throw new VolucrisRuntimeException("Jolt: Cannot set body draw filter procs.");
+		}
+	}
+
+	private static void fillProcs() {
+		//@formatter:off
+		Lookup lookup;
+		try {
+			lookup = MethodHandles.privateLookupIn(BodyDrawFilter.class, MethodHandles.lookup());
+		} catch (IllegalAccessException e) {
+			throw new VolucrisRuntimeException("Cannot create private lookup.");
+		}
+		
+		FunctionDescriptor shouldDraw= functionDescrVoid(ADDRESS.withTargetLayout(JAVA_INT), ADDRESS);
+		
+		MethodHandle shouldDrawHandle = upcallHandleStatic(lookup, BodyDrawFilter.class, "shouldDraw", shouldDraw);
+	
+		SHOULD_DRAW_ADDR = upcallStub(shouldDrawHandle, shouldDraw);
+		
+		SHOULD_DRAW.set(JPH_BODY_DRAW_FILTER_PROCS, SHOULD_DRAW_ADDR);
+		//@formatter:on
+	}
+
+	private static void destroy(MemorySegment segment) {
+		try {
+			MethodHandle method = JPH_BODY_DRAW_FILTER_DESTROY;
+			method.invokeExact(segment);
+		} catch (Throwable e) {
+			throw new VolucrisRuntimeException("Jolt: Cannot destroy body draw filter.");
+		}
+	}
+
+	@SuppressWarnings("unused")
+	private static void shouldDraw(MemorySegment userData, MemorySegment body) {
+		BodyDrawFilter filter = BODY_DRAW_FILTERS.get(userData.get(JAVA_INT, 0)).get();
+
+		Body bodyObject = Jolt.getBody(body.address());
+		if (bodyObject == null && !body.equals(MemorySegment.NULL))
+			bodyObject = new Body(body);
+
+		filter.shouldDraw(bodyObject);
+	}
+
+	public MemorySegment memorySegment() {
+		return jphbodyDrawFilter;
+	}
+
+}
