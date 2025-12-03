@@ -42,7 +42,10 @@ public abstract class CastShapeResultCallback {
 		
 		result = new ShapeCastResult();
 	}
-
+	
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	protected abstract void castShapeResultCallback(MemorySegment context, ShapeCastResult result);
 
 	@SuppressWarnings("unused")

@@ -166,6 +166,8 @@ public abstract class ContactListener {
 	 * <p>
 	 * The collision result (inCollisionResult) is reported relative to
 	 * inBaseOffset.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	public abstract ValidateResult onContactValidate(Body body1, Body body2, Vector3f baseOffset, CollideShapeResult result);
 
@@ -188,6 +190,8 @@ public abstract class ContactListener {
 	 * inBody2 are the velocities before the contact has been resolved, so you can
 	 * use this to estimate the collision impulse to e.g. determine the volume of
 	 * the impact sound to play (see: EstimateCollisionResponse).
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	public abstract void onContactAdded(Body body1, Body body2, ContactManifold manifold, ContactSettings settings);
 
@@ -210,6 +214,8 @@ public abstract class ContactListener {
 	 * OnContactPersisted callbacks are triggered) and resolving the sub shape ID
 	 * against both the old and new shape to see if they still refer to the same
 	 * child shape.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 */
 	public abstract void onContactPersisted(Body body1, Body body2, ContactManifold manifold, ContactSettings settings);
@@ -240,6 +246,8 @@ public abstract class ContactListener {
 	 * compound shape), the sub shape ID may not be valid / may not point to the
 	 * same sub shape anymore. If you want to know if this is the last contact
 	 * between the two bodies, use PhysicsSystem::WereBodiesInContact.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 */
 	public abstract void onContactRemoved(SubShapeIDPair subShapePair);

@@ -188,7 +188,7 @@ public final class LinearCurve {
 	public Vector2f getPoint(int index, Vector2f target) {
 		try (Arena arena = Arena.ofConfined()) {
 			MethodHandle method = JPH_LINEAR_CURVE_GET_POINT;
-			MemorySegment segment = (MemorySegment) method.invokeExact(arena, jphLinearCurve, index);
+			MemorySegment segment = (MemorySegment) method.invoke(arena, jphLinearCurve, index);
 
 			pointTmp.set(segment);
 			return pointTmp.get(target);

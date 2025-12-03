@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.filter;
 
+import java.lang.foreign.AddressLayout;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemoryLayout;
@@ -129,13 +130,9 @@ public abstract class SimShapeFilter {
 			throw new VolucrisRuntimeException("Cannot create private lookup.");
 		}
 		
-		FunctionDescriptor shouldCollide = functionDescr(
-				JAVA_BOOLEAN,
-				ADDRESS.withTargetLayout(JAVA_INT), 
-				ADDRESS, ADDRESS, 
-				ADDRESS.withTargetLayout(JAVA_INT), 
-				ADDRESS, ADDRESS, 
-				ADDRESS.withTargetLayout(JAVA_INT));
+		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
+		
+		FunctionDescriptor shouldCollide = functionDescr(JAVA_BOOLEAN, INT_ADDRESS, ADDRESS, ADDRESS, INT_ADDRESS, ADDRESS, ADDRESS, INT_ADDRESS);
 		
 		MethodHandle shouldCollideHandle = upcallHandleStatic(lookup, SimShapeFilter.class, "shouldCollide", shouldCollide);
 	

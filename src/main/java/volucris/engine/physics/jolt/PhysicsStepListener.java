@@ -97,6 +97,8 @@ public abstract class PhysicsStepListener {
 	 * by any other step listener. Note that this function is not called if there
 	 * aren't any active bodies or when the physics system is updated with 0 delta
 	 * time.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	protected abstract void onStep(PhysicsStepListenerContext context);
 

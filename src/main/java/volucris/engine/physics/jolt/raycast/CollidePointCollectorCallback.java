@@ -42,7 +42,10 @@ public abstract class CollidePointCollectorCallback {
 		
 		result = new CollidePointResult();
 	}
-
+	
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	protected abstract void collidePointCollectorCallback(MemorySegment context, CollidePointResult result);
 
 	@SuppressWarnings("unused")

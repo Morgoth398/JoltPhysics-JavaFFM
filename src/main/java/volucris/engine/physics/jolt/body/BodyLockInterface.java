@@ -39,6 +39,12 @@ public final class BodyLockInterface {
 		jphBodyLockInterface = segment;
 	}
 
+
+	/**
+	 * This locks a body for reading.
+	 * <p>
+	 * You need to call {@link #unlockRead(BodyLockRead)} to free the lock.
+	 */
 	public BodyLockRead lockRead(int bodyId, BodyLockRead target) {
 		try {
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_LOCK_READ;
@@ -49,10 +55,18 @@ public final class BodyLockInterface {
 		}
 	}
 
+	/**
+	 * @see #lockRead(int, BodyLockRead)
+	 */
 	public BodyLockRead lockRead(int bodyId) {
 		return lockRead(bodyId, new BodyLockRead());
 	}
 
+	/**
+	 * This unlocks a body for reading.
+	 * <p>
+	 * You need to call this after {@link #lockRead(int, BodyLockRead)} 
+	 */
 	public void unlockRead(BodyLockRead lockRead) {
 		try {
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_UNLOCK_READ;
@@ -62,6 +76,11 @@ public final class BodyLockInterface {
 		}
 	}
 
+	/**
+	 * This locks a body for writing to.
+	 * <p>
+	 * You need to call {@link #unlockWrite(BodyLockWrite)} to free the lock.
+	 */
 	public BodyLockWrite lockWrite(int bodyId, BodyLockWrite target) {
 		try {
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_LOCK_WRITE;
@@ -72,10 +91,18 @@ public final class BodyLockInterface {
 		}
 	}
 
+	/**
+	 * @see #lockWrite(int, BodyLockWrite)
+	 */
 	public BodyLockWrite lockWrite(int bodyId) {
 		return lockWrite(bodyId, new BodyLockWrite());
 	}
 
+	/**
+	 * This unlocks a body for writing to.
+	 * <p>
+	 * You need to call this after {@link #lockWrite(int, BodyLockWrite)}.
+	 */
 	public void unlockWrite(BodyLockWrite lockWrite) {
 		try {
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_UNLOCK_WRITE;

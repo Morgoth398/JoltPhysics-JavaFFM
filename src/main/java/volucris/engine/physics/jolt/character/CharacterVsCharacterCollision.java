@@ -68,7 +68,7 @@ public abstract class CharacterVsCharacterCollision {
 
 	private Vector3f vector1;
 	private Vector3f vector2;
-	
+
 	static {
 		//@formatter:off
 		LAYOUT = MemoryLayout.structLayout(
@@ -121,7 +121,7 @@ public abstract class CharacterVsCharacterCollision {
 
 			vector1 = new Vector3f();
 			vector2 = new Vector3f();
-			
+
 			COLLISIONS.add(index, new WeakReference<CharacterVsCharacterCollision>(this));
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape filter.");
@@ -130,6 +130,8 @@ public abstract class CharacterVsCharacterCollision {
 
 	/**
 	 * Collide a character against other CharacterVirtuals.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 * @param character             The character to collide
 	 * @param centerOfMassTransform Center of mass transform for this character.
@@ -146,6 +148,8 @@ public abstract class CharacterVsCharacterCollision {
 
 	/**
 	 * Cast a character against other CharacterVirtuals.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 * @param character             The character to cast.
 	 * @param centerOfMassTransform Center of mass transform for this character.
