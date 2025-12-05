@@ -177,7 +177,7 @@ public abstract class ContactListener {
 	 * Note that this callback is called when all bodies are locked, so don't use
 	 * any locking functions! See detailed class description of ContactListener.
 	 * <p>
-	 * Body 1 and 2 will be sorted such that body 1 ID < body 2 ID, so body 1 may
+	 * Body 1 and 2 will be sorted such that body {@code 1 ID < body 2 ID} so body 1 may
 	 * not be dynamic.
 	 * <p>
 	 * Note that only active bodies will report contacts, as soon as a body goes to
@@ -201,7 +201,7 @@ public abstract class ContactListener {
 	 * Note that this callback is called when all bodies are locked, so don't use
 	 * any locking functions! See detailed class description of ContactListener.
 	 * <p>
-	 * Body 1 and 2 will be sorted such that body 1 ID < body 2 ID, so body 1 may
+	 * Body 1 and 2 will be sorted such that body {@code 1 ID < body 2 ID} so body 1 may
 	 * not be dynamic.
 	 * <p>
 	 * If the structure of the shape of a body changes between simulation steps
@@ -238,7 +238,7 @@ public abstract class ContactListener {
 	 * Alternatively, you could just record that the contact was removed and process
 	 * it after PhysicsSystem::Update.
 	 * <p>
-	 * Body 1 and 2 will be sorted such that body 1 ID < body 2 ID, so body 1 may
+	 * Body 1 and 2 will be sorted such that body {@code 1 ID < body 2 ID} so body 1 may
 	 * not be dynamic.
 	 * <p>
 	 * The sub shape IDs were created in the previous simulation step, so if the

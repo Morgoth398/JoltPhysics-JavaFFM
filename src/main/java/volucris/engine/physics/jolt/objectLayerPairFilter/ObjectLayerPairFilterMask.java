@@ -13,10 +13,11 @@ import static volucris.engine.utils.FFMUtils.*;
 /**
  * Filter class to test if two objects can collide based on their object layer.
  * Used while finding collision pairs. Uses group bits and mask bits. Two layers
- * can collide if Object1.Group & Object2.Mask is non-zero and Object2.Group &
- * Object1.Mask is non-zero. The behavior is similar to that in e.g. Bullet.
- * This implementation works together with {@link BroadPhaseLayerInterfaceMask}
- * and {@link ObjectVsBroadPhaseLayerFilterMask}.
+ * can collide if {@code Object1.Group & Object2.Mask} is non-zero and
+ * {@code Object2.Group & Object1.Mask} is non-zero. The behavior is similar to
+ * that in e.g. Bullet. This implementation works together with
+ * {@link BroadPhaseLayerInterfaceMask} and
+ * {@link ObjectVsBroadPhaseLayerFilterMask}.
  */
 public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 
@@ -45,7 +46,7 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 	}
 
 	/**
-	 * Construct an ObjectLayer from a group and mask bits. 
+	 * Construct an ObjectLayer from a group and mask bits.
 	 */
 	public int getObjectLayer(int group, int mask) {
 		try {
@@ -57,7 +58,7 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 	}
 
 	/**
-	 * Get the group bits from an ObjectLayer. 
+	 * Get the group bits from an ObjectLayer.
 	 */
 	public int getGroup(int layer) {
 		try {
@@ -69,7 +70,7 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 	}
 
 	/**
-	 * Get the mask bits from an ObjectLayer. 
+	 * Get the mask bits from an ObjectLayer.
 	 */
 	public int getMask(int layer) {
 		try {

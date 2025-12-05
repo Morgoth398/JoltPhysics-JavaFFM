@@ -39,7 +39,7 @@ import static volucris.engine.utils.FFMUtils.*;
  * <p>
  * The offset between the position of the body and the center of mass position
  * of the body is
- * {@snippet:
+ * {@snippet :
  *  GetShape().GetCenterOfMass();
  *  }
  * The functions that get/set the position of the body all indicate if they are
@@ -574,8 +574,8 @@ public final class Body {
 
 	/**
 	 * Set the motion type of this body. Consider using
-	 * {@link BodyInterface#setMotionType(int, MotionType)} instead of this function
-	 * if the body may be active or if it needs to be activated.
+	 * {@link BodyInterface#setMotionType(int, MotionType, Activation)} instead of
+	 * this function if the body may be active or if it needs to be activated.
 	 */
 	public void setMotionType(MotionType motionType) {
 		try {
@@ -1102,10 +1102,11 @@ public final class Body {
 	 * 
 	 * @param surfacePosition Position of the fluid surface in world space
 	 * @param surfaceNormal   Normal of the fluid surface (should point up)
-	 * @param buoyancy        The buoyancy factor for the body. 1 = neutral body, <
-	 *                        1 sinks, > 1 floats. Note that we don't use the fluid
-	 *                        density since it is harder to configure than a simple
-	 *                        number between [0, 2]
+	 * @param buoyancy        The buoyancy factor for the body.
+	 *                        {@code 1 = neutral body, <
+	 *                        1 sinks, > 1 floats} . Note that we don't use the
+	 *                        fluid density since it is harder to configure than a
+	 *                        simple number between [0, 2]
 	 * @param linearDrag      Linear drag factor that slows down the body when in
 	 *                        the fluid (approx. 0.5)
 	 * @param angularDrag     Angular drag factor that slows down rotation when the

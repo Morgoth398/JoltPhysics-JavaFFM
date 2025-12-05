@@ -69,7 +69,7 @@ public final class VehicleTransmission {
 	 * @param deltaTime    Time step delta time in s
 	 * @param currentRPM   Current RPM for engine
 	 * @param forwardInput Hint if the user wants to drive forward (> 0) or
-	 *                     backwards (< 0)
+	 *                     backwards {@code < 0}
 	 * @param canShiftUp   Indicates if we want to allow the transmission to shift
 	 *                     up (e.g. pass false if wheels are slipping)
 	 */

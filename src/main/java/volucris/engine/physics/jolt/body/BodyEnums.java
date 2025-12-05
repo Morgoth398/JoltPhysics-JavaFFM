@@ -55,7 +55,7 @@ public final class BodyEnums {
 		 * Note that if you're using a collision listener, you can receive contact
 		 * added/persisted notifications of contacts that may in the end not happen.
 		 * This happens between bodies that are using casting: If bodies A and B collide
-		 * at t1 and B and C collide at t2 where t2 < t1 and A and C don't collide. In
+		 * at t1 and B and C collide at t2 where {@code t2 < t1} and A and C don't collide. In
 		 * this case you may receive an incorrect contact point added callback between A
 		 * and B (which will be removed the next frame).
 		 */
