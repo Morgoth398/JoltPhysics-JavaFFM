@@ -12,6 +12,7 @@ import volucris.engine.physics.jolt.character.CharacterVirtual;
 import volucris.engine.physics.jolt.constraint.Constraint;
 import volucris.engine.physics.jolt.filter.GroupFilter;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
+import volucris.engine.physics.jolt.ragdoll.RagdollSettings;
 import volucris.engine.physics.jolt.ragdoll.Skeleton;
 import volucris.engine.physics.jolt.shape.Shape;
 import volucris.engine.physics.jolt.vehicle.LinearCurve;
@@ -45,6 +46,7 @@ public final class Jolt {
 	private static final LongObjectHashMap<WeakReference<VehicleController>> VEHICLE_CONTROLLERS;
 	private static final LongObjectHashMap<WeakReference<Constraint>> CONSTRAINTS;
 	private static final LongObjectHashMap<WeakReference<LinearCurve>> LINEAR_CURVES;
+	private static final LongObjectHashMap<WeakReference<RagdollSettings>> RAGDOLL_SETTINGS;
 
 	static {
 		NativeLibraryLoader.loadLibrary("natives/jolt", "jolt");
@@ -69,6 +71,7 @@ public final class Jolt {
 		VEHICLE_CONTROLLERS = new LongObjectHashMap<WeakReference<VehicleController>>();
 		CONSTRAINTS = new LongObjectHashMap<WeakReference<Constraint>>();
 		LINEAR_CURVES = new LongObjectHashMap<WeakReference<LinearCurve>>();
+		RAGDOLL_SETTINGS = new LongObjectHashMap<WeakReference<RagdollSettings>>();
 	}
 
 	private Jolt() {
@@ -416,4 +419,26 @@ public final class Jolt {
 		LINEAR_CURVES.remove(address);
 	}
 
+	/**
+	 * DO NOT CALL. INTERNAL USE ONLY.
+	 */
+	public static void addRagdollSettings(long address, RagdollSettings settings) {
+		if (!RAGDOLL_SETTINGS.containsKey(address))
+			RAGDOLL_SETTINGS.put(address, new WeakReference<RagdollSettings>(settings));
+	}
+
+	/**
+	 * DO NOT CALL. INTERNAL USE ONLY.
+	 */
+	public static RagdollSettings getRagdollSettings(long address) {
+		return RAGDOLL_SETTINGS.get(address).get();
+	}
+
+	/**
+	 * DO NOT CALL. INTERNAL USE ONLY.
+	 */
+	public static void removeRagdollSettings(long address) {
+		RAGDOLL_SETTINGS.remove(address);
+	}
+	
 }
