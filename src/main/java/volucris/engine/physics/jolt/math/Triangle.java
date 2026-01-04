@@ -56,11 +56,7 @@ public final class Triangle {
 	}
 	
 	public Triangle() {
-		jphTriangle = Arena.ofAuto().allocate(LAYOUT);
-		
-		v1 = new Vec3(jphTriangle.asSlice(V1_OFFSET, Vec3.LAYOUT()));
-		v2 = new Vec3(jphTriangle.asSlice(V2_OFFSET, Vec3.LAYOUT()));
-		v3 = new Vec3(jphTriangle.asSlice(V3_OFFSET, Vec3.LAYOUT()));
+		this(Arena.ofAuto());
 	}
 	
 	public void setVertex1(float x, float y, float z) {

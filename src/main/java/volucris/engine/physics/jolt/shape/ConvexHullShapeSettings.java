@@ -30,24 +30,38 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
 	}
 
 	/**
-	 * @see #ConvexHullShapeSettings(float, Vector3f...)
+	 * @see #ConvexHullShapeSettings(float, Arena, Vector3f...)
 	 */
 	public ConvexHullShapeSettings(Vector3f... points) {
-		this(PhysicsSettings.DEFAULT_CONVEX_RADIUS, points);
+		this(Arena.ofAuto(), points);
+	}
+	
+	/**
+	 * @see #ConvexHullShapeSettings(float, Arena, Vector3f...)
+	 */
+	public ConvexHullShapeSettings(Arena arena, Vector3f... points) {
+		this(PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena, points);
 	}
 
+	/**
+	 * @see #ConvexHullShapeSettings(float, Arena, Vector3f...)
+	 */
+	public ConvexHullShapeSettings(float maxConvexRadius, Vector3f... points) {
+		this(maxConvexRadius, Arena.ofAuto(), points);
+	}
+	
 	/**
 	 * Create a convex hull from inPoints and maximum convex radius
 	 * inMaxConvexRadius, the radius is automatically lowered if the hull requires
 	 * it. (internally this will be subtracted so the total size will not grow with
 	 * the convex radius).
 	 */
-	public ConvexHullShapeSettings(float maxConvexRadius, Vector3f... points) {
+	public ConvexHullShapeSettings(float maxConvexRadius, Arena arena, Vector3f... points) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			MemorySegment array = arena.allocate(MemoryLayout.sequenceLayout(points.length, Vec3.LAYOUT()));
+		try (Arena confinedArena = Arena.ofConfined()) {
+			MemorySegment array = confinedArena.allocate(MemoryLayout.sequenceLayout(points.length, Vec3.LAYOUT()));
 
-			Vec3 vecTmp = new Vec3(arena);
+			Vec3 vecTmp = new Vec3(confinedArena);
 			for (int i = 0; i < points.length; i++) {
 				vecTmp.set(points[i]);
 
@@ -60,14 +74,18 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create convex hull shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public ConvexHullShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public ConvexHullShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new ConvexHullShape(segment);
+			return new ConvexHullShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
 		}

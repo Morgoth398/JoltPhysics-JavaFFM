@@ -34,7 +34,11 @@ public final class CollidePointResult {
 	}
 
 	public CollidePointResult() {
-		jphCollidePointResult = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public CollidePointResult(Arena arena) {
+		jphCollidePointResult = arena.allocate(LAYOUT);
 	}
 
 	public void set(MemorySegment segment) {

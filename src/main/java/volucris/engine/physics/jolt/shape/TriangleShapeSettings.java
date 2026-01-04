@@ -29,15 +29,23 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
 	}
 
 	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3) {
-		this(v1, v2, v3, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
+		this(v1, v2, v3, Arena.ofAuto());
+	}
+	
+	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3, Arena arena) {
+		this(v1, v2, v3, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
 	}
 	
 	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3, float convexRadius) {
+		this(v1, v2, v3, convexRadius, Arena.ofAuto());
+	}
+	
+	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3, float convexRadius, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 p1 = new Vec3(arena, v1);
-			Vec3 p2 = new Vec3(arena, v2);
-			Vec3 p3 = new Vec3(arena, v3);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 p1 = new Vec3(confinedArena, v1);
+			Vec3 p2 = new Vec3(confinedArena, v2);
+			Vec3 p3 = new Vec3(confinedArena, v3);
 
 			MemorySegment p1Addr = p1.memorySegment();
 			MemorySegment p2Addr = p2.memorySegment();
@@ -48,14 +56,18 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create triangle shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public TriangleShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public TriangleShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new TriangleShape(segment);
+			return new TriangleShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
 		}

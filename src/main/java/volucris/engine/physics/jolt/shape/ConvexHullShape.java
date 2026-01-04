@@ -37,13 +37,21 @@ public final class ConvexHullShape extends ConvexShape {
 	}
 
 	protected ConvexHullShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected ConvexHullShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected ConvexHullShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected ConvexHullShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 
-		vecTmp = new Vec3();
+		vecTmp = new Vec3(arena);
 	}
 
 	/**

@@ -51,15 +51,23 @@ public final class MeshShapeSettings extends ShapeSettings {
 	}
 
 	public MeshShapeSettings(float[] triangles, int triangleCount) {
-		this(triangles, null, triangleCount);
+		this(triangles, triangleCount, Arena.ofAuto());
+	}
+	
+	public MeshShapeSettings(float[] triangles, int triangleCount, Arena arena) {
+		this(triangles, null, triangleCount, arena);
 	}
 
 	public MeshShapeSettings(float[] triangles, int[] materialIndices, int triangleCount) {
+		this(triangles, materialIndices, triangleCount, Arena.ofAuto());
+	}
+	
+	public MeshShapeSettings(float[] triangles, int[] materialIndices, int triangleCount, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			MemorySegment array = arena.allocate(MemoryLayout.sequenceLayout(triangleCount, Triangle.LAYOUT()));
+		try (Arena confinedArena = Arena.ofConfined()) {
+			MemorySegment array = confinedArena.allocate(MemoryLayout.sequenceLayout(triangleCount, Triangle.LAYOUT()));
 
-			Triangle triangle = new Triangle(arena);
+			Triangle triangle = new Triangle(confinedArena);
 
 			int floatCount = 0;
 			for (int i = 0; i < triangleCount; i++) {
@@ -79,24 +87,39 @@ public final class MeshShapeSettings extends ShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create mesh shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public MeshShapeSettings(float[] vertices, int verticesCount, int[] triangles, int triangleCount) {
-		this(vertices, verticesCount, triangles, null, null, triangleCount);
+		this(vertices, verticesCount, triangles, triangleCount, Arena.ofAuto());
+	}
+
+	public MeshShapeSettings(float[] vertices, int verticesCount, int[] triangles, int triangleCount, Arena arena) {
+		this(vertices, verticesCount, triangles, null, null, triangleCount, arena);
 	}
 
 	public MeshShapeSettings(float[] vertices, int verticesCount, int[] triangles, int[] userData, int triangleCount) {
-		this(vertices, verticesCount, triangles, null, userData, triangleCount);
+		this(vertices, verticesCount, triangles, userData, triangleCount, Arena.ofAuto());
+	}
+
+	public MeshShapeSettings(float[] vertices, int verticesCount, int[] triangles, int[] userData, int triangleCount,
+			Arena arena) {
+		this(vertices, verticesCount, triangles, null, userData, triangleCount, arena);
 	}
 
 	public MeshShapeSettings(float[] vertices, int verticesCount, int[] triangles, int[] materialIndices,
 			int[] userData, int triangleCount) {
-		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			MemorySegment verticesArray = arena.allocate(MemoryLayout.sequenceLayout(verticesCount, Vec3.LAYOUT()));
+		this(vertices, verticesCount, triangles, materialIndices, userData, triangleCount, Arena.ofAuto());
+	}
 
-			Vec3 vertex = new Vec3(arena);
+	public MeshShapeSettings(float[] vertices, int verticesCount, int[] triangles, int[] materialIndices,
+			int[] userData, int triangleCount, Arena arena) {
+		MemorySegment segment;
+		try (Arena confinedArena = Arena.ofConfined()) {
+			MemoryLayout arrayLayout = MemoryLayout.sequenceLayout(verticesCount, Vec3.LAYOUT());
+			MemorySegment verticesArray = confinedArena.allocate(arrayLayout);
+
+			Vec3 vertex = new Vec3(confinedArena);
 			int vertexCounter = 0;
 			for (int i = 0; i < verticesCount; i++) {
 				vertex.set(vertices[vertexCounter++], vertices[vertexCounter++], vertices[vertexCounter++]);
@@ -106,9 +129,9 @@ public final class MeshShapeSettings extends ShapeSettings {
 			}
 
 			StructLayout layout = IndexedTriangle.LAYOUT();
-			MemorySegment trianglesArray = arena.allocate(MemoryLayout.sequenceLayout(triangleCount, layout));
+			MemorySegment trianglesArray = confinedArena.allocate(MemoryLayout.sequenceLayout(triangleCount, layout));
 
-			IndexedTriangle triangle = new IndexedTriangle(arena);
+			IndexedTriangle triangle = new IndexedTriangle(confinedArena);
 			int triangleCounter = 0;
 			for (int i = 0; i < triangleCount; i++) {
 				triangle.setIndex1(triangles[triangleCounter++]);
@@ -127,9 +150,9 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE2;
 			segment = (MemorySegment) method.invokeExact(verticesArray, verticesCount, trianglesArray, triangleCount);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create mesh shape settings.");
+			throw new VolucrisRuntimeException("Jolt: Cannot create mesh shape settings.", e);
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**
@@ -265,10 +288,14 @@ public final class MeshShapeSettings extends ShapeSettings {
 	}
 
 	public MeshShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public MeshShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new MeshShape(segment);
+			return new MeshShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
 		}

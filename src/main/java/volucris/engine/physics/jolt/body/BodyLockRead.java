@@ -36,7 +36,11 @@ public final class BodyLockRead {
 	}
 
 	public BodyLockRead() {
-		jphBodyLockRead = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public BodyLockRead(Arena arena) {
+		jphBodyLockRead = arena.allocate(LAYOUT);
 	}
 
 	public boolean succeeded() {

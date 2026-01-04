@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.character;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -30,6 +31,10 @@ public abstract class CharacterVsCharacterCollisionSimple extends CharacterVsCha
 	}
 
 	public CharacterVsCharacterCollisionSimple() {
+		this(Arena.ofAuto());
+	}
+	
+	public CharacterVsCharacterCollisionSimple(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE_SIMPLE;
@@ -37,7 +42,7 @@ public abstract class CharacterVsCharacterCollisionSimple extends CharacterVsCha
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create CharacterVsCharacterCollisionSimple");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

@@ -64,6 +64,7 @@ public abstract class DebugRenderer {
 	private static final MethodHandle JPH_DEBUG_RENDERER_DESTROY;
 	private static final MethodHandle JPH_DEBUG_RENDERER_NEXT_FRAME;
 	private static final MethodHandle JPH_DEBUG_RENDERER_SET_CAMERA_POS;
+	@SuppressWarnings("unused")
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_LINE;
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_WIRE_BOX;
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_WIRE_BOX2;
@@ -74,6 +75,7 @@ public abstract class DebugRenderer {
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_WIRE_TRIANGLE;
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_WIRE_SPHERE;
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_WIRE_UNIT_SPHERE;
+	@SuppressWarnings("unused")
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_TRIANGLE;
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_BOX;
 	private static final MethodHandle JPH_DEBUG_RENDERER_DRAW_BOX2;
@@ -201,17 +203,17 @@ public abstract class DebugRenderer {
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
-	protected abstract void drawLineImpl(Vector3f from, Vector3f to, Color color);
+	protected abstract void drawLine(Vector3f from, Vector3f to, Color color);
 
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
-	protected abstract void drawTriangleImpl(Vector3f v1, Vector3f v2, Vector3f v3, Color color, CastShadow castShadow);
+	protected abstract void drawTriangle(Vector3f v1, Vector3f v2, Vector3f v3, Color color, CastShadow castShadow);
 
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
-	protected abstract void drawText3DImpl(Vector3f position, String str, Color color, float height);
+	protected abstract void drawText3D(Vector3f position, String str, Color color, float height);
 
 	private static void setProcs() {
 		try {
@@ -231,12 +233,13 @@ public abstract class DebugRenderer {
 			throw new VolucrisRuntimeException("Cannot create private lookup.");
 		}
 
+		AddressLayout UNBOUNDED_ADDRESS = ADDRESS.withTargetLayout(MemoryLayout.sequenceLayout(Long.MAX_VALUE, JAVA_BYTE));
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
 		AddressLayout VEC3_ADDRESS = ADDRESS.withTargetLayout(Vec3.LAYOUT());
 		
 		FunctionDescriptor drawLine = functionDescrVoid(INT_ADDRESS, VEC3_ADDRESS, VEC3_ADDRESS, JAVA_INT);
 		FunctionDescriptor drawTriangle = functionDescrVoid(INT_ADDRESS, VEC3_ADDRESS, VEC3_ADDRESS, VEC3_ADDRESS, JAVA_INT, JAVA_INT);
-		FunctionDescriptor drawText3D = functionDescrVoid(INT_ADDRESS, VEC3_ADDRESS, ADDRESS, JAVA_INT, JAVA_FLOAT);
+		FunctionDescriptor drawText3D = functionDescrVoid(INT_ADDRESS, VEC3_ADDRESS, UNBOUNDED_ADDRESS, JAVA_INT, JAVA_FLOAT);
 
 		MethodHandle drawLineHandle = upcallHandleStatic(lookup, DebugRenderer.class, "drawLine", drawLine);
 		MethodHandle drawTrianglehandle = upcallHandleStatic(lookup, DebugRenderer.class, "drawTriangle", drawTriangle);
@@ -278,18 +281,6 @@ public abstract class DebugRenderer {
 			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment());
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot set camera pos.");
-		}
-	}
-
-	public void drawLine(Vector3f from, Vector3f to, Color color) {
-		try {
-			vecTmp.set(from);
-			vecTmp2.set(to);
-
-			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_LINE;
-			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), vecTmp2.memorySegment(), color.toInt());
-		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw line.");
 		}
 	}
 
@@ -397,23 +388,6 @@ public abstract class DebugRenderer {
 			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), color.toInt(), level);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot draw wire unit sphere.");
-		}
-	}
-
-	public void drawTriangle(Vector3f v1, Vector3f v2, Vector3f v3, Color color, CastShadow castShadow) {
-		try {
-			vecTmp.set(v1);
-			vecTmp2.set(v2);
-			vecTmp3.set(v3);
-
-			MemorySegment v1Addr = vecTmp.memorySegment();
-			MemorySegment v2Addr = vecTmp2.memorySegment();
-			MemorySegment v3Addr = vecTmp3.memorySegment();
-
-			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_TRIANGLE;
-			method.invokeExact(jphDebugRenderer, v1Addr, v2Addr, v3Addr, color.toInt(), castShadow.id());
-		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw triangle.");
 		}
 	}
 
@@ -594,7 +568,7 @@ public abstract class DebugRenderer {
 		renderer.vecTmp.set(to);
 		Vector3f toVector = renderer.vecTmp.get(renderer.vector2);
 
-		renderer.drawLineImpl(fromVector, toVector, renderer.color.set(color, true));
+		renderer.drawLine(fromVector, toVector, renderer.color.set(color, true));
 	}
 
 	@SuppressWarnings("unused")
@@ -613,7 +587,7 @@ public abstract class DebugRenderer {
 
 		CastShadow shadow = castShadow == CastShadow.OFF.id() ? CastShadow.OFF : CastShadow.ON;
 
-		renderer.drawTriangleImpl(vertex1, vertex2, vertex3, colorObject, shadow);
+		renderer.drawTriangle(vertex1, vertex2, vertex3, colorObject, shadow);
 	}
 
 	@SuppressWarnings("unused")
@@ -624,11 +598,9 @@ public abstract class DebugRenderer {
 		renderer.vecTmp.set(position);
 		Vector3f pos = renderer.vecTmp.get(renderer.vector1);
 
-		String string = str.reinterpret(Integer.MAX_VALUE).getString(0);
-
 		Color colorObject = renderer.color.set(color, true);
 
-		renderer.drawText3DImpl(pos, string, colorObject, height);
+		renderer.drawText3D(pos, str.getString(0), colorObject, height);
 	}
 
 	public MemorySegment memorySegment() {

@@ -59,8 +59,10 @@ public final class MotionProperties {
 	}
 
 	public MotionProperties() {
-		Arena arena = Arena.ofAuto();
-
+		this(Arena.ofAuto());
+	}
+	
+	public MotionProperties(Arena arena) {
 		jphMotionProperties = arena.allocate(ADDRESS);
 
 		quatTmp = new Quat(arena);

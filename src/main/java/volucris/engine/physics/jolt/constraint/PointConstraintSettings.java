@@ -57,7 +57,11 @@ public final class PointConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	public PointConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public PointConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphPointConstraintSettings = segment;

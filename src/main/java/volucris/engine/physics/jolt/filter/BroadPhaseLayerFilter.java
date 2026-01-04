@@ -55,19 +55,22 @@ public abstract class BroadPhaseLayerFilter {
 		JPH_BROAD_PHASE_LAYER_FILTER_CREATE = downcallHandle("JPH_BroadPhaseLayerFilter_Create", ADDRESS, ADDRESS);
 		JPH_BROAD_PHASE_LAYER_FILTER_DESTROY = downcallHandleVoid("JPH_BroadPhaseLayerFilter_Destroy", ADDRESS);
 
-		JPH_BROAD_PHASE_LAYER_FILTER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_BROAD_PHASE_LAYER_FILTER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		FILTERS = new ArrayList<WeakReference<BroadPhaseLayerFilter>>();
 	}
 
 	public BroadPhaseLayerFilter() {
+		this(Arena.ofAuto());
+	}
+	
+	public BroadPhaseLayerFilter(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -99,7 +102,7 @@ public abstract class BroadPhaseLayerFilter {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		//@formatter:off
 		Lookup lookup;
 		try {
@@ -114,7 +117,7 @@ public abstract class BroadPhaseLayerFilter {
 		
 		MethodHandle shouldCollideHandle = upcallHandleStatic(lookup, BroadPhaseLayerFilter.class, "shouldCollide", shouldCollide);
 	
-		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide);
+		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide, arena);
 		
 		SHOULD_COLLIDE.set(JPH_BROAD_PHASE_LAYER_FILTER_PROCS, SHOULD_COLLIDE_ADDR);
 		//@formatter:on

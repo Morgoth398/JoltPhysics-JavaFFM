@@ -34,13 +34,21 @@ public sealed class CompoundShape extends Shape permits MutableCompoundShape, St
 	}
 
 	protected CompoundShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected CompoundShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected CompoundShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected CompoundShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 
-		quatTmp = new Quat();
+		quatTmp = new Quat(arena);
 	}
 
 	/**

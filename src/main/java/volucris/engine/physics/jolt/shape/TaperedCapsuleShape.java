@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -26,11 +27,19 @@ public final class TaperedCapsuleShape extends ConvexShape {
 	}
 
 	protected TaperedCapsuleShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected TaperedCapsuleShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected TaperedCapsuleShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected TaperedCapsuleShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 
 	public float getTopRadius() {

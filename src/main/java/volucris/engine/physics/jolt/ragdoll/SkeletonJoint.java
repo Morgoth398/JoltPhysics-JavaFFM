@@ -38,7 +38,11 @@ public final class SkeletonJoint {
 	}
 	
 	public SkeletonJoint() {
-		jphSkeletonJoint = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public SkeletonJoint(Arena arena) {
+		jphSkeletonJoint = arena.allocate(LAYOUT);
 	}
 	
 	/**

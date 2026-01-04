@@ -51,9 +51,11 @@ public final class LinearCurve {
 	}
 
 	public LinearCurve() {
+		this(Arena.ofAuto());
+	}
+	
+	public LinearCurve(Arena arena) {
 		try {
-			Arena arena = Arena.ofAuto();
-
 			MethodHandle method = JPH_LINEAR_CURVE_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphLinearCurve = segment.reinterpret(arena, s -> destroy(s));
@@ -67,9 +69,13 @@ public final class LinearCurve {
 	}
 
 	public LinearCurve(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public LinearCurve(MemorySegment segment, Arena arena) {
 		jphLinearCurve = segment;
 
-		pointTmp = new Point();
+		pointTmp = new Point(arena);
 
 		Jolt.addLinearCurve(jphLinearCurve.address(), this);
 	}

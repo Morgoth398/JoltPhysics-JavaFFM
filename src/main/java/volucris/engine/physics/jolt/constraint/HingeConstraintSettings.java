@@ -90,7 +90,11 @@ public final class HingeConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	public HingeConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public HingeConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphHingeConstraintSettings = segment;

@@ -107,19 +107,22 @@ public abstract class ContactListener {
 		JPH_CONTACT_LISTENER_CREATE = downcallHandle("JPH_ContactListener_Create", ADDRESS, ADDRESS);
 		JPH_CONTACT_LISTENER_DESTROY = downcallHandleVoid("JPH_ContactListener_Destroy", ADDRESS);
 
-		JPH_CONTACT_LISTENER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_CONTACT_LISTENER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		CONTACT_LISTENERS = new ArrayList<WeakReference<ContactListener>>();
 	}
 
 	public ContactListener() {
+		this(Arena.ofAuto());
+	}
+	
+	public ContactListener(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -261,7 +264,7 @@ public abstract class ContactListener {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		Lookup lookup;
 		try {
 			lookup = MethodHandles.privateLookupIn(ContactListener.class, MethodHandles.lookup());
@@ -282,10 +285,10 @@ public abstract class ContactListener {
 		MethodHandle onContactPersistedHandle = upcallHandleStatic(lookup, ContactListener.class, "onContactPersisted", onContactPersisted);
 		MethodHandle onContactRemovedHandle = upcallHandleStatic(lookup, ContactListener.class, "onContactRemoved", onContactRemoved);
 		
-		ON_CONTACT_VALIDATE_ADDR = upcallStub(onContactValidateHandle, onContactValidate);
-		ON_CONTACT_ADDED_ADDR = upcallStub(onContactAddedHandle, onContactAdded);
-		ON_CONTACT_PERSISTED_ADDR = upcallStub(onContactPersistedHandle, onContactPersisted);
-		ON_CONTACT_REMOVED_ADDR = upcallStub(onContactRemovedHandle, onContactRemoved);
+		ON_CONTACT_VALIDATE_ADDR = upcallStub(onContactValidateHandle, onContactValidate, arena);
+		ON_CONTACT_ADDED_ADDR = upcallStub(onContactAddedHandle, onContactAdded, arena);
+		ON_CONTACT_PERSISTED_ADDR = upcallStub(onContactPersistedHandle, onContactPersisted, arena);
+		ON_CONTACT_REMOVED_ADDR = upcallStub(onContactRemovedHandle, onContactRemoved, arena);
 		
 		ON_CONTACT_VALIDATE.set(JPH_CONTACT_LISTENER_PROCS, ON_CONTACT_VALIDATE_ADDR);
 		ON_CONTACT_ADDED.set(JPH_CONTACT_LISTENER_PROCS, ON_CONTACT_ADDED_ADDR);

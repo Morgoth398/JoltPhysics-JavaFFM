@@ -26,16 +26,20 @@ public final class VehicleCollisionTesterRay extends VehicleCollisionTester {
 	}
 
 	public VehicleCollisionTesterRay(int layer, Vector3f up, float maxSlopAngle) {
+		this(layer, up, maxSlopAngle, Arena.ofAuto());
+	}
+	
+	public VehicleCollisionTesterRay(int layer, Vector3f up, float maxSlopAngle, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 vec = new Vec3(arena, up);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 vec = new Vec3(confinedArena, up);
 
 			MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_RAY_CREATE;
 			segment = (MemorySegment) method.invokeExact(layer, vec.memorySegment(), maxSlopAngle);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create VehicleCollisionTesterRay.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 }

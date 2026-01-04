@@ -67,7 +67,11 @@ public final class DistanceConstraintSettings extends TwoBodyConstraintSettings 
 	}
 
 	public DistanceConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public DistanceConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphDistanceConstraintSettings = segment;

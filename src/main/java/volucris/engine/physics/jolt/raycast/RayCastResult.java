@@ -37,7 +37,11 @@ public final class RayCastResult {
 	}
 
 	public RayCastResult() {
-		jphRayCastResult = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public RayCastResult(Arena arena) {
+		jphRayCastResult = arena.allocate(LAYOUT);
 	}
 
 	public void set(MemorySegment segment) {

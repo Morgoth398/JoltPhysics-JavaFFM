@@ -76,7 +76,11 @@ public final class FixedConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	public FixedConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public FixedConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphFixedConstraintSettings = segment;

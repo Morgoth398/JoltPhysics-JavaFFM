@@ -1,6 +1,7 @@
 package volucris.engine.physics.jolt.callbacks;
 
 import java.lang.foreign.AddressLayout;
+import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
@@ -39,7 +40,11 @@ public abstract class AssertFailureCallback {
 	}
 
 	public AssertFailureCallback() {
-		assertFailureCallbackAddress = upcallStub(this, ASSERT_FAILURE_CALLBACK_HANDLE, ASSERT_FAILURE_CALLBACK_DESCR);
+		this(Arena.ofAuto());
+	}
+	
+	public AssertFailureCallback(Arena arena) {
+		assertFailureCallbackAddress = upcallStub(this, ASSERT_FAILURE_CALLBACK_HANDLE, ASSERT_FAILURE_CALLBACK_DESCR, arena);
 	}
 
 	public abstract boolean assertFailureCallback(MemorySegment expression, MemorySegment message, MemorySegment file, int line);

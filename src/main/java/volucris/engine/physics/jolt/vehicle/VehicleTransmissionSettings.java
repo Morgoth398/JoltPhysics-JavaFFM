@@ -4,6 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
+import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.utils.VolucrisRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
@@ -76,16 +77,24 @@ public final class VehicleTransmissionSettings {
 
 	protected VehicleTransmissionSettings(MemorySegment segment) {
 		jphVehicleTransmissionSettings = segment;
+		
+		Jolt.addVehicleTransmissionSettings(segment.address(), this);
 	}
 
 	public VehicleTransmissionSettings() {
+		this(Arena.ofAuto());
+	}
+	
+	public VehicleTransmissionSettings(Arena arena) {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
-			jphVehicleTransmissionSettings = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+			jphVehicleTransmissionSettings = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create vehicle transmission settings.");
 		}
+		
+		Jolt.addVehicleTransmissionSettings(jphVehicleTransmissionSettings.address(), this);
 	}
 
 	private static void destroy(MemorySegment segment) {
@@ -95,6 +104,8 @@ public final class VehicleTransmissionSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot destroy transmission settings.");
 		}
+		
+		Jolt.removeVehicleTransmissionSettings(segment.address());
 	}
 
 	/**

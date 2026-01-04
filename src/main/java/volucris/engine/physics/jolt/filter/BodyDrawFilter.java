@@ -57,19 +57,22 @@ public abstract class BodyDrawFilter {
 		JPH_BODY_DRAW_FILTER_CREATE = downcallHandle("JPH_BodyDrawFilter_Create", ADDRESS, ADDRESS);
 		JPH_BODY_DRAW_FILTER_DESTROY = downcallHandleVoid("JPH_BodyDrawFilter_Destroy", ADDRESS);
 
-		JPH_BODY_DRAW_FILTER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_BODY_DRAW_FILTER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		BODY_DRAW_FILTERS = new ArrayList<WeakReference<BodyDrawFilter>>();
 	}
 
 	public BodyDrawFilter() {
+		this(Arena.ofAuto());
+	}
+	
+	public BodyDrawFilter(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -101,7 +104,7 @@ public abstract class BodyDrawFilter {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		//@formatter:off
 		Lookup lookup;
 		try {
@@ -114,7 +117,7 @@ public abstract class BodyDrawFilter {
 		
 		MethodHandle shouldDrawHandle = upcallHandleStatic(lookup, BodyDrawFilter.class, "shouldDraw", shouldDraw);
 	
-		SHOULD_DRAW_ADDR = upcallStub(shouldDrawHandle, shouldDraw);
+		SHOULD_DRAW_ADDR = upcallStub(shouldDrawHandle, shouldDraw, arena);
 		
 		SHOULD_DRAW.set(JPH_BODY_DRAW_FILTER_PROCS, SHOULD_DRAW_ADDR);
 		//@formatter:on

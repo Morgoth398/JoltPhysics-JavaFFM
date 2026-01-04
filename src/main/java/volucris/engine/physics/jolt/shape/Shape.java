@@ -103,25 +103,33 @@ public sealed class Shape
 	}
 
 	protected Shape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected Shape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	public Shape(MemorySegment segment, boolean owns) {
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	public Shape(MemorySegment segment, Arena arena, boolean owns) {
 
 		if (segment.equals(MemorySegment.NULL))
 			throw new VolucrisRuntimeException("Created shape is not valid!");
 
 		if (owns)
-			jphShape = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+			jphShape = segment.reinterpret(arena, s -> destroy(s));
 		else
 			jphShape = segment;
 
 		Jolt.addShape(jphShape.address(), this);
 
-		boxTmp = new AABox();
-		matTmp = new Mat4();
-		vecTmp = new Vec3();
-		vecTmp2 = new Vec3();
+		boxTmp = new AABox(arena);
+		matTmp = new Mat4(arena);
+		vecTmp = new Vec3(arena);
+		vecTmp2 = new Vec3(arena);
 	}
 
 	private static void destroy(MemorySegment segment) {

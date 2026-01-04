@@ -40,11 +40,19 @@ public final class SpringSettings {
 	}
 
 	public SpringSettings() {
-		jphSpringSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public SpringSettings(Arena arena) {
+		jphSpringSettings = arena.allocate(LAYOUT);
 	}
 
 	public SpringSettings(SpringMode mode, float frequencyOrStiffness, float damping) {
-		jphSpringSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(mode, frequencyOrStiffness, damping, Arena.ofAuto());
+	}
+	
+	public SpringSettings(SpringMode mode, float frequencyOrStiffness, float damping, Arena arena) {
+		jphSpringSettings = arena.allocate(LAYOUT);
 
 		setMode(mode);
 		setFrequencyOrStiffness(frequencyOrStiffness);
@@ -56,12 +64,7 @@ public final class SpringSettings {
 	}
 
 	public void set(MemorySegment segment) {
-		if (segment.byteSize() == LAYOUT.byteSize()) {
-			MemorySegment.copy(segment, 0, jphSpringSettings, 0, LAYOUT.byteSize());
-		} else {
-			segment = segment.reinterpret(LAYOUT.byteSize());
-			MemorySegment.copy(segment, 0, jphSpringSettings, 0, LAYOUT.byteSize());
-		}
+		MemorySegment.copy(segment, 0, jphSpringSettings, 0, LAYOUT.byteSize());
 	}
 
 	/**

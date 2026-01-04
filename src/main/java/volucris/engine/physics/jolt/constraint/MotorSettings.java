@@ -48,7 +48,11 @@ public final class MotorSettings {
 	}
 
 	public MotorSettings() {
-		jphMotorSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public MotorSettings(Arena arena) {
+		jphMotorSettings = arena.allocate(LAYOUT);
 
 		springSettings = new SpringSettings(jphMotorSettings.asSlice(SPRING_SETTINGS_OFFSET, SpringSettings.LAYOUT()));
 	}

@@ -123,7 +123,11 @@ public final class DrawSettings {
 	}
 
 	public DrawSettings() {
-		jphDrawSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public DrawSettings(Arena arena) {
+		jphDrawSettings = arena.allocate(LAYOUT);
 
 		init();
 	}

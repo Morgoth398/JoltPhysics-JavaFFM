@@ -65,19 +65,22 @@ public abstract class ShapeFilter {
 		JPH_SHAPE_FILTER_GET_BODY_ID_2 = downcallHandle("JPH_ShapeFilter_GetBodyID2", JAVA_INT, ADDRESS);
 		JPH_SHAPE_FILTER_SET_BODY_ID_2 = downcallHandleVoid("JPH_ShapeFilter_SetBodyID2", ADDRESS, JAVA_INT);
 
-		JPH_SHAPE_FILTER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_SHAPE_FILTER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		SHAPE_FILTERS = new ArrayList<WeakReference<ShapeFilter>>();
 	}
 
 	public ShapeFilter() {
+		this(Arena.ofAuto());
+	}
+	
+	public ShapeFilter(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -151,7 +154,7 @@ public abstract class ShapeFilter {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		//@formatter:off
 		Lookup lookup;
 		try {
@@ -168,8 +171,8 @@ public abstract class ShapeFilter {
 		MethodHandle shouldCollideHandle = upcallHandleStatic(lookup, ShapeFilter.class, "shouldCollide", shouldCollide);
 		MethodHandle shouldCollide2Handle = upcallHandleStatic(lookup, ShapeFilter.class, "shouldCollide", shouldCollide2);
 	
-		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide);
-		SHOULD_COLLIDE2_ADDR = upcallStub(shouldCollide2Handle, shouldCollide2);
+		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide, arena);
+		SHOULD_COLLIDE2_ADDR = upcallStub(shouldCollide2Handle, shouldCollide2, arena);
 		
 		SHOULD_COLLIDE.set(JPH_SHAPE_FILTER_PROCS, SHOULD_COLLIDE_ADDR);
 		SHOULD_COLLIDE_2.set(JPH_SHAPE_FILTER_PROCS, SHOULD_COLLIDE2_ADDR);

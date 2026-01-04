@@ -1,6 +1,5 @@
 package volucris.engine.physics.jolt.objectVsBroadPhaseLayerFilter;
 
-import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 
 /**
@@ -13,11 +12,11 @@ public sealed class ObjectVsBroadPhaseLayerFilter
 	protected final MemorySegment jphObjectVsBroadPhaseLayerFilter;
 
 	protected ObjectVsBroadPhaseLayerFilter(MemorySegment jphObjectVsBroadPhaseLayerFilter) {
-		this.jphObjectVsBroadPhaseLayerFilter = jphObjectVsBroadPhaseLayerFilter.reinterpret(Arena.ofAuto(), null);
+		this.jphObjectVsBroadPhaseLayerFilter = jphObjectVsBroadPhaseLayerFilter;
 	}
 
 	public MemorySegment memorySegment() {
-		return jphObjectVsBroadPhaseLayerFilter.asReadOnly();
+		return jphObjectVsBroadPhaseLayerFilter;
 	}
 
 }

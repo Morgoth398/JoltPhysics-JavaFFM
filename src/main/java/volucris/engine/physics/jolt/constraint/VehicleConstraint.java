@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.constraint;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -107,7 +108,11 @@ public final class VehicleConstraint extends Constraint {
 	}
 
 	public VehicleConstraint(MemorySegment segment) {
-		super(segment, false);
+		this(segment, Arena.ofAuto());
+	}
+	
+	public VehicleConstraint(MemorySegment segment, Arena arena) {
+		super(segment, arena, false);
 
 		matTmp = new Mat4(arena);
 
@@ -116,6 +121,10 @@ public final class VehicleConstraint extends Constraint {
 	}
 
 	public VehicleConstraint(Body body, VehicleConstraintSettings settings) {
+		this(body, settings, Arena.ofAuto());
+	}
+	
+	public VehicleConstraint(Body body, VehicleConstraintSettings settings, Arena arena) {
 		MemorySegment segment;
 		try {
 			MemorySegment bodyAddr = body.memorySegment();
@@ -126,7 +135,7 @@ public final class VehicleConstraint extends Constraint {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create vehicle constraint.");
 		}
-		super(segment);
+		super(segment, arena);
 
 		matTmp = new Mat4(arena);
 

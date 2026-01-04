@@ -1,6 +1,5 @@
 package volucris.engine.physics.jolt.objectLayerPairFilter;
 
-import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 
 /**
@@ -12,11 +11,11 @@ public sealed class ObjectLayerPairFilter permits ObjectLayerPairFilterMask, Obj
 	protected final MemorySegment jphObjectLayerPairFilter;
 
 	protected ObjectLayerPairFilter(MemorySegment jphObjectLayerPairFilter) {
-		this.jphObjectLayerPairFilter = jphObjectLayerPairFilter.reinterpret(Arena.ofAuto(), null);
+		this.jphObjectLayerPairFilter = jphObjectLayerPairFilter;
 	}
 
 	public MemorySegment memorySegment() {
-		return jphObjectLayerPairFilter.asReadOnly();
+		return jphObjectLayerPairFilter;
 	}
 
 }

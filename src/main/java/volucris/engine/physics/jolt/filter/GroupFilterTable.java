@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.filter;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -62,7 +63,11 @@ public final class GroupFilterTable extends GroupFilter {
 	}
 
 	public GroupFilterTable() {
-		this(0);
+		this(0, Arena.ofAuto());
+	}
+	
+	public GroupFilterTable(Arena arena) {
+		this(0, arena);
 	}
 
 	/**
@@ -70,6 +75,14 @@ public final class GroupFilterTable extends GroupFilter {
 	 * pairs are enabled except when the sub group ID is the same.
 	 */
 	public GroupFilterTable(int numSubGroups) {
+		this(numSubGroups, Arena.ofAuto());
+	}
+	
+	/**
+	 * Constructs the table with numSubGroups subgroups, initially all collision
+	 * pairs are enabled except when the sub group ID is the same.
+	 */
+	public GroupFilterTable(int numSubGroups, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_GROUP_FILTER_TABLE_CREATE;
@@ -77,7 +90,7 @@ public final class GroupFilterTable extends GroupFilter {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create group filter table.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

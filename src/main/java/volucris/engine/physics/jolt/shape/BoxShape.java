@@ -33,40 +33,64 @@ public final class BoxShape extends ConvexShape {
 	}
 
 	protected BoxShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected BoxShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected BoxShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected BoxShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 
-		vecTmp = new Vec3();
+		vecTmp = new Vec3(arena);
 	}
 
 	public BoxShape(Vector3f halfExtent) {
 		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
+	}
+	
+	public BoxShape(Vector3f halfExtent, Arena arena) {
+		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
 	}
 
 	public BoxShape(Vector3f halfExtent, float convexRadius) {
 		this(halfExtent.x, halfExtent.y, halfExtent.z, convexRadius);
 	}
 
+	public BoxShape(Vector3f halfExtent, float convexRadius, Arena arena) {
+		this(halfExtent.x, halfExtent.y, halfExtent.z, convexRadius, arena);
+	}
+	
 	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ) {
 		this(halfExtentX, halfExtentY, halfExtentZ, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
 	}
 
+	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ, Arena arena) {
+		this(halfExtentX, halfExtentY, halfExtentZ, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
+	}
+	
 	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ, float convexRadius) {
+		this(halfExtentX, halfExtentY, halfExtentZ, convexRadius, Arena.ofAuto());
+	}
+	
+	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ, float convexRadius, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
+		try {
 			Vec3 vec = new Vec3(arena, halfExtentX, halfExtentY, halfExtentZ);
 
 			MethodHandle method = JPH_BOX_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(vec.memorySegment(), convexRadius);
+			
+			vecTmp = vec;
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create box shape.");
 		}
-		super(segment);
-
-		vecTmp = new Vec3();
+		super(segment, arena);
 	}
 
 	public Vector3f getHalfExtent(Vector3f target) {

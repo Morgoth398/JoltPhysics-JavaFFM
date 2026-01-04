@@ -34,7 +34,16 @@ public final class BodyLockMultiRead implements AutoCloseable {
 	 * using this object.
 	 */
 	public BodyLockMultiRead() {
-		jphBodyLockMultiRead = Arena.ofAuto().allocate(ADDRESS);
+		this(Arena.ofAuto());
+	}
+	
+	/**
+	 * Constructs an invalid BodyLockMultiRead object. Call
+	 * {@link BodyLockInterface#lockMultiRead(BodyLockMultiRead, int...)} before
+	 * using this object.
+	 */
+	public BodyLockMultiRead(Arena arena) {
+		jphBodyLockMultiRead = arena.allocate(ADDRESS);
 	}
 
 	public void set(MemorySegment segment) {

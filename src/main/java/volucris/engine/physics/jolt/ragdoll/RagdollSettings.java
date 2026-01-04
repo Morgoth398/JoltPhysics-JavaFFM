@@ -85,9 +85,12 @@ public final class RagdollSettings {
 	}
 
 	public RagdollSettings(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public RagdollSettings(MemorySegment segment, Arena arena) {
 		jphRagdollSettings = segment;
 		
-		Arena arena = Arena.ofAuto();
 		matTmp = new Mat4(arena);
 		quatTmp = new Quat(arena);
 		vecTmp = new Vec3(arena);
@@ -96,9 +99,11 @@ public final class RagdollSettings {
 	}
 	
 	public RagdollSettings() {
-		try {
-			Arena arena = Arena.ofAuto();
-			
+		this(Arena.ofAuto());
+	}
+	
+	public RagdollSettings(Arena arena) {
+		try {			
 			MethodHandle method = JPH_RAGDOLL_SETTINGS_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphRagdollSettings = segment.reinterpret(arena, s -> destroy(s));
@@ -421,6 +426,15 @@ public final class RagdollSettings {
 	 * @return Newly created ragdoll or null when out of bodies
 	 */
 	public Ragdoll createRagdoll(PhysicsSystem system, int collisionGroup, long userData) {
+		return createRagdoll(system, collisionGroup, userData, Arena.ofAuto());
+	}
+	
+	/**
+	 * Create ragdoll instance from these settings
+	 * 
+	 * @return Newly created ragdoll or null when out of bodies
+	 */
+	public Ragdoll createRagdoll(PhysicsSystem system, int collisionGroup, long userData, Arena arena) {
 		try {
 			MemorySegment settAddr = jphRagdollSettings;
 			MemorySegment systemAddr = system.memorySegment();
@@ -428,7 +442,7 @@ public final class RagdollSettings {
 			MethodHandle method = JPH_RAGDOLL_SETTINGS_CREATE_RAGDOLL;
 			MemorySegment segment = (MemorySegment) method.invokeExact(settAddr, systemAddr, collisionGroup, userData);
 
-			return new Ragdoll(segment);
+			return new Ragdoll(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create ragdoll.");
 		}

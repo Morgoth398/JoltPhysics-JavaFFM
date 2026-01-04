@@ -223,11 +223,13 @@ public final class Body {
 	}
 
 	public Body(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public Body(MemorySegment segment, Arena arena) {
 		this.jphBody = segment;
 
 		Jolt.addBody(segment.address(), this);
-
-		Arena arena = Arena.ofAuto();
 
 		aaBoxTmp = new AABox(arena);
 

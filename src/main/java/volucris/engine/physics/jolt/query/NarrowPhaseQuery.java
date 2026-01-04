@@ -72,9 +72,11 @@ public final class NarrowPhaseQuery {
 	}
 
 	public NarrowPhaseQuery(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public NarrowPhaseQuery(MemorySegment segment, Arena arena) {
 		jphNarrowPhaseQuery = segment;
-
-		Arena arena = Arena.ofAuto();
 
 		matTmp = new Mat4(arena);
 		vecTmp = new Vec3(arena);

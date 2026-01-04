@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -30,7 +31,15 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 	 */
 	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius,
 			PhysicsMaterial material) {
-		this(halfHeight, topRadius, bottomRadius, 0.05f, material);
+		this(halfHeight, topRadius, bottomRadius, material, Arena.ofAuto());
+	}
+
+	/**
+	 * @see #TaperedCylinderShapeSettings(float, float, float, float)
+	 */
+	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius, PhysicsMaterial material,
+			Arena arena) {
+		this(halfHeight, topRadius, bottomRadius, 0.05f, material, arena);
 	}
 
 	/**
@@ -38,6 +47,14 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 	 */
 	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius, float convexRadius,
 			PhysicsMaterial material) {
+		this(halfHeight, topRadius, bottomRadius, convexRadius, material, Arena.ofAuto());
+	}
+
+	/**
+	 * @see #TaperedCylinderShapeSettings(float, float, float, float)
+	 */
+	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius, float convexRadius,
+			PhysicsMaterial material, Arena arena) {
 		MemorySegment segment;
 		try {
 
@@ -48,14 +65,25 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create tapered cylinder shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
+	}
+
+	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius) {
+		this(halfHeight, topRadius, bottomRadius, Arena.ofAuto());
+	}
+	
+	/**
+	 * @see #TaperedCylinderShapeSettings(float, float, float, float)
+	 */
+	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius, Arena arena) {
+		this(halfHeight, topRadius, bottomRadius, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
 	}
 
 	/**
 	 * @see #TaperedCylinderShapeSettings(float, float, float, float)
 	 */
-	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius) {
-		this(halfHeight, topRadius, bottomRadius, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
+	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius, float convexRadius) {
+		this(halfHeight, topRadius, bottomRadius, convexRadius, Arena.ofAuto());
 	}
 
 	/**
@@ -63,7 +91,8 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 	 * -inHalfHeightOfTaperedCylinder, 0) with radius inBottomRadius and top at (0,
 	 * inHalfHeightOfTaperedCylinder, 0) with radius inTopRadius.
 	 */
-	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius, float convexRadius) {
+	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius, float convexRadius,
+			Arena arena) {
 		MemorySegment segment;
 		try {
 
@@ -74,14 +103,18 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create tapered cylinder shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public TaperedCylinderShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public TaperedCylinderShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new TaperedCylinderShape(segment);
+			return new TaperedCylinderShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
 		}

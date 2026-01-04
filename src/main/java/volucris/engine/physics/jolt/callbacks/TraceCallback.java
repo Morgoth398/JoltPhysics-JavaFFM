@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.callbacks;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
@@ -37,13 +38,17 @@ public abstract class TraceCallback {
 	}
 	
 	public TraceCallback() {
-		traceCallbackAddress = upcallStub(this, TRACE_CALLBACK_HANDLE, TRACE_CALLBACK_DESCR);
+		this(Arena.ofAuto());
+	}
+	
+	public TraceCallback(Arena arena) {
+		traceCallbackAddress = upcallStub(this, TRACE_CALLBACK_HANDLE, TRACE_CALLBACK_DESCR, arena);
 	}
 	
 	public abstract void traceCallback(MemorySegment message) ;
 	
 	public MemorySegment memorySegment() {
-		return traceCallbackAddress.asReadOnly();
+		return traceCallbackAddress;
 	}
 	
 }

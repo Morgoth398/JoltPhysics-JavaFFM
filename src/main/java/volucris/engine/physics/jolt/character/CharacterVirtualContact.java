@@ -96,7 +96,11 @@ public class CharacterVirtualContact {
 	}
 
 	public CharacterVirtualContact() {
-		jphCharacterVirtualContact = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public CharacterVirtualContact(Arena arena) {
+		jphCharacterVirtualContact = arena.allocate(LAYOUT);
 		
 		position = new Vec3(jphCharacterVirtualContact.asSlice(POSITION_OFFSET, Vec3.LAYOUT()));
 		linearVelocity  = new Vec3(jphCharacterVirtualContact.asSlice(LINEAR_VELOCITY_OFFSET, Vec3.LAYOUT()));

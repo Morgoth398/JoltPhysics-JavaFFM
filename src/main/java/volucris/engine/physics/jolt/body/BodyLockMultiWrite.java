@@ -33,7 +33,16 @@ public final class BodyLockMultiWrite implements AutoCloseable {
 	 * using this object.
 	 */
 	public BodyLockMultiWrite() {
-		jphBodyLockMultiWrite = Arena.ofAuto().allocate(ADDRESS);
+		this(Arena.ofAuto());
+	}
+	
+	/**
+	 * Constructs an invalid BodyLockMultiWrite object. Call
+	 * {@link BodyLockInterface#lockMultiWrite(BodyLockMultiWrite, int...)} before
+	 * using this object.
+	 */
+	public BodyLockMultiWrite(Arena arena) {
+		jphBodyLockMultiWrite = arena.allocate(ADDRESS);
 	}
 
 	public void set(MemorySegment segment) {

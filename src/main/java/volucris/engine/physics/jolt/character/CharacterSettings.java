@@ -57,7 +57,11 @@ public final class CharacterSettings extends CharacterBaseSettings {
 	}
 
 	public CharacterSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public CharacterSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, CharacterBaseSettings.LAYOUT()));
 		
 		jphCharacterSettings = segment;

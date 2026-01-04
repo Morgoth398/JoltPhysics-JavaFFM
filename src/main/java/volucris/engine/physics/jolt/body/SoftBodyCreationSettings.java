@@ -24,10 +24,14 @@ public final class SoftBodyCreationSettings {
 	}
 
 	public SoftBodyCreationSettings() {
+		this(Arena.ofAuto());
+	}
+	
+	public SoftBodyCreationSettings(Arena arena) {
 		try {
 			MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
-			jphSoftBodyCreationSettings = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+			jphSoftBodyCreationSettings = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create SoftBodyCreationSettings.");
 		}

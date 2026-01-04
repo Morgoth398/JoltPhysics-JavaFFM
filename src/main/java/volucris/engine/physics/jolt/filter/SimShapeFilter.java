@@ -61,19 +61,22 @@ public abstract class SimShapeFilter {
 		JPH_SIM_SHAPE_FILTER_CREATE = downcallHandle("JPH_ShapeFilter_Create", ADDRESS, ADDRESS);
 		JPH_SIM_SHAPE_FILTER_DESTROY = downcallHandleVoid("JPH_ShapeFilter_Destroy", ADDRESS);
 
-		JPH_SIM_SHAPE_FILTER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_SIM_SHAPE_FILTER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		SIM_SHAPE_FILTERS = new ArrayList<WeakReference<SimShapeFilter>>();
 	}
 
 	public SimShapeFilter() {
+		this(Arena.ofAuto());
+	}
+	
+	public SimShapeFilter(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -122,7 +125,7 @@ public abstract class SimShapeFilter {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		Lookup lookup;
 		try {
 			lookup = MethodHandles.privateLookupIn(SimShapeFilter.class, MethodHandles.lookup());
@@ -136,7 +139,7 @@ public abstract class SimShapeFilter {
 		
 		MethodHandle shouldCollideHandle = upcallHandleStatic(lookup, SimShapeFilter.class, "shouldCollide", shouldCollide);
 	
-		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide);
+		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide, arena);
 		
 		SHOULD_COLLIDE.set(JPH_SIM_SHAPE_FILTER_PROCS, SHOULD_COLLIDE_ADDR);
 		//@formatter:on

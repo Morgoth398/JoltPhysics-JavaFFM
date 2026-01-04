@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.raycast;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -38,9 +39,13 @@ public abstract class CollidePointCollectorCallback {
 	}
 
 	public CollidePointCollectorCallback() {
-		callbackAddress = upcallStub(this, CALLBACK_HANDLE, CALLBACK_DESCR);
+		this(Arena.ofAuto());
+	}
+	
+	public CollidePointCollectorCallback(Arena arena) {
+		callbackAddress = upcallStub(this, CALLBACK_HANDLE, CALLBACK_DESCR, arena);
 		
-		result = new CollidePointResult();
+		result = new CollidePointResult(arena);
 	}
 	
 	/**

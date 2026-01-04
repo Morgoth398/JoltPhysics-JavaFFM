@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.vehicle;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -27,6 +28,10 @@ public final class WheelWV extends Wheel {
 	}
 
 	public WheelWV(WheelSettingsWV settings) {
+		this(settings, Arena.ofAuto());
+	}
+	
+	public WheelWV(WheelSettingsWV settings, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_WHEEL_WV_CREATE;
@@ -34,7 +39,7 @@ public final class WheelWV extends Wheel {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create wheel wv.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	@Override

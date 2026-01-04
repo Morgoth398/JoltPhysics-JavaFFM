@@ -87,8 +87,10 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 	}
 
 	protected WheelSettings(MemorySegment segment, boolean owns) {
-		Arena arena = Arena.ofAuto();
-
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected WheelSettings(MemorySegment segment, Arena arena, boolean owns) {
 		if (owns)
 			jphWheelSettings = segment.reinterpret(arena, s -> destroy(s));
 		else
@@ -100,9 +102,11 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 	}
 
 	public WheelSettings() {
+		this(Arena.ofAuto());
+	}
+	
+	public WheelSettings(Arena arena) {
 		try {
-			Arena arena = Arena.ofAuto();
-
 			MethodHandle method = JPH_WHEEL_SETTINGS_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphWheelSettings = segment.reinterpret(arena, s -> destroy(s));

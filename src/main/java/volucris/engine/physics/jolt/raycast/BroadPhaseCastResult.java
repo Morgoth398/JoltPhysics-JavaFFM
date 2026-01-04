@@ -34,7 +34,11 @@ public final class BroadPhaseCastResult {
 	}
 
 	public BroadPhaseCastResult() {
-		jphBroadPhaseCastResult = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public BroadPhaseCastResult(Arena arena) {
+		jphBroadPhaseCastResult = arena.allocate(LAYOUT);
 	}
 
 	public void set(MemorySegment segment) {

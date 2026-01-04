@@ -39,7 +39,11 @@ public final class VehicleEngine {
 	}
 
 	public VehicleEngine() {
-		jphVehicleEngine = Arena.ofAuto().allocate(ADDRESS);
+		this(Arena.ofAuto());
+	}
+	
+	public VehicleEngine(Arena arena) {
+		jphVehicleEngine = arena.allocate(ADDRESS);
 	}
 
 	public void set(MemorySegment segment) {

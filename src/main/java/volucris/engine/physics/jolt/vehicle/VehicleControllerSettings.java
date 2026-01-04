@@ -27,7 +27,11 @@ public sealed class VehicleControllerSettings
 	}
 
 	protected VehicleControllerSettings(MemorySegment segment) {
-		jphVehicleControllerSettings = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected VehicleControllerSettings(MemorySegment segment, Arena arena) {
+		jphVehicleControllerSettings = segment.reinterpret(arena, s -> destroy(s));
 	}
 
 	private static void destroy(MemorySegment segment) {

@@ -67,7 +67,11 @@ public final class ConeConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	public ConeConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public ConeConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphConeConstraintSettings = segment;

@@ -38,7 +38,11 @@ public sealed class ShapeSettings permits CompoundShapeSettings, ConvexShapeSett
 	}
 
 	protected ShapeSettings(MemorySegment segment) {
-		jphShapeSettings = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected ShapeSettings(MemorySegment segment, Arena arena) {
+		jphShapeSettings = segment.reinterpret(arena, s -> destroy(s));
 	}
 
 	private static void destroy(MemorySegment segment) {

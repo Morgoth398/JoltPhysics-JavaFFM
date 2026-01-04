@@ -45,8 +45,6 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 
 	protected final MemorySegment jphConstraint;
 
-	protected Arena arena;
-
 	protected Vec3 vecTmp;
 
 	static {
@@ -75,12 +73,18 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 	}
 
 	protected Constraint(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected Constraint(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	public Constraint(MemorySegment segment, boolean owns) {
-		arena = Arena.ofAuto();
-
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	public Constraint(MemorySegment segment, Arena arena, boolean owns) {
 		if (owns)
 			jphConstraint = segment.reinterpret(arena, s -> destroy(s));
 		else

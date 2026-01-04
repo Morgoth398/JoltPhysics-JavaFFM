@@ -39,8 +39,6 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 	protected final MemorySegment jphCharacter;
 
-	protected Arena arena;
-
 	protected Vec3 vecTmp;
 
 	static {
@@ -64,9 +62,7 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 		//@formatter:on
 	}
 
-	protected CharacterBase(MemorySegment segment, boolean owns) {
-		arena = Arena.ofAuto();
-
+	protected CharacterBase(MemorySegment segment, Arena arena, boolean owns) {
 		if (owns)
 			jphCharacter = segment.reinterpret(arena, s -> destroy(s));
 		else

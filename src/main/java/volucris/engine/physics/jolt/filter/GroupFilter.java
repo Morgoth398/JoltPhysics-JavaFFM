@@ -28,12 +28,20 @@ public sealed class GroupFilter permits GroupFilterTable {
 	}
 
 	protected GroupFilter(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected GroupFilter(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	public GroupFilter(MemorySegment segment, boolean owns) {
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	public GroupFilter(MemorySegment segment, Arena arena, boolean owns) {
 		if (owns)
-			jphGroupFilter = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+			jphGroupFilter = segment.reinterpret(arena, s -> destroy(s));
 		else
 			jphGroupFilter = segment;
 

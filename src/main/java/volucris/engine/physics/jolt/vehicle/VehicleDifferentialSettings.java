@@ -50,7 +50,11 @@ public final class VehicleDifferentialSettings {
 	}
 
 	public VehicleDifferentialSettings() {
-		jphVehicleDifferentialSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public VehicleDifferentialSettings(Arena arena) {
+		jphVehicleDifferentialSettings = arena.allocate(LAYOUT);
 
 		init();
 	}

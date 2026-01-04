@@ -32,19 +32,31 @@ public final class ScaledShape extends DecoratedShape {
 	}
 
 	protected ScaledShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected ScaledShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected ScaledShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected ScaledShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 
-		vecTmp = new Vec3();
+		vecTmp = new Vec3(arena);
 	}
 
 	public ScaledShape(Shape shape, Vector3f scale) {
+		this(shape, scale, Arena.ofAuto());
+	}
+	
+	public ScaledShape(Shape shape, Vector3f scale, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 vec = new Vec3(arena, scale);
+		try {
+			Vec3 vec = vecTmp = new Vec3(arena, scale);
 
 			MethodHandle method = JPH_SCALED_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(shape.memorySegment(), vec.memorySegment());
@@ -52,8 +64,6 @@ public final class ScaledShape extends DecoratedShape {
 			throw new VolucrisRuntimeException("Jolt: Cannot create scaled shape.");
 		}
 		super(segment);
-
-		vecTmp = new Vec3();
 	}
 
 	public Vector3f getScale(Vector3f target) {

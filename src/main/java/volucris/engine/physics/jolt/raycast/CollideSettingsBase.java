@@ -42,15 +42,14 @@ public sealed class CollideSettingsBase permits CollideShapeSettings, ShapeCastS
 		        JAVA_FLOAT.withName("penetrationTolerance"),
 		        Vec3.LAYOUT().withName("activeEdgeMovementDirection")
 			).withName("JPH_CollideSettingsBase");
-		//@formatter:on
 
 		ACTIVE_EDGE_MODE = varHandle(LAYOUT, "activeEdgeMode");
 		COLLECT_FACES_MODE = varHandle(LAYOUT, "collectFacesMode");
 		COLLISION_TOLERANCE = varHandle(LAYOUT, "collisionTolerance");
 		PENETRATION_TOLERANCE = varHandle(LAYOUT, "penetrationTolerance");
 
-		ACTIVE_EDGE_MOVEMENT_DIRECTION_OFFSET = LAYOUT
-				.byteOffset(PathElement.groupElement("activeEdgeMovementDirection"));
+		ACTIVE_EDGE_MOVEMENT_DIRECTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("activeEdgeMovementDirection"));
+		//@formatter:on
 	}
 
 	protected CollideSettingsBase(MemorySegment segment) {

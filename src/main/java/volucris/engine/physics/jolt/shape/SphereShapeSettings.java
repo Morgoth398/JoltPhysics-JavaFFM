@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -28,6 +29,10 @@ public final class SphereShapeSettings extends ConvexShapeSettings {
 	}
 
 	public SphereShapeSettings(float radius) {
+		this(radius, Arena.ofAuto());
+	}
+	
+	public SphereShapeSettings(float radius, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE;
@@ -35,14 +40,18 @@ public final class SphereShapeSettings extends ConvexShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create sphere shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public SphereShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public SphereShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new SphereShape(segment);
+			return new SphereShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create sphere shape.");
 		}

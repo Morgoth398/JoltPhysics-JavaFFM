@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.vehicle;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -48,6 +49,10 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 	}
 
 	public MotorcycleControllerSettings() {
+		this(Arena.ofAuto());
+	}
+	
+	public MotorcycleControllerSettings(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_CREATE;
@@ -55,7 +60,7 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create motorcycle controller settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

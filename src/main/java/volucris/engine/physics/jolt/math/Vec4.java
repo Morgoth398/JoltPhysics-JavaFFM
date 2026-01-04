@@ -39,7 +39,11 @@ public class Vec4 {
 	}
 
 	public Vec4() {
-		jphVec4 = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public Vec4(Arena arena) {
+		jphVec4 = arena.allocate(LAYOUT);
 	}
 
 	public Vec4(MemorySegment segment) {

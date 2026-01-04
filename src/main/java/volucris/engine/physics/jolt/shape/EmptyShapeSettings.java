@@ -28,23 +28,31 @@ public final class EmptyShapeSettings extends ShapeSettings {
 	}
 
 	public EmptyShapeSettings(Vector3f centerOfMass) {
+		this(centerOfMass, Arena.ofAuto());
+	}
+	
+	public EmptyShapeSettings(Vector3f centerOfMass, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 vec = new Vec3(arena, centerOfMass);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 vec = new Vec3(confinedArena, centerOfMass);
 
 			MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(vec.memorySegment());
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create empty shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public EmptyShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public EmptyShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new EmptyShape(segment);
+			return new EmptyShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
 		}

@@ -52,9 +52,11 @@ public final class BroadPhaseQuery {
 	}
 
 	public BroadPhaseQuery(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public BroadPhaseQuery(MemorySegment segment, Arena arena) {
 		jphBroadPhaseQuery = segment;
-
-		Arena arena = Arena.ofAuto();
 
 		vecTmp = new Vec3(arena);
 		vecTmp2 = new Vec3(arena);

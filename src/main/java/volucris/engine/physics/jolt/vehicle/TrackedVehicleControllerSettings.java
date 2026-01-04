@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.vehicle;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -36,14 +37,18 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
 	}
 
 	public TrackedVehicleControllerSettings() {
+		this(Arena.ofAuto());
+	}
+	
+	public TrackedVehicleControllerSettings(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_CREATE;
-			segment = (MemorySegment) method.invokeExact(null);
+			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create tracked vehicle controller settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

@@ -85,10 +85,18 @@ public final class HingeConstraint extends TwoBodyConstraint {
 	}
 
 	protected HingeConstraint(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected HingeConstraint(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 	
 	public HingeConstraint(HingeConstraintSettings settings, Body body1, Body body2) {
+		this(settings, body1, body2, Arena.ofAuto());
+	}
+	
+	public HingeConstraint(HingeConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
 			MemorySegment settingsAddr = settings.memorySegment();
@@ -100,7 +108,7 @@ public final class HingeConstraint extends TwoBodyConstraint {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create hinge constraint.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**
