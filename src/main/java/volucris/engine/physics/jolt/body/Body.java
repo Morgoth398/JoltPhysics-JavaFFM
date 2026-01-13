@@ -131,9 +131,6 @@ public final class Body {
 
 	private final MemorySegment jphBody;
 
-	private Object internalUserData;
-	private Object userData;
-
 	private AABox aaBoxTmp;
 
 	private Quat quatTmp;
@@ -1416,7 +1413,7 @@ public final class Body {
 	 * The object is not passed to the native code.
 	 */
 	public void setInternalUserData(Object internalUserData) {
-		this.internalUserData = internalUserData;
+		Jolt.setInternalUserData(jphBody.address(), internalUserData);
 	}
 
 	/**
@@ -1425,7 +1422,7 @@ public final class Body {
 	 * The object is not passed to the native code.
 	 */
 	public Object getInternalUserData() {
-		return internalUserData;
+		return Jolt.getInternalUserData(jphBody.address());
 	}
 
 	/**
@@ -1434,14 +1431,14 @@ public final class Body {
 	 * The object is not passed to the native code.
 	 */
 	public void setObjectUserData(Object userData) {
-		this.userData = userData;
+		Jolt.setUserData(jphBody.address(), userData);
 	}
 
 	/**
 	 * Get the user data stored in the body.
 	 */
 	public Object getObjectUserData() {
-		return userData;
+		return Jolt.getUserData(jphBody.address());
 	}
 
 	/**

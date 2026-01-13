@@ -105,7 +105,7 @@ public sealed class Shape
 	protected Shape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected Shape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -113,7 +113,7 @@ public sealed class Shape
 	public Shape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	public Shape(MemorySegment segment, Arena arena, boolean owns) {
 
 		if (segment.equals(MemorySegment.NULL))
@@ -200,6 +200,40 @@ public sealed class Shape
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot get shape sub type.");
 		}
+	}
+
+	/**
+	 * Set the internal user data for the body.
+	 * <p>
+	 * The object is not passed to the native code.
+	 */
+	public void setInternalUserData(Object internalUserData) {
+		Jolt.setInternalUserData(jphShape.address(), internalUserData);
+	}
+
+	/**
+	 * Get the internal user data stored in the body.
+	 * <p>
+	 * The object is not passed to the native code.
+	 */
+	public Object getInternalUserData() {
+		return Jolt.getInternalUserData(jphShape.address());
+	}
+
+	/**
+	 * Set the user data for the body.
+	 * <p>
+	 * The object is not passed to the native code.
+	 */
+	public void setObjectUserData(Object userData) {
+		Jolt.setUserData(jphShape.address(), userData);
+	}
+
+	/**
+	 * Get the user data stored in the body.
+	 */
+	public Object getObjectUserData() {
+		return Jolt.getUserData(jphShape.address());
 	}
 
 	/**
