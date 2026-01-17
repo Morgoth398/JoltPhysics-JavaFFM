@@ -24,6 +24,7 @@ public final class TrackedVehicleController extends VehicleController {
 	private static final MethodHandle JPH_TRACKED_VEHICLE_CONTROLLER_SET_BRAKE_INPUT;
 	private static final MethodHandle JPH_TRACKED_VEHICLE_CONTROLLER_GET_ENGINE;
 	private static final MethodHandle JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRANSMISSION;
+	private static final MethodHandle JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK;
 
 	static {
 		//@formatter:off
@@ -38,6 +39,7 @@ public final class TrackedVehicleController extends VehicleController {
 		JPH_TRACKED_VEHICLE_CONTROLLER_SET_BRAKE_INPUT = downcallHandleVoid("JPH_TrackedVehicleController_SetBrakeInput", ADDRESS, JAVA_FLOAT);
 		JPH_TRACKED_VEHICLE_CONTROLLER_GET_ENGINE = downcallHandle("JPH_TrackedVehicleController_GetEngine", ADDRESS, ADDRESS);
 		JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRANSMISSION = downcallHandle("JPH_TrackedVehicleController_GetTransmission", ADDRESS, ADDRESS);
+		JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK = downcallHandle("JPH_TrackedVehicleController_GetTrack", ADDRESS, JAVA_INT);
 		//@formatter:on
 	}
 
@@ -210,4 +212,27 @@ public final class TrackedVehicleController extends VehicleController {
 		return getTransmission(new VehicleTransmission());
 	}
 
+	/**
+	 * Get the tracks this vehicle has.
+	 */
+	public VehicleTrack getVehicleTrack(VehicleTrack target, TrackSide trackSide) {
+		try {
+			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK;
+			MemorySegment segment = (MemorySegment) method.invokeExact(jphVehicleController, trackSide.id());
+			
+			target.set(segment);
+			return target;
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new VolucrisRuntimeException("Jolt: Cannot get vehicle track: " + className);
+		}
+	}
+
+	/**
+	 * Get the tracks this vehicle has.
+	 */
+	public VehicleTrack getVehicleTrack(TrackSide trackSide) {
+		return getVehicleTrack(new VehicleTrack(), trackSide);
+	}
+	
 }
