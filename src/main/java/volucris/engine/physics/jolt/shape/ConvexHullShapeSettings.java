@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -35,7 +35,7 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
 	public ConvexHullShapeSettings(Vector3f... points) {
 		this(Arena.ofAuto(), points);
 	}
-	
+
 	/**
 	 * @see #ConvexHullShapeSettings(float, Arena, Vector3f...)
 	 */
@@ -49,7 +49,7 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
 	public ConvexHullShapeSettings(float maxConvexRadius, Vector3f... points) {
 		this(maxConvexRadius, Arena.ofAuto(), points);
 	}
-	
+
 	/**
 	 * Create a convex hull from inPoints and maximum convex radius
 	 * inMaxConvexRadius, the radius is automatically lowered if the hull requires
@@ -72,7 +72,8 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
 			MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(array, points.length, maxConvexRadius);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create convex hull shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create convex hull shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -80,14 +81,15 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
 	public ConvexHullShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public ConvexHullShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new ConvexHullShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

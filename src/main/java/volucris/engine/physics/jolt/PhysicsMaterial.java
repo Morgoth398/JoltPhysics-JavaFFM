@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -45,7 +45,7 @@ public final class PhysicsMaterial {
 	public PhysicsMaterial(String name, int color) {
 		this(name, color, Arena.ofAuto());
 	}
-	
+
 	public PhysicsMaterial(String name, int color, Arena arena) {
 		try (Arena confinedArena = Arena.ofConfined()) {
 			MemorySegment string = confinedArena.allocateFrom(name);
@@ -54,7 +54,8 @@ public final class PhysicsMaterial {
 			MemorySegment segment = (MemorySegment) method.invokeExact(string, color);
 			jphPhysicsMaterial = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create physics material.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create physics material: " + className);
 		}
 
 		Jolt.addMaterial(jphPhysicsMaterial.address(), this);
@@ -67,7 +68,8 @@ public final class PhysicsMaterial {
 
 			Jolt.removeMaterial(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy physics material.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy physics material: " + className);
 		}
 	}
 
@@ -77,7 +79,8 @@ public final class PhysicsMaterial {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsMaterial);
 			return (String) segment.reinterpret(Integer.MAX_VALUE).getString(0);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get debug name.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get debug name: " + className);
 		}
 	}
 
@@ -86,7 +89,8 @@ public final class PhysicsMaterial {
 			MethodHandle method = JPH_PHYSICS_MATERIAL_GET_DEBUG_COLOR;
 			return (int) method.invokeExact(jphPhysicsMaterial);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get debug color.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get debug color: " + className);
 		}
 	}
 

@@ -8,7 +8,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -28,7 +28,8 @@ public abstract class TraceCallback {
 		try {
 			LOOKUP = MethodHandles.privateLookupIn(TraceCallback.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		TRACE_CALLBACK_DESCR = functionDescrVoid(ADDRESS.withTargetLayout(MemoryLayout.sequenceLayout(Long.MAX_VALUE, JAVA_BYTE)));
@@ -36,19 +37,19 @@ public abstract class TraceCallback {
 		TRACE_CALLBACK_HANDLE = upcallHandle(LOOKUP, TraceCallback.class, "traceCallback", TRACE_CALLBACK_DESCR);
 		//@formatter:on
 	}
-	
+
 	public TraceCallback() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public TraceCallback(Arena arena) {
 		traceCallbackAddress = upcallStub(this, TRACE_CALLBACK_HANDLE, TRACE_CALLBACK_DESCR, arena);
 	}
-	
-	public abstract void traceCallback(MemorySegment message) ;
-	
+
+	public abstract void traceCallback(MemorySegment message);
+
 	public MemorySegment memorySegment() {
 		return traceCallbackAddress;
 	}
-	
+
 }

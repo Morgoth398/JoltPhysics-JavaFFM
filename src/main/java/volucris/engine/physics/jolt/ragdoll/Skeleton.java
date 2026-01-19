@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -52,14 +52,15 @@ public final class Skeleton {
 	public Skeleton() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public Skeleton(Arena arena) {
 		try {
 			MethodHandle method = JPH_SKELETON_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphSkeleton = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create skeleton.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create skeleton: " + className);
 		}
 
 		Jolt.addSkeleton(jphSkeleton.address(), this);
@@ -72,7 +73,8 @@ public final class Skeleton {
 
 			Jolt.removeSkeleton(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy skeleton.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy skeleton: " + className);
 		}
 	}
 
@@ -84,7 +86,8 @@ public final class Skeleton {
 			MethodHandle method = JPH_SKELETON_ADD_JOINT;
 			return (int) method.invokeExact(jphSkeleton, arena.allocateFrom(name));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add joint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add joint: " + className);
 		}
 	}
 
@@ -92,11 +95,12 @@ public final class Skeleton {
 	 * 
 	 */
 	public int addJoint(String name, int parentIndex) {
-		try(Arena arena = Arena.ofConfined()) {
+		try (Arena arena = Arena.ofConfined()) {
 			MethodHandle method = JPH_SKELETON_ADD_JOINT2;
 			return (int) method.invokeExact(jphSkeleton, arena.allocateFrom(name), parentIndex);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add joint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add joint: " + className);
 		}
 	}
 
@@ -104,11 +108,12 @@ public final class Skeleton {
 	 * 
 	 */
 	public int addJoint(String name, String parentName) {
-		try(Arena arena = Arena.ofConfined()) {
+		try (Arena arena = Arena.ofConfined()) {
 			MethodHandle method = JPH_SKELETON_ADD_JOINT3;
 			return (int) method.invokeExact(jphSkeleton, arena.allocateFrom(name), arena.allocateFrom(parentName));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call addJoint3.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call addJoint3: " + className);
 		}
 	}
 
@@ -120,7 +125,8 @@ public final class Skeleton {
 			MethodHandle method = JPH_SKELETON_GET_JOINT_COUNT;
 			return (int) method.invokeExact(jphSkeleton);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get joint count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get joint count: " + className);
 		}
 	}
 
@@ -134,7 +140,8 @@ public final class Skeleton {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get joint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get joint: " + className);
 		}
 	}
 
@@ -153,7 +160,8 @@ public final class Skeleton {
 			MethodHandle method = JPH_SKELETON_GET_JOINT_INDEX;
 			return (int) method.invokeExact(jphSkeleton, arena.allocateFrom(name));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get joint index.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get joint index: " + className);
 		}
 	}
 
@@ -165,7 +173,8 @@ public final class Skeleton {
 			MethodHandle method = JPH_SKELETON_CALCULATE_PARENT_JOINT_INDICES;
 			method.invokeExact(jphSkeleton);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot calculate parent joint indices.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot calculate parent joint indices: " + className);
 		}
 	}
 
@@ -179,7 +188,8 @@ public final class Skeleton {
 			MethodHandle method = JPH_SKELETON_ARE_JOINTS_CORRECTLY_ORDERED;
 			return (boolean) method.invokeExact(jphSkeleton);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if joints are correctly ordered.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if joints are correctly ordered: " + className);
 		}
 	}
 

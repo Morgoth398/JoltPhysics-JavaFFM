@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -30,14 +30,15 @@ public final class WheelWV extends Wheel {
 	public WheelWV(WheelSettingsWV settings) {
 		this(settings, Arena.ofAuto());
 	}
-	
+
 	public WheelWV(WheelSettingsWV settings, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_WHEEL_WV_CREATE;
 			segment = (MemorySegment) method.invokeExact(settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create wheel wv.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create wheel wv: " + className);
 		}
 		super(segment, arena);
 	}
@@ -57,7 +58,8 @@ public final class WheelWV extends Wheel {
 
 			return new WheelSettingsWV(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -69,7 +71,8 @@ public final class WheelWV extends Wheel {
 			MethodHandle method = JPH_WHEEL_WV_APPLY_TORQUE;
 			method.invokeExact(jphWheel, torque, deltaTime);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot apply torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot apply torque: " + className);
 		}
 	}
 

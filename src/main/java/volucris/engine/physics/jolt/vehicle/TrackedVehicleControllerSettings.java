@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -39,20 +39,21 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
 	public TrackedVehicleControllerSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public TrackedVehicleControllerSettings(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create tracked vehicle controller settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create tracked vehicle controller settings: " + className);
 		}
 		super(segment, arena);
 	}
 
 	/**
-	 * The properties of the engine. 
+	 * The properties of the engine.
 	 */
 	public VehicleEngineSettings getEngine(VehicleEngineSettings target) {
 		try {
@@ -61,31 +62,33 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get engine.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get engine: " + className);
 		}
 	}
 
 	/**
-	 * The properties of the engine. 
+	 * The properties of the engine.
 	 */
 	public VehicleEngineSettings getEngine() {
 		return getEngine(new VehicleEngineSettings());
 	}
 
 	/**
-	 * The properties of the engine. 
+	 * The properties of the engine.
 	 */
 	public void setEngine(VehicleEngineSettings settings) {
 		try {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_ENGINE;
 			method.invokeExact(jphVehicleControllerSettings, settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set engine.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set engine: " + className);
 		}
 	}
 
 	/**
-	 * 	The properties of the transmission (aka gear box)
+	 * The properties of the transmission (aka gear box)
 	 */
 	public VehicleTransmissionSettings getTransmission() {
 		try {
@@ -101,19 +104,21 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
 
 			return new VehicleTransmissionSettings(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get transmission.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get transmission: " + className);
 		}
 	}
 
 	/**
-	 * 	The properties of the transmission (aka gear box)
+	 * The properties of the transmission (aka gear box)
 	 */
 	public void setTransmission(VehicleTransmissionSettings settings) {
 		try {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_TRANSMISSION;
 			method.invokeExact(jphVehicleControllerSettings, settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set transmission.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set transmission: " + className);
 		}
 	}
 

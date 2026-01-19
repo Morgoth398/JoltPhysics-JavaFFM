@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.constraint.SpringSettings;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -89,7 +89,7 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 	protected WheelSettings(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected WheelSettings(MemorySegment segment, Arena arena, boolean owns) {
 		if (owns)
 			jphWheelSettings = segment.reinterpret(arena, s -> destroy(s));
@@ -104,7 +104,7 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 	public WheelSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public WheelSettings(Arena arena) {
 		try {
 			MethodHandle method = JPH_WHEEL_SETTINGS_CREATE;
@@ -113,7 +113,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			vecTmp = new Vec3(arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create wheel settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create wheel settings: " + className);
 		}
 
 		Jolt.addWheelSettings(jphWheelSettings.address(), this);
@@ -126,7 +127,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			Jolt.removeWheelSettings(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy wheel settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy wheel settings: " + className);
 		}
 	}
 
@@ -140,7 +142,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get position: " + className);
 		}
 	}
 
@@ -161,7 +164,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_POSITION;
 			method.invokeExact(jphWheelSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set position: " + className);
 		}
 	}
 
@@ -177,7 +181,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension force point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension force point: " + className);
 		}
 	}
 
@@ -198,7 +203,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_FORCE_POINT;
 			method.invokeExact(jphWheelSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set suspension force point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set suspension force point: " + className);
 		}
 	}
 
@@ -212,7 +218,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension direction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension direction: " + className);
 		}
 	}
 
@@ -233,7 +240,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_DIRECTION;
 			method.invokeExact(jphWheelSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set suspension direction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set suspension direction: " + className);
 		}
 	}
 
@@ -248,7 +256,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get steering axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get steering axis: " + className);
 		}
 	}
 
@@ -269,7 +278,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_STEERING_AXIS;
 			method.invokeExact(jphWheelSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set steering axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set steering axis: " + className);
 		}
 	}
 
@@ -285,7 +295,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheel up.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheel up: " + className);
 		}
 	}
 
@@ -306,7 +317,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_WHEEL_UP;
 			method.invokeExact(jphWheelSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set wheel up.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set wheel up: " + className);
 		}
 	}
 
@@ -322,7 +334,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheel forward.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheel forward: " + className);
 		}
 	}
 
@@ -343,7 +356,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_WHEEL_FORWARD;
 			method.invokeExact(jphWheelSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set wheel forward.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set wheel forward: " + className);
 		}
 	}
 
@@ -356,7 +370,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MIN_LENGTH;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension min length.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension min length: " + className);
 		}
 	}
 
@@ -369,7 +384,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_MIN_LENGTH;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set suspension min length.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set suspension min length: " + className);
 		}
 	}
 
@@ -382,7 +398,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MAX_LENGTH;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension max length.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension max length: " + className);
 		}
 	}
 
@@ -395,7 +412,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_MAX_LENGTH;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set suspension max length.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set suspension max length: " + className);
 		}
 	}
 
@@ -412,7 +430,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_PRELOAD_LENGTH;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension preload length.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension preload length: " + className);
 		}
 	}
 
@@ -424,7 +443,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_PRELOAD_LENGTH;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set suspension preload length.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set suspension preload length: " + className);
 		}
 	}
 
@@ -438,7 +458,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension spring.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension spring: " + className);
 		}
 	}
 
@@ -457,7 +478,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_SPRING;
 			method.invokeExact(jphWheelSettings, springSettings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set suspension spring.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set suspension spring: " + className);
 		}
 	}
 
@@ -469,7 +491,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_GET_RADIUS;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get radius: " + className);
 		}
 	}
 
@@ -481,7 +504,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_RADIUS;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set radius: " + className);
 		}
 	}
 
@@ -493,7 +517,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_GET_WIDTH;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get width.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get width: " + className);
 		}
 	}
 
@@ -505,7 +530,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_WIDTH;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set width.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set width: " + className);
 		}
 	}
 
@@ -521,7 +547,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_GET_ENABLE_SUSPENSION_FORCE_POINT;
 			return (boolean) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get enable suspension force point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get enable suspension force point: " + className);
 		}
 	}
 
@@ -533,7 +560,8 @@ public sealed class WheelSettings permits WheelSettingsTV, WheelSettingsWV {
 			MethodHandle method = JPH_WHEEL_SETTINGS_SET_ENABLE_SUSPENSION_FORCE_POINT;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set enable suspension force point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set enable suspension force point: " + className);
 		}
 	}
 

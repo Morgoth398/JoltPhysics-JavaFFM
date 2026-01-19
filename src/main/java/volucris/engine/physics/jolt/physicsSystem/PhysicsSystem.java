@@ -23,7 +23,7 @@ import volucris.engine.physics.jolt.jobSystem.JobSystem;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.query.BroadPhaseQuery;
 import volucris.engine.physics.jolt.query.NarrowPhaseQuery;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -132,7 +132,7 @@ public final class PhysicsSystem {
 	public PhysicsSystem(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	public PhysicsSystem(MemorySegment segment, Arena arena) {
 		jphPhysicsSystem = segment;
 
@@ -155,23 +155,24 @@ public final class PhysicsSystem {
 	public PhysicsSystem(PhysicsSystemSettings settings) {
 		this(settings, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * 
 	 */
 	public PhysicsSystem(PhysicsSystemSettings settings, Arena arena) {
 		if (!settings.isBroadPhaseLayerInterfaceSet())
-			throw new VolucrisRuntimeException("BroadPhaseLayerInterface not set.");
+			throw new JoltRuntimeException("BroadPhaseLayerInterface not set");
 		if (!settings.isObjectLayerPairFilterSet())
-			throw new VolucrisRuntimeException("ObjectLayerPairFilter not set.");
+			throw new JoltRuntimeException("ObjectLayerPairFilter not set");
 		if (!settings.isObjectVsBroadPhaseLayerFilterSet())
-			throw new VolucrisRuntimeException("ObjectVsBroadPhaseLayerFilter not set.");
+			throw new JoltRuntimeException("ObjectVsBroadPhaseLayerFilter not set");
 
 		try {
 			MemorySegment segment = (MemorySegment) JPH_PHYSICS_SYSTEM_CREATE.invokeExact(settings.memorySegment());
 			jphPhysicsSystem = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create PhysicsSystem.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create PhysicsSystem: " + className);
 		}
 
 		bodyInterface = createBodyInterface(arena);
@@ -193,7 +194,8 @@ public final class PhysicsSystem {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
 			return new BodyInterface(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BodyInterface.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BodyInterface: " + className);
 		}
 	}
 
@@ -203,7 +205,8 @@ public final class PhysicsSystem {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
 			return new BodyInterface(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BodyInterface(NoLock).");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BodyInterface(NoLock): " + className);
 		}
 	}
 
@@ -213,7 +216,8 @@ public final class PhysicsSystem {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
 			return new BodyLockInterface(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BodyLockInterface.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BodyLockInterface: " + className);
 		}
 	}
 
@@ -223,7 +227,8 @@ public final class PhysicsSystem {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
 			return new BodyLockInterface(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BodyLockInterface(NoLock).");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BodyLockInterface(NoLock): " + className);
 		}
 	}
 
@@ -233,7 +238,8 @@ public final class PhysicsSystem {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
 			return new BroadPhaseQuery(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create NarrowPhaseQuery.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create NarrowPhaseQuery: " + className);
 		}
 	}
 
@@ -243,7 +249,8 @@ public final class PhysicsSystem {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
 			return new NarrowPhaseQuery(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create NarrowPhaseQuery.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create NarrowPhaseQuery: " + className);
 		}
 	}
 
@@ -253,7 +260,8 @@ public final class PhysicsSystem {
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
 			return new NarrowPhaseQuery(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create NarrowPhaseQuery(NoLock).");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create NarrowPhaseQuery(NoLock): " + className);
 		}
 	}
 
@@ -263,7 +271,8 @@ public final class PhysicsSystem {
 
 			Jolt.removePhysicsSystem(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy PhysicsSystem.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy PhysicsSystem: " + className);
 		}
 	}
 
@@ -274,7 +283,8 @@ public final class PhysicsSystem {
 		try {
 			JPH_PHYSICS_SYSTEM_SET_PHYSICS_SETTINGS.invokeExact(jphPhysicsSystem, target.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get PhysicsSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get PhysicsSettings: " + className);
 		}
 	}
 
@@ -293,7 +303,8 @@ public final class PhysicsSystem {
 			JPH_PHYSICS_SYSTEM_GET_PHYSICS_SETTINGS.invokeExact(jphPhysicsSystem, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get PhysicsSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get PhysicsSettings: " + className);
 		}
 	}
 
@@ -312,7 +323,8 @@ public final class PhysicsSystem {
 		try {
 			JPH_PHYSICS_SYSTEM_OPTIMIZE_BROAD_PHASE.invokeExact(jphPhysicsSystem);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot optimize broad phase.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot optimize broad phase: " + className);
 		}
 	}
 
@@ -343,7 +355,8 @@ public final class PhysicsSystem {
 			else
 				return PhysicsUpdateError.CONTACT_CONSTRAINTS_FULL;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot update physics.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot update physics: " + className);
 		}
 	}
 
@@ -415,7 +428,8 @@ public final class PhysicsSystem {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_SET_CONTACT_LISTENER;
 			method.invokeExact(jphPhysicsSystem, contactListener.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set contact listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set contact listener: " + className);
 		}
 	}
 
@@ -427,7 +441,8 @@ public final class PhysicsSystem {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_SET_BODY_ACTIVATION_LISTENER;
 			method.invokeExact(jphPhysicsSystem, activationListener.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set body activation listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set body activation listener: " + className);
 		}
 	}
 
@@ -451,7 +466,8 @@ public final class PhysicsSystem {
 			else
 				method.invokeExact(jphPhysicsSystem, MemorySegment.NULL);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set sim shape filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set sim shape filter: " + className);
 		}
 	}
 
@@ -481,43 +497,47 @@ public final class PhysicsSystem {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_WERE_BODIES_IN_CONTACT;
 			return (boolean) method.invokeExact(jphPhysicsSystem, body1, body2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if bodies were in contact.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if bodies were in contact: " + className);
 		}
 	}
 
 	/**
-	 * Gets the current amount of bodies that are in the body manager. 
+	 * Gets the current amount of bodies that are in the body manager.
 	 */
 	public int getNumBodies() {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_BODIES;
 			return (int) method.invokeExact(jphPhysicsSystem);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get number of bodies.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get number of bodies: " + className);
 		}
 	}
 
 	/**
-	 * Gets the current amount of active bodies that are in the body manager. 
+	 * Gets the current amount of active bodies that are in the body manager.
 	 */
 	public int getNumActiveBodies(BodyType bodyType) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_ACTIVE_BODIES;
 			return (int) method.invokeExact(jphPhysicsSystem, bodyType.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get number of active bodies.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get number of active bodies: " + className);
 		}
 	}
 
 	/**
-	 * Get the maximum amount of bodies that this physics system supports. 
+	 * Get the maximum amount of bodies that this physics system supports.
 	 */
 	public int getMaxBodies() {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_MAX_BODIES;
 			return (int) method.invokeExact(jphPhysicsSystem);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max bodies.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max bodies: " + className);
 		}
 	}
 
@@ -529,26 +549,28 @@ public final class PhysicsSystem {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_CONSTRAINTS;
 			return (int) method.invokeExact(jphPhysicsSystem);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get number of constraints.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get number of constraints: " + className);
 		}
 	}
 
 	/**
-	 * Set gravity value. 
+	 * Set gravity value.
 	 */
 	public void setGravity(Vector3f gravity) {
 		setGravity(gravity.x, gravity.y, gravity.z);
 	}
 
 	/**
-	 * Set gravity value. 
+	 * Set gravity value.
 	 */
 	public void setGravity(float x, float y, float z) {
 		try {
 			vecTmp.set(x, y, z);
 			JPH_PHYSICS_SYSTEM_SET_GRAVITY.invokeExact(jphPhysicsSystem, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set gravity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set gravity: " + className);
 		}
 	}
 
@@ -560,7 +582,8 @@ public final class PhysicsSystem {
 			JPH_PHYSICS_SYSTEM_GET_GRAVITY.invokeExact(jphPhysicsSystem, vecTmp.memorySegment());
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get gravity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get gravity: " + className);
 		}
 	}
 
@@ -572,31 +595,33 @@ public final class PhysicsSystem {
 	}
 
 	/**
-	 * Add constraint to the world. 
+	 * Add constraint to the world.
 	 */
 	public void addConstraint(Constraint constraint) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_CONSTRAINT;
 			method.invokeExact(jphPhysicsSystem, constraint.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add constraint: " + className);
 		}
 	}
 
 	/**
-	 * Remove constraint from the world. 
+	 * Remove constraint from the world.
 	 */
 	public void removeConstraint(Constraint constraint) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_CONSTRAINT;
 			method.invokeExact(jphPhysicsSystem, constraint.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove constraint: " + className);
 		}
 	}
 
 	/**
-	 * Batch add constraints. 
+	 * Batch add constraints.
 	 */
 	public void addConstraints(Constraint... constraints) {
 		try (Arena arena = Arena.ofConfined()) {
@@ -610,12 +635,13 @@ public final class PhysicsSystem {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_CONSTRAINTS;
 			method.invokeExact(jphPhysicsSystem, array, constraints.length);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add constraints.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add constraints: " + className);
 		}
 	}
 
 	/**
-	 * Batch remove constraints. 
+	 * Batch remove constraints.
 	 */
 	public void removeConstraints(Constraint... constraints) {
 		try (Arena arena = Arena.ofConfined()) {
@@ -629,60 +655,65 @@ public final class PhysicsSystem {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_CONSTRAINTS;
 			method.invokeExact(jphPhysicsSystem, array, constraints.length);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove constraints.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove constraints: " + className);
 		}
 	}
 
 	/**
-	 * Adds a new step listener. 
+	 * Adds a new step listener.
 	 */
 	public void addStepListener(PhysicsStepListener stepListener) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_STEP_LISTENER;
 			method.invokeExact(jphPhysicsSystem, stepListener.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add step listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add step listener: " + className);
 		}
 	}
 
 	/**
-	 * Adds a new step listener. 
+	 * Adds a new step listener.
 	 */
 	public void addStepListener(MemorySegment segment) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_STEP_LISTENER;
 			method.invokeExact(jphPhysicsSystem, segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add step listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add step listener: " + className);
 		}
 	}
 
 	/**
-	 * 	Removes a step listener. 
+	 * Removes a step listener.
 	 */
 	public void removeStepListener(PhysicsStepListener stepListener) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_STEP_LISTENER;
 			method.invokeExact(jphPhysicsSystem, stepListener.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove step listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove step listener: " + className);
 		}
 	}
 
 	/**
-	 * 	Removes a step listener. 
+	 * Removes a step listener.
 	 */
 	public void removeStepListener(MemorySegment segment) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_STEP_LISTENER;
 			method.invokeExact(jphPhysicsSystem, segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove step listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove step listener: " + className);
 		}
 	}
 
 	/**
-	 * Get copy of the list of all bodies under protection of a lock. 
+	 * Get copy of the list of all bodies under protection of a lock.
 	 */
 	public int[] getBodies(int[] target) {
 		try (Arena arena = Arena.ofConfined()) {
@@ -697,12 +728,13 @@ public final class PhysicsSystem {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get bodies.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get bodies: " + className);
 		}
 	}
 
 	/**
-	 * Get a list of all constraints. 
+	 * Get a list of all constraints.
 	 */
 	public Constraint[] getConstraints(Constraint[] target) {
 		try (Arena arena = Arena.ofConfined()) {
@@ -725,19 +757,20 @@ public final class PhysicsSystem {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get constraints.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get constraints: " + className);
 		}
 	}
 
 	/**
-	 * Draw the state of the bodies (debugging purposes) 
+	 * Draw the state of the bodies (debugging purposes)
 	 */
 	public void drawBodies(DrawSettings settings, DebugRenderer renderer) {
 		drawBodies(settings, renderer, null);
 	}
 
 	/**
-	 * Draw the state of the bodies (debugging purposes) 
+	 * Draw the state of the bodies (debugging purposes)
 	 */
 	public void drawBodies(DrawSettings settings, DebugRenderer renderer, BodyDrawFilter filter) {
 		try {
@@ -748,43 +781,47 @@ public final class PhysicsSystem {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_BODIES;
 			method.invokeExact(jphPhysicsSystem, settAddr, rendererAddr, filterAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw bodies.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw bodies: " + className);
 		}
 	}
 
 	/**
-	 * Draw the constraints only (debugging purposes) 
+	 * Draw the constraints only (debugging purposes)
 	 */
 	public void drawConstraints(DebugRenderer renderer) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINTS;
 			method.invokeExact(jphPhysicsSystem, renderer.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw constraints.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw constraints: " + className);
 		}
 	}
 
 	/**
-	 * Draw the constraint limits only (debugging purposes) 
+	 * Draw the constraint limits only (debugging purposes)
 	 */
 	public void drawConstraintLimits(DebugRenderer renderer) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_LIMITS;
 			method.invokeExact(jphPhysicsSystem, renderer.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw constraint limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw constraint limits: " + className);
 		}
 	}
 
 	/**
-	 * Draw the constraint reference frames only (debugging purposes) 
+	 * Draw the constraint reference frames only (debugging purposes)
 	 */
 	public void drawConstraintReferenceFrame(DebugRenderer renderer) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_REFERENCE_FRAME;
 			method.invokeExact(jphPhysicsSystem, renderer.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw constraint reference frame.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw constraint reference frame: " + className);
 		}
 	}
 

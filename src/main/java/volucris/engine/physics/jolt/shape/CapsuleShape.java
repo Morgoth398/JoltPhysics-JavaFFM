@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -29,7 +29,7 @@ public final class CapsuleShape extends ConvexShape {
 	protected CapsuleShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected CapsuleShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -37,7 +37,7 @@ public final class CapsuleShape extends ConvexShape {
 	protected CapsuleShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected CapsuleShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
@@ -45,14 +45,15 @@ public final class CapsuleShape extends ConvexShape {
 	public CapsuleShape(float halfHeightOfCylinder, float radius) {
 		this(halfHeightOfCylinder, radius, Arena.ofAuto());
 	}
-	
+
 	public CapsuleShape(float halfHeightOfCylinder, float radius, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_CAPSULE_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(halfHeightOfCylinder, radius);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create capsule shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create capsule shape: " + className);
 		}
 		super(segment, arena);
 	}
@@ -65,7 +66,8 @@ public final class CapsuleShape extends ConvexShape {
 			MethodHandle method = JPH_CAPSULE_SHAPE_GET_RADIUS;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get radius: " + className);
 		}
 	}
 
@@ -77,7 +79,8 @@ public final class CapsuleShape extends ConvexShape {
 			MethodHandle method = JPH_CAPSULE_SHAPE_GET_HALF_HEIGHT_OF_CYLINDER;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get half height of cylinder.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get half height of cylinder: " + className);
 		}
 	}
 

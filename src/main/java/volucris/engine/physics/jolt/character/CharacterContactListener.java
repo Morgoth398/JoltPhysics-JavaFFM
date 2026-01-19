@@ -19,7 +19,7 @@ import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.PhysicsMaterial;
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -126,7 +126,7 @@ public abstract class CharacterContactListener {
 	public CharacterContactListener() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CharacterContactListener(Arena arena) {
 		try {
 			int index = count++;
@@ -150,7 +150,8 @@ public abstract class CharacterContactListener {
 
 			settings = new CharacterContactSettings(arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create character contact listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create character contact listener: " + className);
 		}
 
 	}
@@ -295,7 +296,8 @@ public abstract class CharacterContactListener {
 		try {
 			lookup = MethodHandles.privateLookupIn(CharacterContactListener.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -358,7 +360,8 @@ public abstract class CharacterContactListener {
 			MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_SET_PROCS;
 			method.invokeExact(JPH_CHARACTER_CONTACT_LISTENER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set procs: " + className);
 		}
 	}
 
@@ -367,7 +370,8 @@ public abstract class CharacterContactListener {
 			MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy character contact listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy character contact listener: " + className);
 		}
 	}
 

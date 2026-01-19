@@ -13,7 +13,7 @@ import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -67,7 +67,7 @@ public abstract class ObjectLayerFilter {
 	public ObjectLayerFilter() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public ObjectLayerFilter(Arena arena) {
 		try {
 			int index = count++;
@@ -81,7 +81,8 @@ public abstract class ObjectLayerFilter {
 
 			FILTERS.add(index, new WeakReference<ObjectLayerFilter>(this));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create object layer filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create object layer filter: " + className);
 		}
 	}
 
@@ -98,7 +99,8 @@ public abstract class ObjectLayerFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_FILTER_SET_PROCS;
 			method.invokeExact(JPH_OBJECT_LAYER_FILTER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set object layer filter procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set object layer filter procs: " + className);
 		}
 	}
 
@@ -108,7 +110,8 @@ public abstract class ObjectLayerFilter {
 		try {
 			lookup = MethodHandles.privateLookupIn(ObjectLayerFilter.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -128,7 +131,8 @@ public abstract class ObjectLayerFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_FILTER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy object layer filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy object layer filter: " + className);
 		}
 	}
 

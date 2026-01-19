@@ -10,7 +10,7 @@ import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.PhysicsMaterial;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -79,7 +79,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			Jolt.removeCharacterVirtual(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy character base.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy character base: " + className);
 		}
 	}
 
@@ -88,7 +89,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_GET_COS_MAX_SLOPE_ANGLE;
 			return (float) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get cos max slope angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get cos max slope angle: " + className);
 		}
 	}
 
@@ -100,7 +102,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_SET_MAX_SLOPE_ANGLE;
 			method.invokeExact(jphCharacter, maxSlopeAngle);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max slope angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max slope angle: " + className);
 		}
 	}
 
@@ -111,7 +114,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get up.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get up: " + className);
 		}
 	}
 
@@ -129,7 +133,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_SET_UP;
 			method.invokeExact(jphCharacter, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set up.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set up: " + className);
 		}
 	}
 
@@ -143,7 +148,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_IS_SLOPE_TOO_STEEP;
 			return (boolean) method.invokeExact(jphCharacter, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if slope is too steep.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if slope is too steep: " + className);
 		}
 	}
 
@@ -164,7 +170,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			return new Shape(segment, false);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get shape: " + className);
 		}
 	}
 
@@ -183,7 +190,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground state.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground state: " + className);
 		}
 	}
 
@@ -195,7 +203,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_IS_SUPPORTED;
 			return (boolean) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if is supported.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if is supported: " + className);
 		}
 	}
 
@@ -209,7 +218,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground position: " + className);
 		}
 	}
 
@@ -230,7 +240,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground normal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground normal: " + className);
 		}
 	}
 
@@ -251,7 +262,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground velocity: " + className);
 		}
 	}
 
@@ -279,7 +291,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 
 			return new PhysicsMaterial(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground material.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground material: " + className);
 		}
 	}
 
@@ -292,7 +305,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_BODY_ID;
 			return (int) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground body id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground body id: " + className);
 		}
 	}
 
@@ -304,7 +318,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_SUB_SHAPE_ID;
 			return (int) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground sub shape id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground sub shape id: " + className);
 		}
 	}
 
@@ -316,7 +331,8 @@ public sealed class CharacterBase permits Character, CharacterVirtual {
 			MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_USER_DATA;
 			return (long) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ground user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ground user data: " + className);
 		}
 	}
 

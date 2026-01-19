@@ -10,7 +10,6 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.JoltEnums.Activation;
-import volucris.engine.graphics.BoundingBox;
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.PhysicsMaterial;
 import volucris.engine.physics.jolt.body.BodyEnums.BodyType;
@@ -24,7 +23,7 @@ import volucris.engine.physics.jolt.math.Mat4;
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -129,8 +128,6 @@ public final class BodyInterface {
 	private Vec3 vecTmp3;
 	private Vec3 vecTmp4;
 
-	private AABox boxTmp;
-
 	static {
 		//@formatter:off
 		JPH_BODY_INTERFACE_DESTROY_BODY = downcallHandleVoid("JPH_BodyInterface_DestroyBody", ADDRESS, JAVA_INT);
@@ -219,7 +216,7 @@ public final class BodyInterface {
 	public BodyInterface(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	public BodyInterface(MemorySegment segment, Arena arena) {
 		jphBodyInterface = segment;
 
@@ -231,8 +228,6 @@ public final class BodyInterface {
 		vecTmp2 = new Vec3(arena);
 		vecTmp3 = new Vec3(arena);
 		vecTmp4 = new Vec3(arena);
-
-		boxTmp = new AABox(arena);
 	}
 
 	/**
@@ -254,7 +249,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_DESTROY_BODY;
 			method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy body: " + className);
 		}
 	}
 
@@ -268,7 +264,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_CREATE_AND_ADD_BODY;
 			return (int) method.invokeExact(jphBodyInterface, settings.memorySegment(), activation.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create and add body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create and add body: " + className);
 		}
 	}
 
@@ -287,7 +284,8 @@ public final class BodyInterface {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create body: " + className);
 		}
 	}
 
@@ -314,7 +312,8 @@ public final class BodyInterface {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create body with id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create body with id: " + className);
 		}
 	}
 
@@ -335,7 +334,8 @@ public final class BodyInterface {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create body without ID.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create body without ID: " + className);
 		}
 	}
 
@@ -352,7 +352,8 @@ public final class BodyInterface {
 
 			Jolt.removeBody(body.memorySegment().address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy body without ID.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy body without ID: " + className);
 		}
 	}
 
@@ -368,7 +369,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ASSIGN_BODY_ID;
 			return (boolean) method.invokeExact(jphBodyInterface, body.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot assign body id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot assign body id: " + className);
 		}
 	}
 
@@ -384,7 +386,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ASSIGN_BODY_ID2;
 			return (boolean) method.invokeExact(jphBodyInterface, body.memorySegment(), bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot assign body id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot assign body id: " + className);
 		}
 	}
 
@@ -405,7 +408,8 @@ public final class BodyInterface {
 				return new Body(segment);
 			return body;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot unassing body id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot unassing body id: " + className);
 		}
 	}
 
@@ -424,7 +428,8 @@ public final class BodyInterface {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create soft body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create soft body: " + className);
 		}
 	}
 
@@ -441,7 +446,8 @@ public final class BodyInterface {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create soft body with id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create soft body with id: " + className);
 		}
 	}
 
@@ -456,7 +462,8 @@ public final class BodyInterface {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create soft body without id.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create soft body without id: " + className);
 		}
 	}
 
@@ -472,7 +479,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_CREATE_AND_ADD_SOFT_BODY;
 			return (int) method.invokeExact(jphBodyInterface, settingsAddr, activation.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create amd add soft body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create amd add soft body: " + className);
 		}
 	}
 
@@ -489,7 +497,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_BODY;
 			method.invokeExact(jphBodyInterface, bodyId, activation.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add body: " + className);
 		}
 	}
 
@@ -502,7 +511,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_REMOVE_BODY;
 			method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove body: " + className);
 		}
 	}
 
@@ -511,7 +521,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_REMOVE_AND_DESTROY_BODY;
 			method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove and destroy body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove and destroy body: " + className);
 		}
 	}
 
@@ -520,7 +531,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_IS_ACTIVE;
 			return (boolean) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if body is active.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if body is active: " + className);
 		}
 	}
 
@@ -532,7 +544,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_IS_ADDED;
 			return (boolean) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if body is added.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if body is added: " + className);
 		}
 	}
 
@@ -547,7 +560,8 @@ public final class BodyInterface {
 				return BodyType.SOFT_BODY;
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get body type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get body type: " + className);
 		}
 	}
 
@@ -558,7 +572,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_LINEAR_VELOCITY;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set linear velocity: " + className);
 		}
 	}
 
@@ -568,7 +583,8 @@ public final class BodyInterface {
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get linear velocity: " + className);
 		}
 	}
 
@@ -583,7 +599,8 @@ public final class BodyInterface {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get center of mass position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get center of mass position: " + className);
 		}
 	}
 
@@ -603,7 +620,8 @@ public final class BodyInterface {
 			else
 				return MotionType.STATIC;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motion type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motion type: " + className);
 		}
 	}
 
@@ -612,7 +630,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_MOTION_TYPE;
 			method.invokeExact(jphBodyInterface, bodyId, motionType.id(), activation.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motion type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motion type: " + className);
 		}
 	}
 
@@ -621,7 +640,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_GET_RESTITUTION;
 			return (float) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get restitution.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get restitution: " + className);
 		}
 	}
 
@@ -630,7 +650,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_RESTITUTION;
 			method.invokeExact(jphBodyInterface, bodyId, restitution);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set restitution.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set restitution: " + className);
 		}
 	}
 
@@ -639,7 +660,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_GET_FRICTION;
 			return (float) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get friction: " + className);
 		}
 	}
 
@@ -648,7 +670,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_FRICTION;
 			method.invokeExact(jphBodyInterface, bodyId, friction);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set friction: " + className);
 		}
 	}
 
@@ -659,7 +682,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_POSITION;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), activation.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set position: " + className);
 		}
 	}
 
@@ -670,7 +694,8 @@ public final class BodyInterface {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get position: " + className);
 		}
 	}
 
@@ -685,7 +710,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_ROTATION;
 			method.invokeExact(jphBodyInterface, bodyId, quatTmp.memorySegment(), activation.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set rotation: " + className);
 		}
 	}
 
@@ -696,7 +722,8 @@ public final class BodyInterface {
 
 			return quatTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get rotation: " + className);
 		}
 	}
 
@@ -714,7 +741,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_POSITION_AND_ROTATION;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), quatTmp.memorySegment(), id);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set position and rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set position and rotation: " + className);
 		}
 	}
 
@@ -735,7 +763,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_POSITION_AND_ROTATION_WHEN_CHANGED;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), quatTmp.memorySegment(), id);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set position and rotation when changed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set position and rotation when changed: " + className);
 		}
 	}
 
@@ -747,7 +776,8 @@ public final class BodyInterface {
 			vecTmp.get(posTarget);
 			quatTmp.get(rotTarget);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get position and rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get position and rotation: " + className);
 		}
 	}
 
@@ -775,7 +805,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_POSITION_ROTATION_AND_VELOCITY;
 			method.invokeExact(jphBodyInterface, bodyId, posAddr, rotAddr, linVAddr, angVAddr, id);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set position rotation and velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set position rotation and velocity: " + className);
 		}
 	}
 
@@ -785,7 +816,8 @@ public final class BodyInterface {
 			method.invokeExact(jphBodyInterface, bodyId, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get collision group.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get collision group: " + className);
 		}
 	}
 
@@ -798,7 +830,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_COLLISION_GROUP;
 			method.invokeExact(jphBodyInterface, bodyId, collisionGroup.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set collision group.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set collision group: " + className);
 		}
 	}
 
@@ -819,7 +852,8 @@ public final class BodyInterface {
 
 			return new Shape(segment, false);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get shape: " + className);
 		}
 	}
 
@@ -839,7 +873,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_SHAPE;
 			method.invokeExact(jphBodyInterface, bodyId, shape.memorySegment(), updateMassProperties, id);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set shape: " + className);
 		}
 	}
 
@@ -864,7 +899,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_NOTIFY_SHAPE_CHANGED;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), updateMassProperties, id);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot notify shape changed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot notify shape changed: " + className);
 		}
 	}
 
@@ -877,7 +913,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ACTIVATE_BODY;
 			method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot activate body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot activate body: " + className);
 		}
 	}
 
@@ -895,7 +932,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ACTIVATE_BODIES;
 			method.invokeExact(jphBodyInterface, array, bodyIds.length);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot activate bodies.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot activate bodies: " + className);
 		}
 	}
 
@@ -903,18 +941,17 @@ public final class BodyInterface {
 	 * Note that you need to add the bodies to the physics system before you can
 	 * activate them.
 	 */
-	public void activateBodiesInAABox(BoundingBox box, BroadPhaseLayerFilter broadPhaseLayerFilter,
+	public void activateBodiesInAABox(AABox box, BroadPhaseLayerFilter broadPhaseLayerFilter,
 			ObjectLayerFilter objectLayerFilter) {
 		try {
-			boxTmp.set(box);
-
 			MemorySegment filt1Addr = broadPhaseLayerFilter.memorySegment();
 			MemorySegment filt2Addr = objectLayerFilter.memorySegment();
 
 			MethodHandle method = JPH_BODY_INTERFACE_ACTIVATE_BODIES_IN_AABOX;
-			method.invokeExact(jphBodyInterface, boxTmp.memorySegment(), filt1Addr, filt2Addr);
+			method.invokeExact(jphBodyInterface, box.memorySegment(), filt1Addr, filt2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot activate bodies in aabox.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot activate bodies in aabox: " + className);
 		}
 	}
 
@@ -927,7 +964,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_DEACTIVATE_BODY;
 			method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot deactivate body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot deactivate body: " + className);
 		}
 	}
 
@@ -945,7 +983,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_DEACTIVATE_BODIES;
 			method.invokeExact(jphBodyInterface, array, bodyIds.length);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot deactivate bodies.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot deactivate bodies: " + className);
 		}
 	}
 
@@ -954,7 +993,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_RESET_SLEEP_TIMER;
 			method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot reset sleep timer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot reset sleep timer: " + className);
 		}
 	}
 
@@ -963,7 +1003,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_GET_OBJECT_LAYER;
 			return (int) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get object layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get object layer: " + className);
 		}
 	}
 
@@ -972,7 +1013,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_OBJECT_LAYER;
 			method.invokeExact(jphBodyInterface, bodyId, objectLayer);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set object layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set object layer: " + className);
 		}
 	}
 
@@ -983,7 +1025,8 @@ public final class BodyInterface {
 
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get world transform.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get world transform: " + className);
 		}
 	}
 
@@ -998,7 +1041,8 @@ public final class BodyInterface {
 
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get center of mass transform.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get center of mass transform: " + className);
 		}
 	}
 
@@ -1019,7 +1063,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_MOVE_KINEMATIC;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), quatTmp.memorySegment(), deltaTime);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot: " + className);
 		}
 	}
 
@@ -1040,7 +1085,8 @@ public final class BodyInterface {
 					vecTmp2.memorySegment(), buoyancy, linearDrag, angularDrag, vecTmp3.memorySegment(),
 					vecTmp4.memorySegment(), deltaTime);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot apply buoyancy impulse.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot apply buoyancy impulse: " + className);
 		}
 	}
 
@@ -1055,7 +1101,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_LINEAR_AND_ANGULAR_VELOCITY;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), vecTmp2.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set linear and angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set linear and angular velocity: " + className);
 		}
 	}
 
@@ -1073,7 +1120,8 @@ public final class BodyInterface {
 			vecTmp.get(linearVelocity);
 			vecTmp2.get(angularVelocity);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get linear and angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get linear and angular velocity: " + className);
 		}
 	}
 
@@ -1087,7 +1135,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_LINEAR_VELOCITY;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add linear velocity: " + className);
 		}
 	}
 
@@ -1102,7 +1151,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_LINEAR_AND_ANGULAR_VELOCITY;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), vecTmp2.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add linear and angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add linear and angular velocity: " + className);
 		}
 	}
 
@@ -1113,7 +1163,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_ANGULAR_VELOCITY;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set angular velocity: " + className);
 		}
 	}
 
@@ -1123,7 +1174,8 @@ public final class BodyInterface {
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get angular velocity: " + className);
 		}
 	}
 
@@ -1140,7 +1192,8 @@ public final class BodyInterface {
 
 			return vecTmp2.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get point velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get point velocity: " + className);
 		}
 	}
 
@@ -1157,7 +1210,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_FORCE;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add force.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add force: " + className);
 		}
 	}
 
@@ -1175,7 +1229,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_FORCE2;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), vecTmp2.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add force.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add force: " + className);
 		}
 	}
 
@@ -1192,7 +1247,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_TORQUE;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add torque: " + className);
 		}
 	}
 
@@ -1211,7 +1267,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_FORCE_AND_TORQUE;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), vecTmp2.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add force and torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add force and torque: " + className);
 		}
 	}
 
@@ -1228,7 +1285,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_IMPULSE;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add impulse.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add impulse: " + className);
 		}
 	}
 
@@ -1246,7 +1304,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_IMPULSE2;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment(), vecTmp2.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add impulse.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add impulse: " + className);
 		}
 	}
 
@@ -1257,7 +1316,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_ADD_ANGULAR_IMPULSE;
 			method.invokeExact(jphBodyInterface, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add angular impulse.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add angular impulse: " + className);
 		}
 	}
 
@@ -1266,7 +1326,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_MOTION_QUALITY;
 			method.invokeExact(jphBodyInterface, bodyId, motionQuality.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motion quality.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motion quality: " + className);
 		}
 	}
 
@@ -1281,7 +1342,8 @@ public final class BodyInterface {
 				return MotionQuality.LINEAR_CAST;
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motion quality.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motion quality: " + className);
 		}
 	}
 
@@ -1295,7 +1357,8 @@ public final class BodyInterface {
 
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inverse inertia.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inverse inertia: " + className);
 		}
 	}
 
@@ -1311,7 +1374,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_GRAVITY_FACTOR;
 			method.invokeExact(jphBodyInterface, bodyId, gravityFactor);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set gravity factor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set gravity factor: " + className);
 		}
 	}
 
@@ -1320,7 +1384,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_GET_GRAVITY_FACTOR;
 			return (float) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get gravity factor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get gravity factor: " + className);
 		}
 	}
 
@@ -1329,7 +1394,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_USE_MANIFOLD_REDUCTION;
 			method.invokeExact(jphBodyInterface, bodyId, useManifoldReduction);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set use manifold reduction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set use manifold reduction: " + className);
 		}
 	}
 
@@ -1338,7 +1404,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_GET_USE_MANIFOLD_REDUCTION;
 			return (boolean) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get use manifold reduction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get use manifold reduction: " + className);
 		}
 	}
 
@@ -1350,7 +1417,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_USER_DATA;
 			method.invokeExact(jphBodyInterface, bodyId, userData);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set user data: " + className);
 		}
 	}
 
@@ -1362,7 +1430,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_GET_USER_DATA;
 			return (long) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get user data: " + className);
 		}
 	}
 
@@ -1371,7 +1440,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_SET_IS_SENSOR;
 			method.invokeExact(jphBodyInterface, bodyId, isSensor);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set is sensor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set is sensor: " + className);
 		}
 	}
 
@@ -1380,7 +1450,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_IS_SENSOR;
 			return (boolean) method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if is sensor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if is sensor: " + className);
 		}
 	}
 
@@ -1401,7 +1472,8 @@ public final class BodyInterface {
 
 			return new PhysicsMaterial(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get material.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get material: " + className);
 		}
 	}
 
@@ -1415,7 +1487,8 @@ public final class BodyInterface {
 			MethodHandle method = JPH_BODY_INTERFACE_INVALIDATE_CONTACT_CACHE;
 			method.invokeExact(jphBodyInterface, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot invalidate contact cache.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot invalidate contact cache: " + className);
 		}
 	}
 

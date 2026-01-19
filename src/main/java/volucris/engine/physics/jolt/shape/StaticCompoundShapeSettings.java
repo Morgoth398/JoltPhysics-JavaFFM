@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -26,14 +26,15 @@ public final class StaticCompoundShapeSettings extends CompoundShapeSettings {
 	public StaticCompoundShapeSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public StaticCompoundShapeSettings(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_STATIC_COMPOUND_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create MutableCompundShapeSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create MutableCompundShapeSettings: " + className);
 		}
 		super(segment, arena);
 	}

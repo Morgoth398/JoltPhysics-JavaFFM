@@ -9,7 +9,7 @@ import org.joml.Vector2f;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.math.Point;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -62,7 +62,8 @@ public final class LinearCurve {
 
 			pointTmp = new Point(arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create linear curve.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create linear curve: " + className);
 		}
 
 		Jolt.addLinearCurve(jphLinearCurve.address(), this);
@@ -87,7 +88,8 @@ public final class LinearCurve {
 
 			Jolt.removeLinearCurve(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy linear curve.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy linear curve: " + className);
 		}
 	}
 
@@ -99,7 +101,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_CLEAR;
 			method.invokeExact(jphLinearCurve);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call clear.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call clear: " + className);
 		}
 	}
 
@@ -111,7 +114,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_RESERVE;
 			method.invokeExact(jphLinearCurve, numPoints);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call reserve.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call reserve: " + className);
 		}
 	}
 
@@ -124,7 +128,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_ADD_POINT;
 			method.invokeExact(jphLinearCurve, x, y);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add point: " + className);
 		}
 	}
 
@@ -136,7 +141,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_SORT;
 			method.invokeExact(jphLinearCurve);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call sort.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call sort: " + className);
 		}
 	}
 
@@ -148,7 +154,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_GET_MIN_X;
 			return (float) method.invokeExact(jphLinearCurve);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get min X.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get min X: " + className);
 		}
 	}
 
@@ -160,7 +167,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_GET_MAX_X;
 			return (float) method.invokeExact(jphLinearCurve);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max X.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max X: " + className);
 		}
 	}
 
@@ -172,7 +180,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_GET_VALUE;
 			return (float) method.invokeExact(jphLinearCurve, x);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get value.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get value: " + className);
 		}
 	}
 
@@ -184,7 +193,8 @@ public final class LinearCurve {
 			MethodHandle method = JPH_LINEAR_CURVE_GET_POINT_COUNT;
 			return (int) method.invokeExact(jphLinearCurve);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get point count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get point count: " + className);
 		}
 	}
 
@@ -197,7 +207,8 @@ public final class LinearCurve {
 			method.invokeExact(jphLinearCurve, index, pointTmp.memorySegment());
 			return pointTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get point: " + className);
 		}
 	}
 
@@ -233,7 +244,8 @@ public final class LinearCurve {
 
 			return count.getAtIndex(JAVA_INT, 0);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get points.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get points: " + className);
 		}
 	}
 

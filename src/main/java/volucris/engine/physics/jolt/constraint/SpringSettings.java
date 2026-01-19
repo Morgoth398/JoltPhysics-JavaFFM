@@ -7,7 +7,7 @@ import java.lang.foreign.StructLayout;
 import java.lang.invoke.VarHandle;
 
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.SpringMode;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -42,7 +42,7 @@ public final class SpringSettings {
 	public SpringSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SpringSettings(Arena arena) {
 		jphSpringSettings = arena.allocate(LAYOUT);
 	}
@@ -50,7 +50,7 @@ public final class SpringSettings {
 	public SpringSettings(SpringMode mode, float frequencyOrStiffness, float damping) {
 		this(mode, frequencyOrStiffness, damping, Arena.ofAuto());
 	}
-	
+
 	public SpringSettings(SpringMode mode, float frequencyOrStiffness, float damping, Arena arena) {
 		jphSpringSettings = arena.allocate(LAYOUT);
 
@@ -88,7 +88,7 @@ public final class SpringSettings {
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for spring mode.");
+		throw new JoltRuntimeException("Wrong value for spring mode");
 	}
 
 	/**
@@ -98,22 +98,22 @@ public final class SpringSettings {
 	 * Valid when mSpringMode = ESpringMode::StiffnessAndDamping. If mStiffness > 0
 	 * the constraint will be soft and mStiffness specifies the stiffness (k) in the
 	 * spring equation F = -k * x - c * v for a linear or T = -k * theta - c * w for
-	 * an angular spring. If mStiffness {@code inMax < inMin} mDamping is ignored and the constraint
-	 * will have hard limits (as hard as the time step / the number of velocity /
-	 * position solver steps allows).
+	 * an angular spring. If mStiffness {@code inMax < inMin} mDamping is ignored
+	 * and the constraint will have hard limits (as hard as the time step / the
+	 * number of velocity / position solver steps allows).
 	 * 
 	 * Note that stiffness values are large numbers. To calculate a ballpark value
 	 * for the needed stiffness you can use: force = stiffness * delta_spring_length
-	 * = {@code mass * gravity <=> stiffness = mass * gravity / delta_spring_length} So if
-	 * your object weighs 1500 kg and the spring compresses by 2 meters, you need a
-	 * stiffness in the order of 1500 * 9.81 / 2 ~ 7500 N/m.
+	 * = {@code mass * gravity <=> stiffness = mass * gravity / delta_spring_length}
+	 * So if your object weighs 1500 kg and the spring compresses by 2 meters, you
+	 * need a stiffness in the order of 1500 * 9.81 / 2 ~ 7500 N/m.
 	 * <li>frequency
 	 * <p>
 	 * Valid when mSpringMode = ESpringMode::FrequencyAndDamping. If mFrequency > 0
 	 * the constraint will be soft and mFrequency specifies the oscillation
-	 * frequency in Hz. If {@code mFrequency <= 0} mDamping is ignored and the constraint
-	 * will have hard limits (as hard as the time step / the number of velocity /
-	 * position solver steps allows).
+	 * frequency in Hz. If {@code mFrequency <= 0} mDamping is ignored and the
+	 * constraint will have hard limits (as hard as the time step / the number of
+	 * velocity / position solver steps allows).
 	 * </ul>
 	 */
 	public void setFrequencyOrStiffness(float value) {

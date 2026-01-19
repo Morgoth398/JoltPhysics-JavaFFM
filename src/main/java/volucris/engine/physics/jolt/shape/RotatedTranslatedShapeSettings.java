@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -34,20 +34,22 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
 	public RotatedTranslatedShapeSettings(Vector3f position, Quaternionf rotation, ShapeSettings shapeSettings) {
 		this(position, rotation, shapeSettings, Arena.ofAuto());
 	}
-	
-	public RotatedTranslatedShapeSettings(Vector3f position, Quaternionf rotation, ShapeSettings shapeSettings, Arena arena) {
+
+	public RotatedTranslatedShapeSettings(Vector3f position, Quaternionf rotation, ShapeSettings shapeSettings,
+			Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
 			Vec3 vec = new Vec3(confinedArena, position);
 			Quat quat = new Quat(confinedArena, rotation);
-			
+
 			MemorySegment posAddr = vec.memorySegment();
 			MemorySegment rotAddr = quat.memorySegment();
-			
+
 			MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(posAddr, rotAddr, shapeSettings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create rotated translated shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create rotated translated shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -55,20 +57,21 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
 	public RotatedTranslatedShapeSettings(Vector3f position, Quaternionf rotation, Shape shape) {
 		this(position, rotation, shape, Arena.ofAuto());
 	}
-	
+
 	public RotatedTranslatedShapeSettings(Vector3f position, Quaternionf rotation, Shape shape, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
 			Vec3 vec = new Vec3(confinedArena, position);
 			Quat quat = new Quat(confinedArena, rotation);
-			
+
 			MemorySegment posAddr = vec.memorySegment();
 			MemorySegment rotAddr = quat.memorySegment();
-			
+
 			MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE2;
 			segment = (MemorySegment) method.invokeExact(posAddr, rotAddr, shape.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create rotated translated shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create rotated translated shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -76,14 +79,15 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
 	public RotatedTranslatedShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public RotatedTranslatedShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new RotatedTranslatedShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

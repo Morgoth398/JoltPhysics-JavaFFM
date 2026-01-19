@@ -5,7 +5,7 @@ import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.objectLayerPairFilter.ObjectLayerPairFilterMask;
 import volucris.engine.physics.jolt.objectVsBroadPhaseLayerFilter.ObjectVsBroadPhaseLayerFilterMask;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -38,7 +38,8 @@ public final class BroadPhaseLayerInterfaceMask extends BroadPhaseLayerInterface
 		try {
 			segment = (MemorySegment) JPH_BROAD_PHASE_LAYER_INTERFACE_MASK_CREATE.invokeExact(numBroadPhaseLayers);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BroadPhaseLayerInterfaceMask.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BroadPhaseLayerInterfaceMask: " + className);
 		}
 		super(segment);
 	}
@@ -48,7 +49,8 @@ public final class BroadPhaseLayerInterfaceMask extends BroadPhaseLayerInterface
 			MethodHandle method = JPH_BROAD_PAHSE_LAYER_INTERFACE_MASK_CONFIGURE_LAYER;
 			method.invokeExact(jphBroadPhaseLayerInterface, broadphaseLayer, groupsToInclude, groupsToExclude);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot configure layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot configure layer: " + className);
 		}
 	}
 

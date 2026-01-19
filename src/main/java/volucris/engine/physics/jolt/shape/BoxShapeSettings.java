@@ -8,19 +8,19 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
 
 /**
- * Class that constructs a BoxShape. 
+ * Class that constructs a BoxShape.
  */
 public final class BoxShapeSettings extends ConvexShapeSettings {
 
 	private static final MethodHandle JPH_BOX_SHAPE_SETTINGS_CREATE;
 	private static final MethodHandle JPH_BOX_SHAPE_SETTINGS_CREATE_SHAPE;
-	
+
 	static {
 		//@formatter:off
 		JPH_BOX_SHAPE_SETTINGS_CREATE = downcallHandle("JPH_BoxShapeSettings_Create", ADDRESS, ADDRESS, JAVA_FLOAT);
@@ -31,25 +31,26 @@ public final class BoxShapeSettings extends ConvexShapeSettings {
 	public BoxShapeSettings(Vector3f halfExtent, Arena arena) {
 		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
 	}
-	
+
 	public BoxShapeSettings(Vector3f halfExtent) {
 		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
 	}
-	
+
 	public BoxShapeSettings(Vector3f halfExtent, float convexRadius) {
 		this(halfExtent, convexRadius, Arena.ofAuto());
 	}
-	
+
 	public BoxShapeSettings(Vector3f halfExtent, float convexRadius, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
 			Vec3 vecTmp = new Vec3(confinedArena);
 			vecTmp.set(halfExtent);
-			
+
 			MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(vecTmp.memorySegment(), convexRadius);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create box shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create box shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -57,14 +58,15 @@ public final class BoxShapeSettings extends ConvexShapeSettings {
 	public BoxShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public BoxShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new BoxShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create box shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create box shape: " + className);
 		}
 	}
 

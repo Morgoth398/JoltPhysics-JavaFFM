@@ -6,7 +6,7 @@ import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.PhysicsMaterial;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -63,7 +63,8 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 			MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(halfHeight, topRadius, bottomRadius, convexRadius, matAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create tapered cylinder shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create tapered cylinder shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -71,7 +72,7 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 	public TaperedCylinderShapeSettings(float halfHeight, float topRadius, float bottomRadius) {
 		this(halfHeight, topRadius, bottomRadius, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * @see #TaperedCylinderShapeSettings(float, float, float, float)
 	 */
@@ -101,7 +102,8 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 			MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(halfHeight, topRadius, bottomRadius, convexRadius, matAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create tapered cylinder shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create tapered cylinder shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -109,14 +111,15 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 	public TaperedCylinderShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public TaperedCylinderShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new TaperedCylinderShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

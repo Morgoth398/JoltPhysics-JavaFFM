@@ -23,7 +23,7 @@ public final class EmptyShape extends Shape {
 	protected EmptyShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected EmptyShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -31,7 +31,7 @@ public final class EmptyShape extends Shape {
 	protected EmptyShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected EmptyShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}

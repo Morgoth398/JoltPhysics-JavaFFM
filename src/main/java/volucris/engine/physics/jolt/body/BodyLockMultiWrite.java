@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -35,7 +35,7 @@ public final class BodyLockMultiWrite implements AutoCloseable {
 	public BodyLockMultiWrite() {
 		this(Arena.ofAuto());
 	}
-	
+
 	/**
 	 * Constructs an invalid BodyLockMultiWrite object. Call
 	 * {@link BodyLockInterface#lockMultiWrite(BodyLockMultiWrite, int...)} before
@@ -64,7 +64,8 @@ public final class BodyLockMultiWrite implements AutoCloseable {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get body: " + className);
 		}
 	}
 
@@ -73,7 +74,8 @@ public final class BodyLockMultiWrite implements AutoCloseable {
 		try {
 			JPH_BODY_LOCK_MULTI_WRITE_DESTROY.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy BodyLockMultiWrite.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy BodyLockMultiWrite: " + className);
 		}
 	}
 

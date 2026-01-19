@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.body.Body;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -34,15 +34,15 @@ public final class GearConstraint extends TwoBodyConstraint {
 	protected GearConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected GearConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	public GearConstraint(GearConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	public GearConstraint(GearConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -53,7 +53,8 @@ public final class GearConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_GEAR_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create gear constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create gear constraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -68,7 +69,8 @@ public final class GearConstraint extends TwoBodyConstraint {
 			method.invokeExact(jphConstraint, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -88,7 +90,8 @@ public final class GearConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_GEAR_CONSTRAINT_SET_CONSTRAINTS;
 			method.invokeExact(jphConstraint, gear1.memorySegment(), gear2.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set constraints.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set constraints: " + className);
 		}
 	}
 
@@ -101,7 +104,8 @@ public final class GearConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_GEAR_CONSTRAINT_GET_TOTAL_LAMBDA;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda: " + className);
 		}
 	}
 

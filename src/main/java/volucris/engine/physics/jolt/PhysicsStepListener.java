@@ -12,7 +12,7 @@ import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -69,7 +69,7 @@ public abstract class PhysicsStepListener {
 	public PhysicsStepListener() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public PhysicsStepListener(Arena arena) {
 		try {
 			int index = count++;
@@ -85,7 +85,8 @@ public abstract class PhysicsStepListener {
 
 			context = new PhysicsStepListenerContext(arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create physics step listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create physics step listener: " + className);
 		}
 	}
 
@@ -110,7 +111,8 @@ public abstract class PhysicsStepListener {
 			MethodHandle method = JPH_STEP_LISTENER_SET_PROCS;
 			method.invokeExact(JPH_STEP_LISTENER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set shape filter procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set shape filter procs: " + className);
 		}
 	}
 
@@ -120,7 +122,8 @@ public abstract class PhysicsStepListener {
 		try {
 			lookup = MethodHandles.privateLookupIn(PhysicsStepListener.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		FunctionDescriptor onStep = functionDescrVoid(
@@ -140,7 +143,8 @@ public abstract class PhysicsStepListener {
 			MethodHandle method = JPH_STEP_LISTENER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy shape filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy shape filter: " + className);
 		}
 	}
 

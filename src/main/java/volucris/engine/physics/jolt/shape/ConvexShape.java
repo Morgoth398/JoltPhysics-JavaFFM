@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -28,7 +28,7 @@ public sealed class ConvexShape extends Shape permits BoxShape, CapsuleShape, Co
 	protected ConvexShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected ConvexShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -36,7 +36,7 @@ public sealed class ConvexShape extends Shape permits BoxShape, CapsuleShape, Co
 	protected ConvexShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected ConvexShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
@@ -49,7 +49,8 @@ public sealed class ConvexShape extends Shape permits BoxShape, CapsuleShape, Co
 			MethodHandle method = JPH_CONVEX_SHAPE_GET_DENSITY;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get density.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get density: " + className);
 		}
 	}
 
@@ -61,7 +62,8 @@ public sealed class ConvexShape extends Shape permits BoxShape, CapsuleShape, Co
 			MethodHandle method = JPH_CONVEX_SHAPE_SET_DENSITY;
 			method.invokeExact(jphShape, density);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set density.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set density: " + className);
 		}
 	}
 

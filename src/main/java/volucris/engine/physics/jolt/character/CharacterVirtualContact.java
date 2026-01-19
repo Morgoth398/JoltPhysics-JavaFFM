@@ -12,7 +12,7 @@ import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.PhysicsMaterial;
 import volucris.engine.physics.jolt.body.BodyEnums.MotionType;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -98,129 +98,129 @@ public class CharacterVirtualContact {
 	public CharacterVirtualContact() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CharacterVirtualContact(Arena arena) {
 		jphCharacterVirtualContact = arena.allocate(LAYOUT);
-		
+
 		position = new Vec3(jphCharacterVirtualContact.asSlice(POSITION_OFFSET, Vec3.LAYOUT()));
-		linearVelocity  = new Vec3(jphCharacterVirtualContact.asSlice(LINEAR_VELOCITY_OFFSET, Vec3.LAYOUT()));
-		contactNormal  = new Vec3(jphCharacterVirtualContact.asSlice(CONTACT_NORMAL_OFFSET, Vec3.LAYOUT()));
-		surfaceNormal  = new Vec3(jphCharacterVirtualContact.asSlice(SURFACE_NORMAL_OFFSET, Vec3.LAYOUT()));
+		linearVelocity = new Vec3(jphCharacterVirtualContact.asSlice(LINEAR_VELOCITY_OFFSET, Vec3.LAYOUT()));
+		contactNormal = new Vec3(jphCharacterVirtualContact.asSlice(CONTACT_NORMAL_OFFSET, Vec3.LAYOUT()));
+		surfaceNormal = new Vec3(jphCharacterVirtualContact.asSlice(SURFACE_NORMAL_OFFSET, Vec3.LAYOUT()));
 	}
-	
+
 	public long getHash() {
 		return (long) HASH.get(jphCharacterVirtualContact);
 	}
-	
+
 	public int getBodyIdB() {
 		return (int) BODY_B.get(jphCharacterVirtualContact);
 	}
-	
+
 	public int getCharacterIdB() {
 		return (int) CHARACTER_ID_B.get(jphCharacterVirtualContact);
 	}
-	
+
 	public int getSubShapeIdB() {
 		return (int) SUB_SHAPE_ID_B.get(jphCharacterVirtualContact);
 	}
-	
+
 	public Vector3f getPosition(Vector3f target) {
 		return position.get(target);
 	}
-	
+
 	public Vector3f getPosition() {
 		return getPosition(new Vector3f());
 	}
-	
+
 	public Vector3f getLinearVelocity(Vector3f target) {
 		return linearVelocity.get(target);
 	}
-	
+
 	public Vector3f getLinearVelocity() {
 		return getLinearVelocity(new Vector3f());
 	}
-	
+
 	public Vector3f getContactNormal(Vector3f target) {
 		return contactNormal.get(target);
 	}
-	
+
 	public Vector3f getContactNormal() {
 		return getContactNormal(new Vector3f());
 	}
-	
+
 	public Vector3f getSurfaceNormal(Vector3f target) {
 		return surfaceNormal.get(target);
 	}
-	
+
 	public Vector3f getSurfaceNormal() {
 		return getSurfaceNormal(new Vector3f());
 	}
-	
+
 	public float getDistance() {
 		return (float) DISTANCE.get(jphCharacterVirtualContact);
 	}
-	
+
 	public float getFraction() {
 		return (float) FRACTION.get(jphCharacterVirtualContact);
 	}
-	
+
 	public MotionType getMotionTypeB() {
 		int value = (int) MOTION_TYPE_B.get(jphCharacterVirtualContact);
-		
+
 		for (MotionType type : MotionType.values()) {
 			if (value == type.id())
 				return type;
 		}
-		
-		throw new VolucrisRuntimeException("Jolt: Wrong motion type.");
+
+		throw new JoltRuntimeException("Wrong motion type");
 	}
-	
+
 	public boolean isSensorB() {
 		return (boolean) IS_SENSOR_B.get(jphCharacterVirtualContact);
 	}
-	
+
 	public CharacterVirtual getCharacterB() {
 		MemorySegment segment = (MemorySegment) CHARACTER_B.get(jphCharacterVirtualContact);
-		
+
 		if (segment.equals(MemorySegment.NULL))
 			return null;
-		
+
 		CharacterVirtual character = Jolt.getCharacterVirtual(segment.address());
 		if (character != null)
 			return character;
-		
+
 		return new CharacterVirtual(segment);
 	}
-	
+
 	public long getUserData() {
 		return (long) USER_DATA.get(jphCharacterVirtualContact);
 	}
-	
+
 	public PhysicsMaterial getMaterial() {
 		MemorySegment segment = (MemorySegment) MATERIAL.get(jphCharacterVirtualContact);
-		
+
 		if (segment.equals(MemorySegment.NULL))
 			return null;
-		
+
 		PhysicsMaterial material = Jolt.getMaterial(segment.address());
 		if (material != null)
 			return material;
-		
+
 		return new PhysicsMaterial(segment);
 	}
-	
+
 	public boolean hadCollision() {
 		return (boolean) HAD_COLLISION.get(jphCharacterVirtualContact);
 	}
-	
+
 	public boolean wasDiscarded() {
 		return (boolean) WAS_DISCARDED.get(jphCharacterVirtualContact);
 	}
-	
+
 	public boolean canPushCharacter() {
 		return (boolean) CAN_PUSH_CHARACTER.get(jphCharacterVirtualContact);
 	}
-	
+
 	public MemorySegment memorySegment() {
 		return jphCharacterVirtualContact;
 	}

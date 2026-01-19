@@ -7,8 +7,6 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import volucris.engine.graphics.BoundingBox;
-import volucris.engine.graphics.Color;
 import volucris.engine.physics.jolt.DebugRenderer;
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.MassProperties;
@@ -25,7 +23,7 @@ import volucris.engine.physics.jolt.raycast.RayCastResult;
 import volucris.engine.physics.jolt.raycast.RayCastSettings;
 import volucris.engine.physics.jolt.shape.ShapeEnums.ShapeSubType;
 import volucris.engine.physics.jolt.shape.ShapeEnums.ShapeType;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -64,8 +62,6 @@ public sealed class Shape
 	private static final MethodHandle JPH_SHAPE_COLLIDE_POINT2;
 
 	protected final MemorySegment jphShape;
-
-	private AABox boxTmp;
 
 	private Mat4 matTmp;
 
@@ -117,7 +113,7 @@ public sealed class Shape
 	public Shape(MemorySegment segment, Arena arena, boolean owns) {
 
 		if (segment.equals(MemorySegment.NULL))
-			throw new VolucrisRuntimeException("Created shape is not valid!");
+			throw new JoltRuntimeException("Created shape is not valid!");
 
 		if (owns)
 			jphShape = segment.reinterpret(arena, s -> destroy(s));
@@ -126,7 +122,6 @@ public sealed class Shape
 
 		Jolt.addShape(jphShape.address(), this);
 
-		boxTmp = new AABox(arena);
 		matTmp = new Mat4(arena);
 		vecTmp = new Vec3(arena);
 		vecTmp2 = new Vec3(arena);
@@ -138,7 +133,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy shape: " + className);
 		}
 	}
 
@@ -146,7 +142,7 @@ public sealed class Shape
 	 * Draw the shape at a particular location with a particular color (debugging
 	 * purposes)
 	 */
-	public void draw(DebugRenderer renderer, Matrix4f centerOfMassTransform, Vector3f scale, Color color,
+	public void draw(DebugRenderer renderer, Matrix4f centerOfMassTransform, Vector3f scale, int color,
 			boolean useMaterialColors, boolean drawWireframe) {
 		try {
 			matTmp.set(centerOfMassTransform);
@@ -155,12 +151,12 @@ public sealed class Shape
 			MemorySegment rendererAddr = renderer.memorySegment();
 			MemorySegment matAddr = matTmp.memorySegment();
 			MemorySegment vecAddr = vecTmp.memorySegment();
-			int colorInt = color.toInt();
 
 			MethodHandle method = JPH_SHAPE_DRAW;
-			method.invokeExact(jphShape, rendererAddr, matAddr, vecAddr, colorInt, useMaterialColors, drawWireframe);
+			method.invokeExact(jphShape, rendererAddr, matAddr, vecAddr, color, useMaterialColors, drawWireframe);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw shape: " + className);
 		}
 	}
 
@@ -179,7 +175,8 @@ public sealed class Shape
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get shape type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get shape type: " + className);
 		}
 	}
 
@@ -198,7 +195,8 @@ public sealed class Shape
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get shape sub type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get shape sub type: " + className);
 		}
 	}
 
@@ -244,7 +242,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_GET_USER_DATA;
 			return (long) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get user data: " + className);
 		}
 	}
 
@@ -256,7 +255,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_SET_USER_DATA;
 			method.invokeExact(jphShape, userData);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set user data: " + className);
 		}
 	}
 
@@ -269,7 +269,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_MUST_BE_STATIC;
 			return (boolean) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call mustBeStatic.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call mustBeStatic: " + className);
 		}
 	}
 
@@ -285,7 +286,8 @@ public sealed class Shape
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get center of mass.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get center of mass: " + className);
 		}
 	}
 
@@ -302,14 +304,15 @@ public sealed class Shape
 	 * Get local bounding box including convex radius, this box is centered around
 	 * the center of mass rather than the world transform.
 	 */
-	public BoundingBox getLocalBounds(BoundingBox target) {
+	public AABox getLocalBounds(AABox target) {
 		try {
 			MethodHandle method = JPH_SHAPE_GET_LOCAL_BOUNDS;
-			method.invokeExact(jphShape, boxTmp.memorySegment());
+			method.invokeExact(jphShape, target.memorySegment());
 
-			return boxTmp.get(target);
+			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local bounds.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local bounds: " + className);
 		}
 	}
 
@@ -317,8 +320,8 @@ public sealed class Shape
 	 * Get local bounding box including convex radius, this box is centered around
 	 * the center of mass rather than the world transform.
 	 */
-	public BoundingBox getLocalBounds() {
-		return getLocalBounds(new BoundingBox());
+	public AABox getLocalBounds() {
+		return getLocalBounds(new AABox());
 	}
 
 	/**
@@ -331,32 +334,34 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_GET_SUB_SHAPE_ID_BITS_RECURSIVE;
 			return (int) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get bits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get bits: " + className);
 		}
 	}
 
 	/**
 	 * Get world space bounds including convex radius.
 	 */
-	public BoundingBox getWorldSpaceBounds(Matrix4f centerOfMassTransform, Vector3f scale, BoundingBox target) {
+	public AABox getWorldSpaceBounds(Matrix4f centerOfMassTransform, Vector3f scale, AABox target) {
 		try {
 			matTmp.set(centerOfMassTransform);
 			vecTmp.set(scale);
 
 			MethodHandle method = JPH_SHAPE_GET_WORLD_SPACE_BOUNDS;
-			method.invokeExact(jphShape, matTmp.memorySegment(), vecTmp.memorySegment(), boxTmp.memorySegment());
+			method.invokeExact(jphShape, matTmp.memorySegment(), vecTmp.memorySegment(), target.memorySegment());
 
-			return boxTmp.get(target);
+			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get world space bounds.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get world space bounds: " + className);
 		}
 	}
 
 	/**
 	 * Get world space bounds including convex radius.
 	 */
-	public BoundingBox getWorldSpaceBounds(Matrix4f centerOfMassTransform, Vector3f scale) {
-		return getWorldSpaceBounds(centerOfMassTransform, scale, new BoundingBox());
+	public AABox getWorldSpaceBounds(Matrix4f centerOfMassTransform, Vector3f scale) {
+		return getWorldSpaceBounds(centerOfMassTransform, scale, new AABox());
 	}
 
 	/**
@@ -370,7 +375,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_GET_INNER_RADIUS;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inner radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inner radius: " + className);
 		}
 	}
 
@@ -383,7 +389,8 @@ public sealed class Shape
 			method.invokeExact(jphShape, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get mass properties.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get mass properties: " + className);
 		}
 	}
 
@@ -417,7 +424,8 @@ public sealed class Shape
 
 			return new Shape(segment, true);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get leaf shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get leaf shape: " + className);
 		}
 	}
 
@@ -438,7 +446,8 @@ public sealed class Shape
 
 			return new PhysicsMaterial(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get material.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get material: " + className);
 		}
 	}
 
@@ -458,7 +467,8 @@ public sealed class Shape
 
 			return vecTmp2.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get surface normal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get surface normal: " + className);
 		}
 	}
 
@@ -503,7 +513,8 @@ public sealed class Shape
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call getSupportingFace.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getSupportingFace: " + className);
 		}
 	}
 
@@ -523,7 +534,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_GET_VOLUME;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get volume.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get volume: " + className);
 		}
 	}
 
@@ -555,7 +567,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_IS_VALID_SCALE;
 			return (boolean) method.invokeExact(jphShape, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if scale is valid.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if scale is valid: " + className);
 		}
 	}
 
@@ -575,7 +588,8 @@ public sealed class Shape
 
 			return vecTmp2.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot make scale valid.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot make scale valid: " + className);
 		}
 	}
 
@@ -593,7 +607,8 @@ public sealed class Shape
 
 			return new Shape(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot scale shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot scale shape: " + className);
 		}
 	}
 
@@ -611,7 +626,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_CAST_RAY;
 			return (boolean) method.invokeExact(jphShape, origAddr, dirAddr, target.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast ray.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast ray: " + className);
 		}
 	}
 
@@ -644,7 +660,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_CAST_RAY2;
 			return (boolean) method.invokeExact(jphShape, origAddr, dirAddr, settAddr, type, callAddr, data, filtAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast ray.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast ray: " + className);
 		}
 	}
 
@@ -664,7 +681,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_COLLIDE_POINT;
 			return (boolean) method.invokeExact(jphShape, vecTmp.memorySegment(), shapeFilter.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot collide point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot collide point: " + className);
 		}
 	}
 
@@ -686,7 +704,8 @@ public sealed class Shape
 			MethodHandle method = JPH_SHAPE_COLLIDE_POINT2;
 			return (boolean) method.invokeExact(jphShape, pointAddr, type, callAddr, data, filtAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot collide point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot collide point: " + className);
 		}
 	}
 

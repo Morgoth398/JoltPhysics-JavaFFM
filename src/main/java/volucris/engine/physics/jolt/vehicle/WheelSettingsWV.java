@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -69,7 +69,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_CREATE;
 			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create wheel settings wv.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create wheel settings wv: " + className);
 		}
 		super(segment, arena, true);
 	}
@@ -83,7 +84,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_INERTIA;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inertia.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inertia: " + className);
 		}
 	}
 
@@ -95,7 +97,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_SET_INERTIA;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set inertia.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set inertia: " + className);
 		}
 	}
 
@@ -108,7 +111,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_ANGULAR_DAMPING;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get angular damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get angular damping: " + className);
 		}
 	}
 
@@ -120,7 +124,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_SET_ANGULAR_DAMPING;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set angular damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set angular damping: " + className);
 		}
 	}
 
@@ -132,7 +137,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_MAX_STEER_ANGLE;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max steer angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max steer angle: " + className);
 		}
 	}
 
@@ -144,7 +150,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_SET_MAX_STEER_ANGLE;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max steer angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max steer angle: " + className);
 		}
 	}
 
@@ -172,7 +179,8 @@ public final class WheelSettingsWV extends WheelSettings {
 
 			return new LinearCurve(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get longitudinal friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get longitudinal friction: " + className);
 		}
 	}
 
@@ -184,7 +192,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_SET_LONGITUDINAL_FRICTION;
 			method.invokeExact(jphWheelSettings, curve.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set longitudinal friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set longitudinal friction: " + className);
 		}
 	}
 
@@ -209,7 +218,8 @@ public final class WheelSettingsWV extends WheelSettings {
 
 			return new LinearCurve(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lateral friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lateral friction: " + className);
 		}
 	}
 
@@ -221,7 +231,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_SET_LATERAL_FRICTION;
 			method.invokeExact(jphWheelSettings, curve.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set lateral friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set lateral friction: " + className);
 		}
 	}
 
@@ -233,7 +244,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_MAX_BRAKE_TORQUE;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max brake torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max brake torque: " + className);
 		}
 	}
 
@@ -245,7 +257,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_SET_MAX_BRAKE_TORQUE;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max brake torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max brake torque: " + className);
 		}
 	}
 
@@ -258,7 +271,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_MAX_HAND_BRAKE_TORQUE;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max hand brake torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max hand brake torque: " + className);
 		}
 	}
 
@@ -271,7 +285,8 @@ public final class WheelSettingsWV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_WV_SET_MAX_HAND_BRAKE_TORQUE;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max hand brake torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max hand brake torque: " + className);
 		}
 	}
 

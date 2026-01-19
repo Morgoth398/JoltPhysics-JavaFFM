@@ -8,13 +8,13 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
 
 /**
- * Class that constructs a TriangleShape. 
+ * Class that constructs a TriangleShape.
  */
 public final class TriangleShapeSettings extends ConvexShapeSettings {
 
@@ -31,15 +31,15 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
 	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3) {
 		this(v1, v2, v3, Arena.ofAuto());
 	}
-	
+
 	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3, Arena arena) {
 		this(v1, v2, v3, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
 	}
-	
+
 	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3, float convexRadius) {
 		this(v1, v2, v3, convexRadius, Arena.ofAuto());
 	}
-	
+
 	public TriangleShapeSettings(Vector3f v1, Vector3f v2, Vector3f v3, float convexRadius, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
@@ -54,7 +54,8 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
 			MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(p1Addr, p2Addr, p3Addr, convexRadius);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create triangle shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create triangle shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -62,14 +63,15 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
 	public TriangleShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public TriangleShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new TriangleShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

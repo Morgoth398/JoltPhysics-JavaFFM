@@ -3,7 +3,7 @@ package volucris.engine.physics.jolt.vehicle;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -65,7 +65,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SET_DRIVER_INPUT;
 			method.invokeExact(jphVehicleController, forward, right, brake, handBrake);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set driver input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set driver input: " + className);
 		}
 	}
 
@@ -78,7 +79,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SET_FORWARD_INPUT;
 			method.invokeExact(jphVehicleController, forward);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set forward input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set forward input: " + className);
 		}
 	}
 
@@ -90,7 +92,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_FORWARD_INPUT;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get forward input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get forward input: " + className);
 		}
 	}
 
@@ -102,7 +105,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SET_RIGHT_INPUT;
 			method.invokeExact(jphVehicleController, rightRatio);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call setRightInput.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setRightInput: " + className);
 		}
 	}
 
@@ -114,7 +118,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_RIGHT_INPUT;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get right input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get right input: " + className);
 		}
 	}
 
@@ -126,7 +131,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SET_BRAKE_INPUT;
 			method.invokeExact(jphVehicleController, brakeInput);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set brake input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set brake input: " + className);
 		}
 	}
 
@@ -138,7 +144,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_BRAKE_INPUT;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get brake input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get brake input: " + className);
 		}
 	}
 
@@ -150,7 +157,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SET_HAND_BRAKE_INPUT;
 			method.invokeExact(jphVehicleController, handBrakeInput);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set hand brake input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set hand brake input: " + className);
 		}
 	}
 
@@ -162,7 +170,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_HAND_BRAKE_INPUT;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get hand brake input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get hand brake input: " + className);
 		}
 	}
 
@@ -174,7 +183,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_WHEEL_SPEED_AT_CLUTCH;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheel speed at clutch.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheel speed at clutch: " + className);
 		}
 	}
 
@@ -189,7 +199,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			target.set(segment);
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get engine.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get engine: " + className);
 		}
 	}
 
@@ -211,7 +222,8 @@ public sealed class WheeledVehicleController extends VehicleController permits M
 			target.set(segment);
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get transmission.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get transmission: " + className);
 		}
 	}
 

@@ -34,13 +34,19 @@ public final class FFMUtils {
 	}
 
 	public static VarHandle varHandle(MemoryLayout layout, String name1, String name2) {
-		return MethodHandles.insertCoordinates(
-				layout.varHandle(PathElement.groupElement(name1), PathElement.groupElement(name2)), 1, 0L);
+		VarHandle varHandle = layout.varHandle(PathElement.groupElement(name1), PathElement.groupElement(name2));
+		return MethodHandles.insertCoordinates(varHandle, 1, 0L);
 	}
 
 	public static VarHandle varHandle(MemoryLayout layout, String name, int sequenceIndex) {
-		return MethodHandles.insertCoordinates(
-				layout.varHandle(PathElement.groupElement(name), PathElement.sequenceElement(sequenceIndex)), 1, 0L);
+		PathElement sequenceElement = PathElement.sequenceElement(sequenceIndex);
+		VarHandle varHandle = layout.varHandle(PathElement.groupElement(name), sequenceElement);
+		return MethodHandles.insertCoordinates(varHandle, 1, 0L);
+	}
+
+	public static VarHandle arrayVarHandle(MemoryLayout layout, String name) {
+		VarHandle varHandle = layout.arrayElementVarHandle(PathElement.groupElement(name));
+		return MethodHandles.insertCoordinates(varHandle, 1, 0L);
 	}
 
 	public static MethodHandle upcallHandleVoid(Lookup lookup, Class<?> clazz, String name,
@@ -102,5 +108,5 @@ public final class FFMUtils {
 	public static MemorySegment upcallStub(MethodHandle method, FunctionDescriptor descriptor, Arena arena) {
 		return LINKER.upcallStub(method, descriptor, arena);
 	}
-	
+
 }

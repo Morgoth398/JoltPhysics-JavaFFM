@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.math.Quat;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -36,7 +36,7 @@ public sealed class CompoundShape extends Shape permits MutableCompoundShape, St
 	protected CompoundShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected CompoundShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -44,7 +44,7 @@ public sealed class CompoundShape extends Shape permits MutableCompoundShape, St
 	protected CompoundShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected CompoundShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -52,14 +52,15 @@ public sealed class CompoundShape extends Shape permits MutableCompoundShape, St
 	}
 
 	/**
-	 * Get the total number of sub shapes. 
+	 * Get the total number of sub shapes.
 	 */
 	public int getNumSubShapes() {
 		try {
 			MethodHandle method = JPH_COMPOUND_SHAPE_GET_NUM_SUB_SHAPES;
 			return (int) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get num sub shapes.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get num sub shapes: " + className);
 		}
 	}
 
@@ -109,12 +110,13 @@ public sealed class CompoundShape extends Shape permits MutableCompoundShape, St
 			return new Shape(segment, true);
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get sub shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get sub shape: " + className);
 		}
 	}
 
 	/**
-	 * Convert SubShapeID to sub shape index 
+	 * Convert SubShapeID to sub shape index
 	 */
 	public int getSubShapeIndexFromID(int id, int[] remainder) {
 		try (Arena arena = Arena.ofConfined()) {
@@ -127,7 +129,8 @@ public sealed class CompoundShape extends Shape permits MutableCompoundShape, St
 
 			return value;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get subShapeIndexFromID.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get subShapeIndexFromID: " + className);
 		}
 	}
 

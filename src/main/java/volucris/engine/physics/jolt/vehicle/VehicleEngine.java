@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -41,7 +41,7 @@ public final class VehicleEngine {
 	public VehicleEngine() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleEngine(Arena arena) {
 		jphVehicleEngine = arena.allocate(ADDRESS);
 	}
@@ -58,7 +58,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_CLAMP_RPM;
 			method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot clamp RPM.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot clamp RPM: " + className);
 		}
 	}
 
@@ -70,7 +71,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_GET_CURRENT_RPM;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot  get current RPM.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot  get current RPM: " + className);
 		}
 	}
 
@@ -82,7 +84,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_SET_CURRENT_RPM;
 			method.invokeExact(memorySegment(), rpm);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set current RPM.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set current RPM: " + className);
 		}
 	}
 
@@ -94,7 +97,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_GET_ANGULAR_VELOCITY;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get angular velocity: " + className);
 		}
 	}
 
@@ -106,7 +110,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_GET_TORQUE;
 			return (float) method.invokeExact(memorySegment(), acceleration);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get torque: " + className);
 		}
 	}
 
@@ -118,7 +123,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_APPLY_TORQUE;
 			method.invokeExact(memorySegment(), torque, deltaTime);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot apply torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot apply torque: " + className);
 		}
 	}
 
@@ -130,7 +136,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_APPLY_DAMPING;
 			method.invokeExact(memorySegment(), deltaTime);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot apply damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot apply damping: " + className);
 		}
 	}
 
@@ -142,7 +149,8 @@ public final class VehicleEngine {
 			MethodHandle method = JPH_VEHICLE_ENGINE_ALLOW_SLEEP;
 			return (boolean) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot allow sleep.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot allow sleep: " + className);
 		}
 	}
 

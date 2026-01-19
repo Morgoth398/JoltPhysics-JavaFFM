@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -33,39 +33,42 @@ public abstract class CharacterVsCharacterCollisionSimple extends CharacterVsCha
 	public CharacterVsCharacterCollisionSimple() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CharacterVsCharacterCollisionSimple(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE_SIMPLE;
 			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create CharacterVsCharacterCollisionSimple");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create CharacterVsCharacterCollisionSimple: " + className);
 		}
 		super(segment, arena);
 	}
 
 	/**
-	 * Add a character to the list of characters to check collision against. 
+	 * Add a character to the list of characters to check collision against.
 	 */
 	public void addCharacter(CharacterVirtual character) {
 		try {
 			MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SIMPLE_ADD_CHARACTER;
 			method.invokeExact(jphCharacterVsCharacterCollision, character.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add character.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add character: " + className);
 		}
 	}
 
 	/**
-	 * Remove a character from the list of characters to check collision against. 
+	 * Remove a character from the list of characters to check collision against.
 	 */
 	public void removeCharacter(CharacterVirtual character) {
 		try {
 			MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SIMPLE_REMOVE_CHARACTER;
 			method.invokeExact(jphCharacterVsCharacterCollision, character.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add character.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add character: " + className);
 		}
 	}
 

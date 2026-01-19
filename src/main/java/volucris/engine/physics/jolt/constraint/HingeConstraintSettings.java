@@ -11,7 +11,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -92,7 +92,7 @@ public final class HingeConstraintSettings extends TwoBodyConstraintSettings {
 	public HingeConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public HingeConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -119,7 +119,8 @@ public final class HingeConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphHingeConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize higne constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize higne constraint settings: " + className);
 		}
 	}
 
@@ -135,7 +136,7 @@ public final class HingeConstraintSettings extends TwoBodyConstraintSettings {
 				return space;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for constraint space.");
+		throw new JoltRuntimeException("Wrong value for constraint space");
 	}
 
 	/**

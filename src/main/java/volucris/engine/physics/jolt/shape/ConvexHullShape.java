@@ -8,7 +8,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -39,7 +39,7 @@ public final class ConvexHullShape extends ConvexShape {
 	protected ConvexHullShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected ConvexHullShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -47,7 +47,7 @@ public final class ConvexHullShape extends ConvexShape {
 	protected ConvexHullShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected ConvexHullShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -62,7 +62,8 @@ public final class ConvexHullShape extends ConvexShape {
 			MethodHandle method = JPH_CONVEX_HULL_SHAPE_GET_NUM_POINTS;
 			return (int) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get num points.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get num points: " + className);
 		}
 	}
 
@@ -76,7 +77,8 @@ public final class ConvexHullShape extends ConvexShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get point: " + className);
 		}
 	}
 
@@ -95,7 +97,8 @@ public final class ConvexHullShape extends ConvexShape {
 			MethodHandle method = JPH_CONVEX_HULL_SHAPE_GET_NUM_FACES;
 			return (int) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get num faces.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get num faces: " + className);
 		}
 	}
 
@@ -107,7 +110,8 @@ public final class ConvexHullShape extends ConvexShape {
 			MethodHandle method = JPH_CONVEX_HULL_SHAPE_GET_NUM_VERTICES_IN_FACE;
 			return (int) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get num vertices in face.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get num vertices in face: " + className);
 		}
 	}
 
@@ -129,7 +133,8 @@ public final class ConvexHullShape extends ConvexShape {
 
 			return count;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get face vertices.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get face vertices: " + className);
 		}
 	}
 

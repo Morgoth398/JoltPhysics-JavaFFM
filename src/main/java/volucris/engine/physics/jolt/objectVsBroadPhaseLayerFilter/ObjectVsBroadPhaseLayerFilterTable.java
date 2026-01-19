@@ -5,7 +5,7 @@ import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterface;
 import volucris.engine.physics.jolt.objectLayerPairFilter.ObjectLayerPairFilter;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -36,7 +36,8 @@ public final class ObjectVsBroadPhaseLayerFilterTable extends ObjectVsBroadPhase
 			segment = (MemorySegment) method.invokeExact(interfaceSegment, numBroadPhaseLayers, pairFilterSegment,
 					numObjectLayers);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create ObjectVsBroadPhaseLayerFilterTable.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create ObjectVsBroadPhaseLayerFilterTable: " + className);
 		}
 		super(segment);
 	}

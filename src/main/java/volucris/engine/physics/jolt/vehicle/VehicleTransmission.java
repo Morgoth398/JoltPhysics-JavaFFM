@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -39,7 +39,7 @@ public final class VehicleTransmission {
 	public VehicleTransmission() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleTransmission(Arena arena) {
 		jphVehicleTransmission = arena.allocate(ADDRESS);
 	}
@@ -62,7 +62,8 @@ public final class VehicleTransmission {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SET;
 			method.invokeExact(memorySegment(), currentGear, clutchFriction);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call set.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call set: " + className);
 		}
 	}
 
@@ -82,7 +83,8 @@ public final class VehicleTransmission {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_UPDATE;
 			method.invokeExact(memorySegment(), deltaTime, currentRPM, forwardInput, canShiftUp);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call update.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call update: " + className);
 		}
 	}
 
@@ -94,7 +96,8 @@ public final class VehicleTransmission {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_GEAR;
 			return (int) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get current gear.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get current gear: " + className);
 		}
 	}
 
@@ -107,7 +110,8 @@ public final class VehicleTransmission {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CLUTCH_FRICTION;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get clutch friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get clutch friction: " + className);
 		}
 	}
 
@@ -119,7 +123,8 @@ public final class VehicleTransmission {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_IS_SWITCHING_GEAR;
 			return (boolean) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if switching gear.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if switching gear: " + className);
 		}
 	}
 
@@ -132,7 +137,8 @@ public final class VehicleTransmission {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_RATIO;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get current ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get current ratio: " + className);
 		}
 	}
 
@@ -144,7 +150,8 @@ public final class VehicleTransmission {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_ALLOW_SLEEP;
 			return (boolean) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot allow sleep.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot allow sleep: " + className);
 		}
 	}
 

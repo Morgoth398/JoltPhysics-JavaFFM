@@ -13,7 +13,7 @@ import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -72,7 +72,7 @@ public abstract class BodyActivationListener {
 	public BodyActivationListener() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public BodyActivationListener(Arena arena) {
 		try {
 			int index = count++;
@@ -86,7 +86,8 @@ public abstract class BodyActivationListener {
 
 			BODY_ACTIVATION_LISTENERS.add(index, new WeakReference<BodyActivationListener>(this));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create body activation listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create body activation listener: " + className);
 		}
 	}
 
@@ -101,8 +102,8 @@ public abstract class BodyActivationListener {
 	/**
 	 * Called whenever a body deactivates, note this can be called from any thread
 	 * so make sure your code is thread safe. At the time of the callback the body
-	 * bodyID will be locked and no bodies can be written/activated/deactivated
-	 * from the callback.
+	 * bodyID will be locked and no bodies can be written/activated/deactivated from
+	 * the callback.
 	 */
 	protected abstract void onBodyDeactivated(int bodyId, long bodyUserData);
 
@@ -111,7 +112,8 @@ public abstract class BodyActivationListener {
 			MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_SET_PROCS;
 			method.invokeExact(JPH_BODY_ACTIVATION_LISTENER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set body activation listener procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set body activation listener procs: " + className);
 		}
 	}
 
@@ -121,7 +123,8 @@ public abstract class BodyActivationListener {
 		try {
 			lookup = MethodHandles.privateLookupIn(BodyActivationListener.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -145,7 +148,8 @@ public abstract class BodyActivationListener {
 			MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy body activation listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy body activation listener: " + className);
 		}
 	}
 

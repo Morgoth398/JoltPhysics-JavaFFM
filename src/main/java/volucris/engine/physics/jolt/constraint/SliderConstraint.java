@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.MotorState;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -75,15 +75,15 @@ public final class SliderConstraint extends TwoBodyConstraint {
 	protected SliderConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected SliderConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	public SliderConstraint(SliderConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	public SliderConstraint(SliderConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -94,7 +94,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create slider constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create slider constraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -110,7 +111,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -129,7 +131,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_CURRENT_POSITION;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get current position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get current position: " + className);
 		}
 	}
 
@@ -141,7 +144,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SET_MAX_FRICTION_FORCE;
 			method.invokeExact(jphConstraint, frictionForce);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max friction force.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max friction force: " + className);
 		}
 	}
 
@@ -153,7 +157,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_MAX_FRICTION_FORCE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max friction force.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max friction force: " + className);
 		}
 	}
 
@@ -165,7 +170,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SET_MOTOR_SETTINGS;
 			method.invokeExact(jphConstraint, settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motor settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motor settings: " + className);
 		}
 	}
 
@@ -179,7 +185,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motor settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motor settings: " + className);
 		}
 	}
 
@@ -198,7 +205,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SET_MOTOR_STATE;
 			method.invokeExact(jphConstraint, state.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motor state.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motor state: " + className);
 		}
 	}
 
@@ -217,7 +225,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motor state.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motor state: " + className);
 		}
 	}
 
@@ -229,7 +238,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SET_TARGET_VELOCITY;
 			method.invokeExact(jphConstraint, velocity);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target velocity: " + className);
 		}
 	}
 
@@ -241,7 +251,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TARGET_VELOCITY;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target velocity: " + className);
 		}
 	}
 
@@ -253,7 +264,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SET_TARGET_POSITION;
 			method.invokeExact(jphConstraint, position);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target position: " + className);
 		}
 	}
 
@@ -265,7 +277,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TARGET_POSITION;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target position: " + className);
 		}
 	}
 
@@ -278,7 +291,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SET_LIMITS;
 			method.invokeExact(jphConstraint, limitsMin, limitsMax);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set limits: " + className);
 		}
 	}
 
@@ -290,7 +304,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_LIMITS_MIN;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits min.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits min: " + className);
 		}
 	}
 
@@ -302,7 +317,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_LIMITS_MAX;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits max.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits max: " + className);
 		}
 	}
 
@@ -314,7 +330,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_HAS_LIMITS;
 			return (boolean) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if constraint has limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if constraint has limits: " + className);
 		}
 	}
 
@@ -328,7 +345,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits spring settings: " + className);
 		}
 	}
 
@@ -347,7 +365,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SET_LIMITS_SPRING_SETTINGS;
 			method.invokeExact(jphConstraint, settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set limits spring settings: " + className);
 		}
 	}
 
@@ -369,7 +388,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position: " + className);
 		}
 	}
 
@@ -390,7 +410,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION_LIMITS;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position limits: " + className);
 		}
 	}
 
@@ -405,7 +426,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda rotation: " + className);
 		}
 	}
 
@@ -426,7 +448,8 @@ public final class SliderConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TOTAL_LAMBDA_MOTOR;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda motor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda motor: " + className);
 		}
 	}
 

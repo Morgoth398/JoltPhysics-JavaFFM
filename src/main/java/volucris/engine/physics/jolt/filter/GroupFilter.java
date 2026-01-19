@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -30,7 +30,7 @@ public sealed class GroupFilter permits GroupFilterTable {
 	protected GroupFilter(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected GroupFilter(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -38,7 +38,7 @@ public sealed class GroupFilter permits GroupFilterTable {
 	public GroupFilter(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	public GroupFilter(MemorySegment segment, Arena arena, boolean owns) {
 		if (owns)
 			jphGroupFilter = segment.reinterpret(arena, s -> destroy(s));
@@ -55,7 +55,8 @@ public sealed class GroupFilter permits GroupFilterTable {
 
 			Jolt.removeGroupFilter(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy group filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy group filter: " + className);
 		}
 	}
 
@@ -70,7 +71,8 @@ public sealed class GroupFilter permits GroupFilterTable {
 			MethodHandle method = JPH_GROUP_FILTER_CAN_COLLIDE;
 			return (boolean) method.invokeExact(jphGroupFilter, group1Addr, group2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call cannCollide.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call cannCollide: " + className);
 		}
 	}
 

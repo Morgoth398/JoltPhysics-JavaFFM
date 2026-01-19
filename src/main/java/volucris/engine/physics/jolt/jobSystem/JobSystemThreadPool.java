@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -31,14 +31,15 @@ public final class JobSystemThreadPool extends JobSystem {
 	public JobSystemThreadPool() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public JobSystemThreadPool(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_JOB_SYSTEM_THREAD_POOL_CREATE;
 			segment = (MemorySegment) method.invokeExact(MemorySegment.NULL);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create job system thread pool.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create job system thread pool: " + className);
 		}
 		super(segment, arena);
 	}
@@ -46,14 +47,15 @@ public final class JobSystemThreadPool extends JobSystem {
 	public JobSystemThreadPool(JobSystemThreadPoolConfig config) {
 		this(config, Arena.ofAuto());
 	}
-	
+
 	public JobSystemThreadPool(JobSystemThreadPoolConfig config, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_JOB_SYSTEM_THREAD_POOL_CREATE;
 			segment = (MemorySegment) method.invokeExact(config.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create job system thread pool.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create job system thread pool: " + className);
 		}
 		super(segment, arena);
 	}

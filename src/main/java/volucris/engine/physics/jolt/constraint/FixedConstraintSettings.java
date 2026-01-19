@@ -11,7 +11,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -78,7 +78,7 @@ public final class FixedConstraintSettings extends TwoBodyConstraintSettings {
 	public FixedConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public FixedConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -100,7 +100,8 @@ public final class FixedConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_FIXED_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphFixedConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Jolt: Cannot initialize fixed constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Jolt: Cannot initialize fixed constraint settings: " + className);
 		}
 	}
 
@@ -116,7 +117,7 @@ public final class FixedConstraintSettings extends TwoBodyConstraintSettings {
 				return space;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for constraint space.");
+		throw new JoltRuntimeException("Wrong value for constraint space");
 	}
 
 	/**
@@ -145,28 +146,28 @@ public final class FixedConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace) 
+	 * Body 1 constraint reference frame (space determined by mSpace)
 	 */
 	public void setPoint1(float x, float y, float z) {
 		point1.set(x, y, z);
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace) 
+	 * Body 1 constraint reference frame (space determined by mSpace)
 	 */
 	public void setPoint1(Vector3f point) {
 		this.point1.set(point);
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace) 
+	 * Body 1 constraint reference frame (space determined by mSpace)
 	 */
 	public Vector3f getPoint1(Vector3f target) {
 		return point1.get(target);
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace) 
+	 * Body 1 constraint reference frame (space determined by mSpace)
 	 */
 	public Vector3f getPoint1() {
 		return getPoint1(new Vector3f());
@@ -229,28 +230,28 @@ public final class FixedConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public void setPoint2(float x, float y, float z) {
 		point2.set(x, y, z);
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public void setPoint2(Vector3f point) {
 		this.point2.set(point);
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public Vector3f getPoint2(Vector3f target) {
 		return point2.get(target);
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public Vector3f getPoint2() {
 		return getPoint2(new Vector3f());

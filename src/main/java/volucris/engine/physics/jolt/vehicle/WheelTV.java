@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -28,14 +28,15 @@ public final class WheelTV extends Wheel {
 	public WheelTV(WheelSettingsTV settings) {
 		this(settings, Arena.ofAuto());
 	}
-	
+
 	public WheelTV(WheelSettingsTV settings, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_WHEEL_TV_CREATE;
 			segment = (MemorySegment) method.invokeExact(settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create wheel tv.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create wheel tv: " + className);
 		}
 		super(segment, arena);
 	}
@@ -55,7 +56,8 @@ public final class WheelTV extends Wheel {
 
 			return new WheelSettingsTV(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 

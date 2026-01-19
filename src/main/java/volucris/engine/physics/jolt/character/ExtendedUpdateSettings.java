@@ -59,7 +59,7 @@ public final class ExtendedUpdateSettings {
 	public ExtendedUpdateSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public ExtendedUpdateSettings(Arena arena) {
 		jphExtendedUpdateSettings = arena.allocate(LAYOUT);
 
@@ -177,22 +177,23 @@ public final class ExtendedUpdateSettings {
 	}
 
 	/**
-	 *  @see #setWalkStairsStepUp(float, float, float)
+	 * @see #setWalkStairsStepUp(float, float, float)
 	 */
 	public Vector3f getWalkStairsStepUp(Vector3f target) {
 		return walkStairsStepUp.get(target);
 	}
 
 	/**
-	 *  @see #setWalkStairsStepUp(float, float, float)
+	 * @see #setWalkStairsStepUp(float, float, float)
 	 */
 	public Vector3f getWalkStairsStepUp() {
 		return getWalkStairsStepUp(new Vector3f());
 	}
 
 	/**
-	 * See {@link CharacterVirtual#walkStairs(float, Vector3f, Vector3f, Vector3f, Vector3f, int, volucris.engine.physics.jolt.physicsSystem.PhysicsSystem, volucris.engine.physics.jolt.filter.BodyFilter, volucris.engine.physics.jolt.filter.ShapeFilter)
-	 * walkStairs} stepDownExtra. 
+	 * See
+	 * {@link CharacterVirtual#walkStairs(float, Vector3f, Vector3f, Vector3f, Vector3f, int, volucris.engine.physics.jolt.physicsSystem.PhysicsSystem, volucris.engine.physics.jolt.filter.BodyFilter, volucris.engine.physics.jolt.filter.ShapeFilter)
+	 * walkStairs} stepDownExtra.
 	 */
 	public void setWalkStairsStepDownExtra(float x, float y, float z) {
 		walkStairsStepDownExtra.set(x, y, z);

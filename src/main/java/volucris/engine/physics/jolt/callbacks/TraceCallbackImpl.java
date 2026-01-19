@@ -6,15 +6,15 @@ import java.lang.foreign.MemorySegment;
 import org.tinylog.Logger;
 
 public final class TraceCallbackImpl extends TraceCallback {
-	
+
 	public TraceCallbackImpl() {
-		
+
 	}
-	
+
 	public TraceCallbackImpl(Arena arena) {
 		super(arena);
 	}
-	
+
 	@Override
 	public void traceCallback(MemorySegment message) {
 		String string = message.getString(0);

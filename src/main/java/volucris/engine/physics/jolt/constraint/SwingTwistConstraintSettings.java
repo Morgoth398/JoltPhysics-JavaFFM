@@ -12,7 +12,7 @@ import org.joml.Vector3f;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.SwingType;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -22,7 +22,8 @@ import static volucris.engine.utils.FFMUtils.*;
  * values in this structure are copied to the swing twist constraint and the
  * settings object is no longer needed afterwards.
  * <p>
- * An example <a href=https://jrouwe.github.io/JoltPhysics/SwingTwistConstraint.png>image</a>.
+ * An example <a
+ * href=https://jrouwe.github.io/JoltPhysics/SwingTwistConstraint.png>image</a>.
  */
 public final class SwingTwistConstraintSettings extends TwoBodyConstraintSettings {
 
@@ -107,7 +108,7 @@ public final class SwingTwistConstraintSettings extends TwoBodyConstraintSetting
 	public SwingTwistConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SwingTwistConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -132,7 +133,8 @@ public final class SwingTwistConstraintSettings extends TwoBodyConstraintSetting
 			MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphSwingTwistConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize swing twist constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize swing twist constraint settings: " + className);
 		}
 	}
 
@@ -148,7 +150,7 @@ public final class SwingTwistConstraintSettings extends TwoBodyConstraintSetting
 				return space;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for constraint space.");
+		throw new JoltRuntimeException("Wrong value for constraint space");
 	}
 
 	/**
@@ -160,7 +162,7 @@ public final class SwingTwistConstraintSettings extends TwoBodyConstraintSetting
 	}
 
 	/**
-	 * The type of swing constraint that we want to use. 
+	 * The type of swing constraint that we want to use.
 	 */
 	public SwingType getSwingType() {
 		int value = (int) SWING_TYPE.get(jphSwingTwistConstraintSettings);
@@ -170,81 +172,83 @@ public final class SwingTwistConstraintSettings extends TwoBodyConstraintSetting
 				return type;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for swing type.");
+		throw new JoltRuntimeException("Wrong value for swing type");
 	}
 
 	/**
-	 * The type of swing constraint that we want to use. 
+	 * The type of swing constraint that we want to use.
 	 */
 	public void setSwingType(SwingType type) {
 		SWING_TYPE.set(jphSwingTwistConstraintSettings, type.id());
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. 
+	 * See image at Detailed Description. Angle in radians.
 	 */
 	public void setNormalHalfConeAngle(float angle) {
 		NORMAL_HALF_CONE_ANGLE.set(jphSwingTwistConstraintSettings, angle);
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. 
+	 * See image at Detailed Description. Angle in radians.
 	 */
 	public float getNormalHalfConeAngle() {
 		return (float) NORMAL_HALF_CONE_ANGLE.get(jphSwingTwistConstraintSettings);
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. 
+	 * See image at Detailed Description. Angle in radians.
 	 */
 	public void setPlaneHalfConeAngle(float angle) {
 		PLANE_HALF_CONE_ANGLE.set(jphSwingTwistConstraintSettings, angle);
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. 
+	 * See image at Detailed Description. Angle in radians.
 	 */
 	public float getPlaneHalfConeAngle() {
 		return (float) PLANE_HALF_CONE_ANGLE.get(jphSwingTwistConstraintSettings);
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋]. 
+	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋].
 	 */
 	public void setTwistMinAngle(float angle) {
 		TWIST_MIN_ANGLE.set(jphSwingTwistConstraintSettings, angle);
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋]. 
+	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋].
 	 */
 	public float getTwistMinAngle() {
 		return (float) TWIST_MIN_ANGLE.get(jphSwingTwistConstraintSettings);
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋]. 
+	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋].
 	 */
 	public void setTwistMaxAngle(float angle) {
 		TWIST_MAX_ANGLE.set(jphSwingTwistConstraintSettings, angle);
 	}
 
 	/**
-	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋]. 
+	 * See image at Detailed Description. Angle in radians. Should be ∈[−𝜋,𝜋].
 	 */
 	public float getTwistMaxAngle() {
 		return (float) TWIST_MAX_ANGLE.get(jphSwingTwistConstraintSettings);
 	}
 
 	/**
-	 * Maximum amount of torque (N m) to apply as friction when the constraint is not powered by a motor. 
+	 * Maximum amount of torque (N m) to apply as friction when the constraint is
+	 * not powered by a motor.
 	 */
 	public void setMaxFrictionTorque(float torque) {
 		MAX_FRICTION_TORQUE.set(jphSwingTwistConstraintSettings, torque);
 	}
 
 	/**
-	 * Maximum amount of torque (N m) to apply as friction when the constraint is not powered by a motor. 
+	 * Maximum amount of torque (N m) to apply as friction when the constraint is
+	 * not powered by a motor.
 	 */
 	public float getMaxFrictionTorque() {
 		return (float) MAX_FRICTION_TORQUE.get(jphSwingTwistConstraintSettings);

@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -32,7 +32,7 @@ public sealed class VehicleCollisionTester
 	protected VehicleCollisionTester(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected VehicleCollisionTester(MemorySegment segment, Arena arena) {
 		jphVehicleCollisionTester = segment.reinterpret(arena, s -> destroy(s));
 	}
@@ -42,7 +42,8 @@ public sealed class VehicleCollisionTester
 			MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy vehicle collision tester.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy vehicle collision tester: " + className);
 		}
 	}
 
@@ -55,7 +56,8 @@ public sealed class VehicleCollisionTester
 			MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_GET_OBJECT_LAYER;
 			return (int) method.invokeExact(jphVehicleCollisionTester);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get object layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get object layer: " + className);
 		}
 	}
 
@@ -68,7 +70,8 @@ public sealed class VehicleCollisionTester
 			MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_SET_OBJECT_LAYER;
 			method.invokeExact(jphVehicleCollisionTester, layer);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set object layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set object layer: " + className);
 		}
 	}
 

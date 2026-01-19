@@ -19,7 +19,7 @@ import volucris.engine.physics.jolt.body.BodyEnums.MotionType;
 import volucris.engine.physics.jolt.body.BodyEnums.MotionQuality;
 import volucris.engine.physics.jolt.body.BodyEnums.OverrideMassProperties;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -178,7 +178,8 @@ public final class BodyCreationSettings {
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphBodyCreationSettings = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BodyCreationSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BodyCreationSettings: " + className);
 		}
 	}
 
@@ -206,7 +207,8 @@ public final class BodyCreationSettings {
 			MemorySegment segment = (MemorySegment) method.invokeExact(settAddr, posAddr, rotAddr, mtId, objectLayer);
 			jphBodyCreationSettings = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BodyCreationSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BodyCreationSettings: " + className);
 		}
 	}
 
@@ -235,7 +237,8 @@ public final class BodyCreationSettings {
 			MemorySegment segment = (MemorySegment) method.invokeExact(shapeAddr, posAddr, rotAddr, mtId, objectLayer);
 			jphBodyCreationSettings = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create BodyCreationSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create BodyCreationSettings: " + className);
 		}
 
 	}
@@ -244,7 +247,8 @@ public final class BodyCreationSettings {
 		try {
 			JPH_BODY_CREATION_SETTINGS_DESTROY.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy BodyCreationSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy BodyCreationSettings: " + className);
 		}
 	}
 
@@ -257,7 +261,8 @@ public final class BodyCreationSettings {
 			method.invokeExact(jphBodyCreationSettings, vecTmp.memorySegment());
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get position: " + className);
 		}
 	}
 
@@ -285,7 +290,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_POSITION;
 			method.invokeExact(jphBodyCreationSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set position: " + className);
 		}
 	}
 
@@ -298,7 +304,8 @@ public final class BodyCreationSettings {
 			method.invokeExact(jphBodyCreationSettings, quatTmp.memorySegment());
 			return quatTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get rotation: " + className);
 		}
 	}
 
@@ -319,7 +326,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ROTATION;
 			method.invokeExact(jphBodyCreationSettings, quatTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set rotation: " + className);
 		}
 	}
 
@@ -332,7 +340,8 @@ public final class BodyCreationSettings {
 			method.invokeExact(jphBodyCreationSettings, vecTmp.memorySegment());
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get linear velocity: " + className);
 		}
 	}
 
@@ -360,7 +369,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_LINEAR_VELOCITY;
 			method.invokeExact(jphBodyCreationSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set linear velocity: " + className);
 		}
 	}
 
@@ -373,7 +383,8 @@ public final class BodyCreationSettings {
 			method.invokeExact(jphBodyCreationSettings, vecTmp.memorySegment());
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get angular velocity: " + className);
 		}
 	}
 
@@ -401,7 +412,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ANGULAR_VELOCITY;
 			method.invokeExact(jphBodyCreationSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set angular velocity: " + className);
 		}
 	}
 
@@ -413,7 +425,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_USER_DATA;
 			return (long) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get user data: " + className);
 		}
 	}
 
@@ -425,7 +438,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_USER_DATA;
 			method.invokeExact(jphBodyCreationSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set user data: " + className);
 		}
 	}
 
@@ -438,7 +452,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_OBJECT_LAYER;
 			return (int) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get object layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get object layer: " + className);
 		}
 	}
 
@@ -451,7 +466,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_OBJECT_LAYER;
 			method.invokeExact(jphBodyCreationSettings, objectLayer);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set object layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set object layer: " + className);
 		}
 	}
 
@@ -465,7 +481,8 @@ public final class BodyCreationSettings {
 			method.invokeExact(jphBodyCreationSettings, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get collision group.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get collision group: " + className);
 		}
 	}
 
@@ -486,7 +503,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_COLLISION_GROUP;
 			method.invokeExact(jphBodyCreationSettings, collisionGroup.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set collision group.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set collision group: " + className);
 		}
 	}
 
@@ -505,7 +523,8 @@ public final class BodyCreationSettings {
 			else
 				return MotionType.STATIC;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motion type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motion type: " + className);
 		}
 	}
 
@@ -517,7 +536,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_MOTION_TYPE;
 			method.invokeExact(jphBodyCreationSettings, motionType.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motion type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motion type: " + className);
 		}
 	}
 
@@ -530,7 +550,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ALLOWED_DOFS;
 			return (int) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get allowed DOFs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get allowed DOFs: " + className);
 		}
 	}
 
@@ -543,7 +564,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ALLOWED_DOFS;
 			method.invokeExact(jphBodyCreationSettings, allowedDOFs.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set allowed DOFs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set allowed DOFs: " + className);
 		}
 	}
 
@@ -560,7 +582,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ALLOWED_DOFS;
 			method.invokeExact(jphBodyCreationSettings, mask);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set allowed DOFs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set allowed DOFs: " + className);
 		}
 	}
 
@@ -572,7 +595,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ALLOW_DYNAMIC_OR_KINEMATIC;
 			return (boolean) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if dynamic or kinematic is allowed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if dynamic or kinematic is allowed: " + className);
 		}
 	}
 
@@ -586,7 +610,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ALLOW_DYNAMIC_OR_KINEMATIC;
 			method.invokeExact(jphBodyCreationSettings, allowDynamicOrKinematic);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set dynamic or kinematic allowed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set dynamic or kinematic allowed: " + className);
 		}
 	}
 
@@ -600,7 +625,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_IS_SENSOR;
 			return (boolean) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if is sensor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if is sensor: " + className);
 		}
 	}
 
@@ -612,7 +638,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_IS_SENSOR;
 			method.invokeExact(jphBodyCreationSettings, isSensor);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set sensor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set sensor: " + className);
 		}
 	}
 
@@ -624,7 +651,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC;
 			return (boolean) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call getCollideKinematicVsNonDynamic.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getCollideKinematicVsNonDynamic: " + className);
 		}
 	}
 
@@ -638,7 +666,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC;
 			method.invokeExact(jphBodyCreationSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call setCollideKinematicVsNonDynamic.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setCollideKinematicVsNonDynamic: " + className);
 		}
 	}
 
@@ -651,7 +680,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_USE_MANIFOLD_REDUCTION;
 			return (boolean) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if manifold reduction is used.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if manifold reduction is used: " + className);
 		}
 	}
 
@@ -663,7 +693,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_USE_MANIFOLD_REDUCTION;
 			method.invokeExact(jphBodyCreationSettings, useManifoldReduction);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set if manifold reduction is used.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set if manifold reduction is used: " + className);
 		}
 	}
 
@@ -675,7 +706,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_APPLY_GYROSCOPIC_FORCE;
 			return (boolean) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ApplyGyroscopicForce.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ApplyGyroscopicForce: " + className);
 		}
 	}
 
@@ -690,7 +722,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_APPLY_GYROSCOPIC_FORCE;
 			method.invokeExact(jphBodyCreationSettings, applyGyroscopicForce);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set ApplyGyroscopicForce.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set ApplyGyroscopicForce: " + className);
 		}
 	}
 
@@ -709,7 +742,8 @@ public final class BodyCreationSettings {
 				return MotionQuality.LINEAR_CAST;
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motion quality.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motion quality: " + className);
 		}
 	}
 
@@ -722,7 +756,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_MOTION_QUALITY;
 			method.invokeExact(jphBodyCreationSettings, motionQuality.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motion quality.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motion quality: " + className);
 		}
 	}
 
@@ -736,7 +771,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ENHANCED_INTERNAL_EDGE_REMOVAL;
 			return (boolean) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get EnhancedInternalEdgeRemoval.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get EnhancedInternalEdgeRemoval: " + className);
 		}
 	}
 
@@ -748,7 +784,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ENHANCED_INTERNAL_EDGE_REMOVAL;
 			method.invokeExact(jphBodyCreationSettings, enhancedInternalEdgeRemoval);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set EnhancedInternalEdgeRemoval.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set EnhancedInternalEdgeRemoval: " + className);
 		}
 	}
 
@@ -760,7 +797,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ALLOW_SLEEPING;
 			return (boolean) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get allow sleeping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get allow sleeping: " + className);
 		}
 	}
 
@@ -772,7 +810,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ALLOW_SLEEPING;
 			method.invokeExact(jphBodyCreationSettings, allowSleeping);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set allow sleeping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set allow sleeping: " + className);
 		}
 	}
 
@@ -787,7 +826,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_FRICTION;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get friction: " + className);
 		}
 	}
 
@@ -799,7 +839,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_FRICTION;
 			method.invokeExact(jphBodyCreationSettings, friction);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set friction: " + className);
 		}
 	}
 
@@ -815,7 +856,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_RESTITUTION;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get restitution.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get restitution: " + className);
 		}
 	}
 
@@ -827,7 +869,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_RESTITUTION;
 			method.invokeExact(jphBodyCreationSettings, restitution);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set restitution.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set restitution: " + className);
 		}
 	}
 
@@ -840,7 +883,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_LINEAR_DAMPING;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get linear damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get linear damping: " + className);
 		}
 	}
 
@@ -852,7 +896,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_LINEAR_DAMPING;
 			method.invokeExact(jphBodyCreationSettings, linearDamping);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set linear damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set linear damping: " + className);
 		}
 	}
 
@@ -865,7 +910,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ANGULAR_DAMPING;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get angular damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get angular damping: " + className);
 		}
 	}
 
@@ -877,7 +923,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_ANGULAR_DAMPING;
 			method.invokeExact(jphBodyCreationSettings, angularDamping);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set angular damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set angular damping: " + className);
 		}
 	}
 
@@ -889,7 +936,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_MAX_LINEAR_VELOCITY;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max linear velocity: " + className);
 		}
 	}
 
@@ -901,7 +949,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_MAX_LINEAR_VELOCITY;
 			method.invokeExact(jphBodyCreationSettings, maxLinearVelocity);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max linear velocity: " + className);
 		}
 	}
 
@@ -913,7 +962,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_MAX_ANGULAR_VELOCITY;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max angular velocity: " + className);
 		}
 	}
 
@@ -925,7 +975,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_MAX_ANGULAR_VELOCITY;
 			method.invokeExact(jphBodyCreationSettings, maxAngularVelocity);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max angular velocity: " + className);
 		}
 	}
 
@@ -937,7 +988,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_GRAVITY_FACTOR;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get gravity factor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get gravity factor: " + className);
 		}
 	}
 
@@ -949,7 +1001,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_GRAVITY_FACTOR;
 			method.invokeExact(jphBodyCreationSettings, gravityFactor);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set gravity factor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set gravity factor: " + className);
 		}
 	}
 
@@ -964,7 +1017,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_NUM_VELOCITY_STEPS_OVERRIDE;
 			return (int) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get number of velocity steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get number of velocity steps override: " + className);
 		}
 	}
 
@@ -976,7 +1030,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_NUM_VELOCITY_STEPS_OVERRIDE;
 			method.invokeExact(jphBodyCreationSettings, numVelocityStepOverride);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set  number of velocity steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set  number of velocity steps override: " + className);
 		}
 	}
 
@@ -991,7 +1046,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_NUM_POSITION_STEPS_OVERRIDE;
 			return (int) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get number of position steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get number of position steps override: " + className);
 		}
 	}
 
@@ -1003,7 +1059,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_NUM_POSITION_STEPS_OVERRIDE;
 			method.invokeExact(jphBodyCreationSettings, numPositionStepsOverride);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set number of position steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set number of position steps override: " + className);
 		}
 	}
 
@@ -1023,7 +1080,8 @@ public final class BodyCreationSettings {
 				return OverrideMassProperties.MASS_AND_INERTIA_PROVIDED;
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get override mass properties.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get override mass properties: " + className);
 		}
 	}
 
@@ -1035,7 +1093,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_OVERRIDE_MASS_PROPERTIES;
 			method.invokeExact(jphBodyCreationSettings, overrideMassProperties.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set override mass properties.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set override mass properties: " + className);
 		}
 	}
 
@@ -1048,7 +1107,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_INERTIA_MULTIPLIER;
 			return (float) method.invokeExact(jphBodyCreationSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inertia multiplier.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inertia multiplier: " + className);
 		}
 	}
 
@@ -1061,7 +1121,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_INERTIA_MULTIPLIER;
 			method.invokeExact(jphBodyCreationSettings, inertiaMultiplier);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set inertia multiplier.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set inertia multiplier: " + className);
 		}
 	}
 
@@ -1075,7 +1136,8 @@ public final class BodyCreationSettings {
 			method.invokeExact(jphBodyCreationSettings, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get mass properties override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get mass properties override: " + className);
 		}
 	}
 
@@ -1096,7 +1158,8 @@ public final class BodyCreationSettings {
 			MethodHandle method = JPH_BODY_CREATION_SETTINGS_SET_MASS_PROPERTIES_OVERRIDE;
 			method.invokeExact(jphBodyCreationSettings, massProperties.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set mass properties override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set mass properties override: " + className);
 		}
 	}
 

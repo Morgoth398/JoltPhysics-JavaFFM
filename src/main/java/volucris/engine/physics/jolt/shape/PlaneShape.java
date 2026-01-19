@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.PhysicsMaterial;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -35,7 +35,7 @@ public final class PlaneShape extends Shape {
 	protected PlaneShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected PlaneShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -43,7 +43,7 @@ public final class PlaneShape extends Shape {
 	protected PlaneShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected PlaneShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
@@ -51,7 +51,7 @@ public final class PlaneShape extends Shape {
 	public PlaneShape(Plane plane, float halfExtent) {
 		this(plane, halfExtent, Arena.ofAuto());
 	}
-	
+
 	public PlaneShape(Plane plane, float halfExtent, Arena arena) {
 		this(plane, null, halfExtent, arena);
 	}
@@ -59,7 +59,7 @@ public final class PlaneShape extends Shape {
 	public PlaneShape(Plane plane, PhysicsMaterial material, float halfExtent) {
 		this(plane, material, halfExtent, Arena.ofAuto());
 	}
-	
+
 	public PlaneShape(Plane plane, PhysicsMaterial material, float halfExtent, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -69,7 +69,8 @@ public final class PlaneShape extends Shape {
 			MethodHandle method = JPH_PLANE_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(planeAddr, matAddr, halfExtent);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create plane shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create plane shape: " + className);
 		}
 		super(segment, arena);
 	}
@@ -80,7 +81,8 @@ public final class PlaneShape extends Shape {
 			method.invokeExact(jphShape, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get plane.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get plane: " + className);
 		}
 	}
 
@@ -96,7 +98,8 @@ public final class PlaneShape extends Shape {
 			MethodHandle method = JPH_PLANE_SHAPE_GET_HALF_EXTENT;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get half extent.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get half extent: " + className);
 		}
 	}
 

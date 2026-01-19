@@ -14,7 +14,7 @@ import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.vehicle.VehicleCollisionTester;
 import volucris.engine.physics.jolt.vehicle.VehicleController;
 import volucris.engine.physics.jolt.vehicle.Wheel;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -110,7 +110,7 @@ public final class VehicleConstraint extends Constraint {
 	public VehicleConstraint(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	public VehicleConstraint(MemorySegment segment, Arena arena) {
 		super(segment, arena, false);
 
@@ -123,7 +123,7 @@ public final class VehicleConstraint extends Constraint {
 	public VehicleConstraint(Body body, VehicleConstraintSettings settings) {
 		this(body, settings, Arena.ofAuto());
 	}
-	
+
 	public VehicleConstraint(Body body, VehicleConstraintSettings settings, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -133,7 +133,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(bodyAddr, settingsAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create vehicle constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create vehicle constraint: " + className);
 		}
 		super(segment, arena);
 
@@ -148,7 +149,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_AS_PHYSICS_STEP_LISTENER;
 			return (MemorySegment) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call asPhysicsStepListener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call asPhysicsStepListener: " + className);
 		}
 	}
 
@@ -163,7 +165,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_SET_MAX_PITCH_ROLL_ANGLE;
 			method.invokeExact(jphConstraint, maxPitchRollAngle);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max pitch roll angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max pitch roll angle: " + className);
 		}
 	}
 
@@ -175,7 +178,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_SET_VEHICLE_COLLISION_TESTER;
 			method.invokeExact(jphConstraint, tester.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set vehicle collision tester.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set vehicle collision tester: " + className);
 		}
 	}
 
@@ -191,7 +195,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_OVERRIDE_GRAVITY;
 			method.invokeExact(jphConstraint, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot override gravity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot override gravity: " + className);
 		}
 	}
 
@@ -203,7 +208,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_IS_GRAVITY_OVERRIDDEN;
 			return (boolean) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot chec if gravity is overridden.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot chec if gravity is overridden: " + className);
 		}
 	}
 
@@ -217,7 +223,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get gravity override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get gravity override: " + className);
 		}
 	}
 
@@ -237,7 +244,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_RESET_GRAVITY_OVERRIDE;
 			method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot reset gravity override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot reset gravity override: " + className);
 		}
 	}
 
@@ -251,7 +259,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local forward.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local forward: " + className);
 		}
 	}
 
@@ -272,7 +281,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local up.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local up: " + className);
 		}
 	}
 
@@ -294,7 +304,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get world up.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get world up: " + className);
 		}
 	}
 
@@ -323,7 +334,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get vehicle body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get vehicle body: " + className);
 		}
 	}
 
@@ -345,7 +357,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return new VehicleController(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get controller.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get controller: " + className);
 		}
 	}
 
@@ -357,7 +370,8 @@ public final class VehicleConstraint extends Constraint {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEELS_COUNT;
 			return (int) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheels count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheels count: " + className);
 		}
 	}
 
@@ -378,7 +392,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return new Wheel(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheel.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheel: " + className);
 		}
 	}
 
@@ -407,7 +422,8 @@ public final class VehicleConstraint extends Constraint {
 			vecTmp3.get(outRight);
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheel local basis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheel local basis: " + className);
 		}
 	}
 
@@ -439,7 +455,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheel local transform.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheel local transform: " + className);
 		}
 	}
 
@@ -477,7 +494,8 @@ public final class VehicleConstraint extends Constraint {
 
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get wheel world transform.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get wheel world transform: " + className);
 		}
 	}
 

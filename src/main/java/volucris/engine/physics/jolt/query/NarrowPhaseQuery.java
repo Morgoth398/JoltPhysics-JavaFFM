@@ -27,7 +27,7 @@ import volucris.engine.physics.jolt.raycast.RayCastResult;
 import volucris.engine.physics.jolt.raycast.RayCastSettings;
 import volucris.engine.physics.jolt.raycast.ShapeCastSettings;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -74,7 +74,7 @@ public final class NarrowPhaseQuery {
 	public NarrowPhaseQuery(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	public NarrowPhaseQuery(MemorySegment segment, Arena arena) {
 		jphNarrowPhaseQuery = segment;
 
@@ -108,7 +108,8 @@ public final class NarrowPhaseQuery {
 			MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_RAY;
 			return (boolean) method.invokeExact(query, origAddr, dirAddr, hitAddr, filt1, filt2, filt3);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast ray.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast ray: " + className);
 		}
 	}
 
@@ -149,7 +150,8 @@ public final class NarrowPhaseQuery {
 			MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_RAY2;
 			return (boolean) method.invokeExact(query, orig, dir, settAddr, callAddr, data, filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast ray.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast ray: " + className);
 		}
 	}
 
@@ -191,7 +193,8 @@ public final class NarrowPhaseQuery {
 			MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_RAY3;
 			return (boolean) method.invokeExact(query, orig, dir, sett, type, call, data, filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast ray.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast ray: " + className);
 		}
 	}
 
@@ -231,7 +234,8 @@ public final class NarrowPhaseQuery {
 			MethodHandle method = JPH_NARROW_PHASE_QUERY_COLLIDE_POINT;
 			return (boolean) method.invokeExact(query, pointAddr, callAddr, data, filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call collide point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call collide point: " + className);
 		}
 	}
 
@@ -257,7 +261,8 @@ public final class NarrowPhaseQuery {
 			MethodHandle method = JPH_NARROW_PHASE_QUERY_COLLIDE_POINT2;
 			return (boolean) method.invokeExact(query, pointAddr, type, callAddr, data, filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call collide point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call collide point: " + className);
 		}
 	}
 
@@ -322,7 +327,8 @@ public final class NarrowPhaseQuery {
 			return (boolean) method.invokeExact(query, shapeAddr, scaleAddr, matAddr, settAddr, offAddr, callAddr, data,
 					filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call collide shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call collide shape: " + className);
 		}
 	}
 
@@ -357,7 +363,8 @@ public final class NarrowPhaseQuery {
 			return (boolean) method.invokeExact(query, shapeAddr, scaleAddr, matAddr, settAddr, offAddr, type, callAddr,
 					userData, filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call collideShape2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call collideShape2: " + className);
 		}
 	}
 
@@ -394,7 +401,8 @@ public final class NarrowPhaseQuery {
 			return (boolean) method.invokeExact(query, shapeAddr, matAddr, dirAddr, settAddr, offAddr, callAddr,
 					userData, filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast shape: " + className);
 		}
 	}
 
@@ -430,7 +438,8 @@ public final class NarrowPhaseQuery {
 			return (boolean) method.invokeExact(query, shapeAddr, matAddr, dirAddr, settAddr, offAddr, type, callAddr,
 					userData, filt1, filt2, filt3, filt4);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call cast shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call cast shape: " + className);
 		}
 	}
 

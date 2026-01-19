@@ -48,7 +48,7 @@ public final class CollisionGroup {
 	public CollisionGroup() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CollisionGroup(Arena arena) {
 		jphCollisionGroup = arena.allocate(LAYOUT);
 	}
@@ -56,7 +56,7 @@ public final class CollisionGroup {
 	public CollisionGroup(GroupFilter groupFilter, int groupId, int subGroupId) {
 		this(groupFilter, groupId, subGroupId, Arena.ofAuto());
 	}
-	
+
 	public CollisionGroup(GroupFilter groupFilter, int groupId, int subGroupId, Arena arena) {
 		jphCollisionGroup = arena.allocate(LAYOUT);
 
@@ -64,21 +64,21 @@ public final class CollisionGroup {
 		GROUP_ID.set(jphCollisionGroup, groupId);
 		SUB_GROUP_ID.set(jphCollisionGroup, subGroupId);
 	}
-	
+
 	/**
-	 * Get the main group id for this object. 
+	 * Get the main group id for this object.
 	 */
 	public int getGroupId() {
 		return (int) GROUP_ID.get(jphCollisionGroup);
 	}
-	
+
 	/**
-	 * Set the main group id for this object. 
+	 * Set the main group id for this object.
 	 */
 	public void setGroupId(int groupId) {
 		GROUP_ID.set(jphCollisionGroup, groupId);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -87,14 +87,14 @@ public final class CollisionGroup {
 	}
 
 	/**
-	 * Add this object to a sub group. 
+	 * Add this object to a sub group.
 	 */
 	public void setSubGroupId(int subGroupId) {
 		SUB_GROUP_ID.set(jphCollisionGroup, subGroupId);
 	}
 
 	/**
-	 * Set the collision group filter. 
+	 * Set the collision group filter.
 	 * <p>
 	 * The previous filter will not be destroyed!
 	 * 
@@ -105,7 +105,7 @@ public final class CollisionGroup {
 	}
 
 	/**
-	 * Get the collision group filter. 
+	 * Get the collision group filter.
 	 */
 	public GroupFilter getGroupFilter() {
 		MemorySegment segment = (MemorySegment) GROUP_FILTER.get(jphCollisionGroup);

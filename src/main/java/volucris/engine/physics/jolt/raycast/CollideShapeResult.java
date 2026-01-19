@@ -10,7 +10,7 @@ import java.lang.invoke.VarHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -102,7 +102,8 @@ public final class CollideShapeResult {
 			MethodHandle method = JPH_COLLIDE_SHAPE_RESULTS_FREE_MEMBERS;
 			method.invokeExact(jphCollideShapeResult);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot free members.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot free members: " + className);
 		}
 	}
 

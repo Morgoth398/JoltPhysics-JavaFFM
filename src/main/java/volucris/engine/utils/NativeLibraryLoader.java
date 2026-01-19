@@ -1,5 +1,6 @@
 package volucris.engine.utils;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +11,6 @@ import java.nio.file.StandardCopyOption;
 import org.lwjgl.Version;
 import org.lwjgl.system.Configuration;
 import org.tinylog.Logger;
-
-import volucris.engine.files.VolucrisFiles;
 
 public final class NativeLibraryLoader {
 
@@ -73,10 +72,10 @@ public final class NativeLibraryLoader {
 	public static void loadLibrary(String sourcePath, String name) {
 		if (IS_APPLE || !LOAD_LIBRARY)
 			return;
-		
+
 		String fileName = IS_WINDOWS ? name + ".dll" : "lib" + name + ".so";
 		String internalPath = sourcePath + File.separator + fileName;
-		InputStream sharedLibraryStream = VolucrisFiles.internal(internalPath).getInputStream();
+		InputStream sharedLibraryStream = getInputStream(internalPath);
 
 		for (int i = 0; i < EXTRACT_PATHS.length; i++) {
 
@@ -89,7 +88,7 @@ public final class NativeLibraryLoader {
 			if (extract(path, sharedLibraryStream)) {
 				System.load(path.toString());
 
-				VolucrisUtils.closeQuietly(sharedLibraryStream);
+				closeQuietly(sharedLibraryStream);
 
 				if (DEBUG)
 					Logger.debug("Native Library Path: " + completePath);
@@ -98,13 +97,13 @@ public final class NativeLibraryLoader {
 			}
 		}
 
-		VolucrisUtils.closeQuietly(sharedLibraryStream);
-		throw new VolucrisRuntimeException("Failed to extract and load native library.");
+		closeQuietly(sharedLibraryStream);
+		throw new JoltRuntimeException("Failed to extract and load native library. ");
 	}
 
 	private static boolean extract(Path path, InputStream stream) {
 		if (!Files.exists(path) || REPLACE_EXISTING) {
-			VolucrisFiles.absolute(path.toString());
+			createDirectoryAndFile(path);
 			try {
 				Files.copy(stream, path, StandardCopyOption.REPLACE_EXISTING);
 			} catch (IOException e) {
@@ -112,6 +111,39 @@ public final class NativeLibraryLoader {
 			}
 		}
 		return true;
+	}
+
+	private static InputStream getInputStream(String internalPath) {
+		String path = internalPath.replace('\\', '/');
+		InputStream inputStream = NativeLibraryLoader.class.getResourceAsStream("/" + path);
+		if (inputStream == null)
+			throw new JoltRuntimeException("File not found: " + path);
+		return inputStream;
+	}
+
+	private static void createDirectoryAndFile(Path path) {
+		if (Files.exists(path))
+			return;
+		try {
+			if (path.toString().contains(".")) {
+				Path parent = path.getParent();
+				if (parent != null)
+					Files.createDirectories(path.getParent());
+				Files.createFile(path);
+			} else {
+				Files.createDirectories(path);
+			}
+		} catch (IOException e) {
+		}
+	}
+
+	public static void closeQuietly(Closeable closeable) {
+		if (closeable == null)
+			return;
+		try {
+			closeable.close();
+		} catch (Exception e) {
+		}
 	}
 
 }

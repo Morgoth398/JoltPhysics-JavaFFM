@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -37,7 +37,7 @@ public sealed class CompoundShapeSettings extends ShapeSettings
 	protected CompoundShapeSettings(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected CompoundShapeSettings(MemorySegment segment, Arena arena) {
 		super(segment, arena);
 
@@ -59,7 +59,8 @@ public sealed class CompoundShapeSettings extends ShapeSettings
 			MethodHandle method = JPH_COMPOUND_SHAPE_SETTINGS_ADD_SHAPE;
 			method.invokeExact(jphShapeSettings, posAddr, quatAddr, shapeSettings.memorySegment(), userData);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add shape: " + className);
 		}
 	}
 
@@ -77,7 +78,8 @@ public sealed class CompoundShapeSettings extends ShapeSettings
 			MethodHandle method = JPH_COMPOUND_SHAPE_SETTINGS_ADD_SHAPE2;
 			method.invokeExact(jphShapeSettings, posAddr, quatAddr, shape.memorySegment(), userData);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add shape: " + className);
 		}
 	}
 

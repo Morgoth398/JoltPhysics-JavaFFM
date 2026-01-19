@@ -11,7 +11,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -101,7 +101,7 @@ public final class SliderConstraintSettings extends TwoBodyConstraintSettings {
 	public SliderConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SliderConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -128,7 +128,8 @@ public final class SliderConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphSliderConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize slider constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize slider constraint settings: " + className);
 		}
 	}
 
@@ -143,7 +144,8 @@ public final class SliderConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_SLIDER_CONSTRAINT_SETTINGS_SET_SLIDER_AXIS;
 			method.invokeExact(jphSliderConstraintSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set slider axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set slider axis: " + className);
 		}
 	}
 
@@ -159,7 +161,7 @@ public final class SliderConstraintSettings extends TwoBodyConstraintSettings {
 				return space;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for constraint space.");
+		throw new JoltRuntimeException("Wrong value for constraint space");
 	}
 
 	/**

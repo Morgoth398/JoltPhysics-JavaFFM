@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.body.Body;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -35,15 +35,15 @@ public final class FixedConstraint extends TwoBodyConstraint {
 	protected FixedConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected FixedConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	public FixedConstraint(FixedConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	public FixedConstraint(FixedConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -54,7 +54,8 @@ public final class FixedConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_FIXED_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create fixed constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create fixed constraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -69,7 +70,8 @@ public final class FixedConstraint extends TwoBodyConstraint {
 			method.invokeExact(jphConstraint, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -91,7 +93,8 @@ public final class FixedConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position: " + className);
 		}
 	}
 
@@ -113,7 +116,8 @@ public final class FixedConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda rotation: " + className);
 		}
 	}
 

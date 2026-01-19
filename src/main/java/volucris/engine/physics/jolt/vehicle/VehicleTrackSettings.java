@@ -10,13 +10,13 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.StructLayout;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 /**
  *  
  */
 public final class VehicleTrackSettings {
-	
+
 	private static final StructLayout LAYOUT;
 
 	private static final VarHandle DRIVEN_WHEEL;
@@ -58,21 +58,22 @@ public final class VehicleTrackSettings {
 	private final MemorySegment jphVehicleTrackSettings;
 
 	private Arena arena;
-	
+
 	public VehicleTrackSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleTrackSettings(Arena arena) {
 		this.arena = arena;
-		
+
 		jphVehicleTrackSettings = arena.allocate(LAYOUT);
-		
+
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_SETTINGS_INIT;
 			method.invokeExact(jphVehicleTrackSettings);
-		} catch(Throwable throwable) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call init.");
+		} catch (Throwable throwable) {
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call init: " + className);
 		}
 	}
 

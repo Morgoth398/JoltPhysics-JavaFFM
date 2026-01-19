@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -34,7 +34,7 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
 	protected OffsetCenterOfMassShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected OffsetCenterOfMassShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -42,7 +42,7 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
 	protected OffsetCenterOfMassShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected OffsetCenterOfMassShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -52,7 +52,7 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
 	public OffsetCenterOfMassShape(Vector3f offset, Shape shape) {
 		this(offset, shape, Arena.ofAuto());
 	}
-	
+
 	public OffsetCenterOfMassShape(Vector3f offset, Shape shape, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -61,13 +61,14 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
 			MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(vec.memorySegment(), shape.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create OffsetCenterOfMassShape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create OffsetCenterOfMassShape: " + className);
 		}
 		super(segment, arena);
 	}
 
 	/**
-	 * Access the offset that is applied to the center of mass. 
+	 * Access the offset that is applied to the center of mass.
 	 */
 	public Vector3f getOffset(Vector3f target) {
 		try {
@@ -76,7 +77,8 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get offset.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get offset: " + className);
 		}
 	}
 

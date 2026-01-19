@@ -7,13 +7,13 @@ import java.lang.Throwable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 /**
  *  
  */
 public final class VehicleTrack {
-	
+
 	private static final MethodHandle JPH_VEHICLE_TRACK_GET_ANGULAR_VELOCITY;
 	private static final MethodHandle JPH_VEHICLE_TRACK_SET_ANGULAR_VELOCITY;
 	private static final MethodHandle JPH_VEHICLE_TRACK_GET_DRIVEN_WHEEL;
@@ -35,19 +35,19 @@ public final class VehicleTrack {
 	}
 
 	private final MemorySegment jphVehicleTrack;
-	
+
 	public VehicleTrack() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleTrack(Arena arena) {
 		jphVehicleTrack = arena.allocate(ADDRESS);
 	}
-	
+
 	public void set(MemorySegment segment) {
 		jphVehicleTrack.setAtIndex(ADDRESS, 0, segment);
 	}
-	
+
 	/**
 	 *  
 	 */
@@ -55,9 +55,9 @@ public final class VehicleTrack {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_VELOCITY;
 			return (float) method.invokeExact(memorySegment());
-		} catch(Throwable e) {
+		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Cannot call getAngularVelocity: " + className);
+			throw new JoltRuntimeException("Cannot call getAngularVelocity: " + className);
 		}
 	}
 
@@ -68,9 +68,9 @@ public final class VehicleTrack {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_SET_ANGULAR_VELOCITY;
 			method.invokeExact(memorySegment(), velocity);
-		} catch(Throwable e) {
+		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Cannot call setAngularVelocity: " + className);
+			throw new JoltRuntimeException("Cannot call setAngularVelocity: " + className);
 		}
 	}
 
@@ -81,9 +81,9 @@ public final class VehicleTrack {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_GET_DRIVEN_WHEEL;
 			return (int) method.invokeExact(memorySegment());
-		} catch(Throwable e) {
+		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Cannot call getDrivenWheel: " + className);
+			throw new JoltRuntimeException("Cannot call getDrivenWheel: " + className);
 		}
 	}
 
@@ -94,9 +94,9 @@ public final class VehicleTrack {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_GET_INERTIA;
 			return (float) method.invokeExact(memorySegment());
-		} catch(Throwable e) {
+		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Cannot call getInertia: " + className);
+			throw new JoltRuntimeException("Cannot call getInertia: " + className);
 		}
 	}
 
@@ -107,9 +107,9 @@ public final class VehicleTrack {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_DAMPING;
 			return (float) method.invokeExact(memorySegment());
-		} catch(Throwable e) {
+		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Cannot call getAngularDamping: " + className);
+			throw new JoltRuntimeException("Cannot call getAngularDamping: " + className);
 		}
 	}
 
@@ -120,9 +120,9 @@ public final class VehicleTrack {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_GET_MAX_BRAKE_TORQUE;
 			return (float) method.invokeExact(memorySegment());
-		} catch(Throwable e) {
+		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Cannot call getMaxBrakeTorque: " + className);
+			throw new JoltRuntimeException("Cannot call getMaxBrakeTorque: " + className);
 		}
 	}
 
@@ -133,9 +133,9 @@ public final class VehicleTrack {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRACK_GET_DIFFERENTIAL_RATIO;
 			return (float) method.invokeExact(memorySegment());
-		} catch(Throwable e) {
+		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Cannot call getDifferentialRatio: " + className);
+			throw new JoltRuntimeException("Cannot call getDifferentialRatio: " + className);
 		}
 	}
 

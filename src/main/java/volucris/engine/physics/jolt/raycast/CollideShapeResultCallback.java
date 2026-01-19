@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -23,13 +23,14 @@ public abstract class CollideShapeResultCallback {
 	private final MemorySegment callbackAddress;
 
 	private final CollideShapeResult result;
-	
+
 	static {
 		//@formatter:off
 		try {
 			LOOKUP = MethodHandles.privateLookupIn(CollideShapeResultCallback.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		CALLBACK_DESCR = functionDescrVoid(ADDRESS, ADDRESS.withTargetLayout(CollideShapeResult.LAYOUT()));
@@ -37,30 +38,30 @@ public abstract class CollideShapeResultCallback {
 		CALLBACK = upcallHandle(LOOKUP, CollideShapeResultCallback.class, "collideShapeResultCallback", CALLBACK_DESCR);
 		//@formatter:on
 	}
-	
+
 	public CollideShapeResultCallback() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CollideShapeResultCallback(Arena arena) {
 		callbackAddress = upcallStub(this, CALLBACK, CALLBACK_DESCR, arena);
-		
+
 		result = new CollideShapeResult(arena);
 	}
-	
+
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	public abstract void collideShapeResultCallback(MemorySegment context, CollideShapeResult result);
-	
+
 	@SuppressWarnings("unused")
 	private void collideShapeResultCallback(MemorySegment context, MemorySegment result) {
 		this.result.set(result);
 		collideShapeResultCallback(context, this.result);
 	}
-	
+
 	public MemorySegment memorySegment() {
 		return callbackAddress;
 	}
-	
+
 }

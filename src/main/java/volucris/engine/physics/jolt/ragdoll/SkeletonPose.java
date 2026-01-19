@@ -1,6 +1,5 @@
 package volucris.engine.physics.jolt.ragdoll;
 
-import java.lang.RuntimeException;
 import java.lang.Throwable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -13,6 +12,7 @@ import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.math.Mat4;
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -69,7 +69,7 @@ public final class SkeletonPose {
 	public SkeletonPose() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SkeletonPose(Arena arena) {
 		try {
 			MethodHandle method = JPH_SKELETON_POSE_CREATE;
@@ -79,8 +79,9 @@ public final class SkeletonPose {
 			matTmp = new Mat4(arena);
 			quatTmp = new Quat(arena);
 			vecTmp = new Vec3(arena);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call create.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call create: " + className);
 		}
 	}
 
@@ -91,8 +92,9 @@ public final class SkeletonPose {
 		try {
 			MethodHandle method = JPH_SKELETON_POSE_DESTROY;
 			method.invokeExact(segment);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call destroy.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call destroy: " + className);
 		}
 	}
 
@@ -103,8 +105,9 @@ public final class SkeletonPose {
 		try {
 			MethodHandle method = JPH_SKELETON_POSE_SET_SKELETON;
 			method.invokeExact(jphSkeletonPose, skeleton.memorySegment());
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call setSkeleton.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setSkeleton: " + className);
 		}
 	}
 
@@ -124,8 +127,9 @@ public final class SkeletonPose {
 				return skeleton;
 
 			return new Skeleton(segment);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot get skeleton.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get skeleton: " + className);
 		}
 	}
 
@@ -139,8 +143,9 @@ public final class SkeletonPose {
 
 			MethodHandle method = JPH_SKELETON_POSE_SET_ROOT_OFFSET;
 			method.invokeExact(jphSkeletonPose, vecTmp.memorySegment());
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call setRootOffset.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setRootOffset: " + className);
 		}
 	}
 
@@ -154,8 +159,9 @@ public final class SkeletonPose {
 
 			vecTmp.get(target);
 			return target;
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getRootOffset.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getRootOffset: " + className);
 		}
 	}
 
@@ -170,8 +176,9 @@ public final class SkeletonPose {
 		try {
 			MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_COUNT;
 			return (int) method.invokeExact(jphSkeletonPose);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getJointCount.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getJointCount: " + className);
 		}
 	}
 
@@ -185,8 +192,9 @@ public final class SkeletonPose {
 
 			vecTmp.get(translation);
 			quatTmp.get(rotation);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getJointState.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getJointState: " + className);
 		}
 	}
 
@@ -200,8 +208,9 @@ public final class SkeletonPose {
 
 			MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_STATE;
 			method.invokeExact(jphSkeletonPose, index, vecTmp.memorySegment(), quatTmp.memorySegment());
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call setJointState.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setJointState: " + className);
 		}
 	}
 
@@ -215,8 +224,9 @@ public final class SkeletonPose {
 
 			matTmp.get(target);
 			return target;
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getJointMatrix.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getJointMatrix: " + className);
 		}
 	}
 
@@ -236,8 +246,9 @@ public final class SkeletonPose {
 
 			MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_MATRIX;
 			method.invokeExact(jphSkeletonPose, index, matTmp.memorySegment());
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call setJointMatrix.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setJointMatrix: " + className);
 		}
 	}
 
@@ -260,8 +271,9 @@ public final class SkeletonPose {
 
 				matTmp.get(matrices[i]);
 			}
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getJointMatrices.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getJointMatrices: " + className);
 		}
 	}
 
@@ -280,8 +292,9 @@ public final class SkeletonPose {
 
 			MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_MATRICES;
 			method.invokeExact(jphSkeletonPose, array, count);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call setJointMatrices.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setJointMatrices: " + className);
 		}
 	}
 
@@ -292,8 +305,9 @@ public final class SkeletonPose {
 		try {
 			MethodHandle method = JPH_SKELETON_POSE_CALCULATE_JOINT_MATRICES;
 			method.invokeExact(jphSkeletonPose);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call calculateJointMatrices.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call calculateJointMatrices: " + className);
 		}
 	}
 
@@ -304,8 +318,9 @@ public final class SkeletonPose {
 		try {
 			MethodHandle method = JPH_SKELETON_POSE_CALCULATE_JOINT_STATES;
 			method.invokeExact(jphSkeletonPose);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call calculateJointStates.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call calculateJointStates: " + className);
 		}
 	}
 
@@ -331,8 +346,9 @@ public final class SkeletonPose {
 				matTmp.get(matrices[i]);
 			}
 
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call calculateLocalSpaceJointMatrices.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call calculateLocalSpaceJointMatrices: " + className);
 		}
 	}
 
