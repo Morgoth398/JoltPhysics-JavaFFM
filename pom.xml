@@ -2,9 +2,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>JoltPhysics-JavaFFM</groupId>
+	<groupId>dev.morgoth398</groupId>
 	<artifactId>JoltPhysics-JavaFFM</artifactId>
-	<version>5.4.0</version>
+	<version>5.5.0</version>
 	<build>
 		<plugins>
 			<plugin>
@@ -72,7 +72,7 @@
 		</plugins>
 	</build>
 	<properties>
-		<lwjgl.version>3.3.6</lwjgl.version>
+		<lwjgl.version>3.4.0</lwjgl.version>
 		<joml.version>1.10.8</joml.version>
 		<lwjgl.windows.natives>natives-windows</lwjgl.windows.natives>
 		<lwjgl.linux.natives>natives-linux</lwjgl.linux.natives>
