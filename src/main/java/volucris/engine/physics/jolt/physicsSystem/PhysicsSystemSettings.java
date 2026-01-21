@@ -11,7 +11,7 @@ import volucris.engine.physics.jolt.objectLayerPairFilter.ObjectLayerPairFilter;
 import volucris.engine.physics.jolt.objectVsBroadPhaseLayerFilter.ObjectVsBroadPhaseLayerFilter;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 public final class PhysicsSystemSettings {
 

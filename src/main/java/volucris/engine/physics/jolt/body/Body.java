@@ -19,14 +19,13 @@ import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
 import volucris.engine.physics.jolt.shape.Shape;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 import volucris.engine.physics.jolt.body.BodyEnums.BodyType;
 import volucris.engine.physics.jolt.body.BodyEnums.MotionType;
 import volucris.engine.physics.jolt.JoltEnums.Activation;
 
-import volucris.engine.utils.JoltRuntimeException;
-
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 //@formatter:off
 /**

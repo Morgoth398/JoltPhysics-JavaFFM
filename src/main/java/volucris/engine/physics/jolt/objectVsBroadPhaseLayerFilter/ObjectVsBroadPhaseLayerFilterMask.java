@@ -1,7 +1,7 @@
 package volucris.engine.physics.jolt.objectVsBroadPhaseLayerFilter;
 
 import static java.lang.foreign.ValueLayout.ADDRESS;
-import static volucris.engine.utils.FFMUtils.downcallHandle;
+import static volucris.engine.physics.jolt.utils.FFMUtils.downcallHandle;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -9,7 +9,7 @@ import java.lang.invoke.MethodHandle;
 import volucris.engine.physics.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterface;
 import volucris.engine.physics.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterfaceMask;
 import volucris.engine.physics.jolt.objectLayerPairFilter.ObjectLayerPairFilterMask;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 /**
  * Class that determines if an object layer can collide with a broadphase layer.

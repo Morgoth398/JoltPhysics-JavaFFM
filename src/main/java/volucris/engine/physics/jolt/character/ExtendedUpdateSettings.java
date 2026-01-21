@@ -9,10 +9,10 @@ import java.lang.invoke.VarHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.MathUtils;
+import volucris.engine.physics.jolt.utils.MathUtils;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Settings struct with settings for ExtendedUpdate.

@@ -23,10 +23,10 @@ import volucris.engine.physics.jolt.raycast.RayCastResult;
 import volucris.engine.physics.jolt.raycast.RayCastSettings;
 import volucris.engine.physics.jolt.shape.ShapeEnums.ShapeSubType;
 import volucris.engine.physics.jolt.shape.ShapeEnums.ShapeType;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Base class for all shapes (collision volume of a body). Defines a virtual

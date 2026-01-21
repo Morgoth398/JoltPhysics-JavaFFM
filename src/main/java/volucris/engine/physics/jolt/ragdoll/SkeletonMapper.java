@@ -8,10 +8,10 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Matrix4f;
 
 import volucris.engine.physics.jolt.math.Mat4;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Class that is able to map a low detail (ragdoll) skeleton to a high detail

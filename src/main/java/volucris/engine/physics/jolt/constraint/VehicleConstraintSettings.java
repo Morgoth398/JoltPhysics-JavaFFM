@@ -10,13 +10,13 @@ import java.lang.invoke.VarHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 import volucris.engine.physics.jolt.vehicle.VehicleAntiRollBar;
 import volucris.engine.physics.jolt.vehicle.VehicleControllerSettings;
 import volucris.engine.physics.jolt.vehicle.WheelSettings;
-import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Configuration for constraint that simulates a wheeled vehicle.

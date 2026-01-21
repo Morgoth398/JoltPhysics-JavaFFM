@@ -6,10 +6,10 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.StructLayout;
 import java.lang.invoke.VarHandle;
 
-import volucris.engine.utils.MathUtils;
+import volucris.engine.physics.jolt.utils.MathUtils;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 public final class PhysicsSettings {
 

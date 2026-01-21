@@ -9,7 +9,7 @@ import java.lang.invoke.VarHandle;
 import org.joml.Quaternionf;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Quaternion class, quaternions are 4 dimensional vectors which can describe

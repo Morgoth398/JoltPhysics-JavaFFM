@@ -15,14 +15,13 @@ import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
 import volucris.engine.physics.jolt.shape.Shape;
 import volucris.engine.physics.jolt.shape.ShapeSettings;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 import volucris.engine.physics.jolt.body.BodyEnums.MotionType;
 import volucris.engine.physics.jolt.body.BodyEnums.MotionQuality;
 import volucris.engine.physics.jolt.body.BodyEnums.OverrideMassProperties;
 
-import volucris.engine.utils.JoltRuntimeException;
-
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Settings for constructing a rigid body.

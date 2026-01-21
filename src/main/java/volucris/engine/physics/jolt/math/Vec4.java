@@ -9,7 +9,7 @@ import java.lang.invoke.VarHandle;
 import org.joml.Vector4f;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 public class Vec4 {
 

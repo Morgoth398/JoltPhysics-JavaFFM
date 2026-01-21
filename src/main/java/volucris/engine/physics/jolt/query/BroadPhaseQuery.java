@@ -14,10 +14,10 @@ import volucris.engine.physics.jolt.raycast.CollideShapeBodyCollectorCallback;
 import volucris.engine.physics.jolt.raycast.CollisionCollectorType;
 import volucris.engine.physics.jolt.raycast.RayCastBodyCollectorCallback;
 import volucris.engine.physics.jolt.raycast.RayCastBodyResultCallback;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Interface to the broadphase that can perform collision queries. These queries

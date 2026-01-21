@@ -8,7 +8,7 @@ import java.lang.invoke.VarHandle;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Class used to store the configuration of a constraint. Allows run-time

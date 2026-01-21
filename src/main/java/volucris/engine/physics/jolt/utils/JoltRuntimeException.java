@@ -1,4 +1,4 @@
-package volucris.engine.utils;
+package volucris.engine.physics.jolt.utils;
 
 public final class JoltRuntimeException extends RuntimeException {
 	private static final long serialVersionUID = 5110412887151439333L;
