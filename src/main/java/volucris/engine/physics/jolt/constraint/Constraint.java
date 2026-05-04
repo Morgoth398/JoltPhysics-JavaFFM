@@ -258,6 +258,40 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 	}
 
 	/**
+	 * Set the internal user data for the body.
+	 * <p>
+	 * The object is not passed to the native code.
+	 */
+	public void setInternalUserData(Object internalUserData) {
+		Jolt.setInternalUserData(jphConstraint.address(), internalUserData);
+	}
+
+	/**
+	 * Get the internal user data stored in the body.
+	 * <p>
+	 * The object is not passed to the native code.
+	 */
+	public Object getInternalUserData() {
+		return Jolt.getInternalUserData(jphConstraint.address());
+	}
+
+	/**
+	 * Set the user data for the body.
+	 * <p>
+	 * The object is not passed to the native code.
+	 */
+	public void setObjectUserData(Object userData) {
+		Jolt.setUserData(jphConstraint.address(), userData);
+	}
+
+	/**
+	 * Get the user data stored in the body.
+	 */
+	public Object getObjectUserData() {
+		return Jolt.getUserData(jphConstraint.address());
+	}
+	
+	/**
 	 * Access to the user data, can be used for anything by the application.
 	 */
 	public long getUserData() {
