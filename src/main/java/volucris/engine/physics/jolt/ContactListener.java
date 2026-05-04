@@ -322,7 +322,7 @@ public abstract class ContactListener {
 
 		Body secondBody = Jolt.getBody(body2.address());
 		if (secondBody == null && !body2.equals(MemorySegment.NULL))
-			firstBody = new Body(body2);
+			secondBody = new Body(body2);
 
 		listener.vecTmp.set(baseOffset);
 		Vector3f offset = listener.vecTmp.get(listener.vector);
@@ -346,7 +346,7 @@ public abstract class ContactListener {
 
 		Body secondBody = Jolt.getBody(body2.address());
 		if (secondBody == null && !body2.equals(MemorySegment.NULL))
-			firstBody = new Body(body2);
+			secondBody = new Body(body2);
 
 		listener.manifold.set(manifold);
 		listener.settings.set(settings);
@@ -366,7 +366,7 @@ public abstract class ContactListener {
 
 		Body secondBody = Jolt.getBody(body2.address());
 		if (secondBody == null && !body2.equals(MemorySegment.NULL))
-			firstBody = new Body(body2);
+			secondBody = new Body(body2);
 
 		listener.manifold.set(manifold);
 		listener.settings.set(settings);
