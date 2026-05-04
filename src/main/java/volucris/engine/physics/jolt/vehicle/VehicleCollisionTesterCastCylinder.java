@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.vehicle;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -22,6 +23,10 @@ public final class VehicleCollisionTesterCastCylinder extends VehicleCollisionTe
 	}
 
 	public VehicleCollisionTesterCastCylinder(int layer, float convexRadiusFraction) {
+		this(layer, convexRadiusFraction, Arena.ofAuto());
+	}
+	
+	public VehicleCollisionTesterCastCylinder(int layer, float convexRadiusFraction, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_CAST_CYLINDER_CREATE;
@@ -29,7 +34,7 @@ public final class VehicleCollisionTesterCastCylinder extends VehicleCollisionTe
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create VehicleCollisionTesterCastCylinder.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 	
 }

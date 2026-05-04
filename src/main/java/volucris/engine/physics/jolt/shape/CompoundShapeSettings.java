@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -34,10 +35,14 @@ public sealed class CompoundShapeSettings extends ShapeSettings
 	}
 
 	protected CompoundShapeSettings(MemorySegment segment) {
-		super(segment);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected CompoundShapeSettings(MemorySegment segment, Arena arena) {
+		super(segment, arena);
 
-		vecTmp = new Vec3();
-		quatTmp = new Quat();
+		vecTmp = new Vec3(arena);
+		quatTmp = new Quat(arena);
 	}
 
 	/**

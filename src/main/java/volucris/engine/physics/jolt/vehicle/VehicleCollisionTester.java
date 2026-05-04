@@ -30,7 +30,11 @@ public sealed class VehicleCollisionTester
 	}
 
 	protected VehicleCollisionTester(MemorySegment segment) {
-		jphVehicleCollisionTester = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected VehicleCollisionTester(MemorySegment segment, Arena arena) {
+		jphVehicleCollisionTester = segment.reinterpret(arena, s -> destroy(s));
 	}
 
 	private static void destroy(MemorySegment segment) {

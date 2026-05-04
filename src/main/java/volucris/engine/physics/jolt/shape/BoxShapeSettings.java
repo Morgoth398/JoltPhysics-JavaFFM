@@ -28,14 +28,22 @@ public final class BoxShapeSettings extends ConvexShapeSettings {
 		//@formatter:on
 	}
 
+	public BoxShapeSettings(Vector3f halfExtent, Arena arena) {
+		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
+	}
+	
 	public BoxShapeSettings(Vector3f halfExtent) {
 		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
 	}
 	
 	public BoxShapeSettings(Vector3f halfExtent, float convexRadius) {
+		this(halfExtent, convexRadius, Arena.ofAuto());
+	}
+	
+	public BoxShapeSettings(Vector3f halfExtent, float convexRadius, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 vecTmp = new Vec3(arena);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 vecTmp = new Vec3(confinedArena);
 			vecTmp.set(halfExtent);
 			
 			MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE;
@@ -43,14 +51,18 @@ public final class BoxShapeSettings extends ConvexShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create box shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public BoxShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public BoxShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new BoxShape(segment);
+			return new BoxShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create box shape.");
 		}

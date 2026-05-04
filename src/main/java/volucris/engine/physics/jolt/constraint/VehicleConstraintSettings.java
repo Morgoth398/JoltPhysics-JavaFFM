@@ -81,7 +81,10 @@ public final class VehicleConstraintSettings extends ConstraintSettings {
 	}
 
 	public VehicleConstraintSettings() {
-		Arena arena = Arena.ofAuto();
+		this(Arena.ofAuto());
+	}
+	
+	public VehicleConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 

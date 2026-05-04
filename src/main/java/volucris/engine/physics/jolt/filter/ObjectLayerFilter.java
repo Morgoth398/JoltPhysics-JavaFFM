@@ -55,19 +55,22 @@ public abstract class ObjectLayerFilter {
 		JPH_OBJECT_LAYER_FILTER_CREATE = downcallHandle("JPH_ObjectLayerFilter_Create", ADDRESS, ADDRESS);
 		JPH_OBJECT_LAYER_FILTER_DESTROY = downcallHandleVoid("JPH_ObjectLayerFilter_Destroy", ADDRESS);
 
-		JPH_OBJECT_LAYER_FILTER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_OBJECT_LAYER_FILTER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		FILTERS = new ArrayList<WeakReference<ObjectLayerFilter>>();
 	}
 
 	public ObjectLayerFilter() {
+		this(Arena.ofAuto());
+	}
+	
+	public ObjectLayerFilter(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -99,7 +102,7 @@ public abstract class ObjectLayerFilter {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		//@formatter:off
 		Lookup lookup;
 		try {
@@ -114,7 +117,7 @@ public abstract class ObjectLayerFilter {
 		
 		MethodHandle shouldCollideHandle = upcallHandleStatic(lookup, ObjectLayerFilter.class, "shouldCollide", shouldCollide);
 	
-		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide);
+		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide, arena);
 		
 		SHOULD_COLLIDE.set(JPH_OBJECT_LAYER_FILTER_PROCS, SHOULD_COLLIDE_ADDR);
 		//@formatter:on

@@ -57,7 +57,11 @@ public final class ExtendedUpdateSettings {
 	}
 
 	public ExtendedUpdateSettings() {
-		jphExtendedUpdateSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public ExtendedUpdateSettings(Arena arena) {
+		jphExtendedUpdateSettings = arena.allocate(LAYOUT);
 
 		long offset = STICK_TO_FLOOR_STEP_DOWN_OFFSET;
 		stickToFloorStepDown = new Vec3(jphExtendedUpdateSettings.asSlice(offset, Vec3.LAYOUT()));

@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.constraint;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -62,13 +63,24 @@ public final class ConeConstraint extends TwoBodyConstraint {
 	}
 
 	protected ConeConstraint(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected ConeConstraint(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 	
 	/**
 	 * Construct cone constraint.
 	 */
 	public ConeConstraint(ConeConstraintSettings settings, Body body1, Body body2) {
+		this(settings, body1, body2, Arena.ofAuto());
+	}
+	
+	/**
+	 * Construct cone constraint.
+	 */
+	public ConeConstraint(ConeConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
 			MemorySegment settingsAddr = settings.memorySegment();
@@ -80,7 +92,7 @@ public final class ConeConstraint extends TwoBodyConstraint {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create cone constraint.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

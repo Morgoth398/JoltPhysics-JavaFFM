@@ -47,13 +47,12 @@ public final class SkeletonMapper {
 		//@formatter:on
 	}
 
-	/**
-	 *  
-	 */
 	public SkeletonMapper() {
+		this(Arena.ofAuto());
+	}
+	
+	public SkeletonMapper(Arena arena) {
 		try {
-			Arena arena = Arena.ofAuto();
-
 			MethodHandle method = JPH_SKELETON_MAPPER_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphSkeletonMapper = segment.reinterpret(arena, s -> destroy(s));

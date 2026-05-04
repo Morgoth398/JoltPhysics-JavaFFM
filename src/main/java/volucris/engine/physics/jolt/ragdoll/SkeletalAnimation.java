@@ -56,9 +56,14 @@ public final class SkeletalAnimation {
 	 *  
 	 */
 	public SkeletalAnimation() {
+		this(Arena.ofAuto());
+	}
+	
+	/**
+	 *  
+	 */
+	public SkeletalAnimation(Arena arena) {
 		try {
-			Arena arena = Arena.ofAuto();
-
 			MethodHandle method = JPH_SKELETAL_ANIMATION_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphSkeletalAnimation = segment.reinterpret(arena, s -> destroy(s));

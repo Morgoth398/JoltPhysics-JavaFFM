@@ -41,7 +41,11 @@ public final class RayCastSettings {
 	}
 
 	public RayCastSettings() {
-		jphRayCastSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public RayCastSettings(Arena arena) {
+		jphRayCastSettings = arena.allocate(LAYOUT);
 
 		setBackFaceModeTriangle(BackFaceMode.IGNORE_BACK_FACE);
 		setBackFaceModeConvex(BackFaceMode.IGNORE_BACK_FACE);

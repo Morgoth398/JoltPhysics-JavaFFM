@@ -34,7 +34,11 @@ public final class JobSystemThreadPoolConfig {
 	}
 	
 	public JobSystemThreadPoolConfig() {
-		jphJobSystemThreadPoolConfig = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public JobSystemThreadPoolConfig(Arena arena) {
+		jphJobSystemThreadPoolConfig = arena.allocate(LAYOUT);
 		
 		setMaxJobs(2048);
 		setMaxBarriers(8);
@@ -42,7 +46,11 @@ public final class JobSystemThreadPoolConfig {
 	}
 	
 	public JobSystemThreadPoolConfig(int maxJobs, int maxBarriers, int numThreads) {
-		jphJobSystemThreadPoolConfig = Arena.ofAuto().allocate(LAYOUT);
+		this(maxJobs, maxBarriers, numThreads, Arena.ofAuto());
+	}
+	
+	public JobSystemThreadPoolConfig(int maxJobs, int maxBarriers, int numThreads, Arena arena) {
+		jphJobSystemThreadPoolConfig = arena.allocate(LAYOUT);
 		
 		setMaxJobs(maxJobs);
 		setMaxBarriers(maxBarriers);

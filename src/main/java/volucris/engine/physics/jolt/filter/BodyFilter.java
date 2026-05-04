@@ -62,19 +62,22 @@ public abstract class BodyFilter {
 		JPH_BODY_FILTER_CREATE = downcallHandle("JPH_BodyFilter_Create", ADDRESS, ADDRESS);
 		JPH_BODY_FILTER_DESTROY = downcallHandleVoid("JPH_BodyFilter_Destroy", ADDRESS);
 
-		JPH_BODY_FILTER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_BODY_FILTER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		BODY_FILTERS = new ArrayList<WeakReference<BodyFilter>>();
 	}
 
 	public BodyFilter() {
+		this(Arena.ofAuto());
+	}
+	
+	public BodyFilter(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -115,7 +118,7 @@ public abstract class BodyFilter {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		//@formatter:off
 		Lookup lookup;
 		try {
@@ -132,8 +135,8 @@ public abstract class BodyFilter {
 		MethodHandle shouldCollideHandle = upcallHandleStatic(lookup, BodyFilter.class, "shouldCollide", shouldCollide);
 		MethodHandle shouldCollideLockedHandle = upcallHandleStatic(lookup, BodyFilter.class, "shouldCollideLocked", shouldCollideLocked);
 	
-		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide);
-		SHOULD_COLLIDE_LOCKED_ADDR = upcallStub(shouldCollideLockedHandle, shouldCollideLocked);
+		SHOULD_COLLIDE_ADDR = upcallStub(shouldCollideHandle, shouldCollide, arena);
+		SHOULD_COLLIDE_LOCKED_ADDR = upcallStub(shouldCollideLockedHandle, shouldCollideLocked, arena);
 		
 		SHOULD_COLLIDE.set(JPH_BODY_FILTER_PROCS, SHOULD_COLLIDE_ADDR);
 		SHOULD_COLLIDE_LOCKED.set(JPH_BODY_FILTER_PROCS, SHOULD_COLLIDE_LOCKED_ADDR);

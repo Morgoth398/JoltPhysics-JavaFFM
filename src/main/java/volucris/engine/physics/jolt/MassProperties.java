@@ -59,8 +59,10 @@ public final class MassProperties {
 	}
 
 	public MassProperties() {
-		Arena arena = Arena.ofAuto();
-
+		this(Arena.ofAuto());
+	}
+	
+	public MassProperties(Arena arena) {
 		jphMassProperties = arena.allocate(LAYOUT);
 
 		inertia = new Mat4(jphMassProperties.asSlice(INERTIA_OFFSET, Mat4.LAYOUT()));

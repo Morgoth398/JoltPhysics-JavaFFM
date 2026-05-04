@@ -217,9 +217,11 @@ public final class BodyInterface {
 	}
 
 	public BodyInterface(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public BodyInterface(MemorySegment segment, Arena arena) {
 		jphBodyInterface = segment;
-
-		Arena arena = Arena.ofAuto();
 
 		quatTmp = new Quat(arena);
 

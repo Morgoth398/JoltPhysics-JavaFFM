@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -24,6 +25,10 @@ public final class TaperedCapsuleShapeSettings extends ConvexShapeSettings {
 	}
 
 	public TaperedCapsuleShapeSettings(float halfHeightOfCylinder, float topRadius, float bottomRadius) {
+		this(halfHeightOfCylinder, topRadius, bottomRadius, Arena.ofAuto());
+	}
+	
+	public TaperedCapsuleShapeSettings(float halfHeightOfCylinder, float topRadius, float bottomRadius, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_SETTINGS_CREATE;
@@ -31,14 +36,18 @@ public final class TaperedCapsuleShapeSettings extends ConvexShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create tapered capsule shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public TaperedCapsuleShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public TaperedCapsuleShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new TaperedCapsuleShape(segment);
+			return new TaperedCapsuleShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create tapered capsule shape.");
 		}

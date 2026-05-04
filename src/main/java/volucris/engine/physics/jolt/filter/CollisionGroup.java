@@ -46,11 +46,19 @@ public final class CollisionGroup {
 	}
 
 	public CollisionGroup() {
-		jphCollisionGroup = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public CollisionGroup(Arena arena) {
+		jphCollisionGroup = arena.allocate(LAYOUT);
 	}
 
 	public CollisionGroup(GroupFilter groupFilter, int groupId, int subGroupId) {
-		jphCollisionGroup = Arena.ofAuto().allocate(LAYOUT);
+		this(groupFilter, groupId, subGroupId, Arena.ofAuto());
+	}
+	
+	public CollisionGroup(GroupFilter groupFilter, int groupId, int subGroupId, Arena arena) {
+		jphCollisionGroup = arena.allocate(LAYOUT);
 
 		GROUP_FILTER.set(jphCollisionGroup, groupFilter.memorySegment());
 		GROUP_ID.set(jphCollisionGroup, groupId);

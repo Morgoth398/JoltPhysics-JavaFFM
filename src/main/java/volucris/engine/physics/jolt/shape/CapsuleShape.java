@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -26,14 +27,26 @@ public final class CapsuleShape extends ConvexShape {
 	}
 
 	protected CapsuleShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected CapsuleShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected CapsuleShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected CapsuleShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 
 	public CapsuleShape(float halfHeightOfCylinder, float radius) {
+		this(halfHeightOfCylinder, radius, Arena.ofAuto());
+	}
+	
+	public CapsuleShape(float halfHeightOfCylinder, float radius, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_CAPSULE_SHAPE_CREATE;
@@ -41,7 +54,7 @@ public final class CapsuleShape extends ConvexShape {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create capsule shape.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

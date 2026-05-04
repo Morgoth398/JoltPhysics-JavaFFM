@@ -92,17 +92,19 @@ public abstract class CharacterVsCharacterCollision {
 		COLLISIONS = new ArrayList<WeakReference<CharacterVsCharacterCollision>>();
 	}
 
-	protected CharacterVsCharacterCollision(MemorySegment segment) {
-		jphCharacterVsCharacterCollision = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+	protected CharacterVsCharacterCollision(MemorySegment segment, Arena arena) {
+		jphCharacterVsCharacterCollision = segment.reinterpret(arena, s -> destroy(s));
 
 		userData = MemorySegment.NULL;
 	}
 
 	public CharacterVsCharacterCollision() {
+		this(Arena.ofAuto());
+	}
+	
+	public CharacterVsCharacterCollision(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 

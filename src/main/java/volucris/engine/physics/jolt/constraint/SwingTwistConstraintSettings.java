@@ -105,7 +105,11 @@ public final class SwingTwistConstraintSettings extends TwoBodyConstraintSetting
 	}
 
 	public SwingTwistConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public SwingTwistConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphSwingTwistConstraintSettings = segment;

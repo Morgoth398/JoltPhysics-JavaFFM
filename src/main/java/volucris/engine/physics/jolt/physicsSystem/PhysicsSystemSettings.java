@@ -52,7 +52,11 @@ public final class PhysicsSystemSettings {
 	}
 
 	public PhysicsSystemSettings() {
-		jphPhysicsSystemSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public PhysicsSystemSettings(Arena arena) {
+		jphPhysicsSystemSettings = arena.allocate(LAYOUT);
 
 		setMaxBodies(10240);
 		setNumBodyMutexes(0);
@@ -142,7 +146,7 @@ public final class PhysicsSystemSettings {
 	}
 
 	public MemorySegment memorySegment() {
-		return jphPhysicsSystemSettings.asReadOnly();
+		return jphPhysicsSystemSettings;
 	}
 
 	public static StructLayout LAYOUT() {

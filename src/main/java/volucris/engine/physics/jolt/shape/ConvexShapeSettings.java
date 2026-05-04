@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -26,7 +27,11 @@ public sealed class ConvexShapeSettings extends ShapeSettings
 	}
 
 	protected ConvexShapeSettings(MemorySegment segment) {
-		super(segment);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected ConvexShapeSettings(MemorySegment segment, Arena arena) {
+		super(segment, arena);
 	}
 
 	public float getDensity() {

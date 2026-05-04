@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.constraint;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -42,10 +43,18 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 	}
 
 	protected SwingTwistConstraint(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected SwingTwistConstraint(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 	
 	public SwingTwistConstraint(SwingTwistConstraintSettings settings, Body body1, Body body2) {
+		this(settings, body1, body2, Arena.ofAuto());
+	}
+	
+	public SwingTwistConstraint(SwingTwistConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
 			MemorySegment settingsAddr = settings.memorySegment();
@@ -57,7 +66,7 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create SwingTwistConstraint.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

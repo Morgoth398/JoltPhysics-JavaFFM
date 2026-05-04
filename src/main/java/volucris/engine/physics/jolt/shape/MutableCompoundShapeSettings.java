@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -22,6 +23,10 @@ public final class MutableCompoundShapeSettings extends CompoundShapeSettings {
 	}
 
 	public MutableCompoundShapeSettings() {
+		this(Arena.ofAuto());
+	}
+	
+	public MutableCompoundShapeSettings(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_SETTINGS_CREATE;
@@ -29,7 +34,7 @@ public final class MutableCompoundShapeSettings extends CompoundShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create MutableCompundShapeSettings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 }

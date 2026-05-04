@@ -25,7 +25,7 @@ import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
 
 /**
- * Settings for constructing a rigid body. 
+ * Settings for constructing a rigid body.
  */
 public final class BodyCreationSettings {
 
@@ -166,8 +166,11 @@ public final class BodyCreationSettings {
 	}
 
 	protected BodyCreationSettings() {
+		this(Arena.ofAuto());
+	}
+
+	protected BodyCreationSettings(Arena arena) {
 		try {
-			Arena arena = Arena.ofAuto();
 			quatTmp = new Quat(arena);
 			vecTmp = new Vec3(arena);
 
@@ -181,8 +184,12 @@ public final class BodyCreationSettings {
 
 	public BodyCreationSettings(ShapeSettings settings, Vector3f position, Quaternionf rotation, MotionType motionType,
 			int objectLayer) {
+		this(Arena.ofAuto(), settings, position, rotation, motionType, objectLayer);
+	}
+
+	public BodyCreationSettings(Arena arena, ShapeSettings settings, Vector3f position, Quaternionf rotation,
+			MotionType motionType, int objectLayer) {
 		try {
-			Arena arena = Arena.ofAuto();
 			quatTmp = new Quat(arena);
 			vecTmp = new Vec3(arena);
 
@@ -205,9 +212,13 @@ public final class BodyCreationSettings {
 
 	public BodyCreationSettings(Shape shape, Vector3f position, Quaternionf rotation, MotionType motionType,
 			int objectLayer) {
+		this(Arena.ofAuto(), shape, position, rotation, motionType, objectLayer);
+	}
+
+	public BodyCreationSettings(Arena arena, Shape shape, Vector3f position, Quaternionf rotation,
+			MotionType motionType, int objectLayer) {
 
 		try {
-			Arena arena = Arena.ofAuto();
 			quatTmp = new Quat(arena);
 			vecTmp = new Vec3(arena);
 
@@ -972,8 +983,8 @@ public final class BodyCreationSettings {
 	/**
 	 * Used only when this body is dynamic and colliding. Override for the number of
 	 * solver position iterations to run, 0 means use the default in
-	 * {@link PhysicsSettings#setNumPositionSteps(int)} The number of iterations to use is the
-	 * max of all contacts and constraints in the island.
+	 * {@link PhysicsSettings#setNumPositionSteps(int)} The number of iterations to
+	 * use is the max of all contacts and constraints in the island.
 	 */
 	public int getNumPositionStepsOverride() {
 		try {
@@ -1029,7 +1040,8 @@ public final class BodyCreationSettings {
 	}
 
 	/**
-	 * When calculating the inertia (not when it is provided) the calculated inertia will be multiplied by this value. 
+	 * When calculating the inertia (not when it is provided) the calculated inertia
+	 * will be multiplied by this value.
 	 */
 	public float getInertiaMultiplier() {
 		try {
@@ -1041,7 +1053,8 @@ public final class BodyCreationSettings {
 	}
 
 	/**
-	 * When calculating the inertia (not when it is provided) the calculated inertia will be multiplied by this value. 
+	 * When calculating the inertia (not when it is provided) the calculated inertia
+	 * will be multiplied by this value.
 	 */
 	public void setInertiaMultiplier(float inertiaMultiplier) {
 		try {
@@ -1053,7 +1066,8 @@ public final class BodyCreationSettings {
 	}
 
 	/**
-	 * Contains replacement mass settings which override the automatically calculated values. 
+	 * Contains replacement mass settings which override the automatically
+	 * calculated values.
 	 */
 	public MassProperties getMassPropertiesOverride(MassProperties target) {
 		try {
@@ -1066,14 +1080,16 @@ public final class BodyCreationSettings {
 	}
 
 	/**
-	 * Contains replacement mass settings which override the automatically calculated values. 
+	 * Contains replacement mass settings which override the automatically
+	 * calculated values.
 	 */
 	public MassProperties getMassPropertiesOverride() {
 		return getMassPropertiesOverride(new MassProperties());
 	}
 
 	/**
-	 * Contains replacement mass settings which override the automatically calculated values. 
+	 * Contains replacement mass settings which override the automatically
+	 * calculated values.
 	 */
 	public void setMassPropertiesOverride(MassProperties massProperties) {
 		try {
@@ -1085,8 +1101,8 @@ public final class BodyCreationSettings {
 	}
 
 	/**
-	 * Do not store a reference to this memory segment.
-	 * Otherwise the memory cannot be freed by the garbage collector.
+	 * Do not store a reference to this memory segment. Otherwise the memory cannot
+	 * be freed by the garbage collector.
 	 */
 	public MemorySegment memorySegment() {
 		return jphBodyCreationSettings;

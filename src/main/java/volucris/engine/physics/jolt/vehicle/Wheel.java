@@ -74,17 +74,23 @@ public sealed class Wheel permits WheelTV, WheelWV {
 	}
 
 	public Wheel(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public Wheel(MemorySegment segment, Arena arena) {
 		jphWheel = segment;
 
-		vecTmp = new Vec3();
+		vecTmp = new Vec3(arena);
 
 		Jolt.addWheel(jphWheel.address(), this);
 	}
 
 	public Wheel(WheelSettings settings) {
+		this(settings, Arena.ofAuto());
+	}
+	
+	public Wheel(WheelSettings settings, Arena arena) {
 		try {
-			Arena arena = Arena.ofAuto();
-
 			MethodHandle method = JPH_WHEEL_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(settings.memorySegment());
 			jphWheel = segment.reinterpret(arena, s -> destroy(s));
@@ -104,6 +110,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot destroy wheel.");
 		}
+		
+		Jolt.removeWheel(segment.address());
 	}
 
 	/**

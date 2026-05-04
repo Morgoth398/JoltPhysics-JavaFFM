@@ -66,6 +66,15 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 	}
 
 	/**
+	 * @see #HeightFieldShapeSettings(float[], Vector3f, Vector3f, int, byte[],
+	 *      Arena)
+	 */
+	public HeightFieldShapeSettings(float[] samples, Vector3f offset, Vector3f scale, int sampleCount,
+			byte[] materialIndices) {
+		this(samples, offset, scale, sampleCount, materialIndices, Arena.ofAuto());
+	}
+
+	/**
 	 * Create a height field shape of sampleCount * sampleCount vertices. The height
 	 * field is a surface defined by: inOffset + inScale * (x, samples[y *
 	 * sampleCount + x], y). where x and y are integers in the range x and y e [0,
@@ -75,39 +84,44 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 	 * that index into materialList.
 	 */
 	public HeightFieldShapeSettings(float[] samples, Vector3f offset, Vector3f scale, int sampleCount,
-			byte[] materialIndices) {
+			byte[] materialIndices, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 offsetVec = new Vec3(arena, offset);
-			Vec3 scaleVec = new Vec3(arena, scale);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 offsetVec = vecTmp = new Vec3(arena, offset);
+			Vec3 scaleVec = new Vec3(confinedArena, scale);
 
 			MemorySegment offsetAddr = offsetVec.memorySegment();
 			MemorySegment scaleAddr = scaleVec.memorySegment();
-			MemorySegment samplesArray = arena.allocateFrom(JAVA_FLOAT, samples);
-			MemorySegment matArray = arena.allocateFrom(JAVA_BYTE, materialIndices);
+			MemorySegment samplesArray = confinedArena.allocateFrom(JAVA_FLOAT, samples);
+			MemorySegment matArray = confinedArena.allocateFrom(JAVA_BYTE, materialIndices);
 
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(samplesArray, offsetAddr, scaleAddr, sampleCount, matArray);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create height field shape settings.");
 		}
-		super(segment);
-
-		vecTmp = new Vec3();
+		super(segment, arena);
 	}
 
 	/**
 	 * @see #HeightFieldShapeSettings(float[], Vector3f, Vector3f, int, byte[])
 	 */
 	public HeightFieldShapeSettings(float[] samples, Vector3f offset, Vector3f scale, int sampleCount) {
+		this(samples, offset, scale, sampleCount, Arena.ofAuto());
+	}
+	
+	/**
+	 * @see #HeightFieldShapeSettings(float[], Vector3f, Vector3f, int, byte[])
+	 */
+	public HeightFieldShapeSettings(float[] samples, Vector3f offset, Vector3f scale, int sampleCount, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 offsetVec = new Vec3(arena, offset);
-			Vec3 scaleVec = new Vec3(arena, scale);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 offsetVec = vecTmp = new Vec3(arena, offset);
+			Vec3 scaleVec = new Vec3(confinedArena, scale);
 
 			MemorySegment offsetAddr = offsetVec.memorySegment();
 			MemorySegment scaleAddr = scaleVec.memorySegment();
-			MemorySegment samplesArray = arena.allocateFrom(JAVA_FLOAT, samples);
+			MemorySegment samplesArray = confinedArena.allocateFrom(JAVA_FLOAT, samples);
 			MemorySegment matArray = MemorySegment.NULL;
 
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE;
@@ -115,9 +129,7 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create height field shape settings.");
 		}
-		super(segment);
-
-		vecTmp = new Vec3();
+		super(segment, arena);
 	}
 
 	/**
@@ -375,7 +387,7 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 	}
 
 	/**
-	 * @see #getActiveEdgeCosThresholdAngle()	
+	 * @see #getActiveEdgeCosThresholdAngle()
 	 */
 	public void setActiveEdgeCosThresholdAngle(float value) {
 		try {
@@ -387,10 +399,14 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 	}
 
 	public HeightFieldShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public HeightFieldShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new HeightFieldShape(segment);
+			return new HeightFieldShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
 		}

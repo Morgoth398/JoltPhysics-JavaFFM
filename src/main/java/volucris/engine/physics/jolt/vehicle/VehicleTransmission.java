@@ -37,7 +37,11 @@ public final class VehicleTransmission {
 	}
 
 	public VehicleTransmission() {
-		jphVehicleTransmission = Arena.ofAuto().allocate(ADDRESS);
+		this(Arena.ofAuto());
+	}
+	
+	public VehicleTransmission(Arena arena) {
+		jphVehicleTransmission = arena.allocate(ADDRESS);
 	}
 
 	public void set(MemorySegment segment) {

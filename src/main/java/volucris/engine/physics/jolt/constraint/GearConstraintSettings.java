@@ -59,7 +59,11 @@ public final class GearConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	public GearConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public GearConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphGearConstraintSettings = segment;
