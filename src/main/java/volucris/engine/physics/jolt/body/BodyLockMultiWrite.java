@@ -13,7 +13,7 @@ import static volucris.engine.utils.FFMUtils.*;
 /**
  * Specialization that locks multiple bodies for writing to.
  */
-public final class BodyLockMultiWrite {
+public final class BodyLockMultiWrite implements AutoCloseable {
 
 	private static final MethodHandle JPH_BODY_LOCK_MULTI_WRITE_DESTROY;
 	private static final MethodHandle JPH_BODY_LOCK_MULTI_WRITE_GET_BODY;
@@ -27,22 +27,26 @@ public final class BodyLockMultiWrite {
 		//@formatter:on
 	}
 
-	public BodyLockMultiWrite(MemorySegment segment) {
-		jphBodyLockMultiWrite = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+	/**
+	 * Constructs an invalid BodyLockMultiWrite object. Call
+	 * {@link BodyLockInterface#lockMultiWrite(BodyLockMultiWrite, int...)} before
+	 * using this object.
+	 */
+	public BodyLockMultiWrite() {
+		jphBodyLockMultiWrite = Arena.ofAuto().allocate(ADDRESS);
 	}
 
-	private static void destroy(MemorySegment segment) {
-		try {
-			JPH_BODY_LOCK_MULTI_WRITE_DESTROY.invokeExact(segment);
-		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy BodyLockMultiWrite.");
-		}
+	public void set(MemorySegment segment) {
+		jphBodyLockMultiWrite.set(ADDRESS, 0, segment);
 	}
 
 	public Body getBody(int bodyIndex) {
 		try {
 			MethodHandle method = JPH_BODY_LOCK_MULTI_WRITE_GET_BODY;
-			MemorySegment segment = (MemorySegment) method.invokeExact(jphBodyLockMultiWrite, bodyIndex);
+			MemorySegment segment = (MemorySegment) method.invokeExact(memorySegment(), bodyIndex);
+
+			if (segment.equals(MemorySegment.NULL))
+				return null;
 
 			Body body = Jolt.getBody(segment.address());
 
@@ -53,6 +57,19 @@ public final class BodyLockMultiWrite {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot get body.");
 		}
+	}
+
+	@Override
+	public void close() {
+		try {
+			JPH_BODY_LOCK_MULTI_WRITE_DESTROY.invokeExact(memorySegment());
+		} catch (Throwable e) {
+			throw new VolucrisRuntimeException("Jolt: Cannot destroy BodyLockMultiWrite.");
+		}
+	}
+
+	private MemorySegment memorySegment() {
+		return jphBodyLockMultiWrite.get(ADDRESS, 0);
 	}
 
 }

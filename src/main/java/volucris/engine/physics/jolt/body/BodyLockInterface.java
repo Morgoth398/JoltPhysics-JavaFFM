@@ -1,7 +1,6 @@
 package volucris.engine.physics.jolt.body;
 
 import java.lang.foreign.Arena;
-import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -112,36 +111,40 @@ public final class BodyLockInterface {
 		}
 	}
 
-	public BodyLockMultiRead lockMultiRead(int... bodyIds) {
+	public BodyLockMultiRead lockMultiRead(BodyLockMultiRead target, int... bodyIds) {
 		try (Arena arena = Arena.ofConfined()) {
-			MemorySegment array = arena.allocate(MemoryLayout.sequenceLayout(bodyIds.length, JAVA_INT));
-
-			for (int i = 0; i < bodyIds.length; i++)
-				array.setAtIndex(JAVA_INT, i, bodyIds[0]);
+			MemorySegment array = arena.allocateFrom(JAVA_INT, bodyIds);
 
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_LOCK_MULTI_READ;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphBodyLockInterface, array, bodyIds.length);
 
-			return new BodyLockMultiRead(segment);
+			target.set(segment);
+			return target;
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot lock multi read.");
 		}
 	}
 
-	public BodyLockMultiWrite lockMultiWrite(int... bodyIds) {
+	public BodyLockMultiRead lockMultiRead(int... bodyIds) {
+		return lockMultiRead(new BodyLockMultiRead(), bodyIds);
+	}
+	
+	public BodyLockMultiWrite lockMultiWrite(BodyLockMultiWrite target, int... bodyIds) {
 		try (Arena arena = Arena.ofConfined()) {
-			MemorySegment array = arena.allocate(MemoryLayout.sequenceLayout(bodyIds.length, JAVA_INT));
-
-			for (int i = 0; i < bodyIds.length; i++)
-				array.setAtIndex(JAVA_INT, i, bodyIds[0]);
+			MemorySegment array = arena.allocateFrom(JAVA_INT, bodyIds);
 
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_LOCK_MULTI_WRITE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphBodyLockInterface, array, bodyIds.length);
 
-			return new BodyLockMultiWrite(segment);
+			target.set(segment);
+			return target;
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot lock multi write.");
 		}
 	}
 
+	public BodyLockMultiWrite lockMultiWrite(int... bodyIds) {
+		return lockMultiWrite(new BodyLockMultiWrite(), bodyIds);
+	}
+	
 }
