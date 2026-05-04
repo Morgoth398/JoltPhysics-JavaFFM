@@ -7,10 +7,10 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * A compound shape, sub shapes can be rotated and translated. This shape is

@@ -27,10 +27,10 @@ import volucris.engine.physics.jolt.raycast.RayCastResult;
 import volucris.engine.physics.jolt.raycast.RayCastSettings;
 import volucris.engine.physics.jolt.raycast.ShapeCastSettings;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Class that provides an interface for doing precise collision detection

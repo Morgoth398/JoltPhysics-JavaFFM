@@ -7,10 +7,10 @@ import java.lang.foreign.StructLayout;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
 
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * An anti rollbar is a stiff spring that connects two wheels to reduce the

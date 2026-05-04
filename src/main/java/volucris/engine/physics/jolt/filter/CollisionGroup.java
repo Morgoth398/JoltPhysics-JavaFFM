@@ -9,7 +9,7 @@ import java.lang.invoke.VarHandle;
 import volucris.engine.physics.jolt.Jolt;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Two objects collide with each other if:

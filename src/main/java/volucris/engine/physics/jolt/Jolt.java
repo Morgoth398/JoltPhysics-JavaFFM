@@ -15,16 +15,16 @@ import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
 import volucris.engine.physics.jolt.ragdoll.RagdollSettings;
 import volucris.engine.physics.jolt.ragdoll.Skeleton;
 import volucris.engine.physics.jolt.shape.Shape;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.NativeLibraryLoader;
 import volucris.engine.physics.jolt.vehicle.LinearCurve;
 import volucris.engine.physics.jolt.vehicle.VehicleController;
 import volucris.engine.physics.jolt.vehicle.VehicleTransmissionSettings;
 import volucris.engine.physics.jolt.vehicle.Wheel;
 import volucris.engine.physics.jolt.vehicle.WheelSettings;
-import volucris.engine.utils.NativeLibraryLoader;
-import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 public final class Jolt {
 

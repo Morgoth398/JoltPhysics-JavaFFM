@@ -7,10 +7,10 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * A shape that scales a child shape in local space of that shape. The scale can

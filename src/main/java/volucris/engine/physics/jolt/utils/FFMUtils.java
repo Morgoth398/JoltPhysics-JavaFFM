@@ -1,4 +1,4 @@
-package volucris.engine.utils;
+package volucris.engine.physics.jolt.utils;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;

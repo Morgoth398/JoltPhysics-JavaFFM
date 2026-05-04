@@ -9,10 +9,10 @@ import org.joml.Vector2f;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.math.Point;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 public final class LinearCurve {
 

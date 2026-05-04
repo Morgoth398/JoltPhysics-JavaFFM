@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.body.Body;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Class function to filter out bodies for debug rendering, returns true if body

@@ -11,13 +11,13 @@ import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.math.Mat4;
 import volucris.engine.physics.jolt.math.Vec3;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 import volucris.engine.physics.jolt.vehicle.VehicleCollisionTester;
 import volucris.engine.physics.jolt.vehicle.VehicleController;
 import volucris.engine.physics.jolt.vehicle.Wheel;
-import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Constraint that simulates a vehicle Note: Don't forget to register the

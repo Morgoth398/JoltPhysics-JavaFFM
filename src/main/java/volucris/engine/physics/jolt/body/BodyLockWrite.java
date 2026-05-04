@@ -1,7 +1,7 @@
 package volucris.engine.physics.jolt.body;
 
 import static java.lang.foreign.ValueLayout.ADDRESS;
-import static volucris.engine.utils.FFMUtils.varHandle;
+import static volucris.engine.physics.jolt.utils.FFMUtils.varHandle;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemoryLayout;
