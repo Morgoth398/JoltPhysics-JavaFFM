@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.MotorState;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -87,15 +87,15 @@ public final class HingeConstraint extends TwoBodyConstraint {
 	protected HingeConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected HingeConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	public HingeConstraint(HingeConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	public HingeConstraint(HingeConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -106,7 +106,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create hinge constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create hinge constraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -122,7 +123,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -144,7 +146,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space point 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space point 1: " + className);
 		}
 	}
 
@@ -166,7 +169,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space point 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space point 2: " + className);
 		}
 	}
 
@@ -187,7 +191,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space hinge axis 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space hinge axis 1: " + className);
 		}
 	}
 
@@ -208,7 +213,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space hinge axis 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space hinge axis 2: " + className);
 		}
 	}
 
@@ -229,7 +235,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space normal axis 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space normal axis 1: " + className);
 		}
 	}
 
@@ -250,7 +257,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space normal axis 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space normal axis 2: " + className);
 		}
 	}
 
@@ -269,7 +277,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_CURRENT_ANGLE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get current angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get current angle: " + className);
 		}
 	}
 
@@ -281,7 +290,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SET_MAX_FRICTION_TORQUE;
 			method.invokeExact(jphConstraint, frictionTorque);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max friction torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max friction torque: " + className);
 		}
 	}
 
@@ -293,7 +303,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_MAX_FRICTION_TORQUE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max friction torque.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max friction torque: " + className);
 		}
 	}
 
@@ -305,7 +316,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SET_MOTOR_SETTINGS;
 			method.invokeExact(jphConstraint, settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motor settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motor settings: " + className);
 		}
 	}
 
@@ -319,7 +331,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motor settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motor settings: " + className);
 		}
 	}
 
@@ -338,7 +351,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SET_MOTOR_STATE;
 			method.invokeExact(jphConstraint, state.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motor state.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motor state: " + className);
 		}
 	}
 
@@ -357,7 +371,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motor state.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motor state: " + className);
 		}
 	}
 
@@ -369,7 +384,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SET_TARGET_ANGULAR_VELOCITY;
 			method.invokeExact(jphConstraint, angularVelocity);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target angular velocity: " + className);
 		}
 	}
 
@@ -381,7 +397,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TARGET_ANGULAR_VELOCITY;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target angular velocity: " + className);
 		}
 	}
 
@@ -393,7 +410,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SET_TARGET_ANGLE;
 			method.invokeExact(jphConstraint, angle);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target angle: " + className);
 		}
 	}
 
@@ -405,7 +423,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TARGET_ANGLE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target angle: " + className);
 		}
 	}
 
@@ -417,7 +436,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SET_LIMITS;
 			method.invokeExact(jphConstraint, limitsMin, limitsMax);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set limits: " + className);
 		}
 	}
 
@@ -429,7 +449,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_LIMITS_MIN;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits min.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits min: " + className);
 		}
 	}
 
@@ -441,7 +462,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_LIMITS_MAX;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits max.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits max: " + className);
 		}
 	}
 
@@ -453,7 +475,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_HAS_LIMITS;
 			return (boolean) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if constraint has limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if constraint has limits: " + className);
 		}
 	}
 
@@ -467,7 +490,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits spring settings: " + className);
 		}
 	}
 
@@ -486,7 +510,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_SET_LIMITS_SPRING_SETTINGS;
 			method.invokeExact(jphConstraint, settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set limits spring settings: " + className);
 		}
 	}
 
@@ -501,7 +526,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(result);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position: " + className);
 		}
 	}
 
@@ -531,7 +557,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda rotation: " + className);
 		}
 	}
 
@@ -552,7 +579,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TOTAL_LAMBDA_ROTATION_LIMITS;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda rotation limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda rotation limits: " + className);
 		}
 	}
 
@@ -565,7 +593,8 @@ public final class HingeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TOTAL_LAMBDA_MOTOR;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda motor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda motor: " + className);
 		}
 	}
 

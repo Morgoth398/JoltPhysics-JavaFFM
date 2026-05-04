@@ -11,7 +11,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -69,7 +69,7 @@ public final class ConeConstraintSettings extends TwoBodyConstraintSettings {
 	public ConeConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public ConeConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -89,7 +89,8 @@ public final class ConeConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_CONE_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphConeConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize cone constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize cone constraint settings: " + className);
 		}
 	}
 
@@ -105,7 +106,7 @@ public final class ConeConstraintSettings extends TwoBodyConstraintSettings {
 				return space;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for constraint space.");
+		throw new JoltRuntimeException("Wrong value for constraint space");
 	}
 
 	/**

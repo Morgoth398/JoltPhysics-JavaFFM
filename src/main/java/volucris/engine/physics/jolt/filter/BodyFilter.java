@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.body.Body;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -74,7 +74,7 @@ public abstract class BodyFilter {
 	public BodyFilter() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public BodyFilter(Arena arena) {
 		try {
 			int index = count++;
@@ -88,7 +88,8 @@ public abstract class BodyFilter {
 
 			BODY_FILTERS.add(index, new WeakReference<BodyFilter>(this));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create body filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create body filter: " + className);
 		}
 	}
 
@@ -114,7 +115,8 @@ public abstract class BodyFilter {
 			MethodHandle method = JPH_BODY_FILTER_SET_PROCS;
 			method.invokeExact(JPH_BODY_FILTER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set body filter procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set body filter procs: " + className);
 		}
 	}
 
@@ -124,7 +126,8 @@ public abstract class BodyFilter {
 		try {
 			lookup = MethodHandles.privateLookupIn(BodyFilter.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -148,7 +151,8 @@ public abstract class BodyFilter {
 			MethodHandle method = JPH_BODY_FILTER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy body filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy body filter: " + className);
 		}
 	}
 

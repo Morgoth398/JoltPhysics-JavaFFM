@@ -8,7 +8,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -42,15 +42,15 @@ public final class PointConstraint extends TwoBodyConstraint {
 	protected PointConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected PointConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	public PointConstraint(PointConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	public PointConstraint(PointConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -61,7 +61,8 @@ public final class PointConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_POINT_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create point constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create point constraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -77,7 +78,8 @@ public final class PointConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -98,7 +100,8 @@ public final class PointConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_POINT_CONSTRAINT_SET_POINT1;
 			method.invokeExact(jphConstraint, space.id(), vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set point 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set point 1: " + className);
 		}
 	}
 
@@ -112,7 +115,8 @@ public final class PointConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_POINT_CONSTRAINT_SET_POINT2;
 			method.invokeExact(jphConstraint, space.id(), vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set point 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set point 2: " + className);
 		}
 	}
 
@@ -127,7 +131,8 @@ public final class PointConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space point 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space point 1: " + className);
 		}
 	}
 
@@ -149,7 +154,8 @@ public final class PointConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get local space point 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get local space point 2: " + className);
 		}
 	}
 
@@ -171,7 +177,8 @@ public final class PointConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position: " + className);
 		}
 	}
 

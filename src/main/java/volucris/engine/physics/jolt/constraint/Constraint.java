@@ -11,7 +11,7 @@ import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSubType
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintType;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -75,7 +75,7 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 	protected Constraint(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected Constraint(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -83,7 +83,7 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 	public Constraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	public Constraint(MemorySegment segment, Arena arena, boolean owns) {
 		if (owns)
 			jphConstraint = segment.reinterpret(arena, s -> destroy(s));
@@ -102,7 +102,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 
 			Jolt.removeConstraint(segment.address());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy constraint: " + className);
 		}
 	}
 
@@ -121,7 +122,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get constraint type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get constraint type: " + className);
 		}
 	}
 
@@ -140,7 +142,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get constraint sub type.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get constraint sub type: " + className);
 		}
 	}
 
@@ -156,7 +159,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_GET_CONSTRAINT_PRIORITY;
 			return (int) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get constraint priority.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get constraint priority: " + className);
 		}
 	}
 
@@ -168,7 +172,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SET_CONSTRAINT_PRIORITY;
 			method.invokeExact(jphConstraint, priority);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set constraint priority.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set constraint priority: " + className);
 		}
 	}
 
@@ -183,7 +188,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_GET_NUM_VELOCITY_STEPS_OVERRIDE;
 			return (int) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get num velocity steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get num velocity steps override: " + className);
 		}
 	}
 
@@ -195,7 +201,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SET_NUM_VELOCITY_STEPS_OVERRIDE;
 			method.invokeExact(jphConstraint, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set num velocity steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set num velocity steps override: " + className);
 		}
 	}
 
@@ -207,7 +214,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_GET_NUM_POSITION_STEPS_OVERRIDE;
 			return (int) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get num position steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get num position steps override: " + className);
 		}
 	}
 
@@ -222,7 +230,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SET_NUM_POSITION_STEPS_OVERRIDE;
 			method.invokeExact(jphConstraint, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set num position steps override.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set num position steps override: " + className);
 		}
 	}
 
@@ -234,7 +243,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_GET_ENABLED;
 			return (boolean) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if is enabled.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if is enabled: " + className);
 		}
 	}
 
@@ -253,7 +263,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SET_ENABLED;
 			method.invokeExact(jphConstraint, enabled);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set enabled.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set enabled: " + className);
 		}
 	}
 
@@ -290,7 +301,7 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 	public Object getObjectUserData() {
 		return Jolt.getUserData(jphConstraint.address());
 	}
-	
+
 	/**
 	 * Access to the user data, can be used for anything by the application.
 	 */
@@ -299,7 +310,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_GET_USER_DATA;
 			return (long) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get user data: " + className);
 		}
 	}
 
@@ -311,7 +323,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SET_USER_DATA;
 			method.invokeExact(jphConstraint, userData);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set user data: " + className);
 		}
 	}
 
@@ -333,7 +346,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_NOTIFY_SHAPE_CHANGED;
 			method.invokeExact(jphConstraint, bodyId, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot notify shape changed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot notify shape changed: " + className);
 		}
 	}
 
@@ -353,7 +367,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_RESET_WARM_START;
 			method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot reset warm start.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot reset warm start: " + className);
 		}
 	}
 
@@ -365,7 +380,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_IS_ACTIVE;
 			return (boolean) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if is active.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if is active: " + className);
 		}
 	}
 
@@ -377,7 +393,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SETUP_VELOCITY_CONSTRAINT;
 			method.invokeExact(jphConstraint, deltaTime);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot setup velocity constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot setup velocity constraint: " + className);
 		}
 	}
 
@@ -389,7 +406,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_WARM_START_VELOCITY_CONSTRAINT;
 			method.invokeExact(jphConstraint, warmStartImpulseRatio);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot warm start velocity constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot warm start velocity constraint: " + className);
 		}
 	}
 
@@ -401,7 +419,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SOLVE_VELOCITY_CONSTRAINT;
 			return (boolean) method.invokeExact(jphConstraint, deltaTime);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call solve velocity constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call solve velocity constraint: " + className);
 		}
 	}
 
@@ -413,7 +432,8 @@ public sealed class Constraint permits TwoBodyConstraint, VehicleConstraint {
 			MethodHandle method = JPH_CONSTRAINT_SOLVE_POSITION_CONSTRAINT;
 			return (boolean) method.invokeExact(jphConstraint, deltaTime, baumgarte);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot solve position constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot solve position constraint: " + className);
 		}
 	}
 

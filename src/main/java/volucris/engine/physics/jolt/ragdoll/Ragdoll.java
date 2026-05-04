@@ -15,7 +15,7 @@ import volucris.engine.physics.jolt.constraint.TwoBodyConstraint;
 import volucris.engine.physics.jolt.math.Mat4;
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -76,7 +76,7 @@ public final class Ragdoll {
 	protected Ragdoll(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected Ragdoll(MemorySegment segment, Arena arena) {
 		jphRagdoll = segment.reinterpret(arena, s -> destroy(s));
 
@@ -90,7 +90,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy ragdoll.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy ragdoll: " + className);
 		}
 	}
 
@@ -116,7 +117,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_ADD_TO_PHYSICS_SYSTEM;
 			method.invokeExact(jphRagdoll, activationMode.id(), lockBodies);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add to physics system.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add to physics system: " + className);
 		}
 	}
 
@@ -135,7 +137,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_REMOVE_FROM_PHYSICS_SYSTEM;
 			method.invokeExact(jphRagdoll, lockBodies);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove from physics system.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove from physics system: " + className);
 		}
 	}
 
@@ -154,7 +157,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_ACTIVATE;
 			method.invokeExact(jphRagdoll, lockBodies);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot activate.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot activate: " + className);
 		}
 	}
 
@@ -178,7 +182,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_IS_ACTIVE;
 			return (boolean) method.invokeExact(jphRagdoll, lockBodies);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call is active.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call is active: " + className);
 		}
 	}
 
@@ -192,7 +197,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_RESET_WARM_START;
 			method.invokeExact(jphRagdoll);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot reset warm start.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot reset warm start: " + className);
 		}
 	}
 
@@ -205,7 +211,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_SET_POSE;
 			method.invokeExact(jphRagdoll, pose.memorySegment(), lockBodies);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call setPose.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setPose: " + className);
 		}
 	}
 
@@ -227,7 +234,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_SET_POSE2;
 			method.invokeExact(jphRagdoll, vecTmp.memorySegment(), array, lockBodies);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call setPose2.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setPose2: " + className);
 		}
 	}
 
@@ -240,7 +248,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_GET_POSE;
 			method.invokeExact(jphRagdoll, pose.memorySegment(), lockBodies);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getPose.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getPose: " + className);
 		}
 	}
 
@@ -268,7 +277,8 @@ public final class Ragdoll {
 			}
 
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getPose2.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getPose2: " + className);
 		}
 	}
 
@@ -281,7 +291,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_DRIVE_TO_POSE_USING_MOTORS;
 			method.invokeExact(jphRagdoll, pose.memorySegment());
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call driveToPoseUsingMotors.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call driveToPoseUsingMotors: " + className);
 		}
 	}
 
@@ -294,7 +305,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_DRIVE_TO_POSE_USING_KINEMATICS;
 			method.invokeExact(jphRagdoll, pose.memorySegment(), deltaTime, lockBodies);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call driveToPoseUsingKinematics.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call driveToPoseUsingKinematics: " + className);
 		}
 	}
 
@@ -306,7 +318,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_GET_BODY_COUNT;
 			return (int) method.invokeExact(jphRagdoll);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getBodyCount.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getBodyCount: " + className);
 		}
 	}
 
@@ -318,7 +331,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_GET_BODY_ID;
 			return (int) method.invokeExact(jphRagdoll, bodyIndex);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getBodyID.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getBodyID: " + className);
 		}
 	}
 
@@ -330,7 +344,8 @@ public final class Ragdoll {
 			MethodHandle method = JPH_RAGDOLL_GET_CONSTRAINT_COUNT;
 			return (int) method.invokeExact(jphRagdoll);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getConstraintCount.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getConstraintCount: " + className);
 		}
 	}
 
@@ -351,7 +366,8 @@ public final class Ragdoll {
 
 			return new TwoBodyConstraint(segment, false);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getConstraint.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getConstraint: " + className);
 		}
 	}
 
@@ -366,7 +382,8 @@ public final class Ragdoll {
 			vecTmp.get(position);
 			quatTmp.get(rotation);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getRootTransform.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getRootTransform: " + className);
 		}
 	}
 
@@ -387,7 +404,8 @@ public final class Ragdoll {
 
 			return new RagdollSettings(segment);
 		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getRagdollSettings.");
+			String className = throwable.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getRagdollSettings: " + className);
 		}
 	}
 

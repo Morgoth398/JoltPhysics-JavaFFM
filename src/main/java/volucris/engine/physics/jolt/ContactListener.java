@@ -21,7 +21,7 @@ import volucris.engine.physics.jolt.body.BodyEnums.MotionQuality;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
 import volucris.engine.physics.jolt.raycast.CollideShapeResult;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -119,7 +119,7 @@ public abstract class ContactListener {
 	public ContactListener() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public ContactListener(Arena arena) {
 		try {
 			int index = count++;
@@ -143,7 +143,8 @@ public abstract class ContactListener {
 			vector = new Vector3f();
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create contact listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create contact listener: " + className);
 		}
 	}
 
@@ -260,7 +261,8 @@ public abstract class ContactListener {
 			MethodHandle method = JPH_CONTACT_LISTENER_SET_PROCS;
 			method.invokeExact(JPH_CONTACT_LISTENER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set contact listener procs.");
+    String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set contact listener procs: " + className);
 		}
 	}
 
@@ -269,7 +271,8 @@ public abstract class ContactListener {
 		try {
 			lookup = MethodHandles.privateLookupIn(ContactListener.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -302,7 +305,8 @@ public abstract class ContactListener {
 			MethodHandle method = JPH_CONTACT_LISTENER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy contact listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy contact listener: " + className);
 		}
 	}
 

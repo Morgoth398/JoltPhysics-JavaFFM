@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.body.Body;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -65,18 +65,18 @@ public final class ConeConstraint extends TwoBodyConstraint {
 	protected ConeConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected ConeConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	/**
 	 * Construct cone constraint.
 	 */
 	public ConeConstraint(ConeConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * Construct cone constraint.
 	 */
@@ -90,7 +90,8 @@ public final class ConeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_CONE_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create cone constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create cone constraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -105,7 +106,8 @@ public final class ConeConstraint extends TwoBodyConstraint {
 			method.invokeExact(jphConstraint, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -126,7 +128,8 @@ public final class ConeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_CONE_CONSTRAINT_SET_HALF_CONE_ANGLE;
 			method.invokeExact(jphConstraint, halfConeAngle);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set half cone angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set half cone angle: " + className);
 		}
 	}
 
@@ -135,7 +138,8 @@ public final class ConeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_CONE_CONSTRAINT_GET_COS_HALF_CONE_ANGLE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get cos half cone angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get cos half cone angle: " + className);
 		}
 	}
 
@@ -146,7 +150,8 @@ public final class ConeConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get tota lLambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get tota lLambda position: " + className);
 		}
 	}
 
@@ -155,7 +160,8 @@ public final class ConeConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_CONE_CONSTRAINT_GET_TOTAL_LAMBDA_ROTATION;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda rotation: " + className);
 		}
 	}
 

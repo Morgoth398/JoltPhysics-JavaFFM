@@ -10,7 +10,7 @@ import org.joml.Vector3f;
 import volucris.engine.physics.jolt.JoltEnums.ActiveEdgeMode;
 import volucris.engine.physics.jolt.JoltEnums.CollectFacesMode;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -76,7 +76,7 @@ public sealed class CollideSettingsBase permits CollideShapeSettings, ShapeCastS
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong active edge mode!");
+		throw new JoltRuntimeException("Wrong active edge mode!");
 	}
 
 	/**
@@ -97,7 +97,7 @@ public sealed class CollideSettingsBase permits CollideShapeSettings, ShapeCastS
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong collect faces mode!");
+		throw new JoltRuntimeException("Wrong collect faces mode!");
 	}
 
 	/**

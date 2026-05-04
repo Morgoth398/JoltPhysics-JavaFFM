@@ -17,7 +17,7 @@ import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -73,7 +73,7 @@ public abstract class SimShapeFilter {
 	public SimShapeFilter() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SimShapeFilter(Arena arena) {
 		try {
 			int index = count++;
@@ -87,7 +87,8 @@ public abstract class SimShapeFilter {
 
 			SIM_SHAPE_FILTERS.add(index, new WeakReference<SimShapeFilter>(this));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create sim shape filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create sim shape filter: " + className);
 		}
 	}
 
@@ -121,7 +122,8 @@ public abstract class SimShapeFilter {
 			MethodHandle method = JPH_SIM_SHAPE_FILTER_SET_PROCS;
 			method.invokeExact(JPH_SIM_SHAPE_FILTER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set shape filter procs.");
+    String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set shape filter procs: " + className);
 		}
 	}
 
@@ -130,7 +132,8 @@ public abstract class SimShapeFilter {
 		try {
 			lookup = MethodHandles.privateLookupIn(SimShapeFilter.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -150,7 +153,8 @@ public abstract class SimShapeFilter {
 			MethodHandle method = JPH_SIM_SHAPE_FILTER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy sim shape filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy sim shape filter: " + className);
 		}
 	}
 

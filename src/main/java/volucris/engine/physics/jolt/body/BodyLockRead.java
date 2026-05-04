@@ -38,7 +38,7 @@ public final class BodyLockRead {
 	public BodyLockRead() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public BodyLockRead(Arena arena) {
 		jphBodyLockRead = arena.allocate(LAYOUT);
 	}

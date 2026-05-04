@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -27,7 +27,7 @@ public final class StaticCompoundShape extends CompoundShape {
 	protected StaticCompoundShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected StaticCompoundShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
@@ -35,14 +35,15 @@ public final class StaticCompoundShape extends CompoundShape {
 	public StaticCompoundShape(StaticCompoundShapeSettings settings) {
 		this(settings, Arena.ofAuto());
 	}
-	
+
 	public StaticCompoundShape(StaticCompoundShapeSettings settings, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_STATIC_COMPOUND_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create static compound shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create static compound shape: " + className);
 		}
 		super(segment, arena);
 	}

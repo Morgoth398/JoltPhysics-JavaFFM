@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -26,14 +26,15 @@ public final class SoftBodyCreationSettings {
 	public SoftBodyCreationSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SoftBodyCreationSettings(Arena arena) {
 		try {
 			MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphSoftBodyCreationSettings = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create SoftBodyCreationSettings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create SoftBodyCreationSettings: " + className);
 		}
 	}
 
@@ -42,7 +43,8 @@ public final class SoftBodyCreationSettings {
 			MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy soft body creation settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy soft body creation settings: " + className);
 		}
 	}
 

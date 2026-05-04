@@ -36,7 +36,7 @@ public final class BroadPhaseCastResult {
 	public BroadPhaseCastResult() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public BroadPhaseCastResult(Arena arena) {
 		jphBroadPhaseCastResult = arena.allocate(LAYOUT);
 	}

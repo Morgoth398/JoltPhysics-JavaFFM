@@ -8,7 +8,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -67,7 +67,8 @@ public final class ContactManifold {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get world space normal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get world space normal: " + className);
 		}
 	}
 
@@ -90,7 +91,8 @@ public final class ContactManifold {
 			MethodHandle method = JPH_CONTACT_MANIFOLD_GET_PENETRATION_DEPTH;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get penetration depth.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get penetration depth: " + className);
 		}
 	}
 
@@ -105,7 +107,8 @@ public final class ContactManifold {
 			MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID1;
 			return (int) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get sub shape Id 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get sub shape Id 1: " + className);
 		}
 	}
 
@@ -117,7 +120,8 @@ public final class ContactManifold {
 			MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID2;
 			return (int) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get sub shape Id 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get sub shape Id 2: " + className);
 		}
 	}
 
@@ -129,12 +133,13 @@ public final class ContactManifold {
 			MethodHandle method = JPH_CONTACT_MANIFOLD_GET_POINT_COUNT;
 			return (int) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot getPointCount.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot getPointCount: " + className);
 		}
 	}
 
 	/**
-	 * Access to the world space contact positions. 
+	 * Access to the world space contact positions.
 	 */
 	public Vector3f getWorldSpaceContactPointOn1(int index, Vector3f target) {
 		try {
@@ -143,19 +148,20 @@ public final class ContactManifold {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get world space contact point on 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get world space contact point on 1: " + className);
 		}
 	}
 
 	/**
-	 * Access to the world space contact positions. 
+	 * Access to the world space contact positions.
 	 */
 	public Vector3f getWorldSpaceContactPointOn1(int index) {
 		return getWorldSpaceContactPointOn1(index, new Vector3f());
 	}
 
 	/**
-	 * Access to the world space contact positions. 
+	 * Access to the world space contact positions.
 	 */
 	public Vector3f getWorldSpaceContactPointOn2(int index, Vector3f target) {
 		try {
@@ -164,12 +170,13 @@ public final class ContactManifold {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get world space contact point on 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get world space contact point on 2: " + className);
 		}
 	}
 
 	/**
-	 * Access to the world space contact positions. 
+	 * Access to the world space contact positions.
 	 */
 	public Vector3f getWorldSpaceContactPointOn2(int index) {
 		return getWorldSpaceContactPointOn2(index, new Vector3f());

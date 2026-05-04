@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -30,7 +30,7 @@ public final class EmptyShapeSettings extends ShapeSettings {
 	public EmptyShapeSettings(Vector3f centerOfMass) {
 		this(centerOfMass, Arena.ofAuto());
 	}
-	
+
 	public EmptyShapeSettings(Vector3f centerOfMass, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
@@ -39,7 +39,8 @@ public final class EmptyShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(vec.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create empty shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create empty shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -47,14 +48,15 @@ public final class EmptyShapeSettings extends ShapeSettings {
 	public EmptyShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public EmptyShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new EmptyShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

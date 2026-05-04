@@ -9,7 +9,7 @@ import java.lang.invoke.VarHandle;
 
 import volucris.engine.physics.jolt.JoltEnums.ShapeColor;
 import volucris.engine.physics.jolt.JoltEnums.SoftBodyConstraintColor;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -125,7 +125,7 @@ public final class DrawSettings {
 	public DrawSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public DrawSettings(Arena arena) {
 		jphDrawSettings = arena.allocate(LAYOUT);
 
@@ -137,7 +137,8 @@ public final class DrawSettings {
 			MethodHandle method = DRAW_SETTINGS_INIT_DEFAULT;
 			method.invokeExact(jphDrawSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize draw settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize draw settings: " + className);
 		}
 	}
 
@@ -206,7 +207,7 @@ public final class DrawSettings {
 				return color;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong shape color!");
+		throw new JoltRuntimeException("Wrong shape color!");
 	}
 
 	/**
@@ -379,7 +380,7 @@ public final class DrawSettings {
 				return color;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong soft body constraint color!");
+		throw new JoltRuntimeException("Wrong soft body constraint color!");
 	}
 
 	/**

@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -33,7 +33,7 @@ public final class WheelSettingsTV extends WheelSettings {
 	protected WheelSettingsTV(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected WheelSettingsTV(MemorySegment segment, Arena arena) {
 		super(segment, arena, false);
 	}
@@ -41,14 +41,15 @@ public final class WheelSettingsTV extends WheelSettings {
 	public WheelSettingsTV() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public WheelSettingsTV(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_WHEEL_SETTINGS_TV_CREATE;
 			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create wheel settings tv.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create wheel settings tv: " + className);
 		}
 		super(segment, arena, true);
 	}
@@ -61,7 +62,8 @@ public final class WheelSettingsTV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LONGITUDINAL_FRICTION;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get longitudinal friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get longitudinal friction: " + className);
 		}
 	}
 
@@ -73,7 +75,8 @@ public final class WheelSettingsTV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_TV_SET_LONGITUDINAL_FRICTION;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set longitudinal friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set longitudinal friction: " + className);
 		}
 	}
 
@@ -85,7 +88,8 @@ public final class WheelSettingsTV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LATERAL_FRICTION;
 			return (float) method.invokeExact(jphWheelSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lateral friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lateral friction: " + className);
 		}
 	}
 
@@ -97,7 +101,8 @@ public final class WheelSettingsTV extends WheelSettings {
 			MethodHandle method = JPH_WHEEL_SETTINGS_TV_SET_LATERAL_FRICTION;
 			method.invokeExact(jphWheelSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set lateral friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set lateral friction: " + className);
 		}
 	}
 

@@ -1,6 +1,5 @@
 package volucris.engine.physics.jolt.ragdoll;
 
-import java.lang.RuntimeException;
 import java.lang.Throwable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
@@ -9,6 +8,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Matrix4f;
 
 import volucris.engine.physics.jolt.math.Mat4;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -50,7 +50,7 @@ public final class SkeletonMapper {
 	public SkeletonMapper() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SkeletonMapper(Arena arena) {
 		try {
 			MethodHandle method = JPH_SKELETON_MAPPER_CREATE;
@@ -58,8 +58,9 @@ public final class SkeletonMapper {
 			jphSkeletonMapper = segment.reinterpret(arena, s -> destroy(s));
 
 			matTmp = new Mat4(arena);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot create skeleton mapper.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create skeleton mapper: " + className);
 		}
 	}
 
@@ -70,8 +71,9 @@ public final class SkeletonMapper {
 		try {
 			MethodHandle method = JPH_SKELETON_MAPPER_DESTROY;
 			method.invokeExact(segment);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call destroy.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call destroy: " + className);
 		}
 	}
 
@@ -112,8 +114,9 @@ public final class SkeletonMapper {
 
 			MethodHandle method = JPH_SKELETON_MAPPER_INITIALIZE;
 			method.invokeExact(jphSkeletonMapper, skeleton1Addr, pose1, skeleton2Addr, pose2);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call initialize.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call initialize: " + className);
 		}
 	}
 
@@ -140,8 +143,9 @@ public final class SkeletonMapper {
 
 			MethodHandle method = JPH_SKELETON_MAPPER_LOCK_ALL_TRANSLATIONS;
 			method.invokeExact(jphSkeletonMapper, skeleton2.memorySegment(), pose2);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call lockAllTranslations.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call lockAllTranslations: " + className);
 		}
 	}
 
@@ -174,8 +178,9 @@ public final class SkeletonMapper {
 
 			MethodHandle method = JPH_SKELETON_MAPPER_LOCK_TRANSLATIONS;
 			method.invokeExact(jphSkeletonMapper, skeleton2.memorySegment(), array, pose2);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call lockTranslations.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call lockTranslations: " + className);
 		}
 	}
 
@@ -222,8 +227,9 @@ public final class SkeletonMapper {
 
 				matTmp.get(pose2ModelSpace[i]);
 			}
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call map.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call map: " + className);
 		}
 	}
 
@@ -257,8 +263,9 @@ public final class SkeletonMapper {
 
 				matTmp.get(pose1ModelSpace[i]);
 			}
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call mapReverse.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call mapReverse: " + className);
 		}
 	}
 
@@ -270,8 +277,9 @@ public final class SkeletonMapper {
 		try {
 			MethodHandle method = JPH_SKELETON_MAPPER_GET_MAPPED_JOINT_INDEX;
 			return (int) method.invokeExact(jphSkeletonMapper, joint1Index);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getMappedJointIndex.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getMappedJointIndex: " + className);
 		}
 	}
 
@@ -283,8 +291,9 @@ public final class SkeletonMapper {
 		try {
 			MethodHandle method = JPH_SKELETON_MAPPER_IS_JOINT_TRANSLATION_LOCKED;
 			return (boolean) method.invokeExact(jphSkeletonMapper, joint2Index);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call isJointTranslationLocked.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call isJointTranslationLocked: " + className);
 		}
 	}
 

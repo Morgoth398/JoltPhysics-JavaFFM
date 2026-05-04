@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -23,13 +23,14 @@ public abstract class CastRayCollectorCallback {
 	private final MemorySegment callbackAddress;
 
 	private final RayCastResult result;
-	
+
 	static {
 		//@formatter:off
 		try {
 			LOOKUP = MethodHandles.privateLookupIn(CastRayCollectorCallback.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		CALLBACK_DESCR = functionDescrVoid(ADDRESS, ADDRESS.withTargetLayout(RayCastResult.LAYOUT()));
@@ -41,10 +42,10 @@ public abstract class CastRayCollectorCallback {
 	public CastRayCollectorCallback() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CastRayCollectorCallback(Arena arena) {
 		callbackAddress = upcallStub(this, CALLBACK_HANDLE, CALLBACK_DESCR, arena);
-		
+
 		result = new RayCastResult(arena);
 	}
 
@@ -58,9 +59,9 @@ public abstract class CastRayCollectorCallback {
 		this.result.set(result);
 		castRayCollectorCallback(context, this.result);
 	}
-	
+
 	public MemorySegment memorySegment() {
 		return callbackAddress;
 	}
-	
+
 }

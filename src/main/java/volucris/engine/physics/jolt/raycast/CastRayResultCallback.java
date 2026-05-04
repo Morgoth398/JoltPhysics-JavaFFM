@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -23,13 +23,14 @@ public abstract class CastRayResultCallback {
 	private final MemorySegment callbackAddress;
 
 	private final RayCastResult result;
-	
+
 	static {
 		//@formatter:off
 		try {
 			LOOKUP = MethodHandles.privateLookupIn(CastRayResultCallback.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		CALLBACK_DESCR = functionDescrVoid(ADDRESS, ADDRESS.withTargetLayout(RayCastResult.LAYOUT()));
@@ -37,30 +38,30 @@ public abstract class CastRayResultCallback {
 		CALLBACK = upcallHandle(LOOKUP, CastRayResultCallback.class, "castRayResultCallback", CALLBACK_DESCR);
 		//@formatter:on
 	}
-	
+
 	public CastRayResultCallback() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CastRayResultCallback(Arena arena) {
 		callbackAddress = upcallStub(this, CALLBACK, CALLBACK_DESCR, arena);
-		
+
 		result = new RayCastResult(arena);
 	}
-	
+
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	public abstract void castRayResultCallback(MemorySegment context, RayCastResult result);
-	
+
 	@SuppressWarnings("unused")
 	private void castRayResultCallback(MemorySegment context, MemorySegment result) {
 		this.result.set(result);
 		castRayResultCallback(context, this.result);
 	}
-	
+
 	public MemorySegment memorySegment() {
 		return callbackAddress;
 	}
-	
+
 }

@@ -6,15 +6,15 @@ import java.lang.foreign.MemorySegment;
 import org.tinylog.Logger;
 
 public final class AssertFailureCallbackImpl extends AssertFailureCallback {
-	
+
 	public AssertFailureCallbackImpl() {
-		
+
 	}
-	
+
 	public AssertFailureCallbackImpl(Arena arena) {
 		super(arena);
 	}
-	
+
 	@Override
 	public boolean assertFailureCallback(MemorySegment expression, MemorySegment message, MemorySegment file,
 			int line) {

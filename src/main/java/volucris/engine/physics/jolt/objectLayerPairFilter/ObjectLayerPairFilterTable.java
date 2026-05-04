@@ -3,7 +3,7 @@ package volucris.engine.physics.jolt.objectLayerPairFilter;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -38,7 +38,8 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
 		try {
 			segment = (MemorySegment) JPH_OBJECT_LAYER_PAIR_FILTER_TABLE_CREATE.invokeExact(numObjectLayers);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create ObjectLayerPairFilterTable.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create ObjectLayerPairFilterTable: " + className);
 		}
 		super(segment);
 	}
@@ -51,7 +52,8 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_TABLE_DISABLE_COLLISION;
 			method.invokeExact(jphObjectLayerPairFilter, layer1, layer2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot disable collision.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot disable collision: " + className);
 		}
 	}
 
@@ -63,7 +65,8 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_TABLE_ENABLE_COLLISION;
 			method.invokeExact(jphObjectLayerPairFilter, layer1, layer2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot enable collision.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot enable collision: " + className);
 		}
 	}
 
@@ -75,7 +78,8 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_TABLE_SHOULD_COLLIDE;
 			return (boolean) method.invokeExact(jphObjectLayerPairFilter, layer1, layer2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if layers should collide.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if layers should collide: " + className);
 		}
 	}
 

@@ -11,7 +11,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -61,7 +61,7 @@ public final class GearConstraintSettings extends TwoBodyConstraintSettings {
 	public GearConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public GearConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -79,7 +79,8 @@ public final class GearConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_GEAR_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphGearConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize gear constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize gear constraint settings: " + className);
 		}
 	}
 
@@ -95,7 +96,7 @@ public final class GearConstraintSettings extends TwoBodyConstraintSettings {
 				return space;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for constraint space.");
+		throw new JoltRuntimeException("Wrong value for constraint space");
 	}
 
 	/**
@@ -121,56 +122,56 @@ public final class GearConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace). 
+	 * Body 1 constraint reference frame (space determined by mSpace).
 	 */
 	public void setHingeAxis1(float x, float y, float z) {
 		hingeAxis1.set(x, y, z);
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace). 
+	 * Body 1 constraint reference frame (space determined by mSpace).
 	 */
 	public void setHingeAxis1(Vector3f axis) {
 		hingeAxis1.set(axis);
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace). 
+	 * Body 1 constraint reference frame (space determined by mSpace).
 	 */
 	public Vector3f getHingeAxis1(Vector3f target) {
 		return hingeAxis1.get(target);
 	}
 
 	/**
-	 * Body 1 constraint reference frame (space determined by mSpace). 
+	 * Body 1 constraint reference frame (space determined by mSpace).
 	 */
 	public Vector3f getHingeAxis1() {
 		return getHingeAxis1(new Vector3f());
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public void setHingeAxis2(float x, float y, float z) {
 		hingeAxis2.set(x, y, z);
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public void setHingeAxis2(Vector3f axis) {
 		hingeAxis2.set(axis);
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public Vector3f getHingeAxis2(Vector3f target) {
 		return hingeAxis2.get(target);
 	}
 
 	/**
-	 * Body 2 constraint reference frame (space determined by mSpace) 
+	 * Body 2 constraint reference frame (space determined by mSpace)
 	 */
 	public Vector3f getHingeAxis2() {
 		return getHingeAxis2(new Vector3f());

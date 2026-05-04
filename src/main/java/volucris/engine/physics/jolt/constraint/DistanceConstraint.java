@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.body.Body;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -41,18 +41,18 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 	protected DistanceConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected DistanceConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	/**
 	 * Construct distance constraint.
 	 */
 	public DistanceConstraint(DistanceConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * Construct distance constraint.
 	 */
@@ -66,7 +66,8 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_DISTANCE_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create distance constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create distance constraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -81,7 +82,8 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 			method.invokeExact(jphConstraint, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -93,14 +95,15 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 	}
 
 	/**
-	 * Update the minimum and maximum distance for the constraint. 
+	 * Update the minimum and maximum distance for the constraint.
 	 */
 	public void setDistance(float minDistance, float maxDistance) {
 		try {
 			MethodHandle method = JPH_DISTANCE_CONSTRAINT_SET_DISTANCE;
 			method.invokeExact(jphConstraint, minDistance, maxDistance);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set distance.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set distance: " + className);
 		}
 	}
 
@@ -112,7 +115,8 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MIN_DISTANCE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get min distance.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get min distance: " + className);
 		}
 	}
 
@@ -124,7 +128,8 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MAX_DISTANCE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max distance.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max distance: " + className);
 		}
 	}
 
@@ -137,7 +142,8 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 			method.invokeExact(jphConstraint, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits spring settings: " + className);
 		}
 	}
 
@@ -149,14 +155,15 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 	}
 
 	/**
-	 * Update the limits spring settings. 
+	 * Update the limits spring settings.
 	 */
 	public void setLimitsSpringSettings(SpringSettings settings) {
 		try {
 			MethodHandle method = JPH_DISTANCE_CONSTRAINT_SET_LIMITS_SPRING_SETTINGS;
 			method.invokeExact(jphConstraint, settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set limits spring settings: " + className);
 		}
 	}
 
@@ -168,7 +175,8 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position: " + className);
 		}
 	}
 

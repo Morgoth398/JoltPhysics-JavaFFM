@@ -4,13 +4,13 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
 
 /**
- * Collision tester that tests collision using a cylinder shape. 
+ * Collision tester that tests collision using a cylinder shape.
  */
 public final class VehicleCollisionTesterCastCylinder extends VehicleCollisionTester {
 
@@ -25,16 +25,17 @@ public final class VehicleCollisionTesterCastCylinder extends VehicleCollisionTe
 	public VehicleCollisionTesterCastCylinder(int layer, float convexRadiusFraction) {
 		this(layer, convexRadiusFraction, Arena.ofAuto());
 	}
-	
+
 	public VehicleCollisionTesterCastCylinder(int layer, float convexRadiusFraction, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_CAST_CYLINDER_CREATE;
 			segment = (MemorySegment) method.invokeExact(layer, convexRadiusFraction);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create VehicleCollisionTesterCastCylinder.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create VehicleCollisionTesterCastCylinder: " + className);
 		}
 		super(segment, arena);
 	}
-	
+
 }

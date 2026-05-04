@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -40,7 +40,7 @@ public sealed class ShapeSettings permits CompoundShapeSettings, ConvexShapeSett
 	protected ShapeSettings(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected ShapeSettings(MemorySegment segment, Arena arena) {
 		jphShapeSettings = segment.reinterpret(arena, s -> destroy(s));
 	}
@@ -50,7 +50,8 @@ public sealed class ShapeSettings permits CompoundShapeSettings, ConvexShapeSett
 			MethodHandle method = JPH_SHAPE_SETTINGS_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy shape settings: " + className);
 		}
 	}
 
@@ -59,7 +60,8 @@ public sealed class ShapeSettings permits CompoundShapeSettings, ConvexShapeSett
 			MethodHandle method = JPH_SHAPE_SETTINGS_GET_USER_DATA;
 			return (long) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get user data: " + className);
 		}
 	}
 
@@ -68,7 +70,8 @@ public sealed class ShapeSettings permits CompoundShapeSettings, ConvexShapeSett
 			MethodHandle method = JPH_SHAPE_SETTINGS_SET_USER_DATA;
 			method.invokeExact(jphShapeSettings, userData);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set user data: " + className);
 		}
 	}
 

@@ -39,7 +39,7 @@ public final class RayCastResult {
 	public RayCastResult() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public RayCastResult(Arena arena) {
 		jphRayCastResult = arena.allocate(LAYOUT);
 	}

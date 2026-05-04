@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -27,7 +27,8 @@ public abstract class CollideShapeBodyCollectorCallback {
 		try {
 			LOOKUP = MethodHandles.privateLookupIn(CollideShapeBodyCollectorCallback.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		CALLBACK_DESCR = functionDescrVoid(ADDRESS, JAVA_INT);
@@ -39,11 +40,11 @@ public abstract class CollideShapeBodyCollectorCallback {
 	public CollideShapeBodyCollectorCallback() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CollideShapeBodyCollectorCallback(Arena arena) {
 		callbackAddress = upcallStub(this, CALLBACK_HANDLE, CALLBACK_DESCR, arena);
 	}
-	
+
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
@@ -52,5 +53,5 @@ public abstract class CollideShapeBodyCollectorCallback {
 	public MemorySegment memorySegment() {
 		return callbackAddress;
 	}
-	
+
 }

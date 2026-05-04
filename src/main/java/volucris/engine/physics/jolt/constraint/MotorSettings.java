@@ -50,7 +50,7 @@ public final class MotorSettings {
 	public MotorSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public MotorSettings(Arena arena) {
 		jphMotorSettings = arena.allocate(LAYOUT);
 

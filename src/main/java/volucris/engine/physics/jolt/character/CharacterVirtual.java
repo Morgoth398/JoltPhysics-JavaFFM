@@ -16,7 +16,7 @@ import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -217,11 +217,12 @@ public final class CharacterVirtual extends CharacterBase {
 
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_CREATE;
 			segment = (MemorySegment) method.invokeExact(settAddr, posAddr, rotAddr, userData, systemAddr);
-			
+
 			vecTmp2 = vec;
 			quatTmp = quat;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create character virtual.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create character virtual: " + className);
 		}
 		super(segment, arena, true);
 
@@ -240,7 +241,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ID;
 			return (int) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get ID.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get ID: " + className);
 		}
 	}
 
@@ -252,7 +254,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_LISTENER;
 			method.invokeExact(jphCharacter, listener.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set listener.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set listener: " + className);
 		}
 	}
 
@@ -264,7 +267,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_CHARACTER_VS_CHARACTER_COLLISION;
 			method.invokeExact(jphCharacter, characterVsCharacterCollision.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set character vs character collision.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set character vs character collision: " + className);
 		}
 	}
 
@@ -278,7 +282,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get linear velocity: " + className);
 		}
 	}
 
@@ -299,7 +304,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_LINEAR_VELOCITY;
 			method.invokeExact(jphCharacter, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set linear velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set linear velocity: " + className);
 		}
 	}
 
@@ -313,7 +319,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get position: " + className);
 		}
 	}
 
@@ -334,7 +341,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_POSITION;
 			method.invokeExact(jphCharacter, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set position: " + className);
 		}
 	}
 
@@ -348,7 +356,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return quatTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get rotation: " + className);
 		}
 	}
 
@@ -369,7 +378,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_ROTATION;
 			method.invokeExact(jphCharacter, quatTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set rotation: " + className);
 		}
 	}
 
@@ -383,7 +393,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get world transform.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get world transform: " + className);
 		}
 	}
 
@@ -404,7 +415,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get center of mass transform.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get center of mass transform: " + className);
 		}
 	}
 
@@ -423,7 +435,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MASS;
 			return (float) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get mass.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get mass: " + className);
 		}
 	}
 
@@ -435,7 +448,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MASS;
 			method.invokeExact(jphCharacter, mass);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set mass.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set mass: " + className);
 		}
 	}
 
@@ -447,7 +461,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_STRENGTH;
 			return (float) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max strength.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max strength: " + className);
 		}
 	}
 
@@ -459,7 +474,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MAX_STRENGTH;
 			method.invokeExact(jphCharacter, maxStrength);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max strength.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max strength: " + className);
 		}
 	}
 
@@ -472,7 +488,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_PENETRATION_RECOVERY_SPEED;
 			return (float) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get penetration recovery speed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get penetration recovery speed: " + className);
 		}
 	}
 
@@ -485,7 +502,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_PENETRATION_RECOVERY_SPEED;
 			method.invokeExact(jphCharacter, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set penetration recovery speed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set penetration recovery speed: " + className);
 		}
 	}
 
@@ -497,7 +515,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ENHANCED_INTERNAL_EDGE_REMOVAL;
 			return (boolean) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get enhanced internal edge removal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get enhanced internal edge removal: " + className);
 		}
 	}
 
@@ -511,7 +530,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_ENHANCED_INTERNAL_EDGE_REMOVAL;
 			method.invokeExact(jphCharacter, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set enhanced internal edge removal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set enhanced internal edge removal: " + className);
 		}
 	}
 
@@ -523,7 +543,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_CHARACTER_PADDING;
 			return (float) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get character padding.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get character padding: " + className);
 		}
 	}
 
@@ -536,7 +557,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_NUM_HITS;
 			return (int) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max um hits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max um hits: " + className);
 		}
 	}
 
@@ -549,7 +571,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MAX_NUM_HITS;
 			method.invokeExact(jphCharacter, maxNumHits);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max num hits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max num hits: " + className);
 		}
 	}
 
@@ -561,7 +584,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_HIT_REDUCTION_COS_MAX_ANGLE;
 			return (float) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get hit reduction cos max angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get hit reduction cos max angle: " + className);
 		}
 	}
 
@@ -575,7 +599,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_HIT_REDUCTION_COS_MAX_ANGLE;
 			method.invokeExact(jphCharacter, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set hit reduction cos max angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set hit reduction cos max angle: " + className);
 		}
 	}
 
@@ -592,7 +617,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_HITS_EXCEEDED;
 			return (boolean) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max hits exceeded.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max hits exceeded: " + className);
 		}
 	}
 
@@ -608,7 +634,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get shape offset.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get shape offset: " + className);
 		}
 	}
 
@@ -629,7 +656,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_SHAPE_OFFSET;
 			method.invokeExact(jphCharacter, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set shape offset.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set shape offset: " + className);
 		}
 	}
 
@@ -641,7 +669,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_USER_DATA;
 			return (long) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get user data: " + className);
 		}
 	}
 
@@ -653,7 +682,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_USER_DATA;
 			method.invokeExact(jphCharacter, userData);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set user data.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set user data: " + className);
 		}
 	}
 
@@ -666,7 +696,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_INNER_BODY_ID;
 			return (int) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inner bodyID.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inner bodyID: " + className);
 		}
 	}
 
@@ -688,7 +719,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return vecTmp2.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cancel velocity towards steep slopes.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cancel velocity towards steep slopes: " + className);
 		}
 	}
 
@@ -714,7 +746,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_START_TRACKING_CONTACT_CHANGES;
 			method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot start tracking contact changes.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot start tracking contact changes: " + className);
 		}
 	}
 
@@ -727,7 +760,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_FINISH_TRACKING_CONTACT_CHANGES;
 			method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot finish tracking contact changes.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot finish tracking contact changes: " + className);
 		}
 	}
 
@@ -759,7 +793,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_UPDATE;
 			method.invokeExact(charAddr, deltaTime, layer, systemAddr, bodyFilterAddr, shapeFilterAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call update.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call update: " + className);
 		}
 	}
 
@@ -797,7 +832,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_EXTENDED_UPDATE;
 			method.invokeExact(charAddr, deltaTime, settAddr, layer, systemAddr, bodyFilterAddr, shapeFilterAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call extended update.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call extended update: " + className);
 		}
 	}
 
@@ -814,7 +850,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_REFRESH_CONTACTS;
 			method.invokeExact(jphCharacter, layer, systemAddr, bodyFilterAddr, shapeFilterAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot refresh contacts.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot refresh contacts: " + className);
 		}
 	}
 
@@ -833,7 +870,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_CAN_WALK_STAIRS;
 			return (boolean) method.invokeExact(jphCharacter, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call can walk stairs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call can walk stairs: " + className);
 		}
 	}
 
@@ -885,7 +923,8 @@ public final class CharacterVirtual extends CharacterBase {
 			return (boolean) method.invokeExact(charAddr, deltaTime, upAddr, forwardAddr, forwardTestAddr, downAddr,
 					layer, systemAddr, bodyFilterAddr, shapeFilterAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call walk stairs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call walk stairs: " + className);
 		}
 	}
 
@@ -923,7 +962,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_STICK_TO_FLOOR;
 			return (boolean) method.invokeExact(charAddr, downAddr, layer, systemAddr, bodyFilterAddr, shapeFilterAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call stick to floor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call stick to floor: " + className);
 		}
 	}
 
@@ -938,7 +978,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_UPDATE_GROUND_VELOCITY;
 			method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot update ground velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot update ground velocity: " + className);
 		}
 	}
 
@@ -973,7 +1014,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_SHAPE;
 			return (boolean) method.invokeExact(charAddr, shapeAddr, value, layer, systemAddr, bFiltAddr, sFiltAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call setShape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call setShape: " + className);
 		}
 	}
 
@@ -986,7 +1028,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_INNER_BODY_SHAPE;
 			method.invokeExact(jphCharacter, shape.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set inner body shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set inner body shape: " + className);
 		}
 	}
 
@@ -998,7 +1041,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_NUM_ACTIVE_CONTACTS;
 			return (int) method.invokeExact(jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get num active contacts.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get num active contacts: " + className);
 		}
 	}
 
@@ -1014,7 +1058,8 @@ public final class CharacterVirtual extends CharacterBase {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get active contact.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get active contact: " + className);
 		}
 	}
 
@@ -1034,7 +1079,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_BODY;
 			return (boolean) method.invokeExact(jphCharacter, bodyId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call has collided with body.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call has collided with body: " + className);
 		}
 	}
 
@@ -1047,7 +1093,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH;
 			return (boolean) method.invokeExact(jphCharacter, characterId);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call has collided with.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call has collided with: " + className);
 		}
 	}
 
@@ -1060,7 +1107,8 @@ public final class CharacterVirtual extends CharacterBase {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_CHARACTER;
 			return (boolean) method.invokeExact(jphCharacter, other.jphCharacter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call has collided with character.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call has collided with character: " + className);
 		}
 	}
 

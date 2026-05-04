@@ -115,7 +115,7 @@ public final class PhysicsSettings {
 	public PhysicsSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public PhysicsSettings(Arena arena) {
 		jphPhysicsSettings = arena.allocate(LAYOUT);
 

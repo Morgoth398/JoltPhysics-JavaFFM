@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -27,7 +27,7 @@ public sealed class DecoratedShape extends Shape permits OffsetCenterOfMassShape
 	protected DecoratedShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected DecoratedShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -35,13 +35,13 @@ public sealed class DecoratedShape extends Shape permits OffsetCenterOfMassShape
 	protected DecoratedShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected DecoratedShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
 
 	/**
-	 * Access to the decorated inner shape. 
+	 * Access to the decorated inner shape.
 	 */
 	public Shape getInnerShape() {
 		try {
@@ -57,7 +57,8 @@ public sealed class DecoratedShape extends Shape permits OffsetCenterOfMassShape
 
 			return new Shape(segment, false);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inner shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inner shape: " + className);
 		}
 	}
 

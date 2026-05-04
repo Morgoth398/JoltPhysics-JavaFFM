@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -23,13 +23,14 @@ public abstract class CollidePointCollectorCallback {
 	private final MemorySegment callbackAddress;
 
 	private final CollidePointResult result;
-	
+
 	static {
 		//@formatter:off
 		try {
 			LOOKUP = MethodHandles.privateLookupIn(CollidePointCollectorCallback.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		CALLBACK_DESCR = functionDescrVoid(ADDRESS, ADDRESS.withTargetLayout(CollidePointResult.LAYOUT()));
@@ -41,13 +42,13 @@ public abstract class CollidePointCollectorCallback {
 	public CollidePointCollectorCallback() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CollidePointCollectorCallback(Arena arena) {
 		callbackAddress = upcallStub(this, CALLBACK_HANDLE, CALLBACK_DESCR, arena);
-		
+
 		result = new CollidePointResult(arena);
 	}
-	
+
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
@@ -58,9 +59,9 @@ public abstract class CollidePointCollectorCallback {
 		this.result.set(result);
 		collidePointCollectorCallback(context, this.result);
 	}
-	
+
 	public MemorySegment memorySegment() {
 		return callbackAddress;
 	}
-	
+
 }

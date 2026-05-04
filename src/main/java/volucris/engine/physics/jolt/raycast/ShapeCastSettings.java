@@ -9,7 +9,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
 
 import volucris.engine.physics.jolt.JoltEnums.BackFaceMode;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -76,7 +76,8 @@ public final class ShapeCastSettings extends CollideSettingsBase {
 			MethodHandle method = JPH_SHAPE_CAST_SETTINGS_INIT;
 			method.invokeExact(jphShapeCastSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize shape cast settings");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize shape cast settings: " + className);
 		}
 	}
 
@@ -99,7 +100,7 @@ public final class ShapeCastSettings extends CollideSettingsBase {
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong back face mode!");
+		throw new JoltRuntimeException("Wrong back face mode!");
 	}
 
 	/**
@@ -122,7 +123,7 @@ public final class ShapeCastSettings extends CollideSettingsBase {
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong back face mode!");
+		throw new JoltRuntimeException("Wrong back face mode!");
 	}
 
 	/**

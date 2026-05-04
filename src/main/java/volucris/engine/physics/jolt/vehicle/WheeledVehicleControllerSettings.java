@@ -6,7 +6,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -70,7 +70,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create wheeled vehicle controller settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create wheeled vehicle controller settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -85,7 +86,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get engine.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get engine: " + className);
 		}
 	}
 
@@ -104,7 +106,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_ENGINE;
 			method.invokeExact(jphVehicleControllerSettings, engine.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set engine.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set engine: " + className);
 		}
 	}
 
@@ -125,7 +128,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 
 			return new VehicleTransmissionSettings(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get transmission.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get transmission: " + className);
 		}
 	}
 
@@ -137,7 +141,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_TRANSMISSION;
 			method.invokeExact(jphVehicleControllerSettings, transmission.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set transmission.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set transmission: " + className);
 		}
 	}
 
@@ -149,7 +154,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIALS_COUNT;
 			return (int) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get differentials count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get differentials count: " + className);
 		}
 	}
 
@@ -161,7 +167,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIALS_COUNT;
 			method.invokeExact(jphVehicleControllerSettings, count);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set differentials count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set differentials count: " + className);
 		}
 	}
 
@@ -175,7 +182,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get differential.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get differential: " + className);
 		}
 	}
 
@@ -194,7 +202,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIAL;
 			method.invokeExact(jphVehicleControllerSettings, index, differential.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set differential.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set differential: " + className);
 		}
 	}
 
@@ -213,7 +222,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIALS;
 			method.invokeExact(jphVehicleControllerSettings, array, values.length);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call set differentials.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call set differentials: " + className);
 		}
 	}
 
@@ -229,7 +239,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIAL_LIMITED_SLIP_RATIO;
 			return (float) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get differential limited slip ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get differential limited slip ratio: " + className);
 		}
 	}
 
@@ -241,7 +252,8 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIAL_LIMITED_SLIP_RATIO;
 			method.invokeExact(jphVehicleControllerSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set differential limited slip ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set differential limited slip ratio: " + className);
 		}
 	}
 

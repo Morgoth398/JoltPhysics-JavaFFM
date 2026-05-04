@@ -213,14 +213,14 @@ public final class JoltEnums {
 	}
 
 	public enum DrawMode {
-		
+
 		/**
-		 * Draw as a solid shape. 
+		 * Draw as a solid shape.
 		 */
-		SOLID(0), 
-		
+		SOLID(0),
+
 		/**
-		 * Draw as wireframe. 
+		 * Draw as wireframe.
 		 */
 		WIREFRAME(1);
 

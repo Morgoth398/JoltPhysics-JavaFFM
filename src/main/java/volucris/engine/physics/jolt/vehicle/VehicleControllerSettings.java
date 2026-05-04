@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -29,7 +29,7 @@ public sealed class VehicleControllerSettings
 	protected VehicleControllerSettings(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected VehicleControllerSettings(MemorySegment segment, Arena arena) {
 		jphVehicleControllerSettings = segment.reinterpret(arena, s -> destroy(s));
 	}
@@ -39,7 +39,8 @@ public sealed class VehicleControllerSettings
 			MethodHandle method = JPH_VEHICLE_CONTROLLER_SETTINGS_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy vehicle controller settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy vehicle controller settings: " + className);
 		}
 	}
 

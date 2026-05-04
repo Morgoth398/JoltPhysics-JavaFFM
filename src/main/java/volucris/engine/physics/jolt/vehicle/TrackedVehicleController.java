@@ -3,7 +3,7 @@ package volucris.engine.physics.jolt.vehicle;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -65,7 +65,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_DRIVER_INPUT;
 			method.invokeExact(jphVehicleController, forward, leftRatio, rightRatio, brake);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set driver input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set driver input: " + className);
 		}
 	}
 
@@ -77,7 +78,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_FORWARD_INPUT;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get forward input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get forward input: " + className);
 		}
 	}
 
@@ -89,7 +91,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_FORWARD_INPUT;
 			method.invokeExact(jphVehicleController, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set forward input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set forward input: " + className);
 		}
 	}
 
@@ -101,7 +104,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_LEFT_RATIO;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get left ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get left ratio: " + className);
 		}
 	}
 
@@ -114,7 +118,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_LEFT_RATIO;
 			method.invokeExact(jphVehicleController, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set left ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set left ratio: " + className);
 		}
 	}
 
@@ -126,7 +131,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_RIGHT_RATIO;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get right ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get right ratio: " + className);
 		}
 	}
 
@@ -139,7 +145,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_RIGHT_RATIO;
 			method.invokeExact(jphVehicleController, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set right ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set right ratio: " + className);
 		}
 	}
 
@@ -151,7 +158,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_BRAKE_INPUT;
 			return (float) method.invokeExact(jphVehicleController);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get brake input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get brake input: " + className);
 		}
 	}
 
@@ -163,7 +171,8 @@ public final class TrackedVehicleController extends VehicleController {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_BRAKE_INPUT;
 			method.invokeExact(jphVehicleController, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set brake input.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set brake input: " + className);
 		}
 	}
 
@@ -179,7 +188,8 @@ public final class TrackedVehicleController extends VehicleController {
 			target.set(segment);
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get engine.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get engine: " + className);
 		}
 	}
 
@@ -201,7 +211,8 @@ public final class TrackedVehicleController extends VehicleController {
 			target.set(segment);
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get transmission.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get transmission: " + className);
 		}
 	}
 
@@ -219,12 +230,12 @@ public final class TrackedVehicleController extends VehicleController {
 		try {
 			MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphVehicleController, trackSide.id());
-			
+
 			target.set(segment);
 			return target;
 		} catch (Throwable e) {
 			String className = e.getClass().getSimpleName();
-			throw new VolucrisRuntimeException("Jolt: Cannot get vehicle track: " + className);
+			throw new JoltRuntimeException("Cannot get vehicle track: " + className);
 		}
 	}
 
@@ -234,5 +245,5 @@ public final class TrackedVehicleController extends VehicleController {
 	public VehicleTrack getVehicleTrack(TrackSide trackSide) {
 		return getVehicleTrack(new VehicleTrack(), trackSide);
 	}
-	
+
 }

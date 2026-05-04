@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -77,23 +77,24 @@ public final class VehicleTransmissionSettings {
 
 	protected VehicleTransmissionSettings(MemorySegment segment) {
 		jphVehicleTransmissionSettings = segment;
-		
+
 		Jolt.addVehicleTransmissionSettings(segment.address(), this);
 	}
 
 	public VehicleTransmissionSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleTransmissionSettings(Arena arena) {
 		try {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphVehicleTransmissionSettings = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create vehicle transmission settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create vehicle transmission settings: " + className);
 		}
-		
+
 		Jolt.addVehicleTransmissionSettings(jphVehicleTransmissionSettings.address(), this);
 	}
 
@@ -102,9 +103,10 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy transmission settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy transmission settings: " + className);
 		}
-		
+
 		Jolt.removeVehicleTransmissionSettings(segment.address());
 	}
 
@@ -123,7 +125,8 @@ public final class VehicleTransmissionSettings {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get mode.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get mode: " + className);
 		}
 	}
 
@@ -135,7 +138,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_MODE;
 			method.invokeExact(jphVehicleTransmissionSettings, mode.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set mode.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set mode: " + className);
 		}
 	}
 
@@ -147,7 +151,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO_COUNT;
 			return (int) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get gear ratio count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get gear ratio count: " + className);
 		}
 	}
 
@@ -160,7 +165,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings, index);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get gear ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get gear ratio: " + className);
 		}
 	}
 
@@ -173,7 +179,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_GEAR_RATIO;
 			method.invokeExact(jphVehicleTransmissionSettings, index, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set gear ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set gear ratio: " + className);
 		}
 	}
 
@@ -198,7 +205,8 @@ public final class VehicleTransmissionSettings {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get gear ratios.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get gear ratios: " + className);
 		}
 	}
 
@@ -220,7 +228,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_GEAR_RATIOS;
 			method.invokeExact(jphVehicleTransmissionSettings, array, values.length);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set gear ratios.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set gear ratios: " + className);
 		}
 	}
 
@@ -232,7 +241,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO_COUNT;
 			return (int) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get reverse gear ratio count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get reverse gear ratio count: " + className);
 		}
 	}
 
@@ -244,7 +254,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings, index);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get reverse gear ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get reverse gear ratio: " + className);
 		}
 	}
 
@@ -256,7 +267,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_REVERSE_GEAR_RATIO;
 			method.invokeExact(jphVehicleTransmissionSettings, index, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set reverse gear ratio.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set reverse gear ratio: " + className);
 		}
 	}
 
@@ -281,7 +293,8 @@ public final class VehicleTransmissionSettings {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get reverse gear ratios.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get reverse gear ratios: " + className);
 		}
 	}
 
@@ -299,7 +312,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_REVERSE_GEAR_RATIOS;
 			method.invokeExact(jphVehicleTransmissionSettings, array, values.length);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set reverse gear ratios.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set reverse gear ratios: " + className);
 		}
 	}
 
@@ -311,7 +325,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_TIME;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get switch time.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get switch time: " + className);
 		}
 	}
 
@@ -323,7 +338,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SWITCH_TIME;
 			method.invokeExact(jphVehicleTransmissionSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set switch time.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set switch time: " + className);
 		}
 	}
 
@@ -336,7 +352,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_RELEASE_TIME;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get clutch release time.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get clutch release time: " + className);
 		}
 	}
 
@@ -349,7 +366,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_CLUTCH_RELEASE_TIME;
 			method.invokeExact(jphVehicleTransmissionSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set clutch release time.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set clutch release time: " + className);
 		}
 	}
 
@@ -362,7 +380,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_LATENCY;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get switch latency.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get switch latency: " + className);
 		}
 	}
 
@@ -375,7 +394,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SWITCH_LATENCY;
 			method.invokeExact(jphVehicleTransmissionSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set switch latency.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set switch latency: " + className);
 		}
 	}
 
@@ -388,7 +408,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_UP_RPM;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get shift up RPM.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get shift up RPM: " + className);
 		}
 	}
 
@@ -401,7 +422,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SHIFT_UP_RPM;
 			method.invokeExact(jphVehicleTransmissionSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set shift up RPM.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set shift up RPM: " + className);
 		}
 	}
 
@@ -414,7 +436,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_DOWN_RPM;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get shift down RPM.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get shift down RPM: " + className);
 		}
 	}
 
@@ -427,7 +450,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SHIFT_DOWN_RPM;
 			method.invokeExact(jphVehicleTransmissionSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set shift down RPM.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set shift down RPM: " + className);
 		}
 	}
 
@@ -441,7 +465,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_STRENGTH;
 			return (float) method.invokeExact(jphVehicleTransmissionSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get clutch strength.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get clutch strength: " + className);
 		}
 	}
 
@@ -453,7 +478,8 @@ public final class VehicleTransmissionSettings {
 			MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_CLUTCH_STRENGTH;
 			method.invokeExact(jphVehicleTransmissionSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set clutch strength.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set clutch strength: " + className);
 		}
 	}
 

@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -51,14 +51,15 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 	public MotorcycleControllerSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public MotorcycleControllerSettings(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create motorcycle controller settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create motorcycle controller settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -71,7 +72,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_MAX_LEAN_ANGLE;
 			return (float) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max lean angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max lean angle: " + className);
 		}
 	}
 
@@ -83,7 +85,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_SET_MAX_LEAN_ANGLE;
 			method.invokeExact(jphVehicleControllerSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max lean angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max lean angle: " + className);
 		}
 	}
 
@@ -95,7 +98,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_CONSTANT;
 			return (float) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lean spring constant.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lean spring constant: " + className);
 		}
 	}
 
@@ -107,7 +111,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_SET_LEAN_SPRING_CONSTANT;
 			method.invokeExact(jphVehicleControllerSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set lean spring constant.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set lean spring constant: " + className);
 		}
 	}
 
@@ -119,7 +124,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_DAMPING;
 			return (float) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lean spring damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lean spring damping: " + className);
 		}
 	}
 
@@ -131,7 +137,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_SET_LEAN_SPRING_DAMPING;
 			method.invokeExact(jphVehicleControllerSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set lean spring damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set lean spring damping: " + className);
 		}
 	}
 
@@ -145,7 +152,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT;
 			return (float) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lean spring integration coefficient.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lean spring integration coefficient: " + className);
 		}
 	}
 
@@ -157,7 +165,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_SET_LEAN_SPRING_INTEGRATION_COEFFICIENT;
 			method.invokeExact(jphVehicleControllerSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set lean spring integration coefficient.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set lean spring integration coefficient: " + className);
 		}
 	}
 
@@ -170,7 +179,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT_DECAY;
 			return (float) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lean spring integration coefficient decay.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lean spring integration coefficient decay: " + className);
 		}
 	}
 
@@ -182,7 +192,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_SET_LEAN_SPRING_INTEGRATION_COEFFICIENT_DECAY;
 			method.invokeExact(jphVehicleControllerSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set lean spring integration coefficient decay.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set lean spring integration coefficient decay: " + className);
 		}
 	}
 
@@ -194,7 +205,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SMOOTHING_FACTOR;
 			return (float) method.invokeExact(jphVehicleControllerSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lean smoothing factor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lean smoothing factor: " + className);
 		}
 	}
 
@@ -208,7 +220,8 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
 			MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_SET_LEAN_SMOOTHING_FACTOR;
 			method.invokeExact(jphVehicleControllerSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set lean smoothing factor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set lean smoothing factor: " + className);
 		}
 	}
 

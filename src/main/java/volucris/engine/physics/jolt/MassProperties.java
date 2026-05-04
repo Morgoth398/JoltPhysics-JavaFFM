@@ -12,7 +12,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Mat4;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -61,7 +61,7 @@ public final class MassProperties {
 	public MassProperties() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public MassProperties(Arena arena) {
 		jphMassProperties = arena.allocate(LAYOUT);
 
@@ -89,24 +89,27 @@ public final class MassProperties {
 			matTmp.get(rotationTarget);
 			vecTmp.get(diagonalTarget);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call decomposePrincipalMomentsOfInertia.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call decomposePrincipalMomentsOfInertia: " + className);
 		}
 	}
 
 	/**
-	 * Set the mass and scale the inertia tensor to match the mass. 
+	 * Set the mass and scale the inertia tensor to match the mass.
 	 */
 	public void scaleToMass(float mass) {
 		try {
 			MethodHandle method = JPH_MASS_PROPERTIES_SCALE_TO_MASS;
 			method.invokeExact(jphMassProperties, mass);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot scale to mass.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot scale to mass: " + className);
 		}
 	}
 
 	/**
-	 * Calculates the size of the solid box that has an inertia tensor diagonal inInertiaDiagonal. 
+	 * Calculates the size of the solid box that has an inertia tensor diagonal
+	 * inInertiaDiagonal.
 	 */
 	public static Vector3f getEquivalentSolidBoxSize(float mass, Vector3f inertiaDiagonal, Vector3f target) {
 		try (Arena arena = Arena.ofConfined()) {
@@ -117,47 +120,49 @@ public final class MassProperties {
 
 			return vec.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get equivalent solid box size.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get equivalent solid box size: " + className);
 		}
 	}
 
 	/**
-	 * Calculates the size of the solid box that has an inertia tensor diagonal inInertiaDiagonal. 
+	 * Calculates the size of the solid box that has an inertia tensor diagonal
+	 * inInertiaDiagonal.
 	 */
 	public static Vector3f getEquivalentSolidBoxSize(float mass, Vector3f inertiaDiagonal) {
 		return getEquivalentSolidBoxSize(mass, inertiaDiagonal, new Vector3f());
 	}
 
 	/**
-	 * Mass of the shape (kg) 
+	 * Mass of the shape (kg)
 	 */
 	public void setMass(float mass) {
 		MASS.set(jphMassProperties, mass);
 	}
 
 	/**
-	 * Mass of the shape (kg) 
+	 * Mass of the shape (kg)
 	 */
 	public float getMass() {
 		return (float) MASS.get(jphMassProperties);
 	}
 
 	/**
-	 * Inertia tensor of the shape (kg m^2) 
+	 * Inertia tensor of the shape (kg m^2)
 	 */
 	public Matrix4f getInertia(Matrix4f target) {
 		return inertia.get(target);
 	}
 
 	/**
-	 * Inertia tensor of the shape (kg m^2) 
+	 * Inertia tensor of the shape (kg m^2)
 	 */
 	public Matrix4f getInertia() {
 		return inertia.get();
 	}
 
 	/**
-	 * Inertia tensor of the shape (kg m^2) 
+	 * Inertia tensor of the shape (kg m^2)
 	 */
 	public void setInertia(Matrix4f inertia) {
 		this.inertia.set(inertia);

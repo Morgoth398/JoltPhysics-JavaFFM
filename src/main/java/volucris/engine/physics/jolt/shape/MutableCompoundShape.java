@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -52,7 +52,7 @@ public final class MutableCompoundShape extends CompoundShape {
 	protected MutableCompoundShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected MutableCompoundShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
@@ -60,14 +60,15 @@ public final class MutableCompoundShape extends CompoundShape {
 	public MutableCompoundShape(MutableCompoundShapeSettings settings) {
 		this(settings, Arena.ofAuto());
 	}
-	
+
 	public MutableCompoundShape(MutableCompoundShapeSettings settings, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(settings.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create mutable compund shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create mutable compund shape: " + className);
 		}
 		super(segment, arena);
 	}
@@ -108,7 +109,8 @@ public final class MutableCompoundShape extends CompoundShape {
 			MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_ADD_SHAPE;
 			return (int) method.invokeExact(jphShape, posAddr, rotAddr, childAddr, userData, index);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot add shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add shape: " + className);
 		}
 	}
 
@@ -128,7 +130,8 @@ public final class MutableCompoundShape extends CompoundShape {
 			MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_REMOVE_SHAPE;
 			method.invokeExact(jphShape, index);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot remove shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot remove shape: " + className);
 		}
 	}
 
@@ -143,7 +146,8 @@ public final class MutableCompoundShape extends CompoundShape {
 			MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_MODIFY_SHAPE;
 			method.invokeExact(jphShape, index, vecTmp.memorySegment(), quatTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot modify shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot modify shape: " + className);
 		}
 	}
 
@@ -170,7 +174,8 @@ public final class MutableCompoundShape extends CompoundShape {
 			MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_MODIFY_SHAPE2;
 			method.invokeExact(jphShape, index, posAddr, rotAddr, shapeAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot modify shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot modify shape: " + className);
 		}
 	}
 
@@ -195,7 +200,8 @@ public final class MutableCompoundShape extends CompoundShape {
 			MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_ADJUST_CENTER_OF_MASS;
 			method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot adjust center of mass.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot adjust center of mass: " + className);
 		}
 	}
 
