@@ -1,5 +1,6 @@
 naming:
   strip-prefixes:
+    - JPH_BodyManager_
     - JPH_PhysicsUpdateError_
     - JPH_BodyType_
     - JPH_MotionType_
@@ -24,10 +25,10 @@ naming:
     - JPH_SpringMode_
     - JPH_SoftBodyConstraintColor_
     - JPH_SoftBodyBendType_
-    - JPH_BodyManager_ShapeColor_
     - JPH_DebugRenderer_CastShadow_
     - JPH_DebugRenderer_DrawMode_
     - JPH_Mesh_Shape_BuildQuality_
+    - JPH_Mesh_Shape_
     - JPH_TransmissionMode_
     - JPH_TrackSide_
     - JPH_DebugRenderer_
