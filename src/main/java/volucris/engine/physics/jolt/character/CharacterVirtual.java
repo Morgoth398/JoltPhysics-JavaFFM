@@ -147,7 +147,11 @@ public final class CharacterVirtual extends CharacterBase {
 	}
 
 	protected CharacterVirtual(MemorySegment segment) {
-		super(segment, false);
+		this(segment, Arena.ofAuto());
+	}
+
+	protected CharacterVirtual(MemorySegment segment, Arena arena) {
+		super(segment, arena, false);
 
 		Jolt.addCharacterVirtual(segment.address(), this);
 
@@ -162,8 +166,16 @@ public final class CharacterVirtual extends CharacterBase {
 	 * Constructor without user data.
 	 */
 	public CharacterVirtual(CharacterVirtualSettings settings, Vector3f position, Quaternionf rotation,
+			PhysicsSystem system, Arena arena) {
+		this(settings, position, rotation, 0, system, arena);
+	}
+
+	/**
+	 * Constructor without user data.
+	 */
+	public CharacterVirtual(CharacterVirtualSettings settings, Vector3f position, Quaternionf rotation,
 			PhysicsSystem system) {
-		this(settings, position, rotation, 0, system);
+		this(settings, position, rotation, 0, system, Arena.ofAuto());
 	}
 
 	/**
@@ -178,8 +190,23 @@ public final class CharacterVirtual extends CharacterBase {
 	 */
 	public CharacterVirtual(CharacterVirtualSettings settings, Vector3f position, Quaternionf rotation, long userData,
 			PhysicsSystem system) {
+		this(settings, position, rotation, userData, system, Arena.ofAuto());
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param settings The settings for the character
+	 * @param position Initial position for the character
+	 * @param rotation Initial rotation for the character (usually only around the
+	 *                 up-axis)
+	 * @param userData Application specific value
+	 * @param system   Physics system that this character will be added to
+	 */
+	public CharacterVirtual(CharacterVirtualSettings settings, Vector3f position, Quaternionf rotation, long userData,
+			PhysicsSystem system, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
+		try {
 			Vec3 vec = new Vec3(arena, position);
 			Quat quat = new Quat(arena, rotation);
 
@@ -190,16 +217,17 @@ public final class CharacterVirtual extends CharacterBase {
 
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_CREATE;
 			segment = (MemorySegment) method.invokeExact(settAddr, posAddr, rotAddr, userData, systemAddr);
+			
+			vecTmp2 = vec;
+			quatTmp = quat;
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create character virtual.");
 		}
-		super(segment, true);
+		super(segment, arena, true);
 
 		Jolt.addCharacterVirtual(segment.address(), this);
 
-		quatTmp = new Quat(arena);
 		matTmp = new Mat4(arena);
-		vecTmp2 = new Vec3(arena);
 		vecTmp3 = new Vec3(arena);
 		vecTmp4 = new Vec3(arena);
 	}

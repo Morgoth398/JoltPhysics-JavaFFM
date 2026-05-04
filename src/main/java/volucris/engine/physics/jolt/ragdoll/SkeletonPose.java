@@ -66,13 +66,12 @@ public final class SkeletonPose {
 		//@formatter:on
 	}
 
-	/**
-	 *  
-	 */
 	public SkeletonPose() {
+		this(Arena.ofAuto());
+	}
+	
+	public SkeletonPose(Arena arena) {
 		try {
-			Arena arena = Arena.ofAuto();
-
 			MethodHandle method = JPH_SKELETON_POSE_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
 			jphSkeletonPose = segment.reinterpret(arena, s -> destroy(s));

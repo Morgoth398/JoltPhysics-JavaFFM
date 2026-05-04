@@ -130,17 +130,21 @@ public final class PhysicsSystem {
 	}
 
 	public PhysicsSystem(MemorySegment segment) {
+		this(segment, Arena.ofAuto());
+	}
+	
+	public PhysicsSystem(MemorySegment segment, Arena arena) {
 		jphPhysicsSystem = segment;
 
-		bodyInterface = createBodyInterface();
-		bodyInterfaceNoLock = createBodyInterfaceNoLock();
+		bodyInterface = createBodyInterface(arena);
+		bodyInterfaceNoLock = createBodyInterfaceNoLock(arena);
 		bodyLockInterface = createBodyLockInterface();
 		bodyLockInterfaceNoLock = createBodyLockInterfaceNoLock();
-		broadPhaseQuery = createBroadPhaseQuery();
-		narrowPhaseQuery = createNarrowPhaseQuery();
-		narrowPhaseQueryNoLock = createNarrowPhaseQueryNoLock();
+		broadPhaseQuery = createBroadPhaseQuery(arena);
+		narrowPhaseQuery = createNarrowPhaseQuery(arena);
+		narrowPhaseQueryNoLock = createNarrowPhaseQueryNoLock(arena);
 
-		vecTmp = new Vec3();
+		vecTmp = new Vec3(arena);
 
 		Jolt.addPhysicsSystem(jphPhysicsSystem.address(), this);
 	}
@@ -149,6 +153,13 @@ public final class PhysicsSystem {
 	 * 
 	 */
 	public PhysicsSystem(PhysicsSystemSettings settings) {
+		this(settings, Arena.ofAuto());
+	}
+	
+	/**
+	 * 
+	 */
+	public PhysicsSystem(PhysicsSystemSettings settings, Arena arena) {
 		if (!settings.isBroadPhaseLayerInterfaceSet())
 			throw new VolucrisRuntimeException("BroadPhaseLayerInterface not set.");
 		if (!settings.isObjectLayerPairFilterSet())
@@ -158,39 +169,39 @@ public final class PhysicsSystem {
 
 		try {
 			MemorySegment segment = (MemorySegment) JPH_PHYSICS_SYSTEM_CREATE.invokeExact(settings.memorySegment());
-			jphPhysicsSystem = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+			jphPhysicsSystem = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create PhysicsSystem.");
 		}
 
-		bodyInterface = createBodyInterface();
-		bodyInterfaceNoLock = createBodyInterfaceNoLock();
+		bodyInterface = createBodyInterface(arena);
+		bodyInterfaceNoLock = createBodyInterfaceNoLock(arena);
 		bodyLockInterface = createBodyLockInterface();
 		bodyLockInterfaceNoLock = createBodyLockInterfaceNoLock();
-		broadPhaseQuery = createBroadPhaseQuery();
-		narrowPhaseQuery = createNarrowPhaseQuery();
-		narrowPhaseQueryNoLock = createNarrowPhaseQueryNoLock();
+		broadPhaseQuery = createBroadPhaseQuery(arena);
+		narrowPhaseQuery = createNarrowPhaseQuery(arena);
+		narrowPhaseQueryNoLock = createNarrowPhaseQueryNoLock(arena);
 
-		vecTmp = new Vec3();
+		vecTmp = new Vec3(arena);
 
 		Jolt.addPhysicsSystem(jphPhysicsSystem.address(), this);
 	}
 
-	private BodyInterface createBodyInterface() {
+	private BodyInterface createBodyInterface(Arena arena) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
-			return new BodyInterface(segment);
+			return new BodyInterface(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create BodyInterface.");
 		}
 	}
 
-	private BodyInterface createBodyInterfaceNoLock() {
+	private BodyInterface createBodyInterfaceNoLock(Arena arena) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE_NO_LOCK;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
-			return new BodyInterface(segment);
+			return new BodyInterface(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create BodyInterface(NoLock).");
 		}
@@ -216,31 +227,31 @@ public final class PhysicsSystem {
 		}
 	}
 
-	private BroadPhaseQuery createBroadPhaseQuery() {
+	private BroadPhaseQuery createBroadPhaseQuery(Arena arena) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BROAD_PHASE_QUERY;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
-			return new BroadPhaseQuery(segment);
+			return new BroadPhaseQuery(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create NarrowPhaseQuery.");
 		}
 	}
 
-	private NarrowPhaseQuery createNarrowPhaseQuery() {
+	private NarrowPhaseQuery createNarrowPhaseQuery(Arena arena) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
-			return new NarrowPhaseQuery(segment);
+			return new NarrowPhaseQuery(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create NarrowPhaseQuery.");
 		}
 	}
 
-	private NarrowPhaseQuery createNarrowPhaseQueryNoLock() {
+	private NarrowPhaseQuery createNarrowPhaseQueryNoLock(Arena arena) {
 		try {
 			MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY_NO_LOCK;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphPhysicsSystem);
-			return new NarrowPhaseQuery(segment);
+			return new NarrowPhaseQuery(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create NarrowPhaseQuery(NoLock).");
 		}

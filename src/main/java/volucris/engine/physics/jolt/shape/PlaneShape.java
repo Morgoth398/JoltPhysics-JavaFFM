@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -32,18 +33,34 @@ public final class PlaneShape extends Shape {
 	}
 
 	protected PlaneShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected PlaneShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected PlaneShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected PlaneShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 
 	public PlaneShape(Plane plane, float halfExtent) {
-		this(plane, null, halfExtent);
+		this(plane, halfExtent, Arena.ofAuto());
+	}
+	
+	public PlaneShape(Plane plane, float halfExtent, Arena arena) {
+		this(plane, null, halfExtent, arena);
 	}
 
 	public PlaneShape(Plane plane, PhysicsMaterial material, float halfExtent) {
+		this(plane, material, halfExtent, Arena.ofAuto());
+	}
+	
+	public PlaneShape(Plane plane, PhysicsMaterial material, float halfExtent, Arena arena) {
 		MemorySegment segment;
 		try {
 			MemorySegment planeAddr = plane.memorySegment();
@@ -54,7 +71,7 @@ public final class PlaneShape extends Shape {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create plane shape.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public Plane getPlane(Plane target) {

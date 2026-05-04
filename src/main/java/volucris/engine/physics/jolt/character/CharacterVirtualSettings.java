@@ -99,7 +99,11 @@ public final class CharacterVirtualSettings extends CharacterBaseSettings {
 	}
 
 	public CharacterVirtualSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public CharacterVirtualSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, CharacterBaseSettings.LAYOUT()));
 
 		jphCharacterVirtualSettings = segment;

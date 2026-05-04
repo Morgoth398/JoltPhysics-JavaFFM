@@ -43,12 +43,16 @@ public final class PhysicsMaterial {
 	}
 
 	public PhysicsMaterial(String name, int color) {
-		try (Arena arena = Arena.ofConfined()) {
-			MemorySegment string = arena.allocateFrom(name);
+		this(name, color, Arena.ofAuto());
+	}
+	
+	public PhysicsMaterial(String name, int color, Arena arena) {
+		try (Arena confinedArena = Arena.ofConfined()) {
+			MemorySegment string = confinedArena.allocateFrom(name);
 
 			MethodHandle method = JPH_PHYSICS_MATERIAL_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(string, color);
-			jphPhysicsMaterial = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+			jphPhysicsMaterial = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create physics material.");
 		}

@@ -57,19 +57,22 @@ public abstract class PhysicsStepListener {
 		JPH_STEP_LISTENER_CREATE = downcallHandle("JPH_PhysicsStepListener_Create", ADDRESS, ADDRESS);
 		JPH_STEP_LISTENER_DESTROY = downcallHandleVoid("JPH_PhysicsStepListener_Destroy", ADDRESS);
 
-		JPH_STEP_LISTENER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_STEP_LISTENER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		STEP_LISTENERS = new ArrayList<WeakReference<PhysicsStepListener>>();
 	}
 
 	public PhysicsStepListener() {
+		this(Arena.ofAuto());
+	}
+	
+	public PhysicsStepListener(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -111,7 +114,7 @@ public abstract class PhysicsStepListener {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		//@formatter:off
 		Lookup lookup;
 		try {
@@ -126,7 +129,7 @@ public abstract class PhysicsStepListener {
 		
 		MethodHandle onStepHandle = upcallHandleStatic(lookup, PhysicsStepListener.class, "onStep", onStep);
 	
-		ON_STEP_ADDR = upcallStub(onStepHandle, onStep);
+		ON_STEP_ADDR = upcallStub(onStepHandle, onStep, arena);
 		
 		ON_STEP.set(JPH_STEP_LISTENER_PROCS, ON_STEP_ADDR);
 		//@formatter:on

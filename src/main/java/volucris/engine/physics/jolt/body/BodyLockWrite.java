@@ -35,7 +35,11 @@ public final class BodyLockWrite {
 	}
 
 	public BodyLockWrite() {
-		jphBodyLockWrite = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public BodyLockWrite(Arena arena) {
+		jphBodyLockWrite = arena.allocate(LAYOUT);
 	}
 
 	public boolean succeeded() {

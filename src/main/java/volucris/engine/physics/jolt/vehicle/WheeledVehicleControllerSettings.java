@@ -53,10 +53,18 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 	}
 
 	protected WheeledVehicleControllerSettings(MemorySegment segment) {
-		super(segment);
+		this(segment, Arena.ofAuto());
+	}
+
+	protected WheeledVehicleControllerSettings(MemorySegment segment, Arena arena) {
+		super(segment, arena);
 	}
 
 	public WheeledVehicleControllerSettings() {
+		this(Arena.ofAuto());
+	}
+
+	public WheeledVehicleControllerSettings(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_CREATE;
@@ -64,7 +72,7 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create wheeled vehicle controller settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

@@ -99,7 +99,10 @@ public final class SliderConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	public SliderConstraintSettings() {
-		Arena arena = Arena.ofAuto();
+		this(Arena.ofAuto());
+	}
+	
+	public SliderConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 

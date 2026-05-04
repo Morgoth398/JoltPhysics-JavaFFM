@@ -30,36 +30,48 @@ public final class OffsetCenterOfMassShapeSettings extends ShapeSettings {
 	}
 
 	public OffsetCenterOfMassShapeSettings(Vector3f offset, ShapeSettings shapeSettings) {
+		this(offset, shapeSettings, Arena.ofAuto());
+	}
+	
+	public OffsetCenterOfMassShapeSettings(Vector3f offset, ShapeSettings shapeSettings, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 vec = new Vec3(arena, offset);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 vec = new Vec3(confinedArena, offset);
 
 			MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(vec.memorySegment(), shapeSettings.memorySegment());
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create offset center of mass shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public OffsetCenterOfMassShapeSettings(Vector3f offset, Shape shape) {
+		this(offset, shape, Arena.ofAuto());
+	}
+	
+	public OffsetCenterOfMassShapeSettings(Vector3f offset, Shape shape, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 vec = new Vec3(arena, offset);
+		try (Arena confinedArena = Arena.ofConfined()) {
+			Vec3 vec = new Vec3(confinedArena, offset);
 
 			MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_SETTINGS_CREATE2;
 			segment = (MemorySegment) method.invokeExact(vec.memorySegment(), shape.memorySegment());
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create offset center of mass shape settings.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	public OffsetCenterOfMassShape createShape() {
+		return createShape(Arena.ofAuto());
+	}
+	
+	public OffsetCenterOfMassShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
-			return new OffsetCenterOfMassShape(segment);
+			return new OffsetCenterOfMassShape(segment, arena);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
 		}

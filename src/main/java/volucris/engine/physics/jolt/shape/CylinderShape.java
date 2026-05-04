@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -26,14 +27,26 @@ public final class CylinderShape extends ConvexShape {
 	}
 
 	protected CylinderShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected CylinderShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected CylinderShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected CylinderShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 
 	public CylinderShape(float halfHeight, float radius) {
+		this(halfHeight, radius, Arena.ofAuto());
+	}
+	
+	public CylinderShape(float halfHeight, float radius, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_CYLINDER_SHAPE_CREATE;
@@ -41,7 +54,7 @@ public final class CylinderShape extends ConvexShape {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create cylinder shape.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

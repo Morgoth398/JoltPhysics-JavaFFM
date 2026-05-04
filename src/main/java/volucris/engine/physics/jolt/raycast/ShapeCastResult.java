@@ -67,7 +67,11 @@ public class ShapeCastResult {
 	}
 
 	public ShapeCastResult() {
-		jphShapeCastResult = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public ShapeCastResult(Arena arena) {
+		jphShapeCastResult = arena.allocate(LAYOUT);
 
 		contactPointOn1 = new Vec3(jphShapeCastResult.asSlice(CONTACT_POINT_ON_1_OFFSET, Vec3.LAYOUT()));
 		contactPointOn2 = new Vec3(jphShapeCastResult.asSlice(CONTACT_POINT_ON_2_OFFSET, Vec3.LAYOUT()));

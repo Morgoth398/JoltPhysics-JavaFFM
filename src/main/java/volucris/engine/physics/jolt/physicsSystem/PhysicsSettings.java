@@ -113,7 +113,11 @@ public final class PhysicsSettings {
 	}
 
 	public PhysicsSettings() {
-		jphPhysicsSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public PhysicsSettings(Arena arena) {
+		jphPhysicsSettings = arena.allocate(LAYOUT);
 
 		setMaxInFlightBodyPairs(16384);
 		setStepListenersBatchSize(8);
@@ -333,7 +337,7 @@ public final class PhysicsSettings {
 	}
 
 	public MemorySegment memorySegment() {
-		return jphPhysicsSettings.asReadOnly();
+		return jphPhysicsSettings;
 	}
 
 	public static StructLayout LAYOUT() {

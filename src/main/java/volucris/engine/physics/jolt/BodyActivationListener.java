@@ -60,19 +60,22 @@ public abstract class BodyActivationListener {
 		JPH_BODY_ACTIVATION_LISTENER_CREATE = downcallHandle("JPH_BodyActivationListener_Create", ADDRESS, ADDRESS);
 		JPH_BODY_ACTIVATION_LISTENER_DESTROY = downcallHandleVoid("JPH_BodyActivationListener_Destroy", ADDRESS);
 
-		JPH_BODY_ACTIVATION_LISTENER_PROCS = Arena.ofAuto().allocate(LAYOUT);
+		Arena arena = Arena.ofAuto();
+		JPH_BODY_ACTIVATION_LISTENER_PROCS = arena.allocate(LAYOUT);
 
-		fillProcs();
+		fillProcs(arena);
 		setProcs();
 
 		BODY_ACTIVATION_LISTENERS = new ArrayList<WeakReference<BodyActivationListener>>();
 	}
 
 	public BodyActivationListener() {
+		this(Arena.ofAuto());
+	}
+	
+	public BodyActivationListener(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 
@@ -112,7 +115,7 @@ public abstract class BodyActivationListener {
 		}
 	}
 
-	private static void fillProcs() {
+	private static void fillProcs(Arena arena) {
 		//@formatter:off
 		Lookup lookup;
 		try {
@@ -129,8 +132,8 @@ public abstract class BodyActivationListener {
 		MethodHandle onBodyActivatedHandle = upcallHandleStatic(lookup, BodyActivationListener.class, "onBodyActivated", onBodyActivated);
 		MethodHandle onBodyDeactivatedHandle = upcallHandleStatic(lookup, BodyActivationListener.class, "onBodyDeactivated", onBodyDeactivated);
 	
-		ON_BODY_ACTIVATED_ADDR = upcallStub(onBodyActivatedHandle, onBodyActivated);
-		ON_BODY_DEACTIVATED_ADDR = upcallStub(onBodyDeactivatedHandle, onBodyDeactivated);
+		ON_BODY_ACTIVATED_ADDR = upcallStub(onBodyActivatedHandle, onBodyActivated, arena);
+		ON_BODY_DEACTIVATED_ADDR = upcallStub(onBodyDeactivatedHandle, onBodyDeactivated, arena);
 		
 		ON_BODY_ACTIVATED.set(JPH_BODY_ACTIVATION_LISTENER_PROCS, ON_BODY_ACTIVATED_ADDR);
 		ON_BODY_DEACTIVATED.set(JPH_BODY_ACTIVATION_LISTENER_PROCS, ON_BODY_DEACTIVATED_ADDR);

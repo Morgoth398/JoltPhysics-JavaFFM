@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.vehicle;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -25,6 +26,10 @@ public final class WheelTV extends Wheel {
 	}
 
 	public WheelTV(WheelSettingsTV settings) {
+		this(settings, Arena.ofAuto());
+	}
+	
+	public WheelTV(WheelSettingsTV settings, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_WHEEL_TV_CREATE;
@@ -32,7 +37,7 @@ public final class WheelTV extends Wheel {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create wheel tv.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	@Override

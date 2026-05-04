@@ -37,22 +37,34 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 	}
 
 	protected RotatedTranslatedShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected RotatedTranslatedShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected RotatedTranslatedShape(MemorySegment segment, boolean owns) {
-		super(segment);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected RotatedTranslatedShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena);
 
-		quatTmp = new Quat();
+		quatTmp = new Quat(arena);
 
-		vecTmp = new Vec3();
+		vecTmp = new Vec3(arena);
 	}
 
 	public RotatedTranslatedShape(Vector3f position, Quaternionf rotation, Shape shape) {
+		this(position, rotation, shape, Arena.ofAuto());
+	}
+	
+	public RotatedTranslatedShape(Vector3f position, Quaternionf rotation, Shape shape, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
-			Vec3 vec = new Vec3(arena, position);
-			Quat quat = new Quat(arena, rotation);
+		try {
+			Vec3 vec = vecTmp = new Vec3(arena, position);
+			Quat quat = quatTmp = new Quat(arena, rotation);
 
 			MemorySegment posAddr = vec.memorySegment();
 			MemorySegment rotAddr = quat.memorySegment();
@@ -63,11 +75,7 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot call create rotated translated shape.");
 		}
-		super(segment);
-
-		quatTmp = new Quat();
-
-		vecTmp = new Vec3();
+		super(segment, arena);
 	}
 
 	/**

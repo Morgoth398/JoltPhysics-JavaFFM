@@ -124,10 +124,12 @@ public abstract class CharacterContactListener {
 	}
 
 	public CharacterContactListener() {
+		this(Arena.ofAuto());
+	}
+	
+	public CharacterContactListener(Arena arena) {
 		try {
 			int index = count++;
-
-			Arena arena = Arena.ofAuto();
 
 			userData = arena.allocateFrom(JAVA_INT, index);
 

@@ -94,8 +94,22 @@ public final class Character extends CharacterBase {
 	 */
 	public Character(CharacterSettings settings, Vector3f position, Quaternionf rotation, long userData,
 			PhysicsSystem system) {
+		this(settings, position, rotation, userData, system, Arena.ofAuto());
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param settings The settings for the character
+	 * @param position Initial position for the character
+	 * @param rotation Initial rotation for the character (usually only around Y)
+	 * @param userData Application specific value
+	 * @param system   Physics system that this character will be added to later
+	 */
+	public Character(CharacterSettings settings, Vector3f position, Quaternionf rotation, long userData,
+			PhysicsSystem system, Arena arena) {
 		MemorySegment segment;
-		try (Arena arena = Arena.ofConfined()) {
+		try{
 			Vec3 vec = new Vec3(arena, position);
 			Quat quat = new Quat(arena, rotation);
 
@@ -106,14 +120,13 @@ public final class Character extends CharacterBase {
 
 			MethodHandle method = JPH_CHARACTER_CREATE;
 			segment = (MemorySegment) method.invokeExact(settAddr, posAddr, rotAddr, userData, systemAddr);
+			
+			vecTmp2 = vec;
+			quatTmp = quat;
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create character.");
 		}
-		super(segment, true);
-
-		matTmp = new Mat4(arena);
-
-		quatTmp = new Quat(arena);
+		super(segment, arena, true);
 
 		vecTmp2 = new Vec3(arena);
 

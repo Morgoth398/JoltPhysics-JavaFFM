@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.vehicle;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -30,10 +31,18 @@ public final class WheelSettingsTV extends WheelSettings {
 	}
 
 	protected WheelSettingsTV(MemorySegment segment) {
-		super(segment, false);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected WheelSettingsTV(MemorySegment segment, Arena arena) {
+		super(segment, arena, false);
 	}
 
 	public WheelSettingsTV() {
+		this(Arena.ofAuto());
+	}
+	
+	public WheelSettingsTV(Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_WHEEL_SETTINGS_TV_CREATE;
@@ -41,7 +50,7 @@ public final class WheelSettingsTV extends WheelSettings {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create wheel settings tv.");
 		}
-		super(segment, true);
+		super(segment, arena, true);
 	}
 
 	/**

@@ -1,6 +1,5 @@
 package volucris.engine.physics.jolt.broadPhaseLayerInterface;
 
-import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 
 /**
@@ -12,11 +11,11 @@ public sealed class BroadPhaseLayerInterface permits BroadPhaseLayerInterfaceMas
 	protected final MemorySegment jphBroadPhaseLayerInterface;
 
 	protected BroadPhaseLayerInterface(MemorySegment jphBroadPhaseLayerInterface) {
-		this.jphBroadPhaseLayerInterface = jphBroadPhaseLayerInterface.reinterpret(Arena.ofAuto(), null);
+		this.jphBroadPhaseLayerInterface = jphBroadPhaseLayerInterface;
 	}
 
 	public MemorySegment memorySegment() {
-		return jphBroadPhaseLayerInterface.asReadOnly();
+		return jphBroadPhaseLayerInterface;
 	}
 
 }

@@ -74,8 +74,10 @@ public final class Ragdoll {
 	}
 
 	protected Ragdoll(MemorySegment segment) {
-		Arena arena = Arena.ofAuto();
-
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected Ragdoll(MemorySegment segment, Arena arena) {
 		jphRagdoll = segment.reinterpret(arena, s -> destroy(s));
 
 		matTmp = new Mat4(arena);

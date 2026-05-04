@@ -50,10 +50,14 @@ public final class Skeleton {
 	}
 
 	public Skeleton() {
+		this(Arena.ofAuto());
+	}
+	
+	public Skeleton(Arena arena) {
 		try {
 			MethodHandle method = JPH_SKELETON_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
-			jphSkeleton = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+			jphSkeleton = segment.reinterpret(arena, s -> destroy(s));
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create skeleton.");
 		}

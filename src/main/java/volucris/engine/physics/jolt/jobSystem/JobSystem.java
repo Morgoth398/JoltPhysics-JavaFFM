@@ -27,7 +27,11 @@ public sealed class JobSystem permits JobSystemThreadPool {
 	}
 
 	protected JobSystem(MemorySegment segment) {
-		jphJobSystem = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected JobSystem(MemorySegment segment, Arena arena) {
+		jphJobSystem = segment.reinterpret(arena, s -> destroy(s));
 	}
 
 	private static void destroy(MemorySegment segment) {

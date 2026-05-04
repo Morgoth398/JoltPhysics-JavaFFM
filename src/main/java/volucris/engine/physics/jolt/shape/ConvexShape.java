@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.shape;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -25,11 +26,19 @@ public sealed class ConvexShape extends Shape permits BoxShape, CapsuleShape, Co
 	}
 
 	protected ConvexShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected ConvexShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected ConvexShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected ConvexShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 
 	/**

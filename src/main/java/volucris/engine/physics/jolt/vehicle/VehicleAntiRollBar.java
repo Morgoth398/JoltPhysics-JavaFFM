@@ -46,7 +46,11 @@ public final class VehicleAntiRollBar {
 	}
 
 	public VehicleAntiRollBar() {
-		jphVehicleAntiRollBar = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public VehicleAntiRollBar(Arena arena) {
+		jphVehicleAntiRollBar = arena.allocate(LAYOUT);
 
 		init();
 	}

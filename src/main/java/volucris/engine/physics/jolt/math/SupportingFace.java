@@ -36,7 +36,11 @@ public final class SupportingFace {
 	}
 	
 	public SupportingFace() {
-		jphSupportingFace = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public SupportingFace(Arena arena) {
+		jphSupportingFace = arena.allocate(LAYOUT);
 		
 		vertices = new Vec3[32];
 		for (int i = 0; i < 32; i++) {

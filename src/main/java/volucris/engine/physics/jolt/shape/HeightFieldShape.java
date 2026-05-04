@@ -52,14 +52,22 @@ public final class HeightFieldShape extends Shape {
 	}
 
 	protected HeightFieldShape(MemorySegment segment) {
-		this(segment, true);
+		this(segment, Arena.ofAuto());
+	}
+	
+	protected HeightFieldShape(MemorySegment segment, Arena arena) {
+		this(segment, arena, true);
 	}
 
 	protected HeightFieldShape(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected HeightFieldShape(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 
-		vecTmp = new Vec3();
-		vecTmp2 = new Vec3();
+		vecTmp = new Vec3(arena);
+		vecTmp2 = new Vec3(arena);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.constraint;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
@@ -38,13 +39,24 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 	}
 
 	protected DistanceConstraint(MemorySegment segment, boolean owns) {
-		super(segment, owns);
+		this(segment, Arena.ofAuto(), owns);
+	}
+	
+	protected DistanceConstraint(MemorySegment segment, Arena arena, boolean owns) {
+		super(segment, arena, owns);
 	}
 	
 	/**
 	 * Construct distance constraint.
 	 */
 	public DistanceConstraint(DistanceConstraintSettings settings, Body body1, Body body2) {
+		this(settings, body1, body2, Arena.ofAuto());
+	}
+	
+	/**
+	 * Construct distance constraint.
+	 */
+	public DistanceConstraint(DistanceConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
 			MemorySegment settingsAddr = settings.memorySegment();
@@ -56,7 +68,7 @@ public final class DistanceConstraint extends TwoBodyConstraint {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create distance constraint.");
 		}
-		super(segment);
+		super(segment, arena);
 	}
 
 	/**

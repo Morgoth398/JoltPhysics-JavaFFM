@@ -115,7 +115,11 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	public SixDOFConstraintSettings() {
-		MemorySegment segment = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public SixDOFConstraintSettings(Arena arena) {
+		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
 
 		jphSixDOFConstraintSettings = segment;

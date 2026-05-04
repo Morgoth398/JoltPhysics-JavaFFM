@@ -1,5 +1,6 @@
 package volucris.engine.physics.jolt.raycast;
 
+import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -38,9 +39,13 @@ public abstract class CastRayResultCallback {
 	}
 	
 	public CastRayResultCallback() {
-		callbackAddress = upcallStub(this, CALLBACK, CALLBACK_DESCR);
+		this(Arena.ofAuto());
+	}
+	
+	public CastRayResultCallback(Arena arena) {
+		callbackAddress = upcallStub(this, CALLBACK, CALLBACK_DESCR, arena);
 		
-		result = new RayCastResult();
+		result = new RayCastResult(arena);
 	}
 	
 	/**
@@ -55,7 +60,7 @@ public abstract class CastRayResultCallback {
 	}
 	
 	public MemorySegment memorySegment() {
-		return callbackAddress.asReadOnly();
+		return callbackAddress;
 	}
 	
 }

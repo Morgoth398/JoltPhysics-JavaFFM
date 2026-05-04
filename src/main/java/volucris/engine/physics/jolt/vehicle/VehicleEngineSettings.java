@@ -55,7 +55,11 @@ public final class VehicleEngineSettings {
 	}
 
 	public VehicleEngineSettings() {
-		jphVehicleEngineSettings = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+	
+	public VehicleEngineSettings(Arena arena) {
+		jphVehicleEngineSettings = arena.allocate(LAYOUT);
 
 		init();
 	}

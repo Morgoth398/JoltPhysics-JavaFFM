@@ -42,7 +42,11 @@ public final class Plane {
 	}
 
 	public Plane() {
-		jphPlane = Arena.ofAuto().allocate(LAYOUT);
+		this(Arena.ofAuto());
+	}
+
+	public Plane(Arena arena) {
+		jphPlane = arena.allocate(LAYOUT);
 
 		normal = new Vec3(jphPlane.asSlice(NORMAL_OFFSET, Vec3.LAYOUT()));
 	}
@@ -54,7 +58,11 @@ public final class Plane {
 	}
 
 	public Plane(Vector3f normal, float distance) {
-		jphPlane = Arena.ofAuto().allocate(LAYOUT);
+		this(normal, distance, Arena.ofAuto());
+	}
+
+	public Plane(Vector3f normal, float distance, Arena arena) {
+		jphPlane = arena.allocate(LAYOUT);
 
 		this.normal = new Vec3(jphPlane.asSlice(NORMAL_OFFSET, Vec3.LAYOUT()));
 
@@ -63,12 +71,7 @@ public final class Plane {
 	}
 
 	public void set(MemorySegment segment) {
-		if (segment.byteSize() == LAYOUT.byteSize()) {
-			MemorySegment.copy(segment, 0, jphPlane, 0, LAYOUT.byteSize());
-		} else {
-			segment.reinterpret(LAYOUT.byteSize());
-			MemorySegment.copy(segment, 0, jphPlane, 0, LAYOUT.byteSize());
-		}
+		MemorySegment.copy(segment, 0, jphPlane, 0, LAYOUT.byteSize());
 	}
 
 	public void setNormal(Vector3f normal) {
