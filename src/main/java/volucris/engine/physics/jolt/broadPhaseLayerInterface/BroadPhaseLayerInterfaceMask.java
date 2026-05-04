@@ -15,8 +15,9 @@ import static volucris.engine.utils.FFMUtils.*;
  * object and broadphase layers. This implementation works together with
  * {@link ObjectLayerPairFilterMask} and
  * {@link ObjectVsBroadPhaseLayerFilterMask}. A broadphase layer is suitable for
- * an object if its group & groupsToInclude is not zero and its group &
- * groupsToExclude is zero. The broadphase layers are iterated from lowest to
+ * an object if its {@code group & groupsToInclude} is not zero and its
+ * {@code group &
+ * groupsToExclude} is zero. The broadphase layers are iterated from lowest to
  * highest value and the first one that matches is taken. If none match then it
  * takes the last layer.
  */

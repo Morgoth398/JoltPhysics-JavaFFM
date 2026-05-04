@@ -15,7 +15,7 @@ import static volucris.engine.utils.FFMUtils.*;
  * A cone constraint constraints 2 bodies to a single point and limits the swing
  * between the twist axis within a cone:
  * <p>
- * t1 . t2 <= cos(theta)
+ * {@code t1 . t2 <= cos(theta)}
  * <p>
  * Where:
  * <p>

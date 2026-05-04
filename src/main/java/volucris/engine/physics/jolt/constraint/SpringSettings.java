@@ -95,23 +95,23 @@ public final class SpringSettings {
 	 * Valid when mSpringMode = ESpringMode::StiffnessAndDamping. If mStiffness > 0
 	 * the constraint will be soft and mStiffness specifies the stiffness (k) in the
 	 * spring equation F = -k * x - c * v for a linear or T = -k * theta - c * w for
-	 * an angular spring. If mStiffness <= 0, mDamping is ignored and the constraint
+	 * an angular spring. If mStiffness {@code inMax < inMin} mDamping is ignored and the constraint
 	 * will have hard limits (as hard as the time step / the number of velocity /
 	 * position solver steps allows).
 	 * 
 	 * Note that stiffness values are large numbers. To calculate a ballpark value
 	 * for the needed stiffness you can use: force = stiffness * delta_spring_length
-	 * = mass * gravity <=> stiffness = mass * gravity / delta_spring_length. So if
+	 * = {@code mass * gravity <=> stiffness = mass * gravity / delta_spring_length} So if
 	 * your object weighs 1500 kg and the spring compresses by 2 meters, you need a
 	 * stiffness in the order of 1500 * 9.81 / 2 ~ 7500 N/m.
 	 * <li>frequency
 	 * <p>
 	 * Valid when mSpringMode = ESpringMode::FrequencyAndDamping. If mFrequency > 0
 	 * the constraint will be soft and mFrequency specifies the oscillation
-	 * frequency in Hz. If mFrequency <= 0, mDamping is ignored and the constraint
+	 * frequency in Hz. If {@code mFrequency <= 0} mDamping is ignored and the constraint
 	 * will have hard limits (as hard as the time step / the number of velocity /
 	 * position solver steps allows).
-	 * <ul>
+	 * </ul>
 	 */
 	public void setFrequencyOrStiffness(float value) {
 		FREQUENCY_OR_STIFFNESS.set(jphSpringSettings, value);

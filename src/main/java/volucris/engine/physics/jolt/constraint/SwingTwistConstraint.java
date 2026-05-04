@@ -13,9 +13,9 @@ import static volucris.engine.utils.FFMUtils.*;
 
 /**
  * A swing twist constraint is a specialized constraint for humanoid ragdolls
- * that allows limited rotation only
- * 
- * @see {@link SwingTwistConstraintSettings} for a description of the limits
+ * that allows limited rotation only.
+ * <p>
+ * See {@link SwingTwistConstraintSettings} for a description of the limits. 
  */
 public final class SwingTwistConstraint extends TwoBodyConstraint {
 

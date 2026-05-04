@@ -199,7 +199,7 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 	}
 
 	/**
-	 * Set a valid range for the constraint (if inMax < inMin, the axis will become
+	 * Set a valid range for the constraint (if {@code max < min} the axis will become
 	 * fixed)
 	 */
 	public void setLimitedAxis(SixDOFConstraintAxis axis, float min, float max) {
