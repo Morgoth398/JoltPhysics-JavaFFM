@@ -6,10 +6,18 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.Jolt;
+import volucris.engine.physics.jolt.body.BodyCreationSettings;
+import volucris.engine.physics.jolt.body.BodyEnums.MotionType;
+import volucris.engine.physics.jolt.constraint.SwingTwistConstraintSettings;
 import volucris.engine.physics.jolt.math.Mat4;
+import volucris.engine.physics.jolt.math.Quat;
+import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
+import volucris.engine.physics.jolt.shape.Shape;
 import volucris.engine.utils.VolucrisRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
@@ -17,6 +25,10 @@ import static volucris.engine.utils.FFMUtils.*;
 
 /**
  * Contains the structure of a ragdoll.
+ * <p>
+ * (For information about the setPart* methods take a look at
+ * {@link BodyCreationSettings}. The jolt Part class is a subclass of
+ * BodyCreationSettings.)
  */
 public final class RagdollSettings {
 
@@ -29,11 +41,24 @@ public final class RagdollSettings {
 	private static final MethodHandle JPH_RAGDOLL_SETTINGS_CALCULATE_BODY_INDEX_TO_CONSTRAINT_INDEX;
 	private static final MethodHandle JPH_RAGDOLL_SETTINGS_GET_CONSTRAINT_INDEX_FOR_BODY_INDEX;
 	private static final MethodHandle JPH_RAGDOLL_SETTINGS_CALCULATE_CONSTRAINT_INDEX_TO_BODY_IDX_PAIR;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_RESIZE_PARTS;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_GET_PART_COUNT;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_SET_PART_SHAPE;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_SET_PART_POSITION;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_SET_PART_ROTATION;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_SET_PART_MOTION_TYPE;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_SET_PART_OBJECT_LAYER;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_SET_PART_MASS_PROPERTIES;
+	private static final MethodHandle JPH_RAGDOLL_SETTINGS_SET_PART_TO_PARENT;
 	private static final MethodHandle JPH_RAGDOLL_SETTINGS_CREATE_RAGDOLL;
 
 	private final MemorySegment jphRagdollSettings;
 
 	private Mat4 matTmp;
+
+	private Quat quatTmp;
+
+	private Vec3 vecTmp;
 
 	static {
 		//@formatter:off
@@ -46,19 +71,43 @@ public final class RagdollSettings {
 		JPH_RAGDOLL_SETTINGS_CALCULATE_BODY_INDEX_TO_CONSTRAINT_INDEX = downcallHandleVoid("JPH_RagdollSettings_CalculateBodyIndexToConstraintIndex", ADDRESS);
 		JPH_RAGDOLL_SETTINGS_GET_CONSTRAINT_INDEX_FOR_BODY_INDEX = downcallHandle("JPH_RagdollSettings_GetConstraintIndexForBodyIndex", JAVA_INT, ADDRESS, JAVA_INT);
 		JPH_RAGDOLL_SETTINGS_CALCULATE_CONSTRAINT_INDEX_TO_BODY_IDX_PAIR = downcallHandleVoid("JPH_RagdollSettings_CalculateConstraintIndexToBodyIdxPair", ADDRESS);
+		JPH_RAGDOLL_SETTINGS_RESIZE_PARTS = downcallHandleVoid("JPH_RagdollSettings_ResizeParts", ADDRESS, JAVA_INT);
+		JPH_RAGDOLL_SETTINGS_GET_PART_COUNT = downcallHandle("JPH_RagdollSettings_GetPartCount", JAVA_INT, ADDRESS);
+		JPH_RAGDOLL_SETTINGS_SET_PART_SHAPE = downcallHandleVoid("JPH_RagdollSettings_SetPartShape", ADDRESS, JAVA_INT, ADDRESS);
+		JPH_RAGDOLL_SETTINGS_SET_PART_POSITION = downcallHandleVoid("JPH_RagdollSettings_SetPartPosition", ADDRESS, JAVA_INT, ADDRESS);
+		JPH_RAGDOLL_SETTINGS_SET_PART_ROTATION = downcallHandleVoid("JPH_RagdollSettings_SetPartRotation", ADDRESS, JAVA_INT, ADDRESS);
+		JPH_RAGDOLL_SETTINGS_SET_PART_MOTION_TYPE = downcallHandleVoid("JPH_RagdollSettings_SetPartMotionType", ADDRESS, JAVA_INT, JAVA_INT);
+		JPH_RAGDOLL_SETTINGS_SET_PART_OBJECT_LAYER = downcallHandleVoid("JPH_RagdollSettings_SetPartObjectLayer", ADDRESS, JAVA_INT, JAVA_INT);
+		JPH_RAGDOLL_SETTINGS_SET_PART_MASS_PROPERTIES = downcallHandleVoid("JPH_RagdollSettings_SetPartMassProperties", ADDRESS, JAVA_INT, JAVA_FLOAT);
+		JPH_RAGDOLL_SETTINGS_SET_PART_TO_PARENT = downcallHandleVoid("JPH_RagdollSettings_SetPartToParent", ADDRESS, JAVA_INT, ADDRESS);
 		JPH_RAGDOLL_SETTINGS_CREATE_RAGDOLL = downcallHandle("JPH_RagdollSettings_CreateRagdoll", ADDRESS, ADDRESS, ADDRESS, JAVA_INT, JAVA_LONG);
 		//@formatter:on
 	}
 
+	public RagdollSettings(MemorySegment segment) {
+		jphRagdollSettings = segment;
+		
+		Arena arena = Arena.ofAuto();
+		matTmp = new Mat4(arena);
+		quatTmp = new Quat(arena);
+		vecTmp = new Vec3(arena);
+		
+		Jolt.addRagdollSettings(segment.address(), this);
+	}
+	
 	public RagdollSettings() {
 		try {
+			Arena arena = Arena.ofAuto();
+			
 			MethodHandle method = JPH_RAGDOLL_SETTINGS_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
-
-			Arena arena = Arena.ofConfined();
 			jphRagdollSettings = segment.reinterpret(arena, s -> destroy(s));
 
 			matTmp = new Mat4(arena);
+			quatTmp = new Quat(arena);
+			vecTmp = new Vec3(arena);
+			
+			Jolt.addRagdollSettings(segment.address(), this);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create ragdoll settings.");
 		}
@@ -68,6 +117,8 @@ public final class RagdollSettings {
 		try {
 			MethodHandle method = JPH_RAGDOLL_SETTINGS_DESTROY;
 			method.invokeExact(segment);
+			
+			Jolt.removeRagdollSettings(segment.address());
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot destroy ragdoll settings.");
 		}
@@ -222,6 +273,118 @@ public final class RagdollSettings {
 			method.invokeExact(jphRagdollSettings);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot calculate constraint index to body IdxPair.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void resizeParts(int count) {
+		try {
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_RESIZE_PARTS;
+			method.invokeExact(jphRagdollSettings, count);
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call resizeParts.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public int getPartCount() {
+		try {
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_GET_PART_COUNT;
+			return (int) method.invokeExact(jphRagdollSettings);
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call getPartCount.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void setPartShape(int partIndex, Shape shape) {
+		try {
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_SET_PART_SHAPE;
+			method.invokeExact(jphRagdollSettings, partIndex, shape.memorySegment());
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call setPartShape.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void setPartPosition(int partIndex, Vector3f position) {
+		try {
+			vecTmp.set(position);
+
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_SET_PART_POSITION;
+			method.invokeExact(jphRagdollSettings, partIndex, vecTmp.memorySegment());
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call setPartPosition.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void setPartRotation(int partIndex, Quaternionf rotation) {
+		try {
+			quatTmp.set(rotation);
+
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_SET_PART_ROTATION;
+			method.invokeExact(jphRagdollSettings, partIndex, quatTmp.memorySegment());
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call setPartRotation.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void setPartMotionType(int partIndex, MotionType motionType) {
+		try {
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_SET_PART_MOTION_TYPE;
+			method.invokeExact(jphRagdollSettings, partIndex, motionType.id());
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call setPartMotionType.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void setPartObjectLayer(int partIndex, int layer) {
+		try {
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_SET_PART_OBJECT_LAYER;
+			method.invokeExact(jphRagdollSettings, partIndex, layer);
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call setPartObjectLayer.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void setPartMassProperties(int partIndex, float mass) {
+		try {
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_SET_PART_MASS_PROPERTIES;
+			method.invokeExact(jphRagdollSettings, partIndex, mass);
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call setPartMassProperties.");
+		}
+	}
+
+	/**
+	 *  
+	 */
+	public void setPartToParent(int partIndex, SwingTwistConstraintSettings constraintSettings) {
+		try {
+			MethodHandle method = JPH_RAGDOLL_SETTINGS_SET_PART_TO_PARENT;
+			method.invokeExact(jphRagdollSettings, partIndex, constraintSettings.memorySegment());
+		} catch (Throwable throwable) {
+			throw new RuntimeException("Jolt: Cannot call setPartToParent.");
 		}
 	}
 
