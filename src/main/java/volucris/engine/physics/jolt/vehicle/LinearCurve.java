@@ -45,7 +45,7 @@ public final class LinearCurve {
 		JPH_LINEAR_CURVE_GET_MAX_X = downcallHandle("JPH_LinearCurve_GetMaxX", JAVA_FLOAT, ADDRESS);
 		JPH_LINEAR_CURVE_GET_VALUE = downcallHandle("JPH_LinearCurve_GetValue", JAVA_FLOAT, ADDRESS, JAVA_FLOAT);
 		JPH_LINEAR_CURVE_GET_POINT_COUNT = downcallHandle("JPH_LinearCurve_GetPointCount", JAVA_INT, ADDRESS);
-		JPH_LINEAR_CURVE_GET_POINT = downcallHandle("JPH_LinearCurve_GetPoint", Point.LAYOUT(), ADDRESS, JAVA_INT);
+		JPH_LINEAR_CURVE_GET_POINT = downcallHandleVoid("JPH_LinearCurve_GetPoint", ADDRESS, JAVA_INT, ADDRESS);
 		JPH_LINEAR_CURVE_GET_POINTS = downcallHandleVoid("JPH_LinearCurve_GetPoints", ADDRESS, ADDRESS, ADDRESS);
 		//@formatter:on
 	}
@@ -53,7 +53,7 @@ public final class LinearCurve {
 	public LinearCurve() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public LinearCurve(Arena arena) {
 		try {
 			MethodHandle method = JPH_LINEAR_CURVE_CREATE;
@@ -71,7 +71,7 @@ public final class LinearCurve {
 	public LinearCurve(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	public LinearCurve(MemorySegment segment, Arena arena) {
 		jphLinearCurve = segment;
 
@@ -129,7 +129,7 @@ public final class LinearCurve {
 	}
 
 	/**
-	 * Sort the points on X ascending. 
+	 * Sort the points on X ascending.
 	 */
 	public void sort() {
 		try {
@@ -141,7 +141,7 @@ public final class LinearCurve {
 	}
 
 	/**
-	 * Get the lowest X value. 
+	 * Get the lowest X value.
 	 */
 	public float getMinX() {
 		try {
@@ -153,7 +153,7 @@ public final class LinearCurve {
 	}
 
 	/**
-	 * Get the highest X value. 
+	 * Get the highest X value.
 	 */
 	public float getMaxX() {
 		try {
@@ -165,7 +165,7 @@ public final class LinearCurve {
 	}
 
 	/**
-	 * Sample value on the curve 
+	 * Sample value on the curve
 	 */
 	public float getValue(float x) {
 		try {
@@ -192,11 +192,9 @@ public final class LinearCurve {
 	 * 
 	 */
 	public Vector2f getPoint(int index, Vector2f target) {
-		try (Arena arena = Arena.ofConfined()) {
+		try {
 			MethodHandle method = JPH_LINEAR_CURVE_GET_POINT;
-			MemorySegment segment = (MemorySegment) method.invoke(arena, jphLinearCurve, index);
-
-			pointTmp.set(segment);
+			method.invokeExact(jphLinearCurve, index, pointTmp.memorySegment());
 			return pointTmp.get(target);
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot get point.");
