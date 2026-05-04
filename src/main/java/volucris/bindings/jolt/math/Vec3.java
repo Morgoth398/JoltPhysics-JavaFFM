@@ -60,6 +60,12 @@ public final class Vec3
 
     static {
         //@formatter:off
+        LAYOUT = MemoryLayout.structLayout(
+            JAVA_FLOAT.withName("x"),
+            JAVA_FLOAT.withName("y"),
+            JAVA_FLOAT.withName("z")
+        ).withName("JPH_Vec3").withByteAlignment(4);
+        
         JPH_VEC3_AXIS_X = downcallHandleVoid("JPH_Vec3_AxisX", UNBOUNDED_ADDRESS);
         JPH_VEC3_AXIS_Y = downcallHandleVoid("JPH_Vec3_AxisY", UNBOUNDED_ADDRESS);
         JPH_VEC3_AXIS_Z = downcallHandleVoid("JPH_Vec3_AxisZ", UNBOUNDED_ADDRESS);
@@ -83,12 +89,6 @@ public final class Vec3
         JPH_VEC3_DIVIDE = downcallHandleVoid("JPH_Vec3_Divide", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_VEC3_DIVIDE_SCALAR = downcallHandleVoid("JPH_Vec3_DivideScalar", UNBOUNDED_ADDRESS, JAVA_FLOAT, UNBOUNDED_ADDRESS);
         JPH_VEC3_GET_NORMALIZED_PERPENDICULAR = downcallHandleVoid("JPH_Vec3_GetNormalizedPerpendicular", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
-        
-        LAYOUT = MemoryLayout.structLayout(
-            JAVA_FLOAT.withName("x"),
-            JAVA_FLOAT.withName("y"),
-            JAVA_FLOAT.withName("z")
-        ).withName("JPH_Vec3").withByteAlignment(4);
         
         X = LAYOUT.varHandle(PathElement.groupElement("x"));
         Y = LAYOUT.varHandle(PathElement.groupElement("y"));

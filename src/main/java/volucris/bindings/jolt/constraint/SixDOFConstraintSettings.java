@@ -67,13 +67,6 @@ public final class SixDOFConstraintSettings
 
     static {
         //@formatter:off
-        JPH_SIX_DOFCONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SixDOFConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FREE_AXIS = downcallHandleVoid("JPH_SixDOFConstraintSettings_MakeFreeAxis", UNBOUNDED_ADDRESS, JAVA_INT);
-        JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FREE_AXIS = downcallHandle("JPH_SixDOFConstraintSettings_IsFreeAxis", JAVA_BOOLEAN, UNBOUNDED_ADDRESS, JAVA_INT);
-        JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FIXED_AXIS = downcallHandleVoid("JPH_SixDOFConstraintSettings_MakeFixedAxis", UNBOUNDED_ADDRESS, JAVA_INT);
-        JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FIXED_AXIS = downcallHandle("JPH_SixDOFConstraintSettings_IsFixedAxis", JAVA_BOOLEAN, UNBOUNDED_ADDRESS, JAVA_INT);
-        JPH_SIX_DOFCONSTRAINT_SETTINGS_SET_LIMITED_AXIS = downcallHandleVoid("JPH_SixDOFConstraintSettings_SetLimitedAxis", UNBOUNDED_ADDRESS, JAVA_INT, JAVA_FLOAT, JAVA_FLOAT);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -91,6 +84,13 @@ public final class SixDOFConstraintSettings
             MemoryLayout.sequenceLayout(6, MotorSettings.LAYOUT).withName("motorSettings"),
             MemoryLayout.paddingLayout(4)
         ).withName("JPH_SixDOFConstraintSettings").withByteAlignment(8);
+        
+        JPH_SIX_DOFCONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SixDOFConstraintSettings_Init", UNBOUNDED_ADDRESS);
+        JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FREE_AXIS = downcallHandleVoid("JPH_SixDOFConstraintSettings_MakeFreeAxis", UNBOUNDED_ADDRESS, JAVA_INT);
+        JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FREE_AXIS = downcallHandle("JPH_SixDOFConstraintSettings_IsFreeAxis", JAVA_BOOLEAN, UNBOUNDED_ADDRESS, JAVA_INT);
+        JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FIXED_AXIS = downcallHandleVoid("JPH_SixDOFConstraintSettings_MakeFixedAxis", UNBOUNDED_ADDRESS, JAVA_INT);
+        JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FIXED_AXIS = downcallHandle("JPH_SixDOFConstraintSettings_IsFixedAxis", JAVA_BOOLEAN, UNBOUNDED_ADDRESS, JAVA_INT);
+        JPH_SIX_DOFCONSTRAINT_SETTINGS_SET_LIMITED_AXIS = downcallHandleVoid("JPH_SixDOFConstraintSettings_SetLimitedAxis", UNBOUNDED_ADDRESS, JAVA_INT, JAVA_FLOAT, JAVA_FLOAT);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         MAX_FRICTION = LAYOUT.varHandle(PathElement.groupElement("maxFriction"), PathElement.sequenceElement());

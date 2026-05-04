@@ -66,8 +66,6 @@ public final class SwingTwistConstraintSettings
 
     static {
         //@formatter:off
-        JPH_SWING_TWIST_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SwingTwistConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -87,6 +85,8 @@ public final class SwingTwistConstraintSettings
             MotorSettings.LAYOUT.withName("twistMotorSettings"),
             MemoryLayout.paddingLayout(4)
         ).withName("JPH_SwingTwistConstraintSettings").withByteAlignment(8);
+        
+        JPH_SWING_TWIST_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SwingTwistConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         SWING_TYPE = LAYOUT.varHandle(PathElement.groupElement("swingType"));

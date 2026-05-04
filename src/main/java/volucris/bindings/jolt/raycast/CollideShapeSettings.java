@@ -40,13 +40,13 @@ public final class CollideShapeSettings
 
     static {
         //@formatter:off
-        JPH_COLLIDE_SHAPE_SETTINGS_INIT = downcallHandleVoid("JPH_CollideShapeSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             CollideSettingsBase.LAYOUT.withName("base"),
             JAVA_FLOAT.withName("maxSeparationDistance"),
             JAVA_INT.withName("backFaceMode")
         ).withName("JPH_CollideShapeSettings").withByteAlignment(4);
+        
+        JPH_COLLIDE_SHAPE_SETTINGS_INIT = downcallHandleVoid("JPH_CollideShapeSettings_Init", UNBOUNDED_ADDRESS);
         
         MAX_SEPARATION_DISTANCE = LAYOUT.varHandle(PathElement.groupElement("maxSeparationDistance"));
         BACK_FACE_MODE = LAYOUT.varHandle(PathElement.groupElement("backFaceMode"));

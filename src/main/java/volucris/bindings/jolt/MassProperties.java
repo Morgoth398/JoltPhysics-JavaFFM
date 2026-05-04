@@ -41,14 +41,14 @@ public final class MassProperties
 
     static {
         //@formatter:off
-        JPH_MASS_PROPERTIES_DECOMPOSE_PRINCIPAL_MOMENTS_OF_INERTIA = downcallHandleVoid("JPH_MassProperties_DecomposePrincipalMomentsOfInertia", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
-        JPH_MASS_PROPERTIES_SCALE_TO_MASS = downcallHandleVoid("JPH_MassProperties_ScaleToMass", UNBOUNDED_ADDRESS, JAVA_FLOAT);
-        JPH_MASS_PROPERTIES_GET_EQUIVALENT_SOLID_BOX_SIZE = downcallHandleVoid("JPH_MassProperties_GetEquivalentSolidBoxSize", JAVA_FLOAT, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             JAVA_FLOAT.withName("mass"),
             Mat4.LAYOUT.withName("inertia")
         ).withName("JPH_MassProperties").withByteAlignment(4);
+        
+        JPH_MASS_PROPERTIES_DECOMPOSE_PRINCIPAL_MOMENTS_OF_INERTIA = downcallHandleVoid("JPH_MassProperties_DecomposePrincipalMomentsOfInertia", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
+        JPH_MASS_PROPERTIES_SCALE_TO_MASS = downcallHandleVoid("JPH_MassProperties_ScaleToMass", UNBOUNDED_ADDRESS, JAVA_FLOAT);
+        JPH_MASS_PROPERTIES_GET_EQUIVALENT_SOLID_BOX_SIZE = downcallHandleVoid("JPH_MassProperties_GetEquivalentSolidBoxSize", JAVA_FLOAT, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         
         MASS = LAYOUT.varHandle(PathElement.groupElement("mass"));
         

@@ -48,8 +48,6 @@ public final class ConeConstraintSettings
 
     static {
         //@formatter:off
-        JPH_CONE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_ConeConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -59,6 +57,8 @@ public final class ConeConstraintSettings
             Vec3.LAYOUT.withName("twistAxis2"),
             JAVA_FLOAT.withName("halfConeAngle")
         ).withName("JPH_ConeConstraintSettings").withByteAlignment(8);
+        
+        JPH_CONE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_ConeConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         HALF_CONE_ANGLE = LAYOUT.varHandle(PathElement.groupElement("halfConeAngle"));

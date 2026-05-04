@@ -72,8 +72,6 @@ public final class CharacterVirtualSettings
 
     static {
         //@formatter:off
-        JPH_CHARACTER_VIRTUAL_SETTINGS_INIT = downcallHandleVoid("JPH_CharacterVirtualSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             CharacterBaseSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("ID"),
@@ -94,6 +92,8 @@ public final class CharacterVirtualSettings
             JAVA_INT.withName("innerBodyIDOverride"),
             JAVA_INT.withName("innerBodyLayer")
         ).withName("JPH_CharacterVirtualSettings").withByteAlignment(8);
+        
+        JPH_CHARACTER_VIRTUAL_SETTINGS_INIT = downcallHandleVoid("JPH_CharacterVirtualSettings_Init", UNBOUNDED_ADDRESS);
         
         ID = LAYOUT.varHandle(PathElement.groupElement("ID"));
         MASS = LAYOUT.varHandle(PathElement.groupElement("mass"));

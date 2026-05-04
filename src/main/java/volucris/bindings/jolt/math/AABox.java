@@ -36,7 +36,6 @@ public final class AABox
             Vec3.LAYOUT.withName("max")
         ).withName("JPH_AABox").withByteAlignment(4);
         
-        
         MIN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("min"));
         MAX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("max"));
         //@formatter:on

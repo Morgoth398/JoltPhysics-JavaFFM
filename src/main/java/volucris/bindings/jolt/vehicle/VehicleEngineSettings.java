@@ -45,8 +45,6 @@ public final class VehicleEngineSettings
 
     static {
         //@formatter:off
-        JPH_VEHICLE_ENGINE_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleEngineSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             JAVA_FLOAT.withName("maxTorque"),
             JAVA_FLOAT.withName("minRPM"),
@@ -56,6 +54,8 @@ public final class VehicleEngineSettings
             JAVA_FLOAT.withName("inertia"),
             JAVA_FLOAT.withName("angularDamping")
         ).withName("JPH_VehicleEngineSettings").withByteAlignment(8);
+        
+        JPH_VEHICLE_ENGINE_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleEngineSettings_Init", UNBOUNDED_ADDRESS);
         
         MAX_TORQUE = LAYOUT.varHandle(PathElement.groupElement("maxTorque"));
         MIN_RPM = LAYOUT.varHandle(PathElement.groupElement("minRPM"));

@@ -60,8 +60,6 @@ public final class HingeConstraintSettings
 
     static {
         //@formatter:off
-        JPH_HINGE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_HingeConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -77,6 +75,8 @@ public final class HingeConstraintSettings
             JAVA_FLOAT.withName("maxFrictionTorque"),
             MotorSettings.LAYOUT.withName("motorSettings")
         ).withName("JPH_HingeConstraintSettings").withByteAlignment(8);
+        
+        JPH_HINGE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_HingeConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         LIMITS_MIN = LAYOUT.varHandle(PathElement.groupElement("limitsMin"));

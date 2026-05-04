@@ -43,8 +43,6 @@ public final class VehicleDifferentialSettings
 
     static {
         //@formatter:off
-        JPH_VEHICLE_DIFFERENTIAL_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleDifferentialSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             JAVA_INT.withName("leftWheel"),
             JAVA_INT.withName("rightWheel"),
@@ -53,6 +51,8 @@ public final class VehicleDifferentialSettings
             JAVA_FLOAT.withName("limitedSlipRatio"),
             JAVA_FLOAT.withName("engineTorqueRatio")
         ).withName("JPH_VehicleDifferentialSettings").withByteAlignment(4);
+        
+        JPH_VEHICLE_DIFFERENTIAL_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleDifferentialSettings_Init", UNBOUNDED_ADDRESS);
         
         LEFT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("leftWheel"));
         RIGHT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("rightWheel"));

@@ -56,8 +56,6 @@ public final class VehicleConstraintSettings
 
     static {
         //@formatter:off
-        JPH_VEHICLE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             Vec3.LAYOUT.withName("up"),
@@ -70,6 +68,8 @@ public final class VehicleConstraintSettings
             UNBOUNDED_ADDRESS.withName("antiRollBars"),
             UNBOUNDED_ADDRESS.withName("controller")
         ).withName("JPH_VehicleConstraintSettings").withByteAlignment(8);
+        
+        JPH_VEHICLE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
         MAX_PITCH_ROLL_ANGLE = LAYOUT.varHandle(PathElement.groupElement("maxPitchRollAngle"));
         WHEELS_COUNT = LAYOUT.varHandle(PathElement.groupElement("wheelsCount"));

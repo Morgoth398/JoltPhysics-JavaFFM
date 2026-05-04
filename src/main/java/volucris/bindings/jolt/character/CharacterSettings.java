@@ -45,8 +45,6 @@ public final class CharacterSettings
 
     static {
         //@formatter:off
-        JPH_CHARACTER_SETTINGS_INIT = downcallHandleVoid("JPH_CharacterSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             CharacterBaseSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("layer"),
@@ -56,6 +54,8 @@ public final class CharacterSettings
             JAVA_INT.withName("allowedDOFs"),
             MemoryLayout.paddingLayout(4)
         ).withName("JPH_CharacterSettings").withByteAlignment(8);
+        
+        JPH_CHARACTER_SETTINGS_INIT = downcallHandleVoid("JPH_CharacterSettings_Init", UNBOUNDED_ADDRESS);
         
         LAYER = LAYOUT.varHandle(PathElement.groupElement("layer"));
         MASS = LAYOUT.varHandle(PathElement.groupElement("mass"));

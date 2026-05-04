@@ -47,8 +47,6 @@ public final class VehicleTrackSettings
 
     static {
         //@formatter:off
-        JPH_VEHICLE_TRACK_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleTrackSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             JAVA_INT.withName("drivenWheel"),
             MemoryLayout.paddingLayout(4),
@@ -60,6 +58,8 @@ public final class VehicleTrackSettings
             JAVA_FLOAT.withName("differentialRatio"),
             MemoryLayout.paddingLayout(4)
         ).withName("JPH_VehicleTrackSettings").withByteAlignment(8);
+        
+        JPH_VEHICLE_TRACK_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleTrackSettings_Init", UNBOUNDED_ADDRESS);
         
         DRIVEN_WHEEL = LAYOUT.varHandle(PathElement.groupElement("drivenWheel"));
         WHEELS = LAYOUT.varHandle(PathElement.groupElement("wheels"));

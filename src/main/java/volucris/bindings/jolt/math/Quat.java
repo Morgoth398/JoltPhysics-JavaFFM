@@ -62,6 +62,13 @@ public final class Quat
 
     static {
         //@formatter:off
+        LAYOUT = MemoryLayout.structLayout(
+            JAVA_FLOAT.withName("x"),
+            JAVA_FLOAT.withName("y"),
+            JAVA_FLOAT.withName("z"),
+            JAVA_FLOAT.withName("w")
+        ).withName("JPH_Quat").withByteAlignment(4);
+        
         JPH_QUAT_FROM_TO = downcallHandleVoid("JPH_Quat_FromTo", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_QUAT_GET_AXIS_ANGLE = downcallHandleVoid("JPH_Quat_GetAxisAngle", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_QUAT_GET_EULER_ANGLES = downcallHandleVoid("JPH_Quat_GetEulerAngles", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
@@ -85,13 +92,6 @@ public final class Quat
         JPH_QUAT_SLERP = downcallHandleVoid("JPH_Quat_Slerp", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, JAVA_FLOAT, UNBOUNDED_ADDRESS);
         JPH_QUAT_ROTATE = downcallHandleVoid("JPH_Quat_Rotate", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_QUAT_INVERSE_ROTATE = downcallHandleVoid("JPH_Quat_InverseRotate", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
-        
-        LAYOUT = MemoryLayout.structLayout(
-            JAVA_FLOAT.withName("x"),
-            JAVA_FLOAT.withName("y"),
-            JAVA_FLOAT.withName("z"),
-            JAVA_FLOAT.withName("w")
-        ).withName("JPH_Quat").withByteAlignment(4);
         
         X = LAYOUT.varHandle(PathElement.groupElement("x"));
         Y = LAYOUT.varHandle(PathElement.groupElement("y"));

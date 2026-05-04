@@ -52,8 +52,6 @@ public final class FixedConstraintSettings
 
     static {
         //@formatter:off
-        JPH_FIXED_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_FixedConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -66,6 +64,8 @@ public final class FixedConstraintSettings
             Vec3.LAYOUT.withName("axisX2"),
             Vec3.LAYOUT.withName("axisY2")
         ).withName("JPH_FixedConstraintSettings").withByteAlignment(8);
+        
+        JPH_FIXED_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_FixedConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         AUTO_DETECT_POINT = LAYOUT.varHandle(PathElement.groupElement("autoDetectPoint"));

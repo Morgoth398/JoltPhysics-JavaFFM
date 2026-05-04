@@ -44,8 +44,6 @@ public final class GearConstraintSettings
 
     static {
         //@formatter:off
-        JPH_GEAR_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_GearConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -53,6 +51,8 @@ public final class GearConstraintSettings
             Vec3.LAYOUT.withName("hingeAxis2"),
             JAVA_FLOAT.withName("ratio")
         ).withName("JPH_GearConstraintSettings").withByteAlignment(8);
+        
+        JPH_GEAR_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_GearConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         RATIO = LAYOUT.varHandle(PathElement.groupElement("ratio"));

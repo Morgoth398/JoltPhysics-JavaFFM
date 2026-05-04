@@ -48,8 +48,6 @@ public final class DistanceConstraintSettings
 
     static {
         //@formatter:off
-        JPH_DISTANCE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_DistanceConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -59,6 +57,8 @@ public final class DistanceConstraintSettings
             JAVA_FLOAT.withName("maxDistance"),
             SpringSettings.LAYOUT.withName("limitsSpringSettings")
         ).withName("JPH_DistanceConstraintSettings").withByteAlignment(8);
+        
+        JPH_DISTANCE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_DistanceConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         MIN_DISTANCE = LAYOUT.varHandle(PathElement.groupElement("minDistance"));

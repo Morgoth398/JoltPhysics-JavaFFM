@@ -63,9 +63,6 @@ public final class SliderConstraintSettings
 
     static {
         //@formatter:off
-        JPH_SLIDER_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SliderConstraintSettings_Init", UNBOUNDED_ADDRESS);
-        JPH_SLIDER_CONSTRAINT_SETTINGS_SET_SLIDER_AXIS = downcallHandleVoid("JPH_SliderConstraintSettings_SetSliderAxis", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             ConstraintSettings.LAYOUT.withName("base"),
             JAVA_INT.withName("space"),
@@ -84,6 +81,9 @@ public final class SliderConstraintSettings
             MotorSettings.LAYOUT.withName("motorSettings"),
             MemoryLayout.paddingLayout(4)
         ).withName("JPH_SliderConstraintSettings").withByteAlignment(8);
+        
+        JPH_SLIDER_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SliderConstraintSettings_Init", UNBOUNDED_ADDRESS);
+        JPH_SLIDER_CONSTRAINT_SETTINGS_SET_SLIDER_AXIS = downcallHandleVoid("JPH_SliderConstraintSettings_SetSliderAxis", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         
         SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
         AUTO_DETECT_POINT = LAYOUT.varHandle(PathElement.groupElement("autoDetectPoint"));

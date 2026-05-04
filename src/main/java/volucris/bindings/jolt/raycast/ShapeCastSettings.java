@@ -43,8 +43,6 @@ public final class ShapeCastSettings
 
     static {
         //@formatter:off
-        JPH_SHAPE_CAST_SETTINGS_INIT = downcallHandleVoid("JPH_ShapeCastSettings_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             CollideSettingsBase.LAYOUT.withName("base"),
             JAVA_INT.withName("backFaceModeTriangles"),
@@ -53,6 +51,8 @@ public final class ShapeCastSettings
             JAVA_BOOLEAN.withName("returnDeepestPoint"),
             MemoryLayout.paddingLayout(2)
         ).withName("JPH_ShapeCastSettings").withByteAlignment(4);
+        
+        JPH_SHAPE_CAST_SETTINGS_INIT = downcallHandleVoid("JPH_ShapeCastSettings_Init", UNBOUNDED_ADDRESS);
         
         BACK_FACE_MODE_TRIANGLES = LAYOUT.varHandle(PathElement.groupElement("backFaceModeTriangles"));
         BACK_FACE_MODE_CONVEX = LAYOUT.varHandle(PathElement.groupElement("backFaceModeConvex"));

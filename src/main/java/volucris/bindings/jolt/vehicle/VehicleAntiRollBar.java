@@ -37,13 +37,13 @@ public final class VehicleAntiRollBar
 
     static {
         //@formatter:off
-        JPH_VEHICLE_ANTI_ROLL_BAR_INIT = downcallHandleVoid("JPH_VehicleAntiRollBar_Init", UNBOUNDED_ADDRESS);
-        
         LAYOUT = MemoryLayout.structLayout(
             JAVA_INT.withName("leftWheel"),
             JAVA_INT.withName("rightWheel"),
             JAVA_FLOAT.withName("stiffness")
         ).withName("JPH_VehicleAntiRollBar").withByteAlignment(4);
+        
+        JPH_VEHICLE_ANTI_ROLL_BAR_INIT = downcallHandleVoid("JPH_VehicleAntiRollBar_Init", UNBOUNDED_ADDRESS);
         
         LEFT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("leftWheel"));
         RIGHT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("rightWheel"));

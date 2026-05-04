@@ -51,6 +51,10 @@ public final class Mat4
 
     static {
         //@formatter:off
+        LAYOUT = MemoryLayout.structLayout(
+            MemoryLayout.sequenceLayout(4, Vec4.LAYOUT).withName("column")
+        ).withName("JPH_Mat4").withByteAlignment(4);
+        
         JPH_MAT4_ADD = downcallHandleVoid("JPH_Mat4_Add", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_MAT4_SUBTRACT = downcallHandleVoid("JPH_Mat4_Subtract", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_MAT4_MULTIPLY = downcallHandleVoid("JPH_Mat4_Multiply", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
@@ -70,11 +74,6 @@ public final class Mat4
         JPH_MAT4_GET_AXIS_Z = downcallHandleVoid("JPH_Mat4_GetAxisZ", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_MAT4_GET_TRANSLATION = downcallHandleVoid("JPH_Mat4_GetTranslation", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_MAT4_GET_QUATERNION = downcallHandleVoid("JPH_Mat4_GetQuaternion", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
-        
-        LAYOUT = MemoryLayout.structLayout(
-            MemoryLayout.sequenceLayout(4, Vec4.LAYOUT).withName("column")
-        ).withName("JPH_Mat4").withByteAlignment(4);
-        
         
         COLUMN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("column"));
         //@formatter:on
