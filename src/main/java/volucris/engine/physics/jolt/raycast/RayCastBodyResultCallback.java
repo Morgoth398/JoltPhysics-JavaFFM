@@ -1,0 +1,58 @@
+package volucris.engine.physics.jolt.raycast;
+
+import java.lang.foreign.FunctionDescriptor;
+import java.lang.foreign.MemorySegment;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandles.Lookup;
+
+import volucris.engine.utils.VolucrisRuntimeException;
+
+import static java.lang.foreign.ValueLayout.*;
+import static volucris.engine.utils.FFMUtils.*;
+
+public abstract class RayCastBodyResultCallback {
+
+	private static final Lookup LOOKUP;
+
+	private static final FunctionDescriptor CALLBACK_DESCR;
+
+	private static final MethodHandle CALLBACK;
+
+	private final MemorySegment callbackAddress;
+
+	private final BroadPhaseCastResult result;
+	
+	static {
+		//@formatter:off
+		try {
+			LOOKUP = MethodHandles.privateLookupIn(RayCastBodyResultCallback.class, MethodHandles.lookup());
+		} catch (IllegalAccessException e) {
+			throw new VolucrisRuntimeException("Cannot create private lookup.");
+		}
+		
+		CALLBACK_DESCR = functionDescrVoid(ADDRESS, ADDRESS.withTargetLayout(BroadPhaseCastResult.LAYOUT()));
+		
+		CALLBACK = upcallHandle(LOOKUP, RayCastBodyResultCallback.class, "rayCastBodyResultCallback", CALLBACK_DESCR);
+		//@formatter:on
+	}
+	
+	public RayCastBodyResultCallback() {
+		callbackAddress = upcallStub(this, CALLBACK, CALLBACK_DESCR);
+		
+		result = new BroadPhaseCastResult();
+	}
+	
+	public abstract void rayCastBodyResultCallback(MemorySegment context, BroadPhaseCastResult result);
+	
+	@SuppressWarnings("unused")
+	private void rayCastBodyResultCallback(MemorySegment context, MemorySegment result) {
+		this.result.set(result);
+		rayCastBodyResultCallback(context, this.result);
+	}
+	
+	public MemorySegment memorySegment() {
+		return callbackAddress.asReadOnly();
+	}
+	
+}
