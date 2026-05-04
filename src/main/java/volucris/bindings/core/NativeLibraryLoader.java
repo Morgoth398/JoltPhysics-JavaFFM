@@ -7,108 +7,106 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
-import org.lwjgl.Version;
 import org.lwjgl.system.Configuration;
 
 public final class NativeLibraryLoader {
 
 	private static final String OS = System.getProperty("os.name").toLowerCase();
+	private static final String OS_ARCH = System.getProperty("os.arch").toLowerCase();
+
 	private static final boolean IS_WINDOWS = OS.contains("windows");
 	private static final boolean IS_APPLE = OS.contains("mac") || OS.contains("darwin");
+	private static final boolean IS_LINUX = OS.contains("linux") || OS.contains("nux");
 
-	private static final String[] EXTRACT_PATHS;
+	private static final boolean IS_ARM = OS_ARCH.contains("aarch64");
+
+	private static final ArrayList<String> EXTRACT_PATHS;
 
 	public static boolean DEBUG = false;
 	public static boolean REPLACE_EXISTING = false;
 
 	static {
-		EXTRACT_PATHS = new String[4];
+		EXTRACT_PATHS = new ArrayList<String>();
+
+		String extractPath = Configuration.SHARED_LIBRARY_EXTRACT_PATH.get();
+		if (extractPath != null)
+			EXTRACT_PATHS.add(extractPath + File.separator);
 
 		String extractDirectory = Configuration.SHARED_LIBRARY_EXTRACT_DIRECTORY.get();
-		if (extractDirectory == null)
-			extractDirectory = "lwjgl_" + System.getProperty("user.name");
-		String version = Version.getVersion().replace(' ', '-');
-		String arch = System.getProperty("os.arch");
-		if (arch.contains("64"))
-			arch = "x64";
-		else if (arch.contains("86"))
-			arch = "x86";
+		if (extractDirectory == null) {
+			extractDirectory = "volucris_bindings";
+		}
 
-		String path = Configuration.SHARED_LIBRARY_EXTRACT_PATH.get();
-		EXTRACT_PATHS[0] = path == null ? null : path + File.separator;
-
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(System.getProperty("java.io.tmpdir"));
-
-		if (!IS_WINDOWS)
-			stringBuilder.append(File.separator);
-
-		stringBuilder.append(extractDirectory).append(File.separator);
-		stringBuilder.append(version).append(File.separator).append(arch).append(File.separator);
-		EXTRACT_PATHS[1] = stringBuilder.toString();
-
-//		stringBuilder.setLength(0);
-//		stringBuilder.append(System.getProperty("user.dir")).append(File.separator).append(extractDirectory);
-//		stringBuilder.append(File.separator).append(version).append(File.separator).append(arch).append(File.separator);
-//		EXTRACT_PATHS[2] = stringBuilder.toString();
-//		System.out.println(EXTRACT_PATHS[2]);
-
-		stringBuilder.setLength(0);
-		stringBuilder.append(System.getProperty("user.dir")).append(File.separator);
-		EXTRACT_PATHS[2] = stringBuilder.toString();
-
-		stringBuilder.setLength(0);
-		stringBuilder.append(System.getProperty("user.home")).append(File.separator).append(extractDirectory);
-		stringBuilder.append(File.separator).append(version).append(File.separator).append(arch).append(File.separator);
-		EXTRACT_PATHS[3] = stringBuilder.toString();
+		EXTRACT_PATHS.add(System.getProperty("user.dir") + File.separator + "natives" + File.separator);
+		EXTRACT_PATHS.add(System.getProperty("user.home") + File.separator + extractDirectory + File.separator);
+		EXTRACT_PATHS.add(System.getProperty("java.io.tmpdir") + File.separator + extractDirectory + File.separator);
 	}
 
 	private NativeLibraryLoader() {
 	}
 
-	public static void loadLibrary(String sourcePath, String name) {
-		if (IS_APPLE)
-			return;
-
-		String fileName = IS_WINDOWS ? name + ".dll" : "lib" + name + ".so";
-		String internalPath = sourcePath + File.separator + fileName;
-		InputStream sharedLibraryStream = getInputStream(internalPath);
-
-		for (int i = 0; i < EXTRACT_PATHS.length; i++) {
-
-			if (EXTRACT_PATHS[i] == null)
-				continue;
-
-			String completePath = EXTRACT_PATHS[i] + fileName;
-			Path path = Path.of(completePath).toAbsolutePath();
-
-			if (extract(path, sharedLibraryStream)) {
-				System.load(path.toString());
-
-				closeQuietly(sharedLibraryStream);
-
-				if (DEBUG)
-					System.out.println("Native Library Path: " + completePath);
-
-				return;
-			}
-		}
-
-		closeQuietly(sharedLibraryStream);
-		throw new RuntimeException("Failed to extract and load native library. ");
+	public static void loadLibrary(String directory, String name) {
+		loadLibrary(directory, name, false);
 	}
 
-	private static boolean extract(Path path, InputStream stream) {
-		if (!Files.exists(path) || REPLACE_EXISTING) {
-			createDirectoryAndFile(path);
+	public static void loadLibrary(String directory, String name, boolean debug) {
+
+		String fileName;
+		if (IS_WINDOWS) {
+			if (!IS_ARM)
+				fileName = name + ".dll";
+			else
+				fileName = name + "_arm64.dll";
+		} else if (IS_APPLE) {
+			if (!IS_ARM)
+				fileName = "lib" + name + ".dylib";
+			else
+				fileName = "lib" + name + "_arm64.dylib";
+		} else if (IS_LINUX) {
+			if (!IS_ARM)
+				fileName = "lib" + name + ".so";
+			else
+				fileName = "lib" + name + "_arm64.so";
+		} else
+			throw new RuntimeException("Unsupported operating system: " + OS);
+
+		String fileLocation = directory + File.separator + fileName;
+
+		ArrayList<String> logs = new ArrayList<String>();
+		for (String extractPath : EXTRACT_PATHS) {
+
+			String completeExtractPath = extractPath + fileName;
+			Path path = Path.of(completeExtractPath).toAbsolutePath();
+
+			InputStream inputStream = getInputStream(fileLocation);
+
 			try {
-				Files.copy(stream, path, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				return false;
+				createDirectoryAndFile(path);
+
+				Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+
+				System.load(path.toString());
+
+				if (debug)
+					System.out.println("Native Library Path: " + completeExtractPath);
+			} catch (Exception e) {
+				logs.add(e.getMessage());
+				continue;
+			} finally {
+				closeQuietly(inputStream);
 			}
+
+			return;
 		}
-		return true;
+
+		for (int i = 0; i < EXTRACT_PATHS.size(); i++) {
+			System.err.println("Extraction failed for path: " + EXTRACT_PATHS.get(i));
+			System.err.println(logs.get(i));
+		}
+
+		throw new RuntimeException("Failed to extract and load native library.");
 	}
 
 	private static InputStream getInputStream(String internalPath) {
@@ -119,20 +117,18 @@ public final class NativeLibraryLoader {
 		return inputStream;
 	}
 
-	private static void createDirectoryAndFile(Path path) {
+	private static void createDirectoryAndFile(Path path) throws IOException {
+		if (Files.isDirectory(path))
+			throw new RuntimeException("Invalid file path");
+
 		if (Files.exists(path))
 			return;
-		try {
-			if (path.toString().contains(".")) {
-				Path parent = path.getParent();
-				if (parent != null)
-					Files.createDirectories(path.getParent());
-				Files.createFile(path);
-			} else {
-				Files.createDirectories(path);
-			}
-		} catch (IOException e) {
-		}
+
+		Path parent = path.getParent();
+		if (parent != null)
+			Files.createDirectories(path.getParent());
+
+		Files.createFile(path);
 	}
 
 	public static void closeQuietly(Closeable closeable) {

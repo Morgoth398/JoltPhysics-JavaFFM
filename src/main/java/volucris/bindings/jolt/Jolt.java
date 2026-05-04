@@ -35,7 +35,11 @@ public class Jolt {
 	}
 	
 	public static void loadNativeLibrary() {
-		NativeLibraryLoader.loadLibrary("natives/jolt", "jolt");
+		loadNativeLibrary(false);
+	}
+	
+	public static void loadNativeLibrary(boolean debug) {
+		NativeLibraryLoader.loadLibrary("natives/jolt", "jolt", debug);
 	}
 	
 	public static boolean init() {
