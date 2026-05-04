@@ -158,6 +158,8 @@ public abstract class CharacterContactListener {
 	 * adjusted to e.g. implement a conveyor belt or an inertial dampener system of
 	 * a sci-fi space ship. Note that body2 is locked during the callback so you can
 	 * read its properties freely.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	protected abstract void onAdjustBodyVelocity(CharacterVirtual character, Body body2, Vector3f linearVelocity,
 			Vector3f angularVelocity);
@@ -165,18 +167,24 @@ public abstract class CharacterContactListener {
 	/**
 	 * Checks if a character can collide with specified body. Return true if the
 	 * contact is valid.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	protected abstract boolean onContactValidate(CharacterVirtual character, int bodyId2, int subShapeId2);
 
 	/**
 	 * Same as {@link #onContactValidate(CharacterVirtual, int, int)
 	 * onContactValidate} but when colliding with a CharacterVirtual.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 */
 	protected abstract boolean onCharacterContactValidate(CharacterVirtual character, CharacterVirtual otherCharacter,
 			int subShapeId);
 
 	/**
 	 * Called whenever the character collides with a body for the first time.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 * @param character       Character that is being solved
 	 * @param bodyId2         ID of body that is being hit
@@ -191,6 +199,8 @@ public abstract class CharacterContactListener {
 
 	/**
 	 * Called whenever the character persists colliding with a body.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 * @param character       Character that is being solved
 	 * @param bodyId2         ID of body that is being hit
@@ -207,6 +217,8 @@ public abstract class CharacterContactListener {
 	 * Called whenever the character loses contact with a body. Note that there is
 	 * no guarantee that the body or its sub shape still exists at this point. The
 	 * body may have been deleted since the last update.
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 * @param character  Character that is being solved
 	 * @param bodyId2    Id of the body that is being hit
@@ -243,6 +255,8 @@ public abstract class CharacterContactListener {
 	 * Called whenever a contact is being used by the solver. Allows the listener to
 	 * override the resulting character velocity (e.g. by preventing sliding along
 	 * certain surfaces).
+	 * <p>
+	 * Do not store a reference to the objects. They will be reused internally.
 	 * 
 	 * @param character            Character that is being solved
 	 * @param bodyId2              ID of body that is being hit

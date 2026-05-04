@@ -83,7 +83,7 @@ public abstract class BroadPhaseLayerFilter {
 	}
 
 	/**
-	 * Function to filter out broadphase layers when doing collision query test
+	 * Function to filter out broadphase layers when doing collision query test.
 	 * 
 	 * @param layer The layer
 	 * @return true to allow testing against objects with this layer

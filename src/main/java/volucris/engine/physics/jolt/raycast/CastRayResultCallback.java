@@ -43,6 +43,9 @@ public abstract class CastRayResultCallback {
 		result = new RayCastResult();
 	}
 	
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	public abstract void castRayResultCallback(MemorySegment context, RayCastResult result);
 	
 	@SuppressWarnings("unused")

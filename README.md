@@ -10,6 +10,8 @@ NativeLibraryLoader.LOAD_LIBRARY  =  false;
  ```
 
 # Usage
+This project requires Java 25.
+
 Before using the bindings (and even loading the bindings classes), you need to call 'Jolt.init()'. This function initializes JoltPhysics, but also loads the default native library. When you load your own native library, you need to do this before calling this method.
 My implementation of a native library loader makes use of some  [LWJGL](https://www.lwjgl.org/) configurations. To set the extract directory of the native library, change 'Configuration.SHARED _LIBRARY _EXTRACT _PATH'. 
 

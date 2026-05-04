@@ -38,7 +38,10 @@ public abstract class CollideShapeBodyResultCallback {
 	public CollideShapeBodyResultCallback() {
 		callbackAddress = upcallStub(this, CALLBACK_HANDLE, CALLBACK_DESCR);
 	}
-
+	
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	protected abstract void collideShapeBodyResultCallback(MemorySegment context, int bodyId);
 
 	public MemorySegment memorySegment() {
