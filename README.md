@@ -1,5 +1,5 @@
 # JoltPhysics-JavaFFM
-This project provides Java Bindings for [JoltPhysics](https://github.com/jrouwe/JoltPhysics) 5.4.0 using the Java FFM API and a [C Wrapper](https://github.com/amerkoleci/joltc). All implemented functions and the latest commit included in these bindings can be found in 'AllFunctions.txt'.
+This project provides Java Bindings for [JoltPhysics](https://github.com/jrouwe/JoltPhysics) using the Java FFM API and a [C Wrapper](https://github.com/amerkoleci/joltc). All implemented functions and the latest commit included in these bindings can be found in 'AllFunctions.txt'.
 
 # Supported Platforms
 Windows and Linux are directly supported. The Linux .so file was built on Linux Mint 22.2.
@@ -13,7 +13,7 @@ NativeLibraryLoader.LOAD_LIBRARY  =  false;
 This project requires Java 25.
 
 Before using the bindings (and even loading the bindings classes), you need to call 'Jolt.init()'. This function initializes JoltPhysics, but also loads the default native library. When you load your own native library, you need to do this before calling this method.
-My implementation of a native library loader makes use of some  [LWJGL](https://www.lwjgl.org/) configurations. To set the extract directory of the native library, change 'Configuration.SHARED _LIBRARY _EXTRACT _PATH'. 
+My implementation of a native library loader makes use of some  [LWJGL](https://www.lwjgl.org/) configurations. To set the extract directory of the native library, change 'Configuration.SHARED_LIBRARY_EXTRACT_PATH'. 
 
 Due to the introduction of  [restricted methods](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/doc-files/RestrictedMethods.html), it is recommended (and in later versions required) to run the application with the VM argument '--enable-native-access=ALL-UNNAMED'.
 
