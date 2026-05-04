@@ -48,6 +48,9 @@ public final class Jolt {
 	private static final LongObjectHashMap<WeakReference<LinearCurve>> LINEAR_CURVES;
 	private static final LongObjectHashMap<WeakReference<RagdollSettings>> RAGDOLL_SETTINGS;
 
+	private static final LongObjectHashMap<Object> INTERNAL_USER_DATA;
+	private static final LongObjectHashMap<Object> USER_DATA;
+	
 	static {
 		NativeLibraryLoader.loadLibrary("natives/jolt", "jolt");
 
@@ -72,6 +75,9 @@ public final class Jolt {
 		CONSTRAINTS = new LongObjectHashMap<WeakReference<Constraint>>();
 		LINEAR_CURVES = new LongObjectHashMap<WeakReference<LinearCurve>>();
 		RAGDOLL_SETTINGS = new LongObjectHashMap<WeakReference<RagdollSettings>>();
+		
+		INTERNAL_USER_DATA = new LongObjectHashMap<Object>();
+		USER_DATA = new LongObjectHashMap<Object>();
 	}
 
 	private Jolt() {
@@ -439,6 +445,22 @@ public final class Jolt {
 	 */
 	public static void removeRagdollSettings(long address) {
 		RAGDOLL_SETTINGS.remove(address);
+	}
+	
+	public static void setInternalUserData(long address, Object userData) {
+		INTERNAL_USER_DATA.put(address, userData);
+	}
+	
+	public static Object getInternalUserData(long address) {
+		return INTERNAL_USER_DATA.get(address);
+	}
+	
+	public static void setUserData(long address, Object userData) {
+		USER_DATA.put(address, userData);
+	}
+	
+	public static Object getUserData(long address) {
+		return USER_DATA.get(address);
 	}
 	
 }
