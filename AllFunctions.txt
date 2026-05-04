@@ -1,4 +1,4 @@
-JoltC Commit 7d11b27 Dec 14, 2025
+JoltC Commit f41778a94ed580656b08d49b69132e7a7cccb2d3 Dec 30, 2025
 
 IMPLEMENTED           1    0 00140570 JPH_BodyActivationListener_Create
 IMPLEMENTED           2    1 00140550 JPH_BodyActivationListener_Destroy
