@@ -7,7 +7,7 @@ import java.lang.foreign.StructLayout;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -48,7 +48,7 @@ public final class VehicleAntiRollBar {
 	public VehicleAntiRollBar() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleAntiRollBar(Arena arena) {
 		jphVehicleAntiRollBar = arena.allocate(LAYOUT);
 
@@ -60,47 +60,50 @@ public final class VehicleAntiRollBar {
 			MethodHandle method = JPH_VEHICLE_ANTI_ROLL_BAR_INIT;
 			method.invokeExact(jphVehicleAntiRollBar);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize vehicle anti roll bar.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize vehicle anti roll bar: " + className);
 		}
 	}
 
 	/**
-	 * Index (in mWheels) that represents the left wheel of this anti-rollbar. 
+	 * Index (in mWheels) that represents the left wheel of this anti-rollbar.
 	 */
 	public void setLeftWheel(int value) {
 		LEFT_WHEEL.set(jphVehicleAntiRollBar, value);
 	}
 
 	/**
-	 * Index (in mWheels) that represents the left wheel of this anti-rollbar. 
+	 * Index (in mWheels) that represents the left wheel of this anti-rollbar.
 	 */
 	public int getLeftWheel() {
 		return (int) LEFT_WHEEL.get(jphVehicleAntiRollBar);
 	}
 
 	/**
-	 * Index (in mWheels) that represents the right wheel of this anti-rollbar. 
+	 * Index (in mWheels) that represents the right wheel of this anti-rollbar.
 	 */
 	public void setRightWheel(int value) {
 		RIGHT_WHEEL.set(jphVehicleAntiRollBar, value);
 	}
 
 	/**
-	 * Index (in mWheels) that represents the right wheel of this anti-rollbar. 
+	 * Index (in mWheels) that represents the right wheel of this anti-rollbar.
 	 */
 	public int getRightWheel() {
 		return (int) RIGHT_WHEEL.get(jphVehicleAntiRollBar);
 	}
 
 	/**
-	 * Stiffness (spring constant in N/m) of anti rollbar, can be 0 to disable the anti-rollbar. 
+	 * Stiffness (spring constant in N/m) of anti rollbar, can be 0 to disable the
+	 * anti-rollbar.
 	 */
 	public void setStiffness(float value) {
 		STIFFNESS.set(jphVehicleAntiRollBar, value);
 	}
 
 	/**
-	 * Stiffness (spring constant in N/m) of anti rollbar, can be 0 to disable the anti-rollbar. 
+	 * Stiffness (spring constant in N/m) of anti rollbar, can be 0 to disable the
+	 * anti-rollbar.
 	 */
 	public float getStiffness() {
 		return (float) STIFFNESS.get(jphVehicleAntiRollBar);

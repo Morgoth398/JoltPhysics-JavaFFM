@@ -4,13 +4,13 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
 
 /**
- * Class that constructs a CapsuleShape. 
+ * Class that constructs a CapsuleShape.
  */
 public final class CapsuleShapeSettings extends ConvexShapeSettings {
 
@@ -27,14 +27,15 @@ public final class CapsuleShapeSettings extends ConvexShapeSettings {
 	public CapsuleShapeSettings(float halfHeightOfCylinder, float radius) {
 		this(halfHeightOfCylinder, radius, Arena.ofAuto());
 	}
-	
+
 	public CapsuleShapeSettings(float halfHeightOfCylinder, float radius, Arena arena) {
 		MemorySegment segment;
-		try {			
+		try {
 			MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(halfHeightOfCylinder, radius);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create capsule shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create capsule shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -42,14 +43,15 @@ public final class CapsuleShapeSettings extends ConvexShapeSettings {
 	public CapsuleShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public CapsuleShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new CapsuleShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create capsule shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create capsule shape: " + className);
 		}
 	}
 

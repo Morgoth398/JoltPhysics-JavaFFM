@@ -21,7 +21,7 @@ import volucris.engine.physics.jolt.vehicle.VehicleTransmissionSettings;
 import volucris.engine.physics.jolt.vehicle.Wheel;
 import volucris.engine.physics.jolt.vehicle.WheelSettings;
 import volucris.engine.utils.NativeLibraryLoader;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -50,7 +50,7 @@ public final class Jolt {
 
 	private static final LongObjectHashMap<Object> INTERNAL_USER_DATA;
 	private static final LongObjectHashMap<Object> USER_DATA;
-	
+
 	static {
 		NativeLibraryLoader.loadLibrary("natives/jolt", "jolt");
 
@@ -75,7 +75,7 @@ public final class Jolt {
 		CONSTRAINTS = new LongObjectHashMap<WeakReference<Constraint>>();
 		LINEAR_CURVES = new LongObjectHashMap<WeakReference<LinearCurve>>();
 		RAGDOLL_SETTINGS = new LongObjectHashMap<WeakReference<RagdollSettings>>();
-		
+
 		INTERNAL_USER_DATA = new LongObjectHashMap<Object>();
 		USER_DATA = new LongObjectHashMap<Object>();
 	}
@@ -100,7 +100,8 @@ public final class Jolt {
 		try {
 			return (boolean) JPH_INIT.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize jolt.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize jolt: " + className);
 		}
 	}
 
@@ -119,7 +120,8 @@ public final class Jolt {
 		try {
 			JPH_SHUTDOWN.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot shutdown jolt.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot shutdown jolt: " + className);
 		}
 	}
 
@@ -127,7 +129,8 @@ public final class Jolt {
 		try {
 			JPH_SET_TRACE_HANDLER.invokeExact(traceCallback.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set trace callback.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set trace callback: " + className);
 		}
 	}
 
@@ -135,7 +138,8 @@ public final class Jolt {
 		try {
 			JPH_SET_ASSERT_FAILURE_HANDLER.invokeExact(assertFailureCallback.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set assert failure callback.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set assert failure callback: " + className);
 		}
 	}
 
@@ -446,21 +450,21 @@ public final class Jolt {
 	public static void removeRagdollSettings(long address) {
 		RAGDOLL_SETTINGS.remove(address);
 	}
-	
+
 	public static void setInternalUserData(long address, Object userData) {
 		INTERNAL_USER_DATA.put(address, userData);
 	}
-	
+
 	public static Object getInternalUserData(long address) {
 		return INTERNAL_USER_DATA.get(address);
 	}
-	
+
 	public static void setUserData(long address, Object userData) {
 		USER_DATA.put(address, userData);
 	}
-	
+
 	public static Object getUserData(long address) {
 		return USER_DATA.get(address);
 	}
-	
+
 }

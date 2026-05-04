@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -34,7 +34,7 @@ public final class ScaledShape extends DecoratedShape {
 	protected ScaledShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected ScaledShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -42,7 +42,7 @@ public final class ScaledShape extends DecoratedShape {
 	protected ScaledShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected ScaledShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -52,7 +52,7 @@ public final class ScaledShape extends DecoratedShape {
 	public ScaledShape(Shape shape, Vector3f scale) {
 		this(shape, scale, Arena.ofAuto());
 	}
-	
+
 	public ScaledShape(Shape shape, Vector3f scale, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -61,7 +61,8 @@ public final class ScaledShape extends DecoratedShape {
 			MethodHandle method = JPH_SCALED_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(shape.memorySegment(), vec.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create scaled shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create scaled shape: " + className);
 		}
 		super(segment);
 	}
@@ -73,7 +74,8 @@ public final class ScaledShape extends DecoratedShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get scale.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get scale: " + className);
 		}
 	}
 

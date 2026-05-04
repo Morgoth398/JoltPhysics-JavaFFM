@@ -13,7 +13,7 @@ import volucris.engine.physics.jolt.constraint.ConstraintEnums.ConstraintSpace;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.SixDOFConstraintAxis;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.SwingType;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -117,7 +117,7 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 	public SixDOFConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public SixDOFConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -150,7 +150,8 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphSixDOFConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize six DOF constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize six DOF constraint settings: " + className);
 		}
 	}
 
@@ -162,7 +163,8 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SETTINGS_MAKE_FREE_AXIS;
 			method.invokeExact(jphSixDOFConstraintSettings, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot make free axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot make free axis: " + className);
 		}
 	}
 
@@ -174,7 +176,8 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SETTINGS_IS_FREE_AXIS;
 			return (boolean) method.invokeExact(jphSixDOFConstraintSettings, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if is free axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if is free axis: " + className);
 		}
 	}
 
@@ -186,7 +189,8 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SETTINGS_MAKE_FIXED_AXIS;
 			method.invokeExact(jphSixDOFConstraintSettings, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot make fixed axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot make fixed axis: " + className);
 		}
 	}
 
@@ -198,20 +202,22 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SETTINGS_IS_FIXED_AXIS;
 			return (boolean) method.invokeExact(jphSixDOFConstraintSettings, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot is fixed axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot is fixed axis: " + className);
 		}
 	}
 
 	/**
-	 * Set a valid range for the constraint (if {@code max < min} the axis will become
-	 * fixed)
+	 * Set a valid range for the constraint (if {@code max < min} the axis will
+	 * become fixed)
 	 */
 	public void setLimitedAxis(SixDOFConstraintAxis axis, float min, float max) {
 		try {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SETTINGS_SET_LIMITED_AXIS;
 			method.invokeExact(jphSixDOFConstraintSettings, axis.id(), min, max);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set limited axis.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set limited axis: " + className);
 		}
 	}
 
@@ -227,7 +233,7 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 				return space;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for constraint space.");
+		throw new JoltRuntimeException("Wrong value for constraint space");
 	}
 
 	/**
@@ -249,7 +255,7 @@ public final class SixDOFConstraintSettings extends TwoBodyConstraintSettings {
 				return type;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong value for swing type.");
+		throw new JoltRuntimeException("Wrong value for swing type");
 	}
 
 	/**

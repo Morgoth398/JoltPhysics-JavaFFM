@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -37,7 +37,7 @@ public final class TriangleShape extends ConvexShape {
 	protected TriangleShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected TriangleShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -45,7 +45,7 @@ public final class TriangleShape extends ConvexShape {
 	protected TriangleShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected TriangleShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -57,7 +57,8 @@ public final class TriangleShape extends ConvexShape {
 			MethodHandle method = JPH_TRIANGLE_SHAPE_GET_CONVEX_RADIUS;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get convex radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get convex radius: " + className);
 		}
 	}
 
@@ -68,7 +69,8 @@ public final class TriangleShape extends ConvexShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get vertex1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get vertex1: " + className);
 		}
 	}
 
@@ -83,7 +85,8 @@ public final class TriangleShape extends ConvexShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get vertex2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get vertex2: " + className);
 		}
 	}
 
@@ -98,7 +101,8 @@ public final class TriangleShape extends ConvexShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get vertex3.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get vertex3: " + className);
 		}
 	}
 

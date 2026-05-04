@@ -16,14 +16,12 @@ import java.util.ArrayList;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import volucris.engine.graphics.BoundingBox;
-import volucris.engine.graphics.Color;
 import volucris.engine.physics.jolt.JoltEnums.CastShadow;
 import volucris.engine.physics.jolt.JoltEnums.DrawMode;
 import volucris.engine.physics.jolt.math.AABox;
 import volucris.engine.physics.jolt.math.Mat4;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -104,15 +102,11 @@ public abstract class DebugRenderer {
 	private final MemorySegment jphDebugRenderer;
 	private final MemorySegment userData;
 
-	private Color color;
-
 	private Vector3f vector1;
 	private Vector3f vector2;
 	private Vector3f vector3;
 
 	private Mat4 matTmp;
-
-	private AABox boxTmp;
 
 	private Vec3 vecTmp;
 	private Vec3 vecTmp2;
@@ -191,36 +185,34 @@ public abstract class DebugRenderer {
 			vecTmp3 = new Vec3(arena);
 
 			matTmp = new Mat4(arena);
-
-			boxTmp = new AABox(arena);
-
-			color = new Color();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create debug renderer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create debug renderer: " + className);
 		}
 	}
 
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
-	protected abstract void drawLine(Vector3f from, Vector3f to, Color color);
+	protected abstract void drawLine(Vector3f from, Vector3f to, int color);
 
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
-	protected abstract void drawTriangle(Vector3f v1, Vector3f v2, Vector3f v3, Color color, CastShadow castShadow);
+	protected abstract void drawTriangle(Vector3f v1, Vector3f v2, Vector3f v3, int color, CastShadow castShadow);
 
 	/**
 	 * Do not store a reference to the objects. They will be reused internally.
 	 */
-	protected abstract void drawText3D(Vector3f position, String str, Color color, float height);
+	protected abstract void drawText3D(Vector3f position, String str, int color, float height);
 
 	private static void setProcs() {
 		try {
 			MethodHandle method = JPH_DEBUG_RENDERER_SET_PROCS;
 			method.invokeExact(DEBUG_RENDERER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set debug renderer procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set debug renderer procs: " + className);
 		}
 	}
 
@@ -230,7 +222,8 @@ public abstract class DebugRenderer {
 		try {
 			lookup = MethodHandles.privateLookupIn(DebugRenderer.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 
 		AddressLayout UNBOUNDED_ADDRESS = ADDRESS.withTargetLayout(MemoryLayout.sequenceLayout(Long.MAX_VALUE, JAVA_BYTE));
@@ -260,7 +253,8 @@ public abstract class DebugRenderer {
 			MethodHandle method = JPH_DEBUG_RENDERER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy debug renderer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy debug renderer: " + className);
 		}
 	}
 
@@ -269,7 +263,8 @@ public abstract class DebugRenderer {
 			MethodHandle method = JPH_DEBUG_RENDERER_NEXT_FRAME;
 			method.invokeExact(jphDebugRenderer);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call next frame.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call next frame: " + className);
 		}
 	}
 
@@ -280,53 +275,55 @@ public abstract class DebugRenderer {
 			MethodHandle method = JPH_DEBUG_RENDERER_SET_CAMERA_POS;
 			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set camera pos.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set camera pos: " + className);
 		}
 	}
 
-	public void drawWireBox(BoundingBox box, Color color) {
+	public void drawWireBox(AABox box, int color) {
 		try {
-			boxTmp.set(box);
-
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_BOX;
-			method.invokeExact(jphDebugRenderer, boxTmp.memorySegment(), color.toInt());
+			method.invokeExact(jphDebugRenderer, box.memorySegment(), color);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw wire box.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw wire box: " + className);
 		}
 	}
 
-	public void drawWireBox(Matrix4f matrix, BoundingBox box, Color color) {
+	public void drawWireBox(Matrix4f matrix, AABox box, int color) {
 		try {
 			matTmp.set(matrix);
-			boxTmp.set(box);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_BOX2;
-			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), boxTmp.memorySegment(), color.toInt());
+			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), box.memorySegment(), color);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw wire box.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw wire box: " + className);
 		}
 	}
 
-	public void drawMarker(Vector3f position, Color color, float size) {
+	public void drawMarker(Vector3f position, int color, float size) {
 		try {
 			vecTmp.set(position);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_MARKER;
-			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), color.toInt(), size);
+			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), color, size);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw marker.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw marker: " + className);
 		}
 	}
 
-	public void drawArrow(Vector3f from, Vector3f to, Color color, float size) {
+	public void drawArrow(Vector3f from, Vector3f to, int color, float size) {
 		try {
 			vecTmp.set(from);
 			vecTmp2.set(to);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_ARROW;
-			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), vecTmp2.memorySegment(), color.toInt(), size);
+			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), vecTmp2.memorySegment(), color, size);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw arrow.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw arrow: " + className);
 		}
 	}
 
@@ -337,22 +334,24 @@ public abstract class DebugRenderer {
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_COORDINATE_SYSTEM;
 			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), size);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw coordinate system.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw coordinate system: " + className);
 		}
 	}
 
-	public void drawPlane(int point, Vector3f normal, Color color, float size) {
+	public void drawPlane(int point, Vector3f normal, int color, float size) {
 		try {
 			vecTmp.set(normal);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_PLANE;
-			method.invokeExact(jphDebugRenderer, point, vecTmp.memorySegment(), color.toInt(), size);
+			method.invokeExact(jphDebugRenderer, point, vecTmp.memorySegment(), color, size);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call drawPlane.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call drawPlane: " + className);
 		}
 	}
 
-	public void drawWireTriangle(Vector3f v1, Vector3f v2, Vector3f v3, Color color) {
+	public void drawWireTriangle(Vector3f v1, Vector3f v2, Vector3f v3, int color) {
 		try {
 			vecTmp.set(v1);
 			vecTmp2.set(v2);
@@ -363,64 +362,66 @@ public abstract class DebugRenderer {
 			MemorySegment v3Addr = vecTmp3.memorySegment();
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_TRIANGLE;
-			method.invokeExact(jphDebugRenderer, v1Addr, v2Addr, v3Addr, color.toInt());
+			method.invokeExact(jphDebugRenderer, v1Addr, v2Addr, v3Addr, color);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw wire triangle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw wire triangle: " + className);
 		}
 	}
 
-	public void drawWireSphere(Vector3f center, float radius, Color color, int level) {
+	public void drawWireSphere(Vector3f center, float radius, int color, int level) {
 		try {
 			vecTmp.set(center);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_SPHERE;
-			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), radius, color.toInt(), level);
+			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), radius, color, level);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw wire sphere.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw wire sphere: " + className);
 		}
 	}
 
-	public void drawWireUnitSphere(Matrix4f matrix, Color color, int level) {
+	public void drawWireUnitSphere(Matrix4f matrix, int color, int level) {
 		try {
 			matTmp.set(matrix);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_UNIT_SPHERE;
-			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), color.toInt(), level);
+			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), color, level);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw wire unit sphere.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw wire unit sphere: " + className);
 		}
 	}
 
-	public void drawBox(BoundingBox box, Color color, CastShadow castShadow, DrawMode drawMode) {
+	public void drawBox(AABox box, int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
-			boxTmp.set(box);
-
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_BOX;
-			method.invokeExact(jphDebugRenderer, boxTmp.memorySegment(), color.toInt(), castShadow.id(), drawMode.id());
+			method.invokeExact(jphDebugRenderer, box.memorySegment(), color, castShadow.id(), drawMode.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw box.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw box: " + className);
 		}
 	}
 
-	public void drawBox(Matrix4f matrix, BoundingBox box, Color color, CastShadow castShadow, DrawMode drawMode) {
+	public void drawBox(Matrix4f matrix, AABox box, int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
 			matTmp.set(matrix);
-			boxTmp.set(box);
 
 			MemorySegment matAddr = matTmp.memorySegment();
-			MemorySegment boxAddr = boxTmp.memorySegment();
+			MemorySegment boxAddr = box.memorySegment();
 
 			int shadow = castShadow.id();
 			int mode = drawMode.id();
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_BOX2;
-			method.invokeExact(jphDebugRenderer, matAddr, boxAddr, color.toInt(), shadow, mode);
+			method.invokeExact(jphDebugRenderer, matAddr, boxAddr, color, shadow, mode);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw box.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw box: " + className);
 		}
 	}
 
-	public void drawSphere(Vector3f center, float radius, Color color, CastShadow castShadow, DrawMode drawMode) {
+	public void drawSphere(Vector3f center, float radius, int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
 			vecTmp.set(center);
 
@@ -428,13 +429,14 @@ public abstract class DebugRenderer {
 			int mode = drawMode.id();
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SPHERE;
-			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), radius, color.toInt(), shadow, mode);
+			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), radius, color, shadow, mode);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw sphere.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw sphere: " + className);
 		}
 	}
 
-	public void drawUnitSphere(Matrix4f matrix, Color color, CastShadow castShadow, DrawMode drawMode) {
+	public void drawUnitSphere(Matrix4f matrix, int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
 			matTmp.set(matrix);
 
@@ -442,13 +444,14 @@ public abstract class DebugRenderer {
 			int mode = drawMode.id();
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_UNIT_SPHERE;
-			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), color.toInt(), shadow, mode);
+			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), color, shadow, mode);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw unit sphere.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw unit sphere: " + className);
 		}
 	}
 
-	public void drawCapsule(Matrix4f matrix, float halfHeightOfCylinder, float radius, Color color,
+	public void drawCapsule(Matrix4f matrix, float halfHeightOfCylinder, float radius, int color,
 			CastShadow castShadow, DrawMode drawMode) {
 		try {
 			matTmp.set(matrix);
@@ -459,13 +462,14 @@ public abstract class DebugRenderer {
 			int mode = drawMode.id();
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_CAPSULE;
-			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), height, radius, color.toInt(), shadow, mode);
+			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), height, radius, color, shadow, mode);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw capsule.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw capsule: " + className);
 		}
 	}
 
-	public void drawCylinder(Matrix4f matrix, float halfHeight, float radius, Color color, CastShadow castShadow,
+	public void drawCylinder(Matrix4f matrix, float halfHeight, float radius, int color, CastShadow castShadow,
 			DrawMode drawMode) {
 		try {
 			matTmp.set(matrix);
@@ -476,14 +480,15 @@ public abstract class DebugRenderer {
 			int mode = drawMode.id();
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_CYLINDER;
-			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), height, radius, color.toInt(), shadow, mode);
+			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), height, radius, color, shadow, mode);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw cylinder.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw cylinder: " + className);
 		}
 	}
 
 	public void drawOpenCone(Vector3f top, Vector3f axis, Vector3f perpendicular, float halfAngle, float length,
-			Color color, CastShadow castShadow, DrawMode drawMode) {
+			int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
 			vecTmp.set(top);
 			vecTmp2.set(axis);
@@ -498,41 +503,44 @@ public abstract class DebugRenderer {
 			int mode = drawMode.id();
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_OPEN_CONE;
-			method.invokeExact(renderer, topAddr, axisAddr, perpAddr, halfAngle, length, color.toInt(), shadow, mode);
+			method.invokeExact(renderer, topAddr, axisAddr, perpAddr, halfAngle, length, color, shadow, mode);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw open cone.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw open cone: " + className);
 		}
 	}
 
 	public void drawSwingConeLimits(Matrix4f matrix, float swingYHalfAngle, float swingZHalfAngle, float edgeLength,
-			Color color, CastShadow castShadow, DrawMode drawMode) {
+			int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
 			matTmp.set(matrix);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SWING_CONE_LIMITS;
 			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), swingYHalfAngle, swingZHalfAngle, edgeLength,
-					color.toInt(), castShadow.id(), drawMode.id());
+					color, castShadow.id(), drawMode.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw swing cone limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw swing cone limits: " + className);
 		}
 	}
 
 	public void drawSwingPyramidLimits(Matrix4f matrix, float minSwingYAngle, float maxSwingYAngle,
-			float minSwingZAngle, float maxSwingZAngle, float edgeLength, Color color, CastShadow castShadow,
+			float minSwingZAngle, float maxSwingZAngle, float edgeLength, int color, CastShadow castShadow,
 			DrawMode drawMode) {
 		try {
 			matTmp.set(matrix);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SWING_PYRAMID_LIMITS;
 			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), minSwingYAngle, maxSwingYAngle, minSwingZAngle,
-					maxSwingZAngle, edgeLength, color.toInt(), castShadow.id(), drawMode.id());
+					maxSwingZAngle, edgeLength, color, castShadow.id(), drawMode.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw swing pyramid limits.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw swing pyramid limits: " + className);
 		}
 	}
 
 	public void drawPie(Vector3f center, float radius, Vector3f normal, Vector3f axis, float minAngle, float maxAngle,
-			Color color, CastShadow castShadow, DrawMode drawMode) {
+			int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
 			vecTmp.set(center);
 			vecTmp2.set(normal);
@@ -540,22 +548,24 @@ public abstract class DebugRenderer {
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_PIE;
 			method.invokeExact(jphDebugRenderer, vecTmp.memorySegment(), radius, vecTmp2.memorySegment(),
-					vecTmp3.memorySegment(), minAngle, maxAngle, color.toInt(), castShadow.id(), drawMode.id());
+					vecTmp3.memorySegment(), minAngle, maxAngle, color, castShadow.id(), drawMode.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw pie.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw pie: " + className);
 		}
 	}
 
 	public void drawTaperedCylinder(Matrix4f matrix, float top, float bottom, float topRadius, float bottomRadius,
-			Color color, CastShadow castShadow, DrawMode drawMode) {
+			int color, CastShadow castShadow, DrawMode drawMode) {
 		try {
 			matTmp.set(matrix);
 
 			MethodHandle method = JPH_DEBUG_RENDERER_DRAW_TAPERED_CYLINDER;
 			method.invokeExact(jphDebugRenderer, matTmp.memorySegment(), top, bottom, topRadius, bottomRadius,
-					color.toInt(), castShadow.id(), drawMode.id());
+					color, castShadow.id(), drawMode.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot draw tapered cylinder.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot draw tapered cylinder: " + className);
 		}
 	}
 
@@ -568,7 +578,7 @@ public abstract class DebugRenderer {
 		renderer.vecTmp.set(to);
 		Vector3f toVector = renderer.vecTmp.get(renderer.vector2);
 
-		renderer.drawLine(fromVector, toVector, renderer.color.set(color, true));
+		renderer.drawLine(fromVector, toVector, color);
 	}
 
 	@SuppressWarnings("unused")
@@ -583,11 +593,9 @@ public abstract class DebugRenderer {
 		renderer.vecTmp.set(v3);
 		Vector3f vertex3 = renderer.vecTmp.get(renderer.vector3);
 
-		Color colorObject = renderer.color.set(color, true);
-
 		CastShadow shadow = castShadow == CastShadow.OFF.id() ? CastShadow.OFF : CastShadow.ON;
 
-		renderer.drawTriangle(vertex1, vertex2, vertex3, colorObject, shadow);
+		renderer.drawTriangle(vertex1, vertex2, vertex3, color, shadow);
 	}
 
 	@SuppressWarnings("unused")
@@ -598,9 +606,7 @@ public abstract class DebugRenderer {
 		renderer.vecTmp.set(position);
 		Vector3f pos = renderer.vecTmp.get(renderer.vector1);
 
-		Color colorObject = renderer.color.set(color, true);
-
-		renderer.drawText3D(pos, str.getString(0), colorObject, height);
+		renderer.drawText3D(pos, str.getString(0), color, height);
 	}
 
 	public MemorySegment memorySegment() {

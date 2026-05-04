@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.body.Body;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -16,7 +16,7 @@ import static volucris.engine.utils.FFMUtils.*;
  * A swing twist constraint is a specialized constraint for humanoid ragdolls
  * that allows limited rotation only.
  * <p>
- * See {@link SwingTwistConstraintSettings} for a description of the limits. 
+ * See {@link SwingTwistConstraintSettings} for a description of the limits.
  */
 public final class SwingTwistConstraint extends TwoBodyConstraint {
 
@@ -45,15 +45,15 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 	protected SwingTwistConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected SwingTwistConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
-	
+
 	public SwingTwistConstraint(SwingTwistConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	public SwingTwistConstraint(SwingTwistConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -64,7 +64,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create SwingTwistConstraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create SwingTwistConstraint: " + className);
 		}
 		super(segment, arena);
 	}
@@ -80,7 +81,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -99,7 +101,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_NORMAL_HALF_CONE_ANGLE;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get normal half cone angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get normal half cone angle: " + className);
 		}
 	}
 
@@ -114,7 +117,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position: " + className);
 		}
 	}
 
@@ -135,7 +139,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_TWIST;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda twist.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda twist: " + className);
 		}
 	}
 
@@ -148,7 +153,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Y;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda swing Y.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda swing Y: " + className);
 		}
 	}
 
@@ -161,7 +167,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Z;
 			return (float) method.invokeExact(jphConstraint);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda swing Z.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda swing Z: " + className);
 		}
 	}
 
@@ -176,7 +183,8 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda motor.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda motor: " + className);
 		}
 	}
 

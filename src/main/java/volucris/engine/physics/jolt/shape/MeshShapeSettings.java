@@ -10,7 +10,7 @@ import volucris.engine.physics.jolt.math.IndexedTriangle;
 import volucris.engine.physics.jolt.math.Triangle;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.shape.ShapeEnums.BuildQuality;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -53,7 +53,7 @@ public final class MeshShapeSettings extends ShapeSettings {
 	public MeshShapeSettings(float[] triangles, int triangleCount) {
 		this(triangles, triangleCount, Arena.ofAuto());
 	}
-	
+
 	public MeshShapeSettings(float[] triangles, int triangleCount, Arena arena) {
 		this(triangles, null, triangleCount, arena);
 	}
@@ -61,7 +61,7 @@ public final class MeshShapeSettings extends ShapeSettings {
 	public MeshShapeSettings(float[] triangles, int[] materialIndices, int triangleCount) {
 		this(triangles, materialIndices, triangleCount, Arena.ofAuto());
 	}
-	
+
 	public MeshShapeSettings(float[] triangles, int[] materialIndices, int triangleCount, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
@@ -85,7 +85,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(array, triangleCount);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create mesh shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create mesh shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -150,7 +151,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE2;
 			segment = (MemorySegment) method.invokeExact(verticesArray, verticesCount, trianglesArray, triangleCount);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create mesh shape settings.", e);
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create mesh shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -166,7 +168,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_MAX_TRIANGLES_PER_LEAF;
 			return (int) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max triangles per leaf.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max triangles per leaf: " + className);
 		}
 	}
 
@@ -178,7 +181,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_MAX_TRIANGLES_PER_LEAF;
 			method.invokeExact(jphShapeSettings, maxTrianglePerLeaf);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max triangles per leaf.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max triangles per leaf: " + className);
 		}
 	}
 
@@ -199,7 +203,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE;
 			return (float) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get activeEdgeCosThresholdAngle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get activeEdgeCosThresholdAngle: " + className);
 		}
 	}
 
@@ -211,7 +216,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE;
 			method.invokeExact(jphShapeSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set activeEdgeCosThresholdAngle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set activeEdgeCosThresholdAngle: " + className);
 		}
 	}
 
@@ -227,7 +233,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_PER_TRIANGLE_USER_DATA;
 			return (boolean) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get perTriangleUserData.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get perTriangleUserData: " + className);
 		}
 	}
 
@@ -239,7 +246,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_PER_TRIANGLE_USER_DATA;
 			method.invokeExact(jphShapeSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set perTriangleUserData.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set perTriangleUserData: " + className);
 		}
 	}
 
@@ -257,7 +265,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 				return BuildQuality.FAVOR_RUNTIME_PERFORMANCE;
 
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get build quality.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get build quality: " + className);
 		}
 	}
 
@@ -269,7 +278,8 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_BUILD_QUALITY;
 			method.invokeExact(jphShapeSettings, buildQuality.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set build quality.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set build quality: " + className);
 		}
 	}
 
@@ -283,21 +293,23 @@ public final class MeshShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SANITIZE;
 			method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call sanitize.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call sanitize: " + className);
 		}
 	}
 
 	public MeshShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public MeshShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new MeshShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

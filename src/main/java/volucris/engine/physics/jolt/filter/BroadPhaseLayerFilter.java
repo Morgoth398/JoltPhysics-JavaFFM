@@ -13,7 +13,7 @@ import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -67,7 +67,7 @@ public abstract class BroadPhaseLayerFilter {
 	public BroadPhaseLayerFilter() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public BroadPhaseLayerFilter(Arena arena) {
 		try {
 			int index = count++;
@@ -81,7 +81,8 @@ public abstract class BroadPhaseLayerFilter {
 
 			FILTERS.add(index, new WeakReference<BroadPhaseLayerFilter>(this));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create broad phase layer filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create broad phase layer filter: " + className);
 		}
 	}
 
@@ -98,7 +99,8 @@ public abstract class BroadPhaseLayerFilter {
 			MethodHandle method = JPH_BROAD_PHASE_LAYER_FILTER_SET_PROCS;
 			method.invokeExact(JPH_BROAD_PHASE_LAYER_FILTER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set broad phase layer filter procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set broad phase layer filter procs: " + className);
 		}
 	}
 
@@ -108,7 +110,8 @@ public abstract class BroadPhaseLayerFilter {
 		try {
 			lookup = MethodHandles.privateLookupIn(BroadPhaseLayerFilter.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -128,7 +131,8 @@ public abstract class BroadPhaseLayerFilter {
 			MethodHandle method = JPH_BROAD_PHASE_LAYER_FILTER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy broad phase layer filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy broad phase layer filter: " + className);
 		}
 	}
 

@@ -13,7 +13,7 @@ import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.vehicle.VehicleAntiRollBar;
 import volucris.engine.physics.jolt.vehicle.VehicleControllerSettings;
 import volucris.engine.physics.jolt.vehicle.WheelSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -83,7 +83,7 @@ public final class VehicleConstraintSettings extends ConstraintSettings {
 	public VehicleConstraintSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleConstraintSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT()));
@@ -102,7 +102,8 @@ public final class VehicleConstraintSettings extends ConstraintSettings {
 			MethodHandle method = JPH_VEHICLE_CONSTRAINT_SETTINGS_INIT;
 			method.invokeExact(jphVehicleConstraintSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize vehicle constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize vehicle constraint settings: " + className);
 		}
 	}
 
@@ -231,7 +232,7 @@ public final class VehicleConstraintSettings extends ConstraintSettings {
 	}
 
 	/**
-	 * 	Defines how the vehicle can accelerate / decelerate. 
+	 * Defines how the vehicle can accelerate / decelerate.
 	 */
 	public void setVehicleController(VehicleControllerSettings settings) {
 		CONTROLLER.set(jphVehicleConstraintSettings, settings.memorySegment());

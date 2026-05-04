@@ -9,7 +9,7 @@ import java.lang.invoke.MethodHandle;
 import volucris.engine.physics.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterface;
 import volucris.engine.physics.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterfaceMask;
 import volucris.engine.physics.jolt.objectLayerPairFilter.ObjectLayerPairFilterMask;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 /**
  * Class that determines if an object layer can collide with a broadphase layer.
@@ -32,7 +32,8 @@ public final class ObjectVsBroadPhaseLayerFilterMask extends ObjectVsBroadPhaseL
 			MemorySegment interfaceSegment = layerInterface.memorySegment();
 			segment = (MemorySegment) JPH_VS_BROAD_PAHSE_LAYER_FILTER_MASK_CREATE.invokeExact(interfaceSegment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create ObjectVsBroadPhaseLayerFilterMask.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create ObjectVsBroadPhaseLayerFilterMask: " + className);
 		}
 		super(segment);
 	}

@@ -11,7 +11,7 @@ import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.MotorState;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.SixDOFConstraintAxis;
 import volucris.engine.physics.jolt.math.Quat;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -95,17 +95,17 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 	protected SixDOFConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected SixDOFConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
-		
+
 		quatTmp = new Quat(arena);
 	}
-	
+
 	public SixDOFConstraint(SixDOFConstraintSettings settings, Body body1, Body body2) {
 		this(settings, body1, body2, Arena.ofAuto());
 	}
-	
+
 	public SixDOFConstraint(SixDOFConstraintSettings settings, Body body1, Body body2, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -116,7 +116,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_CREATE;
 			segment = (MemorySegment) method.invokeExact(settingsAddr, body1Addr, body2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create six dof constraint settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create six dof constraint settings: " + className);
 		}
 		super(segment, arena);
 
@@ -133,7 +134,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			method.invokeExact(jphConstraint, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -152,7 +154,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_GET_LIMITS_MIN;
 			return (float) method.invokeExact(jphConstraint, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits min.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits min: " + className);
 		}
 	}
 
@@ -164,7 +167,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_GET_LIMITS_MAX;
 			return (float) method.invokeExact(jphConstraint, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits max.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits max: " + className);
 		}
 	}
 
@@ -179,7 +183,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda position: " + className);
 		}
 	}
 
@@ -202,7 +207,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda rotation: " + className);
 		}
 	}
 
@@ -225,7 +231,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda motor translation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda motor translation: " + className);
 		}
 	}
 
@@ -248,7 +255,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get total lambda motor rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get total lambda motor rotation: " + className);
 		}
 	}
 
@@ -270,7 +278,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get translation limits min.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get translation limits min: " + className);
 		}
 	}
 
@@ -291,7 +300,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get translation limits max.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get translation limits max: " + className);
 		}
 	}
 
@@ -312,7 +322,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get rotation limits min.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get rotation limits min: " + className);
 		}
 	}
 
@@ -333,7 +344,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get rotation limits max.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get rotation limits max: " + className);
 		}
 	}
 
@@ -352,7 +364,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_IS_FIXED_AXIS;
 			return (boolean) method.invokeExact(jphConstraint, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if axis is fixed.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if axis is fixed: " + className);
 		}
 	}
 
@@ -364,7 +377,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_IS_FREE_AXIS;
 			return (boolean) method.invokeExact(jphConstraint, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if axis is free.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if axis is free: " + className);
 		}
 	}
 
@@ -377,7 +391,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			method.invokeExact(jphConstraint, target.memorySegment(), axis.id());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get limits spring settings: " + className);
 		}
 	}
 
@@ -396,7 +411,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_LIMITS_SPRING_SETTINGS;
 			method.invokeExact(jphConstraint, settings.memorySegment(), axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set limits spring settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set limits spring settings: " + className);
 		}
 	}
 
@@ -408,7 +424,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_MAX_FRICTION;
 			method.invokeExact(jphConstraint, axis.id(), friction);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max friction: " + className);
 		}
 	}
 
@@ -420,7 +437,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_GET_MAX_FRICTION;
 			return (float) method.invokeExact(jphConstraint, axis.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max friction.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max friction: " + className);
 		}
 	}
 
@@ -434,7 +452,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return quatTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot  get rotation in constraint space.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot  get rotation in constraint space: " + className);
 		}
 	}
 
@@ -455,7 +474,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get motor settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get motor settings: " + className);
 		}
 	}
 
@@ -475,7 +495,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_MOTOR_STATE;
 			method.invokeExact(jphConstraint, axis.id(), state.id());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set motor state.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set motor state: " + className);
 		}
 	}
 
@@ -494,7 +515,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call getMotorState.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getMotorState: " + className);
 		}
 	}
 
@@ -508,7 +530,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_TARGET_VELOCITY_CS;
 			method.invokeExact(jphConstraint, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target velocity CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target velocity CS: " + className);
 		}
 	}
 
@@ -522,7 +545,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target velocity CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target velocity CS: " + className);
 		}
 	}
 
@@ -543,7 +567,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_TARGET_ANGULAR_VELOCITY_CS;
 			method.invokeExact(jphConstraint, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target angular velocity CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target angular velocity CS: " + className);
 		}
 	}
 
@@ -557,7 +582,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target angular velocity CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target angular velocity CS: " + className);
 		}
 	}
 
@@ -578,7 +604,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_TARGET_POSITION_CS;
 			method.invokeExact(jphConstraint, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target position CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target position CS: " + className);
 		}
 	}
 
@@ -592,7 +619,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target position CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target position CS: " + className);
 		}
 	}
 
@@ -613,7 +641,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_TARGET_ORIENTATION_CS;
 			method.invokeExact(jphConstraint, quatTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target orientation CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target orientation CS: " + className);
 		}
 	}
 
@@ -627,7 +656,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 
 			return quatTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get target orientation CS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get target orientation CS: " + className);
 		}
 	}
 
@@ -651,7 +681,8 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
 			MethodHandle method = JPH_SIX_DOF_CONSTRAINT_SET_TARGET_ORIENTATION_BS;
 			method.invokeExact(jphConstraint, quatTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set target orientation BS.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set target orientation BS: " + className);
 		}
 	}
 

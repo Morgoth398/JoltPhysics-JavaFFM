@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -29,7 +29,7 @@ public sealed class ConvexShapeSettings extends ShapeSettings
 	protected ConvexShapeSettings(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected ConvexShapeSettings(MemorySegment segment, Arena arena) {
 		super(segment, arena);
 	}
@@ -39,7 +39,8 @@ public sealed class ConvexShapeSettings extends ShapeSettings
 			MethodHandle method = JPH_CONVEX_SHAPE_SETTINGS_GET_DENSITY;
 			return (float) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get density.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get density: " + className);
 		}
 	}
 
@@ -51,7 +52,8 @@ public sealed class ConvexShapeSettings extends ShapeSettings
 			MethodHandle method = JPH_CONVEX_SHAPE_SETTINGS_SET_DENSITY;
 			method.invokeExact(jphShapeSettings, density);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set density.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set density: " + className);
 		}
 	}
 

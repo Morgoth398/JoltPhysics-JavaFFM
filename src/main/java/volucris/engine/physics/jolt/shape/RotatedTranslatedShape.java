@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -39,7 +39,7 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 	protected RotatedTranslatedShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected RotatedTranslatedShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -47,7 +47,7 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 	protected RotatedTranslatedShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected RotatedTranslatedShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena);
 
@@ -59,7 +59,7 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 	public RotatedTranslatedShape(Vector3f position, Quaternionf rotation, Shape shape) {
 		this(position, rotation, shape, Arena.ofAuto());
 	}
-	
+
 	public RotatedTranslatedShape(Vector3f position, Quaternionf rotation, Shape shape, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -73,7 +73,8 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 			MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(posAddr, rotAddr, shapeAddr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call create rotated translated shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call create rotated translated shape: " + className);
 		}
 		super(segment, arena);
 	}
@@ -88,19 +89,20 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get position: " + className);
 		}
 	}
-	
+
 	/**
 	 * Access the translation that has been applied to the inner shape.
 	 */
 	public Vector3f getPosition() {
 		return getPosition(new Vector3f());
 	}
-	
+
 	/**
-	 * Access the rotation that is applied to the inner shape. 
+	 * Access the rotation that is applied to the inner shape.
 	 */
 	public Quaternionf getRotation(Quaternionf target) {
 		try {
@@ -109,12 +111,13 @@ public final class RotatedTranslatedShape extends DecoratedShape {
 
 			return quatTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get rotation: " + className);
 		}
 	}
-	
+
 	/**
-	 * Access the rotation that is applied to the inner shape. 
+	 * Access the rotation that is applied to the inner shape.
 	 */
 	public Quaternionf getRotation() {
 		return getRotation(new Quaternionf());

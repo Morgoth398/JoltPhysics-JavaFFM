@@ -5,7 +5,7 @@ import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterfaceMask;
 import volucris.engine.physics.jolt.objectVsBroadPhaseLayerFilter.ObjectVsBroadPhaseLayerFilterMask;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -40,7 +40,8 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 		try {
 			segment = (MemorySegment) JPH_OBJECT_LAYER_PAIR_FILTER_MASK_CREATE.invokeExact();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create ObjectLayerPairFilterMask.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create ObjectLayerPairFilterMask: " + className);
 		}
 		super(segment);
 	}
@@ -53,7 +54,8 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_MASK_GET_OBJECT_LAYER;
 			return (int) method.invokeExact(group, mask);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get object layer.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get object layer: " + className);
 		}
 	}
 
@@ -65,7 +67,8 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_MASK_GET_GROUP;
 			return (int) method.invokeExact(layer);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get group.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get group: " + className);
 		}
 	}
 
@@ -77,7 +80,8 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
 			MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_MASK_GET_MASK;
 			return (int) method.invokeExact(layer);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get mask.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get mask: " + className);
 		}
 	}
 

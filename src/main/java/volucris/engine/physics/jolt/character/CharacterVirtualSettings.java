@@ -13,7 +13,7 @@ import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.JoltEnums.BackFaceMode;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -101,7 +101,7 @@ public final class CharacterVirtualSettings extends CharacterBaseSettings {
 	public CharacterVirtualSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CharacterVirtualSettings(Arena arena) {
 		MemorySegment segment = arena.allocate(LAYOUT);
 		super(segment.asSlice(BASE_OFFSET, CharacterBaseSettings.LAYOUT()));
@@ -118,7 +118,8 @@ public final class CharacterVirtualSettings extends CharacterBaseSettings {
 			MethodHandle method = JPH_CHARACTER_VIRTUAL_SETTINGS_INIT;
 			method.invokeExact(jphCharacterVirtualSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize character virtual settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize character virtual settings: " + className);
 		}
 	}
 
@@ -217,7 +218,7 @@ public final class CharacterVirtualSettings extends CharacterBaseSettings {
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong back face mode!");
+		throw new JoltRuntimeException("Wrong back face mode!");
 	}
 
 	/**
@@ -409,14 +410,14 @@ public final class CharacterVirtualSettings extends CharacterBaseSettings {
 	}
 
 	/**
-	 * Layer that the inner rigid body will be added to. 
+	 * Layer that the inner rigid body will be added to.
 	 */
 	public void setInnerBodyLayer(int layer) {
 		INNER_BODY_LAYER.set(jphCharacterVirtualSettings, layer);
 	}
 
 	/**
-	 * Layer that the inner rigid body will be added to. 
+	 * Layer that the inner rigid body will be added to.
 	 */
 	public int getInnerBodyLayer() {
 		return (int) INNER_BODY_LAYER.get(jphCharacterVirtualSettings);

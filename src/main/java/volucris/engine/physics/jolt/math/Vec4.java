@@ -12,7 +12,7 @@ import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
 
 public class Vec4 {
-	
+
 	private static final StructLayout LAYOUT;
 
 	private static final VarHandle X;
@@ -41,7 +41,7 @@ public class Vec4 {
 	public Vec4() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public Vec4(Arena arena) {
 		jphVec4 = arena.allocate(LAYOUT);
 	}
@@ -49,7 +49,7 @@ public class Vec4 {
 	public Vec4(MemorySegment segment) {
 		jphVec4 = segment;
 	}
-	
+
 	public void set(float x, float y, float z, float w) {
 		setX(x);
 		setY(y);

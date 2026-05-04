@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.PhysicsMaterial;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -54,7 +54,7 @@ public final class HeightFieldShape extends Shape {
 	protected HeightFieldShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected HeightFieldShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -62,7 +62,7 @@ public final class HeightFieldShape extends Shape {
 	protected HeightFieldShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected HeightFieldShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -79,7 +79,8 @@ public final class HeightFieldShape extends Shape {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_SAMPLE_COUNT;
 			return (int) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get sample count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get sample count: " + className);
 		}
 	}
 
@@ -91,7 +92,8 @@ public final class HeightFieldShape extends Shape {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_BLOCK_SIZE;
 			return (int) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get block size.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get block size: " + className);
 		}
 	}
 
@@ -112,7 +114,8 @@ public final class HeightFieldShape extends Shape {
 
 			return new PhysicsMaterial(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get material.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get material: " + className);
 		}
 	}
 
@@ -127,7 +130,8 @@ public final class HeightFieldShape extends Shape {
 			method.invokeExact(jphShape, x, y, vecTmp.memorySegment());
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get position: " + className);
 		}
 	}
 
@@ -147,7 +151,8 @@ public final class HeightFieldShape extends Shape {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_IS_NO_COLLISION;
 			return (boolean) method.invokeExact(jphShape, x, y);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call isNoCollision.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call isNoCollision: " + className);
 		}
 	}
 
@@ -175,7 +180,8 @@ public final class HeightFieldShape extends Shape {
 
 			return value;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call projectOntoSurface.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call projectOntoSurface: " + className);
 		}
 	}
 
@@ -189,7 +195,8 @@ public final class HeightFieldShape extends Shape {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_MIN_HEIGHT_VALUE;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get min height value.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get min height value: " + className);
 		}
 	}
 
@@ -201,7 +208,8 @@ public final class HeightFieldShape extends Shape {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_MAX_HEIGHT_VALUE;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max height value.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max height value: " + className);
 		}
 	}
 

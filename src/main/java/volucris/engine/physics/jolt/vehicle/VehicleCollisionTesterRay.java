@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -28,7 +28,7 @@ public final class VehicleCollisionTesterRay extends VehicleCollisionTester {
 	public VehicleCollisionTesterRay(int layer, Vector3f up, float maxSlopAngle) {
 		this(layer, up, maxSlopAngle, Arena.ofAuto());
 	}
-	
+
 	public VehicleCollisionTesterRay(int layer, Vector3f up, float maxSlopAngle, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
@@ -37,7 +37,8 @@ public final class VehicleCollisionTesterRay extends VehicleCollisionTester {
 			MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_RAY_CREATE;
 			segment = (MemorySegment) method.invokeExact(layer, vec.memorySegment(), maxSlopAngle);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create VehicleCollisionTesterRay.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create VehicleCollisionTesterRay: " + className);
 		}
 		super(segment, arena);
 	}

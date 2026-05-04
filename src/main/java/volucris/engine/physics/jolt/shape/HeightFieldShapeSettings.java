@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -98,7 +98,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(samplesArray, offsetAddr, scaleAddr, sampleCount, matArray);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create height field shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create height field shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -109,7 +110,7 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 	public HeightFieldShapeSettings(float[] samples, Vector3f offset, Vector3f scale, int sampleCount) {
 		this(samples, offset, scale, sampleCount, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * @see #HeightFieldShapeSettings(float[], Vector3f, Vector3f, int, byte[])
 	 */
@@ -127,7 +128,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(samplesArray, offsetAddr, scaleAddr, sampleCount, matArray);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create height field shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create height field shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -156,7 +158,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			maxValue[0] = maxValuePointer.getAtIndex(JAVA_FLOAT, 0);
 			quantizationScale[0] = scalePointer.getAtIndex(JAVA_FLOAT, 0);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot determine min and max sample.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot determine min and max sample: " + className);
 		}
 	}
 
@@ -174,7 +177,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CALCULATE_BITS_PER_SAMPLE_FOR_ERROR;
 			return (int) method.invokeExact(jphShapeSettings, maxError);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot calculate bits per sample for error.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot calculate bits per sample for error: " + className);
 		}
 	}
 
@@ -190,7 +194,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get offset.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get offset: " + className);
 		}
 	}
 
@@ -204,7 +209,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_OFFSET;
 			method.invokeExact(jphShapeSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set offset.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set offset: " + className);
 		}
 	}
 
@@ -218,7 +224,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get scale.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get scale: " + className);
 		}
 	}
 
@@ -232,7 +239,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_SCALE;
 			method.invokeExact(jphShapeSettings, vecTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set scale.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set scale: " + className);
 		}
 	}
 
@@ -244,7 +252,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_SAMPLE_COUNT;
 			return (int) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get sample count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get sample count: " + className);
 		}
 	}
 
@@ -256,7 +265,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_SAMPLE_COUNT;
 			method.invokeExact(jphShapeSettings, sampleCount);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set sample count.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set sample count: " + className);
 		}
 	}
 
@@ -270,7 +280,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MIN_HEIGHT_VALUE;
 			return (float) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get min height value.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get min height value: " + className);
 		}
 	}
 
@@ -282,7 +293,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_MIN_HEIGHT_VALUE;
 			method.invokeExact(jphShapeSettings, minHeightValue);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set min height value.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set min height value: " + className);
 		}
 	}
 
@@ -296,7 +308,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MAX_HEIGHT_VALUE;
 			return (float) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get max height value.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get max height value: " + className);
 		}
 	}
 
@@ -308,7 +321,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_MAX_HEIGHT_VALUE;
 			method.invokeExact(jphShapeSettings, maxHeightValue);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set max height value.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set max height value: " + className);
 		}
 	}
 
@@ -325,7 +339,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BLOCK_SIZE;
 			return (int) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get block size.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get block size: " + className);
 		}
 	}
 
@@ -337,7 +352,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_BLOCK_SIZE;
 			method.invokeExact(jphShapeSettings, blockSize);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set block size.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set block size: " + className);
 		}
 	}
 
@@ -353,7 +369,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BITS_PER_SAMPLE;
 			return (int) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get bits per sample.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get bits per sample: " + className);
 		}
 	}
 
@@ -365,7 +382,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_BITS_PER_SAMPLE;
 			method.invokeExact(jphShapeSettings, bitsPerSample);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set bits per sample.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set bits per sample: " + className);
 		}
 	}
 
@@ -382,7 +400,8 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE;
 			return (float) method.invokeExact(jphShapeSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get activeEdgeCosThresholdAngle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get activeEdgeCosThresholdAngle: " + className);
 		}
 	}
 
@@ -394,21 +413,23 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE;
 			method.invokeExact(jphShapeSettings, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set activeEdgeCosThresholdAngle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set activeEdgeCosThresholdAngle: " + className);
 		}
 	}
 
 	public HeightFieldShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public HeightFieldShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new HeightFieldShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

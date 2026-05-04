@@ -16,7 +16,7 @@ import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
 
 /**
- * Base class for configuration of a character. 
+ * Base class for configuration of a character.
  */
 public sealed class CharacterBaseSettings permits CharacterSettings, CharacterVirtualSettings {
 

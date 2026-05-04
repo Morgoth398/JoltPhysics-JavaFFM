@@ -7,7 +7,7 @@ import java.lang.foreign.StructLayout;
 import java.lang.invoke.VarHandle;
 
 import volucris.engine.physics.jolt.JoltEnums.BackFaceMode;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -43,7 +43,7 @@ public final class RayCastSettings {
 	public RayCastSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public RayCastSettings(Arena arena) {
 		jphRayCastSettings = arena.allocate(LAYOUT);
 
@@ -71,7 +71,7 @@ public final class RayCastSettings {
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong back face mode!");
+		throw new JoltRuntimeException("Wrong back face mode!");
 	}
 
 	/**
@@ -94,7 +94,7 @@ public final class RayCastSettings {
 				return mode;
 		}
 
-		throw new VolucrisRuntimeException("Jolt: Wrong back face mode!");
+		throw new JoltRuntimeException("Wrong back face mode!");
 	}
 
 	/**

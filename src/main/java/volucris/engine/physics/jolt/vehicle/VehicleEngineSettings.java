@@ -8,7 +8,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.VarHandle;
 
 import volucris.engine.physics.jolt.Jolt;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -57,7 +57,7 @@ public final class VehicleEngineSettings {
 	public VehicleEngineSettings() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public VehicleEngineSettings(Arena arena) {
 		jphVehicleEngineSettings = arena.allocate(LAYOUT);
 
@@ -69,7 +69,8 @@ public final class VehicleEngineSettings {
 			MethodHandle method = JPH_VEHICLE_ENGINE_SETTINGS_INIT;
 			method.invokeExact(jphVehicleEngineSettings);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot initialize vehicle engine settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot initialize vehicle engine settings: " + className);
 		}
 	}
 

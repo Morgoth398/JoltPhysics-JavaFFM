@@ -1,6 +1,5 @@
 package volucris.engine.physics.jolt.ragdoll;
 
-import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.Throwable;
 import java.lang.foreign.Arena;
@@ -11,6 +10,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -58,7 +58,7 @@ public final class SkeletalAnimation {
 	public SkeletalAnimation() {
 		this(Arena.ofAuto());
 	}
-	
+
 	/**
 	 *  
 	 */
@@ -71,8 +71,9 @@ public final class SkeletalAnimation {
 			quatTmp = new Quat(arena);
 			vecTmp = new Vec3(arena);
 
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot create sekeletal animation.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create sekeletal animation: " + className);
 		}
 	}
 
@@ -83,8 +84,9 @@ public final class SkeletalAnimation {
 		try {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_DESTROY;
 			method.invokeExact(segment);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call destroy.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call destroy: " + className);
 		}
 	}
 
@@ -95,8 +97,9 @@ public final class SkeletalAnimation {
 		try {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_GET_DURATION;
 			return (float) method.invokeExact(jphSkeletalAnimation);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot get duration.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get duration: " + className);
 		}
 	}
 
@@ -108,8 +111,9 @@ public final class SkeletalAnimation {
 		try {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_IS_LOOPING;
 			return (boolean) method.invokeExact(jphSkeletalAnimation);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call isLooping.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call isLooping: " + className);
 		}
 	}
 
@@ -121,8 +125,9 @@ public final class SkeletalAnimation {
 		try {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_SET_IS_LOOPING;
 			method.invokeExact(jphSkeletalAnimation, looping);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot set isLooping.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set isLooping: " + className);
 		}
 	}
 
@@ -133,20 +138,22 @@ public final class SkeletalAnimation {
 		try {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_SCALE_JOINTS;
 			method.invokeExact(jphSkeletalAnimation, scale);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot scale joints.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot scale joints: " + className);
 		}
 	}
 
 	/**
-	 *  Get the (interpolated) joint transforms at time. 
+	 * Get the (interpolated) joint transforms at time.
 	 */
 	public void sample(float time, SkeletonPose pose) {
 		try {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_SAMPLE;
 			method.invokeExact(jphSkeletalAnimation, time, pose.memorySegment());
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call sample.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call sample: " + className);
 		}
 	}
 
@@ -157,8 +164,9 @@ public final class SkeletalAnimation {
 		try {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_GET_ANIMATED_JOINT_COUNT;
 			return (int) method.invokeExact(jphSkeletalAnimation);
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call getAnimatedJointCount.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call getAnimatedJointCount: " + className);
 		}
 	}
 
@@ -169,8 +177,9 @@ public final class SkeletalAnimation {
 		try (Arena arena = Arena.ofConfined()) {
 			MethodHandle method = JPH_SKELETAL_ANIMATION_ADD_ANIMATED_JOINT;
 			method.invokeExact(jphSkeletalAnimation, arena.allocateFrom(jointName));
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot call addAnimatedJoint.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call addAnimatedJoint: " + className);
 		}
 	}
 
@@ -184,8 +193,9 @@ public final class SkeletalAnimation {
 
 			MethodHandle method = JPH_SKELETAL_ANIMATION_ADD_KEYFRAME;
 			method.invokeExact(jphSkeletalAnimation, jointIndex, time, vecTmp.memorySegment(), quatTmp.memorySegment());
-		} catch (Throwable throwable) {
-			throw new RuntimeException("Jolt: Cannot add keyframe.");
+		} catch (Throwable e) {
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot add keyframe: " + className);
 		}
 	}
 

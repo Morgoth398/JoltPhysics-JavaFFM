@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -65,7 +65,7 @@ public final class GroupFilterTable extends GroupFilter {
 	public GroupFilterTable() {
 		this(0, Arena.ofAuto());
 	}
-	
+
 	public GroupFilterTable(Arena arena) {
 		this(0, arena);
 	}
@@ -77,7 +77,7 @@ public final class GroupFilterTable extends GroupFilter {
 	public GroupFilterTable(int numSubGroups) {
 		this(numSubGroups, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * Constructs the table with numSubGroups subgroups, initially all collision
 	 * pairs are enabled except when the sub group ID is the same.
@@ -88,7 +88,8 @@ public final class GroupFilterTable extends GroupFilter {
 			MethodHandle method = JPH_GROUP_FILTER_TABLE_CREATE;
 			segment = (MemorySegment) method.invokeExact(null);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create group filter table.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create group filter table: " + className);
 		}
 		super(segment, arena);
 	}
@@ -101,7 +102,8 @@ public final class GroupFilterTable extends GroupFilter {
 			MethodHandle method = JPH_GROUP_FILTER_TABLE_DISABLE_COLLISION;
 			method.invokeExact(jphGroupFilter, subGroup1, subGroup2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot disable collision.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot disable collision: " + className);
 		}
 	}
 
@@ -113,7 +115,8 @@ public final class GroupFilterTable extends GroupFilter {
 			MethodHandle method = JPH_GROUP_FILTER_TABLE_ENABLE_COLLISION;
 			method.invokeExact(jphGroupFilter, subGroup1, subGroup2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot enable collision.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot enable collision: " + className);
 		}
 	}
 
@@ -125,7 +128,8 @@ public final class GroupFilterTable extends GroupFilter {
 			MethodHandle method = JPH_GROUP_FILTER_TABLE_IS_COLLISION_ENABLED;
 			return (boolean) method.invokeExact(jphGroupFilter, subGroup1, subGroup2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot check if collision is enabled.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot check if collision is enabled: " + className);
 		}
 	}
 

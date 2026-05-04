@@ -6,7 +6,6 @@ import java.lang.invoke.MethodHandle;
 
 import org.joml.Vector3f;
 
-import volucris.engine.graphics.BoundingBox;
 import volucris.engine.physics.jolt.filter.BroadPhaseLayerFilter;
 import volucris.engine.physics.jolt.filter.ObjectLayerFilter;
 import volucris.engine.physics.jolt.math.AABox;
@@ -15,7 +14,7 @@ import volucris.engine.physics.jolt.raycast.CollideShapeBodyCollectorCallback;
 import volucris.engine.physics.jolt.raycast.CollisionCollectorType;
 import volucris.engine.physics.jolt.raycast.RayCastBodyCollectorCallback;
 import volucris.engine.physics.jolt.raycast.RayCastBodyResultCallback;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -36,8 +35,6 @@ public final class BroadPhaseQuery {
 
 	private final MemorySegment jphBroadPhaseQuery;
 
-	private AABox boxTmp;
-
 	private Vec3 vecTmp;
 	private Vec3 vecTmp2;
 
@@ -54,13 +51,12 @@ public final class BroadPhaseQuery {
 	public BroadPhaseQuery(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	public BroadPhaseQuery(MemorySegment segment, Arena arena) {
 		jphBroadPhaseQuery = segment;
 
 		vecTmp = new Vec3(arena);
 		vecTmp2 = new Vec3(arena);
-		boxTmp = new AABox(arena);
 	}
 
 	/**
@@ -82,7 +78,8 @@ public final class BroadPhaseQuery {
 			MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY;
 			return (boolean) method.invokeExact(query, origAddr, dirAddr, callAddr, userData, filt1Addr, filt2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast ray.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast ray: " + className);
 		}
 	}
 
@@ -108,20 +105,19 @@ public final class BroadPhaseQuery {
 			MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY2;
 			return (boolean) method.invokeExact(query, origAddr, dirAddr, type, callAddr, data, filt1Addr, filt2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot cast ray.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot cast ray: " + className);
 		}
 	}
 
 	/**
 	 * Get bodies intersecting with inBox and add any hits to the collectorCallback.
 	 */
-	public boolean collideAABox(BoundingBox box, CollideShapeBodyCollectorCallback callback, MemorySegment userData,
+	public boolean collideAABox(AABox box, CollideShapeBodyCollectorCallback callback, MemorySegment userData,
 			BroadPhaseLayerFilter broadPhaseLayerFilter, ObjectLayerFilter objectLayerFilter) {
 		try {
-			boxTmp.set(box);
-
 			MemorySegment query = jphBroadPhaseQuery;
-			MemorySegment boxAddr = boxTmp.memorySegment();
+			MemorySegment boxAddr = box.memorySegment();
 			MemorySegment callAddr = callback.memorySegment();
 			MemorySegment filt1Addr = broadPhaseLayerFilter.memorySegment();
 			MemorySegment filt2Addr = objectLayerFilter.memorySegment();
@@ -129,7 +125,8 @@ public final class BroadPhaseQuery {
 			MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_AABOX;
 			return (boolean) method.invokeExact(query, boxAddr, callAddr, userData, filt1Addr, filt2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call collide AABox.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call collide AABox: " + className);
 		}
 	}
 
@@ -151,7 +148,8 @@ public final class BroadPhaseQuery {
 			MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_SPHERE;
 			return (boolean) method.invokeExact(query, centerAddr, radius, callAddr, userData, filt1Addr, filt2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call collide sphere.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call collide sphere: " + className);
 		}
 	}
 
@@ -173,7 +171,8 @@ public final class BroadPhaseQuery {
 			MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_POINT;
 			return (boolean) method.invokeExact(query, pointAddr, callAddr, userData, filt1Addr, filt2Addr);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call collide point.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call collide point: " + className);
 		}
 	}
 

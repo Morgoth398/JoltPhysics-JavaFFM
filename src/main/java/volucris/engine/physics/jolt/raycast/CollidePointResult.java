@@ -36,7 +36,7 @@ public final class CollidePointResult {
 	public CollidePointResult() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public CollidePointResult(Arena arena) {
 		jphCollidePointResult = arena.allocate(LAYOUT);
 	}

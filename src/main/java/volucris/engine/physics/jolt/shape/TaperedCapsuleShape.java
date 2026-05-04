@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -29,7 +29,7 @@ public final class TaperedCapsuleShape extends ConvexShape {
 	protected TaperedCapsuleShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected TaperedCapsuleShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -37,7 +37,7 @@ public final class TaperedCapsuleShape extends ConvexShape {
 	protected TaperedCapsuleShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected TaperedCapsuleShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
@@ -47,7 +47,8 @@ public final class TaperedCapsuleShape extends ConvexShape {
 			MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_TOP_RADIUS;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get top radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get top radius: " + className);
 		}
 	}
 
@@ -56,7 +57,8 @@ public final class TaperedCapsuleShape extends ConvexShape {
 			MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_BOTTOM_RADIUS;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get bottom radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get bottom radius: " + className);
 		}
 	}
 
@@ -65,7 +67,8 @@ public final class TaperedCapsuleShape extends ConvexShape {
 			MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_HALF_HEIGHT;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get half height.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get half height: " + className);
 		}
 	}
 

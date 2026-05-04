@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -38,7 +38,6 @@ public final class BodyLockInterface {
 		jphBodyLockInterface = segment;
 	}
 
-
 	/**
 	 * This locks a body for reading.
 	 * <p>
@@ -50,7 +49,8 @@ public final class BodyLockInterface {
 			method.invokeExact(jphBodyLockInterface, bodyId, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot lock read.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot lock read: " + className);
 		}
 	}
 
@@ -64,14 +64,15 @@ public final class BodyLockInterface {
 	/**
 	 * This unlocks a body for reading.
 	 * <p>
-	 * You need to call this after {@link #lockRead(int, BodyLockRead)} 
+	 * You need to call this after {@link #lockRead(int, BodyLockRead)}
 	 */
 	public void unlockRead(BodyLockRead lockRead) {
 		try {
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_UNLOCK_READ;
 			method.invokeExact(jphBodyLockInterface, lockRead.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot unlock read.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot unlock read: " + className);
 		}
 	}
 
@@ -86,7 +87,8 @@ public final class BodyLockInterface {
 			method.invokeExact(jphBodyLockInterface, bodyId, target.memorySegment());
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot lock write.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot lock write: " + className);
 		}
 	}
 
@@ -107,7 +109,8 @@ public final class BodyLockInterface {
 			MethodHandle method = JPH_BODY_LOCK_INTERFACE_UNLOCK_WRITE;
 			method.invokeExact(jphBodyLockInterface, lockWrite.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot unlock write.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot unlock write: " + className);
 		}
 	}
 
@@ -121,14 +124,15 @@ public final class BodyLockInterface {
 			target.set(segment);
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot lock multi read.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot lock multi read: " + className);
 		}
 	}
 
 	public BodyLockMultiRead lockMultiRead(int... bodyIds) {
 		return lockMultiRead(new BodyLockMultiRead(), bodyIds);
 	}
-	
+
 	public BodyLockMultiWrite lockMultiWrite(BodyLockMultiWrite target, int... bodyIds) {
 		try (Arena arena = Arena.ofConfined()) {
 			MemorySegment array = arena.allocateFrom(JAVA_INT, bodyIds);
@@ -139,12 +143,13 @@ public final class BodyLockInterface {
 			target.set(segment);
 			return target;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot lock multi write.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot lock multi write: " + className);
 		}
 	}
 
 	public BodyLockMultiWrite lockMultiWrite(int... bodyIds) {
 		return lockMultiWrite(new BodyLockMultiWrite(), bodyIds);
 	}
-	
+
 }

@@ -8,7 +8,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -76,7 +76,7 @@ public sealed class Wheel permits WheelTV, WheelWV {
 	public Wheel(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	public Wheel(MemorySegment segment, Arena arena) {
 		jphWheel = segment;
 
@@ -88,7 +88,7 @@ public sealed class Wheel permits WheelTV, WheelWV {
 	public Wheel(WheelSettings settings) {
 		this(settings, Arena.ofAuto());
 	}
-	
+
 	public Wheel(WheelSettings settings, Arena arena) {
 		try {
 			MethodHandle method = JPH_WHEEL_CREATE;
@@ -97,7 +97,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 
 			vecTmp = new Vec3(arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create wheel.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create wheel: " + className);
 		}
 
 		Jolt.addWheel(jphWheel.address(), this);
@@ -108,9 +109,10 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy wheel.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy wheel: " + className);
 		}
-		
+
 		Jolt.removeWheel(segment.address());
 	}
 
@@ -131,7 +133,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 
 			return new WheelSettings(segment, false);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get settings: " + className);
 		}
 	}
 
@@ -144,7 +147,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_ANGULAR_VELOCITY;
 			return (float) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get angular velocity: " + className);
 		}
 	}
 
@@ -156,7 +160,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_SET_ANGULAR_VELOCITY;
 			method.invokeExact(jphWheel, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set angular velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set angular velocity: " + className);
 		}
 	}
 
@@ -168,7 +173,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_ROTATION_ANGLE;
 			return (float) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get rotation angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get rotation angle: " + className);
 		}
 	}
 
@@ -180,7 +186,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_SET_ROTATION_ANGLE;
 			method.invokeExact(jphWheel, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set rotation angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set rotation angle: " + className);
 		}
 	}
 
@@ -193,7 +200,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_STEER_ANGLE;
 			return (float) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get steer angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get steer angle: " + className);
 		}
 	}
 
@@ -205,7 +213,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_SET_STEER_ANGLE;
 			method.invokeExact(jphWheel, value);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set steer angle.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set steer angle: " + className);
 		}
 	}
 
@@ -217,7 +226,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_HAS_CONTACT;
 			return (boolean) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call has contact.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call has contact: " + className);
 		}
 	}
 
@@ -229,7 +239,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_CONTACT_BODY_ID;
 			return (int) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get contact body ID.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get contact body ID: " + className);
 		}
 	}
 
@@ -241,7 +252,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_CONTACT_SUB_SHAPE_ID;
 			return (int) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get contact sub shape ID.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get contact sub shape ID: " + className);
 		}
 	}
 
@@ -256,7 +268,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get contact position.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get contact position: " + className);
 		}
 	}
 
@@ -279,7 +292,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get contact point velocity.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get contact point velocity: " + className);
 		}
 	}
 
@@ -302,7 +316,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get contact normal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get contact normal: " + className);
 		}
 	}
 
@@ -325,7 +340,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get contact longitudinal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get contact longitudinal: " + className);
 		}
 	}
 
@@ -347,7 +363,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get contact lateral.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get contact lateral: " + className);
 		}
 	}
 
@@ -367,7 +384,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LENGTH;
 			return (float) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension length.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension length: " + className);
 		}
 	}
 
@@ -379,7 +397,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LAMBDA;
 			return (float) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get suspension lambda.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get suspension lambda: " + className);
 		}
 	}
 
@@ -391,7 +410,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_LONGITUDINAL_LAMBDA;
 			return (float) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get longitudinal lambda.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get longitudinal lambda: " + className);
 		}
 	}
 
@@ -403,7 +423,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_GET_LATERAL_LAMBDA;
 			return (float) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get lateral lambda.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get lateral lambda: " + className);
 		}
 	}
 
@@ -415,7 +436,8 @@ public sealed class Wheel permits WheelTV, WheelWV {
 			MethodHandle method = JPH_WHEEL_HAS_HIT_HARD_POINT;
 			return (boolean) method.invokeExact(jphWheel);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call hasHitHardPoint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call hasHitHardPoint: " + className);
 		}
 	}
 

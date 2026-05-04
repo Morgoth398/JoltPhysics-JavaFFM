@@ -8,7 +8,7 @@ import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -35,7 +35,7 @@ public final class BoxShape extends ConvexShape {
 	protected BoxShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected BoxShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -43,7 +43,7 @@ public final class BoxShape extends ConvexShape {
 	protected BoxShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected BoxShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -53,7 +53,7 @@ public final class BoxShape extends ConvexShape {
 	public BoxShape(Vector3f halfExtent) {
 		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
 	}
-	
+
 	public BoxShape(Vector3f halfExtent, Arena arena) {
 		this(halfExtent, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
 	}
@@ -65,7 +65,7 @@ public final class BoxShape extends ConvexShape {
 	public BoxShape(Vector3f halfExtent, float convexRadius, Arena arena) {
 		this(halfExtent.x, halfExtent.y, halfExtent.z, convexRadius, arena);
 	}
-	
+
 	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ) {
 		this(halfExtentX, halfExtentY, halfExtentZ, PhysicsSettings.DEFAULT_CONVEX_RADIUS);
 	}
@@ -73,11 +73,11 @@ public final class BoxShape extends ConvexShape {
 	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ, Arena arena) {
 		this(halfExtentX, halfExtentY, halfExtentZ, PhysicsSettings.DEFAULT_CONVEX_RADIUS, arena);
 	}
-	
+
 	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ, float convexRadius) {
 		this(halfExtentX, halfExtentY, halfExtentZ, convexRadius, Arena.ofAuto());
 	}
-	
+
 	public BoxShape(float halfExtentX, float halfExtentY, float halfExtentZ, float convexRadius, Arena arena) {
 		MemorySegment segment;
 		try {
@@ -85,10 +85,11 @@ public final class BoxShape extends ConvexShape {
 
 			MethodHandle method = JPH_BOX_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(vec.memorySegment(), convexRadius);
-			
+
 			vecTmp = vec;
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create box shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create box shape: " + className);
 		}
 		super(segment, arena);
 	}
@@ -100,7 +101,8 @@ public final class BoxShape extends ConvexShape {
 
 			return vecTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot call get half extent.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot call get half extent: " + className);
 		}
 	}
 
@@ -113,7 +115,8 @@ public final class BoxShape extends ConvexShape {
 			MethodHandle method = JPH_BOX_SHAPE_GET_CONVEX_RADIUS;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get convex radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get convex radius: " + className);
 		}
 	}
 

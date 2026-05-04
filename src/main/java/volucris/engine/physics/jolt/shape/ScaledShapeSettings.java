@@ -7,7 +7,7 @@ import java.lang.invoke.MethodHandle;
 import org.joml.Vector3f;
 
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -32,7 +32,7 @@ public final class ScaledShapeSettings extends ShapeSettings {
 	public ScaledShapeSettings(ShapeSettings shapeSettings, Vector3f scale) {
 		this(shapeSettings, scale, Arena.ofAuto());
 	}
-	
+
 	public ScaledShapeSettings(ShapeSettings shapeSettings, Vector3f scale, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
@@ -41,7 +41,8 @@ public final class ScaledShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_SCALED_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(shapeSettings.memorySegment(), vec.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create scaled shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create scaled shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -49,7 +50,7 @@ public final class ScaledShapeSettings extends ShapeSettings {
 	public ScaledShapeSettings(Shape shape, Vector3f scale) {
 		this(shape, scale, Arena.ofAuto());
 	}
-	
+
 	public ScaledShapeSettings(Shape shape, Vector3f scale, Arena arena) {
 		MemorySegment segment;
 		try (Arena confinedArena = Arena.ofConfined()) {
@@ -58,7 +59,8 @@ public final class ScaledShapeSettings extends ShapeSettings {
 			MethodHandle method = JPH_SCALED_SHAPE_SETTINGS_CREATE2;
 			segment = (MemorySegment) method.invokeExact(shape.memorySegment(), vec.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create scaled shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create scaled shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -66,14 +68,15 @@ public final class ScaledShapeSettings extends ShapeSettings {
 	public ScaledShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public ScaledShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_SCALED_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new ScaledShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

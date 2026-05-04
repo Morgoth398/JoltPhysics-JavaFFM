@@ -9,7 +9,7 @@ import org.joml.Matrix4f;
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.math.Mat4;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -40,7 +40,7 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 	protected TwoBodyConstraint(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected TwoBodyConstraint(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -48,7 +48,7 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 	public TwoBodyConstraint(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	public TwoBodyConstraint(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 
@@ -72,7 +72,8 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get body 1.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get body 1: " + className);
 		}
 	}
 
@@ -93,7 +94,8 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 			return new Body(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get body 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get body 2: " + className);
 		}
 	}
 
@@ -108,7 +110,8 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 			method.invokeExact(jphConstraint, matTmp.memorySegment());
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get constraint to body 1 matrix.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get constraint to body 1 matrix: " + className);
 		}
 	}
 
@@ -130,7 +133,8 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 			method.invokeExact(jphConstraint, matTmp.memorySegment());
 			return matTmp.get(target);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get constraint to body 2 matrix.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get constraint to body 2 matrix: " + className);
 		}
 	}
 
@@ -140,10 +144,10 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 	public Matrix4f getConstraintToBody2Matrix() {
 		return getConstraintToBody2Matrix(new Matrix4f());
 	}
-	
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * ConeConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a ConeConstraint,
+	 * so make sure of that first.
 	 */
 	public ConeConstraint asConeConstraint() {
 		if (this instanceof ConeConstraint c)
@@ -151,7 +155,7 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 		return new ConeConstraint(jphConstraint, false);
 	}
-	
+
 	/*
 	 * The method does not check if the memory segment points to a
 	 * DistanceConstraint, so make sure of that first.
@@ -162,10 +166,10 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 		return new DistanceConstraint(jphConstraint, false);
 	}
-	
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * FixedConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a FixedConstraint,
+	 * so make sure of that first.
 	 */
 	public FixedConstraint asFixedConstraint() {
 		if (this instanceof FixedConstraint c)
@@ -173,10 +177,10 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 		return new FixedConstraint(jphConstraint, false);
 	}
-	
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * GearConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a GearConstraint,
+	 * so make sure of that first.
 	 */
 	public GearConstraint asGearConstraint() {
 		if (this instanceof GearConstraint c)
@@ -184,10 +188,10 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 		return new GearConstraint(jphConstraint, false);
 	}
-	
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * HingeConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a HingeConstraint,
+	 * so make sure of that first.
 	 */
 	public HingeConstraint asHingeConstraint() {
 		if (this instanceof HingeConstraint c)
@@ -195,10 +199,10 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 		return new HingeConstraint(jphConstraint, false);
 	}
-	
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * PointConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a PointConstraint,
+	 * so make sure of that first.
 	 */
 	public PointConstraint asPointConstraint() {
 		if (this instanceof PointConstraint c)
@@ -206,10 +210,10 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 		return new PointConstraint(jphConstraint, false);
 	}
-	
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * SixDOFConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a SixDOFConstraint,
+	 * so make sure of that first.
 	 */
 	public SixDOFConstraint asSixDOFConstraint() {
 		if (this instanceof SixDOFConstraint c)
@@ -217,21 +221,21 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 
 		return new SixDOFConstraint(jphConstraint, false);
 	}
-	
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * SliderConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a SliderConstraint,
+	 * so make sure of that first.
 	 */
 	public SliderConstraint asSliderConstraint() {
 		if (this instanceof SliderConstraint c)
 			return c;
 
 		return new SliderConstraint(jphConstraint, false);
-	}	
-	
+	}
+
 	/*
-	 * The method does not check if the memory segment points to a
-	 * SliderConstraint, so make sure of that first.
+	 * The method does not check if the memory segment points to a SliderConstraint,
+	 * so make sure of that first.
 	 */
 	public SwingTwistConstraint asSwingTwistConstraint() {
 		if (this instanceof SwingTwistConstraint c)

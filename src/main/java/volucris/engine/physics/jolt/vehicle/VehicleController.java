@@ -5,7 +5,7 @@ import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.constraint.VehicleConstraint;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -49,7 +49,8 @@ public sealed class VehicleController permits WheeledVehicleController, TrackedV
 
 			return new VehicleConstraint(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get constraint.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get constraint: " + className);
 		}
 	}
 

@@ -5,7 +5,7 @@ import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSettings;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -31,7 +31,7 @@ public final class CylinderShapeSettings extends ConvexShapeSettings {
 	public CylinderShapeSettings(float halfHeight, float radius) {
 		this(halfHeight, radius, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * @see #CylinderShapeSettings(float, float, float, Arena)
 	 */
@@ -45,7 +45,7 @@ public final class CylinderShapeSettings extends ConvexShapeSettings {
 	public CylinderShapeSettings(float halfHeight, float radius, float convexRadius) {
 		this(halfHeight, radius, convexRadius, Arena.ofAuto());
 	}
-	
+
 	/**
 	 * Create a shape centered around the origin with one top at (0, -inHalfHeight,
 	 * 0) and the other at (0, inHalfHeight, 0) and radius inRadius. (internally the
@@ -59,7 +59,8 @@ public final class CylinderShapeSettings extends ConvexShapeSettings {
 			MethodHandle method = JPH_CYLINDER_SHAPE_SETTINGS_CREATE;
 			segment = (MemorySegment) method.invokeExact(halfHeight, radius, convexRadius);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create cylinder shape settings.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create cylinder shape settings: " + className);
 		}
 		super(segment, arena);
 	}
@@ -67,14 +68,15 @@ public final class CylinderShapeSettings extends ConvexShapeSettings {
 	public CylinderShape createShape() {
 		return createShape(Arena.ofAuto());
 	}
-	
+
 	public CylinderShape createShape(Arena arena) {
 		try {
 			MethodHandle method = JPH_CYLINDER_SHAPE_SETTINGS_CREATE_SHAPE;
 			MemorySegment segment = (MemorySegment) method.invokeExact(jphShapeSettings);
 			return new CylinderShape(segment, arena);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape: " + className);
 		}
 	}
 

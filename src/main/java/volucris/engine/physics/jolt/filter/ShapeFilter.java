@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -77,7 +77,7 @@ public abstract class ShapeFilter {
 	public ShapeFilter() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public ShapeFilter(Arena arena) {
 		try {
 			int index = count++;
@@ -91,7 +91,8 @@ public abstract class ShapeFilter {
 
 			SHAPE_FILTERS.add(index, new WeakReference<ShapeFilter>(this));
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create shape filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create shape filter: " + className);
 		}
 	}
 
@@ -132,7 +133,8 @@ public abstract class ShapeFilter {
 			MethodHandle method = JPH_SHAPE_FILTER_GET_BODY_ID_2;
 			return (int) method.invokeExact(jphShapeFilter);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get body id 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get body id 2: " + className);
 		}
 	}
 
@@ -141,7 +143,8 @@ public abstract class ShapeFilter {
 			MethodHandle method = JPH_SHAPE_FILTER_SET_BODY_ID_2;
 			method.invokeExact(jphShapeFilter, bodyId2);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set body id 2.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set body id 2: " + className);
 		}
 	}
 
@@ -150,7 +153,8 @@ public abstract class ShapeFilter {
 			MethodHandle method = JPH_SHAPE_FILTER_SET_PROCS;
 			method.invokeExact(JPH_SHAPE_FILTER_PROCS);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set shape filter procs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set shape filter procs: " + className);
 		}
 	}
 
@@ -160,7 +164,8 @@ public abstract class ShapeFilter {
 		try {
 			lookup = MethodHandles.privateLookupIn(ShapeFilter.class, MethodHandles.lookup());
 		} catch (IllegalAccessException e) {
-			throw new VolucrisRuntimeException("Cannot create private lookup.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create private lookup: " + className);
 		}
 		
 		AddressLayout INT_ADDRESS = ADDRESS.withTargetLayout(JAVA_INT);
@@ -184,7 +189,8 @@ public abstract class ShapeFilter {
 			MethodHandle method = JPH_SHAPE_FILTER_DESTROY;
 			method.invokeExact(segment);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy shape filter.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot destroy shape filter: " + className);
 		}
 	}
 

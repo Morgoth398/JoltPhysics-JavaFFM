@@ -69,7 +69,7 @@ public class ShapeCastResult {
 	public ShapeCastResult() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public ShapeCastResult(Arena arena) {
 		jphShapeCastResult = arena.allocate(LAYOUT);
 

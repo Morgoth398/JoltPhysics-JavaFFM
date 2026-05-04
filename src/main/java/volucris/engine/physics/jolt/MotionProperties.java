@@ -10,7 +10,7 @@ import org.joml.Vector3f;
 import volucris.engine.physics.jolt.JoltEnums.AllowedDOFs;
 import volucris.engine.physics.jolt.math.Quat;
 import volucris.engine.physics.jolt.math.Vec3;
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -61,7 +61,7 @@ public final class MotionProperties {
 	public MotionProperties() {
 		this(Arena.ofAuto());
 	}
-	
+
 	public MotionProperties(Arena arena) {
 		jphMotionProperties = arena.allocate(ADDRESS);
 
@@ -89,7 +89,8 @@ public final class MotionProperties {
 
 			throw new Throwable();
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get AllowedDOFs.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get AllowedDOFs: " + className);
 		}
 	}
 
@@ -101,7 +102,8 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_SET_LINEAR_DAMPING;
 			method.invokeExact(memorySegment(), damping);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set linear damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set linear damping: " + className);
 		}
 	}
 
@@ -114,7 +116,8 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_GET_LINEAR_DAMPING;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get linear damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get linear damping: " + className);
 		}
 	}
 
@@ -126,7 +129,8 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_SET_ANGULAR_DAMPING;
 			method.invokeExact(memorySegment(), damping);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set angular damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set angular damping: " + className);
 		}
 	}
 
@@ -139,7 +143,8 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_GET_ANGULAR_DAMPING;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get angular damping.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get angular damping: " + className);
 		}
 	}
 
@@ -151,7 +156,8 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_SET_MASS_PROPERTIES;
 			method.invokeExact(memorySegment(), allowedDOFs.id(), massProperties.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set mass properties.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set mass properties: " + className);
 		}
 	}
 
@@ -165,7 +171,8 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_GET_INVERSE_MASS_UNCHECKED;
 			return (float) method.invokeExact(memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inverse mass unchecked.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inverse mass unchecked: " + className);
 		}
 	}
 
@@ -182,7 +189,8 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_SET_INVERSE_MASS;
 			method.invokeExact(memorySegment(), inverseMass);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set inverse mass.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set inverse mass: " + className);
 		}
 	}
 
@@ -198,7 +206,8 @@ public final class MotionProperties {
 
 			return vecTmp.get(result);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inverse inertia diagonal.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inverse inertia diagonal: " + className);
 		}
 	}
 
@@ -220,7 +229,8 @@ public final class MotionProperties {
 
 			return quatTmp.get(result);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get inertia rotation.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get inertia rotation: " + className);
 		}
 	}
 
@@ -248,22 +258,24 @@ public final class MotionProperties {
 			MethodHandle method = JPH_MOTION_PROPERTIES_SET_INVERSE_INERTIA;
 			method.invokeExact(memorySegment(), vecTmp.memorySegment(), quatTmp.memorySegment());
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot set inverse inertia.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot set inverse inertia: " + className);
 		}
 	}
 
 	/**
-	 * Sets the mass to mass and scale the inertia tensor based on the ratio
-	 * between the old and new mass. Note that this only works when the current mass
-	 * is finite (i.e. the body is dynamic and translational degrees of freedom are
-	 * not restricted).
+	 * Sets the mass to mass and scale the inertia tensor based on the ratio between
+	 * the old and new mass. Note that this only works when the current mass is
+	 * finite (i.e. the body is dynamic and translational degrees of freedom are not
+	 * restricted).
 	 */
 	public void scaleToMass(float mass) {
 		try {
 			MethodHandle method = JPH_MOTION_PROPERTIES_SCALE_TO_MASS;
 			method.invokeExact(memorySegment(), mass);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot scale to mass.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot scale to mass: " + className);
 		}
 	}
 

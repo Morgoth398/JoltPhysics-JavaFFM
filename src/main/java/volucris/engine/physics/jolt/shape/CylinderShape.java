@@ -4,7 +4,7 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import volucris.engine.utils.VolucrisRuntimeException;
+import volucris.engine.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.engine.utils.FFMUtils.*;
@@ -29,7 +29,7 @@ public final class CylinderShape extends ConvexShape {
 	protected CylinderShape(MemorySegment segment) {
 		this(segment, Arena.ofAuto());
 	}
-	
+
 	protected CylinderShape(MemorySegment segment, Arena arena) {
 		this(segment, arena, true);
 	}
@@ -37,7 +37,7 @@ public final class CylinderShape extends ConvexShape {
 	protected CylinderShape(MemorySegment segment, boolean owns) {
 		this(segment, Arena.ofAuto(), owns);
 	}
-	
+
 	protected CylinderShape(MemorySegment segment, Arena arena, boolean owns) {
 		super(segment, arena, owns);
 	}
@@ -45,14 +45,15 @@ public final class CylinderShape extends ConvexShape {
 	public CylinderShape(float halfHeight, float radius) {
 		this(halfHeight, radius, Arena.ofAuto());
 	}
-	
+
 	public CylinderShape(float halfHeight, float radius, Arena arena) {
 		MemorySegment segment;
 		try {
 			MethodHandle method = JPH_CYLINDER_SHAPE_CREATE;
 			segment = (MemorySegment) method.invokeExact(halfHeight, radius);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot create cylinder shape.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot create cylinder shape: " + className);
 		}
 		super(segment, arena);
 	}
@@ -65,7 +66,8 @@ public final class CylinderShape extends ConvexShape {
 			MethodHandle method = JPH_CYLINDER_SHAPE_GET_RADIUS;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get radius.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get radius: " + className);
 		}
 	}
 
@@ -77,7 +79,8 @@ public final class CylinderShape extends ConvexShape {
 			MethodHandle method = JPH_CYLINDER_SHAPE_GET_HALF_HEIGHT;
 			return (float) method.invokeExact(jphShape);
 		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot get half height.");
+			String className = e.getClass().getSimpleName();
+			throw new JoltRuntimeException("Cannot get half height: " + className);
 		}
 	}
 
