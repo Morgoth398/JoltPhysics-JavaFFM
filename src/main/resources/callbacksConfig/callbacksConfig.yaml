@@ -1,0 +1,64 @@
+callbacks:
+  - name: JPH_AssertFailureFunc
+    package-name: volucris.bindings.jolt.callbacks
+    directory: src/main/java/volucris/bindings/jolt/callbacks
+    string-parameters:
+      - expression
+      - message
+      - file
+  - name: JPH_TraceFunc
+    package-name: volucris.bindings.jolt.callbacks
+    directory: src/main/java/volucris/bindings/jolt/callbacks
+    string-parameters:
+      - message
+  - name: JPH_QueueJobCallback
+    package-name: volucris.bindings.jolt.jobSystem
+    directory: src/main/java/volucris/bindings/jolt/jobSystem
+  - name: JPH_JobFunction
+    package-name: volucris.bindings.jolt.jobSystem
+    directory: src/main/java/volucris/bindings/jolt/jobSystem
+    add-typed-method: false
+  - name: JPH_QueueJobsCallback
+    package-name: volucris.bindings.jolt.jobSystem
+    directory: src/main/java/volucris/bindings/jolt/jobSystem
+  - name: JPH_CastRayCollectorCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_CastRayResultCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_CastShapeCollectorCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_CastShapeResultCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_CollidePointCollectorCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_CollidePointResultCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_CollideShapeBodyCollectorCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+    add-typed-method: false
+  - name: JPH_CollideShapeBodyResultCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+    add-typed-method: false
+  - name: JPH_CollideShapeCollectorCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_CollideShapeResultCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_RayCastBodyCollectorCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_RayCastBodyResultCallback
+    package-name: volucris.bindings.jolt.raycast
+    directory: src/main/java/volucris/bindings/jolt/raycast
+  - name: JPH_TireMaxImpulseCallback
+    package-name: volucris.bindings.jolt.vehicle
+    directory: src/main/java/volucris/bindings/jolt/vehicle

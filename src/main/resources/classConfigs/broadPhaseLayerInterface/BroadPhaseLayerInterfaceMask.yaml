@@ -1,0 +1,40 @@
+class-description:
+  name: BroadPhaseLayerInterfaceMask
+  package-name: volucris.bindings.jolt.broadPhaseLayerInterface
+  directory: src/main/java/volucris/bindings/jolt/broadPhaseLayerInterface
+  is-static: false
+  parent: BroadPhaseLayerInterface
+  parent-has-segment-constructor: true
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: bpInterface
+
+imports:
+static-imports:
+  - java.lang.foreign.ValueLayout.*
+  - volucris.bindings.core.FFMUtils.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_BroadPhaseLayerInterfaceMask_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_BroadPhaseLayerInterfaceMask_Create
+    destructor: JPH_BroadPhaseLayerInterface_Destroy
+    template: /constructor/ConstructorMethodTemplateWithSuper.ftl
+struct:
+native-functions:    
+native-function-pointers:

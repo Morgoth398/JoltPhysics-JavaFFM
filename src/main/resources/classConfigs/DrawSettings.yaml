@@ -1,0 +1,37 @@
+class-description:
+  name: DrawSettings
+  package-name: volucris.bindings.jolt
+  directory: src/main/java/volucris/bindings/jolt
+  is-static: false
+  parent:
+  parent-has-segment-constructor: false
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter:
+
+imports:
+static-imports:
+  - java.lang.foreign.ValueLayout.*
+  - volucris.bindings.core.FFMUtils.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+  name: JPH_DrawSettings
+native-functions:
+native-function-pointers:

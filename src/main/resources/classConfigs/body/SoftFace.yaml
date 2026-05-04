@@ -1,0 +1,35 @@
+class-description:
+  name: SoftFace
+  package-name: volucris.bindings.jolt.body
+  directory: src/main/java/volucris/bindings/jolt/body
+  is-static: false
+  parent:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter:
+
+imports:
+static-imports:
+  - java.lang.foreign.ValueLayout.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+  name: JPH_SoftFace
+native-functions:    
+native-function-pointers:

@@ -1,0 +1,44 @@
+class-description:
+  name: NarrowPhaseQuery
+  package-name: volucris.bindings.jolt.raycast
+  directory: src/main/java/volucris/bindings/jolt/raycast
+  is-static: false
+  parent:
+  parent-has-segment-constructor: false
+  interfaces: []
+  is-sealed: true
+  permits: []
+  is-abstract: false
+  is-final: false
+  instance-parameter: query
+
+imports:
+  - volucris.bindings.jolt.math.Vec3
+  - volucris.bindings.jolt.shape.Shape
+  - volucris.bindings.jolt.math.Mat4
+  - volucris.bindings.jolt.filter.BroadPhaseLayerFilter
+  - volucris.bindings.jolt.filter.ObjectLayerFilter
+  - volucris.bindings.jolt.filter.BodyFilter
+  - volucris.bindings.jolt.filter.ShapeFilter
+static-imports:
+  - java.lang.foreign.ValueLayout.*
+  - volucris.bindings.core.FFMUtils.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_NarrowPhaseQuery_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+native-function-pointers:

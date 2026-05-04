@@ -1,0 +1,37 @@
+class-description:
+  name: ConstraintSettings
+  package-name: volucris.bindings.jolt.constraint
+  directory: src/main/java/volucris/bindings/jolt/constraint
+  is-static: false
+  parent:
+  parent-has-segment-constructor: true
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: settings
+
+imports:
+static-imports:
+  - java.lang.foreign.ValueLayout.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+  name: JPH_ConstraintSettings
+  template: /constructor/OnlySegmentStructConstructorTemplate.ftl
+native-functions:
+native-function-pointers:

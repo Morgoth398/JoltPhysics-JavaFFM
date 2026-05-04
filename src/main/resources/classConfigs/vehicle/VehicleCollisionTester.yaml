@@ -1,0 +1,39 @@
+class-description:
+  name: VehicleCollisionTester
+  package-name: volucris.bindings.jolt.vehicle
+  directory: src/main/java/volucris/bindings/jolt/vehicle
+  is-static: false
+  parent:
+  parent-has-segment-constructor: false
+  interfaces: []
+  is-sealed: true
+  permits: [VehicleCollisionTesterRay, VehicleCollisionTesterCastCylinder, VehicleCollisionTesterCastSphere]
+  is-abstract: false
+  is-final: false
+  instance-parameter: controller
+
+imports:
+static-imports:
+  - java.lang.foreign.ValueLayout.*
+  - volucris.bindings.core.FFMUtils.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_VehicleCollisionTester_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_VehicleCollisionTester_Destroy
+    add-typed-method: false
+native-function-pointers:

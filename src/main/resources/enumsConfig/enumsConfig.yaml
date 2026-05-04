@@ -1,0 +1,4 @@
+package-name: volucris.bindings.jolt.enums
+directory: src/main/java/volucris/bindings/jolt/enums
+generate-all: true
+configs:

@@ -1,0 +1,39 @@
+class-description:
+  name: CharacterVsCharacterCollisionSimple
+  package-name: volucris.bindings.jolt.character
+  directory: src/main/java/volucris/bindings/jolt/character
+  is-static: false
+  parent: CharacterVsCharacterCollision
+  parent-has-segment-constructor: false
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: characterVsCharacter
+
+imports:
+static-imports:
+  - volucris.bindings.core.FFMUtils.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_CharacterVsCharacterCollisionSimple_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_CharacterVsCharacterCollision_CreateSimple
+    destructor: JPH_CharacterVsCharacterCollision_Destroy
+struct:
+native-functions:
+  - name: JPH_CharacterVsCharacterCollision_CreateSimple
+native-function-pointers:

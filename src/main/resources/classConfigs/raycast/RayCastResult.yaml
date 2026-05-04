@@ -1,0 +1,35 @@
+class-description:
+  name: RayCastResult
+  package-name: volucris.bindings.jolt.raycast
+  directory: src/main/java/volucris/bindings/jolt/raycast
+  is-static: false
+  parent:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter:
+
+imports:
+static-imports:
+  - java.lang.foreign.ValueLayout.*
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+  name: JPH_RayCastResult
+native-functions:    
+native-function-pointers:
