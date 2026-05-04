@@ -14,7 +14,7 @@ import static volucris.engine.utils.FFMUtils.*;
  * A multi body lock takes a number of body IDs and locks the underlying bodies
  * so that other threads cannot access its members.
  */
-public final class BodyLockMultiRead {
+public final class BodyLockMultiRead implements AutoCloseable {
 
 	private static final MethodHandle JPH_BODY_LOCK_MULTI_READ_DESTROY;
 	private static final MethodHandle JPH_BODY_LOCK_MULTI_READ_GET_BODY;
@@ -28,22 +28,23 @@ public final class BodyLockMultiRead {
 		//@formatter:on
 	}
 
-	public BodyLockMultiRead(MemorySegment segment) {
-		jphBodyLockMultiRead = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
+	/**
+	 * Constructs an invalid BodyLockMultiRead object. Call
+	 * {@link BodyLockInterface#lockMultiRead(BodyLockMultiRead, int...)} before
+	 * using this object.
+	 */
+	public BodyLockMultiRead() {
+		jphBodyLockMultiRead = Arena.ofAuto().allocate(ADDRESS);
 	}
 
-	private static void destroy(MemorySegment segment) {
-		try {
-			JPH_BODY_LOCK_MULTI_READ_DESTROY.invokeExact(segment);
-		} catch (Throwable e) {
-			throw new VolucrisRuntimeException("Jolt: Cannot destroy BodyLockMultiWrite.");
-		}
+	public void set(MemorySegment segment) {
+		jphBodyLockMultiRead.set(ADDRESS, 0, segment);
 	}
 
 	public Body getBody(int bodyIndex) {
 		try {
 			MethodHandle method = JPH_BODY_LOCK_MULTI_READ_GET_BODY;
-			MemorySegment segment = (MemorySegment) method.invokeExact(jphBodyLockMultiRead, bodyIndex);
+			MemorySegment segment = (MemorySegment) method.invokeExact(memorySegment(), bodyIndex);
 
 			if (segment.equals(MemorySegment.NULL))
 				return null;
@@ -56,6 +57,19 @@ public final class BodyLockMultiRead {
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot get body.");
 		}
+	}
+
+	@Override
+	public void close() {
+		try {
+			JPH_BODY_LOCK_MULTI_READ_DESTROY.invokeExact(memorySegment());
+		} catch (Throwable e) {
+			throw new VolucrisRuntimeException("Jolt: Cannot destroy BodyLockMultiWrite.");
+		}
+	}
+
+	private MemorySegment memorySegment() {
+		return jphBodyLockMultiRead.get(ADDRESS, 0);
 	}
 
 }
