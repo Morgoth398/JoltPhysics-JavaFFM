@@ -176,18 +176,26 @@ public abstract class ${clazz.description.name}${clazz.classHeader} {
         </#if>
     }
 
-    public abstract<#if !info.hasReturnType> void<#else> ${method.returnType.type}</#if> ${info.name}(
+    public<#if !info.hasReturnType> void<#else> ${method.returnType.type}</#if> ${info.name}(
         <#list method.parameters?filter(p -> !p.name?contains("userData")) as parameter>
         ${parameter.type} ${parameter.name}<#sep>, </#sep>
         </#list>
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for ${info.name}."
+        );
+    }
 
     <#else>
-    public abstract<#if !info.hasReturnType> void<#else><#if method.returnType.isPrimitive> ${method.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
+    public<#if !info.hasReturnType> void<#else><#if method.returnType.isPrimitive> ${method.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
         <#list method.parameters?filter(p -> !p.name?contains("userData")) as parameter>
         <#if parameter.isPrimitive>${parameter.type}<#else>MemorySegment</#if> ${parameter.name}<#sep>, </#sep>
         </#list>
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for ${info.name}."
+        );
+    }
     </#if>
     </#list>
 

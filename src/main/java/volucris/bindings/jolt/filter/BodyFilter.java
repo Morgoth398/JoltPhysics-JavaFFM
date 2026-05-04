@@ -160,9 +160,13 @@ public abstract class BodyFilter {
         );
     }
 
-    public abstract boolean shouldCollide(
+    public boolean shouldCollide(
         int bodyID
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldCollide."
+        );
+    }
 
     public static boolean shouldCollideLocked(
         MemorySegment userData, 
@@ -175,8 +179,12 @@ public abstract class BodyFilter {
         );
     }
 
-    public abstract boolean shouldCollideLocked(
+    public boolean shouldCollideLocked(
         MemorySegment bodyID
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldCollideLocked."
+        );
+    }
 
 }

@@ -66,12 +66,16 @@ public abstract class QueueJobsCallback {
         );
     }
 
-    public abstract void invoke(
+    public void invoke(
         MemorySegment context, 
         JobFunction job, 
         NativePointerArray args, 
         int count
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in QueueJobsCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

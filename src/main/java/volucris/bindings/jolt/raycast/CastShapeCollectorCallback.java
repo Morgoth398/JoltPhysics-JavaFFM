@@ -60,10 +60,14 @@ public abstract class CastShapeCollectorCallback {
         );
     }
 
-    public abstract float invoke(
+    public float invoke(
         MemorySegment context, 
         ShapeCastResult result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CastShapeCollectorCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

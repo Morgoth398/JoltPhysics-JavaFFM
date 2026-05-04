@@ -59,10 +59,14 @@ public abstract class CollidePointResultCallback {
         );
     }
 
-    public abstract void invoke(
+    public void invoke(
         MemorySegment context, 
         CollidePointResult result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CollidePointResultCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

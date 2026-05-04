@@ -66,12 +66,16 @@ public abstract class AssertFailureFunc {
         );
     }
 
-    public abstract boolean invoke(
+    public boolean invoke(
         String expression, 
         String message, 
         String file, 
         int line
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in AssertFailureFunc."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

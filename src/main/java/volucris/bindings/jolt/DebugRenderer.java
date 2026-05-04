@@ -1155,11 +1155,15 @@ public abstract class DebugRenderer {
         );
     }
 
-    public abstract void drawLine(
+    public void drawLine(
         Vec3 from, 
         Vec3 to, 
         int color
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for drawLine."
+        );
+    }
 
 
     public static void drawTriangle(
@@ -1197,13 +1201,17 @@ public abstract class DebugRenderer {
         );
     }
 
-    public abstract void drawTriangle(
+    public void drawTriangle(
         Vec3 v1, 
         Vec3 v2, 
         Vec3 v3, 
         int color, 
         int castShadow
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for drawTriangle."
+        );
+    }
 
 
     public static void drawText3D(
@@ -1237,12 +1245,16 @@ public abstract class DebugRenderer {
         );
     }
 
-    public abstract void drawText3D(
+    public void drawText3D(
         Vec3 position, 
         String str, 
         int color, 
         float height
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for drawText3D."
+        );
+    }
 
 
 }

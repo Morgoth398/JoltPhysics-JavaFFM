@@ -60,10 +60,14 @@ public abstract class CollideShapeCollectorCallback {
         );
     }
 
-    public abstract float invoke(
+    public float invoke(
         MemorySegment context, 
         CollideShapeResult result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CollideShapeCollectorCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

@@ -144,8 +144,12 @@ public abstract class ObjectLayerFilter {
         );
     }
 
-    public abstract boolean shouldCollide(
+    public boolean shouldCollide(
         int layer
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldCollide."
+        );
+    }
 
 }

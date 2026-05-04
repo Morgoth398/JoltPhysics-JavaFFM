@@ -200,12 +200,16 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
         );
     }
 
-    public abstract void collideCharacter(
+    public void collideCharacter(
         CharacterVirtual character, 
         Mat4 centerOfMassTransform, 
         CollideShapeSettings collideShapeSettings, 
         Vec3 baseOffset
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for collideCharacter."
+        );
+    }
 
 
     public static void castCharacter(
@@ -243,13 +247,17 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
         );
     }
 
-    public abstract void castCharacter(
+    public void castCharacter(
         CharacterVirtual character, 
         Mat4 centerOfMassTransform, 
         Vec3 direction, 
         ShapeCastSettings shapeCastSettings, 
         Vec3 baseOffset
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for castCharacter."
+        );
+    }
 
 
 }

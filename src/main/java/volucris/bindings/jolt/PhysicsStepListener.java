@@ -151,9 +151,13 @@ public abstract class PhysicsStepListener {
         );
     }
 
-    public abstract void onStep(
+    public void onStep(
         PhysicsStepListenerContext context
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onStep."
+        );
+    }
 
 
 }

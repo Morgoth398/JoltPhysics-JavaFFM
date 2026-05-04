@@ -365,12 +365,16 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onAdjustBodyVelocity(
+    public void onAdjustBodyVelocity(
         CharacterVirtual character, 
         Body body2, 
         Vec3 ioLinearVelocity, 
         Vec3 ioAngularVelocity
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onAdjustBodyVelocity."
+        );
+    }
 
 
     public static boolean onContactValidate(
@@ -400,11 +404,15 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract boolean onContactValidate(
+    public boolean onContactValidate(
         CharacterVirtual character, 
         int bodyID2, 
         int subShapeID2
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactValidate."
+        );
+    }
 
 
     public static boolean onCharacterContactValidate(
@@ -434,11 +442,15 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract boolean onCharacterContactValidate(
+    public boolean onCharacterContactValidate(
         CharacterVirtual character, 
         CharacterVirtual otherCharacter, 
         int subShapeID2
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onCharacterContactValidate."
+        );
+    }
 
 
     public static void onContactAdded(
@@ -480,14 +492,18 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onContactAdded(
+    public void onContactAdded(
         CharacterVirtual character, 
         int bodyID2, 
         int subShapeID2, 
         Vec3 contactPosition, 
         Vec3 contactNormal, 
         CharacterContactSettings ioSettings
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactAdded."
+        );
+    }
 
 
     public static void onContactPersisted(
@@ -529,14 +545,18 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onContactPersisted(
+    public void onContactPersisted(
         CharacterVirtual character, 
         int bodyID2, 
         int subShapeID2, 
         Vec3 contactPosition, 
         Vec3 contactNormal, 
         CharacterContactSettings ioSettings
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactPersisted."
+        );
+    }
 
 
     public static void onContactRemoved(
@@ -566,11 +586,15 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onContactRemoved(
+    public void onContactRemoved(
         CharacterVirtual character, 
         int bodyID2, 
         int subShapeID2
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactRemoved."
+        );
+    }
 
 
     public static void onCharacterContactAdded(
@@ -612,14 +636,18 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onCharacterContactAdded(
+    public void onCharacterContactAdded(
         CharacterVirtual character, 
         CharacterVirtual otherCharacter, 
         int subShapeID2, 
         Vec3 contactPosition, 
         Vec3 contactNormal, 
         CharacterContactSettings ioSettings
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onCharacterContactAdded."
+        );
+    }
 
 
     public static void onCharacterContactPersisted(
@@ -661,14 +689,18 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onCharacterContactPersisted(
+    public void onCharacterContactPersisted(
         CharacterVirtual character, 
         CharacterVirtual otherCharacter, 
         int subShapeID2, 
         Vec3 contactPosition, 
         Vec3 contactNormal, 
         CharacterContactSettings ioSettings
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onCharacterContactPersisted."
+        );
+    }
 
 
     public static void onCharacterContactRemoved(
@@ -698,11 +730,15 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onCharacterContactRemoved(
+    public void onCharacterContactRemoved(
         CharacterVirtual character, 
         int otherCharacterID, 
         int subShapeID2
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onCharacterContactRemoved."
+        );
+    }
 
 
     public static void onContactSolve(
@@ -756,7 +792,7 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onContactSolve(
+    public void onContactSolve(
         CharacterVirtual character, 
         int bodyID2, 
         int subShapeID2, 
@@ -766,7 +802,11 @@ public abstract class CharacterContactListener {
         PhysicsMaterial contactMaterial, 
         Vec3 characterVelocity, 
         Vec3 newCharacterVelocity
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactSolve."
+        );
+    }
 
 
     public static void onCharacterContactSolve(
@@ -820,7 +860,7 @@ public abstract class CharacterContactListener {
         );
     }
 
-    public abstract void onCharacterContactSolve(
+    public void onCharacterContactSolve(
         CharacterVirtual character, 
         CharacterVirtual otherCharacter, 
         int subShapeID2, 
@@ -830,7 +870,11 @@ public abstract class CharacterContactListener {
         PhysicsMaterial contactMaterial, 
         Vec3 characterVelocity, 
         Vec3 newCharacterVelocity
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onCharacterContactSolve."
+        );
+    }
 
 
 }

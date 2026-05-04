@@ -180,14 +180,18 @@ public abstract class SimShapeFilter {
         );
     }
 
-    public abstract boolean shouldCollide(
+    public boolean shouldCollide(
         Body body1, 
         Shape shape1, 
         NativeIntArray subShapeIDOfShape1, 
         Body body2, 
         Shape shape2, 
         NativeIntArray subShapeIDOfShape2
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldCollide."
+        );
+    }
 
 
 }

@@ -49,10 +49,14 @@ public abstract class CollideShapeBodyResultCallback {
         CACHE.put(this.segment.address(), new WeakReference<>(this));
     }
 
-    public abstract void invoke(
+    public void invoke(
         MemorySegment context, 
         int result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CollideShapeBodyResultCallback."
+        );
+    }
 
     public MemorySegment memorySegment() {
         return segment;

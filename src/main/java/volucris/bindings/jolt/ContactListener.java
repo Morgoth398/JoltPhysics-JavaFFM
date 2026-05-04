@@ -221,12 +221,16 @@ public abstract class ContactListener {
         );
     }
 
-    public abstract int onContactValidate(
+    public int onContactValidate(
         Body body1, 
         Body body2, 
         Vec3 baseOffset, 
         CollideShapeResult collisionResult
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactValidate."
+        );
+    }
 
 
     public static void onContactAdded(
@@ -260,12 +264,16 @@ public abstract class ContactListener {
         );
     }
 
-    public abstract void onContactAdded(
+    public void onContactAdded(
         Body body1, 
         Body body2, 
         ContactManifold manifold, 
         ContactSettings settings
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactAdded."
+        );
+    }
 
 
     public static void onContactPersisted(
@@ -299,12 +307,16 @@ public abstract class ContactListener {
         );
     }
 
-    public abstract void onContactPersisted(
+    public void onContactPersisted(
         Body body1, 
         Body body2, 
         ContactManifold manifold, 
         ContactSettings settings
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactPersisted."
+        );
+    }
 
 
     public static void onContactRemoved(
@@ -326,9 +338,13 @@ public abstract class ContactListener {
         );
     }
 
-    public abstract void onContactRemoved(
+    public void onContactRemoved(
         SubShapeIDPair subShapePair
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onContactRemoved."
+        );
+    }
 
 
 }

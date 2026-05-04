@@ -50,10 +50,14 @@ public abstract class CollideShapeBodyCollectorCallback {
         CACHE.put(this.segment.address(), new WeakReference<>(this));
     }
 
-    public abstract float invoke(
+    public float invoke(
         MemorySegment context, 
         int result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CollideShapeBodyCollectorCallback."
+        );
+    }
 
     public MemorySegment memorySegment() {
         return segment;

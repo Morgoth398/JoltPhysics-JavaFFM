@@ -60,10 +60,14 @@ public abstract class CollidePointCollectorCallback {
         );
     }
 
-    public abstract float invoke(
+    public float invoke(
         MemorySegment context, 
         CollidePointResult result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CollidePointCollectorCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

@@ -153,9 +153,13 @@ public abstract class BodyDrawFilter {
         );
     }
 
-    public abstract boolean shouldDraw(
+    public boolean shouldDraw(
         Body body
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldDraw."
+        );
+    }
 
 
 }

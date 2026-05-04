@@ -144,8 +144,12 @@ public abstract class BroadPhaseLayerFilter {
         );
     }
 
-    public abstract boolean shouldCollide(
+    public boolean shouldCollide(
         byte layer
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldCollide."
+        );
+    }
 
 }

@@ -59,10 +59,14 @@ public abstract class CastShapeResultCallback {
         );
     }
 
-    public abstract void invoke(
+    public void invoke(
         MemorySegment context, 
         ShapeCastResult result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CastShapeResultCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

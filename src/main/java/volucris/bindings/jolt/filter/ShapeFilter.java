@@ -232,10 +232,14 @@ public abstract class ShapeFilter {
         );
     }
 
-    public abstract boolean shouldCollide(
+    public boolean shouldCollide(
         Shape shape2, 
         NativeIntArray subShapeIDOfShape2
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldCollide."
+        );
+    }
 
 
     public static boolean shouldCollide2(
@@ -269,12 +273,16 @@ public abstract class ShapeFilter {
         );
     }
 
-    public abstract boolean shouldCollide2(
+    public boolean shouldCollide2(
         Shape shape1, 
         NativeIntArray subShapeIDOfShape1, 
         Shape shape2, 
         NativeIntArray subShapeIDOfShape2
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for shouldCollide2."
+        );
+    }
 
 
 }

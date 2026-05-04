@@ -162,10 +162,14 @@ public abstract class BodyActivationListener {
         );
     }
 
-    public abstract void onBodyActivated(
+    public void onBodyActivated(
         int bodyID, 
         long bodyUserData
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onBodyActivated."
+        );
+    }
 
     public static void onBodyDeactivated(
         MemorySegment userData, 
@@ -180,9 +184,13 @@ public abstract class BodyActivationListener {
         );
     }
 
-    public abstract void onBodyDeactivated(
+    public void onBodyDeactivated(
         int bodyID, 
         long bodyUserData
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method for onBodyDeactivated."
+        );
+    }
 
 }

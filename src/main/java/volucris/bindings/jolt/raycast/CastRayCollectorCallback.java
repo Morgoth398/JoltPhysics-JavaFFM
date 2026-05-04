@@ -60,10 +60,14 @@ public abstract class CastRayCollectorCallback {
         );
     }
 
-    public abstract float invoke(
+    public float invoke(
         MemorySegment context, 
         RayCastResult result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in CastRayCollectorCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

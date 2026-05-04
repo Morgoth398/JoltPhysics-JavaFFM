@@ -56,9 +56,13 @@ public abstract class TraceFunc {
         );
     }
 
-    public abstract void invoke(
+    public void invoke(
         String message
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in TraceFunc."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

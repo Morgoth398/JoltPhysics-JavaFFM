@@ -84,7 +84,7 @@ public abstract class TireMaxImpulseCallback {
         );
     }
 
-    public abstract void invoke(
+    public void invoke(
         MemorySegment userData, 
         int wheelIndex, 
         NativeFloatArray outLongitudinalImpulse, 
@@ -95,7 +95,11 @@ public abstract class TireMaxImpulseCallback {
         float longitudinalSlip, 
         float lateralSlip, 
         float deltaTime
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in TireMaxImpulseCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

@@ -62,11 +62,15 @@ public abstract class QueueJobCallback {
         );
     }
 
-    public abstract void invoke(
+    public void invoke(
         MemorySegment context, 
         JobFunction job, 
         MemorySegment arg
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in QueueJobCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

@@ -60,10 +60,14 @@ public abstract class RayCastBodyCollectorCallback {
         );
     }
 
-    public abstract float invoke(
+    public float invoke(
         MemorySegment context, 
         BroadPhaseCastResult result
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in RayCastBodyCollectorCallback."
+        );
+    };
 
 
     public MemorySegment memorySegment() {

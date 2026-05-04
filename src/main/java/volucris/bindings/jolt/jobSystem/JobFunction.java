@@ -48,9 +48,13 @@ public abstract class JobFunction {
         CACHE.put(this.segment.address(), new WeakReference<>(this));
     }
 
-    public abstract void invoke(
+    public void invoke(
         MemorySegment arg
-    );
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in JobFunction."
+        );
+    }
 
     public MemorySegment memorySegment() {
         return segment;
