@@ -1,0 +1,41 @@
+package volucris.engine.physics.jolt.shape;
+
+import java.lang.foreign.MemorySegment;
+import java.lang.invoke.MethodHandle;
+
+import volucris.engine.utils.VolucrisRuntimeException;
+
+import static java.lang.foreign.ValueLayout.*;
+import static volucris.engine.utils.FFMUtils.*;
+
+/**
+ * A compound shape, sub shapes can be rotated and translated. Sub shapes cannot
+ * be modified once the shape is constructed. Shifts all child objects so that
+ * they're centered around the center of mass.
+ */
+public final class StaticCompoundShape extends CompoundShape {
+
+	private static final MethodHandle JPH_STATIC_COMPOUND_SHAPE_CREATE;
+
+	static {
+		//@formatter:off
+		JPH_STATIC_COMPOUND_SHAPE_CREATE = downcallHandle("JPH_StaticCompoundShape_Create", ADDRESS, ADDRESS);
+		//@formatter:on
+	}
+
+	protected StaticCompoundShape(MemorySegment segment, boolean owns) {
+		super(segment, owns);
+	}
+
+	public StaticCompoundShape(StaticCompoundShapeSettings settings) {
+		MemorySegment segment;
+		try {
+			MethodHandle method = JPH_STATIC_COMPOUND_SHAPE_CREATE;
+			segment = (MemorySegment) method.invokeExact(settings.memorySegment());
+		} catch (Throwable e) {
+			throw new VolucrisRuntimeException("Jolt: Cannot create static compound shape.");
+		}
+		super(segment);
+	}
+
+}
