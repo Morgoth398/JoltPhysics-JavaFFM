@@ -43,6 +43,9 @@ public abstract class CollideShapeResultCallback {
 		result = new CollideShapeResult();
 	}
 	
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	public abstract void collideShapeResultCallback(MemorySegment context, CollideShapeResult result);
 	
 	@SuppressWarnings("unused")

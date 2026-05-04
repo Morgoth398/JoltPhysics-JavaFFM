@@ -42,7 +42,10 @@ public abstract class RayCastBodyCollectorCallback {
 
 		result = new BroadPhaseCastResult();
 	}
-
+	
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	protected abstract void rayCastBodyCollectorCallback(MemorySegment context, BroadPhaseCastResult result);
 
 	@SuppressWarnings("unused")

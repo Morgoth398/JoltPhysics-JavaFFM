@@ -198,10 +198,19 @@ public abstract class DebugRenderer {
 		}
 	}
 
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	protected abstract void drawLineImpl(Vector3f from, Vector3f to, Color color);
 
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	protected abstract void drawTriangleImpl(Vector3f v1, Vector3f v2, Vector3f v3, Color color, CastShadow castShadow);
 
+	/**
+	 * Do not store a reference to the objects. They will be reused internally.
+	 */
 	protected abstract void drawText3DImpl(Vector3f position, String str, Color color, float height);
 
 	private static void setProcs() {

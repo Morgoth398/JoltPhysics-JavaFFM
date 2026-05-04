@@ -219,7 +219,7 @@ public final class BodyInterface {
 	public BodyInterface(MemorySegment segment) {
 		jphBodyInterface = segment;
 
-		Arena arena = Arena.ofConfined();
+		Arena arena = Arena.ofAuto();
 
 		quatTmp = new Quat(arena);
 
