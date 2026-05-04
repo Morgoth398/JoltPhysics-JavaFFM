@@ -144,7 +144,7 @@ public sealed class ConstraintSettings permits TwoBodyConstraintSettings, Vehicl
 	 * User data value (can be used by application)
 	 */
 	public long getUserData() {
-		return (long) USER_DATA.set(jphConstraintSettings);
+		return (long) USER_DATA.get(jphConstraintSettings);
 	}
 
 	public static StructLayout LAYOUT() {
