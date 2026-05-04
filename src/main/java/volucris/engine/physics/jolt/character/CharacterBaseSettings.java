@@ -13,7 +13,7 @@ import volucris.engine.physics.jolt.shape.Plane;
 import volucris.engine.physics.jolt.shape.Shape;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Base class for configuration of a character.

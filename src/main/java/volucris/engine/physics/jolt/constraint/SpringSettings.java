@@ -7,10 +7,10 @@ import java.lang.foreign.StructLayout;
 import java.lang.invoke.VarHandle;
 
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.SpringMode;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Settings for a linear or angular spring.

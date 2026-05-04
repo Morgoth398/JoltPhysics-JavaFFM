@@ -12,7 +12,7 @@ import org.joml.Vector3f;
 import volucris.engine.physics.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Result of a shape cast test.

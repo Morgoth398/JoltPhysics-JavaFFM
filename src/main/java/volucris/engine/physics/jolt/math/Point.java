@@ -9,7 +9,7 @@ import java.lang.invoke.VarHandle;
 import org.joml.Vector2f;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * A point on the linear curve.

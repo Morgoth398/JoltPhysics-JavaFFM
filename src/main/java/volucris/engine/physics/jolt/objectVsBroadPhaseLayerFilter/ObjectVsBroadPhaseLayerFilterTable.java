@@ -5,10 +5,10 @@ import java.lang.invoke.MethodHandle;
 
 import volucris.engine.physics.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterface;
 import volucris.engine.physics.jolt.objectLayerPairFilter.ObjectLayerPairFilter;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Class that determines if an object layer can collide with a broadphase layer.

@@ -1,4 +1,4 @@
-package volucris.engine.example;
+package volucris.engine.physics.jolt.example;
 
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -28,7 +28,7 @@ import volucris.engine.physics.jolt.raycast.CollideShapeResult;
 import volucris.engine.physics.jolt.shape.BoxShape;
 import volucris.engine.physics.jolt.shape.BoxShapeSettings;
 import volucris.engine.physics.jolt.shape.SphereShape;
-import volucris.engine.utils.NativeLibraryLoader;
+import volucris.engine.physics.jolt.utils.NativeLibraryLoader;
 
 //@formatter:off
 public class HelloWorld {

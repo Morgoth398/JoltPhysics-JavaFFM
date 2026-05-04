@@ -11,10 +11,10 @@ import volucris.engine.physics.jolt.body.Body;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.MotorState;
 import volucris.engine.physics.jolt.constraint.ConstraintEnums.SixDOFConstraintAxis;
 import volucris.engine.physics.jolt.math.Quat;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * 6 Degree Of Freedom Constraint. Allows control over each of the 6 degrees of

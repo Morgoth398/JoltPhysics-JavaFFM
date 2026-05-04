@@ -23,10 +23,10 @@ import volucris.engine.physics.jolt.jobSystem.JobSystem;
 import volucris.engine.physics.jolt.math.Vec3;
 import volucris.engine.physics.jolt.query.BroadPhaseQuery;
 import volucris.engine.physics.jolt.query.NarrowPhaseQuery;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * The main class for the physics system. It contains all rigid bodies and

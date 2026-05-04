@@ -9,7 +9,7 @@ import java.lang.invoke.VarHandle;
 import volucris.engine.physics.jolt.Jolt;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * A body lock takes a body ID and locks the underlying body so that other

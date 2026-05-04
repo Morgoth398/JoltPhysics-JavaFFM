@@ -15,10 +15,10 @@ import java.util.ArrayList;
 
 import volucris.engine.physics.jolt.Jolt;
 import volucris.engine.physics.jolt.shape.Shape;
-import volucris.engine.utils.JoltRuntimeException;
+import volucris.engine.physics.jolt.utils.JoltRuntimeException;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Filter class.

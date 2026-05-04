@@ -9,7 +9,7 @@ import java.lang.invoke.VarHandle;
 import volucris.engine.physics.jolt.physicsSystem.PhysicsSystem;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.engine.utils.FFMUtils.*;
+import static volucris.engine.physics.jolt.utils.FFMUtils.*;
 
 /**
  * Context information for the step listener.
