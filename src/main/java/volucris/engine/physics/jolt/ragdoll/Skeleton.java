@@ -28,8 +28,6 @@ public final class Skeleton {
 
 	private final MemorySegment jphSkeleton;
 
-	private final Arena arena;
-
 	static {
 		//@formatter:off
 		JPH_SKELETON_CREATE = downcallHandle("JPH_Skeleton_Create", ADDRESS);
@@ -48,8 +46,6 @@ public final class Skeleton {
 	public Skeleton(MemorySegment segment) {
 		jphSkeleton = segment;
 
-		arena = Arena.ofAuto();
-
 		Jolt.addSkeleton(jphSkeleton.address(), this);
 	}
 
@@ -57,9 +53,7 @@ public final class Skeleton {
 		try {
 			MethodHandle method = JPH_SKELETON_CREATE;
 			MemorySegment segment = (MemorySegment) method.invokeExact();
-
-			arena = Arena.ofAuto();
-			jphSkeleton = segment.reinterpret(arena, s -> destroy(s));
+			jphSkeleton = segment.reinterpret(Arena.ofAuto(), s -> destroy(s));
 		} catch (Throwable e) {
 			throw new VolucrisRuntimeException("Jolt: Cannot create skeleton.");
 		}
@@ -82,7 +76,7 @@ public final class Skeleton {
 	 * 
 	 */
 	public int addJoint(String name) {
-		try {
+		try (Arena arena = Arena.ofConfined()) {
 			MethodHandle method = JPH_SKELETON_ADD_JOINT;
 			return (int) method.invokeExact(jphSkeleton, arena.allocateFrom(name));
 		} catch (Throwable e) {
@@ -94,7 +88,7 @@ public final class Skeleton {
 	 * 
 	 */
 	public int addJoint(String name, int parentIndex) {
-		try {
+		try(Arena arena = Arena.ofConfined()) {
 			MethodHandle method = JPH_SKELETON_ADD_JOINT2;
 			return (int) method.invokeExact(jphSkeleton, arena.allocateFrom(name), parentIndex);
 		} catch (Throwable e) {
@@ -106,7 +100,7 @@ public final class Skeleton {
 	 * 
 	 */
 	public int addJoint(String name, String parentName) {
-		try {
+		try(Arena arena = Arena.ofConfined()) {
 			MethodHandle method = JPH_SKELETON_ADD_JOINT3;
 			return (int) method.invokeExact(jphSkeleton, arena.allocateFrom(name), arena.allocateFrom(parentName));
 		} catch (Throwable e) {

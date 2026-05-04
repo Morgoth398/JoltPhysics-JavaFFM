@@ -23,6 +23,7 @@ public final class NativeLibraryLoader {
 
 	public static boolean DEBUG = false;
 	public static boolean LOAD_LIBRARY = true;
+	public static boolean REPLACE_EXISTING = false;
 
 	static {
 		EXTRACT_PATHS = new String[4];
@@ -102,7 +103,7 @@ public final class NativeLibraryLoader {
 	}
 
 	private static boolean extract(Path path, InputStream stream) {
-		if (!Files.exists(path)) {
+		if (!Files.exists(path) || REPLACE_EXISTING) {
 			VolucrisFiles.absolute(path.toString());
 			try {
 				Files.copy(stream, path, StandardCopyOption.REPLACE_EXISTING);

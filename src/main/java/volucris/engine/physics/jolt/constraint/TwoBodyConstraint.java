@@ -40,7 +40,7 @@ public sealed class TwoBodyConstraint extends Constraint permits ConeConstraint,
 		this(segment, true);
 	}
 
-	protected TwoBodyConstraint(MemorySegment segment, boolean owns) {
+	public TwoBodyConstraint(MemorySegment segment, boolean owns) {
 		super(segment, owns);
 
 		matTmp = new Mat4(arena);
