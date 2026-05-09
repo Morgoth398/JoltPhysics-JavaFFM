@@ -28,26 +28,26 @@ public final class SliderConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle AUTO_DETECT_POINT;
-    public static final VarHandle LIMITS_MIN;
-    public static final VarHandle LIMITS_MAX;
-    public static final VarHandle MAX_FRICTION_FORCE;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle AUTO_DETECT_POINT_HANDLE;
+    public static final VarHandle LIMITS_MIN_HANDLE;
+    public static final VarHandle LIMITS_MAX_HANDLE;
+    public static final VarHandle MAX_FRICTION_FORCE_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long AUTO_DETECT_POINT_OFFSET;
-    public static final long POINT1_OFFSET;
-    public static final long SLIDER_AXIS1_OFFSET;
-    public static final long NORMAL_AXIS1_OFFSET;
-    public static final long POINT2_OFFSET;
-    public static final long SLIDER_AXIS2_OFFSET;
-    public static final long NORMAL_AXIS2_OFFSET;
-    public static final long LIMITS_MIN_OFFSET;
-    public static final long LIMITS_MAX_OFFSET;
-    public static final long LIMITS_SPRING_SETTINGS_OFFSET;
-    public static final long MAX_FRICTION_FORCE_OFFSET;
-    public static final long MOTOR_SETTINGS_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long AUTO_DETECT_POINT_BYTE_OFFSET;
+    public static final long POINT1_BYTE_OFFSET;
+    public static final long SLIDER_AXIS1_BYTE_OFFSET;
+    public static final long NORMAL_AXIS1_BYTE_OFFSET;
+    public static final long POINT2_BYTE_OFFSET;
+    public static final long SLIDER_AXIS2_BYTE_OFFSET;
+    public static final long NORMAL_AXIS2_BYTE_OFFSET;
+    public static final long LIMITS_MIN_BYTE_OFFSET;
+    public static final long LIMITS_MAX_BYTE_OFFSET;
+    public static final long LIMITS_SPRING_SETTINGS_BYTE_OFFSET;
+    public static final long MAX_FRICTION_FORCE_BYTE_OFFSET;
+    public static final long MOTOR_SETTINGS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -85,26 +85,26 @@ public final class SliderConstraintSettings
         JPH_SLIDER_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SliderConstraintSettings_Init", UNBOUNDED_ADDRESS);
         JPH_SLIDER_CONSTRAINT_SETTINGS_SET_SLIDER_AXIS = downcallHandleVoid("JPH_SliderConstraintSettings_SetSliderAxis", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        AUTO_DETECT_POINT = LAYOUT.varHandle(PathElement.groupElement("autoDetectPoint"));
-        LIMITS_MIN = LAYOUT.varHandle(PathElement.groupElement("limitsMin"));
-        LIMITS_MAX = LAYOUT.varHandle(PathElement.groupElement("limitsMax"));
-        MAX_FRICTION_FORCE = LAYOUT.varHandle(PathElement.groupElement("maxFrictionForce"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        AUTO_DETECT_POINT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("autoDetectPoint"));
+        LIMITS_MIN_HANDLE = LAYOUT.varHandle(PathElement.groupElement("limitsMin"));
+        LIMITS_MAX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("limitsMax"));
+        MAX_FRICTION_FORCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxFrictionForce"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        AUTO_DETECT_POINT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("autoDetectPoint"));
-        POINT1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
-        SLIDER_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("sliderAxis1"));
-        NORMAL_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis1"));
-        POINT2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
-        SLIDER_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("sliderAxis2"));
-        NORMAL_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis2"));
-        LIMITS_MIN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMin"));
-        LIMITS_MAX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMax"));
-        LIMITS_SPRING_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
-        MAX_FRICTION_FORCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFrictionForce"));
-        MOTOR_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("motorSettings"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        AUTO_DETECT_POINT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("autoDetectPoint"));
+        POINT1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
+        SLIDER_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("sliderAxis1"));
+        NORMAL_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis1"));
+        POINT2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
+        SLIDER_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("sliderAxis2"));
+        NORMAL_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis2"));
+        LIMITS_MIN_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMin"));
+        LIMITS_MAX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMax"));
+        LIMITS_SPRING_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
+        MAX_FRICTION_FORCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFrictionForce"));
+        MOTOR_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("motorSettings"));
         //@formatter:on
     }
 
@@ -119,15 +119,15 @@ public final class SliderConstraintSettings
     public SliderConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        point1 = new Vec3(segment.asSlice(POINT1_OFFSET, Vec3.LAYOUT));
-        sliderAxis1 = new Vec3(segment.asSlice(SLIDER_AXIS1_OFFSET, Vec3.LAYOUT));
-        normalAxis1 = new Vec3(segment.asSlice(NORMAL_AXIS1_OFFSET, Vec3.LAYOUT));
-        point2 = new Vec3(segment.asSlice(POINT2_OFFSET, Vec3.LAYOUT));
-        sliderAxis2 = new Vec3(segment.asSlice(SLIDER_AXIS2_OFFSET, Vec3.LAYOUT));
-        normalAxis2 = new Vec3(segment.asSlice(NORMAL_AXIS2_OFFSET, Vec3.LAYOUT));
-        limitsSpringSettings = new SpringSettings(segment.asSlice(LIMITS_SPRING_SETTINGS_OFFSET, SpringSettings.LAYOUT));
-        motorSettings = new MotorSettings(segment.asSlice(MOTOR_SETTINGS_OFFSET, MotorSettings.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        point1 = new Vec3(segment.asSlice(POINT1_BYTE_OFFSET, Vec3.LAYOUT));
+        sliderAxis1 = new Vec3(segment.asSlice(SLIDER_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        normalAxis1 = new Vec3(segment.asSlice(NORMAL_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        point2 = new Vec3(segment.asSlice(POINT2_BYTE_OFFSET, Vec3.LAYOUT));
+        sliderAxis2 = new Vec3(segment.asSlice(SLIDER_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
+        normalAxis2 = new Vec3(segment.asSlice(NORMAL_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
+        limitsSpringSettings = new SpringSettings(segment.asSlice(LIMITS_SPRING_SETTINGS_BYTE_OFFSET, SpringSettings.LAYOUT));
+        motorSettings = new MotorSettings(segment.asSlice(MOTOR_SETTINGS_BYTE_OFFSET, MotorSettings.LAYOUT));
     
         init();
     }
@@ -183,48 +183,48 @@ public final class SliderConstraintSettings
     }
     
     public SliderConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public SliderConstraintSettings autoDetectPoint(boolean autoDetectPoint) {
-        AUTO_DETECT_POINT.set(segment, 0L, autoDetectPoint);
+        AUTO_DETECT_POINT_HANDLE.set(segment, 0L, autoDetectPoint);
         return this;
     }
     
     public boolean autoDetectPoint() {
-        return (boolean) AUTO_DETECT_POINT.get(segment, 0L);
+        return (boolean) AUTO_DETECT_POINT_HANDLE.get(segment, 0L);
     }
     
     public SliderConstraintSettings limitsMin(float limitsMin) {
-        LIMITS_MIN.set(segment, 0L, limitsMin);
+        LIMITS_MIN_HANDLE.set(segment, 0L, limitsMin);
         return this;
     }
     
     public float limitsMin() {
-        return (float) LIMITS_MIN.get(segment, 0L);
+        return (float) LIMITS_MIN_HANDLE.get(segment, 0L);
     }
     
     public SliderConstraintSettings limitsMax(float limitsMax) {
-        LIMITS_MAX.set(segment, 0L, limitsMax);
+        LIMITS_MAX_HANDLE.set(segment, 0L, limitsMax);
         return this;
     }
     
     public float limitsMax() {
-        return (float) LIMITS_MAX.get(segment, 0L);
+        return (float) LIMITS_MAX_HANDLE.get(segment, 0L);
     }
     
     public SliderConstraintSettings maxFrictionForce(float maxFrictionForce) {
-        MAX_FRICTION_FORCE.set(segment, 0L, maxFrictionForce);
+        MAX_FRICTION_FORCE_HANDLE.set(segment, 0L, maxFrictionForce);
         return this;
     }
     
     public float maxFrictionForce() {
-        return (float) MAX_FRICTION_FORCE.get(segment, 0L);
+        return (float) MAX_FRICTION_FORCE_HANDLE.get(segment, 0L);
     }
     
     public SliderConstraintSettings base(Consumer<ConstraintSettings> consumer) {

@@ -25,19 +25,19 @@ public final class VehicleDifferentialSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle LEFT_WHEEL;
-    public static final VarHandle RIGHT_WHEEL;
-    public static final VarHandle DIFFERENTIAL_RATIO;
-    public static final VarHandle LEFT_RIGHT_SPLIT;
-    public static final VarHandle LIMITED_SLIP_RATIO;
-    public static final VarHandle ENGINE_TORQUE_RATIO;
+    public static final VarHandle LEFT_WHEEL_HANDLE;
+    public static final VarHandle RIGHT_WHEEL_HANDLE;
+    public static final VarHandle DIFFERENTIAL_RATIO_HANDLE;
+    public static final VarHandle LEFT_RIGHT_SPLIT_HANDLE;
+    public static final VarHandle LIMITED_SLIP_RATIO_HANDLE;
+    public static final VarHandle ENGINE_TORQUE_RATIO_HANDLE;
 
-    public static final long LEFT_WHEEL_OFFSET;
-    public static final long RIGHT_WHEEL_OFFSET;
-    public static final long DIFFERENTIAL_RATIO_OFFSET;
-    public static final long LEFT_RIGHT_SPLIT_OFFSET;
-    public static final long LIMITED_SLIP_RATIO_OFFSET;
-    public static final long ENGINE_TORQUE_RATIO_OFFSET;
+    public static final long LEFT_WHEEL_BYTE_OFFSET;
+    public static final long RIGHT_WHEEL_BYTE_OFFSET;
+    public static final long DIFFERENTIAL_RATIO_BYTE_OFFSET;
+    public static final long LEFT_RIGHT_SPLIT_BYTE_OFFSET;
+    public static final long LIMITED_SLIP_RATIO_BYTE_OFFSET;
+    public static final long ENGINE_TORQUE_RATIO_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -54,19 +54,19 @@ public final class VehicleDifferentialSettings
         
         JPH_VEHICLE_DIFFERENTIAL_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleDifferentialSettings_Init", UNBOUNDED_ADDRESS);
         
-        LEFT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("leftWheel"));
-        RIGHT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("rightWheel"));
-        DIFFERENTIAL_RATIO = LAYOUT.varHandle(PathElement.groupElement("differentialRatio"));
-        LEFT_RIGHT_SPLIT = LAYOUT.varHandle(PathElement.groupElement("leftRightSplit"));
-        LIMITED_SLIP_RATIO = LAYOUT.varHandle(PathElement.groupElement("limitedSlipRatio"));
-        ENGINE_TORQUE_RATIO = LAYOUT.varHandle(PathElement.groupElement("engineTorqueRatio"));
+        LEFT_WHEEL_HANDLE = LAYOUT.varHandle(PathElement.groupElement("leftWheel"));
+        RIGHT_WHEEL_HANDLE = LAYOUT.varHandle(PathElement.groupElement("rightWheel"));
+        DIFFERENTIAL_RATIO_HANDLE = LAYOUT.varHandle(PathElement.groupElement("differentialRatio"));
+        LEFT_RIGHT_SPLIT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("leftRightSplit"));
+        LIMITED_SLIP_RATIO_HANDLE = LAYOUT.varHandle(PathElement.groupElement("limitedSlipRatio"));
+        ENGINE_TORQUE_RATIO_HANDLE = LAYOUT.varHandle(PathElement.groupElement("engineTorqueRatio"));
         
-        LEFT_WHEEL_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("leftWheel"));
-        RIGHT_WHEEL_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("rightWheel"));
-        DIFFERENTIAL_RATIO_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("differentialRatio"));
-        LEFT_RIGHT_SPLIT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("leftRightSplit"));
-        LIMITED_SLIP_RATIO_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitedSlipRatio"));
-        ENGINE_TORQUE_RATIO_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("engineTorqueRatio"));
+        LEFT_WHEEL_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("leftWheel"));
+        RIGHT_WHEEL_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("rightWheel"));
+        DIFFERENTIAL_RATIO_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("differentialRatio"));
+        LEFT_RIGHT_SPLIT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("leftRightSplit"));
+        LIMITED_SLIP_RATIO_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitedSlipRatio"));
+        ENGINE_TORQUE_RATIO_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("engineTorqueRatio"));
         //@formatter:on
     }
 
@@ -109,57 +109,57 @@ public final class VehicleDifferentialSettings
     }
     
     public VehicleDifferentialSettings leftWheel(int leftWheel) {
-        LEFT_WHEEL.set(segment, 0L, leftWheel);
+        LEFT_WHEEL_HANDLE.set(segment, 0L, leftWheel);
         return this;
     }
     
     public int leftWheel() {
-        return (int) LEFT_WHEEL.get(segment, 0L);
+        return (int) LEFT_WHEEL_HANDLE.get(segment, 0L);
     }
     
     public VehicleDifferentialSettings rightWheel(int rightWheel) {
-        RIGHT_WHEEL.set(segment, 0L, rightWheel);
+        RIGHT_WHEEL_HANDLE.set(segment, 0L, rightWheel);
         return this;
     }
     
     public int rightWheel() {
-        return (int) RIGHT_WHEEL.get(segment, 0L);
+        return (int) RIGHT_WHEEL_HANDLE.get(segment, 0L);
     }
     
     public VehicleDifferentialSettings differentialRatio(float differentialRatio) {
-        DIFFERENTIAL_RATIO.set(segment, 0L, differentialRatio);
+        DIFFERENTIAL_RATIO_HANDLE.set(segment, 0L, differentialRatio);
         return this;
     }
     
     public float differentialRatio() {
-        return (float) DIFFERENTIAL_RATIO.get(segment, 0L);
+        return (float) DIFFERENTIAL_RATIO_HANDLE.get(segment, 0L);
     }
     
     public VehicleDifferentialSettings leftRightSplit(float leftRightSplit) {
-        LEFT_RIGHT_SPLIT.set(segment, 0L, leftRightSplit);
+        LEFT_RIGHT_SPLIT_HANDLE.set(segment, 0L, leftRightSplit);
         return this;
     }
     
     public float leftRightSplit() {
-        return (float) LEFT_RIGHT_SPLIT.get(segment, 0L);
+        return (float) LEFT_RIGHT_SPLIT_HANDLE.get(segment, 0L);
     }
     
     public VehicleDifferentialSettings limitedSlipRatio(float limitedSlipRatio) {
-        LIMITED_SLIP_RATIO.set(segment, 0L, limitedSlipRatio);
+        LIMITED_SLIP_RATIO_HANDLE.set(segment, 0L, limitedSlipRatio);
         return this;
     }
     
     public float limitedSlipRatio() {
-        return (float) LIMITED_SLIP_RATIO.get(segment, 0L);
+        return (float) LIMITED_SLIP_RATIO_HANDLE.get(segment, 0L);
     }
     
     public VehicleDifferentialSettings engineTorqueRatio(float engineTorqueRatio) {
-        ENGINE_TORQUE_RATIO.set(segment, 0L, engineTorqueRatio);
+        ENGINE_TORQUE_RATIO_HANDLE.set(segment, 0L, engineTorqueRatio);
         return this;
     }
     
     public float engineTorqueRatio() {
-        return (float) ENGINE_TORQUE_RATIO.get(segment, 0L);
+        return (float) ENGINE_TORQUE_RATIO_HANDLE.get(segment, 0L);
     }
     
     @Override

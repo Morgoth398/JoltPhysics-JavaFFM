@@ -31,22 +31,22 @@ public final class VehicleConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MAX_PITCH_ROLL_ANGLE;
-    public static final VarHandle WHEELS_COUNT;
-    public static final VarHandle WHEELS;
-    public static final VarHandle ANTI_ROLL_BARS_COUNT;
-    public static final VarHandle ANTI_ROLL_BARS;
-    public static final VarHandle CONTROLLER;
+    public static final VarHandle MAX_PITCH_ROLL_ANGLE_HANDLE;
+    public static final VarHandle WHEELS_COUNT_HANDLE;
+    public static final VarHandle WHEELS_HANDLE;
+    public static final VarHandle ANTI_ROLL_BARS_COUNT_HANDLE;
+    public static final VarHandle ANTI_ROLL_BARS_HANDLE;
+    public static final VarHandle CONTROLLER_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long UP_OFFSET;
-    public static final long FORWARD_OFFSET;
-    public static final long MAX_PITCH_ROLL_ANGLE_OFFSET;
-    public static final long WHEELS_COUNT_OFFSET;
-    public static final long WHEELS_OFFSET;
-    public static final long ANTI_ROLL_BARS_COUNT_OFFSET;
-    public static final long ANTI_ROLL_BARS_OFFSET;
-    public static final long CONTROLLER_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long UP_BYTE_OFFSET;
+    public static final long FORWARD_BYTE_OFFSET;
+    public static final long MAX_PITCH_ROLL_ANGLE_BYTE_OFFSET;
+    public static final long WHEELS_COUNT_BYTE_OFFSET;
+    public static final long WHEELS_BYTE_OFFSET;
+    public static final long ANTI_ROLL_BARS_COUNT_BYTE_OFFSET;
+    public static final long ANTI_ROLL_BARS_BYTE_OFFSET;
+    public static final long CONTROLLER_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -71,22 +71,22 @@ public final class VehicleConstraintSettings
         
         JPH_VEHICLE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        MAX_PITCH_ROLL_ANGLE = LAYOUT.varHandle(PathElement.groupElement("maxPitchRollAngle"));
-        WHEELS_COUNT = LAYOUT.varHandle(PathElement.groupElement("wheelsCount"));
-        WHEELS = LAYOUT.varHandle(PathElement.groupElement("wheels"));
-        ANTI_ROLL_BARS_COUNT = LAYOUT.varHandle(PathElement.groupElement("antiRollBarsCount"));
-        ANTI_ROLL_BARS = LAYOUT.varHandle(PathElement.groupElement("antiRollBars"));
-        CONTROLLER = LAYOUT.varHandle(PathElement.groupElement("controller"));
+        MAX_PITCH_ROLL_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxPitchRollAngle"));
+        WHEELS_COUNT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("wheelsCount"));
+        WHEELS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("wheels"));
+        ANTI_ROLL_BARS_COUNT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("antiRollBarsCount"));
+        ANTI_ROLL_BARS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("antiRollBars"));
+        CONTROLLER_HANDLE = LAYOUT.varHandle(PathElement.groupElement("controller"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        UP_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("up"));
-        FORWARD_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("forward"));
-        MAX_PITCH_ROLL_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxPitchRollAngle"));
-        WHEELS_COUNT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheelsCount"));
-        WHEELS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheels"));
-        ANTI_ROLL_BARS_COUNT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("antiRollBarsCount"));
-        ANTI_ROLL_BARS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("antiRollBars"));
-        CONTROLLER_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("controller"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        UP_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("up"));
+        FORWARD_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("forward"));
+        MAX_PITCH_ROLL_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxPitchRollAngle"));
+        WHEELS_COUNT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheelsCount"));
+        WHEELS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheels"));
+        ANTI_ROLL_BARS_COUNT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("antiRollBarsCount"));
+        ANTI_ROLL_BARS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("antiRollBars"));
+        CONTROLLER_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("controller"));
         //@formatter:on
     }
 
@@ -101,9 +101,9 @@ public final class VehicleConstraintSettings
     public VehicleConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        up = new Vec3(segment.asSlice(UP_OFFSET, Vec3.LAYOUT));
-        forward = new Vec3(segment.asSlice(FORWARD_OFFSET, Vec3.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        up = new Vec3(segment.asSlice(UP_BYTE_OFFSET, Vec3.LAYOUT));
+        forward = new Vec3(segment.asSlice(FORWARD_BYTE_OFFSET, Vec3.LAYOUT));
     
         init();
     }
@@ -132,30 +132,30 @@ public final class VehicleConstraintSettings
     }
     
     public VehicleConstraintSettings maxPitchRollAngle(float maxPitchRollAngle) {
-        MAX_PITCH_ROLL_ANGLE.set(segment, 0L, maxPitchRollAngle);
+        MAX_PITCH_ROLL_ANGLE_HANDLE.set(segment, 0L, maxPitchRollAngle);
         return this;
     }
     
     public float maxPitchRollAngle() {
-        return (float) MAX_PITCH_ROLL_ANGLE.get(segment, 0L);
+        return (float) MAX_PITCH_ROLL_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public VehicleConstraintSettings wheelsCount(int wheelsCount) {
-        WHEELS_COUNT.set(segment, 0L, wheelsCount);
+        WHEELS_COUNT_HANDLE.set(segment, 0L, wheelsCount);
         return this;
     }
     
     public int wheelsCount() {
-        return (int) WHEELS_COUNT.get(segment, 0L);
+        return (int) WHEELS_COUNT_HANDLE.get(segment, 0L);
     }
     
     public VehicleConstraintSettings wheels(NativePointerArray wheels) {
-        WHEELS.set(segment, 0L, wheels.memorySegment());
+        WHEELS_HANDLE.set(segment, 0L, wheels.memorySegment());
         return this;
     }
     
     public @Nullable NativePointerArray wheels() {
-        MemorySegment segment = (MemorySegment) WHEELS.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) WHEELS_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -164,21 +164,21 @@ public final class VehicleConstraintSettings
     }
     
     public VehicleConstraintSettings antiRollBarsCount(int antiRollBarsCount) {
-        ANTI_ROLL_BARS_COUNT.set(segment, 0L, antiRollBarsCount);
+        ANTI_ROLL_BARS_COUNT_HANDLE.set(segment, 0L, antiRollBarsCount);
         return this;
     }
     
     public int antiRollBarsCount() {
-        return (int) ANTI_ROLL_BARS_COUNT.get(segment, 0L);
+        return (int) ANTI_ROLL_BARS_COUNT_HANDLE.get(segment, 0L);
     }
     
     public VehicleConstraintSettings antiRollBars(VehicleAntiRollBar antiRollBars) {
-        ANTI_ROLL_BARS.set(segment, 0L, antiRollBars.memorySegment());
+        ANTI_ROLL_BARS_HANDLE.set(segment, 0L, antiRollBars.memorySegment());
         return this;
     }
     
     public @Nullable VehicleAntiRollBar antiRollBars() {
-        MemorySegment segment = (MemorySegment) ANTI_ROLL_BARS.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) ANTI_ROLL_BARS_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -187,12 +187,12 @@ public final class VehicleConstraintSettings
     }
     
     public VehicleConstraintSettings controller(VehicleControllerSettings controller) {
-        CONTROLLER.set(segment, 0L, controller.memorySegment());
+        CONTROLLER_HANDLE.set(segment, 0L, controller.memorySegment());
         return this;
     }
     
     public @Nullable VehicleControllerSettings controller() {
-        MemorySegment segment = (MemorySegment) CONTROLLER.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) CONTROLLER_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;

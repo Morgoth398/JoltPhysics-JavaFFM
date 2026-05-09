@@ -24,16 +24,16 @@ public final class ExtendedUpdateSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle WALK_STAIRS_MIN_STEP_FORWARD;
-    public static final VarHandle WALK_STAIRS_STEP_FORWARD_TEST;
-    public static final VarHandle WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT;
+    public static final VarHandle WALK_STAIRS_MIN_STEP_FORWARD_HANDLE;
+    public static final VarHandle WALK_STAIRS_STEP_FORWARD_TEST_HANDLE;
+    public static final VarHandle WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE;
 
-    public static final long STICK_TO_FLOOR_STEP_DOWN_OFFSET;
-    public static final long WALK_STAIRS_STEP_UP_OFFSET;
-    public static final long WALK_STAIRS_MIN_STEP_FORWARD_OFFSET;
-    public static final long WALK_STAIRS_STEP_FORWARD_TEST_OFFSET;
-    public static final long WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_OFFSET;
-    public static final long WALK_STAIRS_STEP_DOWN_EXTRA_OFFSET;
+    public static final long STICK_TO_FLOOR_STEP_DOWN_BYTE_OFFSET;
+    public static final long WALK_STAIRS_STEP_UP_BYTE_OFFSET;
+    public static final long WALK_STAIRS_MIN_STEP_FORWARD_BYTE_OFFSET;
+    public static final long WALK_STAIRS_STEP_FORWARD_TEST_BYTE_OFFSET;
+    public static final long WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_BYTE_OFFSET;
+    public static final long WALK_STAIRS_STEP_DOWN_EXTRA_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -52,16 +52,16 @@ public final class ExtendedUpdateSettings
             Vec3.LAYOUT.withName("walkStairsStepDownExtra")
         ).withName("JPH_ExtendedUpdateSettings").withByteAlignment(4);
         
-        WALK_STAIRS_MIN_STEP_FORWARD = LAYOUT.varHandle(PathElement.groupElement("walkStairsMinStepForward"));
-        WALK_STAIRS_STEP_FORWARD_TEST = LAYOUT.varHandle(PathElement.groupElement("walkStairsStepForwardTest"));
-        WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT = LAYOUT.varHandle(PathElement.groupElement("walkStairsCosAngleForwardContact"));
+        WALK_STAIRS_MIN_STEP_FORWARD_HANDLE = LAYOUT.varHandle(PathElement.groupElement("walkStairsMinStepForward"));
+        WALK_STAIRS_STEP_FORWARD_TEST_HANDLE = LAYOUT.varHandle(PathElement.groupElement("walkStairsStepForwardTest"));
+        WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("walkStairsCosAngleForwardContact"));
         
-        STICK_TO_FLOOR_STEP_DOWN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("stickToFloorStepDown"));
-        WALK_STAIRS_STEP_UP_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsStepUp"));
-        WALK_STAIRS_MIN_STEP_FORWARD_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsMinStepForward"));
-        WALK_STAIRS_STEP_FORWARD_TEST_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsStepForwardTest"));
-        WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsCosAngleForwardContact"));
-        WALK_STAIRS_STEP_DOWN_EXTRA_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsStepDownExtra"));
+        STICK_TO_FLOOR_STEP_DOWN_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("stickToFloorStepDown"));
+        WALK_STAIRS_STEP_UP_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsStepUp"));
+        WALK_STAIRS_MIN_STEP_FORWARD_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsMinStepForward"));
+        WALK_STAIRS_STEP_FORWARD_TEST_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsStepForwardTest"));
+        WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsCosAngleForwardContact"));
+        WALK_STAIRS_STEP_DOWN_EXTRA_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("walkStairsStepDownExtra"));
         //@formatter:on
     }
 
@@ -76,36 +76,36 @@ public final class ExtendedUpdateSettings
     public ExtendedUpdateSettings(MemorySegment segment) {
         this.segment = segment;
     
-        stickToFloorStepDown = new Vec3(segment.asSlice(STICK_TO_FLOOR_STEP_DOWN_OFFSET, Vec3.LAYOUT));
-        walkStairsStepUp = new Vec3(segment.asSlice(WALK_STAIRS_STEP_UP_OFFSET, Vec3.LAYOUT));
-        walkStairsStepDownExtra = new Vec3(segment.asSlice(WALK_STAIRS_STEP_DOWN_EXTRA_OFFSET, Vec3.LAYOUT));
+        stickToFloorStepDown = new Vec3(segment.asSlice(STICK_TO_FLOOR_STEP_DOWN_BYTE_OFFSET, Vec3.LAYOUT));
+        walkStairsStepUp = new Vec3(segment.asSlice(WALK_STAIRS_STEP_UP_BYTE_OFFSET, Vec3.LAYOUT));
+        walkStairsStepDownExtra = new Vec3(segment.asSlice(WALK_STAIRS_STEP_DOWN_EXTRA_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public ExtendedUpdateSettings walkStairsMinStepForward(float walkStairsMinStepForward) {
-        WALK_STAIRS_MIN_STEP_FORWARD.set(segment, 0L, walkStairsMinStepForward);
+        WALK_STAIRS_MIN_STEP_FORWARD_HANDLE.set(segment, 0L, walkStairsMinStepForward);
         return this;
     }
     
     public float walkStairsMinStepForward() {
-        return (float) WALK_STAIRS_MIN_STEP_FORWARD.get(segment, 0L);
+        return (float) WALK_STAIRS_MIN_STEP_FORWARD_HANDLE.get(segment, 0L);
     }
     
     public ExtendedUpdateSettings walkStairsStepForwardTest(float walkStairsStepForwardTest) {
-        WALK_STAIRS_STEP_FORWARD_TEST.set(segment, 0L, walkStairsStepForwardTest);
+        WALK_STAIRS_STEP_FORWARD_TEST_HANDLE.set(segment, 0L, walkStairsStepForwardTest);
         return this;
     }
     
     public float walkStairsStepForwardTest() {
-        return (float) WALK_STAIRS_STEP_FORWARD_TEST.get(segment, 0L);
+        return (float) WALK_STAIRS_STEP_FORWARD_TEST_HANDLE.get(segment, 0L);
     }
     
     public ExtendedUpdateSettings walkStairsCosAngleForwardContact(float walkStairsCosAngleForwardContact) {
-        WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT.set(segment, 0L, walkStairsCosAngleForwardContact);
+        WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE.set(segment, 0L, walkStairsCosAngleForwardContact);
         return this;
     }
     
     public float walkStairsCosAngleForwardContact() {
-        return (float) WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT.get(segment, 0L);
+        return (float) WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE.get(segment, 0L);
     }
     
     public ExtendedUpdateSettings stickToFloorStepDown(Consumer<Vec3> consumer) {

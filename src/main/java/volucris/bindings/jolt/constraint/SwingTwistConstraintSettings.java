@@ -27,30 +27,30 @@ public final class SwingTwistConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle SWING_TYPE;
-    public static final VarHandle NORMAL_HALF_CONE_ANGLE;
-    public static final VarHandle PLANE_HALF_CONE_ANGLE;
-    public static final VarHandle TWIST_MIN_ANGLE;
-    public static final VarHandle TWIST_MAX_ANGLE;
-    public static final VarHandle MAX_FRICTION_TORQUE;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle SWING_TYPE_HANDLE;
+    public static final VarHandle NORMAL_HALF_CONE_ANGLE_HANDLE;
+    public static final VarHandle PLANE_HALF_CONE_ANGLE_HANDLE;
+    public static final VarHandle TWIST_MIN_ANGLE_HANDLE;
+    public static final VarHandle TWIST_MAX_ANGLE_HANDLE;
+    public static final VarHandle MAX_FRICTION_TORQUE_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long POSITION1_OFFSET;
-    public static final long TWIST_AXIS1_OFFSET;
-    public static final long PLANE_AXIS1_OFFSET;
-    public static final long POSITION2_OFFSET;
-    public static final long TWIST_AXIS2_OFFSET;
-    public static final long PLANE_AXIS2_OFFSET;
-    public static final long SWING_TYPE_OFFSET;
-    public static final long NORMAL_HALF_CONE_ANGLE_OFFSET;
-    public static final long PLANE_HALF_CONE_ANGLE_OFFSET;
-    public static final long TWIST_MIN_ANGLE_OFFSET;
-    public static final long TWIST_MAX_ANGLE_OFFSET;
-    public static final long MAX_FRICTION_TORQUE_OFFSET;
-    public static final long SWING_MOTOR_SETTINGS_OFFSET;
-    public static final long TWIST_MOTOR_SETTINGS_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long POSITION1_BYTE_OFFSET;
+    public static final long TWIST_AXIS1_BYTE_OFFSET;
+    public static final long PLANE_AXIS1_BYTE_OFFSET;
+    public static final long POSITION2_BYTE_OFFSET;
+    public static final long TWIST_AXIS2_BYTE_OFFSET;
+    public static final long PLANE_AXIS2_BYTE_OFFSET;
+    public static final long SWING_TYPE_BYTE_OFFSET;
+    public static final long NORMAL_HALF_CONE_ANGLE_BYTE_OFFSET;
+    public static final long PLANE_HALF_CONE_ANGLE_BYTE_OFFSET;
+    public static final long TWIST_MIN_ANGLE_BYTE_OFFSET;
+    public static final long TWIST_MAX_ANGLE_BYTE_OFFSET;
+    public static final long MAX_FRICTION_TORQUE_BYTE_OFFSET;
+    public static final long SWING_MOTOR_SETTINGS_BYTE_OFFSET;
+    public static final long TWIST_MOTOR_SETTINGS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -88,30 +88,30 @@ public final class SwingTwistConstraintSettings
         
         JPH_SWING_TWIST_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_SwingTwistConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        SWING_TYPE = LAYOUT.varHandle(PathElement.groupElement("swingType"));
-        NORMAL_HALF_CONE_ANGLE = LAYOUT.varHandle(PathElement.groupElement("normalHalfConeAngle"));
-        PLANE_HALF_CONE_ANGLE = LAYOUT.varHandle(PathElement.groupElement("planeHalfConeAngle"));
-        TWIST_MIN_ANGLE = LAYOUT.varHandle(PathElement.groupElement("twistMinAngle"));
-        TWIST_MAX_ANGLE = LAYOUT.varHandle(PathElement.groupElement("twistMaxAngle"));
-        MAX_FRICTION_TORQUE = LAYOUT.varHandle(PathElement.groupElement("maxFrictionTorque"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        SWING_TYPE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("swingType"));
+        NORMAL_HALF_CONE_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("normalHalfConeAngle"));
+        PLANE_HALF_CONE_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("planeHalfConeAngle"));
+        TWIST_MIN_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("twistMinAngle"));
+        TWIST_MAX_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("twistMaxAngle"));
+        MAX_FRICTION_TORQUE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxFrictionTorque"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        POSITION1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position1"));
-        TWIST_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis1"));
-        PLANE_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("planeAxis1"));
-        POSITION2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position2"));
-        TWIST_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis2"));
-        PLANE_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("planeAxis2"));
-        SWING_TYPE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("swingType"));
-        NORMAL_HALF_CONE_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalHalfConeAngle"));
-        PLANE_HALF_CONE_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("planeHalfConeAngle"));
-        TWIST_MIN_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistMinAngle"));
-        TWIST_MAX_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistMaxAngle"));
-        MAX_FRICTION_TORQUE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFrictionTorque"));
-        SWING_MOTOR_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("swingMotorSettings"));
-        TWIST_MOTOR_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistMotorSettings"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        POSITION1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position1"));
+        TWIST_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis1"));
+        PLANE_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("planeAxis1"));
+        POSITION2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position2"));
+        TWIST_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis2"));
+        PLANE_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("planeAxis2"));
+        SWING_TYPE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("swingType"));
+        NORMAL_HALF_CONE_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalHalfConeAngle"));
+        PLANE_HALF_CONE_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("planeHalfConeAngle"));
+        TWIST_MIN_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistMinAngle"));
+        TWIST_MAX_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistMaxAngle"));
+        MAX_FRICTION_TORQUE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFrictionTorque"));
+        SWING_MOTOR_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("swingMotorSettings"));
+        TWIST_MOTOR_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistMotorSettings"));
         //@formatter:on
     }
 
@@ -126,15 +126,15 @@ public final class SwingTwistConstraintSettings
     public SwingTwistConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        position1 = new Vec3(segment.asSlice(POSITION1_OFFSET, Vec3.LAYOUT));
-        twistAxis1 = new Vec3(segment.asSlice(TWIST_AXIS1_OFFSET, Vec3.LAYOUT));
-        planeAxis1 = new Vec3(segment.asSlice(PLANE_AXIS1_OFFSET, Vec3.LAYOUT));
-        position2 = new Vec3(segment.asSlice(POSITION2_OFFSET, Vec3.LAYOUT));
-        twistAxis2 = new Vec3(segment.asSlice(TWIST_AXIS2_OFFSET, Vec3.LAYOUT));
-        planeAxis2 = new Vec3(segment.asSlice(PLANE_AXIS2_OFFSET, Vec3.LAYOUT));
-        swingMotorSettings = new MotorSettings(segment.asSlice(SWING_MOTOR_SETTINGS_OFFSET, MotorSettings.LAYOUT));
-        twistMotorSettings = new MotorSettings(segment.asSlice(TWIST_MOTOR_SETTINGS_OFFSET, MotorSettings.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        position1 = new Vec3(segment.asSlice(POSITION1_BYTE_OFFSET, Vec3.LAYOUT));
+        twistAxis1 = new Vec3(segment.asSlice(TWIST_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        planeAxis1 = new Vec3(segment.asSlice(PLANE_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        position2 = new Vec3(segment.asSlice(POSITION2_BYTE_OFFSET, Vec3.LAYOUT));
+        twistAxis2 = new Vec3(segment.asSlice(TWIST_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
+        planeAxis2 = new Vec3(segment.asSlice(PLANE_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
+        swingMotorSettings = new MotorSettings(segment.asSlice(SWING_MOTOR_SETTINGS_BYTE_OFFSET, MotorSettings.LAYOUT));
+        twistMotorSettings = new MotorSettings(segment.asSlice(TWIST_MOTOR_SETTINGS_BYTE_OFFSET, MotorSettings.LAYOUT));
     
         init();
     }
@@ -163,66 +163,66 @@ public final class SwingTwistConstraintSettings
     }
     
     public SwingTwistConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public SwingTwistConstraintSettings swingType(int swingType) {
-        SWING_TYPE.set(segment, 0L, swingType);
+        SWING_TYPE_HANDLE.set(segment, 0L, swingType);
         return this;
     }
     
     public int swingType() {
-        return (int) SWING_TYPE.get(segment, 0L);
+        return (int) SWING_TYPE_HANDLE.get(segment, 0L);
     }
     
     public SwingTwistConstraintSettings normalHalfConeAngle(float normalHalfConeAngle) {
-        NORMAL_HALF_CONE_ANGLE.set(segment, 0L, normalHalfConeAngle);
+        NORMAL_HALF_CONE_ANGLE_HANDLE.set(segment, 0L, normalHalfConeAngle);
         return this;
     }
     
     public float normalHalfConeAngle() {
-        return (float) NORMAL_HALF_CONE_ANGLE.get(segment, 0L);
+        return (float) NORMAL_HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public SwingTwistConstraintSettings planeHalfConeAngle(float planeHalfConeAngle) {
-        PLANE_HALF_CONE_ANGLE.set(segment, 0L, planeHalfConeAngle);
+        PLANE_HALF_CONE_ANGLE_HANDLE.set(segment, 0L, planeHalfConeAngle);
         return this;
     }
     
     public float planeHalfConeAngle() {
-        return (float) PLANE_HALF_CONE_ANGLE.get(segment, 0L);
+        return (float) PLANE_HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public SwingTwistConstraintSettings twistMinAngle(float twistMinAngle) {
-        TWIST_MIN_ANGLE.set(segment, 0L, twistMinAngle);
+        TWIST_MIN_ANGLE_HANDLE.set(segment, 0L, twistMinAngle);
         return this;
     }
     
     public float twistMinAngle() {
-        return (float) TWIST_MIN_ANGLE.get(segment, 0L);
+        return (float) TWIST_MIN_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public SwingTwistConstraintSettings twistMaxAngle(float twistMaxAngle) {
-        TWIST_MAX_ANGLE.set(segment, 0L, twistMaxAngle);
+        TWIST_MAX_ANGLE_HANDLE.set(segment, 0L, twistMaxAngle);
         return this;
     }
     
     public float twistMaxAngle() {
-        return (float) TWIST_MAX_ANGLE.get(segment, 0L);
+        return (float) TWIST_MAX_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public SwingTwistConstraintSettings maxFrictionTorque(float maxFrictionTorque) {
-        MAX_FRICTION_TORQUE.set(segment, 0L, maxFrictionTorque);
+        MAX_FRICTION_TORQUE_HANDLE.set(segment, 0L, maxFrictionTorque);
         return this;
     }
     
     public float maxFrictionTorque() {
-        return (float) MAX_FRICTION_TORQUE.get(segment, 0L);
+        return (float) MAX_FRICTION_TORQUE_HANDLE.get(segment, 0L);
     }
     
     public SwingTwistConstraintSettings base(Consumer<ConstraintSettings> consumer) {

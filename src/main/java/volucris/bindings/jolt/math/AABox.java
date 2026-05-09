@@ -21,8 +21,8 @@ public final class AABox
 
     public static final StructLayout LAYOUT;
 
-    public static final long MIN_OFFSET;
-    public static final long MAX_OFFSET;
+    public static final long MIN_BYTE_OFFSET;
+    public static final long MAX_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -36,8 +36,8 @@ public final class AABox
             Vec3.LAYOUT.withName("max")
         ).withName("JPH_AABox").withByteAlignment(4);
         
-        MIN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("min"));
-        MAX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("max"));
+        MIN_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("min"));
+        MAX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("max"));
         //@formatter:on
     }
 
@@ -52,8 +52,8 @@ public final class AABox
     public AABox(MemorySegment segment) {
         this.segment = segment;
     
-        min = new Vec3(segment.asSlice(MIN_OFFSET, Vec3.LAYOUT));
-        max = new Vec3(segment.asSlice(MAX_OFFSET, Vec3.LAYOUT));
+        min = new Vec3(segment.asSlice(MIN_BYTE_OFFSET, Vec3.LAYOUT));
+        max = new Vec3(segment.asSlice(MAX_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public AABox min(Consumer<Vec3> consumer) {

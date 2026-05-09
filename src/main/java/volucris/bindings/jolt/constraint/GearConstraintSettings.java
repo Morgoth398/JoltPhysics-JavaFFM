@@ -27,14 +27,14 @@ public final class GearConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle RATIO;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle RATIO_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long HINGE_AXIS1_OFFSET;
-    public static final long HINGE_AXIS2_OFFSET;
-    public static final long RATIO_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long HINGE_AXIS1_BYTE_OFFSET;
+    public static final long HINGE_AXIS2_BYTE_OFFSET;
+    public static final long RATIO_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -54,14 +54,14 @@ public final class GearConstraintSettings
         
         JPH_GEAR_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_GearConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        RATIO = LAYOUT.varHandle(PathElement.groupElement("ratio"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        RATIO_HANDLE = LAYOUT.varHandle(PathElement.groupElement("ratio"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        HINGE_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis1"));
-        HINGE_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis2"));
-        RATIO_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("ratio"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        HINGE_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis1"));
+        HINGE_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis2"));
+        RATIO_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("ratio"));
         //@formatter:on
     }
 
@@ -76,9 +76,9 @@ public final class GearConstraintSettings
     public GearConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        hingeAxis1 = new Vec3(segment.asSlice(HINGE_AXIS1_OFFSET, Vec3.LAYOUT));
-        hingeAxis2 = new Vec3(segment.asSlice(HINGE_AXIS2_OFFSET, Vec3.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        hingeAxis1 = new Vec3(segment.asSlice(HINGE_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        hingeAxis2 = new Vec3(segment.asSlice(HINGE_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
     
         init();
     }
@@ -107,21 +107,21 @@ public final class GearConstraintSettings
     }
     
     public GearConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public GearConstraintSettings ratio(float ratio) {
-        RATIO.set(segment, 0L, ratio);
+        RATIO_HANDLE.set(segment, 0L, ratio);
         return this;
     }
     
     public float ratio() {
-        return (float) RATIO.get(segment, 0L);
+        return (float) RATIO_HANDLE.get(segment, 0L);
     }
     
     public GearConstraintSettings base(Consumer<ConstraintSettings> consumer) {

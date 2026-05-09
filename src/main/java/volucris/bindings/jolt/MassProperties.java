@@ -30,10 +30,10 @@ public final class MassProperties
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MASS;
+    public static final VarHandle MASS_HANDLE;
 
-    public static final long MASS_OFFSET;
-    public static final long INERTIA_OFFSET;
+    public static final long MASS_BYTE_OFFSET;
+    public static final long INERTIA_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -50,10 +50,10 @@ public final class MassProperties
         JPH_MASS_PROPERTIES_SCALE_TO_MASS = downcallHandleVoid("JPH_MassProperties_ScaleToMass", UNBOUNDED_ADDRESS, JAVA_FLOAT);
         JPH_MASS_PROPERTIES_GET_EQUIVALENT_SOLID_BOX_SIZE = downcallHandleVoid("JPH_MassProperties_GetEquivalentSolidBoxSize", JAVA_FLOAT, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         
-        MASS = LAYOUT.varHandle(PathElement.groupElement("mass"));
+        MASS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("mass"));
         
-        MASS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mass"));
-        INERTIA_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("inertia"));
+        MASS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mass"));
+        INERTIA_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("inertia"));
         //@formatter:on
     }
 
@@ -68,7 +68,7 @@ public final class MassProperties
     public MassProperties(MemorySegment segment) {
         this.segment = segment;
     
-        inertia = new Mat4(segment.asSlice(INERTIA_OFFSET, Mat4.LAYOUT));
+        inertia = new Mat4(segment.asSlice(INERTIA_BYTE_OFFSET, Mat4.LAYOUT));
     }
 
     public static void decomposePrincipalMomentsOfInertia(
@@ -162,12 +162,12 @@ public final class MassProperties
     }
     
     public MassProperties mass(float mass) {
-        MASS.set(segment, 0L, mass);
+        MASS_HANDLE.set(segment, 0L, mass);
         return this;
     }
     
     public float mass() {
-        return (float) MASS.get(segment, 0L);
+        return (float) MASS_HANDLE.get(segment, 0L);
     }
     
     public MassProperties inertia(Consumer<Mat4> consumer) {

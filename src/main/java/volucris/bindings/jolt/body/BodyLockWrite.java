@@ -23,13 +23,13 @@ public final class BodyLockWrite
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle LOCK_INTERFACE;
-    public static final VarHandle MUTEX;
-    public static final VarHandle BODY;
+    public static final VarHandle LOCK_INTERFACE_HANDLE;
+    public static final VarHandle MUTEX_HANDLE;
+    public static final VarHandle BODY_HANDLE;
 
-    public static final long LOCK_INTERFACE_OFFSET;
-    public static final long MUTEX_OFFSET;
-    public static final long BODY_OFFSET;
+    public static final long LOCK_INTERFACE_BYTE_OFFSET;
+    public static final long MUTEX_BYTE_OFFSET;
+    public static final long BODY_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -41,13 +41,13 @@ public final class BodyLockWrite
             UNBOUNDED_ADDRESS.withName("body")
         ).withName("JPH_BodyLockWrite").withByteAlignment(8);
         
-        LOCK_INTERFACE = LAYOUT.varHandle(PathElement.groupElement("lockInterface"));
-        MUTEX = LAYOUT.varHandle(PathElement.groupElement("mutex"));
-        BODY = LAYOUT.varHandle(PathElement.groupElement("body"));
+        LOCK_INTERFACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("lockInterface"));
+        MUTEX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("mutex"));
+        BODY_HANDLE = LAYOUT.varHandle(PathElement.groupElement("body"));
         
-        LOCK_INTERFACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("lockInterface"));
-        MUTEX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mutex"));
-        BODY_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("body"));
+        LOCK_INTERFACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("lockInterface"));
+        MUTEX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mutex"));
+        BODY_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("body"));
         //@formatter:on
     }
 
@@ -65,12 +65,12 @@ public final class BodyLockWrite
     }
 
     public BodyLockWrite lockInterface(BodyLockInterface lockInterface) {
-        LOCK_INTERFACE.set(segment, 0L, lockInterface.memorySegment());
+        LOCK_INTERFACE_HANDLE.set(segment, 0L, lockInterface.memorySegment());
         return this;
     }
     
     public @Nullable BodyLockInterface lockInterface() {
-        MemorySegment segment = (MemorySegment) LOCK_INTERFACE.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) LOCK_INTERFACE_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -79,12 +79,12 @@ public final class BodyLockWrite
     }
     
     public BodyLockWrite mutex(SharedMutex mutex) {
-        MUTEX.set(segment, 0L, mutex.memorySegment());
+        MUTEX_HANDLE.set(segment, 0L, mutex.memorySegment());
         return this;
     }
     
     public @Nullable SharedMutex mutex() {
-        MemorySegment segment = (MemorySegment) MUTEX.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) MUTEX_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -93,12 +93,12 @@ public final class BodyLockWrite
     }
     
     public BodyLockWrite body(Body body) {
-        BODY.set(segment, 0L, body.memorySegment());
+        BODY_HANDLE.set(segment, 0L, body.memorySegment());
         return this;
     }
     
     public @Nullable Body body() {
-        MemorySegment segment = (MemorySegment) BODY.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) BODY_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;

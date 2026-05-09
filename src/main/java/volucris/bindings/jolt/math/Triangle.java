@@ -22,12 +22,12 @@ public final class Triangle
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MATERIAL_INDEX;
+    public static final VarHandle MATERIAL_INDEX_HANDLE;
 
-    public static final long V1_OFFSET;
-    public static final long V2_OFFSET;
-    public static final long V3_OFFSET;
-    public static final long MATERIAL_INDEX_OFFSET;
+    public static final long V1_BYTE_OFFSET;
+    public static final long V2_BYTE_OFFSET;
+    public static final long V3_BYTE_OFFSET;
+    public static final long MATERIAL_INDEX_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -44,12 +44,12 @@ public final class Triangle
             JAVA_INT.withName("materialIndex")
         ).withName("JPH_Triangle").withByteAlignment(4);
         
-        MATERIAL_INDEX = LAYOUT.varHandle(PathElement.groupElement("materialIndex"));
+        MATERIAL_INDEX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("materialIndex"));
         
-        V1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("v1"));
-        V2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("v2"));
-        V3_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("v3"));
-        MATERIAL_INDEX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("materialIndex"));
+        V1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("v1"));
+        V2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("v2"));
+        V3_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("v3"));
+        MATERIAL_INDEX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("materialIndex"));
         //@formatter:on
     }
 
@@ -64,18 +64,18 @@ public final class Triangle
     public Triangle(MemorySegment segment) {
         this.segment = segment;
     
-        v1 = new Vec3(segment.asSlice(V1_OFFSET, Vec3.LAYOUT));
-        v2 = new Vec3(segment.asSlice(V2_OFFSET, Vec3.LAYOUT));
-        v3 = new Vec3(segment.asSlice(V3_OFFSET, Vec3.LAYOUT));
+        v1 = new Vec3(segment.asSlice(V1_BYTE_OFFSET, Vec3.LAYOUT));
+        v2 = new Vec3(segment.asSlice(V2_BYTE_OFFSET, Vec3.LAYOUT));
+        v3 = new Vec3(segment.asSlice(V3_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public Triangle materialIndex(int materialIndex) {
-        MATERIAL_INDEX.set(segment, 0L, materialIndex);
+        MATERIAL_INDEX_HANDLE.set(segment, 0L, materialIndex);
         return this;
     }
     
     public int materialIndex() {
-        return (int) MATERIAL_INDEX.get(segment, 0L);
+        return (int) MATERIAL_INDEX_HANDLE.get(segment, 0L);
     }
     
     public Triangle v1(Consumer<Vec3> consumer) {

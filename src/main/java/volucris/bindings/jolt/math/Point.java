@@ -21,11 +21,11 @@ public final class Point
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle X;
-    public static final VarHandle Y;
+    public static final VarHandle X_HANDLE;
+    public static final VarHandle Y_HANDLE;
 
-    public static final long X_OFFSET;
-    public static final long Y_OFFSET;
+    public static final long X_BYTE_OFFSET;
+    public static final long Y_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -36,11 +36,11 @@ public final class Point
             JAVA_FLOAT.withName("y")
         ).withName("JPH_Point").withByteAlignment(4);
         
-        X = LAYOUT.varHandle(PathElement.groupElement("x"));
-        Y = LAYOUT.varHandle(PathElement.groupElement("y"));
+        X_HANDLE = LAYOUT.varHandle(PathElement.groupElement("x"));
+        Y_HANDLE = LAYOUT.varHandle(PathElement.groupElement("y"));
         
-        X_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("x"));
-        Y_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("y"));
+        X_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("x"));
+        Y_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("y"));
         //@formatter:on
     }
 
@@ -58,21 +58,21 @@ public final class Point
     }
 
     public Point x(float x) {
-        X.set(segment, 0L, x);
+        X_HANDLE.set(segment, 0L, x);
         return this;
     }
     
     public float x() {
-        return (float) X.get(segment, 0L);
+        return (float) X_HANDLE.get(segment, 0L);
     }
     
     public Point y(float y) {
-        Y.set(segment, 0L, y);
+        Y_HANDLE.set(segment, 0L, y);
         return this;
     }
     
     public float y() {
-        return (float) Y.get(segment, 0L);
+        return (float) Y_HANDLE.get(segment, 0L);
     }
     
     @Override

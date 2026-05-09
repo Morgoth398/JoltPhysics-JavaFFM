@@ -23,16 +23,16 @@ public final class CollideSettingsBase
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle ACTIVE_EDGE_MODE;
-    public static final VarHandle COLLECT_FACES_MODE;
-    public static final VarHandle COLLISION_TOLERANCE;
-    public static final VarHandle PENETRATION_TOLERANCE;
+    public static final VarHandle ACTIVE_EDGE_MODE_HANDLE;
+    public static final VarHandle COLLECT_FACES_MODE_HANDLE;
+    public static final VarHandle COLLISION_TOLERANCE_HANDLE;
+    public static final VarHandle PENETRATION_TOLERANCE_HANDLE;
 
-    public static final long ACTIVE_EDGE_MODE_OFFSET;
-    public static final long COLLECT_FACES_MODE_OFFSET;
-    public static final long COLLISION_TOLERANCE_OFFSET;
-    public static final long PENETRATION_TOLERANCE_OFFSET;
-    public static final long ACTIVE_EDGE_MOVEMENT_DIRECTION_OFFSET;
+    public static final long ACTIVE_EDGE_MODE_BYTE_OFFSET;
+    public static final long COLLECT_FACES_MODE_BYTE_OFFSET;
+    public static final long COLLISION_TOLERANCE_BYTE_OFFSET;
+    public static final long PENETRATION_TOLERANCE_BYTE_OFFSET;
+    public static final long ACTIVE_EDGE_MOVEMENT_DIRECTION_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -48,16 +48,16 @@ public final class CollideSettingsBase
             Vec3.LAYOUT.withName("activeEdgeMovementDirection")
         ).withName("JPH_CollideSettingsBase").withByteAlignment(4);
         
-        ACTIVE_EDGE_MODE = LAYOUT.varHandle(PathElement.groupElement("activeEdgeMode"));
-        COLLECT_FACES_MODE = LAYOUT.varHandle(PathElement.groupElement("collectFacesMode"));
-        COLLISION_TOLERANCE = LAYOUT.varHandle(PathElement.groupElement("collisionTolerance"));
-        PENETRATION_TOLERANCE = LAYOUT.varHandle(PathElement.groupElement("penetrationTolerance"));
+        ACTIVE_EDGE_MODE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("activeEdgeMode"));
+        COLLECT_FACES_MODE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("collectFacesMode"));
+        COLLISION_TOLERANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("collisionTolerance"));
+        PENETRATION_TOLERANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("penetrationTolerance"));
         
-        ACTIVE_EDGE_MODE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("activeEdgeMode"));
-        COLLECT_FACES_MODE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("collectFacesMode"));
-        COLLISION_TOLERANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("collisionTolerance"));
-        PENETRATION_TOLERANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationTolerance"));
-        ACTIVE_EDGE_MOVEMENT_DIRECTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("activeEdgeMovementDirection"));
+        ACTIVE_EDGE_MODE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("activeEdgeMode"));
+        COLLECT_FACES_MODE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("collectFacesMode"));
+        COLLISION_TOLERANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("collisionTolerance"));
+        PENETRATION_TOLERANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationTolerance"));
+        ACTIVE_EDGE_MOVEMENT_DIRECTION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("activeEdgeMovementDirection"));
         //@formatter:on
     }
 
@@ -72,43 +72,43 @@ public final class CollideSettingsBase
     public CollideSettingsBase(MemorySegment segment) {
         this.segment = segment;
     
-        activeEdgeMovementDirection = new Vec3(segment.asSlice(ACTIVE_EDGE_MOVEMENT_DIRECTION_OFFSET, Vec3.LAYOUT));
+        activeEdgeMovementDirection = new Vec3(segment.asSlice(ACTIVE_EDGE_MOVEMENT_DIRECTION_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public CollideSettingsBase activeEdgeMode(int activeEdgeMode) {
-        ACTIVE_EDGE_MODE.set(segment, 0L, activeEdgeMode);
+        ACTIVE_EDGE_MODE_HANDLE.set(segment, 0L, activeEdgeMode);
         return this;
     }
     
     public int activeEdgeMode() {
-        return (int) ACTIVE_EDGE_MODE.get(segment, 0L);
+        return (int) ACTIVE_EDGE_MODE_HANDLE.get(segment, 0L);
     }
     
     public CollideSettingsBase collectFacesMode(int collectFacesMode) {
-        COLLECT_FACES_MODE.set(segment, 0L, collectFacesMode);
+        COLLECT_FACES_MODE_HANDLE.set(segment, 0L, collectFacesMode);
         return this;
     }
     
     public int collectFacesMode() {
-        return (int) COLLECT_FACES_MODE.get(segment, 0L);
+        return (int) COLLECT_FACES_MODE_HANDLE.get(segment, 0L);
     }
     
     public CollideSettingsBase collisionTolerance(float collisionTolerance) {
-        COLLISION_TOLERANCE.set(segment, 0L, collisionTolerance);
+        COLLISION_TOLERANCE_HANDLE.set(segment, 0L, collisionTolerance);
         return this;
     }
     
     public float collisionTolerance() {
-        return (float) COLLISION_TOLERANCE.get(segment, 0L);
+        return (float) COLLISION_TOLERANCE_HANDLE.get(segment, 0L);
     }
     
     public CollideSettingsBase penetrationTolerance(float penetrationTolerance) {
-        PENETRATION_TOLERANCE.set(segment, 0L, penetrationTolerance);
+        PENETRATION_TOLERANCE_HANDLE.set(segment, 0L, penetrationTolerance);
         return this;
     }
     
     public float penetrationTolerance() {
-        return (float) PENETRATION_TOLERANCE.get(segment, 0L);
+        return (float) PENETRATION_TOLERANCE_HANDLE.get(segment, 0L);
     }
     
     public CollideSettingsBase activeEdgeMovementDirection(Consumer<Vec3> consumer) {

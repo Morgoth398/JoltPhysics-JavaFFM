@@ -27,15 +27,15 @@ public final class CharacterBaseSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MAX_SLOPE_ANGLE;
-    public static final VarHandle ENHANCED_INTERNAL_EDGE_REMOVAL;
-    public static final VarHandle SHAPE;
+    public static final VarHandle MAX_SLOPE_ANGLE_HANDLE;
+    public static final VarHandle ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE;
+    public static final VarHandle SHAPE_HANDLE;
 
-    public static final long UP_OFFSET;
-    public static final long SUPPORTING_VOLUME_OFFSET;
-    public static final long MAX_SLOPE_ANGLE_OFFSET;
-    public static final long ENHANCED_INTERNAL_EDGE_REMOVAL_OFFSET;
-    public static final long SHAPE_OFFSET;
+    public static final long UP_BYTE_OFFSET;
+    public static final long SUPPORTING_VOLUME_BYTE_OFFSET;
+    public static final long MAX_SLOPE_ANGLE_BYTE_OFFSET;
+    public static final long ENHANCED_INTERNAL_EDGE_REMOVAL_BYTE_OFFSET;
+    public static final long SHAPE_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -53,50 +53,50 @@ public final class CharacterBaseSettings
             UNBOUNDED_ADDRESS.withName("shape")
         ).withName("JPH_CharacterBaseSettings").withByteAlignment(8);
         
-        MAX_SLOPE_ANGLE = LAYOUT.varHandle(PathElement.groupElement("maxSlopeAngle"));
-        ENHANCED_INTERNAL_EDGE_REMOVAL = LAYOUT.varHandle(PathElement.groupElement("enhancedInternalEdgeRemoval"));
-        SHAPE = LAYOUT.varHandle(PathElement.groupElement("shape"));
+        MAX_SLOPE_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxSlopeAngle"));
+        ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE = LAYOUT.varHandle(PathElement.groupElement("enhancedInternalEdgeRemoval"));
+        SHAPE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("shape"));
         
-        UP_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("up"));
-        SUPPORTING_VOLUME_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("supportingVolume"));
-        MAX_SLOPE_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxSlopeAngle"));
-        ENHANCED_INTERNAL_EDGE_REMOVAL_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("enhancedInternalEdgeRemoval"));
-        SHAPE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape"));
+        UP_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("up"));
+        SUPPORTING_VOLUME_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("supportingVolume"));
+        MAX_SLOPE_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxSlopeAngle"));
+        ENHANCED_INTERNAL_EDGE_REMOVAL_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("enhancedInternalEdgeRemoval"));
+        SHAPE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape"));
         //@formatter:on
     }
 
     public CharacterBaseSettings(MemorySegment segment) {
         this.segment = segment;
     
-        up = new Vec3(segment.asSlice(UP_OFFSET, Vec3.LAYOUT));
-        supportingVolume = new Plane(segment.asSlice(SUPPORTING_VOLUME_OFFSET, Plane.LAYOUT));
+        up = new Vec3(segment.asSlice(UP_BYTE_OFFSET, Vec3.LAYOUT));
+        supportingVolume = new Plane(segment.asSlice(SUPPORTING_VOLUME_BYTE_OFFSET, Plane.LAYOUT));
     }
 
     public CharacterBaseSettings maxSlopeAngle(float maxSlopeAngle) {
-        MAX_SLOPE_ANGLE.set(segment, 0L, maxSlopeAngle);
+        MAX_SLOPE_ANGLE_HANDLE.set(segment, 0L, maxSlopeAngle);
         return this;
     }
     
     public float maxSlopeAngle() {
-        return (float) MAX_SLOPE_ANGLE.get(segment, 0L);
+        return (float) MAX_SLOPE_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public CharacterBaseSettings enhancedInternalEdgeRemoval(boolean enhancedInternalEdgeRemoval) {
-        ENHANCED_INTERNAL_EDGE_REMOVAL.set(segment, 0L, enhancedInternalEdgeRemoval);
+        ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE.set(segment, 0L, enhancedInternalEdgeRemoval);
         return this;
     }
     
     public boolean enhancedInternalEdgeRemoval() {
-        return (boolean) ENHANCED_INTERNAL_EDGE_REMOVAL.get(segment, 0L);
+        return (boolean) ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE.get(segment, 0L);
     }
     
     public CharacterBaseSettings shape(Shape shape) {
-        SHAPE.set(segment, 0L, shape.memorySegment());
+        SHAPE_HANDLE.set(segment, 0L, shape.memorySegment());
         return this;
     }
     
     public @Nullable Shape shape() {
-        MemorySegment segment = (MemorySegment) SHAPE.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) SHAPE_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;

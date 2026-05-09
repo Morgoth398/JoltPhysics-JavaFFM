@@ -27,21 +27,21 @@ public final class VehicleTrackSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle DRIVEN_WHEEL;
-    public static final VarHandle WHEELS;
-    public static final VarHandle WHEELS_COUNT;
-    public static final VarHandle INERTIA;
-    public static final VarHandle ANGULAR_DAMPING;
-    public static final VarHandle MAX_BRAKE_TORQUE;
-    public static final VarHandle DIFFERENTIAL_RATIO;
+    public static final VarHandle DRIVEN_WHEEL_HANDLE;
+    public static final VarHandle WHEELS_HANDLE;
+    public static final VarHandle WHEELS_COUNT_HANDLE;
+    public static final VarHandle INERTIA_HANDLE;
+    public static final VarHandle ANGULAR_DAMPING_HANDLE;
+    public static final VarHandle MAX_BRAKE_TORQUE_HANDLE;
+    public static final VarHandle DIFFERENTIAL_RATIO_HANDLE;
 
-    public static final long DRIVEN_WHEEL_OFFSET;
-    public static final long WHEELS_OFFSET;
-    public static final long WHEELS_COUNT_OFFSET;
-    public static final long INERTIA_OFFSET;
-    public static final long ANGULAR_DAMPING_OFFSET;
-    public static final long MAX_BRAKE_TORQUE_OFFSET;
-    public static final long DIFFERENTIAL_RATIO_OFFSET;
+    public static final long DRIVEN_WHEEL_BYTE_OFFSET;
+    public static final long WHEELS_BYTE_OFFSET;
+    public static final long WHEELS_COUNT_BYTE_OFFSET;
+    public static final long INERTIA_BYTE_OFFSET;
+    public static final long ANGULAR_DAMPING_BYTE_OFFSET;
+    public static final long MAX_BRAKE_TORQUE_BYTE_OFFSET;
+    public static final long DIFFERENTIAL_RATIO_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -61,21 +61,21 @@ public final class VehicleTrackSettings
         
         JPH_VEHICLE_TRACK_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleTrackSettings_Init", UNBOUNDED_ADDRESS);
         
-        DRIVEN_WHEEL = LAYOUT.varHandle(PathElement.groupElement("drivenWheel"));
-        WHEELS = LAYOUT.varHandle(PathElement.groupElement("wheels"));
-        WHEELS_COUNT = LAYOUT.varHandle(PathElement.groupElement("wheelsCount"));
-        INERTIA = LAYOUT.varHandle(PathElement.groupElement("inertia"));
-        ANGULAR_DAMPING = LAYOUT.varHandle(PathElement.groupElement("angularDamping"));
-        MAX_BRAKE_TORQUE = LAYOUT.varHandle(PathElement.groupElement("maxBrakeTorque"));
-        DIFFERENTIAL_RATIO = LAYOUT.varHandle(PathElement.groupElement("differentialRatio"));
+        DRIVEN_WHEEL_HANDLE = LAYOUT.varHandle(PathElement.groupElement("drivenWheel"));
+        WHEELS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("wheels"));
+        WHEELS_COUNT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("wheelsCount"));
+        INERTIA_HANDLE = LAYOUT.varHandle(PathElement.groupElement("inertia"));
+        ANGULAR_DAMPING_HANDLE = LAYOUT.varHandle(PathElement.groupElement("angularDamping"));
+        MAX_BRAKE_TORQUE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxBrakeTorque"));
+        DIFFERENTIAL_RATIO_HANDLE = LAYOUT.varHandle(PathElement.groupElement("differentialRatio"));
         
-        DRIVEN_WHEEL_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("drivenWheel"));
-        WHEELS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheels"));
-        WHEELS_COUNT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheelsCount"));
-        INERTIA_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("inertia"));
-        ANGULAR_DAMPING_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("angularDamping"));
-        MAX_BRAKE_TORQUE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxBrakeTorque"));
-        DIFFERENTIAL_RATIO_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("differentialRatio"));
+        DRIVEN_WHEEL_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("drivenWheel"));
+        WHEELS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheels"));
+        WHEELS_COUNT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wheelsCount"));
+        INERTIA_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("inertia"));
+        ANGULAR_DAMPING_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("angularDamping"));
+        MAX_BRAKE_TORQUE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxBrakeTorque"));
+        DIFFERENTIAL_RATIO_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("differentialRatio"));
         //@formatter:on
     }
 
@@ -118,21 +118,21 @@ public final class VehicleTrackSettings
     }
     
     public VehicleTrackSettings drivenWheel(int drivenWheel) {
-        DRIVEN_WHEEL.set(segment, 0L, drivenWheel);
+        DRIVEN_WHEEL_HANDLE.set(segment, 0L, drivenWheel);
         return this;
     }
     
     public int drivenWheel() {
-        return (int) DRIVEN_WHEEL.get(segment, 0L);
+        return (int) DRIVEN_WHEEL_HANDLE.get(segment, 0L);
     }
     
     public VehicleTrackSettings wheels(NativeIntArray wheels) {
-        WHEELS.set(segment, 0L, wheels.memorySegment());
+        WHEELS_HANDLE.set(segment, 0L, wheels.memorySegment());
         return this;
     }
     
     public @Nullable NativeIntArray wheels() {
-        MemorySegment segment = (MemorySegment) WHEELS.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) WHEELS_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -141,48 +141,48 @@ public final class VehicleTrackSettings
     }
     
     public VehicleTrackSettings wheelsCount(int wheelsCount) {
-        WHEELS_COUNT.set(segment, 0L, wheelsCount);
+        WHEELS_COUNT_HANDLE.set(segment, 0L, wheelsCount);
         return this;
     }
     
     public int wheelsCount() {
-        return (int) WHEELS_COUNT.get(segment, 0L);
+        return (int) WHEELS_COUNT_HANDLE.get(segment, 0L);
     }
     
     public VehicleTrackSettings inertia(float inertia) {
-        INERTIA.set(segment, 0L, inertia);
+        INERTIA_HANDLE.set(segment, 0L, inertia);
         return this;
     }
     
     public float inertia() {
-        return (float) INERTIA.get(segment, 0L);
+        return (float) INERTIA_HANDLE.get(segment, 0L);
     }
     
     public VehicleTrackSettings angularDamping(float angularDamping) {
-        ANGULAR_DAMPING.set(segment, 0L, angularDamping);
+        ANGULAR_DAMPING_HANDLE.set(segment, 0L, angularDamping);
         return this;
     }
     
     public float angularDamping() {
-        return (float) ANGULAR_DAMPING.get(segment, 0L);
+        return (float) ANGULAR_DAMPING_HANDLE.get(segment, 0L);
     }
     
     public VehicleTrackSettings maxBrakeTorque(float maxBrakeTorque) {
-        MAX_BRAKE_TORQUE.set(segment, 0L, maxBrakeTorque);
+        MAX_BRAKE_TORQUE_HANDLE.set(segment, 0L, maxBrakeTorque);
         return this;
     }
     
     public float maxBrakeTorque() {
-        return (float) MAX_BRAKE_TORQUE.get(segment, 0L);
+        return (float) MAX_BRAKE_TORQUE_HANDLE.get(segment, 0L);
     }
     
     public VehicleTrackSettings differentialRatio(float differentialRatio) {
-        DIFFERENTIAL_RATIO.set(segment, 0L, differentialRatio);
+        DIFFERENTIAL_RATIO_HANDLE.set(segment, 0L, differentialRatio);
         return this;
     }
     
     public float differentialRatio() {
-        return (float) DIFFERENTIAL_RATIO.get(segment, 0L);
+        return (float) DIFFERENTIAL_RATIO_HANDLE.get(segment, 0L);
     }
     
     @Override

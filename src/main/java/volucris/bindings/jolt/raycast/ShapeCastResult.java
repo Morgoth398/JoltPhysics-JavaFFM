@@ -23,22 +23,22 @@ public final class ShapeCastResult
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle PENETRATION_DEPTH;
-    public static final VarHandle SUB_SHAPE_ID1;
-    public static final VarHandle SUB_SHAPE_ID2;
-    public static final VarHandle BODY_ID2;
-    public static final VarHandle FRACTION;
-    public static final VarHandle IS_BACK_FACE_HIT;
+    public static final VarHandle PENETRATION_DEPTH_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID1_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID2_HANDLE;
+    public static final VarHandle BODY_ID2_HANDLE;
+    public static final VarHandle FRACTION_HANDLE;
+    public static final VarHandle IS_BACK_FACE_HIT_HANDLE;
 
-    public static final long CONTACT_POINT_ON1_OFFSET;
-    public static final long CONTACT_POINT_ON2_OFFSET;
-    public static final long PENETRATION_AXIS_OFFSET;
-    public static final long PENETRATION_DEPTH_OFFSET;
-    public static final long SUB_SHAPE_ID1_OFFSET;
-    public static final long SUB_SHAPE_ID2_OFFSET;
-    public static final long BODY_ID2_OFFSET;
-    public static final long FRACTION_OFFSET;
-    public static final long IS_BACK_FACE_HIT_OFFSET;
+    public static final long CONTACT_POINT_ON1_BYTE_OFFSET;
+    public static final long CONTACT_POINT_ON2_BYTE_OFFSET;
+    public static final long PENETRATION_AXIS_BYTE_OFFSET;
+    public static final long PENETRATION_DEPTH_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID1_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID2_BYTE_OFFSET;
+    public static final long BODY_ID2_BYTE_OFFSET;
+    public static final long FRACTION_BYTE_OFFSET;
+    public static final long IS_BACK_FACE_HIT_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -61,22 +61,22 @@ public final class ShapeCastResult
             MemoryLayout.paddingLayout(3)
         ).withName("JPH_ShapeCastResult").withByteAlignment(4);
         
-        PENETRATION_DEPTH = LAYOUT.varHandle(PathElement.groupElement("penetrationDepth"));
-        SUB_SHAPE_ID1 = LAYOUT.varHandle(PathElement.groupElement("subShapeID1"));
-        SUB_SHAPE_ID2 = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
-        BODY_ID2 = LAYOUT.varHandle(PathElement.groupElement("bodyID2"));
-        FRACTION = LAYOUT.varHandle(PathElement.groupElement("fraction"));
-        IS_BACK_FACE_HIT = LAYOUT.varHandle(PathElement.groupElement("isBackFaceHit"));
+        PENETRATION_DEPTH_HANDLE = LAYOUT.varHandle(PathElement.groupElement("penetrationDepth"));
+        SUB_SHAPE_ID1_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID1"));
+        SUB_SHAPE_ID2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
+        BODY_ID2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("bodyID2"));
+        FRACTION_HANDLE = LAYOUT.varHandle(PathElement.groupElement("fraction"));
+        IS_BACK_FACE_HIT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("isBackFaceHit"));
         
-        CONTACT_POINT_ON1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn1"));
-        CONTACT_POINT_ON2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn2"));
-        PENETRATION_AXIS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationAxis"));
-        PENETRATION_DEPTH_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationDepth"));
-        SUB_SHAPE_ID1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID1"));
-        SUB_SHAPE_ID2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
-        BODY_ID2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID2"));
-        FRACTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("fraction"));
-        IS_BACK_FACE_HIT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isBackFaceHit"));
+        CONTACT_POINT_ON1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn1"));
+        CONTACT_POINT_ON2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn2"));
+        PENETRATION_AXIS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationAxis"));
+        PENETRATION_DEPTH_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationDepth"));
+        SUB_SHAPE_ID1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID1"));
+        SUB_SHAPE_ID2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
+        BODY_ID2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID2"));
+        FRACTION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("fraction"));
+        IS_BACK_FACE_HIT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isBackFaceHit"));
         //@formatter:on
     }
 
@@ -91,63 +91,63 @@ public final class ShapeCastResult
     public ShapeCastResult(MemorySegment segment) {
         this.segment = segment;
     
-        contactPointOn1 = new Vec3(segment.asSlice(CONTACT_POINT_ON1_OFFSET, Vec3.LAYOUT));
-        contactPointOn2 = new Vec3(segment.asSlice(CONTACT_POINT_ON2_OFFSET, Vec3.LAYOUT));
-        penetrationAxis = new Vec3(segment.asSlice(PENETRATION_AXIS_OFFSET, Vec3.LAYOUT));
+        contactPointOn1 = new Vec3(segment.asSlice(CONTACT_POINT_ON1_BYTE_OFFSET, Vec3.LAYOUT));
+        contactPointOn2 = new Vec3(segment.asSlice(CONTACT_POINT_ON2_BYTE_OFFSET, Vec3.LAYOUT));
+        penetrationAxis = new Vec3(segment.asSlice(PENETRATION_AXIS_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public ShapeCastResult penetrationDepth(float penetrationDepth) {
-        PENETRATION_DEPTH.set(segment, 0L, penetrationDepth);
+        PENETRATION_DEPTH_HANDLE.set(segment, 0L, penetrationDepth);
         return this;
     }
     
     public float penetrationDepth() {
-        return (float) PENETRATION_DEPTH.get(segment, 0L);
+        return (float) PENETRATION_DEPTH_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastResult subShapeID1(int subShapeID1) {
-        SUB_SHAPE_ID1.set(segment, 0L, subShapeID1);
+        SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
         return this;
     }
     
     public int subShapeID1() {
-        return (int) SUB_SHAPE_ID1.get(segment, 0L);
+        return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2.set(segment, 0L, subShapeID2);
+        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
         return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2.get(segment, 0L);
+        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastResult bodyID2(int bodyID2) {
-        BODY_ID2.set(segment, 0L, bodyID2);
+        BODY_ID2_HANDLE.set(segment, 0L, bodyID2);
         return this;
     }
     
     public int bodyID2() {
-        return (int) BODY_ID2.get(segment, 0L);
+        return (int) BODY_ID2_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastResult fraction(float fraction) {
-        FRACTION.set(segment, 0L, fraction);
+        FRACTION_HANDLE.set(segment, 0L, fraction);
         return this;
     }
     
     public float fraction() {
-        return (float) FRACTION.get(segment, 0L);
+        return (float) FRACTION_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastResult isBackFaceHit(boolean isBackFaceHit) {
-        IS_BACK_FACE_HIT.set(segment, 0L, isBackFaceHit);
+        IS_BACK_FACE_HIT_HANDLE.set(segment, 0L, isBackFaceHit);
         return this;
     }
     
     public boolean isBackFaceHit() {
-        return (boolean) IS_BACK_FACE_HIT.get(segment, 0L);
+        return (boolean) IS_BACK_FACE_HIT_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastResult contactPointOn1(Consumer<Vec3> consumer) {

@@ -27,12 +27,12 @@ public final class CollideShapeSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MAX_SEPARATION_DISTANCE;
-    public static final VarHandle BACK_FACE_MODE;
+    public static final VarHandle MAX_SEPARATION_DISTANCE_HANDLE;
+    public static final VarHandle BACK_FACE_MODE_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long MAX_SEPARATION_DISTANCE_OFFSET;
-    public static final long BACK_FACE_MODE_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long MAX_SEPARATION_DISTANCE_BYTE_OFFSET;
+    public static final long BACK_FACE_MODE_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -48,12 +48,12 @@ public final class CollideShapeSettings
         
         JPH_COLLIDE_SHAPE_SETTINGS_INIT = downcallHandleVoid("JPH_CollideShapeSettings_Init", UNBOUNDED_ADDRESS);
         
-        MAX_SEPARATION_DISTANCE = LAYOUT.varHandle(PathElement.groupElement("maxSeparationDistance"));
-        BACK_FACE_MODE = LAYOUT.varHandle(PathElement.groupElement("backFaceMode"));
+        MAX_SEPARATION_DISTANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxSeparationDistance"));
+        BACK_FACE_MODE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("backFaceMode"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        MAX_SEPARATION_DISTANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxSeparationDistance"));
-        BACK_FACE_MODE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceMode"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        MAX_SEPARATION_DISTANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxSeparationDistance"));
+        BACK_FACE_MODE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceMode"));
         //@formatter:on
     }
 
@@ -68,7 +68,7 @@ public final class CollideShapeSettings
     public CollideShapeSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new CollideSettingsBase(segment.asSlice(BASE_OFFSET, CollideSettingsBase.LAYOUT));
+        base = new CollideSettingsBase(segment.asSlice(BASE_BYTE_OFFSET, CollideSettingsBase.LAYOUT));
     
         init();
     }
@@ -97,21 +97,21 @@ public final class CollideShapeSettings
     }
     
     public CollideShapeSettings maxSeparationDistance(float maxSeparationDistance) {
-        MAX_SEPARATION_DISTANCE.set(segment, 0L, maxSeparationDistance);
+        MAX_SEPARATION_DISTANCE_HANDLE.set(segment, 0L, maxSeparationDistance);
         return this;
     }
     
     public float maxSeparationDistance() {
-        return (float) MAX_SEPARATION_DISTANCE.get(segment, 0L);
+        return (float) MAX_SEPARATION_DISTANCE_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeSettings backFaceMode(int backFaceMode) {
-        BACK_FACE_MODE.set(segment, 0L, backFaceMode);
+        BACK_FACE_MODE_HANDLE.set(segment, 0L, backFaceMode);
         return this;
     }
     
     public int backFaceMode() {
-        return (int) BACK_FACE_MODE.get(segment, 0L);
+        return (int) BACK_FACE_MODE_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeSettings base(Consumer<CollideSettingsBase> consumer) {

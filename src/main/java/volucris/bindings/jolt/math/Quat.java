@@ -48,15 +48,15 @@ public final class Quat
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle X;
-    public static final VarHandle Y;
-    public static final VarHandle Z;
-    public static final VarHandle W;
+    public static final VarHandle X_HANDLE;
+    public static final VarHandle Y_HANDLE;
+    public static final VarHandle Z_HANDLE;
+    public static final VarHandle W_HANDLE;
 
-    public static final long X_OFFSET;
-    public static final long Y_OFFSET;
-    public static final long Z_OFFSET;
-    public static final long W_OFFSET;
+    public static final long X_BYTE_OFFSET;
+    public static final long Y_BYTE_OFFSET;
+    public static final long Z_BYTE_OFFSET;
+    public static final long W_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -93,15 +93,15 @@ public final class Quat
         JPH_QUAT_ROTATE = downcallHandleVoid("JPH_Quat_Rotate", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_QUAT_INVERSE_ROTATE = downcallHandleVoid("JPH_Quat_InverseRotate", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         
-        X = LAYOUT.varHandle(PathElement.groupElement("x"));
-        Y = LAYOUT.varHandle(PathElement.groupElement("y"));
-        Z = LAYOUT.varHandle(PathElement.groupElement("z"));
-        W = LAYOUT.varHandle(PathElement.groupElement("w"));
+        X_HANDLE = LAYOUT.varHandle(PathElement.groupElement("x"));
+        Y_HANDLE = LAYOUT.varHandle(PathElement.groupElement("y"));
+        Z_HANDLE = LAYOUT.varHandle(PathElement.groupElement("z"));
+        W_HANDLE = LAYOUT.varHandle(PathElement.groupElement("w"));
         
-        X_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("x"));
-        Y_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("y"));
-        Z_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("z"));
-        W_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("w"));
+        X_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("x"));
+        Y_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("y"));
+        Z_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("z"));
+        W_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("w"));
         //@formatter:on
     }
 
@@ -827,39 +827,39 @@ public final class Quat
     }
     
     public Quat x(float x) {
-        X.set(segment, 0L, x);
+        X_HANDLE.set(segment, 0L, x);
         return this;
     }
     
     public float x() {
-        return (float) X.get(segment, 0L);
+        return (float) X_HANDLE.get(segment, 0L);
     }
     
     public Quat y(float y) {
-        Y.set(segment, 0L, y);
+        Y_HANDLE.set(segment, 0L, y);
         return this;
     }
     
     public float y() {
-        return (float) Y.get(segment, 0L);
+        return (float) Y_HANDLE.get(segment, 0L);
     }
     
     public Quat z(float z) {
-        Z.set(segment, 0L, z);
+        Z_HANDLE.set(segment, 0L, z);
         return this;
     }
     
     public float z() {
-        return (float) Z.get(segment, 0L);
+        return (float) Z_HANDLE.get(segment, 0L);
     }
     
     public Quat w(float w) {
-        W.set(segment, 0L, w);
+        W_HANDLE.set(segment, 0L, w);
         return this;
     }
     
     public float w() {
-        return (float) W.get(segment, 0L);
+        return (float) W_HANDLE.get(segment, 0L);
     }
     
     @Override

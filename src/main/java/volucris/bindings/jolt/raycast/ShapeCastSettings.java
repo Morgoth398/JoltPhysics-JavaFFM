@@ -26,16 +26,16 @@ public final class ShapeCastSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle BACK_FACE_MODE_TRIANGLES;
-    public static final VarHandle BACK_FACE_MODE_CONVEX;
-    public static final VarHandle USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS;
-    public static final VarHandle RETURN_DEEPEST_POINT;
+    public static final VarHandle BACK_FACE_MODE_TRIANGLES_HANDLE;
+    public static final VarHandle BACK_FACE_MODE_CONVEX_HANDLE;
+    public static final VarHandle USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE;
+    public static final VarHandle RETURN_DEEPEST_POINT_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long BACK_FACE_MODE_TRIANGLES_OFFSET;
-    public static final long BACK_FACE_MODE_CONVEX_OFFSET;
-    public static final long USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_OFFSET;
-    public static final long RETURN_DEEPEST_POINT_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long BACK_FACE_MODE_TRIANGLES_BYTE_OFFSET;
+    public static final long BACK_FACE_MODE_CONVEX_BYTE_OFFSET;
+    public static final long USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_BYTE_OFFSET;
+    public static final long RETURN_DEEPEST_POINT_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -54,16 +54,16 @@ public final class ShapeCastSettings
         
         JPH_SHAPE_CAST_SETTINGS_INIT = downcallHandleVoid("JPH_ShapeCastSettings_Init", UNBOUNDED_ADDRESS);
         
-        BACK_FACE_MODE_TRIANGLES = LAYOUT.varHandle(PathElement.groupElement("backFaceModeTriangles"));
-        BACK_FACE_MODE_CONVEX = LAYOUT.varHandle(PathElement.groupElement("backFaceModeConvex"));
-        USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS = LAYOUT.varHandle(PathElement.groupElement("useShrunkenShapeAndConvexRadius"));
-        RETURN_DEEPEST_POINT = LAYOUT.varHandle(PathElement.groupElement("returnDeepestPoint"));
+        BACK_FACE_MODE_TRIANGLES_HANDLE = LAYOUT.varHandle(PathElement.groupElement("backFaceModeTriangles"));
+        BACK_FACE_MODE_CONVEX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("backFaceModeConvex"));
+        USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("useShrunkenShapeAndConvexRadius"));
+        RETURN_DEEPEST_POINT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("returnDeepestPoint"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        BACK_FACE_MODE_TRIANGLES_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeTriangles"));
-        BACK_FACE_MODE_CONVEX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeConvex"));
-        USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("useShrunkenShapeAndConvexRadius"));
-        RETURN_DEEPEST_POINT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("returnDeepestPoint"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        BACK_FACE_MODE_TRIANGLES_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeTriangles"));
+        BACK_FACE_MODE_CONVEX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeConvex"));
+        USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("useShrunkenShapeAndConvexRadius"));
+        RETURN_DEEPEST_POINT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("returnDeepestPoint"));
         //@formatter:on
     }
 
@@ -78,7 +78,7 @@ public final class ShapeCastSettings
     public ShapeCastSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new CollideSettingsBase(segment.asSlice(BASE_OFFSET, CollideSettingsBase.LAYOUT));
+        base = new CollideSettingsBase(segment.asSlice(BASE_BYTE_OFFSET, CollideSettingsBase.LAYOUT));
     
         init();
     }
@@ -107,39 +107,39 @@ public final class ShapeCastSettings
     }
     
     public ShapeCastSettings backFaceModeTriangles(int backFaceModeTriangles) {
-        BACK_FACE_MODE_TRIANGLES.set(segment, 0L, backFaceModeTriangles);
+        BACK_FACE_MODE_TRIANGLES_HANDLE.set(segment, 0L, backFaceModeTriangles);
         return this;
     }
     
     public int backFaceModeTriangles() {
-        return (int) BACK_FACE_MODE_TRIANGLES.get(segment, 0L);
+        return (int) BACK_FACE_MODE_TRIANGLES_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastSettings backFaceModeConvex(int backFaceModeConvex) {
-        BACK_FACE_MODE_CONVEX.set(segment, 0L, backFaceModeConvex);
+        BACK_FACE_MODE_CONVEX_HANDLE.set(segment, 0L, backFaceModeConvex);
         return this;
     }
     
     public int backFaceModeConvex() {
-        return (int) BACK_FACE_MODE_CONVEX.get(segment, 0L);
+        return (int) BACK_FACE_MODE_CONVEX_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastSettings useShrunkenShapeAndConvexRadius(boolean useShrunkenShapeAndConvexRadius) {
-        USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS.set(segment, 0L, useShrunkenShapeAndConvexRadius);
+        USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE.set(segment, 0L, useShrunkenShapeAndConvexRadius);
         return this;
     }
     
     public boolean useShrunkenShapeAndConvexRadius() {
-        return (boolean) USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS.get(segment, 0L);
+        return (boolean) USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastSettings returnDeepestPoint(boolean returnDeepestPoint) {
-        RETURN_DEEPEST_POINT.set(segment, 0L, returnDeepestPoint);
+        RETURN_DEEPEST_POINT_HANDLE.set(segment, 0L, returnDeepestPoint);
         return this;
     }
     
     public boolean returnDeepestPoint() {
-        return (boolean) RETURN_DEEPEST_POINT.get(segment, 0L);
+        return (boolean) RETURN_DEEPEST_POINT_HANDLE.get(segment, 0L);
     }
     
     public ShapeCastSettings base(Consumer<CollideSettingsBase> consumer) {

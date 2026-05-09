@@ -22,10 +22,10 @@ public final class Plane
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle DISTANCE;
+    public static final VarHandle DISTANCE_HANDLE;
 
-    public static final long NORMAL_OFFSET;
-    public static final long DISTANCE_OFFSET;
+    public static final long NORMAL_BYTE_OFFSET;
+    public static final long DISTANCE_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -38,10 +38,10 @@ public final class Plane
             JAVA_FLOAT.withName("distance")
         ).withName("JPH_Plane").withByteAlignment(4);
         
-        DISTANCE = LAYOUT.varHandle(PathElement.groupElement("distance"));
+        DISTANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("distance"));
         
-        NORMAL_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normal"));
-        DISTANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("distance"));
+        NORMAL_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normal"));
+        DISTANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("distance"));
         //@formatter:on
     }
 
@@ -56,16 +56,16 @@ public final class Plane
     public Plane(MemorySegment segment) {
         this.segment = segment;
     
-        normal = new Vec3(segment.asSlice(NORMAL_OFFSET, Vec3.LAYOUT));
+        normal = new Vec3(segment.asSlice(NORMAL_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public Plane distance(float distance) {
-        DISTANCE.set(segment, 0L, distance);
+        DISTANCE_HANDLE.set(segment, 0L, distance);
         return this;
     }
     
     public float distance() {
-        return (float) DISTANCE.get(segment, 0L);
+        return (float) DISTANCE_HANDLE.get(segment, 0L);
     }
     
     public Plane normal(Consumer<Vec3> consumer) {

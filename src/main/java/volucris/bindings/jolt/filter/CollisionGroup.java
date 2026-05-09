@@ -23,13 +23,13 @@ public final class CollisionGroup
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle GROUP_FILTER;
-    public static final VarHandle GROUP_ID;
-    public static final VarHandle SUB_GROUP_ID;
+    public static final VarHandle GROUP_FILTER_HANDLE;
+    public static final VarHandle GROUP_ID_HANDLE;
+    public static final VarHandle SUB_GROUP_ID_HANDLE;
 
-    public static final long GROUP_FILTER_OFFSET;
-    public static final long GROUP_ID_OFFSET;
-    public static final long SUB_GROUP_ID_OFFSET;
+    public static final long GROUP_FILTER_BYTE_OFFSET;
+    public static final long GROUP_ID_BYTE_OFFSET;
+    public static final long SUB_GROUP_ID_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -41,13 +41,13 @@ public final class CollisionGroup
             JAVA_INT.withName("subGroupID")
         ).withName("JPH_CollisionGroup").withByteAlignment(8);
         
-        GROUP_FILTER = LAYOUT.varHandle(PathElement.groupElement("groupFilter"));
-        GROUP_ID = LAYOUT.varHandle(PathElement.groupElement("groupID"));
-        SUB_GROUP_ID = LAYOUT.varHandle(PathElement.groupElement("subGroupID"));
+        GROUP_FILTER_HANDLE = LAYOUT.varHandle(PathElement.groupElement("groupFilter"));
+        GROUP_ID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("groupID"));
+        SUB_GROUP_ID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subGroupID"));
         
-        GROUP_FILTER_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("groupFilter"));
-        GROUP_ID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("groupID"));
-        SUB_GROUP_ID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subGroupID"));
+        GROUP_FILTER_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("groupFilter"));
+        GROUP_ID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("groupID"));
+        SUB_GROUP_ID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subGroupID"));
         //@formatter:on
     }
 
@@ -65,12 +65,12 @@ public final class CollisionGroup
     }
 
     public CollisionGroup groupFilter(GroupFilter groupFilter) {
-        GROUP_FILTER.set(segment, 0L, groupFilter.memorySegment());
+        GROUP_FILTER_HANDLE.set(segment, 0L, groupFilter.memorySegment());
         return this;
     }
     
     public @Nullable GroupFilter groupFilter() {
-        MemorySegment segment = (MemorySegment) GROUP_FILTER.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) GROUP_FILTER_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -79,21 +79,21 @@ public final class CollisionGroup
     }
     
     public CollisionGroup groupID(int groupID) {
-        GROUP_ID.set(segment, 0L, groupID);
+        GROUP_ID_HANDLE.set(segment, 0L, groupID);
         return this;
     }
     
     public int groupID() {
-        return (int) GROUP_ID.get(segment, 0L);
+        return (int) GROUP_ID_HANDLE.get(segment, 0L);
     }
     
     public CollisionGroup subGroupID(int subGroupID) {
-        SUB_GROUP_ID.set(segment, 0L, subGroupID);
+        SUB_GROUP_ID_HANDLE.set(segment, 0L, subGroupID);
         return this;
     }
     
     public int subGroupID() {
-        return (int) SUB_GROUP_ID.get(segment, 0L);
+        return (int) SUB_GROUP_ID_HANDLE.get(segment, 0L);
     }
     
     @Override

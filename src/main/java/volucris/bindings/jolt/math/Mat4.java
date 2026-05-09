@@ -43,7 +43,7 @@ public final class Mat4
 
     public static final StructLayout LAYOUT;
 
-    public static final long COLUMN_OFFSET;
+    public static final long COLUMN_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -75,7 +75,7 @@ public final class Mat4
         JPH_MAT4_GET_TRANSLATION = downcallHandleVoid("JPH_Mat4_GetTranslation", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_MAT4_GET_QUATERNION = downcallHandleVoid("JPH_Mat4_GetQuaternion", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         
-        COLUMN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("column"));
+        COLUMN_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("column"));
         //@formatter:on
     }
 
@@ -93,7 +93,7 @@ public final class Mat4
     
         column = new Vec4[4];
         for (int i = 0; i < 4; i++) {
-            long offset = COLUMN_OFFSET + i * Vec4.LAYOUT.byteSize();
+            long offset = COLUMN_BYTE_OFFSET + i * Vec4.LAYOUT.byteSize();
             column[i] = new Vec4(segment.asSlice(offset, Vec4.LAYOUT));
         }
     

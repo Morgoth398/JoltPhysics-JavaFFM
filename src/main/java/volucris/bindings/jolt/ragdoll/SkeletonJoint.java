@@ -23,13 +23,13 @@ public class SkeletonJoint
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle NAME;
-    public static final VarHandle PARENT_NAME;
-    public static final VarHandle PARENT_JOINT_INDEX;
+    public static final VarHandle NAME_HANDLE;
+    public static final VarHandle PARENT_NAME_HANDLE;
+    public static final VarHandle PARENT_JOINT_INDEX_HANDLE;
 
-    public static final long NAME_OFFSET;
-    public static final long PARENT_NAME_OFFSET;
-    public static final long PARENT_JOINT_INDEX_OFFSET;
+    public static final long NAME_BYTE_OFFSET;
+    public static final long PARENT_NAME_BYTE_OFFSET;
+    public static final long PARENT_JOINT_INDEX_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -42,13 +42,13 @@ public class SkeletonJoint
             MemoryLayout.paddingLayout(4)
         ).withName("JPH_SkeletonJoint").withByteAlignment(8);
         
-        NAME = LAYOUT.varHandle(PathElement.groupElement("name"));
-        PARENT_NAME = LAYOUT.varHandle(PathElement.groupElement("parentName"));
-        PARENT_JOINT_INDEX = LAYOUT.varHandle(PathElement.groupElement("parentJointIndex"));
+        NAME_HANDLE = LAYOUT.varHandle(PathElement.groupElement("name"));
+        PARENT_NAME_HANDLE = LAYOUT.varHandle(PathElement.groupElement("parentName"));
+        PARENT_JOINT_INDEX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("parentJointIndex"));
         
-        NAME_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("name"));
-        PARENT_NAME_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("parentName"));
-        PARENT_JOINT_INDEX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("parentJointIndex"));
+        NAME_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("name"));
+        PARENT_NAME_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("parentName"));
+        PARENT_JOINT_INDEX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("parentJointIndex"));
         //@formatter:on
     }
 
@@ -66,12 +66,12 @@ public class SkeletonJoint
     }
 
     public SkeletonJoint name(Arena arena, String name) {
-        NAME.set(segment, 0L, arena.allocateFrom(name));
+        NAME_HANDLE.set(segment, 0L, arena.allocateFrom(name));
         return this;
     }
     
     public @Nullable String name() {
-        MemorySegment segment = (MemorySegment) NAME.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) NAME_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -80,12 +80,12 @@ public class SkeletonJoint
     }
     
     public SkeletonJoint parentName(Arena arena, String parentName) {
-        PARENT_NAME.set(segment, 0L, arena.allocateFrom(parentName));
+        PARENT_NAME_HANDLE.set(segment, 0L, arena.allocateFrom(parentName));
         return this;
     }
     
     public @Nullable String parentName() {
-        MemorySegment segment = (MemorySegment) PARENT_NAME.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) PARENT_NAME_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -94,12 +94,12 @@ public class SkeletonJoint
     }
     
     public SkeletonJoint parentJointIndex(int parentJointIndex) {
-        PARENT_JOINT_INDEX.set(segment, 0L, parentJointIndex);
+        PARENT_JOINT_INDEX_HANDLE.set(segment, 0L, parentJointIndex);
         return this;
     }
     
     public int parentJointIndex() {
-        return (int) PARENT_JOINT_INDEX.get(segment, 0L);
+        return (int) PARENT_JOINT_INDEX_HANDLE.get(segment, 0L);
     }
     
     @Override

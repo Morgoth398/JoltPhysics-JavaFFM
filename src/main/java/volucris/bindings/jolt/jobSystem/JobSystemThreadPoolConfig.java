@@ -22,13 +22,13 @@ public final class JobSystemThreadPoolConfig
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MAX_JOBS;
-    public static final VarHandle MAX_BARRIERS;
-    public static final VarHandle NUM_THREADS;
+    public static final VarHandle MAX_JOBS_HANDLE;
+    public static final VarHandle MAX_BARRIERS_HANDLE;
+    public static final VarHandle NUM_THREADS_HANDLE;
 
-    public static final long MAX_JOBS_OFFSET;
-    public static final long MAX_BARRIERS_OFFSET;
-    public static final long NUM_THREADS_OFFSET;
+    public static final long MAX_JOBS_BYTE_OFFSET;
+    public static final long MAX_BARRIERS_BYTE_OFFSET;
+    public static final long NUM_THREADS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -40,13 +40,13 @@ public final class JobSystemThreadPoolConfig
             JAVA_INT.withName("numThreads")
         ).withName("JobSystemThreadPoolConfig").withByteAlignment(4);
         
-        MAX_JOBS = LAYOUT.varHandle(PathElement.groupElement("maxJobs"));
-        MAX_BARRIERS = LAYOUT.varHandle(PathElement.groupElement("maxBarriers"));
-        NUM_THREADS = LAYOUT.varHandle(PathElement.groupElement("numThreads"));
+        MAX_JOBS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxJobs"));
+        MAX_BARRIERS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxBarriers"));
+        NUM_THREADS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("numThreads"));
         
-        MAX_JOBS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxJobs"));
-        MAX_BARRIERS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxBarriers"));
-        NUM_THREADS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("numThreads"));
+        MAX_JOBS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxJobs"));
+        MAX_BARRIERS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxBarriers"));
+        NUM_THREADS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("numThreads"));
         //@formatter:on
     }
 
@@ -64,30 +64,30 @@ public final class JobSystemThreadPoolConfig
     }
 
     public JobSystemThreadPoolConfig maxJobs(int maxJobs) {
-        MAX_JOBS.set(segment, 0L, maxJobs);
+        MAX_JOBS_HANDLE.set(segment, 0L, maxJobs);
         return this;
     }
     
     public int maxJobs() {
-        return (int) MAX_JOBS.get(segment, 0L);
+        return (int) MAX_JOBS_HANDLE.get(segment, 0L);
     }
     
     public JobSystemThreadPoolConfig maxBarriers(int maxBarriers) {
-        MAX_BARRIERS.set(segment, 0L, maxBarriers);
+        MAX_BARRIERS_HANDLE.set(segment, 0L, maxBarriers);
         return this;
     }
     
     public int maxBarriers() {
-        return (int) MAX_BARRIERS.get(segment, 0L);
+        return (int) MAX_BARRIERS_HANDLE.get(segment, 0L);
     }
     
     public JobSystemThreadPoolConfig numThreads(int numThreads) {
-        NUM_THREADS.set(segment, 0L, numThreads);
+        NUM_THREADS_HANDLE.set(segment, 0L, numThreads);
         return this;
     }
     
     public int numThreads() {
-        return (int) NUM_THREADS.get(segment, 0L);
+        return (int) NUM_THREADS_HANDLE.get(segment, 0L);
     }
     
     @Override

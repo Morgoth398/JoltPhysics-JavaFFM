@@ -25,13 +25,13 @@ public final class VehicleAntiRollBar
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle LEFT_WHEEL;
-    public static final VarHandle RIGHT_WHEEL;
-    public static final VarHandle STIFFNESS;
+    public static final VarHandle LEFT_WHEEL_HANDLE;
+    public static final VarHandle RIGHT_WHEEL_HANDLE;
+    public static final VarHandle STIFFNESS_HANDLE;
 
-    public static final long LEFT_WHEEL_OFFSET;
-    public static final long RIGHT_WHEEL_OFFSET;
-    public static final long STIFFNESS_OFFSET;
+    public static final long LEFT_WHEEL_BYTE_OFFSET;
+    public static final long RIGHT_WHEEL_BYTE_OFFSET;
+    public static final long STIFFNESS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -45,13 +45,13 @@ public final class VehicleAntiRollBar
         
         JPH_VEHICLE_ANTI_ROLL_BAR_INIT = downcallHandleVoid("JPH_VehicleAntiRollBar_Init", UNBOUNDED_ADDRESS);
         
-        LEFT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("leftWheel"));
-        RIGHT_WHEEL = LAYOUT.varHandle(PathElement.groupElement("rightWheel"));
-        STIFFNESS = LAYOUT.varHandle(PathElement.groupElement("stiffness"));
+        LEFT_WHEEL_HANDLE = LAYOUT.varHandle(PathElement.groupElement("leftWheel"));
+        RIGHT_WHEEL_HANDLE = LAYOUT.varHandle(PathElement.groupElement("rightWheel"));
+        STIFFNESS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("stiffness"));
         
-        LEFT_WHEEL_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("leftWheel"));
-        RIGHT_WHEEL_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("rightWheel"));
-        STIFFNESS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("stiffness"));
+        LEFT_WHEEL_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("leftWheel"));
+        RIGHT_WHEEL_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("rightWheel"));
+        STIFFNESS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("stiffness"));
         //@formatter:on
     }
 
@@ -94,30 +94,30 @@ public final class VehicleAntiRollBar
     }
     
     public VehicleAntiRollBar leftWheel(int leftWheel) {
-        LEFT_WHEEL.set(segment, 0L, leftWheel);
+        LEFT_WHEEL_HANDLE.set(segment, 0L, leftWheel);
         return this;
     }
     
     public int leftWheel() {
-        return (int) LEFT_WHEEL.get(segment, 0L);
+        return (int) LEFT_WHEEL_HANDLE.get(segment, 0L);
     }
     
     public VehicleAntiRollBar rightWheel(int rightWheel) {
-        RIGHT_WHEEL.set(segment, 0L, rightWheel);
+        RIGHT_WHEEL_HANDLE.set(segment, 0L, rightWheel);
         return this;
     }
     
     public int rightWheel() {
-        return (int) RIGHT_WHEEL.get(segment, 0L);
+        return (int) RIGHT_WHEEL_HANDLE.get(segment, 0L);
     }
     
     public VehicleAntiRollBar stiffness(float stiffness) {
-        STIFFNESS.set(segment, 0L, stiffness);
+        STIFFNESS_HANDLE.set(segment, 0L, stiffness);
         return this;
     }
     
     public float stiffness() {
-        return (float) STIFFNESS.get(segment, 0L);
+        return (float) STIFFNESS_HANDLE.get(segment, 0L);
     }
     
     @Override

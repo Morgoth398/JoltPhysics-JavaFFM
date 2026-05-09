@@ -21,15 +21,15 @@ public final class SoftFace
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle VERTEX1;
-    public static final VarHandle VERTEX2;
-    public static final VarHandle VERTEX3;
-    public static final VarHandle MATERIAL_INDEX;
+    public static final VarHandle VERTEX1_HANDLE;
+    public static final VarHandle VERTEX2_HANDLE;
+    public static final VarHandle VERTEX3_HANDLE;
+    public static final VarHandle MATERIAL_INDEX_HANDLE;
 
-    public static final long VERTEX1_OFFSET;
-    public static final long VERTEX2_OFFSET;
-    public static final long VERTEX3_OFFSET;
-    public static final long MATERIAL_INDEX_OFFSET;
+    public static final long VERTEX1_BYTE_OFFSET;
+    public static final long VERTEX2_BYTE_OFFSET;
+    public static final long VERTEX3_BYTE_OFFSET;
+    public static final long MATERIAL_INDEX_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -42,15 +42,15 @@ public final class SoftFace
             JAVA_INT.withName("materialIndex")
         ).withName("JPH_SoftFace").withByteAlignment(4);
         
-        VERTEX1 = LAYOUT.varHandle(PathElement.groupElement("vertex1"));
-        VERTEX2 = LAYOUT.varHandle(PathElement.groupElement("vertex2"));
-        VERTEX3 = LAYOUT.varHandle(PathElement.groupElement("vertex3"));
-        MATERIAL_INDEX = LAYOUT.varHandle(PathElement.groupElement("materialIndex"));
+        VERTEX1_HANDLE = LAYOUT.varHandle(PathElement.groupElement("vertex1"));
+        VERTEX2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("vertex2"));
+        VERTEX3_HANDLE = LAYOUT.varHandle(PathElement.groupElement("vertex3"));
+        MATERIAL_INDEX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("materialIndex"));
         
-        VERTEX1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertex1"));
-        VERTEX2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertex2"));
-        VERTEX3_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertex3"));
-        MATERIAL_INDEX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("materialIndex"));
+        VERTEX1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertex1"));
+        VERTEX2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertex2"));
+        VERTEX3_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertex3"));
+        MATERIAL_INDEX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("materialIndex"));
         //@formatter:on
     }
 
@@ -68,39 +68,39 @@ public final class SoftFace
     }
 
     public SoftFace vertex1(int vertex1) {
-        VERTEX1.set(segment, 0L, vertex1);
+        VERTEX1_HANDLE.set(segment, 0L, vertex1);
         return this;
     }
     
     public int vertex1() {
-        return (int) VERTEX1.get(segment, 0L);
+        return (int) VERTEX1_HANDLE.get(segment, 0L);
     }
     
     public SoftFace vertex2(int vertex2) {
-        VERTEX2.set(segment, 0L, vertex2);
+        VERTEX2_HANDLE.set(segment, 0L, vertex2);
         return this;
     }
     
     public int vertex2() {
-        return (int) VERTEX2.get(segment, 0L);
+        return (int) VERTEX2_HANDLE.get(segment, 0L);
     }
     
     public SoftFace vertex3(int vertex3) {
-        VERTEX3.set(segment, 0L, vertex3);
+        VERTEX3_HANDLE.set(segment, 0L, vertex3);
         return this;
     }
     
     public int vertex3() {
-        return (int) VERTEX3.get(segment, 0L);
+        return (int) VERTEX3_HANDLE.get(segment, 0L);
     }
     
     public SoftFace materialIndex(int materialIndex) {
-        MATERIAL_INDEX.set(segment, 0L, materialIndex);
+        MATERIAL_INDEX_HANDLE.set(segment, 0L, materialIndex);
         return this;
     }
     
     public int materialIndex() {
-        return (int) MATERIAL_INDEX.get(segment, 0L);
+        return (int) MATERIAL_INDEX_HANDLE.get(segment, 0L);
     }
     
     @Override

@@ -22,10 +22,10 @@ public final class SupportingFace
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle COUNT;
+    public static final VarHandle COUNT_HANDLE;
 
-    public static final long COUNT_OFFSET;
-    public static final long VERTICES_OFFSET;
+    public static final long COUNT_BYTE_OFFSET;
+    public static final long VERTICES_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -38,10 +38,10 @@ public final class SupportingFace
             MemoryLayout.sequenceLayout(32, Vec3.LAYOUT).withName("vertices")
         ).withName("JPH_SupportingFace").withByteAlignment(4);
         
-        COUNT = LAYOUT.varHandle(PathElement.groupElement("count"));
+        COUNT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("count"));
         
-        COUNT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("count"));
-        VERTICES_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertices"));
+        COUNT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("count"));
+        VERTICES_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("vertices"));
         //@formatter:on
     }
 
@@ -59,19 +59,19 @@ public final class SupportingFace
     
         vertices = new Vec3[32];
         for (int i = 0; i < 32; i++) {
-            long offset = VERTICES_OFFSET + i * Vec3.LAYOUT.byteSize();
+            long offset = VERTICES_BYTE_OFFSET + i * Vec3.LAYOUT.byteSize();
             vertices[i] = new Vec3(segment.asSlice(offset, Vec3.LAYOUT));
         }
     
     }
 
     public SupportingFace count(int count) {
-        COUNT.set(segment, 0L, count);
+        COUNT_HANDLE.set(segment, 0L, count);
         return this;
     }
     
     public int count() {
-        return (int) COUNT.get(segment, 0L);
+        return (int) COUNT_HANDLE.get(segment, 0L);
     }
     
     public SupportingFace vertices(Consumer<Vec3> consumer, int index) {

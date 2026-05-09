@@ -21,11 +21,11 @@ public final class CharacterContactSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle CAN_PUSH_CHARACTER;
-    public static final VarHandle CAN_RECEIVE_IMPULSES;
+    public static final VarHandle CAN_PUSH_CHARACTER_HANDLE;
+    public static final VarHandle CAN_RECEIVE_IMPULSES_HANDLE;
 
-    public static final long CAN_PUSH_CHARACTER_OFFSET;
-    public static final long CAN_RECEIVE_IMPULSES_OFFSET;
+    public static final long CAN_PUSH_CHARACTER_BYTE_OFFSET;
+    public static final long CAN_RECEIVE_IMPULSES_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -36,11 +36,11 @@ public final class CharacterContactSettings
             JAVA_BOOLEAN.withName("canReceiveImpulses")
         ).withName("JPH_CharacterContactSettings").withByteAlignment(1);
         
-        CAN_PUSH_CHARACTER = LAYOUT.varHandle(PathElement.groupElement("canPushCharacter"));
-        CAN_RECEIVE_IMPULSES = LAYOUT.varHandle(PathElement.groupElement("canReceiveImpulses"));
+        CAN_PUSH_CHARACTER_HANDLE = LAYOUT.varHandle(PathElement.groupElement("canPushCharacter"));
+        CAN_RECEIVE_IMPULSES_HANDLE = LAYOUT.varHandle(PathElement.groupElement("canReceiveImpulses"));
         
-        CAN_PUSH_CHARACTER_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("canPushCharacter"));
-        CAN_RECEIVE_IMPULSES_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("canReceiveImpulses"));
+        CAN_PUSH_CHARACTER_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("canPushCharacter"));
+        CAN_RECEIVE_IMPULSES_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("canReceiveImpulses"));
         //@formatter:on
     }
 
@@ -58,21 +58,21 @@ public final class CharacterContactSettings
     }
 
     public CharacterContactSettings canPushCharacter(boolean canPushCharacter) {
-        CAN_PUSH_CHARACTER.set(segment, 0L, canPushCharacter);
+        CAN_PUSH_CHARACTER_HANDLE.set(segment, 0L, canPushCharacter);
         return this;
     }
     
     public boolean canPushCharacter() {
-        return (boolean) CAN_PUSH_CHARACTER.get(segment, 0L);
+        return (boolean) CAN_PUSH_CHARACTER_HANDLE.get(segment, 0L);
     }
     
     public CharacterContactSettings canReceiveImpulses(boolean canReceiveImpulses) {
-        CAN_RECEIVE_IMPULSES.set(segment, 0L, canReceiveImpulses);
+        CAN_RECEIVE_IMPULSES_HANDLE.set(segment, 0L, canReceiveImpulses);
         return this;
     }
     
     public boolean canReceiveImpulses() {
-        return (boolean) CAN_RECEIVE_IMPULSES.get(segment, 0L);
+        return (boolean) CAN_RECEIVE_IMPULSES_HANDLE.get(segment, 0L);
     }
     
     @Override

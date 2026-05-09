@@ -22,15 +22,15 @@ public final class SubShapeIDPair
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle BODY1_ID;
-    public static final VarHandle SUB_SHAPE_ID1;
-    public static final VarHandle BODY2_ID;
-    public static final VarHandle SUB_SHAPE_ID2;
+    public static final VarHandle BODY1_ID_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID1_HANDLE;
+    public static final VarHandle BODY2_ID_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID2_HANDLE;
 
-    public static final long BODY1_ID_OFFSET;
-    public static final long SUB_SHAPE_ID1_OFFSET;
-    public static final long BODY2_ID_OFFSET;
-    public static final long SUB_SHAPE_ID2_OFFSET;
+    public static final long BODY1_ID_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID1_BYTE_OFFSET;
+    public static final long BODY2_ID_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID2_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -43,15 +43,15 @@ public final class SubShapeIDPair
             JAVA_INT.withName("subShapeID2")
         ).withName("JPH_SubShapeIDPair").withByteAlignment(4);
         
-        BODY1_ID = LAYOUT.varHandle(PathElement.groupElement("Body1ID"));
-        SUB_SHAPE_ID1 = LAYOUT.varHandle(PathElement.groupElement("subShapeID1"));
-        BODY2_ID = LAYOUT.varHandle(PathElement.groupElement("Body2ID"));
-        SUB_SHAPE_ID2 = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
+        BODY1_ID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("Body1ID"));
+        SUB_SHAPE_ID1_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID1"));
+        BODY2_ID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("Body2ID"));
+        SUB_SHAPE_ID2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
         
-        BODY1_ID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("Body1ID"));
-        SUB_SHAPE_ID1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID1"));
-        BODY2_ID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("Body2ID"));
-        SUB_SHAPE_ID2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
+        BODY1_ID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("Body1ID"));
+        SUB_SHAPE_ID1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID1"));
+        BODY2_ID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("Body2ID"));
+        SUB_SHAPE_ID2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
         //@formatter:on
     }
 
@@ -69,39 +69,39 @@ public final class SubShapeIDPair
     }
 
     public SubShapeIDPair Body1ID(int Body1ID) {
-        BODY1_ID.set(segment, 0L, Body1ID);
+        BODY1_ID_HANDLE.set(segment, 0L, Body1ID);
         return this;
     }
     
     public int Body1ID() {
-        return (int) BODY1_ID.get(segment, 0L);
+        return (int) BODY1_ID_HANDLE.get(segment, 0L);
     }
     
     public SubShapeIDPair subShapeID1(int subShapeID1) {
-        SUB_SHAPE_ID1.set(segment, 0L, subShapeID1);
+        SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
         return this;
     }
     
     public int subShapeID1() {
-        return (int) SUB_SHAPE_ID1.get(segment, 0L);
+        return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
     }
     
     public SubShapeIDPair Body2ID(int Body2ID) {
-        BODY2_ID.set(segment, 0L, Body2ID);
+        BODY2_ID_HANDLE.set(segment, 0L, Body2ID);
         return this;
     }
     
     public int Body2ID() {
-        return (int) BODY2_ID.get(segment, 0L);
+        return (int) BODY2_ID_HANDLE.get(segment, 0L);
     }
     
     public SubShapeIDPair subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2.set(segment, 0L, subShapeID2);
+        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
         return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2.get(segment, 0L);
+        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     @Override

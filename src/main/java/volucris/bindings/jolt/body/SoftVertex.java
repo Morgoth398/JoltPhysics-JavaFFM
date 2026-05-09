@@ -23,11 +23,11 @@ public final class SoftVertex
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle INV_MASS;
+    public static final VarHandle INV_MASS_HANDLE;
 
-    public static final long POSITION_OFFSET;
-    public static final long VELOCITY_OFFSET;
-    public static final long INV_MASS_OFFSET;
+    public static final long POSITION_BYTE_OFFSET;
+    public static final long VELOCITY_BYTE_OFFSET;
+    public static final long INV_MASS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -42,11 +42,11 @@ public final class SoftVertex
             JAVA_FLOAT.withName("invMass")
         ).withName("JPH_SoftVertex").withByteAlignment(4);
         
-        INV_MASS = LAYOUT.varHandle(PathElement.groupElement("invMass"));
+        INV_MASS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("invMass"));
         
-        POSITION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position"));
-        VELOCITY_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("velocity"));
-        INV_MASS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invMass"));
+        POSITION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position"));
+        VELOCITY_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("velocity"));
+        INV_MASS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invMass"));
         //@formatter:on
     }
 
@@ -61,17 +61,17 @@ public final class SoftVertex
     public SoftVertex(MemorySegment segment) {
         this.segment = segment;
     
-        position = new Vec3(segment.asSlice(POSITION_OFFSET, Vec3.LAYOUT));
-        velocity = new Vec3(segment.asSlice(VELOCITY_OFFSET, Vec3.LAYOUT));
+        position = new Vec3(segment.asSlice(POSITION_BYTE_OFFSET, Vec3.LAYOUT));
+        velocity = new Vec3(segment.asSlice(VELOCITY_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public SoftVertex invMass(float invMass) {
-        INV_MASS.set(segment, 0L, invMass);
+        INV_MASS_HANDLE.set(segment, 0L, invMass);
         return this;
     }
     
     public float invMass() {
-        return (float) INV_MASS.get(segment, 0L);
+        return (float) INV_MASS_HANDLE.get(segment, 0L);
     }
     
     public SoftVertex position(Consumer<Vec3> consumer) {

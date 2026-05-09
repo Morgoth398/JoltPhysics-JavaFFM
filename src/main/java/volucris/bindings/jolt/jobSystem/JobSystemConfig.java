@@ -23,17 +23,17 @@ public final class JobSystemConfig
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle CONTEXT;
-    public static final VarHandle QUEUE_JOB;
-    public static final VarHandle QUEUE_JOBS;
-    public static final VarHandle MAX_CONCURRENCY;
-    public static final VarHandle MAX_BARRIERS;
+    public static final VarHandle CONTEXT_HANDLE;
+    public static final VarHandle QUEUE_JOB_HANDLE;
+    public static final VarHandle QUEUE_JOBS_HANDLE;
+    public static final VarHandle MAX_CONCURRENCY_HANDLE;
+    public static final VarHandle MAX_BARRIERS_HANDLE;
 
-    public static final long CONTEXT_OFFSET;
-    public static final long QUEUE_JOB_OFFSET;
-    public static final long QUEUE_JOBS_OFFSET;
-    public static final long MAX_CONCURRENCY_OFFSET;
-    public static final long MAX_BARRIERS_OFFSET;
+    public static final long CONTEXT_BYTE_OFFSET;
+    public static final long QUEUE_JOB_BYTE_OFFSET;
+    public static final long QUEUE_JOBS_BYTE_OFFSET;
+    public static final long MAX_CONCURRENCY_BYTE_OFFSET;
+    public static final long MAX_BARRIERS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -47,17 +47,17 @@ public final class JobSystemConfig
             JAVA_INT.withName("maxBarriers")
         ).withName("JPH_JobSystemConfig").withByteAlignment(8);
         
-        CONTEXT = LAYOUT.varHandle(PathElement.groupElement("context"));
-        QUEUE_JOB = LAYOUT.varHandle(PathElement.groupElement("queueJob"));
-        QUEUE_JOBS = LAYOUT.varHandle(PathElement.groupElement("queueJobs"));
-        MAX_CONCURRENCY = LAYOUT.varHandle(PathElement.groupElement("maxConcurrency"));
-        MAX_BARRIERS = LAYOUT.varHandle(PathElement.groupElement("maxBarriers"));
+        CONTEXT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("context"));
+        QUEUE_JOB_HANDLE = LAYOUT.varHandle(PathElement.groupElement("queueJob"));
+        QUEUE_JOBS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("queueJobs"));
+        MAX_CONCURRENCY_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxConcurrency"));
+        MAX_BARRIERS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxBarriers"));
         
-        CONTEXT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("context"));
-        QUEUE_JOB_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("queueJob"));
-        QUEUE_JOBS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("queueJobs"));
-        MAX_CONCURRENCY_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxConcurrency"));
-        MAX_BARRIERS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxBarriers"));
+        CONTEXT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("context"));
+        QUEUE_JOB_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("queueJob"));
+        QUEUE_JOBS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("queueJobs"));
+        MAX_CONCURRENCY_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxConcurrency"));
+        MAX_BARRIERS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxBarriers"));
         //@formatter:on
     }
 
@@ -75,12 +75,12 @@ public final class JobSystemConfig
     }
 
     public JobSystemConfig context(MemorySegment context) {
-        CONTEXT.set(segment, 0L, context);
+        CONTEXT_HANDLE.set(segment, 0L, context);
         return this;
     }
     
     public @Nullable MemorySegment context() {
-        MemorySegment segment = (MemorySegment) CONTEXT.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) CONTEXT_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -89,12 +89,12 @@ public final class JobSystemConfig
     }
     
     public JobSystemConfig queueJob(QueueJobCallback queueJob) {
-        QUEUE_JOB.set(segment, 0L, queueJob.memorySegment());
+        QUEUE_JOB_HANDLE.set(segment, 0L, queueJob.memorySegment());
         return this;
     }
     
     public @Nullable QueueJobCallback queueJob() {
-        MemorySegment segment = (MemorySegment) QUEUE_JOB.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) QUEUE_JOB_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -103,12 +103,12 @@ public final class JobSystemConfig
     }
     
     public JobSystemConfig queueJobs(QueueJobsCallback queueJobs) {
-        QUEUE_JOBS.set(segment, 0L, queueJobs.memorySegment());
+        QUEUE_JOBS_HANDLE.set(segment, 0L, queueJobs.memorySegment());
         return this;
     }
     
     public @Nullable QueueJobsCallback queueJobs() {
-        MemorySegment segment = (MemorySegment) QUEUE_JOBS.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) QUEUE_JOBS_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -117,21 +117,21 @@ public final class JobSystemConfig
     }
     
     public JobSystemConfig maxConcurrency(int maxConcurrency) {
-        MAX_CONCURRENCY.set(segment, 0L, maxConcurrency);
+        MAX_CONCURRENCY_HANDLE.set(segment, 0L, maxConcurrency);
         return this;
     }
     
     public int maxConcurrency() {
-        return (int) MAX_CONCURRENCY.get(segment, 0L);
+        return (int) MAX_CONCURRENCY_HANDLE.get(segment, 0L);
     }
     
     public JobSystemConfig maxBarriers(int maxBarriers) {
-        MAX_BARRIERS.set(segment, 0L, maxBarriers);
+        MAX_BARRIERS_HANDLE.set(segment, 0L, maxBarriers);
         return this;
     }
     
     public int maxBarriers() {
-        return (int) MAX_BARRIERS.get(segment, 0L);
+        return (int) MAX_BARRIERS_HANDLE.get(segment, 0L);
     }
     
     @Override

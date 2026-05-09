@@ -21,13 +21,13 @@ public final class RayCastSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle BACK_FACE_MODE_TRIANGLES;
-    public static final VarHandle BACK_FACE_MODE_CONVEX;
-    public static final VarHandle TREAT_CONVEX_AS_SOLID;
+    public static final VarHandle BACK_FACE_MODE_TRIANGLES_HANDLE;
+    public static final VarHandle BACK_FACE_MODE_CONVEX_HANDLE;
+    public static final VarHandle TREAT_CONVEX_AS_SOLID_HANDLE;
 
-    public static final long BACK_FACE_MODE_TRIANGLES_OFFSET;
-    public static final long BACK_FACE_MODE_CONVEX_OFFSET;
-    public static final long TREAT_CONVEX_AS_SOLID_OFFSET;
+    public static final long BACK_FACE_MODE_TRIANGLES_BYTE_OFFSET;
+    public static final long BACK_FACE_MODE_CONVEX_BYTE_OFFSET;
+    public static final long TREAT_CONVEX_AS_SOLID_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -40,13 +40,13 @@ public final class RayCastSettings
             MemoryLayout.paddingLayout(3)
         ).withName("JPH_RayCastSettings").withByteAlignment(4);
         
-        BACK_FACE_MODE_TRIANGLES = LAYOUT.varHandle(PathElement.groupElement("backFaceModeTriangles"));
-        BACK_FACE_MODE_CONVEX = LAYOUT.varHandle(PathElement.groupElement("backFaceModeConvex"));
-        TREAT_CONVEX_AS_SOLID = LAYOUT.varHandle(PathElement.groupElement("treatConvexAsSolid"));
+        BACK_FACE_MODE_TRIANGLES_HANDLE = LAYOUT.varHandle(PathElement.groupElement("backFaceModeTriangles"));
+        BACK_FACE_MODE_CONVEX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("backFaceModeConvex"));
+        TREAT_CONVEX_AS_SOLID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("treatConvexAsSolid"));
         
-        BACK_FACE_MODE_TRIANGLES_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeTriangles"));
-        BACK_FACE_MODE_CONVEX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeConvex"));
-        TREAT_CONVEX_AS_SOLID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("treatConvexAsSolid"));
+        BACK_FACE_MODE_TRIANGLES_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeTriangles"));
+        BACK_FACE_MODE_CONVEX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceModeConvex"));
+        TREAT_CONVEX_AS_SOLID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("treatConvexAsSolid"));
         //@formatter:on
     }
 
@@ -64,30 +64,30 @@ public final class RayCastSettings
     }
 
     public RayCastSettings backFaceModeTriangles(int backFaceModeTriangles) {
-        BACK_FACE_MODE_TRIANGLES.set(segment, 0L, backFaceModeTriangles);
+        BACK_FACE_MODE_TRIANGLES_HANDLE.set(segment, 0L, backFaceModeTriangles);
         return this;
     }
     
     public int backFaceModeTriangles() {
-        return (int) BACK_FACE_MODE_TRIANGLES.get(segment, 0L);
+        return (int) BACK_FACE_MODE_TRIANGLES_HANDLE.get(segment, 0L);
     }
     
     public RayCastSettings backFaceModeConvex(int backFaceModeConvex) {
-        BACK_FACE_MODE_CONVEX.set(segment, 0L, backFaceModeConvex);
+        BACK_FACE_MODE_CONVEX_HANDLE.set(segment, 0L, backFaceModeConvex);
         return this;
     }
     
     public int backFaceModeConvex() {
-        return (int) BACK_FACE_MODE_CONVEX.get(segment, 0L);
+        return (int) BACK_FACE_MODE_CONVEX_HANDLE.get(segment, 0L);
     }
     
     public RayCastSettings treatConvexAsSolid(boolean treatConvexAsSolid) {
-        TREAT_CONVEX_AS_SOLID.set(segment, 0L, treatConvexAsSolid);
+        TREAT_CONVEX_AS_SOLID_HANDLE.set(segment, 0L, treatConvexAsSolid);
         return this;
     }
     
     public boolean treatConvexAsSolid() {
-        return (boolean) TREAT_CONVEX_AS_SOLID.get(segment, 0L);
+        return (boolean) TREAT_CONVEX_AS_SOLID_HANDLE.get(segment, 0L);
     }
     
     @Override

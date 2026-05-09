@@ -24,15 +24,15 @@ public final class PhysicsStepListenerContext
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle DELTA_TIME;
-    public static final VarHandle IS_FIRST_STEP;
-    public static final VarHandle IS_LAST_STEP;
-    public static final VarHandle PHYSICS_SYSTEM;
+    public static final VarHandle DELTA_TIME_HANDLE;
+    public static final VarHandle IS_FIRST_STEP_HANDLE;
+    public static final VarHandle IS_LAST_STEP_HANDLE;
+    public static final VarHandle PHYSICS_SYSTEM_HANDLE;
 
-    public static final long DELTA_TIME_OFFSET;
-    public static final long IS_FIRST_STEP_OFFSET;
-    public static final long IS_LAST_STEP_OFFSET;
-    public static final long PHYSICS_SYSTEM_OFFSET;
+    public static final long DELTA_TIME_BYTE_OFFSET;
+    public static final long IS_FIRST_STEP_BYTE_OFFSET;
+    public static final long IS_LAST_STEP_BYTE_OFFSET;
+    public static final long PHYSICS_SYSTEM_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -46,15 +46,15 @@ public final class PhysicsStepListenerContext
             UNBOUNDED_ADDRESS.withName("physicsSystem")
         ).withName("JPH_PhysicsStepListenerContext").withByteAlignment(8);
         
-        DELTA_TIME = LAYOUT.varHandle(PathElement.groupElement("deltaTime"));
-        IS_FIRST_STEP = LAYOUT.varHandle(PathElement.groupElement("isFirstStep"));
-        IS_LAST_STEP = LAYOUT.varHandle(PathElement.groupElement("isLastStep"));
-        PHYSICS_SYSTEM = LAYOUT.varHandle(PathElement.groupElement("physicsSystem"));
+        DELTA_TIME_HANDLE = LAYOUT.varHandle(PathElement.groupElement("deltaTime"));
+        IS_FIRST_STEP_HANDLE = LAYOUT.varHandle(PathElement.groupElement("isFirstStep"));
+        IS_LAST_STEP_HANDLE = LAYOUT.varHandle(PathElement.groupElement("isLastStep"));
+        PHYSICS_SYSTEM_HANDLE = LAYOUT.varHandle(PathElement.groupElement("physicsSystem"));
         
-        DELTA_TIME_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("deltaTime"));
-        IS_FIRST_STEP_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isFirstStep"));
-        IS_LAST_STEP_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isLastStep"));
-        PHYSICS_SYSTEM_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("physicsSystem"));
+        DELTA_TIME_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("deltaTime"));
+        IS_FIRST_STEP_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isFirstStep"));
+        IS_LAST_STEP_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isLastStep"));
+        PHYSICS_SYSTEM_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("physicsSystem"));
         //@formatter:on
     }
 
@@ -72,39 +72,39 @@ public final class PhysicsStepListenerContext
     }
 
     public PhysicsStepListenerContext deltaTime(float deltaTime) {
-        DELTA_TIME.set(segment, 0L, deltaTime);
+        DELTA_TIME_HANDLE.set(segment, 0L, deltaTime);
         return this;
     }
     
     public float deltaTime() {
-        return (float) DELTA_TIME.get(segment, 0L);
+        return (float) DELTA_TIME_HANDLE.get(segment, 0L);
     }
     
     public PhysicsStepListenerContext isFirstStep(int isFirstStep) {
-        IS_FIRST_STEP.set(segment, 0L, isFirstStep);
+        IS_FIRST_STEP_HANDLE.set(segment, 0L, isFirstStep);
         return this;
     }
     
     public int isFirstStep() {
-        return (int) IS_FIRST_STEP.get(segment, 0L);
+        return (int) IS_FIRST_STEP_HANDLE.get(segment, 0L);
     }
     
     public PhysicsStepListenerContext isLastStep(int isLastStep) {
-        IS_LAST_STEP.set(segment, 0L, isLastStep);
+        IS_LAST_STEP_HANDLE.set(segment, 0L, isLastStep);
         return this;
     }
     
     public int isLastStep() {
-        return (int) IS_LAST_STEP.get(segment, 0L);
+        return (int) IS_LAST_STEP_HANDLE.get(segment, 0L);
     }
     
     public PhysicsStepListenerContext physicsSystem(PhysicsSystem physicsSystem) {
-        PHYSICS_SYSTEM.set(segment, 0L, physicsSystem.memorySegment());
+        PHYSICS_SYSTEM_HANDLE.set(segment, 0L, physicsSystem.memorySegment());
         return this;
     }
     
     public @Nullable PhysicsSystem physicsSystem() {
-        MemorySegment segment = (MemorySegment) PHYSICS_SYSTEM.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) PHYSICS_SYSTEM_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;

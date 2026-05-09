@@ -21,19 +21,19 @@ public final class ConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle ENABLED;
-    public static final VarHandle CONSTRAINT_PRIORITY;
-    public static final VarHandle NUM_VELOCITY_STEPS_OVERRIDE;
-    public static final VarHandle NUM_POSITION_STEPS_OVERRIDE;
-    public static final VarHandle DRAW_CONSTRAINT_SIZE;
-    public static final VarHandle USER_DATA;
+    public static final VarHandle ENABLED_HANDLE;
+    public static final VarHandle CONSTRAINT_PRIORITY_HANDLE;
+    public static final VarHandle NUM_VELOCITY_STEPS_OVERRIDE_HANDLE;
+    public static final VarHandle NUM_POSITION_STEPS_OVERRIDE_HANDLE;
+    public static final VarHandle DRAW_CONSTRAINT_SIZE_HANDLE;
+    public static final VarHandle USER_DATA_HANDLE;
 
-    public static final long ENABLED_OFFSET;
-    public static final long CONSTRAINT_PRIORITY_OFFSET;
-    public static final long NUM_VELOCITY_STEPS_OVERRIDE_OFFSET;
-    public static final long NUM_POSITION_STEPS_OVERRIDE_OFFSET;
-    public static final long DRAW_CONSTRAINT_SIZE_OFFSET;
-    public static final long USER_DATA_OFFSET;
+    public static final long ENABLED_BYTE_OFFSET;
+    public static final long CONSTRAINT_PRIORITY_BYTE_OFFSET;
+    public static final long NUM_VELOCITY_STEPS_OVERRIDE_BYTE_OFFSET;
+    public static final long NUM_POSITION_STEPS_OVERRIDE_BYTE_OFFSET;
+    public static final long DRAW_CONSTRAINT_SIZE_BYTE_OFFSET;
+    public static final long USER_DATA_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -50,19 +50,19 @@ public final class ConstraintSettings
             JAVA_LONG.withName("userData")
         ).withName("JPH_ConstraintSettings").withByteAlignment(8);
         
-        ENABLED = LAYOUT.varHandle(PathElement.groupElement("enabled"));
-        CONSTRAINT_PRIORITY = LAYOUT.varHandle(PathElement.groupElement("constraintPriority"));
-        NUM_VELOCITY_STEPS_OVERRIDE = LAYOUT.varHandle(PathElement.groupElement("numVelocityStepsOverride"));
-        NUM_POSITION_STEPS_OVERRIDE = LAYOUT.varHandle(PathElement.groupElement("numPositionStepsOverride"));
-        DRAW_CONSTRAINT_SIZE = LAYOUT.varHandle(PathElement.groupElement("drawConstraintSize"));
-        USER_DATA = LAYOUT.varHandle(PathElement.groupElement("userData"));
+        ENABLED_HANDLE = LAYOUT.varHandle(PathElement.groupElement("enabled"));
+        CONSTRAINT_PRIORITY_HANDLE = LAYOUT.varHandle(PathElement.groupElement("constraintPriority"));
+        NUM_VELOCITY_STEPS_OVERRIDE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("numVelocityStepsOverride"));
+        NUM_POSITION_STEPS_OVERRIDE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("numPositionStepsOverride"));
+        DRAW_CONSTRAINT_SIZE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("drawConstraintSize"));
+        USER_DATA_HANDLE = LAYOUT.varHandle(PathElement.groupElement("userData"));
         
-        ENABLED_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("enabled"));
-        CONSTRAINT_PRIORITY_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("constraintPriority"));
-        NUM_VELOCITY_STEPS_OVERRIDE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("numVelocityStepsOverride"));
-        NUM_POSITION_STEPS_OVERRIDE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("numPositionStepsOverride"));
-        DRAW_CONSTRAINT_SIZE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("drawConstraintSize"));
-        USER_DATA_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("userData"));
+        ENABLED_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("enabled"));
+        CONSTRAINT_PRIORITY_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("constraintPriority"));
+        NUM_VELOCITY_STEPS_OVERRIDE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("numVelocityStepsOverride"));
+        NUM_POSITION_STEPS_OVERRIDE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("numPositionStepsOverride"));
+        DRAW_CONSTRAINT_SIZE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("drawConstraintSize"));
+        USER_DATA_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("userData"));
         //@formatter:on
     }
 
@@ -72,57 +72,57 @@ public final class ConstraintSettings
     }
 
     public ConstraintSettings enabled(boolean enabled) {
-        ENABLED.set(segment, 0L, enabled);
+        ENABLED_HANDLE.set(segment, 0L, enabled);
         return this;
     }
     
     public boolean enabled() {
-        return (boolean) ENABLED.get(segment, 0L);
+        return (boolean) ENABLED_HANDLE.get(segment, 0L);
     }
     
     public ConstraintSettings constraintPriority(int constraintPriority) {
-        CONSTRAINT_PRIORITY.set(segment, 0L, constraintPriority);
+        CONSTRAINT_PRIORITY_HANDLE.set(segment, 0L, constraintPriority);
         return this;
     }
     
     public int constraintPriority() {
-        return (int) CONSTRAINT_PRIORITY.get(segment, 0L);
+        return (int) CONSTRAINT_PRIORITY_HANDLE.get(segment, 0L);
     }
     
     public ConstraintSettings numVelocityStepsOverride(int numVelocityStepsOverride) {
-        NUM_VELOCITY_STEPS_OVERRIDE.set(segment, 0L, numVelocityStepsOverride);
+        NUM_VELOCITY_STEPS_OVERRIDE_HANDLE.set(segment, 0L, numVelocityStepsOverride);
         return this;
     }
     
     public int numVelocityStepsOverride() {
-        return (int) NUM_VELOCITY_STEPS_OVERRIDE.get(segment, 0L);
+        return (int) NUM_VELOCITY_STEPS_OVERRIDE_HANDLE.get(segment, 0L);
     }
     
     public ConstraintSettings numPositionStepsOverride(int numPositionStepsOverride) {
-        NUM_POSITION_STEPS_OVERRIDE.set(segment, 0L, numPositionStepsOverride);
+        NUM_POSITION_STEPS_OVERRIDE_HANDLE.set(segment, 0L, numPositionStepsOverride);
         return this;
     }
     
     public int numPositionStepsOverride() {
-        return (int) NUM_POSITION_STEPS_OVERRIDE.get(segment, 0L);
+        return (int) NUM_POSITION_STEPS_OVERRIDE_HANDLE.get(segment, 0L);
     }
     
     public ConstraintSettings drawConstraintSize(float drawConstraintSize) {
-        DRAW_CONSTRAINT_SIZE.set(segment, 0L, drawConstraintSize);
+        DRAW_CONSTRAINT_SIZE_HANDLE.set(segment, 0L, drawConstraintSize);
         return this;
     }
     
     public float drawConstraintSize() {
-        return (float) DRAW_CONSTRAINT_SIZE.get(segment, 0L);
+        return (float) DRAW_CONSTRAINT_SIZE_HANDLE.get(segment, 0L);
     }
     
     public ConstraintSettings userData(long userData) {
-        USER_DATA.set(segment, 0L, userData);
+        USER_DATA_HANDLE.set(segment, 0L, userData);
         return this;
     }
     
     public long userData() {
-        return (long) USER_DATA.get(segment, 0L);
+        return (long) USER_DATA_HANDLE.get(segment, 0L);
     }
     
     @Override

@@ -26,18 +26,18 @@ public final class CharacterSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle LAYER;
-    public static final VarHandle MASS;
-    public static final VarHandle FRICTION;
-    public static final VarHandle GRAVITY_FACTOR;
-    public static final VarHandle ALLOWED_DOFS;
+    public static final VarHandle LAYER_HANDLE;
+    public static final VarHandle MASS_HANDLE;
+    public static final VarHandle FRICTION_HANDLE;
+    public static final VarHandle GRAVITY_FACTOR_HANDLE;
+    public static final VarHandle ALLOWED_DOFS_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long LAYER_OFFSET;
-    public static final long MASS_OFFSET;
-    public static final long FRICTION_OFFSET;
-    public static final long GRAVITY_FACTOR_OFFSET;
-    public static final long ALLOWED_DOFS_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long LAYER_BYTE_OFFSET;
+    public static final long MASS_BYTE_OFFSET;
+    public static final long FRICTION_BYTE_OFFSET;
+    public static final long GRAVITY_FACTOR_BYTE_OFFSET;
+    public static final long ALLOWED_DOFS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -57,18 +57,18 @@ public final class CharacterSettings
         
         JPH_CHARACTER_SETTINGS_INIT = downcallHandleVoid("JPH_CharacterSettings_Init", UNBOUNDED_ADDRESS);
         
-        LAYER = LAYOUT.varHandle(PathElement.groupElement("layer"));
-        MASS = LAYOUT.varHandle(PathElement.groupElement("mass"));
-        FRICTION = LAYOUT.varHandle(PathElement.groupElement("friction"));
-        GRAVITY_FACTOR = LAYOUT.varHandle(PathElement.groupElement("gravityFactor"));
-        ALLOWED_DOFS = LAYOUT.varHandle(PathElement.groupElement("allowedDOFs"));
+        LAYER_HANDLE = LAYOUT.varHandle(PathElement.groupElement("layer"));
+        MASS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("mass"));
+        FRICTION_HANDLE = LAYOUT.varHandle(PathElement.groupElement("friction"));
+        GRAVITY_FACTOR_HANDLE = LAYOUT.varHandle(PathElement.groupElement("gravityFactor"));
+        ALLOWED_DOFS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("allowedDOFs"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        LAYER_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("layer"));
-        MASS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mass"));
-        FRICTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("friction"));
-        GRAVITY_FACTOR_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("gravityFactor"));
-        ALLOWED_DOFS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("allowedDOFs"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        LAYER_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("layer"));
+        MASS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mass"));
+        FRICTION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("friction"));
+        GRAVITY_FACTOR_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("gravityFactor"));
+        ALLOWED_DOFS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("allowedDOFs"));
         //@formatter:on
     }
 
@@ -83,7 +83,7 @@ public final class CharacterSettings
     public CharacterSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new CharacterBaseSettings(segment.asSlice(BASE_OFFSET, CharacterBaseSettings.LAYOUT));
+        base = new CharacterBaseSettings(segment.asSlice(BASE_BYTE_OFFSET, CharacterBaseSettings.LAYOUT));
     
         init();
     }
@@ -112,48 +112,48 @@ public final class CharacterSettings
     }
     
     public CharacterSettings layer(int layer) {
-        LAYER.set(segment, 0L, layer);
+        LAYER_HANDLE.set(segment, 0L, layer);
         return this;
     }
     
     public int layer() {
-        return (int) LAYER.get(segment, 0L);
+        return (int) LAYER_HANDLE.get(segment, 0L);
     }
     
     public CharacterSettings mass(float mass) {
-        MASS.set(segment, 0L, mass);
+        MASS_HANDLE.set(segment, 0L, mass);
         return this;
     }
     
     public float mass() {
-        return (float) MASS.get(segment, 0L);
+        return (float) MASS_HANDLE.get(segment, 0L);
     }
     
     public CharacterSettings friction(float friction) {
-        FRICTION.set(segment, 0L, friction);
+        FRICTION_HANDLE.set(segment, 0L, friction);
         return this;
     }
     
     public float friction() {
-        return (float) FRICTION.get(segment, 0L);
+        return (float) FRICTION_HANDLE.get(segment, 0L);
     }
     
     public CharacterSettings gravityFactor(float gravityFactor) {
-        GRAVITY_FACTOR.set(segment, 0L, gravityFactor);
+        GRAVITY_FACTOR_HANDLE.set(segment, 0L, gravityFactor);
         return this;
     }
     
     public float gravityFactor() {
-        return (float) GRAVITY_FACTOR.get(segment, 0L);
+        return (float) GRAVITY_FACTOR_HANDLE.get(segment, 0L);
     }
     
     public CharacterSettings allowedDOFs(int allowedDOFs) {
-        ALLOWED_DOFS.set(segment, 0L, allowedDOFs);
+        ALLOWED_DOFS_HANDLE.set(segment, 0L, allowedDOFs);
         return this;
     }
     
     public int allowedDOFs() {
-        return (int) ALLOWED_DOFS.get(segment, 0L);
+        return (int) ALLOWED_DOFS_HANDLE.get(segment, 0L);
     }
     
     public CharacterSettings base(Consumer<CharacterBaseSettings> consumer) {

@@ -21,13 +21,13 @@ public final class SpringSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MODE;
-    public static final VarHandle FREQUENCY_OR_STIFFNESS;
-    public static final VarHandle DAMPING;
+    public static final VarHandle MODE_HANDLE;
+    public static final VarHandle FREQUENCY_OR_STIFFNESS_HANDLE;
+    public static final VarHandle DAMPING_HANDLE;
 
-    public static final long MODE_OFFSET;
-    public static final long FREQUENCY_OR_STIFFNESS_OFFSET;
-    public static final long DAMPING_OFFSET;
+    public static final long MODE_BYTE_OFFSET;
+    public static final long FREQUENCY_OR_STIFFNESS_BYTE_OFFSET;
+    public static final long DAMPING_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -39,13 +39,13 @@ public final class SpringSettings
             JAVA_FLOAT.withName("damping")
         ).withName("JPH_SpringSettings").withByteAlignment(4);
         
-        MODE = LAYOUT.varHandle(PathElement.groupElement("mode"));
-        FREQUENCY_OR_STIFFNESS = LAYOUT.varHandle(PathElement.groupElement("frequencyOrStiffness"));
-        DAMPING = LAYOUT.varHandle(PathElement.groupElement("damping"));
+        MODE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("mode"));
+        FREQUENCY_OR_STIFFNESS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("frequencyOrStiffness"));
+        DAMPING_HANDLE = LAYOUT.varHandle(PathElement.groupElement("damping"));
         
-        MODE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mode"));
-        FREQUENCY_OR_STIFFNESS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("frequencyOrStiffness"));
-        DAMPING_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("damping"));
+        MODE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mode"));
+        FREQUENCY_OR_STIFFNESS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("frequencyOrStiffness"));
+        DAMPING_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("damping"));
         //@formatter:on
     }
 
@@ -63,30 +63,30 @@ public final class SpringSettings
     }
 
     public SpringSettings mode(int mode) {
-        MODE.set(segment, 0L, mode);
+        MODE_HANDLE.set(segment, 0L, mode);
         return this;
     }
     
     public int mode() {
-        return (int) MODE.get(segment, 0L);
+        return (int) MODE_HANDLE.get(segment, 0L);
     }
     
     public SpringSettings frequencyOrStiffness(float frequencyOrStiffness) {
-        FREQUENCY_OR_STIFFNESS.set(segment, 0L, frequencyOrStiffness);
+        FREQUENCY_OR_STIFFNESS_HANDLE.set(segment, 0L, frequencyOrStiffness);
         return this;
     }
     
     public float frequencyOrStiffness() {
-        return (float) FREQUENCY_OR_STIFFNESS.get(segment, 0L);
+        return (float) FREQUENCY_OR_STIFFNESS_HANDLE.get(segment, 0L);
     }
     
     public SpringSettings damping(float damping) {
-        DAMPING.set(segment, 0L, damping);
+        DAMPING_HANDLE.set(segment, 0L, damping);
         return this;
     }
     
     public float damping() {
-        return (float) DAMPING.get(segment, 0L);
+        return (float) DAMPING_HANDLE.get(segment, 0L);
     }
     
     @Override

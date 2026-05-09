@@ -21,13 +21,13 @@ public final class RayCastResult
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle BODY_ID;
-    public static final VarHandle FRACTION;
-    public static final VarHandle SUB_SHAPE_ID2;
+    public static final VarHandle BODY_ID_HANDLE;
+    public static final VarHandle FRACTION_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID2_HANDLE;
 
-    public static final long BODY_ID_OFFSET;
-    public static final long FRACTION_OFFSET;
-    public static final long SUB_SHAPE_ID2_OFFSET;
+    public static final long BODY_ID_BYTE_OFFSET;
+    public static final long FRACTION_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID2_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -39,13 +39,13 @@ public final class RayCastResult
             JAVA_INT.withName("subShapeID2")
         ).withName("JPH_RayCastResult").withByteAlignment(4);
         
-        BODY_ID = LAYOUT.varHandle(PathElement.groupElement("bodyID"));
-        FRACTION = LAYOUT.varHandle(PathElement.groupElement("fraction"));
-        SUB_SHAPE_ID2 = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
+        BODY_ID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("bodyID"));
+        FRACTION_HANDLE = LAYOUT.varHandle(PathElement.groupElement("fraction"));
+        SUB_SHAPE_ID2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
         
-        BODY_ID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID"));
-        FRACTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("fraction"));
-        SUB_SHAPE_ID2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
+        BODY_ID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID"));
+        FRACTION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("fraction"));
+        SUB_SHAPE_ID2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
         //@formatter:on
     }
 
@@ -63,30 +63,30 @@ public final class RayCastResult
     }
 
     public RayCastResult bodyID(int bodyID) {
-        BODY_ID.set(segment, 0L, bodyID);
+        BODY_ID_HANDLE.set(segment, 0L, bodyID);
         return this;
     }
     
     public int bodyID() {
-        return (int) BODY_ID.get(segment, 0L);
+        return (int) BODY_ID_HANDLE.get(segment, 0L);
     }
     
     public RayCastResult fraction(float fraction) {
-        FRACTION.set(segment, 0L, fraction);
+        FRACTION_HANDLE.set(segment, 0L, fraction);
         return this;
     }
     
     public float fraction() {
-        return (float) FRACTION.get(segment, 0L);
+        return (float) FRACTION_HANDLE.get(segment, 0L);
     }
     
     public RayCastResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2.set(segment, 0L, subShapeID2);
+        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
         return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2.get(segment, 0L);
+        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     @Override

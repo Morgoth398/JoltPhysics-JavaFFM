@@ -32,26 +32,26 @@ public final class SixDOFConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle MAX_FRICTION;
-    public static final VarHandle SWING_TYPE;
-    public static final VarHandle LIMIT_MIN;
-    public static final VarHandle LIMIT_MAX;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle MAX_FRICTION_HANDLE;
+    public static final VarHandle SWING_TYPE_HANDLE;
+    public static final VarHandle LIMIT_MIN_HANDLE;
+    public static final VarHandle LIMIT_MAX_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long POSITION1_OFFSET;
-    public static final long AXIS_X1_OFFSET;
-    public static final long AXIS_Y1_OFFSET;
-    public static final long POSITION2_OFFSET;
-    public static final long AXIS_X2_OFFSET;
-    public static final long AXIS_Y2_OFFSET;
-    public static final long MAX_FRICTION_OFFSET;
-    public static final long SWING_TYPE_OFFSET;
-    public static final long LIMIT_MIN_OFFSET;
-    public static final long LIMIT_MAX_OFFSET;
-    public static final long LIMITS_SPRING_SETTINGS_OFFSET;
-    public static final long MOTOR_SETTINGS_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long POSITION1_BYTE_OFFSET;
+    public static final long AXIS_X1_BYTE_OFFSET;
+    public static final long AXIS_Y1_BYTE_OFFSET;
+    public static final long POSITION2_BYTE_OFFSET;
+    public static final long AXIS_X2_BYTE_OFFSET;
+    public static final long AXIS_Y2_BYTE_OFFSET;
+    public static final long MAX_FRICTION_BYTE_OFFSET;
+    public static final long SWING_TYPE_BYTE_OFFSET;
+    public static final long LIMIT_MIN_BYTE_OFFSET;
+    public static final long LIMIT_MAX_BYTE_OFFSET;
+    public static final long LIMITS_SPRING_SETTINGS_BYTE_OFFSET;
+    public static final long MOTOR_SETTINGS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -92,26 +92,26 @@ public final class SixDOFConstraintSettings
         JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FIXED_AXIS = downcallHandle("JPH_SixDOFConstraintSettings_IsFixedAxis", JAVA_BOOLEAN, UNBOUNDED_ADDRESS, JAVA_INT);
         JPH_SIX_DOFCONSTRAINT_SETTINGS_SET_LIMITED_AXIS = downcallHandleVoid("JPH_SixDOFConstraintSettings_SetLimitedAxis", UNBOUNDED_ADDRESS, JAVA_INT, JAVA_FLOAT, JAVA_FLOAT);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        MAX_FRICTION = LAYOUT.varHandle(PathElement.groupElement("maxFriction"), PathElement.sequenceElement());
-        SWING_TYPE = LAYOUT.varHandle(PathElement.groupElement("swingType"));
-        LIMIT_MIN = LAYOUT.varHandle(PathElement.groupElement("limitMin"), PathElement.sequenceElement());
-        LIMIT_MAX = LAYOUT.varHandle(PathElement.groupElement("limitMax"), PathElement.sequenceElement());
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        MAX_FRICTION_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxFriction"), PathElement.sequenceElement());
+        SWING_TYPE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("swingType"));
+        LIMIT_MIN_HANDLE = LAYOUT.varHandle(PathElement.groupElement("limitMin"), PathElement.sequenceElement());
+        LIMIT_MAX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("limitMax"), PathElement.sequenceElement());
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        POSITION1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position1"));
-        AXIS_X1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX1"));
-        AXIS_Y1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY1"));
-        POSITION2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position2"));
-        AXIS_X2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX2"));
-        AXIS_Y2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY2"));
-        MAX_FRICTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFriction"));
-        SWING_TYPE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("swingType"));
-        LIMIT_MIN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitMin"));
-        LIMIT_MAX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitMax"));
-        LIMITS_SPRING_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
-        MOTOR_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("motorSettings"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        POSITION1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position1"));
+        AXIS_X1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX1"));
+        AXIS_Y1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY1"));
+        POSITION2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("position2"));
+        AXIS_X2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX2"));
+        AXIS_Y2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY2"));
+        MAX_FRICTION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFriction"));
+        SWING_TYPE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("swingType"));
+        LIMIT_MIN_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitMin"));
+        LIMIT_MAX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitMax"));
+        LIMITS_SPRING_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
+        MOTOR_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("motorSettings"));
         //@formatter:on
     }
 
@@ -126,24 +126,24 @@ public final class SixDOFConstraintSettings
     public SixDOFConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        position1 = new Vec3(segment.asSlice(POSITION1_OFFSET, Vec3.LAYOUT));
-        axisX1 = new Vec3(segment.asSlice(AXIS_X1_OFFSET, Vec3.LAYOUT));
-        axisY1 = new Vec3(segment.asSlice(AXIS_Y1_OFFSET, Vec3.LAYOUT));
-        position2 = new Vec3(segment.asSlice(POSITION2_OFFSET, Vec3.LAYOUT));
-        axisX2 = new Vec3(segment.asSlice(AXIS_X2_OFFSET, Vec3.LAYOUT));
-        axisY2 = new Vec3(segment.asSlice(AXIS_Y2_OFFSET, Vec3.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        position1 = new Vec3(segment.asSlice(POSITION1_BYTE_OFFSET, Vec3.LAYOUT));
+        axisX1 = new Vec3(segment.asSlice(AXIS_X1_BYTE_OFFSET, Vec3.LAYOUT));
+        axisY1 = new Vec3(segment.asSlice(AXIS_Y1_BYTE_OFFSET, Vec3.LAYOUT));
+        position2 = new Vec3(segment.asSlice(POSITION2_BYTE_OFFSET, Vec3.LAYOUT));
+        axisX2 = new Vec3(segment.asSlice(AXIS_X2_BYTE_OFFSET, Vec3.LAYOUT));
+        axisY2 = new Vec3(segment.asSlice(AXIS_Y2_BYTE_OFFSET, Vec3.LAYOUT));
     
         limitsSpringSettings = new SpringSettings[3];
         for (int i = 0; i < 3; i++) {
-            long offset = LIMITS_SPRING_SETTINGS_OFFSET + i * SpringSettings.LAYOUT.byteSize();
+            long offset = LIMITS_SPRING_SETTINGS_BYTE_OFFSET + i * SpringSettings.LAYOUT.byteSize();
             limitsSpringSettings[i] = new SpringSettings(segment.asSlice(offset, SpringSettings.LAYOUT));
         }
     
     
         motorSettings = new MotorSettings[6];
         for (int i = 0; i < 6; i++) {
-            long offset = MOTOR_SETTINGS_OFFSET + i * MotorSettings.LAYOUT.byteSize();
+            long offset = MOTOR_SETTINGS_BYTE_OFFSET + i * MotorSettings.LAYOUT.byteSize();
             motorSettings[i] = new MotorSettings(segment.asSlice(offset, MotorSettings.LAYOUT));
         }
     
@@ -318,48 +318,48 @@ public final class SixDOFConstraintSettings
     }
     
     public SixDOFConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public SixDOFConstraintSettings maxFriction(float maxFriction, long index) {
-        MAX_FRICTION.set(segment, 0L, index, maxFriction);
+        MAX_FRICTION_HANDLE.set(segment, 0L, index, maxFriction);
         return this;
     }
     
     public float maxFriction(long index) {
-        return (float) MAX_FRICTION.get(segment, 0L, index);
+        return (float) MAX_FRICTION_HANDLE.get(segment, 0L, index);
     }
     
     public SixDOFConstraintSettings swingType(int swingType) {
-        SWING_TYPE.set(segment, 0L, swingType);
+        SWING_TYPE_HANDLE.set(segment, 0L, swingType);
         return this;
     }
     
     public int swingType() {
-        return (int) SWING_TYPE.get(segment, 0L);
+        return (int) SWING_TYPE_HANDLE.get(segment, 0L);
     }
     
     public SixDOFConstraintSettings limitMin(float limitMin, long index) {
-        LIMIT_MIN.set(segment, 0L, index, limitMin);
+        LIMIT_MIN_HANDLE.set(segment, 0L, index, limitMin);
         return this;
     }
     
     public float limitMin(long index) {
-        return (float) LIMIT_MIN.get(segment, 0L, index);
+        return (float) LIMIT_MIN_HANDLE.get(segment, 0L, index);
     }
     
     public SixDOFConstraintSettings limitMax(float limitMax, long index) {
-        LIMIT_MAX.set(segment, 0L, index, limitMax);
+        LIMIT_MAX_HANDLE.set(segment, 0L, index, limitMax);
         return this;
     }
     
     public float limitMax(long index) {
-        return (float) LIMIT_MAX.get(segment, 0L, index);
+        return (float) LIMIT_MAX_HANDLE.get(segment, 0L, index);
     }
     
     public SixDOFConstraintSettings base(Consumer<ConstraintSettings> consumer) {

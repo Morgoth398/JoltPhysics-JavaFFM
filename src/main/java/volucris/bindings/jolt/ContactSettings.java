@@ -23,23 +23,23 @@ public final class ContactSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle COMBINED_FRICTION;
-    public static final VarHandle COMBINED_RESTITUTION;
-    public static final VarHandle INV_MASS_SCALE1;
-    public static final VarHandle INV_INERTIA_SCALE1;
-    public static final VarHandle INV_MASS_SCALE2;
-    public static final VarHandle INV_INERTIA_SCALE2;
-    public static final VarHandle IS_SENSOR;
+    public static final VarHandle COMBINED_FRICTION_HANDLE;
+    public static final VarHandle COMBINED_RESTITUTION_HANDLE;
+    public static final VarHandle INV_MASS_SCALE1_HANDLE;
+    public static final VarHandle INV_INERTIA_SCALE1_HANDLE;
+    public static final VarHandle INV_MASS_SCALE2_HANDLE;
+    public static final VarHandle INV_INERTIA_SCALE2_HANDLE;
+    public static final VarHandle IS_SENSOR_HANDLE;
 
-    public static final long COMBINED_FRICTION_OFFSET;
-    public static final long COMBINED_RESTITUTION_OFFSET;
-    public static final long INV_MASS_SCALE1_OFFSET;
-    public static final long INV_INERTIA_SCALE1_OFFSET;
-    public static final long INV_MASS_SCALE2_OFFSET;
-    public static final long INV_INERTIA_SCALE2_OFFSET;
-    public static final long IS_SENSOR_OFFSET;
-    public static final long RELATIVE_LINEAR_SURFACE_VELOCITY_OFFSET;
-    public static final long RELATIVE_ANGULAR_SURFACE_VELOCITY_OFFSET;
+    public static final long COMBINED_FRICTION_BYTE_OFFSET;
+    public static final long COMBINED_RESTITUTION_BYTE_OFFSET;
+    public static final long INV_MASS_SCALE1_BYTE_OFFSET;
+    public static final long INV_INERTIA_SCALE1_BYTE_OFFSET;
+    public static final long INV_MASS_SCALE2_BYTE_OFFSET;
+    public static final long INV_INERTIA_SCALE2_BYTE_OFFSET;
+    public static final long IS_SENSOR_BYTE_OFFSET;
+    public static final long RELATIVE_LINEAR_SURFACE_VELOCITY_BYTE_OFFSET;
+    public static final long RELATIVE_ANGULAR_SURFACE_VELOCITY_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -60,23 +60,23 @@ public final class ContactSettings
             Vec3.LAYOUT.withName("relativeAngularSurfaceVelocity")
         ).withName("JPH_ContactSettings").withByteAlignment(4);
         
-        COMBINED_FRICTION = LAYOUT.varHandle(PathElement.groupElement("combinedFriction"));
-        COMBINED_RESTITUTION = LAYOUT.varHandle(PathElement.groupElement("combinedRestitution"));
-        INV_MASS_SCALE1 = LAYOUT.varHandle(PathElement.groupElement("invMassScale1"));
-        INV_INERTIA_SCALE1 = LAYOUT.varHandle(PathElement.groupElement("invInertiaScale1"));
-        INV_MASS_SCALE2 = LAYOUT.varHandle(PathElement.groupElement("invMassScale2"));
-        INV_INERTIA_SCALE2 = LAYOUT.varHandle(PathElement.groupElement("invInertiaScale2"));
-        IS_SENSOR = LAYOUT.varHandle(PathElement.groupElement("isSensor"));
+        COMBINED_FRICTION_HANDLE = LAYOUT.varHandle(PathElement.groupElement("combinedFriction"));
+        COMBINED_RESTITUTION_HANDLE = LAYOUT.varHandle(PathElement.groupElement("combinedRestitution"));
+        INV_MASS_SCALE1_HANDLE = LAYOUT.varHandle(PathElement.groupElement("invMassScale1"));
+        INV_INERTIA_SCALE1_HANDLE = LAYOUT.varHandle(PathElement.groupElement("invInertiaScale1"));
+        INV_MASS_SCALE2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("invMassScale2"));
+        INV_INERTIA_SCALE2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("invInertiaScale2"));
+        IS_SENSOR_HANDLE = LAYOUT.varHandle(PathElement.groupElement("isSensor"));
         
-        COMBINED_FRICTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("combinedFriction"));
-        COMBINED_RESTITUTION_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("combinedRestitution"));
-        INV_MASS_SCALE1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invMassScale1"));
-        INV_INERTIA_SCALE1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invInertiaScale1"));
-        INV_MASS_SCALE2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invMassScale2"));
-        INV_INERTIA_SCALE2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invInertiaScale2"));
-        IS_SENSOR_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isSensor"));
-        RELATIVE_LINEAR_SURFACE_VELOCITY_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("relativeLinearSurfaceVelocity"));
-        RELATIVE_ANGULAR_SURFACE_VELOCITY_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("relativeAngularSurfaceVelocity"));
+        COMBINED_FRICTION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("combinedFriction"));
+        COMBINED_RESTITUTION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("combinedRestitution"));
+        INV_MASS_SCALE1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invMassScale1"));
+        INV_INERTIA_SCALE1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invInertiaScale1"));
+        INV_MASS_SCALE2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invMassScale2"));
+        INV_INERTIA_SCALE2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("invInertiaScale2"));
+        IS_SENSOR_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isSensor"));
+        RELATIVE_LINEAR_SURFACE_VELOCITY_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("relativeLinearSurfaceVelocity"));
+        RELATIVE_ANGULAR_SURFACE_VELOCITY_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("relativeAngularSurfaceVelocity"));
         //@formatter:on
     }
 
@@ -91,71 +91,71 @@ public final class ContactSettings
     public ContactSettings(MemorySegment segment) {
         this.segment = segment;
     
-        relativeLinearSurfaceVelocity = new Vec3(segment.asSlice(RELATIVE_LINEAR_SURFACE_VELOCITY_OFFSET, Vec3.LAYOUT));
-        relativeAngularSurfaceVelocity = new Vec3(segment.asSlice(RELATIVE_ANGULAR_SURFACE_VELOCITY_OFFSET, Vec3.LAYOUT));
+        relativeLinearSurfaceVelocity = new Vec3(segment.asSlice(RELATIVE_LINEAR_SURFACE_VELOCITY_BYTE_OFFSET, Vec3.LAYOUT));
+        relativeAngularSurfaceVelocity = new Vec3(segment.asSlice(RELATIVE_ANGULAR_SURFACE_VELOCITY_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public ContactSettings combinedFriction(float combinedFriction) {
-        COMBINED_FRICTION.set(segment, 0L, combinedFriction);
+        COMBINED_FRICTION_HANDLE.set(segment, 0L, combinedFriction);
         return this;
     }
     
     public float combinedFriction() {
-        return (float) COMBINED_FRICTION.get(segment, 0L);
+        return (float) COMBINED_FRICTION_HANDLE.get(segment, 0L);
     }
     
     public ContactSettings combinedRestitution(float combinedRestitution) {
-        COMBINED_RESTITUTION.set(segment, 0L, combinedRestitution);
+        COMBINED_RESTITUTION_HANDLE.set(segment, 0L, combinedRestitution);
         return this;
     }
     
     public float combinedRestitution() {
-        return (float) COMBINED_RESTITUTION.get(segment, 0L);
+        return (float) COMBINED_RESTITUTION_HANDLE.get(segment, 0L);
     }
     
     public ContactSettings invMassScale1(float invMassScale1) {
-        INV_MASS_SCALE1.set(segment, 0L, invMassScale1);
+        INV_MASS_SCALE1_HANDLE.set(segment, 0L, invMassScale1);
         return this;
     }
     
     public float invMassScale1() {
-        return (float) INV_MASS_SCALE1.get(segment, 0L);
+        return (float) INV_MASS_SCALE1_HANDLE.get(segment, 0L);
     }
     
     public ContactSettings invInertiaScale1(float invInertiaScale1) {
-        INV_INERTIA_SCALE1.set(segment, 0L, invInertiaScale1);
+        INV_INERTIA_SCALE1_HANDLE.set(segment, 0L, invInertiaScale1);
         return this;
     }
     
     public float invInertiaScale1() {
-        return (float) INV_INERTIA_SCALE1.get(segment, 0L);
+        return (float) INV_INERTIA_SCALE1_HANDLE.get(segment, 0L);
     }
     
     public ContactSettings invMassScale2(float invMassScale2) {
-        INV_MASS_SCALE2.set(segment, 0L, invMassScale2);
+        INV_MASS_SCALE2_HANDLE.set(segment, 0L, invMassScale2);
         return this;
     }
     
     public float invMassScale2() {
-        return (float) INV_MASS_SCALE2.get(segment, 0L);
+        return (float) INV_MASS_SCALE2_HANDLE.get(segment, 0L);
     }
     
     public ContactSettings invInertiaScale2(float invInertiaScale2) {
-        INV_INERTIA_SCALE2.set(segment, 0L, invInertiaScale2);
+        INV_INERTIA_SCALE2_HANDLE.set(segment, 0L, invInertiaScale2);
         return this;
     }
     
     public float invInertiaScale2() {
-        return (float) INV_INERTIA_SCALE2.get(segment, 0L);
+        return (float) INV_INERTIA_SCALE2_HANDLE.get(segment, 0L);
     }
     
     public ContactSettings isSensor(int isSensor) {
-        IS_SENSOR.set(segment, 0L, isSensor);
+        IS_SENSOR_HANDLE.set(segment, 0L, isSensor);
         return this;
     }
     
     public int isSensor() {
-        return (int) IS_SENSOR.get(segment, 0L);
+        return (int) IS_SENSOR_HANDLE.get(segment, 0L);
     }
     
     public ContactSettings relativeLinearSurfaceVelocity(Consumer<Vec3> consumer) {

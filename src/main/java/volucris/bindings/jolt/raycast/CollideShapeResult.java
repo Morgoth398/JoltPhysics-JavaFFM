@@ -25,26 +25,26 @@ public final class CollideShapeResult
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle PENETRATION_DEPTH;
-    public static final VarHandle SUB_SHAPE_ID1;
-    public static final VarHandle SUB_SHAPE_ID2;
-    public static final VarHandle BODY_ID2;
-    public static final VarHandle SHAPE1_FACE_COUNT;
-    public static final VarHandle SHAPE1_FACES;
-    public static final VarHandle SHAPE2_FACE_COUNT;
-    public static final VarHandle SHAPE2_FACES;
+    public static final VarHandle PENETRATION_DEPTH_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID1_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID2_HANDLE;
+    public static final VarHandle BODY_ID2_HANDLE;
+    public static final VarHandle SHAPE1_FACE_COUNT_HANDLE;
+    public static final VarHandle SHAPE1_FACES_HANDLE;
+    public static final VarHandle SHAPE2_FACE_COUNT_HANDLE;
+    public static final VarHandle SHAPE2_FACES_HANDLE;
 
-    public static final long CONTACT_POINT_ON1_OFFSET;
-    public static final long CONTACT_POINT_ON2_OFFSET;
-    public static final long PENETRATION_AXIS_OFFSET;
-    public static final long PENETRATION_DEPTH_OFFSET;
-    public static final long SUB_SHAPE_ID1_OFFSET;
-    public static final long SUB_SHAPE_ID2_OFFSET;
-    public static final long BODY_ID2_OFFSET;
-    public static final long SHAPE1_FACE_COUNT_OFFSET;
-    public static final long SHAPE1_FACES_OFFSET;
-    public static final long SHAPE2_FACE_COUNT_OFFSET;
-    public static final long SHAPE2_FACES_OFFSET;
+    public static final long CONTACT_POINT_ON1_BYTE_OFFSET;
+    public static final long CONTACT_POINT_ON2_BYTE_OFFSET;
+    public static final long PENETRATION_AXIS_BYTE_OFFSET;
+    public static final long PENETRATION_DEPTH_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID1_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID2_BYTE_OFFSET;
+    public static final long BODY_ID2_BYTE_OFFSET;
+    public static final long SHAPE1_FACE_COUNT_BYTE_OFFSET;
+    public static final long SHAPE1_FACES_BYTE_OFFSET;
+    public static final long SHAPE2_FACE_COUNT_BYTE_OFFSET;
+    public static final long SHAPE2_FACES_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -69,26 +69,26 @@ public final class CollideShapeResult
             UNBOUNDED_ADDRESS.withName("shape2Faces")
         ).withName("JPH_CollideShapeResult").withByteAlignment(8);
         
-        PENETRATION_DEPTH = LAYOUT.varHandle(PathElement.groupElement("penetrationDepth"));
-        SUB_SHAPE_ID1 = LAYOUT.varHandle(PathElement.groupElement("subShapeID1"));
-        SUB_SHAPE_ID2 = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
-        BODY_ID2 = LAYOUT.varHandle(PathElement.groupElement("bodyID2"));
-        SHAPE1_FACE_COUNT = LAYOUT.varHandle(PathElement.groupElement("shape1FaceCount"));
-        SHAPE1_FACES = LAYOUT.varHandle(PathElement.groupElement("shape1Faces"));
-        SHAPE2_FACE_COUNT = LAYOUT.varHandle(PathElement.groupElement("shape2FaceCount"));
-        SHAPE2_FACES = LAYOUT.varHandle(PathElement.groupElement("shape2Faces"));
+        PENETRATION_DEPTH_HANDLE = LAYOUT.varHandle(PathElement.groupElement("penetrationDepth"));
+        SUB_SHAPE_ID1_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID1"));
+        SUB_SHAPE_ID2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
+        BODY_ID2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("bodyID2"));
+        SHAPE1_FACE_COUNT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("shape1FaceCount"));
+        SHAPE1_FACES_HANDLE = LAYOUT.varHandle(PathElement.groupElement("shape1Faces"));
+        SHAPE2_FACE_COUNT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("shape2FaceCount"));
+        SHAPE2_FACES_HANDLE = LAYOUT.varHandle(PathElement.groupElement("shape2Faces"));
         
-        CONTACT_POINT_ON1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn1"));
-        CONTACT_POINT_ON2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn2"));
-        PENETRATION_AXIS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationAxis"));
-        PENETRATION_DEPTH_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationDepth"));
-        SUB_SHAPE_ID1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID1"));
-        SUB_SHAPE_ID2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
-        BODY_ID2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID2"));
-        SHAPE1_FACE_COUNT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape1FaceCount"));
-        SHAPE1_FACES_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape1Faces"));
-        SHAPE2_FACE_COUNT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape2FaceCount"));
-        SHAPE2_FACES_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape2Faces"));
+        CONTACT_POINT_ON1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn1"));
+        CONTACT_POINT_ON2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("contactPointOn2"));
+        PENETRATION_AXIS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationAxis"));
+        PENETRATION_DEPTH_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationDepth"));
+        SUB_SHAPE_ID1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID1"));
+        SUB_SHAPE_ID2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
+        BODY_ID2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID2"));
+        SHAPE1_FACE_COUNT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape1FaceCount"));
+        SHAPE1_FACES_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape1Faces"));
+        SHAPE2_FACE_COUNT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape2FaceCount"));
+        SHAPE2_FACES_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shape2Faces"));
         //@formatter:on
     }
 
@@ -103,63 +103,63 @@ public final class CollideShapeResult
     public CollideShapeResult(MemorySegment segment) {
         this.segment = segment;
     
-        contactPointOn1 = new Vec3(segment.asSlice(CONTACT_POINT_ON1_OFFSET, Vec3.LAYOUT));
-        contactPointOn2 = new Vec3(segment.asSlice(CONTACT_POINT_ON2_OFFSET, Vec3.LAYOUT));
-        penetrationAxis = new Vec3(segment.asSlice(PENETRATION_AXIS_OFFSET, Vec3.LAYOUT));
+        contactPointOn1 = new Vec3(segment.asSlice(CONTACT_POINT_ON1_BYTE_OFFSET, Vec3.LAYOUT));
+        contactPointOn2 = new Vec3(segment.asSlice(CONTACT_POINT_ON2_BYTE_OFFSET, Vec3.LAYOUT));
+        penetrationAxis = new Vec3(segment.asSlice(PENETRATION_AXIS_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
     public CollideShapeResult penetrationDepth(float penetrationDepth) {
-        PENETRATION_DEPTH.set(segment, 0L, penetrationDepth);
+        PENETRATION_DEPTH_HANDLE.set(segment, 0L, penetrationDepth);
         return this;
     }
     
     public float penetrationDepth() {
-        return (float) PENETRATION_DEPTH.get(segment, 0L);
+        return (float) PENETRATION_DEPTH_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeResult subShapeID1(int subShapeID1) {
-        SUB_SHAPE_ID1.set(segment, 0L, subShapeID1);
+        SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
         return this;
     }
     
     public int subShapeID1() {
-        return (int) SUB_SHAPE_ID1.get(segment, 0L);
+        return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2.set(segment, 0L, subShapeID2);
+        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
         return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2.get(segment, 0L);
+        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeResult bodyID2(int bodyID2) {
-        BODY_ID2.set(segment, 0L, bodyID2);
+        BODY_ID2_HANDLE.set(segment, 0L, bodyID2);
         return this;
     }
     
     public int bodyID2() {
-        return (int) BODY_ID2.get(segment, 0L);
+        return (int) BODY_ID2_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeResult shape1FaceCount(int shape1FaceCount) {
-        SHAPE1_FACE_COUNT.set(segment, 0L, shape1FaceCount);
+        SHAPE1_FACE_COUNT_HANDLE.set(segment, 0L, shape1FaceCount);
         return this;
     }
     
     public int shape1FaceCount() {
-        return (int) SHAPE1_FACE_COUNT.get(segment, 0L);
+        return (int) SHAPE1_FACE_COUNT_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeResult shape1Faces(Vec3 shape1Faces) {
-        SHAPE1_FACES.set(segment, 0L, shape1Faces.memorySegment());
+        SHAPE1_FACES_HANDLE.set(segment, 0L, shape1Faces.memorySegment());
         return this;
     }
     
     public @Nullable Vec3 shape1Faces() {
-        MemorySegment segment = (MemorySegment) SHAPE1_FACES.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) SHAPE1_FACES_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -168,21 +168,21 @@ public final class CollideShapeResult
     }
     
     public CollideShapeResult shape2FaceCount(int shape2FaceCount) {
-        SHAPE2_FACE_COUNT.set(segment, 0L, shape2FaceCount);
+        SHAPE2_FACE_COUNT_HANDLE.set(segment, 0L, shape2FaceCount);
         return this;
     }
     
     public int shape2FaceCount() {
-        return (int) SHAPE2_FACE_COUNT.get(segment, 0L);
+        return (int) SHAPE2_FACE_COUNT_HANDLE.get(segment, 0L);
     }
     
     public CollideShapeResult shape2Faces(Vec3 shape2Faces) {
-        SHAPE2_FACES.set(segment, 0L, shape2Faces.memorySegment());
+        SHAPE2_FACES_HANDLE.set(segment, 0L, shape2Faces.memorySegment());
         return this;
     }
     
     public @Nullable Vec3 shape2Faces() {
-        MemorySegment segment = (MemorySegment) SHAPE2_FACES.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) SHAPE2_FACES_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;

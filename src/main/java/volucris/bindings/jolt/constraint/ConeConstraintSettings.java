@@ -27,16 +27,16 @@ public final class ConeConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle HALF_CONE_ANGLE;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle HALF_CONE_ANGLE_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long POINT1_OFFSET;
-    public static final long TWIST_AXIS1_OFFSET;
-    public static final long POINT2_OFFSET;
-    public static final long TWIST_AXIS2_OFFSET;
-    public static final long HALF_CONE_ANGLE_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long POINT1_BYTE_OFFSET;
+    public static final long TWIST_AXIS1_BYTE_OFFSET;
+    public static final long POINT2_BYTE_OFFSET;
+    public static final long TWIST_AXIS2_BYTE_OFFSET;
+    public static final long HALF_CONE_ANGLE_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -60,16 +60,16 @@ public final class ConeConstraintSettings
         
         JPH_CONE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_ConeConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        HALF_CONE_ANGLE = LAYOUT.varHandle(PathElement.groupElement("halfConeAngle"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        HALF_CONE_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("halfConeAngle"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        POINT1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
-        TWIST_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis1"));
-        POINT2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
-        TWIST_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis2"));
-        HALF_CONE_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("halfConeAngle"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        POINT1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
+        TWIST_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis1"));
+        POINT2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
+        TWIST_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("twistAxis2"));
+        HALF_CONE_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("halfConeAngle"));
         //@formatter:on
     }
 
@@ -84,11 +84,11 @@ public final class ConeConstraintSettings
     public ConeConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        point1 = new Vec3(segment.asSlice(POINT1_OFFSET, Vec3.LAYOUT));
-        twistAxis1 = new Vec3(segment.asSlice(TWIST_AXIS1_OFFSET, Vec3.LAYOUT));
-        point2 = new Vec3(segment.asSlice(POINT2_OFFSET, Vec3.LAYOUT));
-        twistAxis2 = new Vec3(segment.asSlice(TWIST_AXIS2_OFFSET, Vec3.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        point1 = new Vec3(segment.asSlice(POINT1_BYTE_OFFSET, Vec3.LAYOUT));
+        twistAxis1 = new Vec3(segment.asSlice(TWIST_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        point2 = new Vec3(segment.asSlice(POINT2_BYTE_OFFSET, Vec3.LAYOUT));
+        twistAxis2 = new Vec3(segment.asSlice(TWIST_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
     
         init();
     }
@@ -117,21 +117,21 @@ public final class ConeConstraintSettings
     }
     
     public ConeConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public ConeConstraintSettings halfConeAngle(float halfConeAngle) {
-        HALF_CONE_ANGLE.set(segment, 0L, halfConeAngle);
+        HALF_CONE_ANGLE_HANDLE.set(segment, 0L, halfConeAngle);
         return this;
     }
     
     public float halfConeAngle() {
-        return (float) HALF_CONE_ANGLE.get(segment, 0L);
+        return (float) HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public ConeConstraintSettings base(Consumer<ConstraintSettings> consumer) {

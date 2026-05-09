@@ -27,18 +27,18 @@ public final class FixedConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle AUTO_DETECT_POINT;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle AUTO_DETECT_POINT_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long AUTO_DETECT_POINT_OFFSET;
-    public static final long POINT1_OFFSET;
-    public static final long AXIS_X1_OFFSET;
-    public static final long AXIS_Y1_OFFSET;
-    public static final long POINT2_OFFSET;
-    public static final long AXIS_X2_OFFSET;
-    public static final long AXIS_Y2_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long AUTO_DETECT_POINT_BYTE_OFFSET;
+    public static final long POINT1_BYTE_OFFSET;
+    public static final long AXIS_X1_BYTE_OFFSET;
+    public static final long AXIS_Y1_BYTE_OFFSET;
+    public static final long POINT2_BYTE_OFFSET;
+    public static final long AXIS_X2_BYTE_OFFSET;
+    public static final long AXIS_Y2_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -67,18 +67,18 @@ public final class FixedConstraintSettings
         
         JPH_FIXED_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_FixedConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        AUTO_DETECT_POINT = LAYOUT.varHandle(PathElement.groupElement("autoDetectPoint"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        AUTO_DETECT_POINT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("autoDetectPoint"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        AUTO_DETECT_POINT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("autoDetectPoint"));
-        POINT1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
-        AXIS_X1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX1"));
-        AXIS_Y1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY1"));
-        POINT2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
-        AXIS_X2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX2"));
-        AXIS_Y2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY2"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        AUTO_DETECT_POINT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("autoDetectPoint"));
+        POINT1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
+        AXIS_X1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX1"));
+        AXIS_Y1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY1"));
+        POINT2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
+        AXIS_X2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisX2"));
+        AXIS_Y2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("axisY2"));
         //@formatter:on
     }
 
@@ -93,13 +93,13 @@ public final class FixedConstraintSettings
     public FixedConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        point1 = new Vec3(segment.asSlice(POINT1_OFFSET, Vec3.LAYOUT));
-        axisX1 = new Vec3(segment.asSlice(AXIS_X1_OFFSET, Vec3.LAYOUT));
-        axisY1 = new Vec3(segment.asSlice(AXIS_Y1_OFFSET, Vec3.LAYOUT));
-        point2 = new Vec3(segment.asSlice(POINT2_OFFSET, Vec3.LAYOUT));
-        axisX2 = new Vec3(segment.asSlice(AXIS_X2_OFFSET, Vec3.LAYOUT));
-        axisY2 = new Vec3(segment.asSlice(AXIS_Y2_OFFSET, Vec3.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        point1 = new Vec3(segment.asSlice(POINT1_BYTE_OFFSET, Vec3.LAYOUT));
+        axisX1 = new Vec3(segment.asSlice(AXIS_X1_BYTE_OFFSET, Vec3.LAYOUT));
+        axisY1 = new Vec3(segment.asSlice(AXIS_Y1_BYTE_OFFSET, Vec3.LAYOUT));
+        point2 = new Vec3(segment.asSlice(POINT2_BYTE_OFFSET, Vec3.LAYOUT));
+        axisX2 = new Vec3(segment.asSlice(AXIS_X2_BYTE_OFFSET, Vec3.LAYOUT));
+        axisY2 = new Vec3(segment.asSlice(AXIS_Y2_BYTE_OFFSET, Vec3.LAYOUT));
     
         init();
     }
@@ -128,21 +128,21 @@ public final class FixedConstraintSettings
     }
     
     public FixedConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public FixedConstraintSettings autoDetectPoint(boolean autoDetectPoint) {
-        AUTO_DETECT_POINT.set(segment, 0L, autoDetectPoint);
+        AUTO_DETECT_POINT_HANDLE.set(segment, 0L, autoDetectPoint);
         return this;
     }
     
     public boolean autoDetectPoint() {
-        return (boolean) AUTO_DETECT_POINT.get(segment, 0L);
+        return (boolean) AUTO_DETECT_POINT_HANDLE.get(segment, 0L);
     }
     
     public FixedConstraintSettings base(Consumer<ConstraintSettings> consumer) {

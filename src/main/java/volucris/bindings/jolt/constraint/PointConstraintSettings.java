@@ -27,12 +27,12 @@ public final class PointConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
+    public static final VarHandle SPACE_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long POINT1_OFFSET;
-    public static final long POINT2_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long POINT1_BYTE_OFFSET;
+    public static final long POINT2_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -52,12 +52,12 @@ public final class PointConstraintSettings
         
         JPH_POINT_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_PointConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        POINT1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
-        POINT2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        POINT1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
+        POINT2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
         //@formatter:on
     }
 
@@ -72,9 +72,9 @@ public final class PointConstraintSettings
     public PointConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        point1 = new Vec3(segment.asSlice(POINT1_OFFSET, Vec3.LAYOUT));
-        point2 = new Vec3(segment.asSlice(POINT2_OFFSET, Vec3.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        point1 = new Vec3(segment.asSlice(POINT1_BYTE_OFFSET, Vec3.LAYOUT));
+        point2 = new Vec3(segment.asSlice(POINT2_BYTE_OFFSET, Vec3.LAYOUT));
     
         init();
     }
@@ -103,12 +103,12 @@ public final class PointConstraintSettings
     }
     
     public PointConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public PointConstraintSettings base(Consumer<ConstraintSettings> consumer) {

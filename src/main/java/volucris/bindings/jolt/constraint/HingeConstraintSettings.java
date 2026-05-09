@@ -27,24 +27,24 @@ public final class HingeConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle LIMITS_MIN;
-    public static final VarHandle LIMITS_MAX;
-    public static final VarHandle MAX_FRICTION_TORQUE;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle LIMITS_MIN_HANDLE;
+    public static final VarHandle LIMITS_MAX_HANDLE;
+    public static final VarHandle MAX_FRICTION_TORQUE_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long POINT1_OFFSET;
-    public static final long HINGE_AXIS1_OFFSET;
-    public static final long NORMAL_AXIS1_OFFSET;
-    public static final long POINT2_OFFSET;
-    public static final long HINGE_AXIS2_OFFSET;
-    public static final long NORMAL_AXIS2_OFFSET;
-    public static final long LIMITS_MIN_OFFSET;
-    public static final long LIMITS_MAX_OFFSET;
-    public static final long LIMITS_SPRING_SETTINGS_OFFSET;
-    public static final long MAX_FRICTION_TORQUE_OFFSET;
-    public static final long MOTOR_SETTINGS_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long POINT1_BYTE_OFFSET;
+    public static final long HINGE_AXIS1_BYTE_OFFSET;
+    public static final long NORMAL_AXIS1_BYTE_OFFSET;
+    public static final long POINT2_BYTE_OFFSET;
+    public static final long HINGE_AXIS2_BYTE_OFFSET;
+    public static final long NORMAL_AXIS2_BYTE_OFFSET;
+    public static final long LIMITS_MIN_BYTE_OFFSET;
+    public static final long LIMITS_MAX_BYTE_OFFSET;
+    public static final long LIMITS_SPRING_SETTINGS_BYTE_OFFSET;
+    public static final long MAX_FRICTION_TORQUE_BYTE_OFFSET;
+    public static final long MOTOR_SETTINGS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -78,24 +78,24 @@ public final class HingeConstraintSettings
         
         JPH_HINGE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_HingeConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        LIMITS_MIN = LAYOUT.varHandle(PathElement.groupElement("limitsMin"));
-        LIMITS_MAX = LAYOUT.varHandle(PathElement.groupElement("limitsMax"));
-        MAX_FRICTION_TORQUE = LAYOUT.varHandle(PathElement.groupElement("maxFrictionTorque"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        LIMITS_MIN_HANDLE = LAYOUT.varHandle(PathElement.groupElement("limitsMin"));
+        LIMITS_MAX_HANDLE = LAYOUT.varHandle(PathElement.groupElement("limitsMax"));
+        MAX_FRICTION_TORQUE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxFrictionTorque"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        POINT1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
-        HINGE_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis1"));
-        NORMAL_AXIS1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis1"));
-        POINT2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
-        HINGE_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis2"));
-        NORMAL_AXIS2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis2"));
-        LIMITS_MIN_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMin"));
-        LIMITS_MAX_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMax"));
-        LIMITS_SPRING_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
-        MAX_FRICTION_TORQUE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFrictionTorque"));
-        MOTOR_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("motorSettings"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        POINT1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
+        HINGE_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis1"));
+        NORMAL_AXIS1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis1"));
+        POINT2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
+        HINGE_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hingeAxis2"));
+        NORMAL_AXIS2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalAxis2"));
+        LIMITS_MIN_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMin"));
+        LIMITS_MAX_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsMax"));
+        LIMITS_SPRING_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
+        MAX_FRICTION_TORQUE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxFrictionTorque"));
+        MOTOR_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("motorSettings"));
         //@formatter:on
     }
 
@@ -110,15 +110,15 @@ public final class HingeConstraintSettings
     public HingeConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        point1 = new Vec3(segment.asSlice(POINT1_OFFSET, Vec3.LAYOUT));
-        hingeAxis1 = new Vec3(segment.asSlice(HINGE_AXIS1_OFFSET, Vec3.LAYOUT));
-        normalAxis1 = new Vec3(segment.asSlice(NORMAL_AXIS1_OFFSET, Vec3.LAYOUT));
-        point2 = new Vec3(segment.asSlice(POINT2_OFFSET, Vec3.LAYOUT));
-        hingeAxis2 = new Vec3(segment.asSlice(HINGE_AXIS2_OFFSET, Vec3.LAYOUT));
-        normalAxis2 = new Vec3(segment.asSlice(NORMAL_AXIS2_OFFSET, Vec3.LAYOUT));
-        limitsSpringSettings = new SpringSettings(segment.asSlice(LIMITS_SPRING_SETTINGS_OFFSET, SpringSettings.LAYOUT));
-        motorSettings = new MotorSettings(segment.asSlice(MOTOR_SETTINGS_OFFSET, MotorSettings.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        point1 = new Vec3(segment.asSlice(POINT1_BYTE_OFFSET, Vec3.LAYOUT));
+        hingeAxis1 = new Vec3(segment.asSlice(HINGE_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        normalAxis1 = new Vec3(segment.asSlice(NORMAL_AXIS1_BYTE_OFFSET, Vec3.LAYOUT));
+        point2 = new Vec3(segment.asSlice(POINT2_BYTE_OFFSET, Vec3.LAYOUT));
+        hingeAxis2 = new Vec3(segment.asSlice(HINGE_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
+        normalAxis2 = new Vec3(segment.asSlice(NORMAL_AXIS2_BYTE_OFFSET, Vec3.LAYOUT));
+        limitsSpringSettings = new SpringSettings(segment.asSlice(LIMITS_SPRING_SETTINGS_BYTE_OFFSET, SpringSettings.LAYOUT));
+        motorSettings = new MotorSettings(segment.asSlice(MOTOR_SETTINGS_BYTE_OFFSET, MotorSettings.LAYOUT));
     
         init();
     }
@@ -147,39 +147,39 @@ public final class HingeConstraintSettings
     }
     
     public HingeConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public HingeConstraintSettings limitsMin(float limitsMin) {
-        LIMITS_MIN.set(segment, 0L, limitsMin);
+        LIMITS_MIN_HANDLE.set(segment, 0L, limitsMin);
         return this;
     }
     
     public float limitsMin() {
-        return (float) LIMITS_MIN.get(segment, 0L);
+        return (float) LIMITS_MIN_HANDLE.get(segment, 0L);
     }
     
     public HingeConstraintSettings limitsMax(float limitsMax) {
-        LIMITS_MAX.set(segment, 0L, limitsMax);
+        LIMITS_MAX_HANDLE.set(segment, 0L, limitsMax);
         return this;
     }
     
     public float limitsMax() {
-        return (float) LIMITS_MAX.get(segment, 0L);
+        return (float) LIMITS_MAX_HANDLE.get(segment, 0L);
     }
     
     public HingeConstraintSettings maxFrictionTorque(float maxFrictionTorque) {
-        MAX_FRICTION_TORQUE.set(segment, 0L, maxFrictionTorque);
+        MAX_FRICTION_TORQUE_HANDLE.set(segment, 0L, maxFrictionTorque);
         return this;
     }
     
     public float maxFrictionTorque() {
-        return (float) MAX_FRICTION_TORQUE.get(segment, 0L);
+        return (float) MAX_FRICTION_TORQUE_HANDLE.get(segment, 0L);
     }
     
     public HingeConstraintSettings base(Consumer<ConstraintSettings> consumer) {

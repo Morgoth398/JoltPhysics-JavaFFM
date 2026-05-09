@@ -21,11 +21,11 @@ public final class CollidePointResult
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle BODY_ID;
-    public static final VarHandle SUB_SHAPE_ID2;
+    public static final VarHandle BODY_ID_HANDLE;
+    public static final VarHandle SUB_SHAPE_ID2_HANDLE;
 
-    public static final long BODY_ID_OFFSET;
-    public static final long SUB_SHAPE_ID2_OFFSET;
+    public static final long BODY_ID_BYTE_OFFSET;
+    public static final long SUB_SHAPE_ID2_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -36,11 +36,11 @@ public final class CollidePointResult
             JAVA_INT.withName("subShapeID2")
         ).withName("JPH_CollidePointResult").withByteAlignment(4);
         
-        BODY_ID = LAYOUT.varHandle(PathElement.groupElement("bodyID"));
-        SUB_SHAPE_ID2 = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
+        BODY_ID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("bodyID"));
+        SUB_SHAPE_ID2_HANDLE = LAYOUT.varHandle(PathElement.groupElement("subShapeID2"));
         
-        BODY_ID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID"));
-        SUB_SHAPE_ID2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
+        BODY_ID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyID"));
+        SUB_SHAPE_ID2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("subShapeID2"));
         //@formatter:on
     }
 
@@ -58,21 +58,21 @@ public final class CollidePointResult
     }
 
     public CollidePointResult bodyID(int bodyID) {
-        BODY_ID.set(segment, 0L, bodyID);
+        BODY_ID_HANDLE.set(segment, 0L, bodyID);
         return this;
     }
     
     public int bodyID() {
-        return (int) BODY_ID.get(segment, 0L);
+        return (int) BODY_ID_HANDLE.get(segment, 0L);
     }
     
     public CollidePointResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2.set(segment, 0L, subShapeID2);
+        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
         return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2.get(segment, 0L);
+        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     @Override

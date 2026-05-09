@@ -27,17 +27,17 @@ public final class DistanceConstraintSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle SPACE;
-    public static final VarHandle MIN_DISTANCE;
-    public static final VarHandle MAX_DISTANCE;
+    public static final VarHandle SPACE_HANDLE;
+    public static final VarHandle MIN_DISTANCE_HANDLE;
+    public static final VarHandle MAX_DISTANCE_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long SPACE_OFFSET;
-    public static final long POINT1_OFFSET;
-    public static final long POINT2_OFFSET;
-    public static final long MIN_DISTANCE_OFFSET;
-    public static final long MAX_DISTANCE_OFFSET;
-    public static final long LIMITS_SPRING_SETTINGS_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long SPACE_BYTE_OFFSET;
+    public static final long POINT1_BYTE_OFFSET;
+    public static final long POINT2_BYTE_OFFSET;
+    public static final long MIN_DISTANCE_BYTE_OFFSET;
+    public static final long MAX_DISTANCE_BYTE_OFFSET;
+    public static final long LIMITS_SPRING_SETTINGS_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -60,17 +60,17 @@ public final class DistanceConstraintSettings
         
         JPH_DISTANCE_CONSTRAINT_SETTINGS_INIT = downcallHandleVoid("JPH_DistanceConstraintSettings_Init", UNBOUNDED_ADDRESS);
         
-        SPACE = LAYOUT.varHandle(PathElement.groupElement("space"));
-        MIN_DISTANCE = LAYOUT.varHandle(PathElement.groupElement("minDistance"));
-        MAX_DISTANCE = LAYOUT.varHandle(PathElement.groupElement("maxDistance"));
+        SPACE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("space"));
+        MIN_DISTANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("minDistance"));
+        MAX_DISTANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxDistance"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        SPACE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
-        POINT1_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
-        POINT2_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
-        MIN_DISTANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minDistance"));
-        MAX_DISTANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxDistance"));
-        LIMITS_SPRING_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        SPACE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("space"));
+        POINT1_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point1"));
+        POINT2_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("point2"));
+        MIN_DISTANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minDistance"));
+        MAX_DISTANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxDistance"));
+        LIMITS_SPRING_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("limitsSpringSettings"));
         //@formatter:on
     }
 
@@ -85,10 +85,10 @@ public final class DistanceConstraintSettings
     public DistanceConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new ConstraintSettings(segment.asSlice(BASE_OFFSET, ConstraintSettings.LAYOUT));
-        point1 = new Vec3(segment.asSlice(POINT1_OFFSET, Vec3.LAYOUT));
-        point2 = new Vec3(segment.asSlice(POINT2_OFFSET, Vec3.LAYOUT));
-        limitsSpringSettings = new SpringSettings(segment.asSlice(LIMITS_SPRING_SETTINGS_OFFSET, SpringSettings.LAYOUT));
+        base = new ConstraintSettings(segment.asSlice(BASE_BYTE_OFFSET, ConstraintSettings.LAYOUT));
+        point1 = new Vec3(segment.asSlice(POINT1_BYTE_OFFSET, Vec3.LAYOUT));
+        point2 = new Vec3(segment.asSlice(POINT2_BYTE_OFFSET, Vec3.LAYOUT));
+        limitsSpringSettings = new SpringSettings(segment.asSlice(LIMITS_SPRING_SETTINGS_BYTE_OFFSET, SpringSettings.LAYOUT));
     
         init();
     }
@@ -117,30 +117,30 @@ public final class DistanceConstraintSettings
     }
     
     public DistanceConstraintSettings space(int space) {
-        SPACE.set(segment, 0L, space);
+        SPACE_HANDLE.set(segment, 0L, space);
         return this;
     }
     
     public int space() {
-        return (int) SPACE.get(segment, 0L);
+        return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
     public DistanceConstraintSettings minDistance(float minDistance) {
-        MIN_DISTANCE.set(segment, 0L, minDistance);
+        MIN_DISTANCE_HANDLE.set(segment, 0L, minDistance);
         return this;
     }
     
     public float minDistance() {
-        return (float) MIN_DISTANCE.get(segment, 0L);
+        return (float) MIN_DISTANCE_HANDLE.get(segment, 0L);
     }
     
     public DistanceConstraintSettings maxDistance(float maxDistance) {
-        MAX_DISTANCE.set(segment, 0L, maxDistance);
+        MAX_DISTANCE_HANDLE.set(segment, 0L, maxDistance);
         return this;
     }
     
     public float maxDistance() {
-        return (float) MAX_DISTANCE.get(segment, 0L);
+        return (float) MAX_DISTANCE_HANDLE.get(segment, 0L);
     }
     
     public DistanceConstraintSettings base(Consumer<ConstraintSettings> consumer) {

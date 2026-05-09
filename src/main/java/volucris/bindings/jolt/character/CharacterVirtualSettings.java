@@ -29,41 +29,41 @@ public final class CharacterVirtualSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle ID;
-    public static final VarHandle MASS;
-    public static final VarHandle MAX_STRENGTH;
-    public static final VarHandle BACK_FACE_MODE;
-    public static final VarHandle PREDICTIVE_CONTACT_DISTANCE;
-    public static final VarHandle MAX_COLLISION_ITERATIONS;
-    public static final VarHandle MAX_CONSTRAINT_ITERATIONS;
-    public static final VarHandle MIN_TIME_REMAINING;
-    public static final VarHandle COLLISION_TOLERANCE;
-    public static final VarHandle CHARACTER_PADDING;
-    public static final VarHandle MAX_NUM_HITS;
-    public static final VarHandle HIT_REDUCTION_COS_MAX_ANGLE;
-    public static final VarHandle PENETRATION_RECOVERY_SPEED;
-    public static final VarHandle INNER_BODY_SHAPE;
-    public static final VarHandle INNER_BODY_IDOVERRIDE;
-    public static final VarHandle INNER_BODY_LAYER;
+    public static final VarHandle ID_HANDLE;
+    public static final VarHandle MASS_HANDLE;
+    public static final VarHandle MAX_STRENGTH_HANDLE;
+    public static final VarHandle BACK_FACE_MODE_HANDLE;
+    public static final VarHandle PREDICTIVE_CONTACT_DISTANCE_HANDLE;
+    public static final VarHandle MAX_COLLISION_ITERATIONS_HANDLE;
+    public static final VarHandle MAX_CONSTRAINT_ITERATIONS_HANDLE;
+    public static final VarHandle MIN_TIME_REMAINING_HANDLE;
+    public static final VarHandle COLLISION_TOLERANCE_HANDLE;
+    public static final VarHandle CHARACTER_PADDING_HANDLE;
+    public static final VarHandle MAX_NUM_HITS_HANDLE;
+    public static final VarHandle HIT_REDUCTION_COS_MAX_ANGLE_HANDLE;
+    public static final VarHandle PENETRATION_RECOVERY_SPEED_HANDLE;
+    public static final VarHandle INNER_BODY_SHAPE_HANDLE;
+    public static final VarHandle INNER_BODY_IDOVERRIDE_HANDLE;
+    public static final VarHandle INNER_BODY_LAYER_HANDLE;
 
-    public static final long BASE_OFFSET;
-    public static final long ID_OFFSET;
-    public static final long MASS_OFFSET;
-    public static final long MAX_STRENGTH_OFFSET;
-    public static final long SHAPE_OFFSET_OFFSET;
-    public static final long BACK_FACE_MODE_OFFSET;
-    public static final long PREDICTIVE_CONTACT_DISTANCE_OFFSET;
-    public static final long MAX_COLLISION_ITERATIONS_OFFSET;
-    public static final long MAX_CONSTRAINT_ITERATIONS_OFFSET;
-    public static final long MIN_TIME_REMAINING_OFFSET;
-    public static final long COLLISION_TOLERANCE_OFFSET;
-    public static final long CHARACTER_PADDING_OFFSET;
-    public static final long MAX_NUM_HITS_OFFSET;
-    public static final long HIT_REDUCTION_COS_MAX_ANGLE_OFFSET;
-    public static final long PENETRATION_RECOVERY_SPEED_OFFSET;
-    public static final long INNER_BODY_SHAPE_OFFSET;
-    public static final long INNER_BODY_IDOVERRIDE_OFFSET;
-    public static final long INNER_BODY_LAYER_OFFSET;
+    public static final long BASE_BYTE_OFFSET;
+    public static final long ID_BYTE_OFFSET;
+    public static final long MASS_BYTE_OFFSET;
+    public static final long MAX_STRENGTH_BYTE_OFFSET;
+    public static final long SHAPE_OFFSET_BYTE_OFFSET;
+    public static final long BACK_FACE_MODE_BYTE_OFFSET;
+    public static final long PREDICTIVE_CONTACT_DISTANCE_BYTE_OFFSET;
+    public static final long MAX_COLLISION_ITERATIONS_BYTE_OFFSET;
+    public static final long MAX_CONSTRAINT_ITERATIONS_BYTE_OFFSET;
+    public static final long MIN_TIME_REMAINING_BYTE_OFFSET;
+    public static final long COLLISION_TOLERANCE_BYTE_OFFSET;
+    public static final long CHARACTER_PADDING_BYTE_OFFSET;
+    public static final long MAX_NUM_HITS_BYTE_OFFSET;
+    public static final long HIT_REDUCTION_COS_MAX_ANGLE_BYTE_OFFSET;
+    public static final long PENETRATION_RECOVERY_SPEED_BYTE_OFFSET;
+    public static final long INNER_BODY_SHAPE_BYTE_OFFSET;
+    public static final long INNER_BODY_IDOVERRIDE_BYTE_OFFSET;
+    public static final long INNER_BODY_LAYER_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -95,41 +95,41 @@ public final class CharacterVirtualSettings
         
         JPH_CHARACTER_VIRTUAL_SETTINGS_INIT = downcallHandleVoid("JPH_CharacterVirtualSettings_Init", UNBOUNDED_ADDRESS);
         
-        ID = LAYOUT.varHandle(PathElement.groupElement("ID"));
-        MASS = LAYOUT.varHandle(PathElement.groupElement("mass"));
-        MAX_STRENGTH = LAYOUT.varHandle(PathElement.groupElement("maxStrength"));
-        BACK_FACE_MODE = LAYOUT.varHandle(PathElement.groupElement("backFaceMode"));
-        PREDICTIVE_CONTACT_DISTANCE = LAYOUT.varHandle(PathElement.groupElement("predictiveContactDistance"));
-        MAX_COLLISION_ITERATIONS = LAYOUT.varHandle(PathElement.groupElement("maxCollisionIterations"));
-        MAX_CONSTRAINT_ITERATIONS = LAYOUT.varHandle(PathElement.groupElement("maxConstraintIterations"));
-        MIN_TIME_REMAINING = LAYOUT.varHandle(PathElement.groupElement("minTimeRemaining"));
-        COLLISION_TOLERANCE = LAYOUT.varHandle(PathElement.groupElement("collisionTolerance"));
-        CHARACTER_PADDING = LAYOUT.varHandle(PathElement.groupElement("characterPadding"));
-        MAX_NUM_HITS = LAYOUT.varHandle(PathElement.groupElement("maxNumHits"));
-        HIT_REDUCTION_COS_MAX_ANGLE = LAYOUT.varHandle(PathElement.groupElement("hitReductionCosMaxAngle"));
-        PENETRATION_RECOVERY_SPEED = LAYOUT.varHandle(PathElement.groupElement("penetrationRecoverySpeed"));
-        INNER_BODY_SHAPE = LAYOUT.varHandle(PathElement.groupElement("innerBodyShape"));
-        INNER_BODY_IDOVERRIDE = LAYOUT.varHandle(PathElement.groupElement("innerBodyIDOverride"));
-        INNER_BODY_LAYER = LAYOUT.varHandle(PathElement.groupElement("innerBodyLayer"));
+        ID_HANDLE = LAYOUT.varHandle(PathElement.groupElement("ID"));
+        MASS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("mass"));
+        MAX_STRENGTH_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxStrength"));
+        BACK_FACE_MODE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("backFaceMode"));
+        PREDICTIVE_CONTACT_DISTANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("predictiveContactDistance"));
+        MAX_COLLISION_ITERATIONS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxCollisionIterations"));
+        MAX_CONSTRAINT_ITERATIONS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxConstraintIterations"));
+        MIN_TIME_REMAINING_HANDLE = LAYOUT.varHandle(PathElement.groupElement("minTimeRemaining"));
+        COLLISION_TOLERANCE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("collisionTolerance"));
+        CHARACTER_PADDING_HANDLE = LAYOUT.varHandle(PathElement.groupElement("characterPadding"));
+        MAX_NUM_HITS_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxNumHits"));
+        HIT_REDUCTION_COS_MAX_ANGLE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("hitReductionCosMaxAngle"));
+        PENETRATION_RECOVERY_SPEED_HANDLE = LAYOUT.varHandle(PathElement.groupElement("penetrationRecoverySpeed"));
+        INNER_BODY_SHAPE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("innerBodyShape"));
+        INNER_BODY_IDOVERRIDE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("innerBodyIDOverride"));
+        INNER_BODY_LAYER_HANDLE = LAYOUT.varHandle(PathElement.groupElement("innerBodyLayer"));
         
-        BASE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
-        ID_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("ID"));
-        MASS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mass"));
-        MAX_STRENGTH_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxStrength"));
-        SHAPE_OFFSET_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shapeOffset"));
-        BACK_FACE_MODE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceMode"));
-        PREDICTIVE_CONTACT_DISTANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("predictiveContactDistance"));
-        MAX_COLLISION_ITERATIONS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxCollisionIterations"));
-        MAX_CONSTRAINT_ITERATIONS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxConstraintIterations"));
-        MIN_TIME_REMAINING_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minTimeRemaining"));
-        COLLISION_TOLERANCE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("collisionTolerance"));
-        CHARACTER_PADDING_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("characterPadding"));
-        MAX_NUM_HITS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxNumHits"));
-        HIT_REDUCTION_COS_MAX_ANGLE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hitReductionCosMaxAngle"));
-        PENETRATION_RECOVERY_SPEED_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationRecoverySpeed"));
-        INNER_BODY_SHAPE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("innerBodyShape"));
-        INNER_BODY_IDOVERRIDE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("innerBodyIDOverride"));
-        INNER_BODY_LAYER_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("innerBodyLayer"));
+        BASE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("base"));
+        ID_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("ID"));
+        MASS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("mass"));
+        MAX_STRENGTH_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxStrength"));
+        SHAPE_OFFSET_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("shapeOffset"));
+        BACK_FACE_MODE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("backFaceMode"));
+        PREDICTIVE_CONTACT_DISTANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("predictiveContactDistance"));
+        MAX_COLLISION_ITERATIONS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxCollisionIterations"));
+        MAX_CONSTRAINT_ITERATIONS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxConstraintIterations"));
+        MIN_TIME_REMAINING_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minTimeRemaining"));
+        COLLISION_TOLERANCE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("collisionTolerance"));
+        CHARACTER_PADDING_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("characterPadding"));
+        MAX_NUM_HITS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxNumHits"));
+        HIT_REDUCTION_COS_MAX_ANGLE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hitReductionCosMaxAngle"));
+        PENETRATION_RECOVERY_SPEED_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("penetrationRecoverySpeed"));
+        INNER_BODY_SHAPE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("innerBodyShape"));
+        INNER_BODY_IDOVERRIDE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("innerBodyIDOverride"));
+        INNER_BODY_LAYER_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("innerBodyLayer"));
         //@formatter:on
     }
 
@@ -144,8 +144,8 @@ public final class CharacterVirtualSettings
     public CharacterVirtualSettings(MemorySegment segment) {
         this.segment = segment;
     
-        base = new CharacterBaseSettings(segment.asSlice(BASE_OFFSET, CharacterBaseSettings.LAYOUT));
-        shapeOffset = new Vec3(segment.asSlice(SHAPE_OFFSET_OFFSET, Vec3.LAYOUT));
+        base = new CharacterBaseSettings(segment.asSlice(BASE_BYTE_OFFSET, CharacterBaseSettings.LAYOUT));
+        shapeOffset = new Vec3(segment.asSlice(SHAPE_OFFSET_BYTE_OFFSET, Vec3.LAYOUT));
     
         init();
     }
@@ -174,129 +174,129 @@ public final class CharacterVirtualSettings
     }
     
     public CharacterVirtualSettings ID(int ID) {
-        CharacterVirtualSettings.ID.set(segment, 0L, ID);
+        ID_HANDLE.set(segment, 0L, ID);
         return this;
     }
     
     public int ID() {
-        return (int) ID.get(segment, 0L);
+        return (int) ID_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings mass(float mass) {
-        MASS.set(segment, 0L, mass);
+        MASS_HANDLE.set(segment, 0L, mass);
         return this;
     }
     
     public float mass() {
-        return (float) MASS.get(segment, 0L);
+        return (float) MASS_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings maxStrength(float maxStrength) {
-        MAX_STRENGTH.set(segment, 0L, maxStrength);
+        MAX_STRENGTH_HANDLE.set(segment, 0L, maxStrength);
         return this;
     }
     
     public float maxStrength() {
-        return (float) MAX_STRENGTH.get(segment, 0L);
+        return (float) MAX_STRENGTH_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings backFaceMode(int backFaceMode) {
-        BACK_FACE_MODE.set(segment, 0L, backFaceMode);
+        BACK_FACE_MODE_HANDLE.set(segment, 0L, backFaceMode);
         return this;
     }
     
     public int backFaceMode() {
-        return (int) BACK_FACE_MODE.get(segment, 0L);
+        return (int) BACK_FACE_MODE_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings predictiveContactDistance(float predictiveContactDistance) {
-        PREDICTIVE_CONTACT_DISTANCE.set(segment, 0L, predictiveContactDistance);
+        PREDICTIVE_CONTACT_DISTANCE_HANDLE.set(segment, 0L, predictiveContactDistance);
         return this;
     }
     
     public float predictiveContactDistance() {
-        return (float) PREDICTIVE_CONTACT_DISTANCE.get(segment, 0L);
+        return (float) PREDICTIVE_CONTACT_DISTANCE_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings maxCollisionIterations(int maxCollisionIterations) {
-        MAX_COLLISION_ITERATIONS.set(segment, 0L, maxCollisionIterations);
+        MAX_COLLISION_ITERATIONS_HANDLE.set(segment, 0L, maxCollisionIterations);
         return this;
     }
     
     public int maxCollisionIterations() {
-        return (int) MAX_COLLISION_ITERATIONS.get(segment, 0L);
+        return (int) MAX_COLLISION_ITERATIONS_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings maxConstraintIterations(int maxConstraintIterations) {
-        MAX_CONSTRAINT_ITERATIONS.set(segment, 0L, maxConstraintIterations);
+        MAX_CONSTRAINT_ITERATIONS_HANDLE.set(segment, 0L, maxConstraintIterations);
         return this;
     }
     
     public int maxConstraintIterations() {
-        return (int) MAX_CONSTRAINT_ITERATIONS.get(segment, 0L);
+        return (int) MAX_CONSTRAINT_ITERATIONS_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings minTimeRemaining(float minTimeRemaining) {
-        MIN_TIME_REMAINING.set(segment, 0L, minTimeRemaining);
+        MIN_TIME_REMAINING_HANDLE.set(segment, 0L, minTimeRemaining);
         return this;
     }
     
     public float minTimeRemaining() {
-        return (float) MIN_TIME_REMAINING.get(segment, 0L);
+        return (float) MIN_TIME_REMAINING_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings collisionTolerance(float collisionTolerance) {
-        COLLISION_TOLERANCE.set(segment, 0L, collisionTolerance);
+        COLLISION_TOLERANCE_HANDLE.set(segment, 0L, collisionTolerance);
         return this;
     }
     
     public float collisionTolerance() {
-        return (float) COLLISION_TOLERANCE.get(segment, 0L);
+        return (float) COLLISION_TOLERANCE_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings characterPadding(float characterPadding) {
-        CHARACTER_PADDING.set(segment, 0L, characterPadding);
+        CHARACTER_PADDING_HANDLE.set(segment, 0L, characterPadding);
         return this;
     }
     
     public float characterPadding() {
-        return (float) CHARACTER_PADDING.get(segment, 0L);
+        return (float) CHARACTER_PADDING_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings maxNumHits(int maxNumHits) {
-        MAX_NUM_HITS.set(segment, 0L, maxNumHits);
+        MAX_NUM_HITS_HANDLE.set(segment, 0L, maxNumHits);
         return this;
     }
     
     public int maxNumHits() {
-        return (int) MAX_NUM_HITS.get(segment, 0L);
+        return (int) MAX_NUM_HITS_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings hitReductionCosMaxAngle(float hitReductionCosMaxAngle) {
-        HIT_REDUCTION_COS_MAX_ANGLE.set(segment, 0L, hitReductionCosMaxAngle);
+        HIT_REDUCTION_COS_MAX_ANGLE_HANDLE.set(segment, 0L, hitReductionCosMaxAngle);
         return this;
     }
     
     public float hitReductionCosMaxAngle() {
-        return (float) HIT_REDUCTION_COS_MAX_ANGLE.get(segment, 0L);
+        return (float) HIT_REDUCTION_COS_MAX_ANGLE_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings penetrationRecoverySpeed(float penetrationRecoverySpeed) {
-        PENETRATION_RECOVERY_SPEED.set(segment, 0L, penetrationRecoverySpeed);
+        PENETRATION_RECOVERY_SPEED_HANDLE.set(segment, 0L, penetrationRecoverySpeed);
         return this;
     }
     
     public float penetrationRecoverySpeed() {
-        return (float) PENETRATION_RECOVERY_SPEED.get(segment, 0L);
+        return (float) PENETRATION_RECOVERY_SPEED_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings innerBodyShape(Shape innerBodyShape) {
-        INNER_BODY_SHAPE.set(segment, 0L, innerBodyShape.memorySegment());
+        INNER_BODY_SHAPE_HANDLE.set(segment, 0L, innerBodyShape.memorySegment());
         return this;
     }
     
     public @Nullable Shape innerBodyShape() {
-        MemorySegment segment = (MemorySegment) INNER_BODY_SHAPE.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) INNER_BODY_SHAPE_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -305,21 +305,21 @@ public final class CharacterVirtualSettings
     }
     
     public CharacterVirtualSettings innerBodyIDOverride(int innerBodyIDOverride) {
-        INNER_BODY_IDOVERRIDE.set(segment, 0L, innerBodyIDOverride);
+        INNER_BODY_IDOVERRIDE_HANDLE.set(segment, 0L, innerBodyIDOverride);
         return this;
     }
     
     public int innerBodyIDOverride() {
-        return (int) INNER_BODY_IDOVERRIDE.get(segment, 0L);
+        return (int) INNER_BODY_IDOVERRIDE_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings innerBodyLayer(int innerBodyLayer) {
-        INNER_BODY_LAYER.set(segment, 0L, innerBodyLayer);
+        INNER_BODY_LAYER_HANDLE.set(segment, 0L, innerBodyLayer);
         return this;
     }
     
     public int innerBodyLayer() {
-        return (int) INNER_BODY_LAYER.get(segment, 0L);
+        return (int) INNER_BODY_LAYER_HANDLE.get(segment, 0L);
     }
     
     public CharacterVirtualSettings base(Consumer<CharacterBaseSettings> consumer) {

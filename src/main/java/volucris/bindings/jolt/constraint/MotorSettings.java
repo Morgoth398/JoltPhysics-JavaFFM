@@ -22,16 +22,16 @@ public final class MotorSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MIN_FORCE_LIMIT;
-    public static final VarHandle MAX_FORCE_LIMIT;
-    public static final VarHandle MIN_TORQUE_LIMIT;
-    public static final VarHandle MAX_TORQUE_LIMIT;
+    public static final VarHandle MIN_FORCE_LIMIT_HANDLE;
+    public static final VarHandle MAX_FORCE_LIMIT_HANDLE;
+    public static final VarHandle MIN_TORQUE_LIMIT_HANDLE;
+    public static final VarHandle MAX_TORQUE_LIMIT_HANDLE;
 
-    public static final long SPRING_SETTINGS_OFFSET;
-    public static final long MIN_FORCE_LIMIT_OFFSET;
-    public static final long MAX_FORCE_LIMIT_OFFSET;
-    public static final long MIN_TORQUE_LIMIT_OFFSET;
-    public static final long MAX_TORQUE_LIMIT_OFFSET;
+    public static final long SPRING_SETTINGS_BYTE_OFFSET;
+    public static final long MIN_FORCE_LIMIT_BYTE_OFFSET;
+    public static final long MAX_FORCE_LIMIT_BYTE_OFFSET;
+    public static final long MIN_TORQUE_LIMIT_BYTE_OFFSET;
+    public static final long MAX_TORQUE_LIMIT_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -47,16 +47,16 @@ public final class MotorSettings
             JAVA_FLOAT.withName("maxTorqueLimit")
         ).withName("JPH_MotorSettings").withByteAlignment(4);
         
-        MIN_FORCE_LIMIT = LAYOUT.varHandle(PathElement.groupElement("minForceLimit"));
-        MAX_FORCE_LIMIT = LAYOUT.varHandle(PathElement.groupElement("maxForceLimit"));
-        MIN_TORQUE_LIMIT = LAYOUT.varHandle(PathElement.groupElement("minTorqueLimit"));
-        MAX_TORQUE_LIMIT = LAYOUT.varHandle(PathElement.groupElement("maxTorqueLimit"));
+        MIN_FORCE_LIMIT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("minForceLimit"));
+        MAX_FORCE_LIMIT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxForceLimit"));
+        MIN_TORQUE_LIMIT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("minTorqueLimit"));
+        MAX_TORQUE_LIMIT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxTorqueLimit"));
         
-        SPRING_SETTINGS_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("springSettings"));
-        MIN_FORCE_LIMIT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minForceLimit"));
-        MAX_FORCE_LIMIT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxForceLimit"));
-        MIN_TORQUE_LIMIT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minTorqueLimit"));
-        MAX_TORQUE_LIMIT_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxTorqueLimit"));
+        SPRING_SETTINGS_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("springSettings"));
+        MIN_FORCE_LIMIT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minForceLimit"));
+        MAX_FORCE_LIMIT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxForceLimit"));
+        MIN_TORQUE_LIMIT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minTorqueLimit"));
+        MAX_TORQUE_LIMIT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxTorqueLimit"));
         //@formatter:on
     }
 
@@ -71,43 +71,43 @@ public final class MotorSettings
     public MotorSettings(MemorySegment segment) {
         this.segment = segment;
     
-        springSettings = new SpringSettings(segment.asSlice(SPRING_SETTINGS_OFFSET, SpringSettings.LAYOUT));
+        springSettings = new SpringSettings(segment.asSlice(SPRING_SETTINGS_BYTE_OFFSET, SpringSettings.LAYOUT));
     }
 
     public MotorSettings minForceLimit(float minForceLimit) {
-        MIN_FORCE_LIMIT.set(segment, 0L, minForceLimit);
+        MIN_FORCE_LIMIT_HANDLE.set(segment, 0L, minForceLimit);
         return this;
     }
     
     public float minForceLimit() {
-        return (float) MIN_FORCE_LIMIT.get(segment, 0L);
+        return (float) MIN_FORCE_LIMIT_HANDLE.get(segment, 0L);
     }
     
     public MotorSettings maxForceLimit(float maxForceLimit) {
-        MAX_FORCE_LIMIT.set(segment, 0L, maxForceLimit);
+        MAX_FORCE_LIMIT_HANDLE.set(segment, 0L, maxForceLimit);
         return this;
     }
     
     public float maxForceLimit() {
-        return (float) MAX_FORCE_LIMIT.get(segment, 0L);
+        return (float) MAX_FORCE_LIMIT_HANDLE.get(segment, 0L);
     }
     
     public MotorSettings minTorqueLimit(float minTorqueLimit) {
-        MIN_TORQUE_LIMIT.set(segment, 0L, minTorqueLimit);
+        MIN_TORQUE_LIMIT_HANDLE.set(segment, 0L, minTorqueLimit);
         return this;
     }
     
     public float minTorqueLimit() {
-        return (float) MIN_TORQUE_LIMIT.get(segment, 0L);
+        return (float) MIN_TORQUE_LIMIT_HANDLE.get(segment, 0L);
     }
     
     public MotorSettings maxTorqueLimit(float maxTorqueLimit) {
-        MAX_TORQUE_LIMIT.set(segment, 0L, maxTorqueLimit);
+        MAX_TORQUE_LIMIT_HANDLE.set(segment, 0L, maxTorqueLimit);
         return this;
     }
     
     public float maxTorqueLimit() {
-        return (float) MAX_TORQUE_LIMIT.get(segment, 0L);
+        return (float) MAX_TORQUE_LIMIT_HANDLE.get(segment, 0L);
     }
     
     public MotorSettings springSettings(Consumer<SpringSettings> consumer) {

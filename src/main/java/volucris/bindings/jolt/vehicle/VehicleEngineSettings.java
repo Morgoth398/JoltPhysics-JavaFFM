@@ -27,19 +27,19 @@ public final class VehicleEngineSettings
 
     public static final StructLayout LAYOUT;
 
-    public static final VarHandle MAX_TORQUE;
-    public static final VarHandle MIN_RPM;
-    public static final VarHandle MAX_RPM;
-    public static final VarHandle NORMALIZED_TORQUE;
-    public static final VarHandle INERTIA;
-    public static final VarHandle ANGULAR_DAMPING;
+    public static final VarHandle MAX_TORQUE_HANDLE;
+    public static final VarHandle MIN_RPM_HANDLE;
+    public static final VarHandle MAX_RPM_HANDLE;
+    public static final VarHandle NORMALIZED_TORQUE_HANDLE;
+    public static final VarHandle INERTIA_HANDLE;
+    public static final VarHandle ANGULAR_DAMPING_HANDLE;
 
-    public static final long MAX_TORQUE_OFFSET;
-    public static final long MIN_RPM_OFFSET;
-    public static final long MAX_RPM_OFFSET;
-    public static final long NORMALIZED_TORQUE_OFFSET;
-    public static final long INERTIA_OFFSET;
-    public static final long ANGULAR_DAMPING_OFFSET;
+    public static final long MAX_TORQUE_BYTE_OFFSET;
+    public static final long MIN_RPM_BYTE_OFFSET;
+    public static final long MAX_RPM_BYTE_OFFSET;
+    public static final long NORMALIZED_TORQUE_BYTE_OFFSET;
+    public static final long INERTIA_BYTE_OFFSET;
+    public static final long ANGULAR_DAMPING_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -57,19 +57,19 @@ public final class VehicleEngineSettings
         
         JPH_VEHICLE_ENGINE_SETTINGS_INIT = downcallHandleVoid("JPH_VehicleEngineSettings_Init", UNBOUNDED_ADDRESS);
         
-        MAX_TORQUE = LAYOUT.varHandle(PathElement.groupElement("maxTorque"));
-        MIN_RPM = LAYOUT.varHandle(PathElement.groupElement("minRPM"));
-        MAX_RPM = LAYOUT.varHandle(PathElement.groupElement("maxRPM"));
-        NORMALIZED_TORQUE = LAYOUT.varHandle(PathElement.groupElement("normalizedTorque"));
-        INERTIA = LAYOUT.varHandle(PathElement.groupElement("inertia"));
-        ANGULAR_DAMPING = LAYOUT.varHandle(PathElement.groupElement("angularDamping"));
+        MAX_TORQUE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxTorque"));
+        MIN_RPM_HANDLE = LAYOUT.varHandle(PathElement.groupElement("minRPM"));
+        MAX_RPM_HANDLE = LAYOUT.varHandle(PathElement.groupElement("maxRPM"));
+        NORMALIZED_TORQUE_HANDLE = LAYOUT.varHandle(PathElement.groupElement("normalizedTorque"));
+        INERTIA_HANDLE = LAYOUT.varHandle(PathElement.groupElement("inertia"));
+        ANGULAR_DAMPING_HANDLE = LAYOUT.varHandle(PathElement.groupElement("angularDamping"));
         
-        MAX_TORQUE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxTorque"));
-        MIN_RPM_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minRPM"));
-        MAX_RPM_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxRPM"));
-        NORMALIZED_TORQUE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalizedTorque"));
-        INERTIA_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("inertia"));
-        ANGULAR_DAMPING_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("angularDamping"));
+        MAX_TORQUE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxTorque"));
+        MIN_RPM_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("minRPM"));
+        MAX_RPM_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("maxRPM"));
+        NORMALIZED_TORQUE_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("normalizedTorque"));
+        INERTIA_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("inertia"));
+        ANGULAR_DAMPING_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("angularDamping"));
         //@formatter:on
     }
 
@@ -112,39 +112,39 @@ public final class VehicleEngineSettings
     }
     
     public VehicleEngineSettings maxTorque(float maxTorque) {
-        MAX_TORQUE.set(segment, 0L, maxTorque);
+        MAX_TORQUE_HANDLE.set(segment, 0L, maxTorque);
         return this;
     }
     
     public float maxTorque() {
-        return (float) MAX_TORQUE.get(segment, 0L);
+        return (float) MAX_TORQUE_HANDLE.get(segment, 0L);
     }
     
     public VehicleEngineSettings minRPM(float minRPM) {
-        MIN_RPM.set(segment, 0L, minRPM);
+        MIN_RPM_HANDLE.set(segment, 0L, minRPM);
         return this;
     }
     
     public float minRPM() {
-        return (float) MIN_RPM.get(segment, 0L);
+        return (float) MIN_RPM_HANDLE.get(segment, 0L);
     }
     
     public VehicleEngineSettings maxRPM(float maxRPM) {
-        MAX_RPM.set(segment, 0L, maxRPM);
+        MAX_RPM_HANDLE.set(segment, 0L, maxRPM);
         return this;
     }
     
     public float maxRPM() {
-        return (float) MAX_RPM.get(segment, 0L);
+        return (float) MAX_RPM_HANDLE.get(segment, 0L);
     }
     
     public VehicleEngineSettings normalizedTorque(LinearCurve normalizedTorque) {
-        NORMALIZED_TORQUE.set(segment, 0L, normalizedTorque.memorySegment());
+        NORMALIZED_TORQUE_HANDLE.set(segment, 0L, normalizedTorque.memorySegment());
         return this;
     }
     
     public @Nullable LinearCurve normalizedTorque() {
-        MemorySegment segment = (MemorySegment) NORMALIZED_TORQUE.get(this.segment, 0L);
+        MemorySegment segment = (MemorySegment) NORMALIZED_TORQUE_HANDLE.get(this.segment, 0L);
     
         if (segment.equals(MemorySegment.NULL))
             return null;
@@ -153,21 +153,21 @@ public final class VehicleEngineSettings
     }
     
     public VehicleEngineSettings inertia(float inertia) {
-        INERTIA.set(segment, 0L, inertia);
+        INERTIA_HANDLE.set(segment, 0L, inertia);
         return this;
     }
     
     public float inertia() {
-        return (float) INERTIA.get(segment, 0L);
+        return (float) INERTIA_HANDLE.get(segment, 0L);
     }
     
     public VehicleEngineSettings angularDamping(float angularDamping) {
-        ANGULAR_DAMPING.set(segment, 0L, angularDamping);
+        ANGULAR_DAMPING_HANDLE.set(segment, 0L, angularDamping);
         return this;
     }
     
     public float angularDamping() {
-        return (float) ANGULAR_DAMPING.get(segment, 0L);
+        return (float) ANGULAR_DAMPING_HANDLE.get(segment, 0L);
     }
     
     @Override
