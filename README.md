@@ -10,7 +10,7 @@ This project requires Java 26 and preview features enabled.
 
 Before calling any method you need to load the native library. For Windows and Linux you can call ```Jolt.loadNativeLibrary()```. Additionally you need to initialize jolt with a call to ```Jolt.init()``` (do not forget to call ```Jolt.shutdown``` when jolt is no longer needed).
 
-My implementation of a native library loader makes use of some  [LWJGL](https://www.lwjgl.org/) configurations. To set the extract directory of the native library, change ```Configuration.SHARED_LIBRARY_EXTRACT_PATH```. 
+To set the extract directory of the native library, change ```NativeLibraryLoaderConfig.SHARED_LIBRARY_EXTRACT_PATH```. 
 
 Due to the introduction of  [restricted methods](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/doc-files/RestrictedMethods.html), it is recommended (and in later versions required) to run the application with the VM argument ```--enable-native-access=ALL-UNNAMED```.
 

@@ -9,8 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
-import org.lwjgl.system.Configuration;
-
 public final class NativeLibraryLoader {
 
 	private static final String OS = System.getProperty("os.name").toLowerCase();
@@ -30,11 +28,11 @@ public final class NativeLibraryLoader {
 	static {
 		EXTRACT_PATHS = new ArrayList<String>();
 
-		String extractPath = Configuration.SHARED_LIBRARY_EXTRACT_PATH.get();
+		String extractPath = NativeLibraryLoaderConfig.SHARED_LIBRARY_EXTRACT_PATH.getValue();
 		if (extractPath != null)
 			EXTRACT_PATHS.add(extractPath + File.separator);
 
-		String extractDirectory = Configuration.SHARED_LIBRARY_EXTRACT_DIRECTORY.get();
+		String extractDirectory = NativeLibraryLoaderConfig.SHARED_LIBRARY_EXTRACT_DIRECTORY.getValue();
 		if (extractDirectory == null) {
 			extractDirectory = "volucris_bindings";
 		}
