@@ -30,8 +30,13 @@ public class NativeFloatArray {
 	}
 
 	public NativeFloatArray set(int dstIndex, int srcIndex, int count, NativeFloatArray values) {
-		for (int i = 0; i < count; i++)
-			set(dstIndex + i, values.get(srcIndex + i));
+		MemorySegment.copy(
+				values.memorySegment(), ValueLayout.JAVA_FLOAT,
+				srcIndex * ValueLayout.JAVA_FLOAT.byteSize(),
+				segment, ValueLayout.JAVA_FLOAT,
+				dstIndex * ValueLayout.JAVA_FLOAT.byteSize(),
+				count
+		);
 		return this;
 	}
 	

@@ -2,7 +2,9 @@ package volucris.bindings.core;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static volucris.bindings.core.FFMUtils.UNBOUNDED_ADDRESS;
 
@@ -14,6 +16,17 @@ public class NativePointerArray {
 		segment = arena.allocate(UNBOUNDED_ADDRESS, count);
 	}
 
+	public NativePointerArray(Arena arena, MemorySegment pointer) {
+		segment = arena.allocateFrom(UNBOUNDED_ADDRESS, pointer);
+	}
+	
+	public NativePointerArray(Arena arena, MemorySegment... pointers) {
+		segment = arena.allocate(UNBOUNDED_ADDRESS, pointers.length);
+		
+		for (int i = 0; i < pointers.length; i++)
+			set(i, pointers[i]);
+	}
+	
 	public MemorySegment get(int index) {
 		return segment.getAtIndex(UNBOUNDED_ADDRESS, index);
 	}
@@ -28,8 +41,13 @@ public class NativePointerArray {
 	}
 
 	public NativePointerArray set(int dstIndex, int srcIndex, int count, NativePointerArray pointers) {
-		for (int i = 0; i < count; i++)
-			set(dstIndex + i, pointers.get(srcIndex + i));
+		MemorySegment.copy(
+				pointers.memorySegment(), UNBOUNDED_ADDRESS,
+				srcIndex * UNBOUNDED_ADDRESS.byteSize(),
+				segment, UNBOUNDED_ADDRESS,
+				dstIndex * UNBOUNDED_ADDRESS.byteSize(),
+				count
+		);
 		return this;
 	}
 	
@@ -44,6 +62,14 @@ public class NativePointerArray {
 		return this;
 	}
 
+	public Collection<String> getStrings(int index, int count) {
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < count; i++) {
+			list.add(getString(index + i));
+		}
+		return list;
+	}
+	
 	public String getString(int index) {
 		return segment.getAtIndex(UNBOUNDED_ADDRESS, index).getString(0);
 	}

@@ -2,13 +2,13 @@ package volucris.bindings.core;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
-import java.lang.foreign.StructLayout;
+import java.lang.foreign.GroupLayout;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class NativeStructArray<T extends Struct<T>> {
 
-	private final StructLayout layout;
+	private final GroupLayout layout;
 
 	private final MemorySegment segment;
 
@@ -17,7 +17,7 @@ public class NativeStructArray<T extends Struct<T>> {
 	private final T[] cache;
 
 	@SuppressWarnings("unchecked")
-	public NativeStructArray(Arena arena, StructLayout layout, Function<MemorySegment, T> factory, int count) {
+	public NativeStructArray(Arena arena, GroupLayout layout, Function<MemorySegment, T> factory, int count) {
 		this.segment = arena.allocate(layout, count);
 		this.layout = layout;
 		this.factory = factory;
@@ -26,7 +26,7 @@ public class NativeStructArray<T extends Struct<T>> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public NativeStructArray(MemorySegment segment, StructLayout layout, Function<MemorySegment, T> factory) {
+	public NativeStructArray(MemorySegment segment, GroupLayout layout, Function<MemorySegment, T> factory) {
 		this.segment = segment;
 		this.layout = layout;
 		this.factory = factory;
@@ -59,13 +59,24 @@ public class NativeStructArray<T extends Struct<T>> {
 	}
 
 	public NativeStructArray<T> set(int dstIndex, int srcIndex, int count, NativeStructArray<T> values) {
-		for (int i = 0; i < count; i++)
-			set(dstIndex + i, values.get(srcIndex + i));
+		MemorySegment.copy(
+				values.memorySegment(),
+				srcIndex * layout.byteSize(),
+				segment, dstIndex * layout.byteSize(),
+				count * layout.byteSize()
+		);
 		return this;
 	}
-	
+
 	public NativeStructArray<T> forElement(int index, Consumer<T> consumer) {
 		consumer.accept(get(index));
+		return this;
+	}
+
+	public NativeStructArray<T> forEach(int count, Consumer<T> consumer) {
+		for (int i = 0; i < count; i++) {
+			forElement(i, consumer);
+		}
 		return this;
 	}
 

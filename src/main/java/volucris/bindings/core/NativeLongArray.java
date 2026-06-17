@@ -30,8 +30,13 @@ public class NativeLongArray {
 	}
 
 	public NativeLongArray set(int dstIndex, int srcIndex, int count, NativeLongArray values) {
-		for (int i = 0; i < count; i++)
-			set(dstIndex + i, values.get(srcIndex + i));
+		MemorySegment.copy(
+				values.memorySegment(), ValueLayout.JAVA_LONG,
+				srcIndex * ValueLayout.JAVA_LONG.byteSize(),
+				segment, ValueLayout.JAVA_LONG,
+				dstIndex * ValueLayout.JAVA_LONG.byteSize(),
+				count
+		);
 		return this;
 	}
 	

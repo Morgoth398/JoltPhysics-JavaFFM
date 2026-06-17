@@ -30,8 +30,13 @@ public class NativeIntArray {
 	}
 
 	public NativeIntArray set(int dstIndex, int srcIndex, int count, NativeIntArray values) {
-		for (int i = 0; i < count; i++)
-			set(dstIndex + i, values.get(srcIndex + i));
+		MemorySegment.copy(
+				values.memorySegment(), ValueLayout.JAVA_INT,
+				srcIndex * ValueLayout.JAVA_INT.byteSize(),
+				segment, ValueLayout.JAVA_INT,
+				dstIndex * ValueLayout.JAVA_INT.byteSize(),
+				count
+		);
 		return this;
 	}
 	

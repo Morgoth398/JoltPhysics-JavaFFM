@@ -30,17 +30,22 @@ public class NativeShortArray {
 	}
 
 	public NativeShortArray set(int dstIndex, int srcIndex, int count, NativeShortArray values) {
-		for (int i = 0; i < count; i++)
-			set(dstIndex + i, values.get(srcIndex + i));
+		MemorySegment.copy(
+				values.memorySegment(), ValueLayout.JAVA_SHORT,
+				srcIndex * ValueLayout.JAVA_SHORT.byteSize(),
+				segment, ValueLayout.JAVA_SHORT,
+				dstIndex * ValueLayout.JAVA_SHORT.byteSize(),
+				count
+		);
 		return this;
 	}
-	
+
 	public NativeShortArray fill(int index, int count, short value) {
 		for (int i = 0; i < count; i++)
 			set(index + i, value);
 		return this;
 	}
-	
+
 	public NativeShortArray set(int dstIndex, int srcIndex, int count, short... values) {
 		long dstOffset = dstIndex * ValueLayout.JAVA_SHORT.byteSize();
 		MemorySegment.copy(values, srcIndex, segment, ValueLayout.JAVA_SHORT, dstOffset, count);

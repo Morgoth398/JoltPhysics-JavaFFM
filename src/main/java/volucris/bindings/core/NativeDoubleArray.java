@@ -30,8 +30,13 @@ public class NativeDoubleArray {
 	}
 
 	public NativeDoubleArray set(int dstIndex, int srcIndex, int count, NativeDoubleArray values) {
-		for (int i = 0; i < count; i++)
-			set(dstIndex + i, values.get(srcIndex + i));
+		MemorySegment.copy(
+				values.memorySegment(), ValueLayout.JAVA_DOUBLE,
+				srcIndex * ValueLayout.JAVA_DOUBLE.byteSize(),
+				segment, ValueLayout.JAVA_DOUBLE,
+				dstIndex * ValueLayout.JAVA_DOUBLE.byteSize(),
+				count
+		);
 		return this;
 	}
 	
