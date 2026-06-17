@@ -1,5 +1,6 @@
 naming:
   strip-prefixes:
+    - JPH_SkeletonPose_
     - JPH_BodyManager_
     - JPH_PhysicsUpdateError_
     - JPH_BodyType_

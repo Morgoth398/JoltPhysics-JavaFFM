@@ -138,11 +138,10 @@ public sealed class WheelSettings
      * Typed method of {@link #getPosition}.
      */
     public final void getPosition(
-        WheelSettings settings, 
         Vec3 result
     ) {
         getPosition(
-            settings.memorySegment(), 
+            this.segment, 
             result.memorySegment()
         );
     }
@@ -166,11 +165,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setPosition}.
      */
     public final void setPosition(
-        WheelSettings settings, 
         Vec3 value
     ) {
         setPosition(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -194,11 +192,10 @@ public sealed class WheelSettings
      * Typed method of {@link #getSuspensionForcePoint}.
      */
     public final void getSuspensionForcePoint(
-        WheelSettings settings, 
         Vec3 result
     ) {
         getSuspensionForcePoint(
-            settings.memorySegment(), 
+            this.segment, 
             result.memorySegment()
         );
     }
@@ -222,11 +219,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setSuspensionForcePoint}.
      */
     public final void setSuspensionForcePoint(
-        WheelSettings settings, 
         Vec3 value
     ) {
         setSuspensionForcePoint(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -250,11 +246,10 @@ public sealed class WheelSettings
      * Typed method of {@link #getSuspensionDirection}.
      */
     public final void getSuspensionDirection(
-        WheelSettings settings, 
         Vec3 result
     ) {
         getSuspensionDirection(
-            settings.memorySegment(), 
+            this.segment, 
             result.memorySegment()
         );
     }
@@ -278,11 +273,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setSuspensionDirection}.
      */
     public final void setSuspensionDirection(
-        WheelSettings settings, 
         Vec3 value
     ) {
         setSuspensionDirection(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -306,11 +300,10 @@ public sealed class WheelSettings
      * Typed method of {@link #getSteeringAxis}.
      */
     public final void getSteeringAxis(
-        WheelSettings settings, 
         Vec3 result
     ) {
         getSteeringAxis(
-            settings.memorySegment(), 
+            this.segment, 
             result.memorySegment()
         );
     }
@@ -334,11 +327,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setSteeringAxis}.
      */
     public final void setSteeringAxis(
-        WheelSettings settings, 
         Vec3 value
     ) {
         setSteeringAxis(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -362,11 +354,10 @@ public sealed class WheelSettings
      * Typed method of {@link #getWheelUp}.
      */
     public final void getWheelUp(
-        WheelSettings settings, 
         Vec3 result
     ) {
         getWheelUp(
-            settings.memorySegment(), 
+            this.segment, 
             result.memorySegment()
         );
     }
@@ -390,11 +381,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setWheelUp}.
      */
     public final void setWheelUp(
-        WheelSettings settings, 
         Vec3 value
     ) {
         setWheelUp(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -418,11 +408,10 @@ public sealed class WheelSettings
      * Typed method of {@link #getWheelForward}.
      */
     public final void getWheelForward(
-        WheelSettings settings, 
         Vec3 result
     ) {
         getWheelForward(
-            settings.memorySegment(), 
+            this.segment, 
             result.memorySegment()
         );
     }
@@ -446,11 +435,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setWheelForward}.
      */
     public final void setWheelForward(
-        WheelSettings settings, 
         Vec3 value
     ) {
         setWheelForward(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -472,10 +460,9 @@ public sealed class WheelSettings
      * Typed method of {@link #getSuspensionMinLength}.
      */
     public final float getSuspensionMinLength(
-        WheelSettings settings
     ) {
         return (float) getSuspensionMinLength(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -498,11 +485,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setSuspensionMinLength}.
      */
     public final void setSuspensionMinLength(
-        WheelSettings settings, 
         float value
     ) {
         setSuspensionMinLength(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -524,10 +510,9 @@ public sealed class WheelSettings
      * Typed method of {@link #getSuspensionMaxLength}.
      */
     public final float getSuspensionMaxLength(
-        WheelSettings settings
     ) {
         return (float) getSuspensionMaxLength(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -550,11 +535,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setSuspensionMaxLength}.
      */
     public final void setSuspensionMaxLength(
-        WheelSettings settings, 
         float value
     ) {
         setSuspensionMaxLength(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -576,10 +560,9 @@ public sealed class WheelSettings
      * Typed method of {@link #getSuspensionPreloadLength}.
      */
     public final float getSuspensionPreloadLength(
-        WheelSettings settings
     ) {
         return (float) getSuspensionPreloadLength(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -602,11 +585,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setSuspensionPreloadLength}.
      */
     public final void setSuspensionPreloadLength(
-        WheelSettings settings, 
         float value
     ) {
         setSuspensionPreloadLength(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -630,11 +612,10 @@ public sealed class WheelSettings
      * Typed method of {@link #getSuspensionSpring}.
      */
     public final void getSuspensionSpring(
-        WheelSettings settings, 
         SpringSettings result
     ) {
         getSuspensionSpring(
-            settings.memorySegment(), 
+            this.segment, 
             result.memorySegment()
         );
     }
@@ -658,11 +639,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setSuspensionSpring}.
      */
     public final void setSuspensionSpring(
-        WheelSettings settings, 
         SpringSettings springSettings
     ) {
         setSuspensionSpring(
-            settings.memorySegment(), 
+            this.segment, 
             springSettings.memorySegment()
         );
     }
@@ -684,10 +664,9 @@ public sealed class WheelSettings
      * Typed method of {@link #getRadius}.
      */
     public final float getRadius(
-        WheelSettings settings
     ) {
         return (float) getRadius(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -710,11 +689,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setRadius}.
      */
     public final void setRadius(
-        WheelSettings settings, 
         float value
     ) {
         setRadius(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -736,10 +714,9 @@ public sealed class WheelSettings
      * Typed method of {@link #getWidth}.
      */
     public final float getWidth(
-        WheelSettings settings
     ) {
         return (float) getWidth(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -762,11 +739,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setWidth}.
      */
     public final void setWidth(
-        WheelSettings settings, 
         float value
     ) {
         setWidth(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -788,10 +764,9 @@ public sealed class WheelSettings
      * Typed method of {@link #getEnableSuspensionForcePoint}.
      */
     public final boolean getEnableSuspensionForcePoint(
-        WheelSettings settings
     ) {
         return (boolean) getEnableSuspensionForcePoint(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -814,11 +789,10 @@ public sealed class WheelSettings
      * Typed method of {@link #setEnableSuspensionForcePoint}.
      */
     public final void setEnableSuspensionForcePoint(
-        WheelSettings settings, 
         boolean value
     ) {
         setEnableSuspensionForcePoint(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }

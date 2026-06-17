@@ -10,7 +10,7 @@ class-description:
   permits: []
   is-abstract: false
   is-final: true
-  instance-parameter:
+  instance-parameter: settings
 
 imports:
 static-imports:

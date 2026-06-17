@@ -10,7 +10,7 @@ class-description:
   permits: []
   is-abstract: false
   is-final: false
-  instance-parameter: mapper
+  instance-parameter: pose
 
 imports:
   - volucris.bindings.jolt.math.Vec3

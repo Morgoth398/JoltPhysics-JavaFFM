@@ -96,10 +96,9 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #getInertia}.
      */
     public final float getInertia(
-        WheelSettingsWV settings
     ) {
         return (float) getInertia(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -122,11 +121,10 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #setInertia}.
      */
     public final void setInertia(
-        WheelSettingsWV settings, 
         float value
     ) {
         setInertia(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -148,10 +146,9 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #getAngularDamping}.
      */
     public final float getAngularDamping(
-        WheelSettingsWV settings
     ) {
         return (float) getAngularDamping(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -174,11 +171,10 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #setAngularDamping}.
      */
     public final void setAngularDamping(
-        WheelSettingsWV settings, 
         float value
     ) {
         setAngularDamping(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -200,10 +196,9 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #getMaxSteerAngle}.
      */
     public final float getMaxSteerAngle(
-        WheelSettingsWV settings
     ) {
         return (float) getMaxSteerAngle(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -226,11 +221,10 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #setMaxSteerAngle}.
      */
     public final void setMaxSteerAngle(
-        WheelSettingsWV settings, 
         float value
     ) {
         setMaxSteerAngle(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -252,10 +246,9 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #getLongitudinalFriction}.
      */
     public final @Nullable LinearCurve getLongitudinalFriction(
-        WheelSettingsWV settings
     ) {
         MemorySegment segment = getLongitudinalFriction(
-            settings.memorySegment()
+            this.segment
         );
     
         if (segment.equals(MemorySegment.NULL))
@@ -283,11 +276,10 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #setLongitudinalFriction}.
      */
     public final void setLongitudinalFriction(
-        WheelSettingsWV settings, 
         LinearCurve value
     ) {
         setLongitudinalFriction(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -309,10 +301,9 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #getLateralFriction}.
      */
     public final @Nullable LinearCurve getLateralFriction(
-        WheelSettingsWV settings
     ) {
         MemorySegment segment = getLateralFriction(
-            settings.memorySegment()
+            this.segment
         );
     
         if (segment.equals(MemorySegment.NULL))
@@ -340,11 +331,10 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #setLateralFriction}.
      */
     public final void setLateralFriction(
-        WheelSettingsWV settings, 
         LinearCurve value
     ) {
         setLateralFriction(
-            settings.memorySegment(), 
+            this.segment, 
             value.memorySegment()
         );
     }
@@ -366,10 +356,9 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #getMaxBrakeTorque}.
      */
     public final float getMaxBrakeTorque(
-        WheelSettingsWV settings
     ) {
         return (float) getMaxBrakeTorque(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -392,11 +381,10 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #setMaxBrakeTorque}.
      */
     public final void setMaxBrakeTorque(
-        WheelSettingsWV settings, 
         float value
     ) {
         setMaxBrakeTorque(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -418,10 +406,9 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #getMaxHandBrakeTorque}.
      */
     public final float getMaxHandBrakeTorque(
-        WheelSettingsWV settings
     ) {
         return (float) getMaxHandBrakeTorque(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -444,11 +431,10 @@ public final class WheelSettingsWV extends WheelSettings {
      * Typed method of {@link #setMaxHandBrakeTorque}.
      */
     public final void setMaxHandBrakeTorque(
-        WheelSettingsWV settings, 
         float value
     ) {
         setMaxHandBrakeTorque(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }

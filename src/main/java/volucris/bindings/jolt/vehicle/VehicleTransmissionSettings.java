@@ -129,10 +129,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getMode}.
      */
     public final int getMode(
-        VehicleTransmissionSettings settings
     ) {
         return (int) getMode(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -155,11 +154,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setMode}.
      */
     public final void setMode(
-        VehicleTransmissionSettings settings, 
         int value
     ) {
         setMode(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -181,10 +179,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getGearRatioCount}.
      */
     public final int getGearRatioCount(
-        VehicleTransmissionSettings settings
     ) {
         return (int) getGearRatioCount(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -207,11 +204,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getGearRatio}.
      */
     public final float getGearRatio(
-        VehicleTransmissionSettings settings, 
         int index
     ) {
         return (float) getGearRatio(
-            settings.memorySegment(), 
+            this.segment, 
             index
         );
     }
@@ -237,12 +233,11 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setGearRatio}.
      */
     public final void setGearRatio(
-        VehicleTransmissionSettings settings, 
         int index, 
         float value
     ) {
         setGearRatio(
-            settings.memorySegment(), 
+            this.segment, 
             index, 
             value
         );
@@ -265,10 +260,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getGearRatios}.
      */
     public final @Nullable NativeFloatArray getGearRatios(
-        VehicleTransmissionSettings settings
     ) {
         MemorySegment segment = getGearRatios(
-            settings.memorySegment()
+            this.segment
         );
     
         if (segment.equals(MemorySegment.NULL))
@@ -298,12 +292,11 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setGearRatios}.
      */
     public final void setGearRatios(
-        VehicleTransmissionSettings settings, 
         NativeFloatArray values, 
         int count
     ) {
         setGearRatios(
-            settings.memorySegment(), 
+            this.segment, 
             values.memorySegment(), 
             count
         );
@@ -326,10 +319,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getReverseGearRatioCount}.
      */
     public final int getReverseGearRatioCount(
-        VehicleTransmissionSettings settings
     ) {
         return (int) getReverseGearRatioCount(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -352,11 +344,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getReverseGearRatio}.
      */
     public final float getReverseGearRatio(
-        VehicleTransmissionSettings settings, 
         int index
     ) {
         return (float) getReverseGearRatio(
-            settings.memorySegment(), 
+            this.segment, 
             index
         );
     }
@@ -382,12 +373,11 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setReverseGearRatio}.
      */
     public final void setReverseGearRatio(
-        VehicleTransmissionSettings settings, 
         int index, 
         float value
     ) {
         setReverseGearRatio(
-            settings.memorySegment(), 
+            this.segment, 
             index, 
             value
         );
@@ -410,10 +400,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getReverseGearRatios}.
      */
     public final @Nullable NativeFloatArray getReverseGearRatios(
-        VehicleTransmissionSettings settings
     ) {
         MemorySegment segment = getReverseGearRatios(
-            settings.memorySegment()
+            this.segment
         );
     
         if (segment.equals(MemorySegment.NULL))
@@ -443,12 +432,11 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setReverseGearRatios}.
      */
     public final void setReverseGearRatios(
-        VehicleTransmissionSettings settings, 
         NativeFloatArray values, 
         int count
     ) {
         setReverseGearRatios(
-            settings.memorySegment(), 
+            this.segment, 
             values.memorySegment(), 
             count
         );
@@ -471,10 +459,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getSwitchTime}.
      */
     public final float getSwitchTime(
-        VehicleTransmissionSettings settings
     ) {
         return (float) getSwitchTime(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -497,11 +484,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setSwitchTime}.
      */
     public final void setSwitchTime(
-        VehicleTransmissionSettings settings, 
         float value
     ) {
         setSwitchTime(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -523,10 +509,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getClutchReleaseTime}.
      */
     public final float getClutchReleaseTime(
-        VehicleTransmissionSettings settings
     ) {
         return (float) getClutchReleaseTime(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -549,11 +534,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setClutchReleaseTime}.
      */
     public final void setClutchReleaseTime(
-        VehicleTransmissionSettings settings, 
         float value
     ) {
         setClutchReleaseTime(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -575,10 +559,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getSwitchLatency}.
      */
     public final float getSwitchLatency(
-        VehicleTransmissionSettings settings
     ) {
         return (float) getSwitchLatency(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -601,11 +584,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setSwitchLatency}.
      */
     public final void setSwitchLatency(
-        VehicleTransmissionSettings settings, 
         float value
     ) {
         setSwitchLatency(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -627,10 +609,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getShiftUpRPM}.
      */
     public final float getShiftUpRPM(
-        VehicleTransmissionSettings settings
     ) {
         return (float) getShiftUpRPM(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -653,11 +634,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setShiftUpRPM}.
      */
     public final void setShiftUpRPM(
-        VehicleTransmissionSettings settings, 
         float value
     ) {
         setShiftUpRPM(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -679,10 +659,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getShiftDownRPM}.
      */
     public final float getShiftDownRPM(
-        VehicleTransmissionSettings settings
     ) {
         return (float) getShiftDownRPM(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -705,11 +684,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setShiftDownRPM}.
      */
     public final void setShiftDownRPM(
-        VehicleTransmissionSettings settings, 
         float value
     ) {
         setShiftDownRPM(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -731,10 +709,9 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #getClutchStrength}.
      */
     public final float getClutchStrength(
-        VehicleTransmissionSettings settings
     ) {
         return (float) getClutchStrength(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -757,11 +734,10 @@ public final class VehicleTransmissionSettings {
      * Typed method of {@link #setClutchStrength}.
      */
     public final void setClutchStrength(
-        VehicleTransmissionSettings settings, 
         float value
     ) {
         setClutchStrength(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }

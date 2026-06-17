@@ -10,7 +10,8 @@ class-description:
   permits: []
   is-abstract: false
   is-final: false
-  instance-parameter:
+  instance-parameter: settings
+  additional-instance-parameters: [character]
 
 imports:
   - volucris.bindings.jolt.math.Vec3

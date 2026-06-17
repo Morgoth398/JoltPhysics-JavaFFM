@@ -75,10 +75,9 @@ public final class WheelSettingsTV extends WheelSettings {
      * Typed method of {@link #getLongitudinalFriction}.
      */
     public final float getLongitudinalFriction(
-        WheelSettingsTV settings
     ) {
         return (float) getLongitudinalFriction(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -101,11 +100,10 @@ public final class WheelSettingsTV extends WheelSettings {
      * Typed method of {@link #setLongitudinalFriction}.
      */
     public final void setLongitudinalFriction(
-        WheelSettingsTV settings, 
         float value
     ) {
         setLongitudinalFriction(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }
@@ -127,10 +125,9 @@ public final class WheelSettingsTV extends WheelSettings {
      * Typed method of {@link #getLateralFriction}.
      */
     public final float getLateralFriction(
-        WheelSettingsTV settings
     ) {
         return (float) getLateralFriction(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -153,11 +150,10 @@ public final class WheelSettingsTV extends WheelSettings {
      * Typed method of {@link #setLateralFriction}.
      */
     public final void setLateralFriction(
-        WheelSettingsTV settings, 
         float value
     ) {
         setLateralFriction(
-            settings.memorySegment(), 
+            this.segment, 
             value
         );
     }

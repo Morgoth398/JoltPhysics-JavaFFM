@@ -120,10 +120,9 @@ public class RagdollSettings {
      * Typed method of {@link #getSkeleton}.
      */
     public final @Nullable Skeleton getSkeleton(
-        RagdollSettings character
     ) {
         MemorySegment segment = getSkeleton(
-            character.memorySegment()
+            this.segment
         );
     
         if (segment.equals(MemorySegment.NULL))
@@ -151,11 +150,10 @@ public class RagdollSettings {
      * Typed method of {@link #setSkeleton}.
      */
     public final void setSkeleton(
-        RagdollSettings character, 
         Skeleton skeleton
     ) {
         setSkeleton(
-            character.memorySegment(), 
+            this.segment, 
             skeleton.memorySegment()
         );
     }
@@ -177,10 +175,9 @@ public class RagdollSettings {
      * Typed method of {@link #stabilize}.
      */
     public final boolean stabilize(
-        RagdollSettings settings
     ) {
         return (boolean) stabilize(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -205,12 +202,11 @@ public class RagdollSettings {
      * Typed method of {@link #disableParentChildCollisions}.
      */
     public final void disableParentChildCollisions(
-        RagdollSettings settings, 
         Mat4 jointMatrices, 
         float minSeparationDistance
     ) {
         disableParentChildCollisions(
-            settings.memorySegment(), 
+            this.segment, 
             jointMatrices.memorySegment(), 
             minSeparationDistance
         );
@@ -233,10 +229,9 @@ public class RagdollSettings {
      * Typed method of {@link #calculateBodyIndexToConstraintIndex}.
      */
     public final void calculateBodyIndexToConstraintIndex(
-        RagdollSettings settings
     ) {
         calculateBodyIndexToConstraintIndex(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -259,11 +254,10 @@ public class RagdollSettings {
      * Typed method of {@link #getConstraintIndexForBodyIndex}.
      */
     public final int getConstraintIndexForBodyIndex(
-        RagdollSettings settings, 
         int bodyIndex
     ) {
         return (int) getConstraintIndexForBodyIndex(
-            settings.memorySegment(), 
+            this.segment, 
             bodyIndex
         );
     }
@@ -285,10 +279,9 @@ public class RagdollSettings {
      * Typed method of {@link #calculateConstraintIndexToBodyIdxPair}.
      */
     public final void calculateConstraintIndexToBodyIdxPair(
-        RagdollSettings settings
     ) {
         calculateConstraintIndexToBodyIdxPair(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -311,11 +304,10 @@ public class RagdollSettings {
      * Typed method of {@link #resizeParts}.
      */
     public final void resizeParts(
-        RagdollSettings settings, 
         int count
     ) {
         resizeParts(
-            settings.memorySegment(), 
+            this.segment, 
             count
         );
     }
@@ -337,10 +329,9 @@ public class RagdollSettings {
      * Typed method of {@link #getPartCount}.
      */
     public final int getPartCount(
-        RagdollSettings settings
     ) {
         return (int) getPartCount(
-            settings.memorySegment()
+            this.segment
         );
     }
     
@@ -365,12 +356,11 @@ public class RagdollSettings {
      * Typed method of {@link #setPartShape}.
      */
     public final void setPartShape(
-        RagdollSettings settings, 
         int partIndex, 
         Shape shape
     ) {
         setPartShape(
-            settings.memorySegment(), 
+            this.segment, 
             partIndex, 
             shape.memorySegment()
         );
@@ -397,12 +387,11 @@ public class RagdollSettings {
      * Typed method of {@link #setPartPosition}.
      */
     public final void setPartPosition(
-        RagdollSettings settings, 
         int partIndex, 
         Vec3 position
     ) {
         setPartPosition(
-            settings.memorySegment(), 
+            this.segment, 
             partIndex, 
             position.memorySegment()
         );
@@ -429,12 +418,11 @@ public class RagdollSettings {
      * Typed method of {@link #setPartRotation}.
      */
     public final void setPartRotation(
-        RagdollSettings settings, 
         int partIndex, 
         Quat rotation
     ) {
         setPartRotation(
-            settings.memorySegment(), 
+            this.segment, 
             partIndex, 
             rotation.memorySegment()
         );
@@ -461,12 +449,11 @@ public class RagdollSettings {
      * Typed method of {@link #setPartMotionType}.
      */
     public final void setPartMotionType(
-        RagdollSettings settings, 
         int partIndex, 
         int motionType
     ) {
         setPartMotionType(
-            settings.memorySegment(), 
+            this.segment, 
             partIndex, 
             motionType
         );
@@ -493,12 +480,11 @@ public class RagdollSettings {
      * Typed method of {@link #setPartObjectLayer}.
      */
     public final void setPartObjectLayer(
-        RagdollSettings settings, 
         int partIndex, 
         int layer
     ) {
         setPartObjectLayer(
-            settings.memorySegment(), 
+            this.segment, 
             partIndex, 
             layer
         );
@@ -525,12 +511,11 @@ public class RagdollSettings {
      * Typed method of {@link #setPartMassProperties}.
      */
     public final void setPartMassProperties(
-        RagdollSettings settings, 
         int partIndex, 
         float mass
     ) {
         setPartMassProperties(
-            settings.memorySegment(), 
+            this.segment, 
             partIndex, 
             mass
         );
@@ -557,12 +542,11 @@ public class RagdollSettings {
      * Typed method of {@link #setPartToParent}.
      */
     public final void setPartToParent(
-        RagdollSettings settings, 
         int partIndex, 
         SwingTwistConstraintSettings constraintSettings
     ) {
         setPartToParent(
-            settings.memorySegment(), 
+            this.segment, 
             partIndex, 
             constraintSettings.memorySegment()
         );
@@ -591,13 +575,12 @@ public class RagdollSettings {
      * Typed method of {@link #createRagdoll}.
      */
     public final @Nullable Ragdoll createRagdoll(
-        RagdollSettings settings, 
         PhysicsSystem system, 
         int collisionGroup, 
         long userData
     ) {
         MemorySegment segment = createRagdoll(
-            settings.memorySegment(), 
+            this.segment, 
             system.memorySegment(), 
             collisionGroup, 
             userData

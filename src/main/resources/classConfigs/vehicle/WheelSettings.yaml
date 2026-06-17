@@ -10,7 +10,7 @@ class-description:
   permits: [WheelSettingsTV, WheelSettingsWV]
   is-abstract: false
   is-final: false
-  instance-parameter:
+  instance-parameter: settings
 
 imports:
   - volucris.bindings.jolt.math.Vec3
