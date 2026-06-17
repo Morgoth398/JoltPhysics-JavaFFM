@@ -49,6 +49,8 @@
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>
+					<additionalJOptions>--enable-preview</additionalJOptions>
+					<source>26</source>
 				</configuration>
 				<executions>
 					<execution>
@@ -74,11 +76,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<properties>
-		<lwjgl.version>3.3.6</lwjgl.version>
-		<lwjgl.windows.natives>natives-windows</lwjgl.windows.natives>
-		<lwjgl.linux.natives>natives-linux</lwjgl.linux.natives>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.github.spotbugs</groupId>
