@@ -1,5 +1,7 @@
 naming:
   strip-prefixes:
+    - JPH_TempAllocator_
+    - JPH_TempAllocatorMalloc_
     - JPH_SkeletonPose_
     - JPH_BodyManager_
     - JPH_PhysicsUpdateError_

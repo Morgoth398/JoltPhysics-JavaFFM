@@ -73,6 +73,7 @@ public final class PhysicsSystem {
     private static final LazyConstant<MethodHandle> JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_LIMITS;
     private static final LazyConstant<MethodHandle> JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_REFERENCE_FRAME;
     private static final LazyConstant<MethodHandle> JPH_PHYSICS_SYSTEM_GET_BODY_PTR;
+    private static final LazyConstant<MethodHandle> JPH_PHYSICS_SYSTEM_UPDATE2;
 
     private final MemorySegment segment;
 
@@ -117,6 +118,7 @@ public final class PhysicsSystem {
         JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_LIMITS = downcallHandleVoid("JPH_PhysicsSystem_DrawConstraintLimits", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_REFERENCE_FRAME = downcallHandleVoid("JPH_PhysicsSystem_DrawConstraintReferenceFrame", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         JPH_PHYSICS_SYSTEM_GET_BODY_PTR = downcallHandle("JPH_PhysicsSystem_GetBodyPtr", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS, JAVA_INT);
+        JPH_PHYSICS_SYSTEM_UPDATE2 = downcallHandle("JPH_PhysicsSystem_Update2", JAVA_INT, UNBOUNDED_ADDRESS, JAVA_FLOAT, JAVA_INT, UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
         //@formatter:on
     }
 
@@ -1216,6 +1218,45 @@ public final class PhysicsSystem {
             return null;
     
         return new Body(segment);
+    }
+    
+    public static int update2(
+        MemorySegment system, 
+        float deltaTime, 
+        int collisionSteps, 
+        MemorySegment tempAllocator, 
+        MemorySegment jobSystem
+    ) {
+        MethodHandle method = JPH_PHYSICS_SYSTEM_UPDATE2.get();
+        try {
+            return (int) method.invokeExact(
+                system, 
+                deltaTime, 
+                collisionSteps, 
+                tempAllocator, 
+                jobSystem
+            );
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    /**
+     * Typed method of {@link #update2}.
+     */
+    public final int update2(
+        float deltaTime, 
+        int collisionSteps, 
+        TempAllocator tempAllocator, 
+        JobSystem jobSystem
+    ) {
+        return (int) update2(
+            this.segment, 
+            deltaTime, 
+            collisionSteps, 
+            tempAllocator.memorySegment(), 
+            jobSystem.memorySegment()
+        );
     }
     
     public MemorySegment memorySegment() {

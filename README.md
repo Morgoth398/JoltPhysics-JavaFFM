@@ -4,9 +4,7 @@ This project provides Java Bindings for [JoltPhysics](https://github.com/jrouwe/
 This project is in a usable, working state regarding the features that the C wrapper exposes. When the wrapper exposes new features, I try to update this project as fast as possible.
 
 # Supported Platforms
-Windows and Linux are directly supported. The Linux .so file was built on Linux Mint 22.2.
-
-Nevertheless, you should be able to use these bindings for Mac if you provide your own `.dylib` file and load it.
+Windows, Linux and Mac are directly supported. The native libraries were build by [the workflow the C Wrapper provides](https://github.com/amerkoleci/joltc/blob/main/.github/workflows/build.yml).
 
 # Building The Project
 1. Download [Java 26](https://www.oracle.com/de/java/technologies/downloads/)

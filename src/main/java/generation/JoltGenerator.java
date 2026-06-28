@@ -252,18 +252,18 @@
 //				
 //			valueLayouts = new ArrayList<String>();
 //			functionPointer.getParameters().forEach(parameter -> {
-//				String layout = GeneratorUtils.stripPrefixes(config, getLayoutString(parameter.getType()), false);
+//				String layout = GeneratorUtils.transformName(config, getLayoutString(parameter.getType()), false);
 //				valueLayouts.add(layout);
 //			});
 //
-//			returnTypeLayout = GeneratorUtils.stripPrefixes(
+//			returnTypeLayout = GeneratorUtils.transformName(
 //					config,
 //					getLayoutString(functionPointer.getReturnType().getType()),
 //					false);
 //			
 //			hasReturnType = !method.getReturnType().getIsVoid();
 //			
-//			name = GeneratorUtils.stripPrefixes(config, functionPointer.getName(), true).replaceAll("\\*\\s*$", "").trim();
+//			name = GeneratorUtils.transformName(config, functionPointer.getName(), true).replaceAll("\\*\\s*$", "").trim();
 //			constantsName = name.replaceAll("([\\p{Ll}\\p{Nd}])(\\p{Lu})", "$1_$2").toUpperCase();
 //		}
 //
