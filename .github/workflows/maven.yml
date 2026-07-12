@@ -50,3 +50,23 @@ jobs:
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
           -cp target/JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar \
           volucris.bindings.jolt.HelloWorld
+
+  Windows:
+    runs-on: windows-2025
+    steps:
+    - uses: actions/checkout@v7
+    - name: Set up JDK 26
+      uses: actions/setup-java@v5
+      with:
+        java-version: '26'
+        distribution: 'oracle'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+      shell: bash
+    - name: Execute the HelloWorld app
+      run: |
+        "$JAVA_HOME/bin/java" --enable-preview --enable-native-access=ALL-UNNAMED \
+          -cp target/JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar \
+          volucris.bindings.jolt.HelloWorld
+      shell: bash
