@@ -1,5 +1,5 @@
 class-description:
-  name: CharacterVirtualContact
+  name: CharacterContact
   package-name: volucris.bindings.jolt.character
   directory: src/main/java/volucris/bindings/jolt/character
   is-static: false
@@ -34,6 +34,6 @@ excluded-function-name-postfixes:
 
 constructors:
 struct:
-  name: JPH_CharacterVirtualContact
+  name: JPH_CharacterContact
 native-functions:
 native-function-pointers:

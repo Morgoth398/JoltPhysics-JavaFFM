@@ -119,8 +119,7 @@ public abstract class CharacterContactListener {
                 JAVA_BOOLEAN, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
-                JAVA_INT
+                UNBOUNDED_ADDRESS
             );
 
             ON_CONTACT_VALIDATE_HANDLE = lookup.findStatic(CharacterContactListener.class, "onContactValidate", ON_CONTACT_VALIDATE_DESCRIPTION.toMethodType());
@@ -133,8 +132,7 @@ public abstract class CharacterContactListener {
                 JAVA_BOOLEAN, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT
+                UNBOUNDED_ADDRESS
             );
 
             ON_CHARACTER_CONTACT_VALIDATE_HANDLE = lookup.findStatic(CharacterContactListener.class, "onCharacterContactValidate", ON_CHARACTER_CONTACT_VALIDATE_DESCRIPTION.toMethodType());
@@ -145,9 +143,6 @@ public abstract class CharacterContactListener {
             
             ON_CONTACT_ADDED_DESCRIPTION = FunctionDescriptor.ofVoid(
                 UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
-                JAVA_INT, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS
@@ -161,9 +156,6 @@ public abstract class CharacterContactListener {
             
             ON_CONTACT_PERSISTED_DESCRIPTION = FunctionDescriptor.ofVoid(
                 UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
-                JAVA_INT, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS
@@ -192,9 +184,6 @@ public abstract class CharacterContactListener {
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS
             );
 
@@ -206,9 +195,6 @@ public abstract class CharacterContactListener {
             
             ON_CHARACTER_CONTACT_PERSISTED_DESCRIPTION = FunctionDescriptor.ofVoid(
                 UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS, 
                 UNBOUNDED_ADDRESS
@@ -380,34 +366,29 @@ public abstract class CharacterContactListener {
     public static boolean onContactValidate(
         MemorySegment userData, 
         MemorySegment character, 
-        int bodyID2, 
-        int subShapeID2
+        MemorySegment contact
     ) {
         CharacterContactListener callback = CACHE.get(userData.address()).get();
 
         return (boolean) callback.onContactValidate(
             character, 
-            bodyID2, 
-            subShapeID2
+            contact
         );
     }
 
     public boolean onContactValidate(
         MemorySegment character, 
-        int bodyID2, 
-        int subShapeID2
+        MemorySegment contact
     ) {
         return (boolean) onContactValidate(
             new CharacterVirtual(character), 
-            bodyID2, 
-            subShapeID2
+            new CharacterContact(contact)
         );
     }
 
     public boolean onContactValidate(
         CharacterVirtual character, 
-        int bodyID2, 
-        int subShapeID2
+        CharacterContact contact
     ) {
         throw new UnsupportedOperationException(
             "Override either the typed or raw callback method for onContactValidate."
@@ -418,34 +399,29 @@ public abstract class CharacterContactListener {
     public static boolean onCharacterContactValidate(
         MemorySegment userData, 
         MemorySegment character, 
-        MemorySegment otherCharacter, 
-        int subShapeID2
+        MemorySegment contact
     ) {
         CharacterContactListener callback = CACHE.get(userData.address()).get();
 
         return (boolean) callback.onCharacterContactValidate(
             character, 
-            otherCharacter, 
-            subShapeID2
+            contact
         );
     }
 
     public boolean onCharacterContactValidate(
         MemorySegment character, 
-        MemorySegment otherCharacter, 
-        int subShapeID2
+        MemorySegment contact
     ) {
         return (boolean) onCharacterContactValidate(
             new CharacterVirtual(character), 
-            new CharacterVirtual(otherCharacter), 
-            subShapeID2
+            new CharacterContact(contact)
         );
     }
 
     public boolean onCharacterContactValidate(
         CharacterVirtual character, 
-        CharacterVirtual otherCharacter, 
-        int subShapeID2
+        CharacterContact contact
     ) {
         throw new UnsupportedOperationException(
             "Override either the typed or raw callback method for onCharacterContactValidate."
@@ -456,48 +432,33 @@ public abstract class CharacterContactListener {
     public static void onContactAdded(
         MemorySegment userData, 
         MemorySegment character, 
-        int bodyID2, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         CharacterContactListener callback = CACHE.get(userData.address()).get();
 
         callback.onContactAdded(
             character, 
-            bodyID2, 
-            subShapeID2, 
-            contactPosition, 
-            contactNormal, 
+            contact, 
             ioSettings
         );
     }
 
     public void onContactAdded(
         MemorySegment character, 
-        int bodyID2, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         onContactAdded(
             new CharacterVirtual(character), 
-            bodyID2, 
-            subShapeID2, 
-            new Vec3(contactPosition), 
-            new Vec3(contactNormal), 
+            new CharacterContact(contact), 
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onContactAdded(
         CharacterVirtual character, 
-        int bodyID2, 
-        int subShapeID2, 
-        Vec3 contactPosition, 
-        Vec3 contactNormal, 
+        CharacterContact contact, 
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(
@@ -509,48 +470,33 @@ public abstract class CharacterContactListener {
     public static void onContactPersisted(
         MemorySegment userData, 
         MemorySegment character, 
-        int bodyID2, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         CharacterContactListener callback = CACHE.get(userData.address()).get();
 
         callback.onContactPersisted(
             character, 
-            bodyID2, 
-            subShapeID2, 
-            contactPosition, 
-            contactNormal, 
+            contact, 
             ioSettings
         );
     }
 
     public void onContactPersisted(
         MemorySegment character, 
-        int bodyID2, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         onContactPersisted(
             new CharacterVirtual(character), 
-            bodyID2, 
-            subShapeID2, 
-            new Vec3(contactPosition), 
-            new Vec3(contactNormal), 
+            new CharacterContact(contact), 
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onContactPersisted(
         CharacterVirtual character, 
-        int bodyID2, 
-        int subShapeID2, 
-        Vec3 contactPosition, 
-        Vec3 contactNormal, 
+        CharacterContact contact, 
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(
@@ -600,48 +546,33 @@ public abstract class CharacterContactListener {
     public static void onCharacterContactAdded(
         MemorySegment userData, 
         MemorySegment character, 
-        MemorySegment otherCharacter, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         CharacterContactListener callback = CACHE.get(userData.address()).get();
 
         callback.onCharacterContactAdded(
             character, 
-            otherCharacter, 
-            subShapeID2, 
-            contactPosition, 
-            contactNormal, 
+            contact, 
             ioSettings
         );
     }
 
     public void onCharacterContactAdded(
         MemorySegment character, 
-        MemorySegment otherCharacter, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         onCharacterContactAdded(
             new CharacterVirtual(character), 
-            new CharacterVirtual(otherCharacter), 
-            subShapeID2, 
-            new Vec3(contactPosition), 
-            new Vec3(contactNormal), 
+            new CharacterContact(contact), 
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onCharacterContactAdded(
         CharacterVirtual character, 
-        CharacterVirtual otherCharacter, 
-        int subShapeID2, 
-        Vec3 contactPosition, 
-        Vec3 contactNormal, 
+        CharacterContact contact, 
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(
@@ -653,48 +584,33 @@ public abstract class CharacterContactListener {
     public static void onCharacterContactPersisted(
         MemorySegment userData, 
         MemorySegment character, 
-        MemorySegment otherCharacter, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         CharacterContactListener callback = CACHE.get(userData.address()).get();
 
         callback.onCharacterContactPersisted(
             character, 
-            otherCharacter, 
-            subShapeID2, 
-            contactPosition, 
-            contactNormal, 
+            contact, 
             ioSettings
         );
     }
 
     public void onCharacterContactPersisted(
         MemorySegment character, 
-        MemorySegment otherCharacter, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
+        MemorySegment contact, 
         MemorySegment ioSettings
     ) {
         onCharacterContactPersisted(
             new CharacterVirtual(character), 
-            new CharacterVirtual(otherCharacter), 
-            subShapeID2, 
-            new Vec3(contactPosition), 
-            new Vec3(contactNormal), 
+            new CharacterContact(contact), 
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onCharacterContactPersisted(
         CharacterVirtual character, 
-        CharacterVirtual otherCharacter, 
-        int subShapeID2, 
-        Vec3 contactPosition, 
-        Vec3 contactNormal, 
+        CharacterContact contact, 
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(

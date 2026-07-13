@@ -21,8 +21,8 @@ import static volucris.bindings.core.FFMUtils.*;
 /**
  * 
  */
-public final class CharacterVirtualContact
-		implements Struct<CharacterVirtualContact> {
+public final class CharacterContact
+		implements Struct<CharacterContact> {
 
     public static final StructLayout LAYOUT;
 
@@ -40,6 +40,7 @@ public final class CharacterVirtualContact
     public static final VarHandle HAD_COLLISION_HANDLE;
     public static final VarHandle WAS_DISCARDED_HANDLE;
     public static final VarHandle CAN_PUSH_CHARACTER_HANDLE;
+    public static final VarHandle IS_BACK_FACING_CONTACT_HANDLE;
 
     public static final long HASH_BYTE_OFFSET;
     public static final long BODY_B_BYTE_OFFSET;
@@ -59,6 +60,7 @@ public final class CharacterVirtualContact
     public static final long HAD_COLLISION_BYTE_OFFSET;
     public static final long WAS_DISCARDED_BYTE_OFFSET;
     public static final long CAN_PUSH_CHARACTER_BYTE_OFFSET;
+    public static final long IS_BACK_FACING_CONTACT_BYTE_OFFSET;
 
     private final MemorySegment segment;
 
@@ -89,8 +91,9 @@ public final class CharacterVirtualContact
             JAVA_BOOLEAN.withName("hadCollision"),
             JAVA_BOOLEAN.withName("wasDiscarded"),
             JAVA_BOOLEAN.withName("canPushCharacter"),
-            MemoryLayout.paddingLayout(5)
-        ).withName("JPH_CharacterVirtualContact").withByteAlignment(8);
+            JAVA_BOOLEAN.withName("isBackFacingContact"),
+            MemoryLayout.paddingLayout(4)
+        ).withName("JPH_CharacterContact").withByteAlignment(8);
         
         HASH_HANDLE = LAYOUT.varHandle(PathElement.groupElement("hash"));
         BODY_B_HANDLE = LAYOUT.varHandle(PathElement.groupElement("bodyB"));
@@ -106,6 +109,7 @@ public final class CharacterVirtualContact
         HAD_COLLISION_HANDLE = LAYOUT.varHandle(PathElement.groupElement("hadCollision"));
         WAS_DISCARDED_HANDLE = LAYOUT.varHandle(PathElement.groupElement("wasDiscarded"));
         CAN_PUSH_CHARACTER_HANDLE = LAYOUT.varHandle(PathElement.groupElement("canPushCharacter"));
+        IS_BACK_FACING_CONTACT_HANDLE = LAYOUT.varHandle(PathElement.groupElement("isBackFacingContact"));
         
         HASH_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hash"));
         BODY_B_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("bodyB"));
@@ -125,18 +129,19 @@ public final class CharacterVirtualContact
         HAD_COLLISION_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("hadCollision"));
         WAS_DISCARDED_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("wasDiscarded"));
         CAN_PUSH_CHARACTER_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("canPushCharacter"));
+        IS_BACK_FACING_CONTACT_BYTE_OFFSET = LAYOUT.byteOffset(PathElement.groupElement("isBackFacingContact"));
         //@formatter:on
     }
 
-    public CharacterVirtualContact() {
+    public CharacterContact() {
         this(Arena.ofAuto());
     }
     
-    public CharacterVirtualContact(Arena arena) {
+    public CharacterContact(Arena arena) {
         this(arena.allocate(LAYOUT));
     }
     
-    public CharacterVirtualContact(MemorySegment segment) {
+    public CharacterContact(MemorySegment segment) {
         this.segment = segment;
     
         position = new Vec3(segment.asSlice(POSITION_BYTE_OFFSET, Vec3.LAYOUT));
@@ -145,7 +150,7 @@ public final class CharacterVirtualContact
         surfaceNormal = new Vec3(segment.asSlice(SURFACE_NORMAL_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
-    public CharacterVirtualContact hash(long hash) {
+    public CharacterContact hash(long hash) {
         HASH_HANDLE.set(segment, 0L, hash);
         return this;
     }
@@ -154,7 +159,7 @@ public final class CharacterVirtualContact
         return (long) HASH_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact bodyB(int bodyB) {
+    public CharacterContact bodyB(int bodyB) {
         BODY_B_HANDLE.set(segment, 0L, bodyB);
         return this;
     }
@@ -163,7 +168,7 @@ public final class CharacterVirtualContact
         return (int) BODY_B_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact characterIDB(int characterIDB) {
+    public CharacterContact characterIDB(int characterIDB) {
         CHARACTER_IDB_HANDLE.set(segment, 0L, characterIDB);
         return this;
     }
@@ -172,7 +177,7 @@ public final class CharacterVirtualContact
         return (int) CHARACTER_IDB_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact subShapeIDB(int subShapeIDB) {
+    public CharacterContact subShapeIDB(int subShapeIDB) {
         SUB_SHAPE_IDB_HANDLE.set(segment, 0L, subShapeIDB);
         return this;
     }
@@ -181,7 +186,7 @@ public final class CharacterVirtualContact
         return (int) SUB_SHAPE_IDB_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact distance(float distance) {
+    public CharacterContact distance(float distance) {
         DISTANCE_HANDLE.set(segment, 0L, distance);
         return this;
     }
@@ -190,7 +195,7 @@ public final class CharacterVirtualContact
         return (float) DISTANCE_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact fraction(float fraction) {
+    public CharacterContact fraction(float fraction) {
         FRACTION_HANDLE.set(segment, 0L, fraction);
         return this;
     }
@@ -199,7 +204,7 @@ public final class CharacterVirtualContact
         return (float) FRACTION_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact motionTypeB(int motionTypeB) {
+    public CharacterContact motionTypeB(int motionTypeB) {
         MOTION_TYPE_B_HANDLE.set(segment, 0L, motionTypeB);
         return this;
     }
@@ -208,7 +213,7 @@ public final class CharacterVirtualContact
         return (int) MOTION_TYPE_B_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact isSensorB(boolean isSensorB) {
+    public CharacterContact isSensorB(boolean isSensorB) {
         IS_SENSOR_B_HANDLE.set(segment, 0L, isSensorB);
         return this;
     }
@@ -217,7 +222,7 @@ public final class CharacterVirtualContact
         return (boolean) IS_SENSOR_B_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact characterB(CharacterVirtual characterB) {
+    public CharacterContact characterB(CharacterVirtual characterB) {
         CHARACTER_B_HANDLE.set(segment, 0L, characterB.memorySegment());
         return this;
     }
@@ -231,7 +236,7 @@ public final class CharacterVirtualContact
         return new CharacterVirtual(segment);
     }
     
-    public CharacterVirtualContact userData(long userData) {
+    public CharacterContact userData(long userData) {
         USER_DATA_HANDLE.set(segment, 0L, userData);
         return this;
     }
@@ -240,7 +245,7 @@ public final class CharacterVirtualContact
         return (long) USER_DATA_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact material(PhysicsMaterial material) {
+    public CharacterContact material(PhysicsMaterial material) {
         MATERIAL_HANDLE.set(segment, 0L, material.memorySegment());
         return this;
     }
@@ -254,7 +259,7 @@ public final class CharacterVirtualContact
         return new PhysicsMaterial(segment);
     }
     
-    public CharacterVirtualContact hadCollision(boolean hadCollision) {
+    public CharacterContact hadCollision(boolean hadCollision) {
         HAD_COLLISION_HANDLE.set(segment, 0L, hadCollision);
         return this;
     }
@@ -263,7 +268,7 @@ public final class CharacterVirtualContact
         return (boolean) HAD_COLLISION_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact wasDiscarded(boolean wasDiscarded) {
+    public CharacterContact wasDiscarded(boolean wasDiscarded) {
         WAS_DISCARDED_HANDLE.set(segment, 0L, wasDiscarded);
         return this;
     }
@@ -272,7 +277,7 @@ public final class CharacterVirtualContact
         return (boolean) WAS_DISCARDED_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact canPushCharacter(boolean canPushCharacter) {
+    public CharacterContact canPushCharacter(boolean canPushCharacter) {
         CAN_PUSH_CHARACTER_HANDLE.set(segment, 0L, canPushCharacter);
         return this;
     }
@@ -281,12 +286,21 @@ public final class CharacterVirtualContact
         return (boolean) CAN_PUSH_CHARACTER_HANDLE.get(segment, 0L);
     }
     
-    public CharacterVirtualContact position(Consumer<Vec3> consumer) {
+    public CharacterContact isBackFacingContact(boolean isBackFacingContact) {
+        IS_BACK_FACING_CONTACT_HANDLE.set(segment, 0L, isBackFacingContact);
+        return this;
+    }
+    
+    public boolean isBackFacingContact() {
+        return (boolean) IS_BACK_FACING_CONTACT_HANDLE.get(segment, 0L);
+    }
+    
+    public CharacterContact position(Consumer<Vec3> consumer) {
         consumer.accept(position);
         return this;
     }
     
-    public CharacterVirtualContact position(Vec3 other) {
+    public CharacterContact position(Vec3 other) {
         position.set(other);
         return this;
     }
@@ -295,12 +309,12 @@ public final class CharacterVirtualContact
         return position;
     }
     
-    public CharacterVirtualContact linearVelocity(Consumer<Vec3> consumer) {
+    public CharacterContact linearVelocity(Consumer<Vec3> consumer) {
         consumer.accept(linearVelocity);
         return this;
     }
     
-    public CharacterVirtualContact linearVelocity(Vec3 other) {
+    public CharacterContact linearVelocity(Vec3 other) {
         linearVelocity.set(other);
         return this;
     }
@@ -309,12 +323,12 @@ public final class CharacterVirtualContact
         return linearVelocity;
     }
     
-    public CharacterVirtualContact contactNormal(Consumer<Vec3> consumer) {
+    public CharacterContact contactNormal(Consumer<Vec3> consumer) {
         consumer.accept(contactNormal);
         return this;
     }
     
-    public CharacterVirtualContact contactNormal(Vec3 other) {
+    public CharacterContact contactNormal(Vec3 other) {
         contactNormal.set(other);
         return this;
     }
@@ -323,12 +337,12 @@ public final class CharacterVirtualContact
         return contactNormal;
     }
     
-    public CharacterVirtualContact surfaceNormal(Consumer<Vec3> consumer) {
+    public CharacterContact surfaceNormal(Consumer<Vec3> consumer) {
         consumer.accept(surfaceNormal);
         return this;
     }
     
-    public CharacterVirtualContact surfaceNormal(Vec3 other) {
+    public CharacterContact surfaceNormal(Vec3 other) {
         surfaceNormal.set(other);
         return this;
     }
@@ -338,12 +352,12 @@ public final class CharacterVirtualContact
     }
     
     @Override
-    public CharacterVirtualContact set(CharacterVirtualContact other) {
+    public CharacterContact set(CharacterContact other) {
         return set(other.segment);
     }
     
     @Override
-    public CharacterVirtualContact set(MemorySegment src) {
+    public CharacterContact set(MemorySegment src) {
         MemorySegment.copy(src, 0L, segment, 0L, LAYOUT.byteSize());
         return this;
     }
@@ -353,24 +367,24 @@ public final class CharacterVirtualContact
         return segment;
     }
     
-    public NativeStructArray<CharacterVirtualContact> asArray() {
+    public NativeStructArray<CharacterContact> asArray() {
         return new NativeStructArray<>(this);
     }
     
-    public static NativeStructArray<CharacterVirtualContact> array(Arena arena, int count) {
+    public static NativeStructArray<CharacterContact> array(Arena arena, int count) {
         return new NativeStructArray<>(
             arena,
             LAYOUT,
-            segment -> new CharacterVirtualContact(segment),
+            segment -> new CharacterContact(segment),
             count
         );
     }
     
-    public static NativeStructArray<CharacterVirtualContact> array(Arena arena, CharacterVirtualContact... structs) {
-        NativeStructArray<CharacterVirtualContact> array = new NativeStructArray<>(
+    public static NativeStructArray<CharacterContact> array(Arena arena, CharacterContact... structs) {
+        NativeStructArray<CharacterContact> array = new NativeStructArray<>(
             arena,
             LAYOUT,
-            segment -> new CharacterVirtualContact(segment),
+            segment -> new CharacterContact(segment),
             structs.length
         );
     
@@ -381,11 +395,11 @@ public final class CharacterVirtualContact
         return array;
     }
     
-    public static NativeStructArray<CharacterVirtualContact> array(MemorySegment array) {
+    public static NativeStructArray<CharacterContact> array(MemorySegment array) {
         return new NativeStructArray<>(
             array,
             LAYOUT,
-            segment -> new CharacterVirtualContact(segment)
+            segment -> new CharacterContact(segment)
         );
     }
     

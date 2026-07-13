@@ -1433,7 +1433,7 @@ public final class CharacterVirtual extends CharacterBase {
      */
     public final void getActiveContact(
         int index, 
-        CharacterVirtualContact result
+        CharacterContact result
     ) {
         getActiveContact(
             this.segment, 
