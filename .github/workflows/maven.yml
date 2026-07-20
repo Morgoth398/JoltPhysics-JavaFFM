@@ -14,6 +14,9 @@ on:
   pull_request:
     branches: [ "Overhaul" ]
 
+env:
+  JAR_FILE: JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar
+
 jobs:
   Linux_x64:
     runs-on: ubuntu-latest
@@ -30,7 +33,12 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar \
+          -cp target/$JAR_FILE \
+          volucris.bindings.jolt.HelloWorld
+    - name: Execute the HelloWorld app - Debug library
+      run: |
+        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
+          -cp target/$JAR_FILE \
           volucris.bindings.jolt.HelloWorld
 
   Linux_Arm64:
@@ -48,7 +56,12 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar \
+          -cp target/$JAR_FILE \
+          volucris.bindings.jolt.HelloWorld
+    - name: Execute the HelloWorld app - Debug library
+      run: |
+        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
+          -cp target/$JAR_FILE \
           volucris.bindings.jolt.HelloWorld
 
   macOS_Arm64:
@@ -66,7 +79,12 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar \
+          -cp target/$JAR_FILE \
+          volucris.bindings.jolt.HelloWorld
+    - name: Execute the HelloWorld app - Debug library
+      run: |
+        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
+          -cp target/$JAR_FILE \
           volucris.bindings.jolt.HelloWorld
           
   macOS_x64:
@@ -84,7 +102,12 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar \
+          -cp target/$JAR_FILE \
+          volucris.bindings.jolt.HelloWorld
+    - name: Execute the HelloWorld app - Debug library
+      run: |
+        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
+          -cp target/$JAR_FILE \
           volucris.bindings.jolt.HelloWorld
 
   Windows_x64:
@@ -102,7 +125,13 @@ jobs:
       shell: bash
     - name: Execute the HelloWorld app
       run: |
-        "$JAVA_HOME/bin/java" --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar \
+        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
+          -cp target/$JAR_FILE \
+          volucris.bindings.jolt.HelloWorld
+      shell: bash
+    - name: Execute the HelloWorld app - Debug library
+      run: |
+        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
+          -cp target/$JAR_FILE \
           volucris.bindings.jolt.HelloWorld
       shell: bash

@@ -117,7 +117,10 @@ This is a port of the [HelloWorld](https://github.com/jrouwe/JoltPhysics/blob/ma
 
 	public static void main(String[] args) {
 
-		Jolt.loadNativeLibrary();
+		if (Boolean.getBoolean("load.debug.library"))
+			Jolt.loadDebugNativeLibrary();
+		else
+			Jolt.loadNativeLibrary();
 
 		if (!Jolt.init())
 			return;
@@ -135,14 +138,16 @@ This is a port of the [HelloWorld](https://github.com/jrouwe/JoltPhysics/blob/ma
 
 		BroadPhaseLayerInterfaceTable broadPhaseLayerInterface = new BroadPhaseLayerInterfaceTable(
 				Layers.NUM_LAYERS,
-				BroadPhaseLayers.NUM_LAYERS);
+				BroadPhaseLayers.NUM_LAYERS
+		);
 
 		broadPhaseLayerInterface.mapObjectToBroadPhaseLayer(Layers.NON_MOVING, BroadPhaseLayers.NON_MOVING);
 		broadPhaseLayerInterface.mapObjectToBroadPhaseLayer(Layers.MOVING, BroadPhaseLayers.MOVING);
 
 		ObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter = new ObjectVsBroadPhaseLayerFilterTable(
 				broadPhaseLayerInterface, BroadPhaseLayers.NUM_LAYERS,
-				objectLayerPairFilter, Layers.NUM_LAYERS);
+				objectLayerPairFilter, Layers.NUM_LAYERS
+		);
 
 		PhysicsSystemSettings settings = new PhysicsSystemSettings()
 				.maxBodies(1024)
@@ -165,15 +170,17 @@ This is a port of the [HelloWorld](https://github.com/jrouwe/JoltPhysics/blob/ma
 
 		BoxShapeSettings floorShapeSettings = new BoxShapeSettings(
 				new Vec3().x(100).y(1).z(100),
-				Jolt.DEFAULT_CONVEX_RADIUS);
+				Jolt.DEFAULT_CONVEX_RADIUS
+		);
 		BoxShape floorShape = floorShapeSettings.createShape();
 
 		BodyCreationSettings floorSettings = new BodyCreationSettings(
 				floorShape,
 				new Vec3().x(0).y(-1).z(0),
-				new Quat(),
+				new Quat().x(0).y(0).z(0).w(1),
 				MotionType.STATIC,
-				Layers.NON_MOVING);
+				Layers.NON_MOVING
+		);
 		Body floor = bodyInterface.createBody(floorSettings);
 
 		bodyInterface.addBody(floor.getID(), Activation.DONT_ACTIVATE);
@@ -182,9 +189,10 @@ This is a port of the [HelloWorld](https://github.com/jrouwe/JoltPhysics/blob/ma
 		BodyCreationSettings sphereSettings = new BodyCreationSettings(
 				sphereShape,
 				new Vec3().x(0).y(2).z(0),
-				new Quat(),
+				new Quat().x(0).y(0).z(0).w(1),
 				MotionType.DYNAMIC,
-				Layers.MOVING);
+				Layers.MOVING
+		);
 		int sphereId = bodyInterface.createAndAddBody(sphereSettings, Activation.ACTIVATE);
 
 		bodyInterface.setLinearVelocity(sphereId, new Vec3().x(0).y(-5).z(0));
