@@ -8,12 +8,8 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class WheelTV extends Wheel {
 
     private static final LazyConstant<MethodHandle> JPH_WHEEL_TV_CREATE;
@@ -37,62 +33,65 @@ public final class WheelTV extends Wheel {
         );
     }
     
+    /// Typed method of [#create].
     public WheelTV(
-        Arena arena,
-        WheelSettingsTV settings
+    	Arena arena,
+    	WheelSettingsTV settings
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public WheelTV(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_TV_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_TV_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment getSettings(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_TV_GET_SETTINGS.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_TV_GET_SETTINGS.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
-    public final @Nullable WheelSettingsTV getSettings(
-    ) {
-        MemorySegment segment = getSettings(
-            this.segment
-        );
+    /// Typed method of [#getSettings].
+    public final @Nullable WheelSettingsTV getSettings() {
+    	MemorySegment segment = getSettings(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new WheelSettingsTV(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new WheelSettingsTV(segment);
     }
     
     public MemorySegment memorySegment() {

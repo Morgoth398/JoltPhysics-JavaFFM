@@ -23,9 +23,6 @@ import volucris.bindings.jolt.raycast.RayCastSettings;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class Shape
 		permits CompoundShape,
 		ConvexShape,
@@ -94,777 +91,744 @@ public sealed class Shape
     }
 
     public Shape(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void draw(
-        MemorySegment shape, 
-        MemorySegment renderer, 
-        MemorySegment centerOfMassTransform, 
-        MemorySegment scale, 
-        int color, 
-        boolean useMaterialColors, 
-        boolean drawWireframe
+    	MemorySegment shape,
+    	MemorySegment renderer,
+    	MemorySegment centerOfMassTransform,
+    	MemorySegment scale,
+    	int color,
+    	boolean useMaterialColors,
+    	boolean drawWireframe
     ) {
-        MethodHandle method = JPH_SHAPE_DRAW.get();
-        try {
-            method.invokeExact(
-                shape, 
-                renderer, 
-                centerOfMassTransform, 
-                scale, 
-                color, 
-                useMaterialColors, 
-                drawWireframe
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_DRAW.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			renderer,
+    			centerOfMassTransform,
+    			scale,
+    			color,
+    			useMaterialColors,
+    			drawWireframe
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #draw}.
-     */
+    /// Typed method of [#draw].
     public final void draw(
-        DebugRenderer renderer, 
-        Mat4 centerOfMassTransform, 
-        Vec3 scale, 
-        int color, 
-        boolean useMaterialColors, 
-        boolean drawWireframe
+    	DebugRenderer renderer,
+    	Mat4 centerOfMassTransform,
+    	Vec3 scale,
+    	int color,
+    	boolean useMaterialColors,
+    	boolean drawWireframe
     ) {
-        draw(
-            this.segment, 
-            renderer.memorySegment(), 
-            centerOfMassTransform.memorySegment(), 
-            scale.memorySegment(), 
-            color, 
-            useMaterialColors, 
-            drawWireframe
-        );
+    	draw(
+    		this.segment,
+    		renderer.memorySegment(),
+    		centerOfMassTransform.memorySegment(),
+    		scale.memorySegment(),
+    		color,
+    		useMaterialColors,
+    		drawWireframe
+    	);
     }
+    
     
     public static void destroy(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_DESTROY.get();
-        try {
-            method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #destroy}.
-     */
-    public final void destroy(
-    ) {
-        destroy(
-            this.segment
-        );
+    /// Typed method of [#destroy].
+    public final void destroy() {
+    	destroy(
+    		this.segment
+    	);
     }
+    
     
     public static int getType(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_GET_TYPE.get();
-        try {
-            return (int) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_TYPE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getType}.
-     */
-    public final int getType(
-    ) {
-        return (int) getType(
-            this.segment
-        );
+    /// Typed method of [#getType].
+    public final int getType() {
+    	return (int) getType(
+    		this.segment
+    	);
     }
+    
     
     public static int getSubType(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_GET_SUB_TYPE.get();
-        try {
-            return (int) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_SUB_TYPE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSubType}.
-     */
-    public final int getSubType(
-    ) {
-        return (int) getSubType(
-            this.segment
-        );
+    /// Typed method of [#getSubType].
+    public final int getSubType() {
+    	return (int) getSubType(
+    		this.segment
+    	);
     }
+    
     
     public static long getUserData(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_GET_USER_DATA.get();
-        try {
-            return (long) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_USER_DATA.get();
+    	try {
+    		return (long)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUserData}.
-     */
-    public final long getUserData(
-    ) {
-        return (long) getUserData(
-            this.segment
-        );
+    /// Typed method of [#getUserData].
+    public final long getUserData() {
+    	return (long) getUserData(
+    		this.segment
+    	);
     }
+    
     
     public static void setUserData(
-        MemorySegment shape, 
-        long userData
+    	MemorySegment shape,
+    	long userData
     ) {
-        MethodHandle method = JPH_SHAPE_SET_USER_DATA.get();
-        try {
-            method.invokeExact(
-                shape, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_SET_USER_DATA.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUserData}.
-     */
+    /// Typed method of [#setUserData].
     public final void setUserData(
-        long userData
+    	long userData
     ) {
-        setUserData(
-            this.segment, 
-            userData
-        );
+    	setUserData(
+    		this.segment,
+    		userData
+    	);
     }
+    
     
     public static boolean mustBeStatic(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_MUST_BE_STATIC.get();
-        try {
-            return (boolean) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_MUST_BE_STATIC.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #mustBeStatic}.
-     */
-    public final boolean mustBeStatic(
-    ) {
-        return (boolean) mustBeStatic(
-            this.segment
-        );
+    /// Typed method of [#mustBeStatic].
+    public final boolean mustBeStatic() {
+    	return (boolean) mustBeStatic(
+    		this.segment
+    	);
     }
+    
     
     public static void getCenterOfMass(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SHAPE_GET_CENTER_OF_MASS.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_CENTER_OF_MASS.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCenterOfMass}.
-     */
+    /// Typed method of [#getCenterOfMass].
     public final void getCenterOfMass(
-        Vec3 result
+    	Vec3 result
     ) {
-        getCenterOfMass(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getCenterOfMass(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getLocalBounds(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SHAPE_GET_LOCAL_BOUNDS.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_LOCAL_BOUNDS.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLocalBounds}.
-     */
+    /// Typed method of [#getLocalBounds].
     public final void getLocalBounds(
-        AABox result
+    	AABox result
     ) {
-        getLocalBounds(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getLocalBounds(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static int getSubShapeIDBitsRecursive(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_GET_SUB_SHAPE_IDBITS_RECURSIVE.get();
-        try {
-            return (int) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_SUB_SHAPE_IDBITS_RECURSIVE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSubShapeIDBitsRecursive}.
-     */
-    public final int getSubShapeIDBitsRecursive(
-    ) {
-        return (int) getSubShapeIDBitsRecursive(
-            this.segment
-        );
+    /// Typed method of [#getSubShapeIDBitsRecursive].
+    public final int getSubShapeIDBitsRecursive() {
+    	return (int) getSubShapeIDBitsRecursive(
+    		this.segment
+    	);
     }
+    
     
     public static void getWorldSpaceBounds(
-        MemorySegment shape, 
-        MemorySegment centerOfMassTransform, 
-        MemorySegment scale, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment centerOfMassTransform,
+    	MemorySegment scale,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SHAPE_GET_WORLD_SPACE_BOUNDS.get();
-        try {
-            method.invokeExact(
-                shape, 
-                centerOfMassTransform, 
-                scale, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_WORLD_SPACE_BOUNDS.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			centerOfMassTransform,
+    			scale,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldSpaceBounds}.
-     */
+    /// Typed method of [#getWorldSpaceBounds].
     public final void getWorldSpaceBounds(
-        Mat4 centerOfMassTransform, 
-        Vec3 scale, 
-        AABox result
+    	Mat4 centerOfMassTransform,
+    	Vec3 scale,
+    	AABox result
     ) {
-        getWorldSpaceBounds(
-            this.segment, 
-            centerOfMassTransform.memorySegment(), 
-            scale.memorySegment(), 
-            result.memorySegment()
-        );
+    	getWorldSpaceBounds(
+    		this.segment,
+    		centerOfMassTransform.memorySegment(),
+    		scale.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float getInnerRadius(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_GET_INNER_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_INNER_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInnerRadius}.
-     */
-    public final float getInnerRadius(
-    ) {
-        return (float) getInnerRadius(
-            this.segment
-        );
+    /// Typed method of [#getInnerRadius].
+    public final float getInnerRadius() {
+    	return (float) getInnerRadius(
+    		this.segment
+    	);
     }
+    
     
     public static void getMassProperties(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SHAPE_GET_MASS_PROPERTIES.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_MASS_PROPERTIES.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMassProperties}.
-     */
+    /// Typed method of [#getMassProperties].
     public final void getMassProperties(
-        MassProperties result
+    	MassProperties result
     ) {
-        getMassProperties(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getMassProperties(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getLeafShape(
-        MemorySegment shape, 
-        int subShapeID, 
-        MemorySegment remainder
+    	MemorySegment shape,
+    	int subShapeID,
+    	MemorySegment remainder
     ) {
-        MethodHandle method = JPH_SHAPE_GET_LEAF_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                shape, 
-                subShapeID, 
-                remainder
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_LEAF_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			shape,
+    			subShapeID,
+    			remainder
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLeafShape}.
-     */
+    /// Typed method of [#getLeafShape].
     public final @Nullable Shape getLeafShape(
-        int subShapeID, 
-        NativeIntArray remainder
+    	int subShapeID,
+    	NativeIntArray remainder
     ) {
-        MemorySegment segment = getLeafShape(
-            this.segment, 
-            subShapeID, 
-            remainder.memorySegment()
-        );
+    	MemorySegment segment = getLeafShape(
+    		this.segment,
+    		subShapeID,
+    		remainder.memorySegment()
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Shape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Shape(segment);
     }
+    
     
     public static MemorySegment getMaterial(
-        MemorySegment shape, 
-        int subShapeID
+    	MemorySegment shape,
+    	int subShapeID
     ) {
-        MethodHandle method = JPH_SHAPE_GET_MATERIAL.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                shape, 
-                subShapeID
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_MATERIAL.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			shape,
+    			subShapeID
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaterial}.
-     */
+    /// Typed method of [#getMaterial].
     public final @Nullable PhysicsMaterial getMaterial(
-        int subShapeID
+    	int subShapeID
     ) {
-        MemorySegment segment = getMaterial(
-            this.segment, 
-            subShapeID
-        );
+    	MemorySegment segment = getMaterial(
+    		this.segment,
+    		subShapeID
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new PhysicsMaterial(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new PhysicsMaterial(segment);
     }
+    
     
     public static void getSurfaceNormal(
-        MemorySegment shape, 
-        int subShapeID, 
-        MemorySegment localPosition, 
-        MemorySegment normal
+    	MemorySegment shape,
+    	int subShapeID,
+    	MemorySegment localPosition,
+    	MemorySegment normal
     ) {
-        MethodHandle method = JPH_SHAPE_GET_SURFACE_NORMAL.get();
-        try {
-            method.invokeExact(
-                shape, 
-                subShapeID, 
-                localPosition, 
-                normal
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_SURFACE_NORMAL.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			subShapeID,
+    			localPosition,
+    			normal
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSurfaceNormal}.
-     */
+    /// Typed method of [#getSurfaceNormal].
     public final void getSurfaceNormal(
-        int subShapeID, 
-        Vec3 localPosition, 
-        Vec3 normal
+    	int subShapeID,
+    	Vec3 localPosition,
+    	Vec3 normal
     ) {
-        getSurfaceNormal(
-            this.segment, 
-            subShapeID, 
-            localPosition.memorySegment(), 
-            normal.memorySegment()
-        );
+    	getSurfaceNormal(
+    		this.segment,
+    		subShapeID,
+    		localPosition.memorySegment(),
+    		normal.memorySegment()
+    	);
     }
+    
     
     public static void getSupportingFace(
-        MemorySegment shape, 
-        int subShapeID, 
-        MemorySegment direction, 
-        MemorySegment scale, 
-        MemorySegment centerOfMassTransform, 
-        MemorySegment outVertices
+    	MemorySegment shape,
+    	int subShapeID,
+    	MemorySegment direction,
+    	MemorySegment scale,
+    	MemorySegment centerOfMassTransform,
+    	MemorySegment outVertices
     ) {
-        MethodHandle method = JPH_SHAPE_GET_SUPPORTING_FACE.get();
-        try {
-            method.invokeExact(
-                shape, 
-                subShapeID, 
-                direction, 
-                scale, 
-                centerOfMassTransform, 
-                outVertices
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_SUPPORTING_FACE.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			subShapeID,
+    			direction,
+    			scale,
+    			centerOfMassTransform,
+    			outVertices
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSupportingFace}.
-     */
+    /// Typed method of [#getSupportingFace].
     public final void getSupportingFace(
-        int subShapeID, 
-        Vec3 direction, 
-        Vec3 scale, 
-        Mat4 centerOfMassTransform, 
-        SupportingFace outVertices
+    	int subShapeID,
+    	Vec3 direction,
+    	Vec3 scale,
+    	Mat4 centerOfMassTransform,
+    	SupportingFace outVertices
     ) {
-        getSupportingFace(
-            this.segment, 
-            subShapeID, 
-            direction.memorySegment(), 
-            scale.memorySegment(), 
-            centerOfMassTransform.memorySegment(), 
-            outVertices.memorySegment()
-        );
+    	getSupportingFace(
+    		this.segment,
+    		subShapeID,
+    		direction.memorySegment(),
+    		scale.memorySegment(),
+    		centerOfMassTransform.memorySegment(),
+    		outVertices.memorySegment()
+    	);
     }
+    
     
     public static float getVolume(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_SHAPE_GET_VOLUME.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_GET_VOLUME.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVolume}.
-     */
-    public final float getVolume(
-    ) {
-        return (float) getVolume(
-            this.segment
-        );
+    /// Typed method of [#getVolume].
+    public final float getVolume() {
+    	return (float) getVolume(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isValidScale(
-        MemorySegment shape, 
-        MemorySegment scale
+    	MemorySegment shape,
+    	MemorySegment scale
     ) {
-        MethodHandle method = JPH_SHAPE_IS_VALID_SCALE.get();
-        try {
-            return (boolean) method.invokeExact(
-                shape, 
-                scale
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_IS_VALID_SCALE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			shape,
+    			scale
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isValidScale}.
-     */
+    /// Typed method of [#isValidScale].
     public final boolean isValidScale(
-        Vec3 scale
+    	Vec3 scale
     ) {
-        return (boolean) isValidScale(
-            this.segment, 
-            scale.memorySegment()
-        );
+    	return (boolean) isValidScale(
+    		this.segment,
+    		scale.memorySegment()
+    	);
     }
+    
     
     public static void makeScaleValid(
-        MemorySegment shape, 
-        MemorySegment scale, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment scale,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SHAPE_MAKE_SCALE_VALID.get();
-        try {
-            method.invokeExact(
-                shape, 
-                scale, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_MAKE_SCALE_VALID.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			scale,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #makeScaleValid}.
-     */
+    /// Typed method of [#makeScaleValid].
     public final void makeScaleValid(
-        Vec3 scale, 
-        Vec3 result
+    	Vec3 scale,
+    	Vec3 result
     ) {
-        makeScaleValid(
-            this.segment, 
-            scale.memorySegment(), 
-            result.memorySegment()
-        );
+    	makeScaleValid(
+    		this.segment,
+    		scale.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment scaleShape(
-        MemorySegment shape, 
-        MemorySegment scale
+    	MemorySegment shape,
+    	MemorySegment scale
     ) {
-        MethodHandle method = JPH_SHAPE_SCALE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                shape, 
-                scale
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_SCALE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			shape,
+    			scale
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #scaleShape}.
-     */
+    /// Typed method of [#scaleShape].
     public final @Nullable Shape scaleShape(
-        Vec3 scale
+    	Vec3 scale
     ) {
-        MemorySegment segment = scaleShape(
-            this.segment, 
-            scale.memorySegment()
-        );
+    	MemorySegment segment = scaleShape(
+    		this.segment,
+    		scale.memorySegment()
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Shape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Shape(segment);
     }
+    
     
     public static boolean castRay(
-        MemorySegment shape, 
-        MemorySegment origin, 
-        MemorySegment direction, 
-        MemorySegment hit
+    	MemorySegment shape,
+    	MemorySegment origin,
+    	MemorySegment direction,
+    	MemorySegment hit
     ) {
-        MethodHandle method = JPH_SHAPE_CAST_RAY.get();
-        try {
-            return (boolean) method.invokeExact(
-                shape, 
-                origin, 
-                direction, 
-                hit
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_CAST_RAY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			shape,
+    			origin,
+    			direction,
+    			hit
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #castRay}.
-     */
+    /// Typed method of [#castRay].
     public final boolean castRay(
-        Vec3 origin, 
-        Vec3 direction, 
-        RayCastResult hit
+    	Vec3 origin,
+    	Vec3 direction,
+    	RayCastResult hit
     ) {
-        return (boolean) castRay(
-            this.segment, 
-            origin.memorySegment(), 
-            direction.memorySegment(), 
-            hit.memorySegment()
-        );
+    	return (boolean) castRay(
+    		this.segment,
+    		origin.memorySegment(),
+    		direction.memorySegment(),
+    		hit.memorySegment()
+    	);
     }
+    
     
     public static boolean castRay2(
-        MemorySegment shape, 
-        MemorySegment origin, 
-        MemorySegment direction, 
-        MemorySegment rayCastSettings, 
-        int collectorType, 
-        MemorySegment callback, 
-        MemorySegment userData, 
-        MemorySegment shapeFilter
+    	MemorySegment shape,
+    	MemorySegment origin,
+    	MemorySegment direction,
+    	MemorySegment rayCastSettings,
+    	int collectorType,
+    	MemorySegment callback,
+    	MemorySegment userData,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_SHAPE_CAST_RAY2.get();
-        try {
-            return (boolean) method.invokeExact(
-                shape, 
-                origin, 
-                direction, 
-                rayCastSettings, 
-                collectorType, 
-                callback, 
-                userData, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_CAST_RAY2.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			shape,
+    			origin,
+    			direction,
+    			rayCastSettings,
+    			collectorType,
+    			callback,
+    			userData,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #castRay2}.
-     */
+    /// Typed method of [#castRay2].
     public final boolean castRay2(
-        Vec3 origin, 
-        Vec3 direction, 
-        RayCastSettings rayCastSettings, 
-        int collectorType, 
-        CastRayResultCallback callback, 
-        MemorySegment userData, 
-        ShapeFilter shapeFilter
+    	Vec3 origin,
+    	Vec3 direction,
+    	RayCastSettings rayCastSettings,
+    	int collectorType,
+    	CastRayResultCallback callback,
+    	MemorySegment userData,
+    	ShapeFilter shapeFilter
     ) {
-        return (boolean) castRay2(
-            this.segment, 
-            origin.memorySegment(), 
-            direction.memorySegment(), 
-            rayCastSettings.memorySegment(), 
-            collectorType, 
-            callback.memorySegment(), 
-            userData, 
-            shapeFilter.memorySegment()
-        );
+    	return (boolean) castRay2(
+    		this.segment,
+    		origin.memorySegment(),
+    		direction.memorySegment(),
+    		rayCastSettings.memorySegment(),
+    		collectorType,
+    		callback.memorySegment(),
+    		userData,
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean collidePoint(
-        MemorySegment shape, 
-        MemorySegment point, 
-        MemorySegment shapeFilter
+    	MemorySegment shape,
+    	MemorySegment point,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_SHAPE_COLLIDE_POINT.get();
-        try {
-            return (boolean) method.invokeExact(
-                shape, 
-                point, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_COLLIDE_POINT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			shape,
+    			point,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #collidePoint}.
-     */
+    /// Typed method of [#collidePoint].
     public final boolean collidePoint(
-        Vec3 point, 
-        ShapeFilter shapeFilter
+    	Vec3 point,
+    	ShapeFilter shapeFilter
     ) {
-        return (boolean) collidePoint(
-            this.segment, 
-            point.memorySegment(), 
-            shapeFilter.memorySegment()
-        );
+    	return (boolean) collidePoint(
+    		this.segment,
+    		point.memorySegment(),
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean collidePoint2(
-        MemorySegment shape, 
-        MemorySegment point, 
-        int collectorType, 
-        MemorySegment callback, 
-        MemorySegment userData, 
-        MemorySegment shapeFilter
+    	MemorySegment shape,
+    	MemorySegment point,
+    	int collectorType,
+    	MemorySegment callback,
+    	MemorySegment userData,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_SHAPE_COLLIDE_POINT2.get();
-        try {
-            return (boolean) method.invokeExact(
-                shape, 
-                point, 
-                collectorType, 
-                callback, 
-                userData, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_COLLIDE_POINT2.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			shape,
+    			point,
+    			collectorType,
+    			callback,
+    			userData,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #collidePoint2}.
-     */
+    /// Typed method of [#collidePoint2].
     public final boolean collidePoint2(
-        Vec3 point, 
-        int collectorType, 
-        CollidePointResultCallback callback, 
-        MemorySegment userData, 
-        ShapeFilter shapeFilter
+    	Vec3 point,
+    	int collectorType,
+    	CollidePointResultCallback callback,
+    	MemorySegment userData,
+    	ShapeFilter shapeFilter
     ) {
-        return (boolean) collidePoint2(
-            this.segment, 
-            point.memorySegment(), 
-            collectorType, 
-            callback.memorySegment(), 
-            userData, 
-            shapeFilter.memorySegment()
-        );
+    	return (boolean) collidePoint2(
+    		this.segment,
+    		point.memorySegment(),
+    		collectorType,
+    		callback.memorySegment(),
+    		userData,
+    		shapeFilter.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

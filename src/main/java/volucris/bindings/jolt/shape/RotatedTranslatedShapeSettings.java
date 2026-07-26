@@ -12,9 +12,6 @@ import volucris.bindings.jolt.math.Vec3;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class RotatedTranslatedShapeSettings extends ShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE;
@@ -32,128 +29,136 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
     }
 
     public RotatedTranslatedShapeSettings(
-        Vec3 position, 
-        Quat rotation, 
+        Vec3 position,
+        Quat rotation,
         ShapeSettings shapeSettings
     ) {
         this(
             Arena.ofAuto(),
-            position, 
-            rotation, 
+            position,
+            rotation,
             shapeSettings
         );
     }
     
+    /// Typed method of [#create].
     public RotatedTranslatedShapeSettings(
-        Arena arena,
-        Vec3 position, 
-        Quat rotation, 
-        ShapeSettings shapeSettings
+    	Arena arena,
+    	Vec3 position,
+    	Quat rotation,
+    	ShapeSettings shapeSettings
     ) {
-         MemorySegment segment = create(
-            position.memorySegment(), 
-            rotation.memorySegment(), 
-            shapeSettings.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		position.memorySegment(),
+    		rotation.memorySegment(),
+    		shapeSettings.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public RotatedTranslatedShapeSettings(
-        Vec3 position, 
-        Quat rotation, 
+        Vec3 position,
+        Quat rotation,
         Shape shape
     ) {
         this(
             Arena.ofAuto(),
-            position, 
-            rotation, 
+            position,
+            rotation,
             shape
         );
     }
     
+    /// Typed method of [#create2].
     public RotatedTranslatedShapeSettings(
-        Arena arena,
-        Vec3 position, 
-        Quat rotation, 
-        Shape shape
+    	Arena arena,
+    	Vec3 position,
+    	Quat rotation,
+    	Shape shape
     ) {
-         MemorySegment segment = create2(
-            position.memorySegment(), 
-            rotation.memorySegment(), 
-            shape.memorySegment()
-         );
+    	MemorySegment segment = create2(
+    		position.memorySegment(),
+    		rotation.memorySegment(),
+    		shape.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public RotatedTranslatedShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment position, 
-        MemorySegment rotation, 
-        MemorySegment shapeSettings
+    	MemorySegment position,
+    	MemorySegment rotation,
+    	MemorySegment shapeSettings
     ) {
-        MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                position, 
-                rotation, 
-                shapeSettings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			position,
+    			rotation,
+    			shapeSettings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create2(
-        MemorySegment position, 
-        MemorySegment rotation, 
-        MemorySegment shape
+    	MemorySegment position,
+    	MemorySegment rotation,
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE2.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                position, 
-                rotation, 
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE2.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			position,
+    			rotation,
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable RotatedTranslatedShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable RotatedTranslatedShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new RotatedTranslatedShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new RotatedTranslatedShape(segment);
     }
     
     public MemorySegment memorySegment() {

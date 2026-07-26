@@ -3,18 +3,13 @@
  */
 package volucris.bindings.jolt.objectVsBroadPhaseLayerFilter;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 import volucris.bindings.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterface;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ObjectVsBroadPhaseLayerFilterMask extends ObjectVsBroadPhaseLayerFilter {
 
     private static final LazyConstant<MethodHandle> JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_MASK_CREATE;
@@ -36,34 +31,39 @@ public final class ObjectVsBroadPhaseLayerFilterMask extends ObjectVsBroadPhaseL
         );
     }
     
+    /// Typed method of [#create].
     public ObjectVsBroadPhaseLayerFilterMask(
-        Arena arena,
-        BroadPhaseLayerInterface broadPhaseLayerInterface
+    	Arena arena,
+    	BroadPhaseLayerInterface broadPhaseLayerInterface
     ) {
-         MemorySegment segment = create(
-            broadPhaseLayerInterface.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		broadPhaseLayerInterface.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public ObjectVsBroadPhaseLayerFilterMask(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment broadPhaseLayerInterface
+    	MemorySegment broadPhaseLayerInterface
     ) {
-        MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_MASK_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                broadPhaseLayerInterface
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_MASK_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			broadPhaseLayerInterface
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

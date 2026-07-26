@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class SpringSettings
 		implements Struct<SpringSettings> {
 
@@ -62,31 +59,34 @@ public final class SpringSettings
     
     }
 
+    /// @see #mode()
     public SpringSettings mode(int mode) {
-        MODE_HANDLE.set(segment, 0L, mode);
-        return this;
+    	MODE_HANDLE.set(segment, 0L, mode);
+    	return this;
     }
     
     public int mode() {
-        return (int) MODE_HANDLE.get(segment, 0L);
+    	return (int) MODE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #frequencyOrStiffness()
     public SpringSettings frequencyOrStiffness(float frequencyOrStiffness) {
-        FREQUENCY_OR_STIFFNESS_HANDLE.set(segment, 0L, frequencyOrStiffness);
-        return this;
+    	FREQUENCY_OR_STIFFNESS_HANDLE.set(segment, 0L, frequencyOrStiffness);
+    	return this;
     }
     
     public float frequencyOrStiffness() {
-        return (float) FREQUENCY_OR_STIFFNESS_HANDLE.get(segment, 0L);
+    	return (float) FREQUENCY_OR_STIFFNESS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #damping()
     public SpringSettings damping(float damping) {
-        DAMPING_HANDLE.set(segment, 0L, damping);
-        return this;
+    	DAMPING_HANDLE.set(segment, 0L, damping);
+    	return this;
     }
     
     public float damping() {
-        return (float) DAMPING_HANDLE.get(segment, 0L);
+    	return (float) DAMPING_HANDLE.get(segment, 0L);
     }
     
     @Override

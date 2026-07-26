@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.vehicle;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -11,9 +10,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class WheelSettingsTV extends WheelSettings {
 
     private static final LazyConstant<MethodHandle> JPH_WHEEL_SETTINGS_TV_CREATE;
@@ -35,127 +31,127 @@ public final class WheelSettingsTV extends WheelSettings {
     }
 
     public WheelSettingsTV() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public WheelSettingsTV(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
-        super(segment);
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public WheelSettingsTV(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_WHEEL_SETTINGS_TV_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_TV_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static float getLongitudinalFriction(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LONGITUDINAL_FRICTION.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LONGITUDINAL_FRICTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLongitudinalFriction}.
-     */
-    public final float getLongitudinalFriction(
-    ) {
-        return (float) getLongitudinalFriction(
-            this.segment
-        );
+    /// Typed method of [#getLongitudinalFriction].
+    public final float getLongitudinalFriction() {
+    	return (float) getLongitudinalFriction(
+    		this.segment
+    	);
     }
+    
     
     public static void setLongitudinalFriction(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_TV_SET_LONGITUDINAL_FRICTION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_TV_SET_LONGITUDINAL_FRICTION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLongitudinalFriction}.
-     */
+    /// Typed method of [#setLongitudinalFriction].
     public final void setLongitudinalFriction(
-        float value
+    	float value
     ) {
-        setLongitudinalFriction(
-            this.segment, 
-            value
-        );
+    	setLongitudinalFriction(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getLateralFriction(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LATERAL_FRICTION.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LATERAL_FRICTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLateralFriction}.
-     */
-    public final float getLateralFriction(
-    ) {
-        return (float) getLateralFriction(
-            this.segment
-        );
+    /// Typed method of [#getLateralFriction].
+    public final float getLateralFriction() {
+    	return (float) getLateralFriction(
+    		this.segment
+    	);
     }
+    
     
     public static void setLateralFriction(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_TV_SET_LATERAL_FRICTION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_TV_SET_LATERAL_FRICTION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLateralFriction}.
-     */
+    /// Typed method of [#setLateralFriction].
     public final void setLateralFriction(
-        float value
+    	float value
     ) {
-        setLateralFriction(
-            this.segment, 
-            value
-        );
+    	setLateralFriction(
+    		this.segment,
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

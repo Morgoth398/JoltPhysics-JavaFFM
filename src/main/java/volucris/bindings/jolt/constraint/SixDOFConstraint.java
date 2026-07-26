@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.constraint;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -14,9 +13,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SixDOFConstraint extends TwoBodyConstraint {
 
     private static final LazyConstant<MethodHandle> JPH_SIX_DOFCONSTRAINT_CREATE;
@@ -90,884 +86,859 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     }
 
     public SixDOFConstraint(
-        SixDOFConstraintSettings settings, 
-        Body body1, 
+        SixDOFConstraintSettings settings,
+        Body body1,
         Body body2
     ) {
         this(
             Arena.ofAuto(),
-            settings, 
-            body1, 
+            settings,
+            body1,
             body2
         );
     }
     
+    /// Typed method of [#create].
     public SixDOFConstraint(
-        Arena arena,
-        SixDOFConstraintSettings settings, 
-        Body body1, 
-        Body body2
+    	Arena arena,
+    	SixDOFConstraintSettings settings,
+    	Body body1,
+    	Body body2
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment(), 
-            body1.memorySegment(), 
-            body2.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment(),
+    		body1.memorySegment(),
+    		body2.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public SixDOFConstraint(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings, 
-        MemorySegment body1, 
-        MemorySegment body2
+    	MemorySegment settings,
+    	MemorySegment body1,
+    	MemorySegment body2
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings, 
-                body1, 
-                body2
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings,
+    			body1,
+    			body2
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getSettings(
-        MemorySegment constraint, 
-        MemorySegment settings
+    	MemorySegment constraint,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
+    /// Typed method of [#getSettings].
     public final void getSettings(
-        SixDOFConstraintSettings settings
+    	SixDOFConstraintSettings settings
     ) {
-        getSettings(
-            this.segment, 
-            settings.memorySegment()
-        );
+    	getSettings(
+    		this.segment,
+    		settings.memorySegment()
+    	);
     }
+    
     
     public static float getLimitsMin(
-        MemorySegment constraint, 
-        int axis
+    	MemorySegment constraint,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_MIN.get();
-        try {
-            return (float) method.invokeExact(
-                constraint, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_MIN.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLimitsMin}.
-     */
+    /// Typed method of [#getLimitsMin].
     public final float getLimitsMin(
-        int axis
+    	int axis
     ) {
-        return (float) getLimitsMin(
-            this.segment, 
-            axis
-        );
+    	return (float) getLimitsMin(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static float getLimitsMax(
-        MemorySegment constraint, 
-        int axis
+    	MemorySegment constraint,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_MAX.get();
-        try {
-            return (float) method.invokeExact(
-                constraint, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_MAX.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLimitsMax}.
-     */
+    /// Typed method of [#getLimitsMax].
     public final float getLimitsMax(
-        int axis
+    	int axis
     ) {
-        return (float) getLimitsMax(
-            this.segment, 
-            axis
-        );
+    	return (float) getLimitsMax(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static void getTotalLambdaPosition(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_POSITION.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaPosition}.
-     */
+    /// Typed method of [#getTotalLambdaPosition].
     public final void getTotalLambdaPosition(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTotalLambdaPosition(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTotalLambdaPosition(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getTotalLambdaRotation(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_ROTATION.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaRotation}.
-     */
+    /// Typed method of [#getTotalLambdaRotation].
     public final void getTotalLambdaRotation(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTotalLambdaRotation(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTotalLambdaRotation(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getTotalLambdaMotorTranslation(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_MOTOR_TRANSLATION.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_MOTOR_TRANSLATION.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaMotorTranslation}.
-     */
+    /// Typed method of [#getTotalLambdaMotorTranslation].
     public final void getTotalLambdaMotorTranslation(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTotalLambdaMotorTranslation(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTotalLambdaMotorTranslation(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getTotalLambdaMotorRotation(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_MOTOR_ROTATION.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TOTAL_LAMBDA_MOTOR_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaMotorRotation}.
-     */
+    /// Typed method of [#getTotalLambdaMotorRotation].
     public final void getTotalLambdaMotorRotation(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTotalLambdaMotorRotation(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTotalLambdaMotorRotation(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getTranslationLimitsMin(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TRANSLATION_LIMITS_MIN.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TRANSLATION_LIMITS_MIN.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTranslationLimitsMin}.
-     */
+    /// Typed method of [#getTranslationLimitsMin].
     public final void getTranslationLimitsMin(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTranslationLimitsMin(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTranslationLimitsMin(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getTranslationLimitsMax(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TRANSLATION_LIMITS_MAX.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TRANSLATION_LIMITS_MAX.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTranslationLimitsMax}.
-     */
+    /// Typed method of [#getTranslationLimitsMax].
     public final void getTranslationLimitsMax(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTranslationLimitsMax(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTranslationLimitsMax(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getRotationLimitsMin(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_ROTATION_LIMITS_MIN.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_ROTATION_LIMITS_MIN.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotationLimitsMin}.
-     */
+    /// Typed method of [#getRotationLimitsMin].
     public final void getRotationLimitsMin(
-        Vec3 result
+    	Vec3 result
     ) {
-        getRotationLimitsMin(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getRotationLimitsMin(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getRotationLimitsMax(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_ROTATION_LIMITS_MAX.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_ROTATION_LIMITS_MAX.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotationLimitsMax}.
-     */
+    /// Typed method of [#getRotationLimitsMax].
     public final void getRotationLimitsMax(
-        Vec3 result
+    	Vec3 result
     ) {
-        getRotationLimitsMax(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getRotationLimitsMax(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static boolean isFixedAxis(
-        MemorySegment constraint, 
-        int axis
+    	MemorySegment constraint,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_IS_FIXED_AXIS.get();
-        try {
-            return (boolean) method.invokeExact(
-                constraint, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_IS_FIXED_AXIS.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			constraint,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isFixedAxis}.
-     */
+    /// Typed method of [#isFixedAxis].
     public final boolean isFixedAxis(
-        int axis
+    	int axis
     ) {
-        return (boolean) isFixedAxis(
-            this.segment, 
-            axis
-        );
+    	return (boolean) isFixedAxis(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static boolean isFreeAxis(
-        MemorySegment constraint, 
-        int axis
+    	MemorySegment constraint,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_IS_FREE_AXIS.get();
-        try {
-            return (boolean) method.invokeExact(
-                constraint, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_IS_FREE_AXIS.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			constraint,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isFreeAxis}.
-     */
+    /// Typed method of [#isFreeAxis].
     public final boolean isFreeAxis(
-        int axis
+    	int axis
     ) {
-        return (boolean) isFreeAxis(
-            this.segment, 
-            axis
-        );
+    	return (boolean) isFreeAxis(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static void getLimitsSpringSettings(
-        MemorySegment constraint, 
-        MemorySegment result, 
-        int axis
+    	MemorySegment constraint,
+    	MemorySegment result,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_SPRING_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_SPRING_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLimitsSpringSettings}.
-     */
+    /// Typed method of [#getLimitsSpringSettings].
     public final void getLimitsSpringSettings(
-        SpringSettings result, 
-        int axis
+    	SpringSettings result,
+    	int axis
     ) {
-        getLimitsSpringSettings(
-            this.segment, 
-            result.memorySegment(), 
-            axis
-        );
+    	getLimitsSpringSettings(
+    		this.segment,
+    		result.memorySegment(),
+    		axis
+    	);
     }
+    
     
     public static void setLimitsSpringSettings(
-        MemorySegment constraint, 
-        MemorySegment settings, 
-        int axis
+    	MemorySegment constraint,
+    	MemorySegment settings,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_LIMITS_SPRING_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                settings, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_LIMITS_SPRING_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			settings,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLimitsSpringSettings}.
-     */
+    /// Typed method of [#setLimitsSpringSettings].
     public final void setLimitsSpringSettings(
-        SpringSettings settings, 
-        int axis
+    	SpringSettings settings,
+    	int axis
     ) {
-        setLimitsSpringSettings(
-            this.segment, 
-            settings.memorySegment(), 
-            axis
-        );
+    	setLimitsSpringSettings(
+    		this.segment,
+    		settings.memorySegment(),
+    		axis
+    	);
     }
+    
     
     public static void setMaxFriction(
-        MemorySegment constraint, 
-        int axis, 
-        float inFriction
+    	MemorySegment constraint,
+    	int axis,
+    	float inFriction
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_MAX_FRICTION.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                axis, 
-                inFriction
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_MAX_FRICTION.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			axis,
+    			inFriction
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMaxFriction}.
-     */
+    /// Typed method of [#setMaxFriction].
     public final void setMaxFriction(
-        int axis, 
-        float inFriction
+    	int axis,
+    	float inFriction
     ) {
-        setMaxFriction(
-            this.segment, 
-            axis, 
-            inFriction
-        );
+    	setMaxFriction(
+    		this.segment,
+    		axis,
+    		inFriction
+    	);
     }
+    
     
     public static float getMaxFriction(
-        MemorySegment constraint, 
-        int axis
+    	MemorySegment constraint,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MAX_FRICTION.get();
-        try {
-            return (float) method.invokeExact(
-                constraint, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MAX_FRICTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxFriction}.
-     */
+    /// Typed method of [#getMaxFriction].
     public final float getMaxFriction(
-        int axis
+    	int axis
     ) {
-        return (float) getMaxFriction(
-            this.segment, 
-            axis
-        );
+    	return (float) getMaxFriction(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static void getRotationInConstraintSpace(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_ROTATION_IN_CONSTRAINT_SPACE.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_ROTATION_IN_CONSTRAINT_SPACE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotationInConstraintSpace}.
-     */
+    /// Typed method of [#getRotationInConstraintSpace].
     public final void getRotationInConstraintSpace(
-        Quat result
+    	Quat result
     ) {
-        getRotationInConstraintSpace(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getRotationInConstraintSpace(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getMotorSettings(
-        MemorySegment constraint, 
-        int axis, 
-        MemorySegment settings
+    	MemorySegment constraint,
+    	int axis,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MOTOR_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                axis, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MOTOR_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			axis,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMotorSettings}.
-     */
+    /// Typed method of [#getMotorSettings].
     public final void getMotorSettings(
-        int axis, 
-        MotorSettings settings
+    	int axis,
+    	MotorSettings settings
     ) {
-        getMotorSettings(
-            this.segment, 
-            axis, 
-            settings.memorySegment()
-        );
+    	getMotorSettings(
+    		this.segment,
+    		axis,
+    		settings.memorySegment()
+    	);
     }
+    
     
     public static void setMotorState(
-        MemorySegment constraint, 
-        int axis, 
-        int state
+    	MemorySegment constraint,
+    	int axis,
+    	int state
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_MOTOR_STATE.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                axis, 
-                state
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_MOTOR_STATE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			axis,
+    			state
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMotorState}.
-     */
+    /// Typed method of [#setMotorState].
     public final void setMotorState(
-        int axis, 
-        int state
+    	int axis,
+    	int state
     ) {
-        setMotorState(
-            this.segment, 
-            axis, 
-            state
-        );
+    	setMotorState(
+    		this.segment,
+    		axis,
+    		state
+    	);
     }
+    
     
     public static int getMotorState(
-        MemorySegment constraint, 
-        int axis
+    	MemorySegment constraint,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MOTOR_STATE.get();
-        try {
-            return (int) method.invokeExact(
-                constraint, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MOTOR_STATE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			constraint,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMotorState}.
-     */
+    /// Typed method of [#getMotorState].
     public final int getMotorState(
-        int axis
+    	int axis
     ) {
-        return (int) getMotorState(
-            this.segment, 
-            axis
-        );
+    	return (int) getMotorState(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static void setTargetVelocityCS(
-        MemorySegment constraint, 
-        MemorySegment inVelocity
+    	MemorySegment constraint,
+    	MemorySegment inVelocity
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_VELOCITY_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                inVelocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_VELOCITY_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			inVelocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTargetVelocityCS}.
-     */
+    /// Typed method of [#setTargetVelocityCS].
     public final void setTargetVelocityCS(
-        Vec3 inVelocity
+    	Vec3 inVelocity
     ) {
-        setTargetVelocityCS(
-            this.segment, 
-            inVelocity.memorySegment()
-        );
+    	setTargetVelocityCS(
+    		this.segment,
+    		inVelocity.memorySegment()
+    	);
     }
+    
     
     public static void getTargetVelocityCS(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_VELOCITY_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_VELOCITY_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTargetVelocityCS}.
-     */
+    /// Typed method of [#getTargetVelocityCS].
     public final void getTargetVelocityCS(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTargetVelocityCS(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTargetVelocityCS(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setTargetAngularVelocityCS(
-        MemorySegment constraint, 
-        MemorySegment inAngularVelocity
+    	MemorySegment constraint,
+    	MemorySegment inAngularVelocity
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_ANGULAR_VELOCITY_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                inAngularVelocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_ANGULAR_VELOCITY_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			inAngularVelocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTargetAngularVelocityCS}.
-     */
+    /// Typed method of [#setTargetAngularVelocityCS].
     public final void setTargetAngularVelocityCS(
-        Vec3 inAngularVelocity
+    	Vec3 inAngularVelocity
     ) {
-        setTargetAngularVelocityCS(
-            this.segment, 
-            inAngularVelocity.memorySegment()
-        );
+    	setTargetAngularVelocityCS(
+    		this.segment,
+    		inAngularVelocity.memorySegment()
+    	);
     }
+    
     
     public static void getTargetAngularVelocityCS(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_ANGULAR_VELOCITY_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_ANGULAR_VELOCITY_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTargetAngularVelocityCS}.
-     */
+    /// Typed method of [#getTargetAngularVelocityCS].
     public final void getTargetAngularVelocityCS(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTargetAngularVelocityCS(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTargetAngularVelocityCS(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setTargetPositionCS(
-        MemorySegment constraint, 
-        MemorySegment inPosition
+    	MemorySegment constraint,
+    	MemorySegment inPosition
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_POSITION_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                inPosition
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_POSITION_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			inPosition
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTargetPositionCS}.
-     */
+    /// Typed method of [#setTargetPositionCS].
     public final void setTargetPositionCS(
-        Vec3 inPosition
+    	Vec3 inPosition
     ) {
-        setTargetPositionCS(
-            this.segment, 
-            inPosition.memorySegment()
-        );
+    	setTargetPositionCS(
+    		this.segment,
+    		inPosition.memorySegment()
+    	);
     }
+    
     
     public static void getTargetPositionCS(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_POSITION_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_POSITION_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTargetPositionCS}.
-     */
+    /// Typed method of [#getTargetPositionCS].
     public final void getTargetPositionCS(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTargetPositionCS(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTargetPositionCS(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setTargetOrientationCS(
-        MemorySegment constraint, 
-        MemorySegment inOrientation
+    	MemorySegment constraint,
+    	MemorySegment inOrientation
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_ORIENTATION_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                inOrientation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_ORIENTATION_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			inOrientation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTargetOrientationCS}.
-     */
+    /// Typed method of [#setTargetOrientationCS].
     public final void setTargetOrientationCS(
-        Quat inOrientation
+    	Quat inOrientation
     ) {
-        setTargetOrientationCS(
-            this.segment, 
-            inOrientation.memorySegment()
-        );
+    	setTargetOrientationCS(
+    		this.segment,
+    		inOrientation.memorySegment()
+    	);
     }
+    
     
     public static void getTargetOrientationCS(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_ORIENTATION_CS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_TARGET_ORIENTATION_CS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTargetOrientationCS}.
-     */
+    /// Typed method of [#getTargetOrientationCS].
     public final void getTargetOrientationCS(
-        Quat result
+    	Quat result
     ) {
-        getTargetOrientationCS(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTargetOrientationCS(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setTargetOrientationBS(
-        MemorySegment constraint, 
-        MemorySegment inOrientation
+    	MemorySegment constraint,
+    	MemorySegment inOrientation
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_ORIENTATION_BS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                inOrientation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SET_TARGET_ORIENTATION_BS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			inOrientation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTargetOrientationBS}.
-     */
+    /// Typed method of [#setTargetOrientationBS].
     public final void setTargetOrientationBS(
-        Quat inOrientation
+    	Quat inOrientation
     ) {
-        setTargetOrientationBS(
-            this.segment, 
-            inOrientation.memorySegment()
-        );
+    	setTargetOrientationBS(
+    		this.segment,
+    		inOrientation.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

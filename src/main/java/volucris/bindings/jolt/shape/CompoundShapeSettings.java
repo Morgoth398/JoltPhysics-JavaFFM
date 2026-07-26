@@ -11,9 +11,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class CompoundShapeSettings extends ShapeSettings
 		permits MutableCompoundShapeSettings,
 		StaticCompoundShapeSettings {
@@ -31,86 +28,84 @@ public sealed class CompoundShapeSettings extends ShapeSettings
     }
 
     public CompoundShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static void addShape(
-        MemorySegment settings, 
-        MemorySegment position, 
-        MemorySegment rotation, 
-        MemorySegment shapeSettings, 
-        int userData
+    	MemorySegment settings,
+    	MemorySegment position,
+    	MemorySegment rotation,
+    	MemorySegment shapeSettings,
+    	int userData
     ) {
-        MethodHandle method = JPH_COMPOUND_SHAPE_SETTINGS_ADD_SHAPE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                position, 
-                rotation, 
-                shapeSettings, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_COMPOUND_SHAPE_SETTINGS_ADD_SHAPE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			position,
+    			rotation,
+    			shapeSettings,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addShape}.
-     */
+    /// Typed method of [#addShape].
     public final void addShape(
-        Vec3 position, 
-        Quat rotation, 
-        ShapeSettings shapeSettings, 
-        int userData
+    	Vec3 position,
+    	Quat rotation,
+    	ShapeSettings shapeSettings,
+    	int userData
     ) {
-        addShape(
-            this.segment, 
-            position.memorySegment(), 
-            rotation.memorySegment(), 
-            shapeSettings.memorySegment(), 
-            userData
-        );
+    	addShape(
+    		this.segment,
+    		position.memorySegment(),
+    		rotation.memorySegment(),
+    		shapeSettings.memorySegment(),
+    		userData
+    	);
     }
+    
     
     public static void addShape2(
-        MemorySegment settings, 
-        MemorySegment position, 
-        MemorySegment rotation, 
-        MemorySegment shape, 
-        int userData
+    	MemorySegment settings,
+    	MemorySegment position,
+    	MemorySegment rotation,
+    	MemorySegment shape,
+    	int userData
     ) {
-        MethodHandle method = JPH_COMPOUND_SHAPE_SETTINGS_ADD_SHAPE2.get();
-        try {
-            method.invokeExact(
-                settings, 
-                position, 
-                rotation, 
-                shape, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_COMPOUND_SHAPE_SETTINGS_ADD_SHAPE2.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			position,
+    			rotation,
+    			shape,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addShape2}.
-     */
+    /// Typed method of [#addShape2].
     public final void addShape2(
-        Vec3 position, 
-        Quat rotation, 
-        Shape shape, 
-        int userData
+    	Vec3 position,
+    	Quat rotation,
+    	Shape shape,
+    	int userData
     ) {
-        addShape2(
-            this.segment, 
-            position.memorySegment(), 
-            rotation.memorySegment(), 
-            shape.memorySegment(), 
-            userData
-        );
+    	addShape2(
+    		this.segment,
+    		position.memorySegment(),
+    		rotation.memorySegment(),
+    		shape.memorySegment(),
+    		userData
+    	);
     }
     
     public MemorySegment memorySegment() {

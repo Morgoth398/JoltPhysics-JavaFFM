@@ -17,9 +17,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleTrackSettings
 		implements Struct<VehicleTrackSettings> {
 
@@ -94,95 +91,100 @@ public final class VehicleTrackSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #drivenWheel()
     public VehicleTrackSettings drivenWheel(int drivenWheel) {
-        DRIVEN_WHEEL_HANDLE.set(segment, 0L, drivenWheel);
-        return this;
+    	DRIVEN_WHEEL_HANDLE.set(segment, 0L, drivenWheel);
+    	return this;
     }
     
     public int drivenWheel() {
-        return (int) DRIVEN_WHEEL_HANDLE.get(segment, 0L);
+    	return (int) DRIVEN_WHEEL_HANDLE.get(segment, 0L);
     }
     
+    /// @see #wheels()
     public VehicleTrackSettings wheels(NativeIntArray wheels) {
-        WHEELS_HANDLE.set(segment, 0L, wheels.memorySegment());
-        return this;
+    	WHEELS_HANDLE.set(segment, 0L, wheels.memorySegment());
+    	return this;
     }
     
     public @Nullable NativeIntArray wheels() {
-        MemorySegment segment = (MemorySegment) WHEELS_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) WHEELS_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NativeIntArray(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativeIntArray(segment);
     }
     
+    /// @see #wheelsCount()
     public VehicleTrackSettings wheelsCount(int wheelsCount) {
-        WHEELS_COUNT_HANDLE.set(segment, 0L, wheelsCount);
-        return this;
+    	WHEELS_COUNT_HANDLE.set(segment, 0L, wheelsCount);
+    	return this;
     }
     
     public int wheelsCount() {
-        return (int) WHEELS_COUNT_HANDLE.get(segment, 0L);
+    	return (int) WHEELS_COUNT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #inertia()
     public VehicleTrackSettings inertia(float inertia) {
-        INERTIA_HANDLE.set(segment, 0L, inertia);
-        return this;
+    	INERTIA_HANDLE.set(segment, 0L, inertia);
+    	return this;
     }
     
     public float inertia() {
-        return (float) INERTIA_HANDLE.get(segment, 0L);
+    	return (float) INERTIA_HANDLE.get(segment, 0L);
     }
     
+    /// @see #angularDamping()
     public VehicleTrackSettings angularDamping(float angularDamping) {
-        ANGULAR_DAMPING_HANDLE.set(segment, 0L, angularDamping);
-        return this;
+    	ANGULAR_DAMPING_HANDLE.set(segment, 0L, angularDamping);
+    	return this;
     }
     
     public float angularDamping() {
-        return (float) ANGULAR_DAMPING_HANDLE.get(segment, 0L);
+    	return (float) ANGULAR_DAMPING_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxBrakeTorque()
     public VehicleTrackSettings maxBrakeTorque(float maxBrakeTorque) {
-        MAX_BRAKE_TORQUE_HANDLE.set(segment, 0L, maxBrakeTorque);
-        return this;
+    	MAX_BRAKE_TORQUE_HANDLE.set(segment, 0L, maxBrakeTorque);
+    	return this;
     }
     
     public float maxBrakeTorque() {
-        return (float) MAX_BRAKE_TORQUE_HANDLE.get(segment, 0L);
+    	return (float) MAX_BRAKE_TORQUE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #differentialRatio()
     public VehicleTrackSettings differentialRatio(float differentialRatio) {
-        DIFFERENTIAL_RATIO_HANDLE.set(segment, 0L, differentialRatio);
-        return this;
+    	DIFFERENTIAL_RATIO_HANDLE.set(segment, 0L, differentialRatio);
+    	return this;
     }
     
     public float differentialRatio() {
-        return (float) DIFFERENTIAL_RATIO_HANDLE.get(segment, 0L);
+    	return (float) DIFFERENTIAL_RATIO_HANDLE.get(segment, 0L);
     }
     
     @Override

@@ -14,11 +14,7 @@ import volucris.bindings.core.Struct;
 import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ExtendedUpdateSettings
 		implements Struct<ExtendedUpdateSettings> {
 
@@ -81,73 +77,82 @@ public final class ExtendedUpdateSettings
         walkStairsStepDownExtra = new Vec3(segment.asSlice(WALK_STAIRS_STEP_DOWN_EXTRA_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #walkStairsMinStepForward()
     public ExtendedUpdateSettings walkStairsMinStepForward(float walkStairsMinStepForward) {
-        WALK_STAIRS_MIN_STEP_FORWARD_HANDLE.set(segment, 0L, walkStairsMinStepForward);
-        return this;
+    	WALK_STAIRS_MIN_STEP_FORWARD_HANDLE.set(segment, 0L, walkStairsMinStepForward);
+    	return this;
     }
     
     public float walkStairsMinStepForward() {
-        return (float) WALK_STAIRS_MIN_STEP_FORWARD_HANDLE.get(segment, 0L);
+    	return (float) WALK_STAIRS_MIN_STEP_FORWARD_HANDLE.get(segment, 0L);
     }
     
+    /// @see #walkStairsStepForwardTest()
     public ExtendedUpdateSettings walkStairsStepForwardTest(float walkStairsStepForwardTest) {
-        WALK_STAIRS_STEP_FORWARD_TEST_HANDLE.set(segment, 0L, walkStairsStepForwardTest);
-        return this;
+    	WALK_STAIRS_STEP_FORWARD_TEST_HANDLE.set(segment, 0L, walkStairsStepForwardTest);
+    	return this;
     }
     
     public float walkStairsStepForwardTest() {
-        return (float) WALK_STAIRS_STEP_FORWARD_TEST_HANDLE.get(segment, 0L);
+    	return (float) WALK_STAIRS_STEP_FORWARD_TEST_HANDLE.get(segment, 0L);
     }
     
+    /// @see #walkStairsCosAngleForwardContact()
     public ExtendedUpdateSettings walkStairsCosAngleForwardContact(float walkStairsCosAngleForwardContact) {
-        WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE.set(segment, 0L, walkStairsCosAngleForwardContact);
-        return this;
+    	WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE.set(segment, 0L, walkStairsCosAngleForwardContact);
+    	return this;
     }
     
     public float walkStairsCosAngleForwardContact() {
-        return (float) WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE.get(segment, 0L);
+    	return (float) WALK_STAIRS_COS_ANGLE_FORWARD_CONTACT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #stickToFloorStepDown()
     public ExtendedUpdateSettings stickToFloorStepDown(Consumer<Vec3> consumer) {
-        consumer.accept(stickToFloorStepDown);
-        return this;
+    	consumer.accept(stickToFloorStepDown);
+    	return this;
     }
     
+    /// @see #stickToFloorStepDown()
     public ExtendedUpdateSettings stickToFloorStepDown(Vec3 other) {
-        stickToFloorStepDown.set(other);
-        return this;
+    	stickToFloorStepDown.set(other);
+    	return this;
     }
     
     public Vec3 stickToFloorStepDown() {
-        return stickToFloorStepDown;
+    	return stickToFloorStepDown;
     }
     
+    /// @see #walkStairsStepUp()
     public ExtendedUpdateSettings walkStairsStepUp(Consumer<Vec3> consumer) {
-        consumer.accept(walkStairsStepUp);
-        return this;
+    	consumer.accept(walkStairsStepUp);
+    	return this;
     }
     
+    /// @see #walkStairsStepUp()
     public ExtendedUpdateSettings walkStairsStepUp(Vec3 other) {
-        walkStairsStepUp.set(other);
-        return this;
+    	walkStairsStepUp.set(other);
+    	return this;
     }
     
     public Vec3 walkStairsStepUp() {
-        return walkStairsStepUp;
+    	return walkStairsStepUp;
     }
     
+    /// @see #walkStairsStepDownExtra()
     public ExtendedUpdateSettings walkStairsStepDownExtra(Consumer<Vec3> consumer) {
-        consumer.accept(walkStairsStepDownExtra);
-        return this;
+    	consumer.accept(walkStairsStepDownExtra);
+    	return this;
     }
     
+    /// @see #walkStairsStepDownExtra()
     public ExtendedUpdateSettings walkStairsStepDownExtra(Vec3 other) {
-        walkStairsStepDownExtra.set(other);
-        return this;
+    	walkStairsStepDownExtra.set(other);
+    	return this;
     }
     
     public Vec3 walkStairsStepDownExtra() {
-        return walkStairsStepDownExtra;
+    	return walkStairsStepDownExtra;
     }
     
     @Override

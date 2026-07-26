@@ -5,14 +5,10 @@ package volucris.bindings.jolt.shape;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class TaperedCapsuleShape extends ConvexShape {
 
     private static final LazyConstant<MethodHandle> JPH_TAPERED_CAPSULE_SHAPE_GET_TOP_RADIUS;
@@ -30,77 +26,71 @@ public final class TaperedCapsuleShape extends ConvexShape {
     }
 
     public TaperedCapsuleShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static float getTopRadius(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_TOP_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_TOP_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTopRadius}.
-     */
-    public final float getTopRadius(
-    ) {
-        return (float) getTopRadius(
-            this.segment
-        );
+    /// Typed method of [#getTopRadius].
+    public final float getTopRadius() {
+    	return (float) getTopRadius(
+    		this.segment
+    	);
     }
+    
     
     public static float getBottomRadius(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_BOTTOM_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_BOTTOM_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBottomRadius}.
-     */
-    public final float getBottomRadius(
-    ) {
-        return (float) getBottomRadius(
-            this.segment
-        );
+    /// Typed method of [#getBottomRadius].
+    public final float getBottomRadius() {
+    	return (float) getBottomRadius(
+    		this.segment
+    	);
     }
+    
     
     public static float getHalfHeight(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_HALF_HEIGHT.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_HALF_HEIGHT.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getHalfHeight}.
-     */
-    public final float getHalfHeight(
-    ) {
-        return (float) getHalfHeight(
-            this.segment
-        );
+    /// Typed method of [#getHalfHeight].
+    public final float getHalfHeight() {
+    	return (float) getHalfHeight(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

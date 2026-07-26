@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.filter;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -43,7 +42,7 @@ public abstract class ObjectLayerFilter {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("shouldCollide")
+            UNBOUNDED_ADDRESS.withName("ShouldCollide")
         ).withName("JPH_ObjectLayerFilter_Procs").withByteAlignment(8);
 
         JPH_OBJECT_LAYER_FILTER_SET_PROCS = downcallHandleVoid("JPH_ObjectLayerFilter_SetProcs", UNBOUNDED_ADDRESS);
@@ -55,12 +54,12 @@ public abstract class ObjectLayerFilter {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             SHOULD_COLLIDE_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
                 JAVA_INT
             );
 
@@ -68,7 +67,7 @@ public abstract class ObjectLayerFilter {
 
             SHOULD_COLLIDE_ADDRESS = linker.upcallStub(SHOULD_COLLIDE_HANDLE, SHOULD_COLLIDE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("shouldCollide")), SHOULD_COLLIDE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("ShouldCollide")), SHOULD_COLLIDE_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -89,43 +88,46 @@ public abstract class ObjectLayerFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_OBJECT_LAYER_FILTER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OBJECT_LAYER_FILTER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_OBJECT_LAYER_FILTER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OBJECT_LAYER_FILTER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment filter
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_OBJECT_LAYER_FILTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OBJECT_LAYER_FILTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -148,7 +150,7 @@ public abstract class ObjectLayerFilter {
         int layer
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for shouldCollide."
+            "Override either the typed or raw callback method in ObjectLayerFilter."
         );
     }
 

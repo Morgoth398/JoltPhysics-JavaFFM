@@ -1,11 +1,3 @@
-public ${className}() {
-    this(Arena.ofAuto());
-}
-
-public ${className}(Arena arena) {
-    this(arena.allocate(LAYOUT));
-}
-
 public ${className}(MemorySegment segment) {
     this.segment = segment;
 
@@ -21,6 +13,4 @@ public ${className}(MemorySegment segment) {
     ${item.field.name} = new ${item.field.type}(segment.asSlice(${item.offsetField.name}, ${item.field.type}.LAYOUT));
     </#if>
     </#list>
-
-    init();
 }

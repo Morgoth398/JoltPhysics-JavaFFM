@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.vehicle;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -12,9 +11,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleCollisionTesterCastSphere extends VehicleCollisionTester {
 
     private static final LazyConstant<MethodHandle> JPH_VEHICLE_COLLISION_TESTER_CAST_SPHERE_CREATE;
@@ -28,60 +24,65 @@ public final class VehicleCollisionTesterCastSphere extends VehicleCollisionTest
     }
 
     public VehicleCollisionTesterCastSphere(
-        int layer, 
-        float radius, 
-        Vec3 up, 
+        int layer,
+        float radius,
+        Vec3 up,
         float maxSlopeAngle
     ) {
         this(
             Arena.ofAuto(),
-            layer, 
-            radius, 
-            up, 
+            layer,
+            radius,
+            up,
             maxSlopeAngle
         );
     }
     
+    /// Typed method of [#create].
     public VehicleCollisionTesterCastSphere(
-        Arena arena,
-        int layer, 
-        float radius, 
-        Vec3 up, 
-        float maxSlopeAngle
+    	Arena arena,
+    	int layer,
+    	float radius,
+    	Vec3 up,
+    	float maxSlopeAngle
     ) {
-         MemorySegment segment = create(
-            layer, 
-            radius, 
-            up.memorySegment(), 
-            maxSlopeAngle
-         );
+    	MemorySegment segment = create(
+    		layer,
+    		radius,
+    		up.memorySegment(),
+    		maxSlopeAngle
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public VehicleCollisionTesterCastSphere(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        int layer, 
-        float radius, 
-        MemorySegment up, 
-        float maxSlopeAngle
+    	int layer,
+    	float radius,
+    	MemorySegment up,
+    	float maxSlopeAngle
     ) {
-        MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_CAST_SPHERE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                layer, 
-                radius, 
-                up, 
-                maxSlopeAngle
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_CAST_SPHERE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			layer,
+    			radius,
+    			up,
+    			maxSlopeAngle
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class IndexedTriangle
 		implements Struct<IndexedTriangle> {
 
@@ -72,49 +69,54 @@ public final class IndexedTriangle
     
     }
 
+    /// @see #i1()
     public IndexedTriangle i1(int i1) {
-        I1_HANDLE.set(segment, 0L, i1);
-        return this;
+    	I1_HANDLE.set(segment, 0L, i1);
+    	return this;
     }
     
     public int i1() {
-        return (int) I1_HANDLE.get(segment, 0L);
+    	return (int) I1_HANDLE.get(segment, 0L);
     }
     
+    /// @see #i2()
     public IndexedTriangle i2(int i2) {
-        I2_HANDLE.set(segment, 0L, i2);
-        return this;
+    	I2_HANDLE.set(segment, 0L, i2);
+    	return this;
     }
     
     public int i2() {
-        return (int) I2_HANDLE.get(segment, 0L);
+    	return (int) I2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #i3()
     public IndexedTriangle i3(int i3) {
-        I3_HANDLE.set(segment, 0L, i3);
-        return this;
+    	I3_HANDLE.set(segment, 0L, i3);
+    	return this;
     }
     
     public int i3() {
-        return (int) I3_HANDLE.get(segment, 0L);
+    	return (int) I3_HANDLE.get(segment, 0L);
     }
     
+    /// @see #materialIndex()
     public IndexedTriangle materialIndex(int materialIndex) {
-        MATERIAL_INDEX_HANDLE.set(segment, 0L, materialIndex);
-        return this;
+    	MATERIAL_INDEX_HANDLE.set(segment, 0L, materialIndex);
+    	return this;
     }
     
     public int materialIndex() {
-        return (int) MATERIAL_INDEX_HANDLE.get(segment, 0L);
+    	return (int) MATERIAL_INDEX_HANDLE.get(segment, 0L);
     }
     
+    /// @see #userData()
     public IndexedTriangle userData(int userData) {
-        USER_DATA_HANDLE.set(segment, 0L, userData);
-        return this;
+    	USER_DATA_HANDLE.set(segment, 0L, userData);
+    	return this;
     }
     
     public int userData() {
-        return (int) USER_DATA_HANDLE.get(segment, 0L);
+    	return (int) USER_DATA_HANDLE.get(segment, 0L);
     }
     
     @Override

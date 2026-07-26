@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.ragdoll;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -14,9 +13,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public class SkeletalAnimation {
 
     private static final LazyConstant<MethodHandle> JPH_SKELETAL_ANIMATION_CREATE;
@@ -48,258 +44,254 @@ public class SkeletalAnimation {
     }
 
     public SkeletalAnimation() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public SkeletalAnimation(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public SkeletalAnimation(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment animation
+    	MemorySegment animation
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_DESTROY.get();
-        try {
-            method.invokeExact(
-                animation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			animation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static float getDuration(
-        MemorySegment animation
+    	MemorySegment animation
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_GET_DURATION.get();
-        try {
-            return (float) method.invokeExact(
-                animation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_GET_DURATION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			animation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDuration}.
-     */
-    public final float getDuration(
-    ) {
-        return (float) getDuration(
-            this.segment
-        );
+    /// Typed method of [#getDuration].
+    public final float getDuration() {
+    	return (float) getDuration(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isLooping(
-        MemorySegment animation
+    	MemorySegment animation
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_IS_LOOPING.get();
-        try {
-            return (boolean) method.invokeExact(
-                animation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_IS_LOOPING.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			animation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isLooping}.
-     */
-    public final boolean isLooping(
-    ) {
-        return (boolean) isLooping(
-            this.segment
-        );
+    /// Typed method of [#isLooping].
+    public final boolean isLooping() {
+    	return (boolean) isLooping(
+    		this.segment
+    	);
     }
+    
     
     public static void setIsLooping(
-        MemorySegment animation, 
-        boolean looping
+    	MemorySegment animation,
+    	boolean looping
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_SET_IS_LOOPING.get();
-        try {
-            method.invokeExact(
-                animation, 
-                looping
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_SET_IS_LOOPING.get();
+    	try {
+    		 method.invokeExact(
+    			animation,
+    			looping
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setIsLooping}.
-     */
+    /// Typed method of [#setIsLooping].
     public final void setIsLooping(
-        boolean looping
+    	boolean looping
     ) {
-        setIsLooping(
-            this.segment, 
-            looping
-        );
+    	setIsLooping(
+    		this.segment,
+    		looping
+    	);
     }
+    
     
     public static void scaleJoints(
-        MemorySegment animation, 
-        float scale
+    	MemorySegment animation,
+    	float scale
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_SCALE_JOINTS.get();
-        try {
-            method.invokeExact(
-                animation, 
-                scale
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_SCALE_JOINTS.get();
+    	try {
+    		 method.invokeExact(
+    			animation,
+    			scale
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #scaleJoints}.
-     */
+    /// Typed method of [#scaleJoints].
     public final void scaleJoints(
-        float scale
+    	float scale
     ) {
-        scaleJoints(
-            this.segment, 
-            scale
-        );
+    	scaleJoints(
+    		this.segment,
+    		scale
+    	);
     }
+    
     
     public static void sample(
-        MemorySegment animation, 
-        float time, 
-        MemorySegment pose
+    	MemorySegment animation,
+    	float time,
+    	MemorySegment pose
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_SAMPLE.get();
-        try {
-            method.invokeExact(
-                animation, 
-                time, 
-                pose
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_SAMPLE.get();
+    	try {
+    		 method.invokeExact(
+    			animation,
+    			time,
+    			pose
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #sample}.
-     */
+    /// Typed method of [#sample].
     public final void sample(
-        float time, 
-        SkeletonPose pose
+    	float time,
+    	SkeletonPose pose
     ) {
-        sample(
-            this.segment, 
-            time, 
-            pose.memorySegment()
-        );
+    	sample(
+    		this.segment,
+    		time,
+    		pose.memorySegment()
+    	);
     }
+    
     
     public static int getAnimatedJointCount(
-        MemorySegment animation
+    	MemorySegment animation
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_GET_ANIMATED_JOINT_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                animation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_GET_ANIMATED_JOINT_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			animation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAnimatedJointCount}.
-     */
-    public final int getAnimatedJointCount(
-    ) {
-        return (int) getAnimatedJointCount(
-            this.segment
-        );
+    /// Typed method of [#getAnimatedJointCount].
+    public final int getAnimatedJointCount() {
+    	return (int) getAnimatedJointCount(
+    		this.segment
+    	);
     }
+    
     
     public static void addAnimatedJoint(
-        MemorySegment animation, 
-        MemorySegment jointName
+    	MemorySegment animation,
+    	MemorySegment jointName
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_ADD_ANIMATED_JOINT.get();
-        try {
-            method.invokeExact(
-                animation, 
-                jointName
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_ADD_ANIMATED_JOINT.get();
+    	try {
+    		 method.invokeExact(
+    			animation,
+    			jointName
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addAnimatedJoint}.
-     */
+    /// Typed method of [#addAnimatedJoint].
     public final void addAnimatedJoint(
-        NativeByteArray jointName
+    	NativeByteArray jointName
     ) {
-        addAnimatedJoint(
-            this.segment, 
-            jointName.memorySegment()
-        );
+    	addAnimatedJoint(
+    		this.segment,
+    		jointName.memorySegment()
+    	);
     }
+    
     
     public static void addKeyframe(
-        MemorySegment animation, 
-        int jointIndex, 
-        float time, 
-        MemorySegment translation, 
-        MemorySegment rotation
+    	MemorySegment animation,
+    	int jointIndex,
+    	float time,
+    	MemorySegment translation,
+    	MemorySegment rotation
     ) {
-        MethodHandle method = JPH_SKELETAL_ANIMATION_ADD_KEYFRAME.get();
-        try {
-            method.invokeExact(
-                animation, 
-                jointIndex, 
-                time, 
-                translation, 
-                rotation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETAL_ANIMATION_ADD_KEYFRAME.get();
+    	try {
+    		 method.invokeExact(
+    			animation,
+    			jointIndex,
+    			time,
+    			translation,
+    			rotation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addKeyframe}.
-     */
+    /// Typed method of [#addKeyframe].
     public final void addKeyframe(
-        int jointIndex, 
-        float time, 
-        Vec3 translation, 
-        Quat rotation
+    	int jointIndex,
+    	float time,
+    	Vec3 translation,
+    	Quat rotation
     ) {
-        addKeyframe(
-            this.segment, 
-            jointIndex, 
-            time, 
-            translation.memorySegment(), 
-            rotation.memorySegment()
-        );
+    	addKeyframe(
+    		this.segment,
+    		jointIndex,
+    		time,
+    		translation.memorySegment(),
+    		rotation.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

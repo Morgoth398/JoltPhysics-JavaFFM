@@ -12,14 +12,10 @@ import java.lang.invoke.VarHandle;
 import java.util.function.Consumer;
 import volucris.bindings.core.NativeStructArray;
 import volucris.bindings.core.Struct;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CollideShapeSettings
 		implements Struct<CollideShapeSettings> {
 
@@ -73,59 +69,67 @@ public final class CollideShapeSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_COLLIDE_SHAPE_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_COLLIDE_SHAPE_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #maxSeparationDistance()
     public CollideShapeSettings maxSeparationDistance(float maxSeparationDistance) {
-        MAX_SEPARATION_DISTANCE_HANDLE.set(segment, 0L, maxSeparationDistance);
-        return this;
+    	MAX_SEPARATION_DISTANCE_HANDLE.set(segment, 0L, maxSeparationDistance);
+    	return this;
     }
     
+    /// ```
+    /// When > 0 contacts in the vicinity of the query shape can be found. All nearest contacts that are not further away than this distance will be found (unit: meter)
+    /// ```
     public float maxSeparationDistance() {
-        return (float) MAX_SEPARATION_DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) MAX_SEPARATION_DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #backFaceMode()
     public CollideShapeSettings backFaceMode(int backFaceMode) {
-        BACK_FACE_MODE_HANDLE.set(segment, 0L, backFaceMode);
-        return this;
+    	BACK_FACE_MODE_HANDLE.set(segment, 0L, backFaceMode);
+    	return this;
     }
     
+    /// ```
+    /// How backfacing triangles should be treated
+    /// ```
     public int backFaceMode() {
-        return (int) BACK_FACE_MODE_HANDLE.get(segment, 0L);
+    	return (int) BACK_FACE_MODE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public CollideShapeSettings base(Consumer<CollideSettingsBase> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public CollideShapeSettings base(CollideSettingsBase other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public CollideSettingsBase base() {
-        return base;
+    	return base;
     }
     
     @Override

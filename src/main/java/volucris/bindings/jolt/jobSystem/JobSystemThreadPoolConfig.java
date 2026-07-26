@@ -12,11 +12,7 @@ import volucris.bindings.core.NativeStructArray;
 import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class JobSystemThreadPoolConfig
 		implements Struct<JobSystemThreadPoolConfig> {
 
@@ -63,31 +59,34 @@ public final class JobSystemThreadPoolConfig
     
     }
 
+    /// @see #maxJobs()
     public JobSystemThreadPoolConfig maxJobs(int maxJobs) {
-        MAX_JOBS_HANDLE.set(segment, 0L, maxJobs);
-        return this;
+    	MAX_JOBS_HANDLE.set(segment, 0L, maxJobs);
+    	return this;
     }
     
     public int maxJobs() {
-        return (int) MAX_JOBS_HANDLE.get(segment, 0L);
+    	return (int) MAX_JOBS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxBarriers()
     public JobSystemThreadPoolConfig maxBarriers(int maxBarriers) {
-        MAX_BARRIERS_HANDLE.set(segment, 0L, maxBarriers);
-        return this;
+    	MAX_BARRIERS_HANDLE.set(segment, 0L, maxBarriers);
+    	return this;
     }
     
     public int maxBarriers() {
-        return (int) MAX_BARRIERS_HANDLE.get(segment, 0L);
+    	return (int) MAX_BARRIERS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #numThreads()
     public JobSystemThreadPoolConfig numThreads(int numThreads) {
-        NUM_THREADS_HANDLE.set(segment, 0L, numThreads);
-        return this;
+    	NUM_THREADS_HANDLE.set(segment, 0L, numThreads);
+    	return this;
     }
     
     public int numThreads() {
-        return (int) NUM_THREADS_HANDLE.get(segment, 0L);
+    	return (int) NUM_THREADS_HANDLE.get(segment, 0L);
     }
     
     @Override

@@ -1,5 +1,17 @@
 naming:
   strip-prefixes:
+    - JPH_ObjectLayerFilter_Procs_
+    - JPH_ShapeFilter_Procs_
+    - JPH_SimShapeFilter_Procs_
+    - JPH_BroadPhaseLayerFilter_Procs_
+    - JPH_BodyFilter_Procs_
+    - JPH_CharacterContactListener_Procs_
+    - JPH_CharacterVsCharacterCollision_Procs_
+    - JPH_PhysicsStepListener_Procs_
+    - JPH_ContactListener_Procs_
+    - JPH_BodyActivationListener_Procs_
+    - JPH_BodyDrawFilter_Procs_
+    - JPH_DebugRenderer_Procs_
     - JPH_TempAllocator_
     - JPH_TempAllocatorMalloc_
     - JPH_SkeletonPose_

@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ConeConstraintSettings
 		implements Struct<ConeConstraintSettings> {
 
@@ -93,115 +90,125 @@ public final class ConeConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_CONE_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONE_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #space()
     public ConeConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #halfConeAngle()
     public ConeConstraintSettings halfConeAngle(float halfConeAngle) {
-        HALF_CONE_ANGLE_HANDLE.set(segment, 0L, halfConeAngle);
-        return this;
+    	HALF_CONE_ANGLE_HANDLE.set(segment, 0L, halfConeAngle);
+    	return this;
     }
     
     public float halfConeAngle() {
-        return (float) HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public ConeConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public ConeConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #point1()
     public ConeConstraintSettings point1(Consumer<Vec3> consumer) {
-        consumer.accept(point1);
-        return this;
+    	consumer.accept(point1);
+    	return this;
     }
     
+    /// @see #point1()
     public ConeConstraintSettings point1(Vec3 other) {
-        point1.set(other);
-        return this;
+    	point1.set(other);
+    	return this;
     }
     
     public Vec3 point1() {
-        return point1;
+    	return point1;
     }
     
+    /// @see #twistAxis1()
     public ConeConstraintSettings twistAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(twistAxis1);
-        return this;
+    	consumer.accept(twistAxis1);
+    	return this;
     }
     
+    /// @see #twistAxis1()
     public ConeConstraintSettings twistAxis1(Vec3 other) {
-        twistAxis1.set(other);
-        return this;
+    	twistAxis1.set(other);
+    	return this;
     }
     
     public Vec3 twistAxis1() {
-        return twistAxis1;
+    	return twistAxis1;
     }
     
+    /// @see #point2()
     public ConeConstraintSettings point2(Consumer<Vec3> consumer) {
-        consumer.accept(point2);
-        return this;
+    	consumer.accept(point2);
+    	return this;
     }
     
+    /// @see #point2()
     public ConeConstraintSettings point2(Vec3 other) {
-        point2.set(other);
-        return this;
+    	point2.set(other);
+    	return this;
     }
     
     public Vec3 point2() {
-        return point2;
+    	return point2;
     }
     
+    /// @see #twistAxis2()
     public ConeConstraintSettings twistAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(twistAxis2);
-        return this;
+    	consumer.accept(twistAxis2);
+    	return this;
     }
     
+    /// @see #twistAxis2()
     public ConeConstraintSettings twistAxis2(Vec3 other) {
-        twistAxis2.set(other);
-        return this;
+    	twistAxis2.set(other);
+    	return this;
     }
     
     public Vec3 twistAxis2() {
-        return twistAxis2;
+    	return twistAxis2;
     }
     
     @Override

@@ -9,9 +9,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleEngine {
 
     private static final LazyConstant<MethodHandle> JPH_VEHICLE_ENGINE_CLAMP_RPM;
@@ -39,211 +36,199 @@ public final class VehicleEngine {
     }
 
     public VehicleEngine(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void clampRPM(
-        MemorySegment engine
+    	MemorySegment engine
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_CLAMP_RPM.get();
-        try {
-            method.invokeExact(
-                engine
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_CLAMP_RPM.get();
+    	try {
+    		 method.invokeExact(
+    			engine
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #clampRPM}.
-     */
-    public final void clampRPM(
-    ) {
-        clampRPM(
-            this.segment
-        );
+    /// Typed method of [#clampRPM].
+    public final void clampRPM() {
+    	clampRPM(
+    		this.segment
+    	);
     }
+    
     
     public static float getCurrentRPM(
-        MemorySegment engine
+    	MemorySegment engine
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_GET_CURRENT_RPM.get();
-        try {
-            return (float) method.invokeExact(
-                engine
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_GET_CURRENT_RPM.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			engine
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCurrentRPM}.
-     */
-    public final float getCurrentRPM(
-    ) {
-        return (float) getCurrentRPM(
-            this.segment
-        );
+    /// Typed method of [#getCurrentRPM].
+    public final float getCurrentRPM() {
+    	return (float) getCurrentRPM(
+    		this.segment
+    	);
     }
+    
     
     public static void setCurrentRPM(
-        MemorySegment engine, 
-        float rpm
+    	MemorySegment engine,
+    	float rpm
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_SET_CURRENT_RPM.get();
-        try {
-            method.invokeExact(
-                engine, 
-                rpm
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_SET_CURRENT_RPM.get();
+    	try {
+    		 method.invokeExact(
+    			engine,
+    			rpm
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setCurrentRPM}.
-     */
+    /// Typed method of [#setCurrentRPM].
     public final void setCurrentRPM(
-        float rpm
+    	float rpm
     ) {
-        setCurrentRPM(
-            this.segment, 
-            rpm
-        );
+    	setCurrentRPM(
+    		this.segment,
+    		rpm
+    	);
     }
+    
     
     public static float getAngularVelocity(
-        MemorySegment engine
+    	MemorySegment engine
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_GET_ANGULAR_VELOCITY.get();
-        try {
-            return (float) method.invokeExact(
-                engine
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_GET_ANGULAR_VELOCITY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			engine
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAngularVelocity}.
-     */
-    public final float getAngularVelocity(
-    ) {
-        return (float) getAngularVelocity(
-            this.segment
-        );
+    /// Typed method of [#getAngularVelocity].
+    public final float getAngularVelocity() {
+    	return (float) getAngularVelocity(
+    		this.segment
+    	);
     }
+    
     
     public static float getTorque(
-        MemorySegment engine, 
-        float acceleration
+    	MemorySegment engine,
+    	float acceleration
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_GET_TORQUE.get();
-        try {
-            return (float) method.invokeExact(
-                engine, 
-                acceleration
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_GET_TORQUE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			engine,
+    			acceleration
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTorque}.
-     */
+    /// Typed method of [#getTorque].
     public final float getTorque(
-        float acceleration
+    	float acceleration
     ) {
-        return (float) getTorque(
-            this.segment, 
-            acceleration
-        );
+    	return (float) getTorque(
+    		this.segment,
+    		acceleration
+    	);
     }
+    
     
     public static void applyTorque(
-        MemorySegment engine, 
-        float torque, 
-        float deltaTime
+    	MemorySegment engine,
+    	float torque,
+    	float deltaTime
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_APPLY_TORQUE.get();
-        try {
-            method.invokeExact(
-                engine, 
-                torque, 
-                deltaTime
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_APPLY_TORQUE.get();
+    	try {
+    		 method.invokeExact(
+    			engine,
+    			torque,
+    			deltaTime
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #applyTorque}.
-     */
+    /// Typed method of [#applyTorque].
     public final void applyTorque(
-        float torque, 
-        float deltaTime
+    	float torque,
+    	float deltaTime
     ) {
-        applyTorque(
-            this.segment, 
-            torque, 
-            deltaTime
-        );
+    	applyTorque(
+    		this.segment,
+    		torque,
+    		deltaTime
+    	);
     }
+    
     
     public static void applyDamping(
-        MemorySegment engine, 
-        float deltaTime
+    	MemorySegment engine,
+    	float deltaTime
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_APPLY_DAMPING.get();
-        try {
-            method.invokeExact(
-                engine, 
-                deltaTime
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_APPLY_DAMPING.get();
+    	try {
+    		 method.invokeExact(
+    			engine,
+    			deltaTime
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #applyDamping}.
-     */
+    /// Typed method of [#applyDamping].
     public final void applyDamping(
-        float deltaTime
+    	float deltaTime
     ) {
-        applyDamping(
-            this.segment, 
-            deltaTime
-        );
+    	applyDamping(
+    		this.segment,
+    		deltaTime
+    	);
     }
+    
     
     public static boolean allowSleep(
-        MemorySegment engine
+    	MemorySegment engine
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_ALLOW_SLEEP.get();
-        try {
-            return (boolean) method.invokeExact(
-                engine
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_ALLOW_SLEEP.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			engine
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #allowSleep}.
-     */
-    public final boolean allowSleep(
-    ) {
-        return (boolean) allowSleep(
-            this.segment
-        );
+    /// Typed method of [#allowSleep].
+    public final boolean allowSleep() {
+    	return (boolean) allowSleep(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

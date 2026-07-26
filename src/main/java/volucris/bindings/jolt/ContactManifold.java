@@ -10,9 +10,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ContactManifold {
 
     private static final LazyConstant<MethodHandle> JPH_CONTACT_MANIFOLD_GET_WORLD_SPACE_NORMAL;
@@ -38,188 +35,177 @@ public final class ContactManifold {
     }
 
     public ContactManifold(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void getWorldSpaceNormal(
-        MemorySegment manifold, 
-        MemorySegment result
+    	MemorySegment manifold,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_CONTACT_MANIFOLD_GET_WORLD_SPACE_NORMAL.get();
-        try {
-            method.invokeExact(
-                manifold, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_WORLD_SPACE_NORMAL.get();
+    	try {
+    		 method.invokeExact(
+    			manifold,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldSpaceNormal}.
-     */
+    /// Typed method of [#getWorldSpaceNormal].
     public final void getWorldSpaceNormal(
-        Vec3 result
+    	Vec3 result
     ) {
-        getWorldSpaceNormal(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getWorldSpaceNormal(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float getPenetrationDepth(
-        MemorySegment manifold
+    	MemorySegment manifold
     ) {
-        MethodHandle method = JPH_CONTACT_MANIFOLD_GET_PENETRATION_DEPTH.get();
-        try {
-            return (float) method.invokeExact(
-                manifold
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_PENETRATION_DEPTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			manifold
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPenetrationDepth}.
-     */
-    public final float getPenetrationDepth(
-    ) {
-        return (float) getPenetrationDepth(
-            this.segment
-        );
+    /// Typed method of [#getPenetrationDepth].
+    public final float getPenetrationDepth() {
+    	return (float) getPenetrationDepth(
+    		this.segment
+    	);
     }
+    
     
     public static int getSubShapeID1(
-        MemorySegment manifold
+    	MemorySegment manifold
     ) {
-        MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID1.get();
-        try {
-            return (int) method.invokeExact(
-                manifold
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID1.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			manifold
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSubShapeID1}.
-     */
-    public final int getSubShapeID1(
-    ) {
-        return (int) getSubShapeID1(
-            this.segment
-        );
+    /// Typed method of [#getSubShapeID1].
+    public final int getSubShapeID1() {
+    	return (int) getSubShapeID1(
+    		this.segment
+    	);
     }
+    
     
     public static int getSubShapeID2(
-        MemorySegment manifold
+    	MemorySegment manifold
     ) {
-        MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID2.get();
-        try {
-            return (int) method.invokeExact(
-                manifold
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID2.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			manifold
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSubShapeID2}.
-     */
-    public final int getSubShapeID2(
-    ) {
-        return (int) getSubShapeID2(
-            this.segment
-        );
+    /// Typed method of [#getSubShapeID2].
+    public final int getSubShapeID2() {
+    	return (int) getSubShapeID2(
+    		this.segment
+    	);
     }
+    
     
     public static int getPointCount(
-        MemorySegment manifold
+    	MemorySegment manifold
     ) {
-        MethodHandle method = JPH_CONTACT_MANIFOLD_GET_POINT_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                manifold
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_POINT_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			manifold
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPointCount}.
-     */
-    public final int getPointCount(
-    ) {
-        return (int) getPointCount(
-            this.segment
-        );
+    /// Typed method of [#getPointCount].
+    public final int getPointCount() {
+    	return (int) getPointCount(
+    		this.segment
+    	);
     }
+    
     
     public static void getWorldSpaceContactPointOn1(
-        MemorySegment manifold, 
-        int index, 
-        MemorySegment result
+    	MemorySegment manifold,
+    	int index,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_CONTACT_MANIFOLD_GET_WORLD_SPACE_CONTACT_POINT_ON1.get();
-        try {
-            method.invokeExact(
-                manifold, 
-                index, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_WORLD_SPACE_CONTACT_POINT_ON1.get();
+    	try {
+    		 method.invokeExact(
+    			manifold,
+    			index,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldSpaceContactPointOn1}.
-     */
+    /// Typed method of [#getWorldSpaceContactPointOn1].
     public final void getWorldSpaceContactPointOn1(
-        int index, 
-        Vec3 result
+    	int index,
+    	Vec3 result
     ) {
-        getWorldSpaceContactPointOn1(
-            this.segment, 
-            index, 
-            result.memorySegment()
-        );
+    	getWorldSpaceContactPointOn1(
+    		this.segment,
+    		index,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getWorldSpaceContactPointOn2(
-        MemorySegment manifold, 
-        int index, 
-        MemorySegment result
+    	MemorySegment manifold,
+    	int index,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_CONTACT_MANIFOLD_GET_WORLD_SPACE_CONTACT_POINT_ON2.get();
-        try {
-            method.invokeExact(
-                manifold, 
-                index, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_WORLD_SPACE_CONTACT_POINT_ON2.get();
+    	try {
+    		 method.invokeExact(
+    			manifold,
+    			index,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldSpaceContactPointOn2}.
-     */
+    /// Typed method of [#getWorldSpaceContactPointOn2].
     public final void getWorldSpaceContactPointOn2(
-        int index, 
-        Vec3 result
+    	int index,
+    	Vec3 result
     ) {
-        getWorldSpaceContactPointOn2(
-            this.segment, 
-            index, 
-            result.memorySegment()
-        );
+    	getWorldSpaceContactPointOn2(
+    		this.segment,
+    		index,
+    		result.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

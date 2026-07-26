@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class RayCastResult
 		implements Struct<RayCastResult> {
 
@@ -62,31 +59,34 @@ public final class RayCastResult
     
     }
 
+    /// @see #bodyID()
     public RayCastResult bodyID(int bodyID) {
-        BODY_ID_HANDLE.set(segment, 0L, bodyID);
-        return this;
+    	BODY_ID_HANDLE.set(segment, 0L, bodyID);
+    	return this;
     }
     
     public int bodyID() {
-        return (int) BODY_ID_HANDLE.get(segment, 0L);
+    	return (int) BODY_ID_HANDLE.get(segment, 0L);
     }
     
+    /// @see #fraction()
     public RayCastResult fraction(float fraction) {
-        FRACTION_HANDLE.set(segment, 0L, fraction);
-        return this;
+    	FRACTION_HANDLE.set(segment, 0L, fraction);
+    	return this;
     }
     
     public float fraction() {
-        return (float) FRACTION_HANDLE.get(segment, 0L);
+    	return (float) FRACTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID2()
     public RayCastResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
-        return this;
+    	SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
+    	return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     @Override

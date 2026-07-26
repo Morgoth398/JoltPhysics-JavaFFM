@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.ragdoll;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -11,9 +10,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public class Skeleton {
 
     private static final LazyConstant<MethodHandle> JPH_SKELETON_CREATE;
@@ -45,262 +41,258 @@ public class Skeleton {
     }
 
     public Skeleton() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public Skeleton(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public Skeleton(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_SKELETON_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment skeleton
+    	MemorySegment skeleton
     ) {
-        MethodHandle method = JPH_SKELETON_DESTROY.get();
-        try {
-            method.invokeExact(
-                skeleton
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			skeleton
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static int addJoint(
-        MemorySegment skeleton, 
-        MemorySegment name
+    	MemorySegment skeleton,
+    	MemorySegment name
     ) {
-        MethodHandle method = JPH_SKELETON_ADD_JOINT.get();
-        try {
-            return (int) method.invokeExact(
-                skeleton, 
-                name
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_ADD_JOINT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			skeleton,
+    			name
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addJoint}.
-     */
+    /// Typed method of [#addJoint].
     public final int addJoint(
-        String name
+    	String name
     ) {
-        try (Arena arena = Arena.ofConfined()) {
-            return (int) addJoint(
-                this.segment, 
-                arena.allocateFrom(name)
-            );
-        }
+    	try (Arena arena = Arena.ofConfined()) {
+    		return (int) addJoint(
+    			this.segment,
+    			arena.allocateFrom(name)
+    		);
+    	}
     }
+    
     
     public static int addJoint2(
-        MemorySegment skeleton, 
-        MemorySegment name, 
-        int parentIndex
+    	MemorySegment skeleton,
+    	MemorySegment name,
+    	int parentIndex
     ) {
-        MethodHandle method = JPH_SKELETON_ADD_JOINT2.get();
-        try {
-            return (int) method.invokeExact(
-                skeleton, 
-                name, 
-                parentIndex
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_ADD_JOINT2.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			skeleton,
+    			name,
+    			parentIndex
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addJoint2}.
-     */
+    /// Typed method of [#addJoint2].
     public final int addJoint2(
-        String name, 
-        int parentIndex
+    	String name,
+    	int parentIndex
     ) {
-        try (Arena arena = Arena.ofConfined()) {
-            return (int) addJoint2(
-                this.segment, 
-                arena.allocateFrom(name), 
-                parentIndex
-            );
-        }
+    	try (Arena arena = Arena.ofConfined()) {
+    		return (int) addJoint2(
+    			this.segment,
+    			arena.allocateFrom(name),
+    			parentIndex
+    		);
+    	}
     }
+    
     
     public static int addJoint3(
-        MemorySegment skeleton, 
-        MemorySegment name, 
-        MemorySegment parentName
+    	MemorySegment skeleton,
+    	MemorySegment name,
+    	MemorySegment parentName
     ) {
-        MethodHandle method = JPH_SKELETON_ADD_JOINT3.get();
-        try {
-            return (int) method.invokeExact(
-                skeleton, 
-                name, 
-                parentName
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_ADD_JOINT3.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			skeleton,
+    			name,
+    			parentName
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addJoint3}.
-     */
+    /// Typed method of [#addJoint3].
     public final int addJoint3(
-        String name, 
-        String parentName
+    	String name,
+    	String parentName
     ) {
-        try (Arena arena = Arena.ofConfined()) {
-            return (int) addJoint3(
-                this.segment, 
-                arena.allocateFrom(name), 
-                arena.allocateFrom(parentName)
-            );
-        }
+    	try (Arena arena = Arena.ofConfined()) {
+    		return (int) addJoint3(
+    			this.segment,
+    			arena.allocateFrom(name),
+    			arena.allocateFrom(parentName)
+    		);
+    	}
     }
+    
     
     public static int getJointCount(
-        MemorySegment skeleton
+    	MemorySegment skeleton
     ) {
-        MethodHandle method = JPH_SKELETON_GET_JOINT_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                skeleton
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_GET_JOINT_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			skeleton
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getJointCount}.
-     */
-    public final int getJointCount(
-    ) {
-        return (int) getJointCount(
-            this.segment
-        );
+    /// Typed method of [#getJointCount].
+    public final int getJointCount() {
+    	return (int) getJointCount(
+    		this.segment
+    	);
     }
+    
     
     public static void getJoint(
-        MemorySegment skeleton, 
-        int index, 
-        MemorySegment joint
+    	MemorySegment skeleton,
+    	int index,
+    	MemorySegment joint
     ) {
-        MethodHandle method = JPH_SKELETON_GET_JOINT.get();
-        try {
-            method.invokeExact(
-                skeleton, 
-                index, 
-                joint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_GET_JOINT.get();
+    	try {
+    		 method.invokeExact(
+    			skeleton,
+    			index,
+    			joint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getJoint}.
-     */
+    /// Typed method of [#getJoint].
     public final void getJoint(
-        int index, 
-        SkeletonJoint joint
+    	int index,
+    	SkeletonJoint joint
     ) {
-        getJoint(
-            this.segment, 
-            index, 
-            joint.memorySegment()
-        );
+    	getJoint(
+    		this.segment,
+    		index,
+    		joint.memorySegment()
+    	);
     }
+    
     
     public static int getJointIndex(
-        MemorySegment skeleton, 
-        MemorySegment name
+    	MemorySegment skeleton,
+    	MemorySegment name
     ) {
-        MethodHandle method = JPH_SKELETON_GET_JOINT_INDEX.get();
-        try {
-            return (int) method.invokeExact(
-                skeleton, 
-                name
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_GET_JOINT_INDEX.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			skeleton,
+    			name
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getJointIndex}.
-     */
+    /// Typed method of [#getJointIndex].
     public final int getJointIndex(
-        String name
+    	String name
     ) {
-        try (Arena arena = Arena.ofConfined()) {
-            return (int) getJointIndex(
-                this.segment, 
-                arena.allocateFrom(name)
-            );
-        }
+    	try (Arena arena = Arena.ofConfined()) {
+    		return (int) getJointIndex(
+    			this.segment,
+    			arena.allocateFrom(name)
+    		);
+    	}
     }
+    
     
     public static void calculateParentJointIndices(
-        MemorySegment skeleton
+    	MemorySegment skeleton
     ) {
-        MethodHandle method = JPH_SKELETON_CALCULATE_PARENT_JOINT_INDICES.get();
-        try {
-            method.invokeExact(
-                skeleton
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_CALCULATE_PARENT_JOINT_INDICES.get();
+    	try {
+    		 method.invokeExact(
+    			skeleton
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #calculateParentJointIndices}.
-     */
-    public final void calculateParentJointIndices(
-    ) {
-        calculateParentJointIndices(
-            this.segment
-        );
+    /// Typed method of [#calculateParentJointIndices].
+    public final void calculateParentJointIndices() {
+    	calculateParentJointIndices(
+    		this.segment
+    	);
     }
+    
     
     public static boolean areJointsCorrectlyOrdered(
-        MemorySegment skeleton
+    	MemorySegment skeleton
     ) {
-        MethodHandle method = JPH_SKELETON_ARE_JOINTS_CORRECTLY_ORDERED.get();
-        try {
-            return (boolean) method.invokeExact(
-                skeleton
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_ARE_JOINTS_CORRECTLY_ORDERED.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			skeleton
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #areJointsCorrectlyOrdered}.
-     */
-    public final boolean areJointsCorrectlyOrdered(
-    ) {
-        return (boolean) areJointsCorrectlyOrdered(
-            this.segment
-        );
+    /// Typed method of [#areJointsCorrectlyOrdered].
+    public final boolean areJointsCorrectlyOrdered() {
+    	return (boolean) areJointsCorrectlyOrdered(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

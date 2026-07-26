@@ -19,9 +19,6 @@ import volucris.bindings.jolt.shape.Shape;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class Body {
 
     private static final LazyConstant<MethodHandle> JPH_BODY_GET_ID;
@@ -183,1989 +180,1883 @@ public final class Body {
     }
 
     public Body(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static int getID(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_ID.get();
-        try {
-            return (int) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ID.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getID}.
-     */
-    public final int getID(
-    ) {
-        return (int) getID(
-            this.segment
-        );
+    /// Typed method of [#getID].
+    public final int getID() {
+    	return (int) getID(
+    		this.segment
+    	);
     }
+    
     
     public static int getBodyType(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_BODY_TYPE.get();
-        try {
-            return (int) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_BODY_TYPE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyType}.
-     */
-    public final int getBodyType(
-    ) {
-        return (int) getBodyType(
-            this.segment
-        );
+    /// Typed method of [#getBodyType].
+    public final int getBodyType() {
+    	return (int) getBodyType(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isRigidBody(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_RIGID_BODY.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_RIGID_BODY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isRigidBody}.
-     */
-    public final boolean isRigidBody(
-    ) {
-        return (boolean) isRigidBody(
-            this.segment
-        );
+    /// Typed method of [#isRigidBody].
+    public final boolean isRigidBody() {
+    	return (boolean) isRigidBody(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isSoftBody(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_SOFT_BODY.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_SOFT_BODY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isSoftBody}.
-     */
-    public final boolean isSoftBody(
-    ) {
-        return (boolean) isSoftBody(
-            this.segment
-        );
+    /// Typed method of [#isSoftBody].
+    public final boolean isSoftBody() {
+    	return (boolean) isSoftBody(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isActive(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_ACTIVE.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_ACTIVE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isActive}.
-     */
-    public final boolean isActive(
-    ) {
-        return (boolean) isActive(
-            this.segment
-        );
+    /// Typed method of [#isActive].
+    public final boolean isActive() {
+    	return (boolean) isActive(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isStatic(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_STATIC.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_STATIC.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isStatic}.
-     */
-    public final boolean isStatic(
-    ) {
-        return (boolean) isStatic(
-            this.segment
-        );
+    /// Typed method of [#isStatic].
+    public final boolean isStatic() {
+    	return (boolean) isStatic(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isKinematic(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_KINEMATIC.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_KINEMATIC.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isKinematic}.
-     */
-    public final boolean isKinematic(
-    ) {
-        return (boolean) isKinematic(
-            this.segment
-        );
+    /// Typed method of [#isKinematic].
+    public final boolean isKinematic() {
+    	return (boolean) isKinematic(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isDynamic(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_DYNAMIC.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_DYNAMIC.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isDynamic}.
-     */
-    public final boolean isDynamic(
-    ) {
-        return (boolean) isDynamic(
-            this.segment
-        );
+    /// Typed method of [#isDynamic].
+    public final boolean isDynamic() {
+    	return (boolean) isDynamic(
+    		this.segment
+    	);
     }
+    
     
     public static boolean canBeKinematicOrDynamic(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_CAN_BE_KINEMATIC_OR_DYNAMIC.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_CAN_BE_KINEMATIC_OR_DYNAMIC.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #canBeKinematicOrDynamic}.
-     */
-    public final boolean canBeKinematicOrDynamic(
-    ) {
-        return (boolean) canBeKinematicOrDynamic(
-            this.segment
-        );
+    /// Typed method of [#canBeKinematicOrDynamic].
+    public final boolean canBeKinematicOrDynamic() {
+    	return (boolean) canBeKinematicOrDynamic(
+    		this.segment
+    	);
     }
+    
     
     public static void setIsSensor(
-        MemorySegment body, 
-        boolean value
+    	MemorySegment body,
+    	boolean value
     ) {
-        MethodHandle method = JPH_BODY_SET_IS_SENSOR.get();
-        try {
-            method.invokeExact(
-                body, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_IS_SENSOR.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setIsSensor}.
-     */
+    /// Typed method of [#setIsSensor].
     public final void setIsSensor(
-        boolean value
+    	boolean value
     ) {
-        setIsSensor(
-            this.segment, 
-            value
-        );
+    	setIsSensor(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean isSensor(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_SENSOR.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_SENSOR.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isSensor}.
-     */
-    public final boolean isSensor(
-    ) {
-        return (boolean) isSensor(
-            this.segment
-        );
+    /// Typed method of [#isSensor].
+    public final boolean isSensor() {
+    	return (boolean) isSensor(
+    		this.segment
+    	);
     }
+    
     
     public static void setCollideKinematicVsNonDynamic(
-        MemorySegment body, 
-        boolean value
+    	MemorySegment body,
+    	boolean value
     ) {
-        MethodHandle method = JPH_BODY_SET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC.get();
-        try {
-            method.invokeExact(
-                body, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setCollideKinematicVsNonDynamic}.
-     */
+    /// Typed method of [#setCollideKinematicVsNonDynamic].
     public final void setCollideKinematicVsNonDynamic(
-        boolean value
+    	boolean value
     ) {
-        setCollideKinematicVsNonDynamic(
-            this.segment, 
-            value
-        );
+    	setCollideKinematicVsNonDynamic(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getCollideKinematicVsNonDynamic(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCollideKinematicVsNonDynamic}.
-     */
-    public final boolean getCollideKinematicVsNonDynamic(
-    ) {
-        return (boolean) getCollideKinematicVsNonDynamic(
-            this.segment
-        );
+    /// Typed method of [#getCollideKinematicVsNonDynamic].
+    public final boolean getCollideKinematicVsNonDynamic() {
+    	return (boolean) getCollideKinematicVsNonDynamic(
+    		this.segment
+    	);
     }
+    
     
     public static void setUseManifoldReduction(
-        MemorySegment body, 
-        boolean value
+    	MemorySegment body,
+    	boolean value
     ) {
-        MethodHandle method = JPH_BODY_SET_USE_MANIFOLD_REDUCTION.get();
-        try {
-            method.invokeExact(
-                body, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_USE_MANIFOLD_REDUCTION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUseManifoldReduction}.
-     */
+    /// Typed method of [#setUseManifoldReduction].
     public final void setUseManifoldReduction(
-        boolean value
+    	boolean value
     ) {
-        setUseManifoldReduction(
-            this.segment, 
-            value
-        );
+    	setUseManifoldReduction(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getUseManifoldReduction(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_USE_MANIFOLD_REDUCTION.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_USE_MANIFOLD_REDUCTION.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUseManifoldReduction}.
-     */
-    public final boolean getUseManifoldReduction(
-    ) {
-        return (boolean) getUseManifoldReduction(
-            this.segment
-        );
+    /// Typed method of [#getUseManifoldReduction].
+    public final boolean getUseManifoldReduction() {
+    	return (boolean) getUseManifoldReduction(
+    		this.segment
+    	);
     }
+    
     
     public static boolean getUseManifoldReductionWithBody(
-        MemorySegment body, 
-        MemorySegment other
+    	MemorySegment body,
+    	MemorySegment other
     ) {
-        MethodHandle method = JPH_BODY_GET_USE_MANIFOLD_REDUCTION_WITH_BODY.get();
-        try {
-            return (boolean) method.invokeExact(
-                body, 
-                other
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_USE_MANIFOLD_REDUCTION_WITH_BODY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body,
+    			other
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUseManifoldReductionWithBody}.
-     */
+    /// Typed method of [#getUseManifoldReductionWithBody].
     public final boolean getUseManifoldReductionWithBody(
-        Body other
+    	Body other
     ) {
-        return (boolean) getUseManifoldReductionWithBody(
-            this.segment, 
-            other.memorySegment()
-        );
+    	return (boolean) getUseManifoldReductionWithBody(
+    		this.segment,
+    		other.memorySegment()
+    	);
     }
+    
     
     public static void setApplyGyroscopicForce(
-        MemorySegment body, 
-        boolean value
+    	MemorySegment body,
+    	boolean value
     ) {
-        MethodHandle method = JPH_BODY_SET_APPLY_GYROSCOPIC_FORCE.get();
-        try {
-            method.invokeExact(
-                body, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_APPLY_GYROSCOPIC_FORCE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setApplyGyroscopicForce}.
-     */
+    /// Typed method of [#setApplyGyroscopicForce].
     public final void setApplyGyroscopicForce(
-        boolean value
+    	boolean value
     ) {
-        setApplyGyroscopicForce(
-            this.segment, 
-            value
-        );
+    	setApplyGyroscopicForce(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getApplyGyroscopicForce(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_APPLY_GYROSCOPIC_FORCE.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_APPLY_GYROSCOPIC_FORCE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getApplyGyroscopicForce}.
-     */
-    public final boolean getApplyGyroscopicForce(
-    ) {
-        return (boolean) getApplyGyroscopicForce(
-            this.segment
-        );
+    /// Typed method of [#getApplyGyroscopicForce].
+    public final boolean getApplyGyroscopicForce() {
+    	return (boolean) getApplyGyroscopicForce(
+    		this.segment
+    	);
     }
+    
     
     public static void setEnhancedInternalEdgeRemoval(
-        MemorySegment body, 
-        boolean value
+    	MemorySegment body,
+    	boolean value
     ) {
-        MethodHandle method = JPH_BODY_SET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
-        try {
-            method.invokeExact(
-                body, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setEnhancedInternalEdgeRemoval}.
-     */
+    /// Typed method of [#setEnhancedInternalEdgeRemoval].
     public final void setEnhancedInternalEdgeRemoval(
-        boolean value
+    	boolean value
     ) {
-        setEnhancedInternalEdgeRemoval(
-            this.segment, 
-            value
-        );
+    	setEnhancedInternalEdgeRemoval(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getEnhancedInternalEdgeRemoval(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEnhancedInternalEdgeRemoval}.
-     */
-    public final boolean getEnhancedInternalEdgeRemoval(
-    ) {
-        return (boolean) getEnhancedInternalEdgeRemoval(
-            this.segment
-        );
+    /// Typed method of [#getEnhancedInternalEdgeRemoval].
+    public final boolean getEnhancedInternalEdgeRemoval() {
+    	return (boolean) getEnhancedInternalEdgeRemoval(
+    		this.segment
+    	);
     }
+    
     
     public static boolean getEnhancedInternalEdgeRemovalWithBody(
-        MemorySegment body, 
-        MemorySegment other
+    	MemorySegment body,
+    	MemorySegment other
     ) {
-        MethodHandle method = JPH_BODY_GET_ENHANCED_INTERNAL_EDGE_REMOVAL_WITH_BODY.get();
-        try {
-            return (boolean) method.invokeExact(
-                body, 
-                other
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ENHANCED_INTERNAL_EDGE_REMOVAL_WITH_BODY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body,
+    			other
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEnhancedInternalEdgeRemovalWithBody}.
-     */
+    /// Typed method of [#getEnhancedInternalEdgeRemovalWithBody].
     public final boolean getEnhancedInternalEdgeRemovalWithBody(
-        Body other
+    	Body other
     ) {
-        return (boolean) getEnhancedInternalEdgeRemovalWithBody(
-            this.segment, 
-            other.memorySegment()
-        );
+    	return (boolean) getEnhancedInternalEdgeRemovalWithBody(
+    		this.segment,
+    		other.memorySegment()
+    	);
     }
+    
     
     public static int getMotionType(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_MOTION_TYPE.get();
-        try {
-            return (int) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_MOTION_TYPE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMotionType}.
-     */
-    public final int getMotionType(
-    ) {
-        return (int) getMotionType(
-            this.segment
-        );
+    /// Typed method of [#getMotionType].
+    public final int getMotionType() {
+    	return (int) getMotionType(
+    		this.segment
+    	);
     }
+    
     
     public static void setMotionType(
-        MemorySegment body, 
-        int motionType
+    	MemorySegment body,
+    	int motionType
     ) {
-        MethodHandle method = JPH_BODY_SET_MOTION_TYPE.get();
-        try {
-            method.invokeExact(
-                body, 
-                motionType
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_MOTION_TYPE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			motionType
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMotionType}.
-     */
+    /// Typed method of [#setMotionType].
     public final void setMotionType(
-        int motionType
+    	int motionType
     ) {
-        setMotionType(
-            this.segment, 
-            motionType
-        );
+    	setMotionType(
+    		this.segment,
+    		motionType
+    	);
     }
+    
     
     public static byte getBroadPhaseLayer(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_BROAD_PHASE_LAYER.get();
-        try {
-            return (byte) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_BROAD_PHASE_LAYER.get();
+    	try {
+    		return (byte)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBroadPhaseLayer}.
-     */
-    public final byte getBroadPhaseLayer(
-    ) {
-        return (byte) getBroadPhaseLayer(
-            this.segment
-        );
+    /// Typed method of [#getBroadPhaseLayer].
+    public final byte getBroadPhaseLayer() {
+    	return (byte) getBroadPhaseLayer(
+    		this.segment
+    	);
     }
+    
     
     public static int getObjectLayer(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_OBJECT_LAYER.get();
-        try {
-            return (int) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_OBJECT_LAYER.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getObjectLayer}.
-     */
-    public final int getObjectLayer(
-    ) {
-        return (int) getObjectLayer(
-            this.segment
-        );
+    /// Typed method of [#getObjectLayer].
+    public final int getObjectLayer() {
+    	return (int) getObjectLayer(
+    		this.segment
+    	);
     }
+    
     
     public static void getCollisionGroup(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_COLLISION_GROUP.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_COLLISION_GROUP.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCollisionGroup}.
-     */
+    /// Typed method of [#getCollisionGroup].
     public final void getCollisionGroup(
-        CollisionGroup result
+    	CollisionGroup result
     ) {
-        getCollisionGroup(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getCollisionGroup(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setCollisionGroup(
-        MemorySegment body, 
-        MemorySegment value
+    	MemorySegment body,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_BODY_SET_COLLISION_GROUP.get();
-        try {
-            method.invokeExact(
-                body, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_COLLISION_GROUP.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setCollisionGroup}.
-     */
+    /// Typed method of [#setCollisionGroup].
     public final void setCollisionGroup(
-        CollisionGroup value
+    	CollisionGroup value
     ) {
-        setCollisionGroup(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setCollisionGroup(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static boolean getAllowSleeping(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_ALLOW_SLEEPING.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ALLOW_SLEEPING.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAllowSleeping}.
-     */
-    public final boolean getAllowSleeping(
-    ) {
-        return (boolean) getAllowSleeping(
-            this.segment
-        );
+    /// Typed method of [#getAllowSleeping].
+    public final boolean getAllowSleeping() {
+    	return (boolean) getAllowSleeping(
+    		this.segment
+    	);
     }
+    
     
     public static void setAllowSleeping(
-        MemorySegment body, 
-        boolean allowSleeping
+    	MemorySegment body,
+    	boolean allowSleeping
     ) {
-        MethodHandle method = JPH_BODY_SET_ALLOW_SLEEPING.get();
-        try {
-            method.invokeExact(
-                body, 
-                allowSleeping
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_ALLOW_SLEEPING.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			allowSleeping
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setAllowSleeping}.
-     */
+    /// Typed method of [#setAllowSleeping].
     public final void setAllowSleeping(
-        boolean allowSleeping
+    	boolean allowSleeping
     ) {
-        setAllowSleeping(
-            this.segment, 
-            allowSleeping
-        );
+    	setAllowSleeping(
+    		this.segment,
+    		allowSleeping
+    	);
     }
+    
     
     public static void resetSleepTimer(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_RESET_SLEEP_TIMER.get();
-        try {
-            method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_RESET_SLEEP_TIMER.get();
+    	try {
+    		 method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #resetSleepTimer}.
-     */
-    public final void resetSleepTimer(
-    ) {
-        resetSleepTimer(
-            this.segment
-        );
+    /// Typed method of [#resetSleepTimer].
+    public final void resetSleepTimer() {
+    	resetSleepTimer(
+    		this.segment
+    	);
     }
+    
     
     public static float getFriction(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_FRICTION.get();
-        try {
-            return (float) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_FRICTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getFriction}.
-     */
-    public final float getFriction(
-    ) {
-        return (float) getFriction(
-            this.segment
-        );
+    /// Typed method of [#getFriction].
+    public final float getFriction() {
+    	return (float) getFriction(
+    		this.segment
+    	);
     }
+    
     
     public static void setFriction(
-        MemorySegment body, 
-        float friction
+    	MemorySegment body,
+    	float friction
     ) {
-        MethodHandle method = JPH_BODY_SET_FRICTION.get();
-        try {
-            method.invokeExact(
-                body, 
-                friction
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_FRICTION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			friction
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setFriction}.
-     */
+    /// Typed method of [#setFriction].
     public final void setFriction(
-        float friction
+    	float friction
     ) {
-        setFriction(
-            this.segment, 
-            friction
-        );
+    	setFriction(
+    		this.segment,
+    		friction
+    	);
     }
+    
     
     public static float getRestitution(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_RESTITUTION.get();
-        try {
-            return (float) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_RESTITUTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRestitution}.
-     */
-    public final float getRestitution(
-    ) {
-        return (float) getRestitution(
-            this.segment
-        );
+    /// Typed method of [#getRestitution].
+    public final float getRestitution() {
+    	return (float) getRestitution(
+    		this.segment
+    	);
     }
+    
     
     public static void setRestitution(
-        MemorySegment body, 
-        float restitution
+    	MemorySegment body,
+    	float restitution
     ) {
-        MethodHandle method = JPH_BODY_SET_RESTITUTION.get();
-        try {
-            method.invokeExact(
-                body, 
-                restitution
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_RESTITUTION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			restitution
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRestitution}.
-     */
+    /// Typed method of [#setRestitution].
     public final void setRestitution(
-        float restitution
+    	float restitution
     ) {
-        setRestitution(
-            this.segment, 
-            restitution
-        );
+    	setRestitution(
+    		this.segment,
+    		restitution
+    	);
     }
+    
     
     public static void getLinearVelocity(
-        MemorySegment body, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_GET_LINEAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                body, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_LINEAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLinearVelocity}.
-     */
+    /// Typed method of [#getLinearVelocity].
     public final void getLinearVelocity(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        getLinearVelocity(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	getLinearVelocity(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void setLinearVelocity(
-        MemorySegment body, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_SET_LINEAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                body, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_LINEAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLinearVelocity}.
-     */
+    /// Typed method of [#setLinearVelocity].
     public final void setLinearVelocity(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        setLinearVelocity(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	setLinearVelocity(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void setLinearVelocityClamped(
-        MemorySegment body, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_SET_LINEAR_VELOCITY_CLAMPED.get();
-        try {
-            method.invokeExact(
-                body, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_LINEAR_VELOCITY_CLAMPED.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLinearVelocityClamped}.
-     */
+    /// Typed method of [#setLinearVelocityClamped].
     public final void setLinearVelocityClamped(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        setLinearVelocityClamped(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	setLinearVelocityClamped(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void getAngularVelocity(
-        MemorySegment body, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_GET_ANGULAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                body, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ANGULAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAngularVelocity}.
-     */
+    /// Typed method of [#getAngularVelocity].
     public final void getAngularVelocity(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        getAngularVelocity(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	getAngularVelocity(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void setAngularVelocity(
-        MemorySegment body, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_SET_ANGULAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                body, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_ANGULAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setAngularVelocity}.
-     */
+    /// Typed method of [#setAngularVelocity].
     public final void setAngularVelocity(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        setAngularVelocity(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	setAngularVelocity(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void setAngularVelocityClamped(
-        MemorySegment body, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_SET_ANGULAR_VELOCITY_CLAMPED.get();
-        try {
-            method.invokeExact(
-                body, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_ANGULAR_VELOCITY_CLAMPED.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setAngularVelocityClamped}.
-     */
+    /// Typed method of [#setAngularVelocityClamped].
     public final void setAngularVelocityClamped(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        setAngularVelocityClamped(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	setAngularVelocityClamped(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void getPointVelocityCOM(
-        MemorySegment body, 
-        MemorySegment pointRelativeToCOM, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment pointRelativeToCOM,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_GET_POINT_VELOCITY_COM.get();
-        try {
-            method.invokeExact(
-                body, 
-                pointRelativeToCOM, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_POINT_VELOCITY_COM.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			pointRelativeToCOM,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPointVelocityCOM}.
-     */
+    /// Typed method of [#getPointVelocityCOM].
     public final void getPointVelocityCOM(
-        Vec3 pointRelativeToCOM, 
-        Vec3 velocity
+    	Vec3 pointRelativeToCOM,
+    	Vec3 velocity
     ) {
-        getPointVelocityCOM(
-            this.segment, 
-            pointRelativeToCOM.memorySegment(), 
-            velocity.memorySegment()
-        );
+    	getPointVelocityCOM(
+    		this.segment,
+    		pointRelativeToCOM.memorySegment(),
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void getPointVelocity(
-        MemorySegment body, 
-        MemorySegment point, 
-        MemorySegment velocity
+    	MemorySegment body,
+    	MemorySegment point,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_BODY_GET_POINT_VELOCITY.get();
-        try {
-            method.invokeExact(
-                body, 
-                point, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_POINT_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			point,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPointVelocity}.
-     */
+    /// Typed method of [#getPointVelocity].
     public final void getPointVelocity(
-        Vec3 point, 
-        Vec3 velocity
+    	Vec3 point,
+    	Vec3 velocity
     ) {
-        getPointVelocity(
-            this.segment, 
-            point.memorySegment(), 
-            velocity.memorySegment()
-        );
+    	getPointVelocity(
+    		this.segment,
+    		point.memorySegment(),
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void addForce(
-        MemorySegment body, 
-        MemorySegment force
+    	MemorySegment body,
+    	MemorySegment force
     ) {
-        MethodHandle method = JPH_BODY_ADD_FORCE.get();
-        try {
-            method.invokeExact(
-                body, 
-                force
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ADD_FORCE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			force
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addForce}.
-     */
+    /// Typed method of [#addForce].
     public final void addForce(
-        Vec3 force
+    	Vec3 force
     ) {
-        addForce(
-            this.segment, 
-            force.memorySegment()
-        );
+    	addForce(
+    		this.segment,
+    		force.memorySegment()
+    	);
     }
+    
     
     public static void addForceAtPosition(
-        MemorySegment body, 
-        MemorySegment force, 
-        MemorySegment position
+    	MemorySegment body,
+    	MemorySegment force,
+    	MemorySegment position
     ) {
-        MethodHandle method = JPH_BODY_ADD_FORCE_AT_POSITION.get();
-        try {
-            method.invokeExact(
-                body, 
-                force, 
-                position
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ADD_FORCE_AT_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			force,
+    			position
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addForceAtPosition}.
-     */
+    /// Typed method of [#addForceAtPosition].
     public final void addForceAtPosition(
-        Vec3 force, 
-        Vec3 position
+    	Vec3 force,
+    	Vec3 position
     ) {
-        addForceAtPosition(
-            this.segment, 
-            force.memorySegment(), 
-            position.memorySegment()
-        );
+    	addForceAtPosition(
+    		this.segment,
+    		force.memorySegment(),
+    		position.memorySegment()
+    	);
     }
+    
     
     public static void addTorque(
-        MemorySegment body, 
-        MemorySegment force
+    	MemorySegment body,
+    	MemorySegment force
     ) {
-        MethodHandle method = JPH_BODY_ADD_TORQUE.get();
-        try {
-            method.invokeExact(
-                body, 
-                force
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ADD_TORQUE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			force
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addTorque}.
-     */
+    /// Typed method of [#addTorque].
     public final void addTorque(
-        Vec3 force
+    	Vec3 force
     ) {
-        addTorque(
-            this.segment, 
-            force.memorySegment()
-        );
+    	addTorque(
+    		this.segment,
+    		force.memorySegment()
+    	);
     }
+    
     
     public static void getAccumulatedForce(
-        MemorySegment body, 
-        MemorySegment force
+    	MemorySegment body,
+    	MemorySegment force
     ) {
-        MethodHandle method = JPH_BODY_GET_ACCUMULATED_FORCE.get();
-        try {
-            method.invokeExact(
-                body, 
-                force
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ACCUMULATED_FORCE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			force
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAccumulatedForce}.
-     */
+    /// Typed method of [#getAccumulatedForce].
     public final void getAccumulatedForce(
-        Vec3 force
+    	Vec3 force
     ) {
-        getAccumulatedForce(
-            this.segment, 
-            force.memorySegment()
-        );
+    	getAccumulatedForce(
+    		this.segment,
+    		force.memorySegment()
+    	);
     }
+    
     
     public static void getAccumulatedTorque(
-        MemorySegment body, 
-        MemorySegment force
+    	MemorySegment body,
+    	MemorySegment force
     ) {
-        MethodHandle method = JPH_BODY_GET_ACCUMULATED_TORQUE.get();
-        try {
-            method.invokeExact(
-                body, 
-                force
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ACCUMULATED_TORQUE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			force
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAccumulatedTorque}.
-     */
+    /// Typed method of [#getAccumulatedTorque].
     public final void getAccumulatedTorque(
-        Vec3 force
+    	Vec3 force
     ) {
-        getAccumulatedTorque(
-            this.segment, 
-            force.memorySegment()
-        );
+    	getAccumulatedTorque(
+    		this.segment,
+    		force.memorySegment()
+    	);
     }
+    
     
     public static void resetForce(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_RESET_FORCE.get();
-        try {
-            method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_RESET_FORCE.get();
+    	try {
+    		 method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #resetForce}.
-     */
-    public final void resetForce(
-    ) {
-        resetForce(
-            this.segment
-        );
+    /// Typed method of [#resetForce].
+    public final void resetForce() {
+    	resetForce(
+    		this.segment
+    	);
     }
+    
     
     public static void resetTorque(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_RESET_TORQUE.get();
-        try {
-            method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_RESET_TORQUE.get();
+    	try {
+    		 method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #resetTorque}.
-     */
-    public final void resetTorque(
-    ) {
-        resetTorque(
-            this.segment
-        );
+    /// Typed method of [#resetTorque].
+    public final void resetTorque() {
+    	resetTorque(
+    		this.segment
+    	);
     }
+    
     
     public static void resetMotion(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_RESET_MOTION.get();
-        try {
-            method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_RESET_MOTION.get();
+    	try {
+    		 method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #resetMotion}.
-     */
-    public final void resetMotion(
-    ) {
-        resetMotion(
-            this.segment
-        );
+    /// Typed method of [#resetMotion].
+    public final void resetMotion() {
+    	resetMotion(
+    		this.segment
+    	);
     }
+    
     
     public static void getInverseInertia(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_INVERSE_INERTIA.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_INVERSE_INERTIA.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInverseInertia}.
-     */
+    /// Typed method of [#getInverseInertia].
     public final void getInverseInertia(
-        Mat4 result
+    	Mat4 result
     ) {
-        getInverseInertia(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getInverseInertia(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void addImpulse(
-        MemorySegment body, 
-        MemorySegment impulse
+    	MemorySegment body,
+    	MemorySegment impulse
     ) {
-        MethodHandle method = JPH_BODY_ADD_IMPULSE.get();
-        try {
-            method.invokeExact(
-                body, 
-                impulse
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ADD_IMPULSE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			impulse
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addImpulse}.
-     */
+    /// Typed method of [#addImpulse].
     public final void addImpulse(
-        Vec3 impulse
+    	Vec3 impulse
     ) {
-        addImpulse(
-            this.segment, 
-            impulse.memorySegment()
-        );
+    	addImpulse(
+    		this.segment,
+    		impulse.memorySegment()
+    	);
     }
+    
     
     public static void addImpulseAtPosition(
-        MemorySegment body, 
-        MemorySegment impulse, 
-        MemorySegment position
+    	MemorySegment body,
+    	MemorySegment impulse,
+    	MemorySegment position
     ) {
-        MethodHandle method = JPH_BODY_ADD_IMPULSE_AT_POSITION.get();
-        try {
-            method.invokeExact(
-                body, 
-                impulse, 
-                position
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ADD_IMPULSE_AT_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			impulse,
+    			position
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addImpulseAtPosition}.
-     */
+    /// Typed method of [#addImpulseAtPosition].
     public final void addImpulseAtPosition(
-        Vec3 impulse, 
-        Vec3 position
+    	Vec3 impulse,
+    	Vec3 position
     ) {
-        addImpulseAtPosition(
-            this.segment, 
-            impulse.memorySegment(), 
-            position.memorySegment()
-        );
+    	addImpulseAtPosition(
+    		this.segment,
+    		impulse.memorySegment(),
+    		position.memorySegment()
+    	);
     }
+    
     
     public static void addAngularImpulse(
-        MemorySegment body, 
-        MemorySegment angularImpulse
+    	MemorySegment body,
+    	MemorySegment angularImpulse
     ) {
-        MethodHandle method = JPH_BODY_ADD_ANGULAR_IMPULSE.get();
-        try {
-            method.invokeExact(
-                body, 
-                angularImpulse
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ADD_ANGULAR_IMPULSE.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			angularImpulse
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addAngularImpulse}.
-     */
+    /// Typed method of [#addAngularImpulse].
     public final void addAngularImpulse(
-        Vec3 angularImpulse
+    	Vec3 angularImpulse
     ) {
-        addAngularImpulse(
-            this.segment, 
-            angularImpulse.memorySegment()
-        );
+    	addAngularImpulse(
+    		this.segment,
+    		angularImpulse.memorySegment()
+    	);
     }
+    
     
     public static void moveKinematic(
-        MemorySegment body, 
-        MemorySegment targetPosition, 
-        MemorySegment targetRotation, 
-        float deltaTime
+    	MemorySegment body,
+    	MemorySegment targetPosition,
+    	MemorySegment targetRotation,
+    	float deltaTime
     ) {
-        MethodHandle method = JPH_BODY_MOVE_KINEMATIC.get();
-        try {
-            method.invokeExact(
-                body, 
-                targetPosition, 
-                targetRotation, 
-                deltaTime
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_MOVE_KINEMATIC.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			targetPosition,
+    			targetRotation,
+    			deltaTime
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #moveKinematic}.
-     */
+    /// Typed method of [#moveKinematic].
     public final void moveKinematic(
-        Vec3 targetPosition, 
-        Quat targetRotation, 
-        float deltaTime
+    	Vec3 targetPosition,
+    	Quat targetRotation,
+    	float deltaTime
     ) {
-        moveKinematic(
-            this.segment, 
-            targetPosition.memorySegment(), 
-            targetRotation.memorySegment(), 
-            deltaTime
-        );
+    	moveKinematic(
+    		this.segment,
+    		targetPosition.memorySegment(),
+    		targetRotation.memorySegment(),
+    		deltaTime
+    	);
     }
+    
     
     public static boolean applyBuoyancyImpulse(
-        MemorySegment body, 
-        MemorySegment surfacePosition, 
-        MemorySegment surfaceNormal, 
-        float buoyancy, 
-        float linearDrag, 
-        float angularDrag, 
-        MemorySegment fluidVelocity, 
-        MemorySegment gravity, 
-        float deltaTime
+    	MemorySegment body,
+    	MemorySegment surfacePosition,
+    	MemorySegment surfaceNormal,
+    	float buoyancy,
+    	float linearDrag,
+    	float angularDrag,
+    	MemorySegment fluidVelocity,
+    	MemorySegment gravity,
+    	float deltaTime
     ) {
-        MethodHandle method = JPH_BODY_APPLY_BUOYANCY_IMPULSE.get();
-        try {
-            return (boolean) method.invokeExact(
-                body, 
-                surfacePosition, 
-                surfaceNormal, 
-                buoyancy, 
-                linearDrag, 
-                angularDrag, 
-                fluidVelocity, 
-                gravity, 
-                deltaTime
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_APPLY_BUOYANCY_IMPULSE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body,
+    			surfacePosition,
+    			surfaceNormal,
+    			buoyancy,
+    			linearDrag,
+    			angularDrag,
+    			fluidVelocity,
+    			gravity,
+    			deltaTime
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #applyBuoyancyImpulse}.
-     */
+    /// Typed method of [#applyBuoyancyImpulse].
     public final boolean applyBuoyancyImpulse(
-        Vec3 surfacePosition, 
-        Vec3 surfaceNormal, 
-        float buoyancy, 
-        float linearDrag, 
-        float angularDrag, 
-        Vec3 fluidVelocity, 
-        Vec3 gravity, 
-        float deltaTime
+    	Vec3 surfacePosition,
+    	Vec3 surfaceNormal,
+    	float buoyancy,
+    	float linearDrag,
+    	float angularDrag,
+    	Vec3 fluidVelocity,
+    	Vec3 gravity,
+    	float deltaTime
     ) {
-        return (boolean) applyBuoyancyImpulse(
-            this.segment, 
-            surfacePosition.memorySegment(), 
-            surfaceNormal.memorySegment(), 
-            buoyancy, 
-            linearDrag, 
-            angularDrag, 
-            fluidVelocity.memorySegment(), 
-            gravity.memorySegment(), 
-            deltaTime
-        );
+    	return (boolean) applyBuoyancyImpulse(
+    		this.segment,
+    		surfacePosition.memorySegment(),
+    		surfaceNormal.memorySegment(),
+    		buoyancy,
+    		linearDrag,
+    		angularDrag,
+    		fluidVelocity.memorySegment(),
+    		gravity.memorySegment(),
+    		deltaTime
+    	);
     }
+    
     
     public static boolean isInBroadPhase(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_IN_BROAD_PHASE.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_IN_BROAD_PHASE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isInBroadPhase}.
-     */
-    public final boolean isInBroadPhase(
-    ) {
-        return (boolean) isInBroadPhase(
-            this.segment
-        );
+    /// Typed method of [#isInBroadPhase].
+    public final boolean isInBroadPhase() {
+    	return (boolean) isInBroadPhase(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isCollisionCacheInvalid(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_IS_COLLISION_CACHE_INVALID.get();
-        try {
-            return (boolean) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_IS_COLLISION_CACHE_INVALID.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isCollisionCacheInvalid}.
-     */
-    public final boolean isCollisionCacheInvalid(
-    ) {
-        return (boolean) isCollisionCacheInvalid(
-            this.segment
-        );
+    /// Typed method of [#isCollisionCacheInvalid].
+    public final boolean isCollisionCacheInvalid() {
+    	return (boolean) isCollisionCacheInvalid(
+    		this.segment
+    	);
     }
+    
     
     public static MemorySegment getShape(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getShape}.
-     */
-    public final @Nullable Shape getShape(
-    ) {
-        MemorySegment segment = getShape(
-            this.segment
-        );
+    /// Typed method of [#getShape].
+    public final @Nullable Shape getShape() {
+    	MemorySegment segment = getShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Shape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Shape(segment);
     }
+    
     
     public static void getPosition(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_POSITION.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPosition}.
-     */
+    /// Typed method of [#getPosition].
     public final void getPosition(
-        Vec3 result
+    	Vec3 result
     ) {
-        getPosition(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getPosition(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getRotation(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_ROTATION.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotation}.
-     */
+    /// Typed method of [#getRotation].
     public final void getRotation(
-        Quat result
+    	Quat result
     ) {
-        getRotation(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getRotation(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getWorldTransform(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_WORLD_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_WORLD_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldTransform}.
-     */
+    /// Typed method of [#getWorldTransform].
     public final void getWorldTransform(
-        Mat4 result
+    	Mat4 result
     ) {
-        getWorldTransform(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getWorldTransform(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getCenterOfMassPosition(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_CENTER_OF_MASS_POSITION.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_CENTER_OF_MASS_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCenterOfMassPosition}.
-     */
+    /// Typed method of [#getCenterOfMassPosition].
     public final void getCenterOfMassPosition(
-        Vec3 result
+    	Vec3 result
     ) {
-        getCenterOfMassPosition(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getCenterOfMassPosition(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getCenterOfMassTransform(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_CENTER_OF_MASS_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_CENTER_OF_MASS_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCenterOfMassTransform}.
-     */
+    /// Typed method of [#getCenterOfMassTransform].
     public final void getCenterOfMassTransform(
-        Mat4 result
+    	Mat4 result
     ) {
-        getCenterOfMassTransform(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getCenterOfMassTransform(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getInverseCenterOfMassTransform(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_INVERSE_CENTER_OF_MASS_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_INVERSE_CENTER_OF_MASS_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInverseCenterOfMassTransform}.
-     */
+    /// Typed method of [#getInverseCenterOfMassTransform].
     public final void getInverseCenterOfMassTransform(
-        Mat4 result
+    	Mat4 result
     ) {
-        getInverseCenterOfMassTransform(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getInverseCenterOfMassTransform(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getWorldSpaceBounds(
-        MemorySegment body, 
-        MemorySegment result
+    	MemorySegment body,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_BODY_GET_WORLD_SPACE_BOUNDS.get();
-        try {
-            method.invokeExact(
-                body, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_WORLD_SPACE_BOUNDS.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldSpaceBounds}.
-     */
+    /// Typed method of [#getWorldSpaceBounds].
     public final void getWorldSpaceBounds(
-        AABox result
+    	AABox result
     ) {
-        getWorldSpaceBounds(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getWorldSpaceBounds(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getWorldSpaceSurfaceNormal(
-        MemorySegment body, 
-        int subShapeID, 
-        MemorySegment position, 
-        MemorySegment normal
+    	MemorySegment body,
+    	int subShapeID,
+    	MemorySegment position,
+    	MemorySegment normal
     ) {
-        MethodHandle method = JPH_BODY_GET_WORLD_SPACE_SURFACE_NORMAL.get();
-        try {
-            method.invokeExact(
-                body, 
-                subShapeID, 
-                position, 
-                normal
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_WORLD_SPACE_SURFACE_NORMAL.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			subShapeID,
+    			position,
+    			normal
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldSpaceSurfaceNormal}.
-     */
+    /// Typed method of [#getWorldSpaceSurfaceNormal].
     public final void getWorldSpaceSurfaceNormal(
-        int subShapeID, 
-        Vec3 position, 
-        Vec3 normal
+    	int subShapeID,
+    	Vec3 position,
+    	Vec3 normal
     ) {
-        getWorldSpaceSurfaceNormal(
-            this.segment, 
-            subShapeID, 
-            position.memorySegment(), 
-            normal.memorySegment()
-        );
+    	getWorldSpaceSurfaceNormal(
+    		this.segment,
+    		subShapeID,
+    		position.memorySegment(),
+    		normal.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getMotionProperties(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_MOTION_PROPERTIES.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_MOTION_PROPERTIES.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMotionProperties}.
-     */
-    public final @Nullable MotionProperties getMotionProperties(
-    ) {
-        MemorySegment segment = getMotionProperties(
-            this.segment
-        );
+    /// Typed method of [#getMotionProperties].
+    public final @Nullable MotionProperties getMotionProperties() {
+    	MemorySegment segment = getMotionProperties(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new MotionProperties(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new MotionProperties(segment);
     }
+    
     
     public static MemorySegment getMotionPropertiesUnchecked(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_MOTION_PROPERTIES_UNCHECKED.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_MOTION_PROPERTIES_UNCHECKED.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMotionPropertiesUnchecked}.
-     */
-    public final @Nullable MotionProperties getMotionPropertiesUnchecked(
-    ) {
-        MemorySegment segment = getMotionPropertiesUnchecked(
-            this.segment
-        );
+    /// Typed method of [#getMotionPropertiesUnchecked].
+    public final @Nullable MotionProperties getMotionPropertiesUnchecked() {
+    	MemorySegment segment = getMotionPropertiesUnchecked(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new MotionProperties(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new MotionProperties(segment);
     }
+    
     
     public static void setUserData(
-        MemorySegment body, 
-        long userData
+    	MemorySegment body,
+    	long userData
     ) {
-        MethodHandle method = JPH_BODY_SET_USER_DATA.get();
-        try {
-            method.invokeExact(
-                body, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_SET_USER_DATA.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUserData}.
-     */
+    /// Typed method of [#setUserData].
     public final void setUserData(
-        long userData
+    	long userData
     ) {
-        setUserData(
-            this.segment, 
-            userData
-        );
+    	setUserData(
+    		this.segment,
+    		userData
+    	);
     }
+    
     
     public static long getUserData(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_USER_DATA.get();
-        try {
-            return (long) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_USER_DATA.get();
+    	try {
+    		return (long)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUserData}.
-     */
-    public final long getUserData(
-    ) {
-        return (long) getUserData(
-            this.segment
-        );
+    /// Typed method of [#getUserData].
+    public final long getUserData() {
+    	return (long) getUserData(
+    		this.segment
+    	);
     }
+    
     
     public static MemorySegment ngetFixedToWorldBody() {
-        MethodHandle method = JPH_BODY_GET_FIXED_TO_WORLD_BODY.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_FIXED_TO_WORLD_BODY.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #ngetFixedToWorldBody}.
-     */
+    /// Typed method of [#ngetFixedToWorldBody].
     public final @Nullable Body getFixedToWorldBody() {
-        MemorySegment segment = ngetFixedToWorldBody();
+    	MemorySegment segment = ngetFixedToWorldBody();
     
         if (segment.equals(MemorySegment.NULL))
             return null;
-    
-        return new Body(segment);
+    	
+    	return new Body(segment);
     }
+    
     
     public static int getSoftBodyVertexCount(
-        MemorySegment body
+    	MemorySegment body
     ) {
-        MethodHandle method = JPH_BODY_GET_SOFT_BODY_VERTEX_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_SOFT_BODY_VERTEX_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSoftBodyVertexCount}.
-     */
-    public final int getSoftBodyVertexCount(
-    ) {
-        return (int) getSoftBodyVertexCount(
-            this.segment
-        );
+    /// Typed method of [#getSoftBodyVertexCount].
+    public final int getSoftBodyVertexCount() {
+    	return (int) getSoftBodyVertexCount(
+    		this.segment
+    	);
     }
+    
     
     public static void getSoftBodyVertexPosition(
-        MemorySegment body, 
-        int index, 
-        MemorySegment outPos
+    	MemorySegment body,
+    	int index,
+    	MemorySegment outPos
     ) {
-        MethodHandle method = JPH_BODY_GET_SOFT_BODY_VERTEX_POSITION.get();
-        try {
-            method.invokeExact(
-                body, 
-                index, 
-                outPos
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_SOFT_BODY_VERTEX_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			index,
+    			outPos
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSoftBodyVertexPosition}.
-     */
+    /// Typed method of [#getSoftBodyVertexPosition].
     public final void getSoftBodyVertexPosition(
-        int index, 
-        Vec3 outPos
+    	int index,
+    	Vec3 outPos
     ) {
-        getSoftBodyVertexPosition(
-            this.segment, 
-            index, 
-            outPos.memorySegment()
-        );
+    	getSoftBodyVertexPosition(
+    		this.segment,
+    		index,
+    		outPos.memorySegment()
+    	);
     }
+    
     
     public static void getSoftBodyVertexPositions(
-        MemorySegment body, 
-        MemorySegment outPositions, 
-        int capacity, 
-        MemorySegment outCount
+    	MemorySegment body,
+    	MemorySegment outPositions,
+    	int capacity,
+    	MemorySegment outCount
     ) {
-        MethodHandle method = JPH_BODY_GET_SOFT_BODY_VERTEX_POSITIONS.get();
-        try {
-            method.invokeExact(
-                body, 
-                outPositions, 
-                capacity, 
-                outCount
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_GET_SOFT_BODY_VERTEX_POSITIONS.get();
+    	try {
+    		 method.invokeExact(
+    			body,
+    			outPositions,
+    			capacity,
+    			outCount
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSoftBodyVertexPositions}.
-     */
+    /// Typed method of [#getSoftBodyVertexPositions].
     public final void getSoftBodyVertexPositions(
-        NativeStructArray<Vec3> outPositions, 
-        int capacity, 
-        NativeIntArray outCount
+    	NativeStructArray<Vec3> outPositions,
+    	int capacity,
+    	NativeIntArray outCount
     ) {
-        getSoftBodyVertexPositions(
-            this.segment, 
-            outPositions.memorySegment(), 
-            capacity, 
-            outCount.memorySegment()
-        );
+    	getSoftBodyVertexPositions(
+    		this.segment,
+    		outPositions.memorySegment(),
+    		capacity,
+    		outCount.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

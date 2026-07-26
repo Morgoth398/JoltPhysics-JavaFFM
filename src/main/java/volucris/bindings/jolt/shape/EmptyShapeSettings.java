@@ -11,9 +11,6 @@ import volucris.bindings.jolt.math.Vec3;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class EmptyShapeSettings extends ShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_EMPTY_SHAPE_SETTINGS_CREATE;
@@ -37,62 +34,65 @@ public final class EmptyShapeSettings extends ShapeSettings {
         );
     }
     
+    /// Typed method of [#create].
     public EmptyShapeSettings(
-        Arena arena,
-        Vec3 centerOfMass
+    	Arena arena,
+    	Vec3 centerOfMass
     ) {
-         MemorySegment segment = create(
-            centerOfMass.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		centerOfMass.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public EmptyShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment centerOfMass
+    	MemorySegment centerOfMass
     ) {
-        MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                centerOfMass
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			centerOfMass
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable EmptyShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable EmptyShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new EmptyShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new EmptyShape(segment);
     }
     
     public MemorySegment memorySegment() {

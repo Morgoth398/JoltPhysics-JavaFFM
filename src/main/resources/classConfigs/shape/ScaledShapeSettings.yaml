@@ -15,7 +15,6 @@ class-description:
 imports:
   - volucris.bindings.jolt.math.Vec3
 static-imports:
-  - java.lang.foreign.ValueLayout.*
   - volucris.bindings.core.FFMUtils.*
 
 macro-name-prefixes:
@@ -35,10 +34,10 @@ excluded-function-name-postfixes:
 constructors:
   - native-function: JPH_ScaledShapeSettings_Create
     destructor: JPH_ShapeSettings_Destroy
-    template: /constructor/ConstructorMethodTemplateWithSuper.ftl
+    
   - native-function: JPH_ScaledShapeSettings_Create2
     destructor: JPH_ShapeSettings_Destroy
-    template: /constructor/ConstructorMethodTemplateWithSuper.ftl
+    
 struct:
 native-functions:
 native-function-pointers:

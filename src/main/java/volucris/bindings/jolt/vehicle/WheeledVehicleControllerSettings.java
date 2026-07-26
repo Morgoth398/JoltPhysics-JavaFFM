@@ -7,14 +7,10 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class WheeledVehicleControllerSettings extends VehicleControllerSettings
 		permits MotorcycleControllerSettings {
 
@@ -53,360 +49,351 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     }
 
     public WheeledVehicleControllerSettings() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public WheeledVehicleControllerSettings(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
-        super(segment);
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public WheeledVehicleControllerSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getEngine(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_ENGINE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_ENGINE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEngine}.
-     */
+    /// Typed method of [#getEngine].
     public final void getEngine(
-        VehicleEngineSettings result
+    	VehicleEngineSettings result
     ) {
-        getEngine(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getEngine(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setEngine(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_ENGINE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_ENGINE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setEngine}.
-     */
+    /// Typed method of [#setEngine].
     public final void setEngine(
-        VehicleEngineSettings value
+    	VehicleEngineSettings value
     ) {
-        setEngine(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setEngine(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getTransmission(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_TRANSMISSION.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_TRANSMISSION.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTransmission}.
-     */
-    public final @Nullable VehicleTransmissionSettings getTransmission(
-    ) {
-        MemorySegment segment = getTransmission(
-            this.segment
-        );
+    /// Typed method of [#getTransmission].
+    public final @Nullable VehicleTransmissionSettings getTransmission() {
+    	MemorySegment segment = getTransmission(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleTransmissionSettings(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleTransmissionSettings(segment);
     }
+    
     
     public static void setTransmission(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_TRANSMISSION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_TRANSMISSION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTransmission}.
-     */
+    /// Typed method of [#setTransmission].
     public final void setTransmission(
-        VehicleTransmissionSettings value
+    	VehicleTransmissionSettings value
     ) {
-        setTransmission(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setTransmission(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static int getDifferentialsCount(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIALS_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIALS_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDifferentialsCount}.
-     */
-    public final int getDifferentialsCount(
-    ) {
-        return (int) getDifferentialsCount(
-            this.segment
-        );
+    /// Typed method of [#getDifferentialsCount].
+    public final int getDifferentialsCount() {
+    	return (int) getDifferentialsCount(
+    		this.segment
+    	);
     }
+    
     
     public static void setDifferentialsCount(
-        MemorySegment settings, 
-        int count
+    	MemorySegment settings,
+    	int count
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIALS_COUNT.get();
-        try {
-            method.invokeExact(
-                settings, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIALS_COUNT.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDifferentialsCount}.
-     */
+    /// Typed method of [#setDifferentialsCount].
     public final void setDifferentialsCount(
-        int count
+    	int count
     ) {
-        setDifferentialsCount(
-            this.segment, 
-            count
-        );
+    	setDifferentialsCount(
+    		this.segment,
+    		count
+    	);
     }
+    
     
     public static void getDifferential(
-        MemorySegment settings, 
-        int index, 
-        MemorySegment result
+    	MemorySegment settings,
+    	int index,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIAL.get();
-        try {
-            method.invokeExact(
-                settings, 
-                index, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIAL.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			index,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDifferential}.
-     */
+    /// Typed method of [#getDifferential].
     public final void getDifferential(
-        int index, 
-        VehicleDifferentialSettings result
+    	int index,
+    	VehicleDifferentialSettings result
     ) {
-        getDifferential(
-            this.segment, 
-            index, 
-            result.memorySegment()
-        );
+    	getDifferential(
+    		this.segment,
+    		index,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setDifferential(
-        MemorySegment settings, 
-        int index, 
-        MemorySegment value
+    	MemorySegment settings,
+    	int index,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIAL.get();
-        try {
-            method.invokeExact(
-                settings, 
-                index, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIAL.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			index,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDifferential}.
-     */
+    /// Typed method of [#setDifferential].
     public final void setDifferential(
-        int index, 
-        VehicleDifferentialSettings value
+    	int index,
+    	VehicleDifferentialSettings value
     ) {
-        setDifferential(
-            this.segment, 
-            index, 
-            value.memorySegment()
-        );
+    	setDifferential(
+    		this.segment,
+    		index,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void setDifferentials(
-        MemorySegment settings, 
-        MemorySegment values, 
-        int count
+    	MemorySegment settings,
+    	MemorySegment values,
+    	int count
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIALS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                values, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIALS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			values,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDifferentials}.
-     */
+    /// Typed method of [#setDifferentials].
     public final void setDifferentials(
-        VehicleDifferentialSettings values, 
-        int count
+    	VehicleDifferentialSettings values,
+    	int count
     ) {
-        setDifferentials(
-            this.segment, 
-            values.memorySegment(), 
-            count
-        );
+    	setDifferentials(
+    		this.segment,
+    		values.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static void addDifferential(
-        MemorySegment settings, 
-        int leftWheel, 
-        int rightWheel
+    	MemorySegment settings,
+    	int leftWheel,
+    	int rightWheel
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_ADD_DIFFERENTIAL.get();
-        try {
-            method.invokeExact(
-                settings, 
-                leftWheel, 
-                rightWheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_ADD_DIFFERENTIAL.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			leftWheel,
+    			rightWheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addDifferential}.
-     */
+    /// Typed method of [#addDifferential].
     public final void addDifferential(
-        int leftWheel, 
-        int rightWheel
+    	int leftWheel,
+    	int rightWheel
     ) {
-        addDifferential(
-            this.segment, 
-            leftWheel, 
-            rightWheel
-        );
+    	addDifferential(
+    		this.segment,
+    		leftWheel,
+    		rightWheel
+    	);
     }
+    
     
     public static float getDifferentialLimitedSlipRatio(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIAL_LIMITED_SLIP_RATIO.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIAL_LIMITED_SLIP_RATIO.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDifferentialLimitedSlipRatio}.
-     */
-    public final float getDifferentialLimitedSlipRatio(
-    ) {
-        return (float) getDifferentialLimitedSlipRatio(
-            this.segment
-        );
+    /// Typed method of [#getDifferentialLimitedSlipRatio].
+    public final float getDifferentialLimitedSlipRatio() {
+    	return (float) getDifferentialLimitedSlipRatio(
+    		this.segment
+    	);
     }
+    
     
     public static void setDifferentialLimitedSlipRatio(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIAL_LIMITED_SLIP_RATIO.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_SET_DIFFERENTIAL_LIMITED_SLIP_RATIO.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDifferentialLimitedSlipRatio}.
-     */
+    /// Typed method of [#setDifferentialLimitedSlipRatio].
     public final void setDifferentialLimitedSlipRatio(
-        float value
+    	float value
     ) {
-        setDifferentialLimitedSlipRatio(
-            this.segment, 
-            value
-        );
+    	setDifferentialLimitedSlipRatio(
+    		this.segment,
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

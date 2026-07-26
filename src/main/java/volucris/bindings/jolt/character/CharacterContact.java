@@ -18,9 +18,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CharacterContact
 		implements Struct<CharacterContact> {
 
@@ -150,205 +147,228 @@ public final class CharacterContact
         surfaceNormal = new Vec3(segment.asSlice(SURFACE_NORMAL_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #hash()
     public CharacterContact hash(long hash) {
-        HASH_HANDLE.set(segment, 0L, hash);
-        return this;
+    	HASH_HANDLE.set(segment, 0L, hash);
+    	return this;
     }
     
     public long hash() {
-        return (long) HASH_HANDLE.get(segment, 0L);
+    	return (long) HASH_HANDLE.get(segment, 0L);
     }
     
+    /// @see #bodyB()
     public CharacterContact bodyB(int bodyB) {
-        BODY_B_HANDLE.set(segment, 0L, bodyB);
-        return this;
+    	BODY_B_HANDLE.set(segment, 0L, bodyB);
+    	return this;
     }
     
     public int bodyB() {
-        return (int) BODY_B_HANDLE.get(segment, 0L);
+    	return (int) BODY_B_HANDLE.get(segment, 0L);
     }
     
+    /// @see #characterIDB()
     public CharacterContact characterIDB(int characterIDB) {
-        CHARACTER_IDB_HANDLE.set(segment, 0L, characterIDB);
-        return this;
+    	CHARACTER_IDB_HANDLE.set(segment, 0L, characterIDB);
+    	return this;
     }
     
     public int characterIDB() {
-        return (int) CHARACTER_IDB_HANDLE.get(segment, 0L);
+    	return (int) CHARACTER_IDB_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeIDB()
     public CharacterContact subShapeIDB(int subShapeIDB) {
-        SUB_SHAPE_IDB_HANDLE.set(segment, 0L, subShapeIDB);
-        return this;
+    	SUB_SHAPE_IDB_HANDLE.set(segment, 0L, subShapeIDB);
+    	return this;
     }
     
     public int subShapeIDB() {
-        return (int) SUB_SHAPE_IDB_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_IDB_HANDLE.get(segment, 0L);
     }
     
+    /// @see #distance()
     public CharacterContact distance(float distance) {
-        DISTANCE_HANDLE.set(segment, 0L, distance);
-        return this;
+    	DISTANCE_HANDLE.set(segment, 0L, distance);
+    	return this;
     }
     
     public float distance() {
-        return (float) DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #fraction()
     public CharacterContact fraction(float fraction) {
-        FRACTION_HANDLE.set(segment, 0L, fraction);
-        return this;
+    	FRACTION_HANDLE.set(segment, 0L, fraction);
+    	return this;
     }
     
     public float fraction() {
-        return (float) FRACTION_HANDLE.get(segment, 0L);
+    	return (float) FRACTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #motionTypeB()
     public CharacterContact motionTypeB(int motionTypeB) {
-        MOTION_TYPE_B_HANDLE.set(segment, 0L, motionTypeB);
-        return this;
+    	MOTION_TYPE_B_HANDLE.set(segment, 0L, motionTypeB);
+    	return this;
     }
     
     public int motionTypeB() {
-        return (int) MOTION_TYPE_B_HANDLE.get(segment, 0L);
+    	return (int) MOTION_TYPE_B_HANDLE.get(segment, 0L);
     }
     
+    /// @see #isSensorB()
     public CharacterContact isSensorB(boolean isSensorB) {
-        IS_SENSOR_B_HANDLE.set(segment, 0L, isSensorB);
-        return this;
+    	IS_SENSOR_B_HANDLE.set(segment, 0L, isSensorB);
+    	return this;
     }
     
     public boolean isSensorB() {
-        return (boolean) IS_SENSOR_B_HANDLE.get(segment, 0L);
+    	return (boolean) IS_SENSOR_B_HANDLE.get(segment, 0L);
     }
     
+    /// @see #characterB()
     public CharacterContact characterB(CharacterVirtual characterB) {
-        CHARACTER_B_HANDLE.set(segment, 0L, characterB.memorySegment());
-        return this;
+    	CHARACTER_B_HANDLE.set(segment, 0L, characterB.memorySegment());
+    	return this;
     }
     
     public @Nullable CharacterVirtual characterB() {
-        MemorySegment segment = (MemorySegment) CHARACTER_B_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) CHARACTER_B_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new CharacterVirtual(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new CharacterVirtual(segment);
     }
     
+    /// @see #userData()
     public CharacterContact userData(long userData) {
-        USER_DATA_HANDLE.set(segment, 0L, userData);
-        return this;
+    	USER_DATA_HANDLE.set(segment, 0L, userData);
+    	return this;
     }
     
     public long userData() {
-        return (long) USER_DATA_HANDLE.get(segment, 0L);
+    	return (long) USER_DATA_HANDLE.get(segment, 0L);
     }
     
+    /// @see #material()
     public CharacterContact material(PhysicsMaterial material) {
-        MATERIAL_HANDLE.set(segment, 0L, material.memorySegment());
-        return this;
+    	MATERIAL_HANDLE.set(segment, 0L, material.memorySegment());
+    	return this;
     }
     
     public @Nullable PhysicsMaterial material() {
-        MemorySegment segment = (MemorySegment) MATERIAL_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) MATERIAL_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new PhysicsMaterial(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new PhysicsMaterial(segment);
     }
     
+    /// @see #hadCollision()
     public CharacterContact hadCollision(boolean hadCollision) {
-        HAD_COLLISION_HANDLE.set(segment, 0L, hadCollision);
-        return this;
+    	HAD_COLLISION_HANDLE.set(segment, 0L, hadCollision);
+    	return this;
     }
     
     public boolean hadCollision() {
-        return (boolean) HAD_COLLISION_HANDLE.get(segment, 0L);
+    	return (boolean) HAD_COLLISION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #wasDiscarded()
     public CharacterContact wasDiscarded(boolean wasDiscarded) {
-        WAS_DISCARDED_HANDLE.set(segment, 0L, wasDiscarded);
-        return this;
+    	WAS_DISCARDED_HANDLE.set(segment, 0L, wasDiscarded);
+    	return this;
     }
     
     public boolean wasDiscarded() {
-        return (boolean) WAS_DISCARDED_HANDLE.get(segment, 0L);
+    	return (boolean) WAS_DISCARDED_HANDLE.get(segment, 0L);
     }
     
+    /// @see #canPushCharacter()
     public CharacterContact canPushCharacter(boolean canPushCharacter) {
-        CAN_PUSH_CHARACTER_HANDLE.set(segment, 0L, canPushCharacter);
-        return this;
+    	CAN_PUSH_CHARACTER_HANDLE.set(segment, 0L, canPushCharacter);
+    	return this;
     }
     
     public boolean canPushCharacter() {
-        return (boolean) CAN_PUSH_CHARACTER_HANDLE.get(segment, 0L);
+    	return (boolean) CAN_PUSH_CHARACTER_HANDLE.get(segment, 0L);
     }
     
+    /// @see #isBackFacingContact()
     public CharacterContact isBackFacingContact(boolean isBackFacingContact) {
-        IS_BACK_FACING_CONTACT_HANDLE.set(segment, 0L, isBackFacingContact);
-        return this;
+    	IS_BACK_FACING_CONTACT_HANDLE.set(segment, 0L, isBackFacingContact);
+    	return this;
     }
     
     public boolean isBackFacingContact() {
-        return (boolean) IS_BACK_FACING_CONTACT_HANDLE.get(segment, 0L);
+    	return (boolean) IS_BACK_FACING_CONTACT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #position()
     public CharacterContact position(Consumer<Vec3> consumer) {
-        consumer.accept(position);
-        return this;
+    	consumer.accept(position);
+    	return this;
     }
     
+    /// @see #position()
     public CharacterContact position(Vec3 other) {
-        position.set(other);
-        return this;
+    	position.set(other);
+    	return this;
     }
     
     public Vec3 position() {
-        return position;
+    	return position;
     }
     
+    /// @see #linearVelocity()
     public CharacterContact linearVelocity(Consumer<Vec3> consumer) {
-        consumer.accept(linearVelocity);
-        return this;
+    	consumer.accept(linearVelocity);
+    	return this;
     }
     
+    /// @see #linearVelocity()
     public CharacterContact linearVelocity(Vec3 other) {
-        linearVelocity.set(other);
-        return this;
+    	linearVelocity.set(other);
+    	return this;
     }
     
     public Vec3 linearVelocity() {
-        return linearVelocity;
+    	return linearVelocity;
     }
     
+    /// @see #contactNormal()
     public CharacterContact contactNormal(Consumer<Vec3> consumer) {
-        consumer.accept(contactNormal);
-        return this;
+    	consumer.accept(contactNormal);
+    	return this;
     }
     
+    /// @see #contactNormal()
     public CharacterContact contactNormal(Vec3 other) {
-        contactNormal.set(other);
-        return this;
+    	contactNormal.set(other);
+    	return this;
     }
     
     public Vec3 contactNormal() {
-        return contactNormal;
+    	return contactNormal;
     }
     
+    /// @see #surfaceNormal()
     public CharacterContact surfaceNormal(Consumer<Vec3> consumer) {
-        consumer.accept(surfaceNormal);
-        return this;
+    	consumer.accept(surfaceNormal);
+    	return this;
     }
     
+    /// @see #surfaceNormal()
     public CharacterContact surfaceNormal(Vec3 other) {
-        surfaceNormal.set(other);
-        return this;
+    	surfaceNormal.set(other);
+    	return this;
     }
     
     public Vec3 surfaceNormal() {
-        return surfaceNormal;
+    	return surfaceNormal;
     }
     
     @Override

@@ -3,6 +3,7 @@
  */
 package volucris.bindings.jolt.callbacks;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -11,13 +12,14 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Map;
+import volucris.bindings.core.NativeByteArray;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
 public abstract class TraceFunc {
 
-    private static final HashMap<Long, WeakReference<TraceFunc>> CACHE;
+    private static final Map<Long, WeakReference<TraceFunc>> CACHE;
 
     public static final FunctionDescriptor DESCRIPTION;
     public static final MethodHandle HANDLE;
@@ -52,24 +54,23 @@ public abstract class TraceFunc {
         MemorySegment message
     ) {
         invoke(
-            message.getString(0)
+            new NativeByteArray(message)
         );
     }
 
     public void invoke(
-        String message
+        NativeByteArray message
     ) {
         throw new UnsupportedOperationException(
             "Override either the typed or raw callback method in TraceFunc."
         );
     };
 
-
     public MemorySegment memorySegment() {
         return segment;
     }
 
-    public static TraceFunc get(MemorySegment segment) {
+    public static @Nullable TraceFunc get(MemorySegment segment) {
         WeakReference<TraceFunc> reference = CACHE.get(segment.address());
 
         if (reference == null)

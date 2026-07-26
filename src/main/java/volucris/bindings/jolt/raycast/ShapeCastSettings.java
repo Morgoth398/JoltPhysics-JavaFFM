@@ -16,9 +16,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ShapeCastSettings
 		implements Struct<ShapeCastSettings> {
 
@@ -83,77 +80,93 @@ public final class ShapeCastSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SHAPE_CAST_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_CAST_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #backFaceModeTriangles()
     public ShapeCastSettings backFaceModeTriangles(int backFaceModeTriangles) {
-        BACK_FACE_MODE_TRIANGLES_HANDLE.set(segment, 0L, backFaceModeTriangles);
-        return this;
+    	BACK_FACE_MODE_TRIANGLES_HANDLE.set(segment, 0L, backFaceModeTriangles);
+    	return this;
     }
     
+    /// ```
+    /// How backfacing triangles should be treated (should we report moving from back to front for triangle based shapes, e.g. for MeshShape/HeightFieldShape?)
+    /// ```
     public int backFaceModeTriangles() {
-        return (int) BACK_FACE_MODE_TRIANGLES_HANDLE.get(segment, 0L);
+    	return (int) BACK_FACE_MODE_TRIANGLES_HANDLE.get(segment, 0L);
     }
     
+    /// @see #backFaceModeConvex()
     public ShapeCastSettings backFaceModeConvex(int backFaceModeConvex) {
-        BACK_FACE_MODE_CONVEX_HANDLE.set(segment, 0L, backFaceModeConvex);
-        return this;
+    	BACK_FACE_MODE_CONVEX_HANDLE.set(segment, 0L, backFaceModeConvex);
+    	return this;
     }
     
+    /// ```
+    /// How backfacing convex objects should be treated (should we report starting inside an object and moving out?)
+    /// ```
     public int backFaceModeConvex() {
-        return (int) BACK_FACE_MODE_CONVEX_HANDLE.get(segment, 0L);
+    	return (int) BACK_FACE_MODE_CONVEX_HANDLE.get(segment, 0L);
     }
     
+    /// @see #useShrunkenShapeAndConvexRadius()
     public ShapeCastSettings useShrunkenShapeAndConvexRadius(boolean useShrunkenShapeAndConvexRadius) {
-        USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE.set(segment, 0L, useShrunkenShapeAndConvexRadius);
-        return this;
+    	USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE.set(segment, 0L, useShrunkenShapeAndConvexRadius);
+    	return this;
     }
     
+    /// ```
+    /// Indicates if we want to shrink the shape by the convex radius and then expand it again. This speeds up collision detection and gives a more accurate normal at the cost of a more 'rounded' shape.
+    /// ```
     public boolean useShrunkenShapeAndConvexRadius() {
-        return (boolean) USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE.get(segment, 0L);
+    	return (boolean) USE_SHRUNKEN_SHAPE_AND_CONVEX_RADIUS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #returnDeepestPoint()
     public ShapeCastSettings returnDeepestPoint(boolean returnDeepestPoint) {
-        RETURN_DEEPEST_POINT_HANDLE.set(segment, 0L, returnDeepestPoint);
-        return this;
+    	RETURN_DEEPEST_POINT_HANDLE.set(segment, 0L, returnDeepestPoint);
+    	return this;
     }
     
+    /// ```
+    /// When true, and the shape is intersecting at the beginning of the cast (fraction = 0) then this will calculate the deepest penetration point (costing additional CPU time)
+    /// ```
     public boolean returnDeepestPoint() {
-        return (boolean) RETURN_DEEPEST_POINT_HANDLE.get(segment, 0L);
+    	return (boolean) RETURN_DEEPEST_POINT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public ShapeCastSettings base(Consumer<CollideSettingsBase> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public ShapeCastSettings base(CollideSettingsBase other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public CollideSettingsBase base() {
-        return base;
+    	return base;
     }
     
     @Override

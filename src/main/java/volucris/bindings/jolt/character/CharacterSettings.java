@@ -16,9 +16,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CharacterSettings
 		implements Struct<CharacterSettings> {
 
@@ -88,86 +85,91 @@ public final class CharacterSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_CHARACTER_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #layer()
     public CharacterSettings layer(int layer) {
-        LAYER_HANDLE.set(segment, 0L, layer);
-        return this;
+    	LAYER_HANDLE.set(segment, 0L, layer);
+    	return this;
     }
     
     public int layer() {
-        return (int) LAYER_HANDLE.get(segment, 0L);
+    	return (int) LAYER_HANDLE.get(segment, 0L);
     }
     
+    /// @see #mass()
     public CharacterSettings mass(float mass) {
-        MASS_HANDLE.set(segment, 0L, mass);
-        return this;
+    	MASS_HANDLE.set(segment, 0L, mass);
+    	return this;
     }
     
     public float mass() {
-        return (float) MASS_HANDLE.get(segment, 0L);
+    	return (float) MASS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #friction()
     public CharacterSettings friction(float friction) {
-        FRICTION_HANDLE.set(segment, 0L, friction);
-        return this;
+    	FRICTION_HANDLE.set(segment, 0L, friction);
+    	return this;
     }
     
     public float friction() {
-        return (float) FRICTION_HANDLE.get(segment, 0L);
+    	return (float) FRICTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #gravityFactor()
     public CharacterSettings gravityFactor(float gravityFactor) {
-        GRAVITY_FACTOR_HANDLE.set(segment, 0L, gravityFactor);
-        return this;
+    	GRAVITY_FACTOR_HANDLE.set(segment, 0L, gravityFactor);
+    	return this;
     }
     
     public float gravityFactor() {
-        return (float) GRAVITY_FACTOR_HANDLE.get(segment, 0L);
+    	return (float) GRAVITY_FACTOR_HANDLE.get(segment, 0L);
     }
     
+    /// @see #allowedDOFs()
     public CharacterSettings allowedDOFs(int allowedDOFs) {
-        ALLOWED_DOFS_HANDLE.set(segment, 0L, allowedDOFs);
-        return this;
+    	ALLOWED_DOFS_HANDLE.set(segment, 0L, allowedDOFs);
+    	return this;
     }
     
     public int allowedDOFs() {
-        return (int) ALLOWED_DOFS_HANDLE.get(segment, 0L);
+    	return (int) ALLOWED_DOFS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public CharacterSettings base(Consumer<CharacterBaseSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public CharacterSettings base(CharacterBaseSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public CharacterBaseSettings base() {
-        return base;
+    	return base;
     }
     
     @Override

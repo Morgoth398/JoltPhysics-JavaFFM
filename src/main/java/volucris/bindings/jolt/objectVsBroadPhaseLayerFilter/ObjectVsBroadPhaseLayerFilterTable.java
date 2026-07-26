@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.objectVsBroadPhaseLayerFilter;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -13,9 +12,6 @@ import volucris.bindings.jolt.objectLayerPairFilter.ObjectLayerPairFilter;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ObjectVsBroadPhaseLayerFilterTable extends ObjectVsBroadPhaseLayerFilter {
 
     private static final LazyConstant<MethodHandle> JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_TABLE_CREATE;
@@ -29,60 +25,65 @@ public final class ObjectVsBroadPhaseLayerFilterTable extends ObjectVsBroadPhase
     }
 
     public ObjectVsBroadPhaseLayerFilterTable(
-        BroadPhaseLayerInterface broadPhaseLayerInterface, 
-        int numBroadPhaseLayers, 
-        ObjectLayerPairFilter objectLayerPairFilter, 
+        BroadPhaseLayerInterface broadPhaseLayerInterface,
+        int numBroadPhaseLayers,
+        ObjectLayerPairFilter objectLayerPairFilter,
         int numObjectLayers
     ) {
         this(
             Arena.ofAuto(),
-            broadPhaseLayerInterface, 
-            numBroadPhaseLayers, 
-            objectLayerPairFilter, 
+            broadPhaseLayerInterface,
+            numBroadPhaseLayers,
+            objectLayerPairFilter,
             numObjectLayers
         );
     }
     
+    /// Typed method of [#create].
     public ObjectVsBroadPhaseLayerFilterTable(
-        Arena arena,
-        BroadPhaseLayerInterface broadPhaseLayerInterface, 
-        int numBroadPhaseLayers, 
-        ObjectLayerPairFilter objectLayerPairFilter, 
-        int numObjectLayers
+    	Arena arena,
+    	BroadPhaseLayerInterface broadPhaseLayerInterface,
+    	int numBroadPhaseLayers,
+    	ObjectLayerPairFilter objectLayerPairFilter,
+    	int numObjectLayers
     ) {
-         MemorySegment segment = create(
-            broadPhaseLayerInterface.memorySegment(), 
-            numBroadPhaseLayers, 
-            objectLayerPairFilter.memorySegment(), 
-            numObjectLayers
-         );
+    	MemorySegment segment = create(
+    		broadPhaseLayerInterface.memorySegment(),
+    		numBroadPhaseLayers,
+    		objectLayerPairFilter.memorySegment(),
+    		numObjectLayers
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public ObjectVsBroadPhaseLayerFilterTable(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment broadPhaseLayerInterface, 
-        int numBroadPhaseLayers, 
-        MemorySegment objectLayerPairFilter, 
-        int numObjectLayers
+    	MemorySegment broadPhaseLayerInterface,
+    	int numBroadPhaseLayers,
+    	MemorySegment objectLayerPairFilter,
+    	int numObjectLayers
     ) {
-        MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_TABLE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                broadPhaseLayerInterface, 
-                numBroadPhaseLayers, 
-                objectLayerPairFilter, 
-                numObjectLayers
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_TABLE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			broadPhaseLayerInterface,
+    			numBroadPhaseLayers,
+    			objectLayerPairFilter,
+    			numObjectLayers
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

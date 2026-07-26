@@ -10,9 +10,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class BodyLockMultiRead {
 
     private static final LazyConstant<MethodHandle> JPH_BODY_LOCK_MULTI_READ_DESTROY;
@@ -28,62 +25,59 @@ public final class BodyLockMultiRead {
     }
 
     public BodyLockMultiRead(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment ioLock
+    	MemorySegment ioLock
     ) {
-        MethodHandle method = JPH_BODY_LOCK_MULTI_READ_DESTROY.get();
-        try {
-            method.invokeExact(
-                ioLock
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_LOCK_MULTI_READ_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			ioLock
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #destroy}.
-     */
-    public final void destroy(
-    ) {
-        destroy(
-            this.segment
-        );
+    /// Typed method of [#destroy].
+    public final void destroy() {
+    	destroy(
+    		this.segment
+    	);
     }
+    
     
     public static MemorySegment getBody(
-        MemorySegment ioLock, 
-        int bodyIndex
+    	MemorySegment ioLock,
+    	int bodyIndex
     ) {
-        MethodHandle method = JPH_BODY_LOCK_MULTI_READ_GET_BODY.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                ioLock, 
-                bodyIndex
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_LOCK_MULTI_READ_GET_BODY.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			ioLock,
+    			bodyIndex
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBody}.
-     */
+    /// Typed method of [#getBody].
     public final @Nullable Body getBody(
-        int bodyIndex
+    	int bodyIndex
     ) {
-        MemorySegment segment = getBody(
-            this.segment, 
-            bodyIndex
-        );
+    	MemorySegment segment = getBody(
+    		this.segment,
+    		bodyIndex
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Body(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Body(segment);
     }
     
     public MemorySegment memorySegment() {

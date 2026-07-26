@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class Point
 		implements Struct<Point> {
 
@@ -57,22 +54,24 @@ public final class Point
     
     }
 
+    /// @see #x()
     public Point x(float x) {
-        X_HANDLE.set(segment, 0L, x);
-        return this;
+    	X_HANDLE.set(segment, 0L, x);
+    	return this;
     }
     
     public float x() {
-        return (float) X_HANDLE.get(segment, 0L);
+    	return (float) X_HANDLE.get(segment, 0L);
     }
     
+    /// @see #y()
     public Point y(float y) {
-        Y_HANDLE.set(segment, 0L, y);
-        return this;
+    	Y_HANDLE.set(segment, 0L, y);
+    	return this;
     }
     
     public float y() {
-        return (float) Y_HANDLE.get(segment, 0L);
+    	return (float) Y_HANDLE.get(segment, 0L);
     }
     
     @Override

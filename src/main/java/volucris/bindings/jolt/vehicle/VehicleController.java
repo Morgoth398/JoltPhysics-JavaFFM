@@ -10,9 +10,6 @@ import volucris.bindings.jolt.constraint.VehicleConstraint;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class VehicleController
 		permits WheeledVehicleController,
 		TrackedVehicleController {
@@ -28,35 +25,33 @@ public sealed class VehicleController
     }
 
     public VehicleController(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment getConstraint(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_VEHICLE_CONTROLLER_GET_CONSTRAINT.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONTROLLER_GET_CONSTRAINT.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getConstraint}.
-     */
-    public final @Nullable VehicleConstraint getConstraint(
-    ) {
-        MemorySegment segment = getConstraint(
-            this.segment
-        );
+    /// Typed method of [#getConstraint].
+    public final @Nullable VehicleConstraint getConstraint() {
+    	MemorySegment segment = getConstraint(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleConstraint(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleConstraint(segment);
     }
     
     public MemorySegment memorySegment() {

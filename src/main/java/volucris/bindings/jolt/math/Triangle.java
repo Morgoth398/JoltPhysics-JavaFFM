@@ -14,9 +14,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class Triangle
 		implements Struct<Triangle> {
 
@@ -69,55 +66,62 @@ public final class Triangle
         v3 = new Vec3(segment.asSlice(V3_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #materialIndex()
     public Triangle materialIndex(int materialIndex) {
-        MATERIAL_INDEX_HANDLE.set(segment, 0L, materialIndex);
-        return this;
+    	MATERIAL_INDEX_HANDLE.set(segment, 0L, materialIndex);
+    	return this;
     }
     
     public int materialIndex() {
-        return (int) MATERIAL_INDEX_HANDLE.get(segment, 0L);
+    	return (int) MATERIAL_INDEX_HANDLE.get(segment, 0L);
     }
     
+    /// @see #v1()
     public Triangle v1(Consumer<Vec3> consumer) {
-        consumer.accept(v1);
-        return this;
+    	consumer.accept(v1);
+    	return this;
     }
     
+    /// @see #v1()
     public Triangle v1(Vec3 other) {
-        v1.set(other);
-        return this;
+    	v1.set(other);
+    	return this;
     }
     
     public Vec3 v1() {
-        return v1;
+    	return v1;
     }
     
+    /// @see #v2()
     public Triangle v2(Consumer<Vec3> consumer) {
-        consumer.accept(v2);
-        return this;
+    	consumer.accept(v2);
+    	return this;
     }
     
+    /// @see #v2()
     public Triangle v2(Vec3 other) {
-        v2.set(other);
-        return this;
+    	v2.set(other);
+    	return this;
     }
     
     public Vec3 v2() {
-        return v2;
+    	return v2;
     }
     
+    /// @see #v3()
     public Triangle v3(Consumer<Vec3> consumer) {
-        consumer.accept(v3);
-        return this;
+    	consumer.accept(v3);
+    	return this;
     }
     
+    /// @see #v3()
     public Triangle v3(Vec3 other) {
-        v3.set(other);
-        return this;
+    	v3.set(other);
+    	return this;
     }
     
     public Vec3 v3() {
-        return v3;
+    	return v3;
     }
     
     @Override

@@ -19,9 +19,6 @@ import volucris.bindings.jolt.shape.Shape;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CharacterVirtualSettings
 		implements Struct<CharacterVirtualSettings> {
 
@@ -150,204 +147,222 @@ public final class CharacterVirtualSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
-    public CharacterVirtualSettings ID(int ID) {
-        ID_HANDLE.set(segment, 0L, ID);
-        return this;
+    /// @see #iD()
+    public CharacterVirtualSettings iD(int iD) {
+    	ID_HANDLE.set(segment, 0L, iD);
+    	return this;
     }
     
-    public int ID() {
-        return (int) ID_HANDLE.get(segment, 0L);
+    public int iD() {
+    	return (int) ID_HANDLE.get(segment, 0L);
     }
     
+    /// @see #mass()
     public CharacterVirtualSettings mass(float mass) {
-        MASS_HANDLE.set(segment, 0L, mass);
-        return this;
+    	MASS_HANDLE.set(segment, 0L, mass);
+    	return this;
     }
     
     public float mass() {
-        return (float) MASS_HANDLE.get(segment, 0L);
+    	return (float) MASS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxStrength()
     public CharacterVirtualSettings maxStrength(float maxStrength) {
-        MAX_STRENGTH_HANDLE.set(segment, 0L, maxStrength);
-        return this;
+    	MAX_STRENGTH_HANDLE.set(segment, 0L, maxStrength);
+    	return this;
     }
     
     public float maxStrength() {
-        return (float) MAX_STRENGTH_HANDLE.get(segment, 0L);
+    	return (float) MAX_STRENGTH_HANDLE.get(segment, 0L);
     }
     
+    /// @see #backFaceMode()
     public CharacterVirtualSettings backFaceMode(int backFaceMode) {
-        BACK_FACE_MODE_HANDLE.set(segment, 0L, backFaceMode);
-        return this;
+    	BACK_FACE_MODE_HANDLE.set(segment, 0L, backFaceMode);
+    	return this;
     }
     
     public int backFaceMode() {
-        return (int) BACK_FACE_MODE_HANDLE.get(segment, 0L);
+    	return (int) BACK_FACE_MODE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #predictiveContactDistance()
     public CharacterVirtualSettings predictiveContactDistance(float predictiveContactDistance) {
-        PREDICTIVE_CONTACT_DISTANCE_HANDLE.set(segment, 0L, predictiveContactDistance);
-        return this;
+    	PREDICTIVE_CONTACT_DISTANCE_HANDLE.set(segment, 0L, predictiveContactDistance);
+    	return this;
     }
     
     public float predictiveContactDistance() {
-        return (float) PREDICTIVE_CONTACT_DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) PREDICTIVE_CONTACT_DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxCollisionIterations()
     public CharacterVirtualSettings maxCollisionIterations(int maxCollisionIterations) {
-        MAX_COLLISION_ITERATIONS_HANDLE.set(segment, 0L, maxCollisionIterations);
-        return this;
+    	MAX_COLLISION_ITERATIONS_HANDLE.set(segment, 0L, maxCollisionIterations);
+    	return this;
     }
     
     public int maxCollisionIterations() {
-        return (int) MAX_COLLISION_ITERATIONS_HANDLE.get(segment, 0L);
+    	return (int) MAX_COLLISION_ITERATIONS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxConstraintIterations()
     public CharacterVirtualSettings maxConstraintIterations(int maxConstraintIterations) {
-        MAX_CONSTRAINT_ITERATIONS_HANDLE.set(segment, 0L, maxConstraintIterations);
-        return this;
+    	MAX_CONSTRAINT_ITERATIONS_HANDLE.set(segment, 0L, maxConstraintIterations);
+    	return this;
     }
     
     public int maxConstraintIterations() {
-        return (int) MAX_CONSTRAINT_ITERATIONS_HANDLE.get(segment, 0L);
+    	return (int) MAX_CONSTRAINT_ITERATIONS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #minTimeRemaining()
     public CharacterVirtualSettings minTimeRemaining(float minTimeRemaining) {
-        MIN_TIME_REMAINING_HANDLE.set(segment, 0L, minTimeRemaining);
-        return this;
+    	MIN_TIME_REMAINING_HANDLE.set(segment, 0L, minTimeRemaining);
+    	return this;
     }
     
     public float minTimeRemaining() {
-        return (float) MIN_TIME_REMAINING_HANDLE.get(segment, 0L);
+    	return (float) MIN_TIME_REMAINING_HANDLE.get(segment, 0L);
     }
     
+    /// @see #collisionTolerance()
     public CharacterVirtualSettings collisionTolerance(float collisionTolerance) {
-        COLLISION_TOLERANCE_HANDLE.set(segment, 0L, collisionTolerance);
-        return this;
+    	COLLISION_TOLERANCE_HANDLE.set(segment, 0L, collisionTolerance);
+    	return this;
     }
     
     public float collisionTolerance() {
-        return (float) COLLISION_TOLERANCE_HANDLE.get(segment, 0L);
+    	return (float) COLLISION_TOLERANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #characterPadding()
     public CharacterVirtualSettings characterPadding(float characterPadding) {
-        CHARACTER_PADDING_HANDLE.set(segment, 0L, characterPadding);
-        return this;
+    	CHARACTER_PADDING_HANDLE.set(segment, 0L, characterPadding);
+    	return this;
     }
     
     public float characterPadding() {
-        return (float) CHARACTER_PADDING_HANDLE.get(segment, 0L);
+    	return (float) CHARACTER_PADDING_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxNumHits()
     public CharacterVirtualSettings maxNumHits(int maxNumHits) {
-        MAX_NUM_HITS_HANDLE.set(segment, 0L, maxNumHits);
-        return this;
+    	MAX_NUM_HITS_HANDLE.set(segment, 0L, maxNumHits);
+    	return this;
     }
     
     public int maxNumHits() {
-        return (int) MAX_NUM_HITS_HANDLE.get(segment, 0L);
+    	return (int) MAX_NUM_HITS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #hitReductionCosMaxAngle()
     public CharacterVirtualSettings hitReductionCosMaxAngle(float hitReductionCosMaxAngle) {
-        HIT_REDUCTION_COS_MAX_ANGLE_HANDLE.set(segment, 0L, hitReductionCosMaxAngle);
-        return this;
+    	HIT_REDUCTION_COS_MAX_ANGLE_HANDLE.set(segment, 0L, hitReductionCosMaxAngle);
+    	return this;
     }
     
     public float hitReductionCosMaxAngle() {
-        return (float) HIT_REDUCTION_COS_MAX_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) HIT_REDUCTION_COS_MAX_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #penetrationRecoverySpeed()
     public CharacterVirtualSettings penetrationRecoverySpeed(float penetrationRecoverySpeed) {
-        PENETRATION_RECOVERY_SPEED_HANDLE.set(segment, 0L, penetrationRecoverySpeed);
-        return this;
+    	PENETRATION_RECOVERY_SPEED_HANDLE.set(segment, 0L, penetrationRecoverySpeed);
+    	return this;
     }
     
     public float penetrationRecoverySpeed() {
-        return (float) PENETRATION_RECOVERY_SPEED_HANDLE.get(segment, 0L);
+    	return (float) PENETRATION_RECOVERY_SPEED_HANDLE.get(segment, 0L);
     }
     
+    /// @see #innerBodyShape()
     public CharacterVirtualSettings innerBodyShape(Shape innerBodyShape) {
-        INNER_BODY_SHAPE_HANDLE.set(segment, 0L, innerBodyShape.memorySegment());
-        return this;
+    	INNER_BODY_SHAPE_HANDLE.set(segment, 0L, innerBodyShape.memorySegment());
+    	return this;
     }
     
     public @Nullable Shape innerBodyShape() {
-        MemorySegment segment = (MemorySegment) INNER_BODY_SHAPE_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) INNER_BODY_SHAPE_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Shape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Shape(segment);
     }
     
+    /// @see #innerBodyIDOverride()
     public CharacterVirtualSettings innerBodyIDOverride(int innerBodyIDOverride) {
-        INNER_BODY_IDOVERRIDE_HANDLE.set(segment, 0L, innerBodyIDOverride);
-        return this;
+    	INNER_BODY_IDOVERRIDE_HANDLE.set(segment, 0L, innerBodyIDOverride);
+    	return this;
     }
     
     public int innerBodyIDOverride() {
-        return (int) INNER_BODY_IDOVERRIDE_HANDLE.get(segment, 0L);
+    	return (int) INNER_BODY_IDOVERRIDE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #innerBodyLayer()
     public CharacterVirtualSettings innerBodyLayer(int innerBodyLayer) {
-        INNER_BODY_LAYER_HANDLE.set(segment, 0L, innerBodyLayer);
-        return this;
+    	INNER_BODY_LAYER_HANDLE.set(segment, 0L, innerBodyLayer);
+    	return this;
     }
     
     public int innerBodyLayer() {
-        return (int) INNER_BODY_LAYER_HANDLE.get(segment, 0L);
+    	return (int) INNER_BODY_LAYER_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public CharacterVirtualSettings base(Consumer<CharacterBaseSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public CharacterVirtualSettings base(CharacterBaseSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public CharacterBaseSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #shapeOffset()
     public CharacterVirtualSettings shapeOffset(Consumer<Vec3> consumer) {
-        consumer.accept(shapeOffset);
-        return this;
+    	consumer.accept(shapeOffset);
+    	return this;
     }
     
+    /// @see #shapeOffset()
     public CharacterVirtualSettings shapeOffset(Vec3 other) {
-        shapeOffset.set(other);
-        return this;
+    	shapeOffset.set(other);
+    	return this;
     }
     
     public Vec3 shapeOffset() {
-        return shapeOffset;
+    	return shapeOffset;
     }
     
     @Override

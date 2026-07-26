@@ -3,6 +3,7 @@
  */
 package volucris.bindings.jolt.callbacks;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -11,13 +12,15 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Map;
+import volucris.bindings.core.NativeByteArray;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
 public abstract class AssertFailureFunc {
 
-    private static final HashMap<Long, WeakReference<AssertFailureFunc>> CACHE;
+    private static final Map<Long, WeakReference<AssertFailureFunc>> CACHE;
 
     public static final FunctionDescriptor DESCRIPTION;
     public static final MethodHandle HANDLE;
@@ -53,23 +56,23 @@ public abstract class AssertFailureFunc {
     }
 
     public boolean invoke(
-        MemorySegment expression, 
-        MemorySegment message, 
-        MemorySegment file, 
+        MemorySegment expression,
+        MemorySegment message,
+        MemorySegment file,
         int line
     ) {
-        return (boolean) invoke(
-            expression.getString(0), 
-            message.getString(0), 
-            file.getString(0), 
-            line
+        return invoke(
+            new NativeByteArray(expression),
+            new NativeByteArray(message),
+            new NativeByteArray(file),
+		    line
         );
     }
 
     public boolean invoke(
-        String expression, 
-        String message, 
-        String file, 
+        NativeByteArray expression,
+        NativeByteArray message,
+        NativeByteArray file,
         int line
     ) {
         throw new UnsupportedOperationException(
@@ -77,12 +80,11 @@ public abstract class AssertFailureFunc {
         );
     };
 
-
     public MemorySegment memorySegment() {
         return segment;
     }
 
-    public static AssertFailureFunc get(MemorySegment segment) {
+    public static @Nullable AssertFailureFunc get(MemorySegment segment) {
         WeakReference<AssertFailureFunc> reference = CACHE.get(segment.address());
 
         if (reference == null)

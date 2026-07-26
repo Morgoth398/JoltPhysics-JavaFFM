@@ -3,16 +3,12 @@
  */
 package volucris.bindings.jolt.character;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CharacterVsCharacterCollisionSimple extends CharacterVsCharacterCollision {
 
     private static final LazyConstant<MethodHandle> JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE_SIMPLE;
@@ -30,79 +26,83 @@ public final class CharacterVsCharacterCollisionSimple extends CharacterVsCharac
     }
 
     public CharacterVsCharacterCollisionSimple() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#createSimple].
     public CharacterVsCharacterCollisionSimple(Arena arena) {
-        MemorySegment segment = createSimple();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = createSimple();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public CharacterVsCharacterCollisionSimple(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment createSimple() {
-        MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE_SIMPLE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE_SIMPLE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void addCharacter(
-        MemorySegment characterVsCharacter, 
-        MemorySegment character
+    	MemorySegment characterVsCharacter,
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SIMPLE_ADD_CHARACTER.get();
-        try {
-            method.invokeExact(
-                characterVsCharacter, 
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SIMPLE_ADD_CHARACTER.get();
+    	try {
+    		 method.invokeExact(
+    			characterVsCharacter,
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addCharacter}.
-     */
+    /// Typed method of [#addCharacter].
     public final void addCharacter(
-        CharacterVirtual character
+    	CharacterVirtual character
     ) {
-        addCharacter(
-            this.segment, 
-            character.memorySegment()
-        );
+    	addCharacter(
+    		this.segment,
+    		character.memorySegment()
+    	);
     }
+    
     
     public static void removeCharacter(
-        MemorySegment characterVsCharacter, 
-        MemorySegment character
+    	MemorySegment characterVsCharacter,
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SIMPLE_REMOVE_CHARACTER.get();
-        try {
-            method.invokeExact(
-                characterVsCharacter, 
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SIMPLE_REMOVE_CHARACTER.get();
+    	try {
+    		 method.invokeExact(
+    			characterVsCharacter,
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #removeCharacter}.
-     */
+    /// Typed method of [#removeCharacter].
     public final void removeCharacter(
-        CharacterVirtual character
+    	CharacterVirtual character
     ) {
-        removeCharacter(
-            this.segment, 
-            character.memorySegment()
-        );
+    	removeCharacter(
+    		this.segment,
+    		character.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

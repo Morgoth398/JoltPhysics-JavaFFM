@@ -9,9 +9,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleTrack {
 
     private static final LazyConstant<MethodHandle> JPH_VEHICLE_TRACK_GET_ANGULAR_VELOCITY;
@@ -37,172 +34,159 @@ public final class VehicleTrack {
     }
 
     public VehicleTrack(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static float getAngularVelocity(
-        MemorySegment track
+    	MemorySegment track
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_VELOCITY.get();
-        try {
-            return (float) method.invokeExact(
-                track
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_VELOCITY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			track
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAngularVelocity}.
-     */
-    public final float getAngularVelocity(
-    ) {
-        return (float) getAngularVelocity(
-            this.segment
-        );
+    /// Typed method of [#getAngularVelocity].
+    public final float getAngularVelocity() {
+    	return (float) getAngularVelocity(
+    		this.segment
+    	);
     }
+    
     
     public static void setAngularVelocity(
-        MemorySegment track, 
-        float velocity
+    	MemorySegment track,
+    	float velocity
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_SET_ANGULAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                track, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_SET_ANGULAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			track,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setAngularVelocity}.
-     */
+    /// Typed method of [#setAngularVelocity].
     public final void setAngularVelocity(
-        float velocity
+    	float velocity
     ) {
-        setAngularVelocity(
-            this.segment, 
-            velocity
-        );
+    	setAngularVelocity(
+    		this.segment,
+    		velocity
+    	);
     }
+    
     
     public static int getDrivenWheel(
-        MemorySegment track
+    	MemorySegment track
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_GET_DRIVEN_WHEEL.get();
-        try {
-            return (int) method.invokeExact(
-                track
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_GET_DRIVEN_WHEEL.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			track
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDrivenWheel}.
-     */
-    public final int getDrivenWheel(
-    ) {
-        return (int) getDrivenWheel(
-            this.segment
-        );
+    /// Typed method of [#getDrivenWheel].
+    public final int getDrivenWheel() {
+    	return (int) getDrivenWheel(
+    		this.segment
+    	);
     }
+    
     
     public static float getInertia(
-        MemorySegment track
+    	MemorySegment track
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_GET_INERTIA.get();
-        try {
-            return (float) method.invokeExact(
-                track
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_GET_INERTIA.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			track
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInertia}.
-     */
-    public final float getInertia(
-    ) {
-        return (float) getInertia(
-            this.segment
-        );
+    /// Typed method of [#getInertia].
+    public final float getInertia() {
+    	return (float) getInertia(
+    		this.segment
+    	);
     }
+    
     
     public static float getAngularDamping(
-        MemorySegment track
+    	MemorySegment track
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_DAMPING.get();
-        try {
-            return (float) method.invokeExact(
-                track
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_DAMPING.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			track
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAngularDamping}.
-     */
-    public final float getAngularDamping(
-    ) {
-        return (float) getAngularDamping(
-            this.segment
-        );
+    /// Typed method of [#getAngularDamping].
+    public final float getAngularDamping() {
+    	return (float) getAngularDamping(
+    		this.segment
+    	);
     }
+    
     
     public static float getMaxBrakeTorque(
-        MemorySegment track
+    	MemorySegment track
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_GET_MAX_BRAKE_TORQUE.get();
-        try {
-            return (float) method.invokeExact(
-                track
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_GET_MAX_BRAKE_TORQUE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			track
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxBrakeTorque}.
-     */
-    public final float getMaxBrakeTorque(
-    ) {
-        return (float) getMaxBrakeTorque(
-            this.segment
-        );
+    /// Typed method of [#getMaxBrakeTorque].
+    public final float getMaxBrakeTorque() {
+    	return (float) getMaxBrakeTorque(
+    		this.segment
+    	);
     }
+    
     
     public static float getDifferentialRatio(
-        MemorySegment track
+    	MemorySegment track
     ) {
-        MethodHandle method = JPH_VEHICLE_TRACK_GET_DIFFERENTIAL_RATIO.get();
-        try {
-            return (float) method.invokeExact(
-                track
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRACK_GET_DIFFERENTIAL_RATIO.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			track
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDifferentialRatio}.
-     */
-    public final float getDifferentialRatio(
-    ) {
-        return (float) getDifferentialRatio(
-            this.segment
-        );
+    /// Typed method of [#getDifferentialRatio].
+    public final float getDifferentialRatio() {
+    	return (float) getDifferentialRatio(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

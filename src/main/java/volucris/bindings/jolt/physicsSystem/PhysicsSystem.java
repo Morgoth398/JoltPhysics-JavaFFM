@@ -27,11 +27,8 @@ import volucris.bindings.jolt.raycast.BroadPhaseQuery;
 import volucris.bindings.jolt.raycast.NarrowPhaseQuery;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.bindings.core.FFMUtils.*;;
+import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class PhysicsSystem {
 
     private static final LazyConstant<MethodHandle> JPH_PHYSICS_SYSTEM_CREATE;
@@ -131,1132 +128,1089 @@ public final class PhysicsSystem {
         );
     }
     
+    /// Typed method of [#create].
     public PhysicsSystem(
-        Arena arena,
-        PhysicsSystemSettings settings
+    	Arena arena,
+    	PhysicsSystemSettings settings
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public PhysicsSystem(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_DESTROY.get();
-        try {
-            method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void setPhysicsSettings(
-        MemorySegment system, 
-        MemorySegment settings
+    	MemorySegment system,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_SET_PHYSICS_SETTINGS.get();
-        try {
-            method.invokeExact(
-                system, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_SET_PHYSICS_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPhysicsSettings}.
-     */
+    /// Typed method of [#setPhysicsSettings].
     public final void setPhysicsSettings(
-        PhysicsSettings settings
+    	PhysicsSettings settings
     ) {
-        setPhysicsSettings(
-            this.segment, 
-            settings.memorySegment()
-        );
+    	setPhysicsSettings(
+    		this.segment,
+    		settings.memorySegment()
+    	);
     }
+    
     
     public static void getPhysicsSettings(
-        MemorySegment system, 
-        MemorySegment result
+    	MemorySegment system,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_PHYSICS_SETTINGS.get();
-        try {
-            method.invokeExact(
-                system, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_PHYSICS_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPhysicsSettings}.
-     */
+    /// Typed method of [#getPhysicsSettings].
     public final void getPhysicsSettings(
-        PhysicsSettings result
+    	PhysicsSettings result
     ) {
-        getPhysicsSettings(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getPhysicsSettings(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void optimizeBroadPhase(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_OPTIMIZE_BROAD_PHASE.get();
-        try {
-            method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_OPTIMIZE_BROAD_PHASE.get();
+    	try {
+    		 method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #optimizeBroadPhase}.
-     */
-    public final void optimizeBroadPhase(
-    ) {
-        optimizeBroadPhase(
-            this.segment
-        );
+    /// Typed method of [#optimizeBroadPhase].
+    public final void optimizeBroadPhase() {
+    	optimizeBroadPhase(
+    		this.segment
+    	);
     }
+    
     
     public static int update(
-        MemorySegment system, 
-        float deltaTime, 
-        int collisionSteps, 
-        MemorySegment jobSystem
+    	MemorySegment system,
+    	float deltaTime,
+    	int collisionSteps,
+    	MemorySegment jobSystem
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_UPDATE.get();
-        try {
-            return (int) method.invokeExact(
-                system, 
-                deltaTime, 
-                collisionSteps, 
-                jobSystem
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_UPDATE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			system,
+    			deltaTime,
+    			collisionSteps,
+    			jobSystem
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #update}.
-     */
+    /// Typed method of [#update].
     public final int update(
-        float deltaTime, 
-        int collisionSteps, 
-        JobSystem jobSystem
+    	float deltaTime,
+    	int collisionSteps,
+    	JobSystem jobSystem
     ) {
-        return (int) update(
-            this.segment, 
-            deltaTime, 
-            collisionSteps, 
-            jobSystem.memorySegment()
-        );
+    	return (int) update(
+    		this.segment,
+    		deltaTime,
+    		collisionSteps,
+    		jobSystem.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getBodyInterface(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyInterface}.
-     */
-    public final @Nullable BodyInterface getBodyInterface(
-    ) {
-        MemorySegment segment = getBodyInterface(
-            this.segment
-        );
+    /// Typed method of [#getBodyInterface].
+    public final @Nullable BodyInterface getBodyInterface() {
+    	MemorySegment segment = getBodyInterface(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BodyInterface(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BodyInterface(segment);
     }
+    
     
     public static MemorySegment getBodyInterfaceNoLock(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE_NO_LOCK.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE_NO_LOCK.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyInterfaceNoLock}.
-     */
-    public final @Nullable BodyInterface getBodyInterfaceNoLock(
-    ) {
-        MemorySegment segment = getBodyInterfaceNoLock(
-            this.segment
-        );
+    /// Typed method of [#getBodyInterfaceNoLock].
+    public final @Nullable BodyInterface getBodyInterfaceNoLock() {
+    	MemorySegment segment = getBodyInterfaceNoLock(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BodyInterface(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BodyInterface(segment);
     }
+    
     
     public static MemorySegment getBodyLockInterface(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_LOCK_INTERFACE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_LOCK_INTERFACE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyLockInterface}.
-     */
-    public final @Nullable BodyLockInterface getBodyLockInterface(
-    ) {
-        MemorySegment segment = getBodyLockInterface(
-            this.segment
-        );
+    /// Typed method of [#getBodyLockInterface].
+    public final @Nullable BodyLockInterface getBodyLockInterface() {
+    	MemorySegment segment = getBodyLockInterface(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BodyLockInterface(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BodyLockInterface(segment);
     }
+    
     
     public static MemorySegment getBodyLockInterfaceNoLock(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_LOCK_INTERFACE_NO_LOCK.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_LOCK_INTERFACE_NO_LOCK.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyLockInterfaceNoLock}.
-     */
-    public final @Nullable BodyLockInterface getBodyLockInterfaceNoLock(
-    ) {
-        MemorySegment segment = getBodyLockInterfaceNoLock(
-            this.segment
-        );
+    /// Typed method of [#getBodyLockInterfaceNoLock].
+    public final @Nullable BodyLockInterface getBodyLockInterfaceNoLock() {
+    	MemorySegment segment = getBodyLockInterfaceNoLock(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BodyLockInterface(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BodyLockInterface(segment);
     }
+    
     
     public static MemorySegment getBroadPhaseQuery(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BROAD_PHASE_QUERY.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BROAD_PHASE_QUERY.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBroadPhaseQuery}.
-     */
-    public final @Nullable BroadPhaseQuery getBroadPhaseQuery(
-    ) {
-        MemorySegment segment = getBroadPhaseQuery(
-            this.segment
-        );
+    /// Typed method of [#getBroadPhaseQuery].
+    public final @Nullable BroadPhaseQuery getBroadPhaseQuery() {
+    	MemorySegment segment = getBroadPhaseQuery(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BroadPhaseQuery(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BroadPhaseQuery(segment);
     }
+    
     
     public static MemorySegment getNarrowPhaseQuery(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNarrowPhaseQuery}.
-     */
-    public final @Nullable NarrowPhaseQuery getNarrowPhaseQuery(
-    ) {
-        MemorySegment segment = getNarrowPhaseQuery(
-            this.segment
-        );
+    /// Typed method of [#getNarrowPhaseQuery].
+    public final @Nullable NarrowPhaseQuery getNarrowPhaseQuery() {
+    	MemorySegment segment = getNarrowPhaseQuery(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NarrowPhaseQuery(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NarrowPhaseQuery(segment);
     }
+    
     
     public static MemorySegment getNarrowPhaseQueryNoLock(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY_NO_LOCK.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY_NO_LOCK.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNarrowPhaseQueryNoLock}.
-     */
-    public final @Nullable NarrowPhaseQuery getNarrowPhaseQueryNoLock(
-    ) {
-        MemorySegment segment = getNarrowPhaseQueryNoLock(
-            this.segment
-        );
+    /// Typed method of [#getNarrowPhaseQueryNoLock].
+    public final @Nullable NarrowPhaseQuery getNarrowPhaseQueryNoLock() {
+    	MemorySegment segment = getNarrowPhaseQueryNoLock(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NarrowPhaseQuery(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NarrowPhaseQuery(segment);
     }
+    
     
     public static void setContactListener(
-        MemorySegment system, 
-        MemorySegment listener
+    	MemorySegment system,
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_SET_CONTACT_LISTENER.get();
-        try {
-            method.invokeExact(
-                system, 
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_SET_CONTACT_LISTENER.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setContactListener}.
-     */
+    /// Typed method of [#setContactListener].
     public final void setContactListener(
-        ContactListener listener
+    	ContactListener listener
     ) {
-        setContactListener(
-            this.segment, 
-            listener.memorySegment()
-        );
+    	setContactListener(
+    		this.segment,
+    		listener.memorySegment()
+    	);
     }
+    
     
     public static void setBodyActivationListener(
-        MemorySegment system, 
-        MemorySegment listener
+    	MemorySegment system,
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_SET_BODY_ACTIVATION_LISTENER.get();
-        try {
-            method.invokeExact(
-                system, 
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_SET_BODY_ACTIVATION_LISTENER.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setBodyActivationListener}.
-     */
+    /// Typed method of [#setBodyActivationListener].
     public final void setBodyActivationListener(
-        BodyActivationListener listener
+    	BodyActivationListener listener
     ) {
-        setBodyActivationListener(
-            this.segment, 
-            listener.memorySegment()
-        );
+    	setBodyActivationListener(
+    		this.segment,
+    		listener.memorySegment()
+    	);
     }
+    
     
     public static void setSimShapeFilter(
-        MemorySegment system, 
-        MemorySegment filter
+    	MemorySegment system,
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_SET_SIM_SHAPE_FILTER.get();
-        try {
-            method.invokeExact(
-                system, 
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_SET_SIM_SHAPE_FILTER.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSimShapeFilter}.
-     */
+    /// Typed method of [#setSimShapeFilter].
     public final void setSimShapeFilter(
-        SimShapeFilter filter
+    	SimShapeFilter filter
     ) {
-        setSimShapeFilter(
-            this.segment, 
-            filter.memorySegment()
-        );
+    	setSimShapeFilter(
+    		this.segment,
+    		filter.memorySegment()
+    	);
     }
+    
     
     public static boolean wereBodiesInContact(
-        MemorySegment system, 
-        int body1, 
-        int body2
+    	MemorySegment system,
+    	int body1,
+    	int body2
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_WERE_BODIES_IN_CONTACT.get();
-        try {
-            return (boolean) method.invokeExact(
-                system, 
-                body1, 
-                body2
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_WERE_BODIES_IN_CONTACT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			system,
+    			body1,
+    			body2
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #wereBodiesInContact}.
-     */
+    /// Typed method of [#wereBodiesInContact].
     public final boolean wereBodiesInContact(
-        int body1, 
-        int body2
+    	int body1,
+    	int body2
     ) {
-        return (boolean) wereBodiesInContact(
-            this.segment, 
-            body1, 
-            body2
-        );
+    	return (boolean) wereBodiesInContact(
+    		this.segment,
+    		body1,
+    		body2
+    	);
     }
+    
     
     public static int getNumBodies(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_BODIES.get();
-        try {
-            return (int) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_BODIES.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumBodies}.
-     */
-    public final int getNumBodies(
-    ) {
-        return (int) getNumBodies(
-            this.segment
-        );
+    /// Typed method of [#getNumBodies].
+    public final int getNumBodies() {
+    	return (int) getNumBodies(
+    		this.segment
+    	);
     }
+    
     
     public static int getNumActiveBodies(
-        MemorySegment system, 
-        int type
+    	MemorySegment system,
+    	int type
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_ACTIVE_BODIES.get();
-        try {
-            return (int) method.invokeExact(
-                system, 
-                type
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_ACTIVE_BODIES.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			system,
+    			type
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumActiveBodies}.
-     */
+    /// Typed method of [#getNumActiveBodies].
     public final int getNumActiveBodies(
-        int type
+    	int type
     ) {
-        return (int) getNumActiveBodies(
-            this.segment, 
-            type
-        );
+    	return (int) getNumActiveBodies(
+    		this.segment,
+    		type
+    	);
     }
+    
     
     public static int getMaxBodies(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_MAX_BODIES.get();
-        try {
-            return (int) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_MAX_BODIES.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxBodies}.
-     */
-    public final int getMaxBodies(
-    ) {
-        return (int) getMaxBodies(
-            this.segment
-        );
+    /// Typed method of [#getMaxBodies].
+    public final int getMaxBodies() {
+    	return (int) getMaxBodies(
+    		this.segment
+    	);
     }
+    
     
     public static int getNumConstraints(
-        MemorySegment system
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_CONSTRAINTS.get();
-        try {
-            return (int) method.invokeExact(
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_CONSTRAINTS.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumConstraints}.
-     */
-    public final int getNumConstraints(
-    ) {
-        return (int) getNumConstraints(
-            this.segment
-        );
+    /// Typed method of [#getNumConstraints].
+    public final int getNumConstraints() {
+    	return (int) getNumConstraints(
+    		this.segment
+    	);
     }
+    
     
     public static void setGravity(
-        MemorySegment system, 
-        MemorySegment value
+    	MemorySegment system,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_SET_GRAVITY.get();
-        try {
-            method.invokeExact(
-                system, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_SET_GRAVITY.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setGravity}.
-     */
+    /// Typed method of [#setGravity].
     public final void setGravity(
-        Vec3 value
+    	Vec3 value
     ) {
-        setGravity(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setGravity(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getGravity(
-        MemorySegment system, 
-        MemorySegment result
+    	MemorySegment system,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_GRAVITY.get();
-        try {
-            method.invokeExact(
-                system, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_GRAVITY.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getGravity}.
-     */
+    /// Typed method of [#getGravity].
     public final void getGravity(
-        Vec3 result
+    	Vec3 result
     ) {
-        getGravity(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getGravity(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void addConstraint(
-        MemorySegment system, 
-        MemorySegment constraint
+    	MemorySegment system,
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_CONSTRAINT.get();
-        try {
-            method.invokeExact(
-                system, 
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_CONSTRAINT.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addConstraint}.
-     */
+    /// Typed method of [#addConstraint].
     public final void addConstraint(
-        Constraint constraint
+    	Constraint constraint
     ) {
-        addConstraint(
-            this.segment, 
-            constraint.memorySegment()
-        );
+    	addConstraint(
+    		this.segment,
+    		constraint.memorySegment()
+    	);
     }
+    
     
     public static void removeConstraint(
-        MemorySegment system, 
-        MemorySegment constraint
+    	MemorySegment system,
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_CONSTRAINT.get();
-        try {
-            method.invokeExact(
-                system, 
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_CONSTRAINT.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #removeConstraint}.
-     */
+    /// Typed method of [#removeConstraint].
     public final void removeConstraint(
-        Constraint constraint
+    	Constraint constraint
     ) {
-        removeConstraint(
-            this.segment, 
-            constraint.memorySegment()
-        );
+    	removeConstraint(
+    		this.segment,
+    		constraint.memorySegment()
+    	);
     }
+    
     
     public static void addConstraints(
-        MemorySegment system, 
-        MemorySegment constraints, 
-        int count
+    	MemorySegment system,
+    	MemorySegment constraints,
+    	int count
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_CONSTRAINTS.get();
-        try {
-            method.invokeExact(
-                system, 
-                constraints, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_CONSTRAINTS.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			constraints,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addConstraints}.
-     */
+    /// Typed method of [#addConstraints].
     public final void addConstraints(
-        NativePointerArray constraints, 
-        int count
+    	NativePointerArray constraints,
+    	int count
     ) {
-        addConstraints(
-            this.segment, 
-            constraints.memorySegment(), 
-            count
-        );
+    	addConstraints(
+    		this.segment,
+    		constraints.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static void removeConstraints(
-        MemorySegment system, 
-        MemorySegment constraints, 
-        int count
+    	MemorySegment system,
+    	MemorySegment constraints,
+    	int count
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_CONSTRAINTS.get();
-        try {
-            method.invokeExact(
-                system, 
-                constraints, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_CONSTRAINTS.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			constraints,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #removeConstraints}.
-     */
+    /// Typed method of [#removeConstraints].
     public final void removeConstraints(
-        NativePointerArray constraints, 
-        int count
+    	NativePointerArray constraints,
+    	int count
     ) {
-        removeConstraints(
-            this.segment, 
-            constraints.memorySegment(), 
-            count
-        );
+    	removeConstraints(
+    		this.segment,
+    		constraints.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static void addStepListener(
-        MemorySegment system, 
-        MemorySegment listener
+    	MemorySegment system,
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_STEP_LISTENER.get();
-        try {
-            method.invokeExact(
-                system, 
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_ADD_STEP_LISTENER.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addStepListener}.
-     */
+    /// Typed method of [#addStepListener].
     public final void addStepListener(
-        PhysicsStepListener listener
+    	PhysicsStepListener listener
     ) {
-        addStepListener(
-            this.segment, 
-            listener.memorySegment()
-        );
+    	addStepListener(
+    		this.segment,
+    		listener.memorySegment()
+    	);
     }
+    
     
     public static void removeStepListener(
-        MemorySegment system, 
-        MemorySegment listener
+    	MemorySegment system,
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_STEP_LISTENER.get();
-        try {
-            method.invokeExact(
-                system, 
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_REMOVE_STEP_LISTENER.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #removeStepListener}.
-     */
+    /// Typed method of [#removeStepListener].
     public final void removeStepListener(
-        PhysicsStepListener listener
+    	PhysicsStepListener listener
     ) {
-        removeStepListener(
-            this.segment, 
-            listener.memorySegment()
-        );
+    	removeStepListener(
+    		this.segment,
+    		listener.memorySegment()
+    	);
     }
+    
     
     public static void getBodies(
-        MemorySegment system, 
-        MemorySegment ids, 
-        int count
+    	MemorySegment system,
+    	MemorySegment ids,
+    	int count
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODIES.get();
-        try {
-            method.invokeExact(
-                system, 
-                ids, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODIES.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			ids,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodies}.
-     */
+    /// Typed method of [#getBodies].
     public final void getBodies(
-        NativeIntArray ids, 
-        int count
+    	NativeIntArray ids,
+    	int count
     ) {
-        getBodies(
-            this.segment, 
-            ids.memorySegment(), 
-            count
-        );
+    	getBodies(
+    		this.segment,
+    		ids.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static void getActiveBodies(
-        MemorySegment system, 
-        int type, 
-        MemorySegment ids, 
-        int count
+    	MemorySegment system,
+    	int type,
+    	MemorySegment ids,
+    	int count
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_ACTIVE_BODIES.get();
-        try {
-            method.invokeExact(
-                system, 
-                type, 
-                ids, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_ACTIVE_BODIES.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			type,
+    			ids,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getActiveBodies}.
-     */
+    /// Typed method of [#getActiveBodies].
     public final void getActiveBodies(
-        int type, 
-        NativeIntArray ids, 
-        int count
+    	int type,
+    	NativeIntArray ids,
+    	int count
     ) {
-        getActiveBodies(
-            this.segment, 
-            type, 
-            ids.memorySegment(), 
-            count
-        );
+    	getActiveBodies(
+    		this.segment,
+    		type,
+    		ids.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static MemorySegment getActiveBodiesUnsafe(
-        MemorySegment system, 
-        int type
+    	MemorySegment system,
+    	int type
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_ACTIVE_BODIES_UNSAFE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system, 
-                type
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_ACTIVE_BODIES_UNSAFE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system,
+    			type
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getActiveBodiesUnsafe}.
-     */
+    /// Typed method of [#getActiveBodiesUnsafe].
     public final @Nullable NativeIntArray getActiveBodiesUnsafe(
-        int type
+    	int type
     ) {
-        MemorySegment segment = getActiveBodiesUnsafe(
-            this.segment, 
-            type
-        );
+    	MemorySegment segment = getActiveBodiesUnsafe(
+    		this.segment,
+    		type
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NativeIntArray(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativeIntArray(segment);
     }
+    
     
     public static void getConstraints(
-        MemorySegment system, 
-        MemorySegment constraints, 
-        int count
+    	MemorySegment system,
+    	MemorySegment constraints,
+    	int count
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_CONSTRAINTS.get();
-        try {
-            method.invokeExact(
-                system, 
-                constraints, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_CONSTRAINTS.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			constraints,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getConstraints}.
-     */
+    /// Typed method of [#getConstraints].
     public final void getConstraints(
-        NativePointerArray constraints, 
-        int count
+    	NativePointerArray constraints,
+    	int count
     ) {
-        getConstraints(
-            this.segment, 
-            constraints.memorySegment(), 
-            count
-        );
+    	getConstraints(
+    		this.segment,
+    		constraints.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static void activateBodiesInAABox(
-        MemorySegment system, 
-        MemorySegment box, 
-        int layer
+    	MemorySegment system,
+    	MemorySegment box,
+    	int layer
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_ACTIVATE_BODIES_IN_AABOX.get();
-        try {
-            method.invokeExact(
-                system, 
-                box, 
-                layer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_ACTIVATE_BODIES_IN_AABOX.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			box,
+    			layer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #activateBodiesInAABox}.
-     */
+    /// Typed method of [#activateBodiesInAABox].
     public final void activateBodiesInAABox(
-        AABox box, 
-        int layer
+    	AABox box,
+    	int layer
     ) {
-        activateBodiesInAABox(
-            this.segment, 
-            box.memorySegment(), 
-            layer
-        );
+    	activateBodiesInAABox(
+    		this.segment,
+    		box.memorySegment(),
+    		layer
+    	);
     }
+    
     
     public static void drawBodies(
-        MemorySegment system, 
-        MemorySegment settings, 
-        MemorySegment renderer, 
-        MemorySegment bodyFilter
+    	MemorySegment system,
+    	MemorySegment settings,
+    	MemorySegment renderer,
+    	MemorySegment bodyFilter
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_BODIES.get();
-        try {
-            method.invokeExact(
-                system, 
-                settings, 
-                renderer, 
-                bodyFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_BODIES.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			settings,
+    			renderer,
+    			bodyFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawBodies}.
-     */
+    /// Typed method of [#drawBodies].
     public final void drawBodies(
-        DrawSettings settings, 
-        DebugRenderer renderer, 
-        BodyDrawFilter bodyFilter
+    	DrawSettings settings,
+    	DebugRenderer renderer,
+    	BodyDrawFilter bodyFilter
     ) {
-        drawBodies(
-            this.segment, 
-            settings.memorySegment(), 
-            renderer.memorySegment(), 
-            bodyFilter.memorySegment()
-        );
+    	drawBodies(
+    		this.segment,
+    		settings.memorySegment(),
+    		renderer.memorySegment(),
+    		bodyFilter.memorySegment()
+    	);
     }
+    
     
     public static void drawConstraints(
-        MemorySegment system, 
-        MemorySegment renderer
+    	MemorySegment system,
+    	MemorySegment renderer
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINTS.get();
-        try {
-            method.invokeExact(
-                system, 
-                renderer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINTS.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			renderer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawConstraints}.
-     */
+    /// Typed method of [#drawConstraints].
     public final void drawConstraints(
-        DebugRenderer renderer
+    	DebugRenderer renderer
     ) {
-        drawConstraints(
-            this.segment, 
-            renderer.memorySegment()
-        );
+    	drawConstraints(
+    		this.segment,
+    		renderer.memorySegment()
+    	);
     }
+    
     
     public static void drawConstraintLimits(
-        MemorySegment system, 
-        MemorySegment renderer
+    	MemorySegment system,
+    	MemorySegment renderer
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_LIMITS.get();
-        try {
-            method.invokeExact(
-                system, 
-                renderer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_LIMITS.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			renderer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawConstraintLimits}.
-     */
+    /// Typed method of [#drawConstraintLimits].
     public final void drawConstraintLimits(
-        DebugRenderer renderer
+    	DebugRenderer renderer
     ) {
-        drawConstraintLimits(
-            this.segment, 
-            renderer.memorySegment()
-        );
+    	drawConstraintLimits(
+    		this.segment,
+    		renderer.memorySegment()
+    	);
     }
+    
     
     public static void drawConstraintReferenceFrame(
-        MemorySegment system, 
-        MemorySegment renderer
+    	MemorySegment system,
+    	MemorySegment renderer
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_REFERENCE_FRAME.get();
-        try {
-            method.invokeExact(
-                system, 
-                renderer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_DRAW_CONSTRAINT_REFERENCE_FRAME.get();
+    	try {
+    		 method.invokeExact(
+    			system,
+    			renderer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawConstraintReferenceFrame}.
-     */
+    /// Typed method of [#drawConstraintReferenceFrame].
     public final void drawConstraintReferenceFrame(
-        DebugRenderer renderer
+    	DebugRenderer renderer
     ) {
-        drawConstraintReferenceFrame(
-            this.segment, 
-            renderer.memorySegment()
-        );
+    	drawConstraintReferenceFrame(
+    		this.segment,
+    		renderer.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getBodyPtr(
-        MemorySegment system, 
-        int bodyID
+    	MemorySegment system,
+    	int bodyID
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_PTR.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                system, 
-                bodyID
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_PTR.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			system,
+    			bodyID
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyPtr}.
-     */
+    /// Typed method of [#getBodyPtr].
     public final @Nullable Body getBodyPtr(
-        int bodyID
+    	int bodyID
     ) {
-        MemorySegment segment = getBodyPtr(
-            this.segment, 
-            bodyID
-        );
+    	MemorySegment segment = getBodyPtr(
+    		this.segment,
+    		bodyID
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Body(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Body(segment);
     }
+    
     
     public static int update2(
-        MemorySegment system, 
-        float deltaTime, 
-        int collisionSteps, 
-        MemorySegment tempAllocator, 
-        MemorySegment jobSystem
+    	MemorySegment system,
+    	float deltaTime,
+    	int collisionSteps,
+    	MemorySegment tempAllocator,
+    	MemorySegment jobSystem
     ) {
-        MethodHandle method = JPH_PHYSICS_SYSTEM_UPDATE2.get();
-        try {
-            return (int) method.invokeExact(
-                system, 
-                deltaTime, 
-                collisionSteps, 
-                tempAllocator, 
-                jobSystem
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_SYSTEM_UPDATE2.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			system,
+    			deltaTime,
+    			collisionSteps,
+    			tempAllocator,
+    			jobSystem
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #update2}.
-     */
+    /// Typed method of [#update2].
     public final int update2(
-        float deltaTime, 
-        int collisionSteps, 
-        TempAllocator tempAllocator, 
-        JobSystem jobSystem
+    	float deltaTime,
+    	int collisionSteps,
+    	TempAllocator tempAllocator,
+    	JobSystem jobSystem
     ) {
-        return (int) update2(
-            this.segment, 
-            deltaTime, 
-            collisionSteps, 
-            tempAllocator.memorySegment(), 
-            jobSystem.memorySegment()
-        );
+    	return (int) update2(
+    		this.segment,
+    		deltaTime,
+    		collisionSteps,
+    		tempAllocator.memorySegment(),
+    		jobSystem.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

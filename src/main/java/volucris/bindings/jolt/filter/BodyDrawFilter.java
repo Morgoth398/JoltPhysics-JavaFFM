@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.filter;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -44,7 +43,7 @@ public abstract class BodyDrawFilter {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("shouldDraw")
+            UNBOUNDED_ADDRESS.withName("ShouldDraw")
         ).withName("JPH_BodyDrawFilter_Procs").withByteAlignment(8);
 
         JPH_BODY_DRAW_FILTER_SET_PROCS = downcallHandleVoid("JPH_BodyDrawFilter_SetProcs", UNBOUNDED_ADDRESS);
@@ -56,12 +55,12 @@ public abstract class BodyDrawFilter {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             SHOULD_DRAW_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -69,7 +68,7 @@ public abstract class BodyDrawFilter {
 
             SHOULD_DRAW_ADDRESS = linker.upcallStub(SHOULD_DRAW_HANDLE, SHOULD_DRAW_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("shouldDraw")), SHOULD_DRAW_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("ShouldDraw")), SHOULD_DRAW_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -90,43 +89,46 @@ public abstract class BodyDrawFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_BODY_DRAW_FILTER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_DRAW_FILTER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_BODY_DRAW_FILTER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_DRAW_FILTER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment filter
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_BODY_DRAW_FILTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_DRAW_FILTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -148,7 +150,7 @@ public abstract class BodyDrawFilter {
     public boolean shouldDraw(
         MemorySegment body
     ) {
-        return (boolean) shouldDraw(
+        return shouldDraw(
             new Body(body)
         );
     }
@@ -157,9 +159,8 @@ public abstract class BodyDrawFilter {
         Body body
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for shouldDraw."
+            "Override either the typed or raw callback method in BodyDrawFilter."
         );
-    }
-
+    };
 
 }

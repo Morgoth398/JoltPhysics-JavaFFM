@@ -15,9 +15,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class JobSystemConfig
 		implements Struct<JobSystemConfig> {
 
@@ -74,64 +71,69 @@ public final class JobSystemConfig
     
     }
 
+    /// @see #context()
     public JobSystemConfig context(MemorySegment context) {
-        CONTEXT_HANDLE.set(segment, 0L, context);
-        return this;
+    	CONTEXT_HANDLE.set(segment, 0L, context);
+    	return this;
     }
     
     public @Nullable MemorySegment context() {
-        MemorySegment segment = (MemorySegment) CONTEXT_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) CONTEXT_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return segment;
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return segment;
     }
     
+    /// @see #queueJob()
     public JobSystemConfig queueJob(QueueJobCallback queueJob) {
-        QUEUE_JOB_HANDLE.set(segment, 0L, queueJob.memorySegment());
-        return this;
+    	QUEUE_JOB_HANDLE.set(segment, 0L, queueJob.memorySegment());
+    	return this;
     }
     
     public @Nullable QueueJobCallback queueJob() {
-        MemorySegment segment = (MemorySegment) QUEUE_JOB_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) QUEUE_JOB_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return QueueJobCallback.get(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return QueueJobCallback.get(segment);
     }
     
+    /// @see #queueJobs()
     public JobSystemConfig queueJobs(QueueJobsCallback queueJobs) {
-        QUEUE_JOBS_HANDLE.set(segment, 0L, queueJobs.memorySegment());
-        return this;
+    	QUEUE_JOBS_HANDLE.set(segment, 0L, queueJobs.memorySegment());
+    	return this;
     }
     
     public @Nullable QueueJobsCallback queueJobs() {
-        MemorySegment segment = (MemorySegment) QUEUE_JOBS_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) QUEUE_JOBS_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return QueueJobsCallback.get(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return QueueJobsCallback.get(segment);
     }
     
+    /// @see #maxConcurrency()
     public JobSystemConfig maxConcurrency(int maxConcurrency) {
-        MAX_CONCURRENCY_HANDLE.set(segment, 0L, maxConcurrency);
-        return this;
+    	MAX_CONCURRENCY_HANDLE.set(segment, 0L, maxConcurrency);
+    	return this;
     }
     
     public int maxConcurrency() {
-        return (int) MAX_CONCURRENCY_HANDLE.get(segment, 0L);
+    	return (int) MAX_CONCURRENCY_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxBarriers()
     public JobSystemConfig maxBarriers(int maxBarriers) {
-        MAX_BARRIERS_HANDLE.set(segment, 0L, maxBarriers);
-        return this;
+    	MAX_BARRIERS_HANDLE.set(segment, 0L, maxBarriers);
+    	return this;
     }
     
     public int maxBarriers() {
-        return (int) MAX_BARRIERS_HANDLE.get(segment, 0L);
+    	return (int) MAX_BARRIERS_HANDLE.get(segment, 0L);
     }
     
     @Override

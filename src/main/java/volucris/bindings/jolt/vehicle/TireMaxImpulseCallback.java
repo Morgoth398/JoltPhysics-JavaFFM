@@ -3,6 +3,7 @@
  */
 package volucris.bindings.jolt.vehicle;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -11,6 +12,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Map;
 import volucris.bindings.core.NativeFloatArray;
 
 import static java.lang.foreign.ValueLayout.*;
@@ -18,7 +20,7 @@ import static volucris.bindings.core.FFMUtils.*;
 
 public abstract class TireMaxImpulseCallback {
 
-    private static final HashMap<Long, WeakReference<TireMaxImpulseCallback>> CACHE;
+    private static final Map<Long, WeakReference<TireMaxImpulseCallback>> CACHE;
 
     public static final FunctionDescriptor DESCRIPTION;
     public static final MethodHandle HANDLE;
@@ -59,41 +61,41 @@ public abstract class TireMaxImpulseCallback {
     }
 
     public void invoke(
-        MemorySegment userData, 
-        int wheelIndex, 
-        MemorySegment outLongitudinalImpulse, 
-        MemorySegment outLateralImpulse, 
-        float suspensionImpulse, 
-        float longitudinalFriction, 
-        float lateralFriction, 
-        float longitudinalSlip, 
-        float lateralSlip, 
+        MemorySegment userData,
+        int wheelIndex,
+        MemorySegment outLongitudinalImpulse,
+        MemorySegment outLateralImpulse,
+        float suspensionImpulse,
+        float longitudinalFriction,
+        float lateralFriction,
+        float longitudinalSlip,
+        float lateralSlip,
         float deltaTime
     ) {
         invoke(
-            userData, 
-            wheelIndex, 
-            new NativeFloatArray(outLongitudinalImpulse), 
-            new NativeFloatArray(outLateralImpulse), 
-            suspensionImpulse, 
-            longitudinalFriction, 
-            lateralFriction, 
-            longitudinalSlip, 
-            lateralSlip, 
-            deltaTime
+		    userData,
+		    wheelIndex,
+            new NativeFloatArray(outLongitudinalImpulse),
+            new NativeFloatArray(outLateralImpulse),
+		    suspensionImpulse,
+		    longitudinalFriction,
+		    lateralFriction,
+		    longitudinalSlip,
+		    lateralSlip,
+		    deltaTime
         );
     }
 
     public void invoke(
-        MemorySegment userData, 
-        int wheelIndex, 
-        NativeFloatArray outLongitudinalImpulse, 
-        NativeFloatArray outLateralImpulse, 
-        float suspensionImpulse, 
-        float longitudinalFriction, 
-        float lateralFriction, 
-        float longitudinalSlip, 
-        float lateralSlip, 
+        MemorySegment userData,
+        int wheelIndex,
+        NativeFloatArray outLongitudinalImpulse,
+        NativeFloatArray outLateralImpulse,
+        float suspensionImpulse,
+        float longitudinalFriction,
+        float lateralFriction,
+        float longitudinalSlip,
+        float lateralSlip,
         float deltaTime
     ) {
         throw new UnsupportedOperationException(
@@ -101,12 +103,11 @@ public abstract class TireMaxImpulseCallback {
         );
     };
 
-
     public MemorySegment memorySegment() {
         return segment;
     }
 
-    public static TireMaxImpulseCallback get(MemorySegment segment) {
+    public static @Nullable TireMaxImpulseCallback get(MemorySegment segment) {
         WeakReference<TireMaxImpulseCallback> reference = CACHE.get(segment.address());
 
         if (reference == null)

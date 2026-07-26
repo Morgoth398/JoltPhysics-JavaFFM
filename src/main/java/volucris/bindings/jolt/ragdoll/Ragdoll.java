@@ -14,9 +14,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public class Ragdoll {
 
     private static final LazyConstant<MethodHandle> JPH_RAGDOLL_DESTROY;
@@ -64,527 +61,504 @@ public class Ragdoll {
     }
 
     public Ragdoll(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment ragdoll
+    	MemorySegment ragdoll
     ) {
-        MethodHandle method = JPH_RAGDOLL_DESTROY.get();
-        try {
-            method.invokeExact(
-                ragdoll
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #destroy}.
-     */
-    public final void destroy(
-    ) {
-        destroy(
-            this.segment
-        );
+    /// Typed method of [#destroy].
+    public final void destroy() {
+    	destroy(
+    		this.segment
+    	);
     }
+    
     
     public static void addToPhysicsSystem(
-        MemorySegment ragdoll, 
-        int activationMode, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	int activationMode,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_ADD_TO_PHYSICS_SYSTEM.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                activationMode, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_ADD_TO_PHYSICS_SYSTEM.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			activationMode,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addToPhysicsSystem}.
-     */
+    /// Typed method of [#addToPhysicsSystem].
     public final void addToPhysicsSystem(
-        int activationMode, 
-        boolean lockBodies
+    	int activationMode,
+    	boolean lockBodies
     ) {
-        addToPhysicsSystem(
-            this.segment, 
-            activationMode, 
-            lockBodies
-        );
+    	addToPhysicsSystem(
+    		this.segment,
+    		activationMode,
+    		lockBodies
+    	);
     }
+    
     
     public static void removeFromPhysicsSystem(
-        MemorySegment ragdoll, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_REMOVE_FROM_PHYSICS_SYSTEM.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_REMOVE_FROM_PHYSICS_SYSTEM.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #removeFromPhysicsSystem}.
-     */
+    /// Typed method of [#removeFromPhysicsSystem].
     public final void removeFromPhysicsSystem(
-        boolean lockBodies
+    	boolean lockBodies
     ) {
-        removeFromPhysicsSystem(
-            this.segment, 
-            lockBodies
-        );
+    	removeFromPhysicsSystem(
+    		this.segment,
+    		lockBodies
+    	);
     }
+    
     
     public static void activate(
-        MemorySegment ragdoll, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_ACTIVATE.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_ACTIVATE.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #activate}.
-     */
+    /// Typed method of [#activate].
     public final void activate(
-        boolean lockBodies
+    	boolean lockBodies
     ) {
-        activate(
-            this.segment, 
-            lockBodies
-        );
+    	activate(
+    		this.segment,
+    		lockBodies
+    	);
     }
+    
     
     public static boolean isActive(
-        MemorySegment ragdoll, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_IS_ACTIVE.get();
-        try {
-            return (boolean) method.invokeExact(
-                ragdoll, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_IS_ACTIVE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			ragdoll,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isActive}.
-     */
+    /// Typed method of [#isActive].
     public final boolean isActive(
-        boolean lockBodies
+    	boolean lockBodies
     ) {
-        return (boolean) isActive(
-            this.segment, 
-            lockBodies
-        );
+    	return (boolean) isActive(
+    		this.segment,
+    		lockBodies
+    	);
     }
+    
     
     public static void resetWarmStart(
-        MemorySegment ragdoll
+    	MemorySegment ragdoll
     ) {
-        MethodHandle method = JPH_RAGDOLL_RESET_WARM_START.get();
-        try {
-            method.invokeExact(
-                ragdoll
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_RESET_WARM_START.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #resetWarmStart}.
-     */
-    public final void resetWarmStart(
-    ) {
-        resetWarmStart(
-            this.segment
-        );
+    /// Typed method of [#resetWarmStart].
+    public final void resetWarmStart() {
+    	resetWarmStart(
+    		this.segment
+    	);
     }
+    
     
     public static void setPose(
-        MemorySegment ragdoll, 
-        MemorySegment pose, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	MemorySegment pose,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_SET_POSE.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                pose, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_SET_POSE.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			pose,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPose}.
-     */
+    /// Typed method of [#setPose].
     public final void setPose(
-        SkeletonPose pose, 
-        boolean lockBodies
+    	SkeletonPose pose,
+    	boolean lockBodies
     ) {
-        setPose(
-            this.segment, 
-            pose.memorySegment(), 
-            lockBodies
-        );
+    	setPose(
+    		this.segment,
+    		pose.memorySegment(),
+    		lockBodies
+    	);
     }
+    
     
     public static void setPose2(
-        MemorySegment ragdoll, 
-        MemorySegment rootOffset, 
-        MemorySegment jointMatrices, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	MemorySegment rootOffset,
+    	MemorySegment jointMatrices,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_SET_POSE2.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                rootOffset, 
-                jointMatrices, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_SET_POSE2.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			rootOffset,
+    			jointMatrices,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPose2}.
-     */
+    /// Typed method of [#setPose2].
     public final void setPose2(
-        Vec3 rootOffset, 
-        Mat4 jointMatrices, 
-        boolean lockBodies
+    	Vec3 rootOffset,
+    	Mat4 jointMatrices,
+    	boolean lockBodies
     ) {
-        setPose2(
-            this.segment, 
-            rootOffset.memorySegment(), 
-            jointMatrices.memorySegment(), 
-            lockBodies
-        );
+    	setPose2(
+    		this.segment,
+    		rootOffset.memorySegment(),
+    		jointMatrices.memorySegment(),
+    		lockBodies
+    	);
     }
+    
     
     public static void getPose(
-        MemorySegment ragdoll, 
-        MemorySegment outPose, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	MemorySegment outPose,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_POSE.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                outPose, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_POSE.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			outPose,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPose}.
-     */
+    /// Typed method of [#getPose].
     public final void getPose(
-        SkeletonPose outPose, 
-        boolean lockBodies
+    	SkeletonPose outPose,
+    	boolean lockBodies
     ) {
-        getPose(
-            this.segment, 
-            outPose.memorySegment(), 
-            lockBodies
-        );
+    	getPose(
+    		this.segment,
+    		outPose.memorySegment(),
+    		lockBodies
+    	);
     }
+    
     
     public static void getPose2(
-        MemorySegment ragdoll, 
-        MemorySegment outRootOffset, 
-        MemorySegment outJointMatrices, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	MemorySegment outRootOffset,
+    	MemorySegment outJointMatrices,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_POSE2.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                outRootOffset, 
-                outJointMatrices, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_POSE2.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			outRootOffset,
+    			outJointMatrices,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPose2}.
-     */
+    /// Typed method of [#getPose2].
     public final void getPose2(
-        Vec3 outRootOffset, 
-        Mat4 outJointMatrices, 
-        boolean lockBodies
+    	Vec3 outRootOffset,
+    	Mat4 outJointMatrices,
+    	boolean lockBodies
     ) {
-        getPose2(
-            this.segment, 
-            outRootOffset.memorySegment(), 
-            outJointMatrices.memorySegment(), 
-            lockBodies
-        );
+    	getPose2(
+    		this.segment,
+    		outRootOffset.memorySegment(),
+    		outJointMatrices.memorySegment(),
+    		lockBodies
+    	);
     }
+    
     
     public static void driveToPoseUsingMotors(
-        MemorySegment ragdoll, 
-        MemorySegment pose
+    	MemorySegment ragdoll,
+    	MemorySegment pose
     ) {
-        MethodHandle method = JPH_RAGDOLL_DRIVE_TO_POSE_USING_MOTORS.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                pose
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_DRIVE_TO_POSE_USING_MOTORS.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			pose
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #driveToPoseUsingMotors}.
-     */
+    /// Typed method of [#driveToPoseUsingMotors].
     public final void driveToPoseUsingMotors(
-        SkeletonPose pose
+    	SkeletonPose pose
     ) {
-        driveToPoseUsingMotors(
-            this.segment, 
-            pose.memorySegment()
-        );
+    	driveToPoseUsingMotors(
+    		this.segment,
+    		pose.memorySegment()
+    	);
     }
+    
     
     public static void driveToPoseUsingKinematics(
-        MemorySegment ragdoll, 
-        MemorySegment pose, 
-        float deltaTime, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	MemorySegment pose,
+    	float deltaTime,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_DRIVE_TO_POSE_USING_KINEMATICS.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                pose, 
-                deltaTime, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_DRIVE_TO_POSE_USING_KINEMATICS.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			pose,
+    			deltaTime,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #driveToPoseUsingKinematics}.
-     */
+    /// Typed method of [#driveToPoseUsingKinematics].
     public final void driveToPoseUsingKinematics(
-        SkeletonPose pose, 
-        float deltaTime, 
-        boolean lockBodies
+    	SkeletonPose pose,
+    	float deltaTime,
+    	boolean lockBodies
     ) {
-        driveToPoseUsingKinematics(
-            this.segment, 
-            pose.memorySegment(), 
-            deltaTime, 
-            lockBodies
-        );
+    	driveToPoseUsingKinematics(
+    		this.segment,
+    		pose.memorySegment(),
+    		deltaTime,
+    		lockBodies
+    	);
     }
+    
     
     public static int getBodyCount(
-        MemorySegment ragdoll
+    	MemorySegment ragdoll
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_BODY_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                ragdoll
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_BODY_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			ragdoll
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyCount}.
-     */
-    public final int getBodyCount(
-    ) {
-        return (int) getBodyCount(
-            this.segment
-        );
+    /// Typed method of [#getBodyCount].
+    public final int getBodyCount() {
+    	return (int) getBodyCount(
+    		this.segment
+    	);
     }
+    
     
     public static int getBodyID(
-        MemorySegment ragdoll, 
-        int bodyIndex
+    	MemorySegment ragdoll,
+    	int bodyIndex
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_BODY_ID.get();
-        try {
-            return (int) method.invokeExact(
-                ragdoll, 
-                bodyIndex
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_BODY_ID.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			ragdoll,
+    			bodyIndex
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyID}.
-     */
+    /// Typed method of [#getBodyID].
     public final int getBodyID(
-        int bodyIndex
+    	int bodyIndex
     ) {
-        return (int) getBodyID(
-            this.segment, 
-            bodyIndex
-        );
+    	return (int) getBodyID(
+    		this.segment,
+    		bodyIndex
+    	);
     }
+    
     
     public static int getConstraintCount(
-        MemorySegment ragdoll
+    	MemorySegment ragdoll
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_CONSTRAINT_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                ragdoll
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_CONSTRAINT_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			ragdoll
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getConstraintCount}.
-     */
-    public final int getConstraintCount(
-    ) {
-        return (int) getConstraintCount(
-            this.segment
-        );
+    /// Typed method of [#getConstraintCount].
+    public final int getConstraintCount() {
+    	return (int) getConstraintCount(
+    		this.segment
+    	);
     }
+    
     
     public static MemorySegment getConstraint(
-        MemorySegment ragdoll, 
-        int constraintIndex
+    	MemorySegment ragdoll,
+    	int constraintIndex
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_CONSTRAINT.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                ragdoll, 
-                constraintIndex
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_CONSTRAINT.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			ragdoll,
+    			constraintIndex
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getConstraint}.
-     */
+    /// Typed method of [#getConstraint].
     public final @Nullable TwoBodyConstraint getConstraint(
-        int constraintIndex
+    	int constraintIndex
     ) {
-        MemorySegment segment = getConstraint(
-            this.segment, 
-            constraintIndex
-        );
+    	MemorySegment segment = getConstraint(
+    		this.segment,
+    		constraintIndex
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new TwoBodyConstraint(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new TwoBodyConstraint(segment);
     }
+    
     
     public static void getRootTransform(
-        MemorySegment ragdoll, 
-        MemorySegment outPosition, 
-        MemorySegment outRotation, 
-        boolean lockBodies
+    	MemorySegment ragdoll,
+    	MemorySegment outPosition,
+    	MemorySegment outRotation,
+    	boolean lockBodies
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_ROOT_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                ragdoll, 
-                outPosition, 
-                outRotation, 
-                lockBodies
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_ROOT_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			ragdoll,
+    			outPosition,
+    			outRotation,
+    			lockBodies
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRootTransform}.
-     */
+    /// Typed method of [#getRootTransform].
     public final void getRootTransform(
-        Vec3 outPosition, 
-        Quat outRotation, 
-        boolean lockBodies
+    	Vec3 outPosition,
+    	Quat outRotation,
+    	boolean lockBodies
     ) {
-        getRootTransform(
-            this.segment, 
-            outPosition.memorySegment(), 
-            outRotation.memorySegment(), 
-            lockBodies
-        );
+    	getRootTransform(
+    		this.segment,
+    		outPosition.memorySegment(),
+    		outRotation.memorySegment(),
+    		lockBodies
+    	);
     }
+    
     
     public static MemorySegment getRagdollSettings(
-        MemorySegment ragdoll
+    	MemorySegment ragdoll
     ) {
-        MethodHandle method = JPH_RAGDOLL_GET_RAGDOLL_SETTINGS.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                ragdoll
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_RAGDOLL_GET_RAGDOLL_SETTINGS.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			ragdoll
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRagdollSettings}.
-     */
-    public final @Nullable RagdollSettings getRagdollSettings(
-    ) {
-        MemorySegment segment = getRagdollSettings(
-            this.segment
-        );
+    /// Typed method of [#getRagdollSettings].
+    public final @Nullable RagdollSettings getRagdollSettings() {
+    	MemorySegment segment = getRagdollSettings(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new RagdollSettings(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new RagdollSettings(segment);
     }
     
     public MemorySegment memorySegment() {

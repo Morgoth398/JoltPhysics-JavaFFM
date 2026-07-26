@@ -16,9 +16,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class Vec3
 		implements Struct<Vec3> {
 
@@ -113,691 +110,671 @@ public final class Vec3
     
     }
 
+    
     public static void axisX(
-        MemorySegment result
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_AXIS_X.get();
-        try {
-            method.invokeExact(
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_AXIS_X.get();
+    	try {
+    		 method.invokeExact(
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #axisX}.
-     */
+    /// Typed method of [#axisX].
     public static void axisX(
-        Vec3 result
+    	Vec3 result
     ) {
-        axisX(
-            result.memorySegment()
-        );
+    	axisX(
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void axisY(
-        MemorySegment result
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_AXIS_Y.get();
-        try {
-            method.invokeExact(
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_AXIS_Y.get();
+    	try {
+    		 method.invokeExact(
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #axisY}.
-     */
+    /// Typed method of [#axisY].
     public static void axisY(
-        Vec3 result
+    	Vec3 result
     ) {
-        axisY(
-            result.memorySegment()
-        );
+    	axisY(
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void axisZ(
-        MemorySegment result
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_AXIS_Z.get();
-        try {
-            method.invokeExact(
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_AXIS_Z.get();
+    	try {
+    		 method.invokeExact(
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #axisZ}.
-     */
+    /// Typed method of [#axisZ].
     public static void axisZ(
-        Vec3 result
+    	Vec3 result
     ) {
-        axisZ(
-            result.memorySegment()
-        );
+    	axisZ(
+    		result.memorySegment()
+    	);
     }
+    
     
     public static boolean isClose(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        float maxDistSq
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	float maxDistSq
     ) {
-        MethodHandle method = JPH_VEC3_IS_CLOSE.get();
-        try {
-            return (boolean) method.invokeExact(
-                v1, 
-                v2, 
-                maxDistSq
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_IS_CLOSE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			v1,
+    			v2,
+    			maxDistSq
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isClose}.
-     */
+    /// Typed method of [#isClose].
     public static boolean isClose(
-        Vec3 v1, 
-        Vec3 v2, 
-        float maxDistSq
+    	Vec3 v1,
+    	Vec3 v2,
+    	float maxDistSq
     ) {
-        return (boolean) isClose(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            maxDistSq
-        );
+    	return (boolean) isClose(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		maxDistSq
+    	);
     }
+    
     
     public static boolean isNearZero(
-        MemorySegment v, 
-        float maxDistSq
+    	MemorySegment v,
+    	float maxDistSq
     ) {
-        MethodHandle method = JPH_VEC3_IS_NEAR_ZERO.get();
-        try {
-            return (boolean) method.invokeExact(
-                v, 
-                maxDistSq
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_IS_NEAR_ZERO.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			v,
+    			maxDistSq
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isNearZero}.
-     */
+    /// Typed method of [#isNearZero].
     public static boolean isNearZero(
-        Vec3 v, 
-        float maxDistSq
+    	Vec3 v,
+    	float maxDistSq
     ) {
-        return (boolean) isNearZero(
-            v.memorySegment(), 
-            maxDistSq
-        );
+    	return (boolean) isNearZero(
+    		v.memorySegment(),
+    		maxDistSq
+    	);
     }
+    
     
     public static boolean isNormalized(
-        MemorySegment v, 
-        float tolerance
+    	MemorySegment v,
+    	float tolerance
     ) {
-        MethodHandle method = JPH_VEC3_IS_NORMALIZED.get();
-        try {
-            return (boolean) method.invokeExact(
-                v, 
-                tolerance
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_IS_NORMALIZED.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			v,
+    			tolerance
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isNormalized}.
-     */
+    /// Typed method of [#isNormalized].
     public static boolean isNormalized(
-        Vec3 v, 
-        float tolerance
+    	Vec3 v,
+    	float tolerance
     ) {
-        return (boolean) isNormalized(
-            v.memorySegment(), 
-            tolerance
-        );
+    	return (boolean) isNormalized(
+    		v.memorySegment(),
+    		tolerance
+    	);
     }
+    
     
     public static boolean isNaN(
-        MemorySegment v
+    	MemorySegment v
     ) {
-        MethodHandle method = JPH_VEC3_IS_NA_N.get();
-        try {
-            return (boolean) method.invokeExact(
-                v
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_IS_NA_N.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			v
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isNaN}.
-     */
+    /// Typed method of [#isNaN].
     public static boolean isNaN(
-        Vec3 v
+    	Vec3 v
     ) {
-        return (boolean) isNaN(
-            v.memorySegment()
-        );
+    	return (boolean) isNaN(
+    		v.memorySegment()
+    	);
     }
+    
     
     public static void negate(
-        MemorySegment v, 
-        MemorySegment result
+    	MemorySegment v,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_NEGATE.get();
-        try {
-            method.invokeExact(
-                v, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_NEGATE.get();
+    	try {
+    		 method.invokeExact(
+    			v,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #negate}.
-     */
+    /// Typed method of [#negate].
     public static void negate(
-        Vec3 v, 
-        Vec3 result
+    	Vec3 v,
+    	Vec3 result
     ) {
-        negate(
-            v.memorySegment(), 
-            result.memorySegment()
-        );
+    	negate(
+    		v.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void normalized(
-        MemorySegment v, 
-        MemorySegment result
+    	MemorySegment v,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_NORMALIZED.get();
-        try {
-            method.invokeExact(
-                v, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_NORMALIZED.get();
+    	try {
+    		 method.invokeExact(
+    			v,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #normalized}.
-     */
+    /// Typed method of [#normalized].
     public static void normalized(
-        Vec3 v, 
-        Vec3 result
+    	Vec3 v,
+    	Vec3 result
     ) {
-        normalized(
-            v.memorySegment(), 
-            result.memorySegment()
-        );
+    	normalized(
+    		v.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void cross(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment result
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_CROSS.get();
-        try {
-            method.invokeExact(
-                v1, 
-                v2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_CROSS.get();
+    	try {
+    		 method.invokeExact(
+    			v1,
+    			v2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #cross}.
-     */
+    /// Typed method of [#cross].
     public static void cross(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 result
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 result
     ) {
-        cross(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            result.memorySegment()
-        );
+    	cross(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void abs(
-        MemorySegment v, 
-        MemorySegment result
+    	MemorySegment v,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_ABS.get();
-        try {
-            method.invokeExact(
-                v, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_ABS.get();
+    	try {
+    		 method.invokeExact(
+    			v,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #abs}.
-     */
+    /// Typed method of [#abs].
     public static void abs(
-        Vec3 v, 
-        Vec3 result
+    	Vec3 v,
+    	Vec3 result
     ) {
-        abs(
-            v.memorySegment(), 
-            result.memorySegment()
-        );
+    	abs(
+    		v.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float length(
-        MemorySegment v
+    	MemorySegment v
     ) {
-        MethodHandle method = JPH_VEC3_LENGTH.get();
-        try {
-            return (float) method.invokeExact(
-                v
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_LENGTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			v
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #length}.
-     */
+    /// Typed method of [#length].
     public static float length(
-        Vec3 v
+    	Vec3 v
     ) {
-        return (float) length(
-            v.memorySegment()
-        );
+    	return (float) length(
+    		v.memorySegment()
+    	);
     }
+    
     
     public static float lengthSquared(
-        MemorySegment v
+    	MemorySegment v
     ) {
-        MethodHandle method = JPH_VEC3_LENGTH_SQUARED.get();
-        try {
-            return (float) method.invokeExact(
-                v
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_LENGTH_SQUARED.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			v
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #lengthSquared}.
-     */
+    /// Typed method of [#lengthSquared].
     public static float lengthSquared(
-        Vec3 v
+    	Vec3 v
     ) {
-        return (float) lengthSquared(
-            v.memorySegment()
-        );
+    	return (float) lengthSquared(
+    		v.memorySegment()
+    	);
     }
+    
     
     public static void dotProduct(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment result
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_DOT_PRODUCT.get();
-        try {
-            method.invokeExact(
-                v1, 
-                v2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_DOT_PRODUCT.get();
+    	try {
+    		 method.invokeExact(
+    			v1,
+    			v2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #dotProduct}.
-     */
+    /// Typed method of [#dotProduct].
     public static void dotProduct(
-        Vec3 v1, 
-        Vec3 v2, 
-        NativeFloatArray result
+    	Vec3 v1,
+    	Vec3 v2,
+    	NativeFloatArray result
     ) {
-        dotProduct(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            result.memorySegment()
-        );
+    	dotProduct(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void normalize(
-        MemorySegment v, 
-        MemorySegment result
+    	MemorySegment v,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_NORMALIZE.get();
-        try {
-            method.invokeExact(
-                v, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_NORMALIZE.get();
+    	try {
+    		 method.invokeExact(
+    			v,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #normalize}.
-     */
+    /// Typed method of [#normalize].
     public static void normalize(
-        Vec3 v, 
-        Vec3 result
+    	Vec3 v,
+    	Vec3 result
     ) {
-        normalize(
-            v.memorySegment(), 
-            result.memorySegment()
-        );
+    	normalize(
+    		v.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void add(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment result
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_ADD.get();
-        try {
-            method.invokeExact(
-                v1, 
-                v2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_ADD.get();
+    	try {
+    		 method.invokeExact(
+    			v1,
+    			v2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #add}.
-     */
+    /// Typed method of [#add].
     public static void add(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 result
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 result
     ) {
-        add(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            result.memorySegment()
-        );
+    	add(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void subtract(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment result
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_SUBTRACT.get();
-        try {
-            method.invokeExact(
-                v1, 
-                v2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_SUBTRACT.get();
+    	try {
+    		 method.invokeExact(
+    			v1,
+    			v2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #subtract}.
-     */
+    /// Typed method of [#subtract].
     public static void subtract(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 result
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 result
     ) {
-        subtract(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            result.memorySegment()
-        );
+    	subtract(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void multiply(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment result
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_MULTIPLY.get();
-        try {
-            method.invokeExact(
-                v1, 
-                v2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_MULTIPLY.get();
+    	try {
+    		 method.invokeExact(
+    			v1,
+    			v2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #multiply}.
-     */
+    /// Typed method of [#multiply].
     public static void multiply(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 result
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 result
     ) {
-        multiply(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            result.memorySegment()
-        );
+    	multiply(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void multiplyScalar(
-        MemorySegment v, 
-        float scalar, 
-        MemorySegment result
+    	MemorySegment v,
+    	float scalar,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_MULTIPLY_SCALAR.get();
-        try {
-            method.invokeExact(
-                v, 
-                scalar, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_MULTIPLY_SCALAR.get();
+    	try {
+    		 method.invokeExact(
+    			v,
+    			scalar,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #multiplyScalar}.
-     */
+    /// Typed method of [#multiplyScalar].
     public static void multiplyScalar(
-        Vec3 v, 
-        float scalar, 
-        Vec3 result
+    	Vec3 v,
+    	float scalar,
+    	Vec3 result
     ) {
-        multiplyScalar(
-            v.memorySegment(), 
-            scalar, 
-            result.memorySegment()
-        );
+    	multiplyScalar(
+    		v.memorySegment(),
+    		scalar,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void multiplyMatrix(
-        MemorySegment left, 
-        MemorySegment right, 
-        MemorySegment result
+    	MemorySegment left,
+    	MemorySegment right,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_MULTIPLY_MATRIX.get();
-        try {
-            method.invokeExact(
-                left, 
-                right, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_MULTIPLY_MATRIX.get();
+    	try {
+    		 method.invokeExact(
+    			left,
+    			right,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #multiplyMatrix}.
-     */
+    /// Typed method of [#multiplyMatrix].
     public static void multiplyMatrix(
-        Mat4 left, 
-        Vec3 right, 
-        Vec3 result
+    	Mat4 left,
+    	Vec3 right,
+    	Vec3 result
     ) {
-        multiplyMatrix(
-            left.memorySegment(), 
-            right.memorySegment(), 
-            result.memorySegment()
-        );
+    	multiplyMatrix(
+    		left.memorySegment(),
+    		right.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void divide(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment result
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_DIVIDE.get();
-        try {
-            method.invokeExact(
-                v1, 
-                v2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_DIVIDE.get();
+    	try {
+    		 method.invokeExact(
+    			v1,
+    			v2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #divide}.
-     */
+    /// Typed method of [#divide].
     public static void divide(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 result
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 result
     ) {
-        divide(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            result.memorySegment()
-        );
+    	divide(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void divideScalar(
-        MemorySegment v, 
-        float scalar, 
-        MemorySegment result
+    	MemorySegment v,
+    	float scalar,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_DIVIDE_SCALAR.get();
-        try {
-            method.invokeExact(
-                v, 
-                scalar, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_DIVIDE_SCALAR.get();
+    	try {
+    		 method.invokeExact(
+    			v,
+    			scalar,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #divideScalar}.
-     */
+    /// Typed method of [#divideScalar].
     public static void divideScalar(
-        Vec3 v, 
-        float scalar, 
-        Vec3 result
+    	Vec3 v,
+    	float scalar,
+    	Vec3 result
     ) {
-        divideScalar(
-            v.memorySegment(), 
-            scalar, 
-            result.memorySegment()
-        );
+    	divideScalar(
+    		v.memorySegment(),
+    		scalar,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getNormalizedPerpendicular(
-        MemorySegment v, 
-        MemorySegment result
+    	MemorySegment v,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEC3_GET_NORMALIZED_PERPENDICULAR.get();
-        try {
-            method.invokeExact(
-                v, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEC3_GET_NORMALIZED_PERPENDICULAR.get();
+    	try {
+    		 method.invokeExact(
+    			v,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNormalizedPerpendicular}.
-     */
+    /// Typed method of [#getNormalizedPerpendicular].
     public static void getNormalizedPerpendicular(
-        Vec3 v, 
-        Vec3 result
+    	Vec3 v,
+    	Vec3 result
     ) {
-        getNormalizedPerpendicular(
-            v.memorySegment(), 
-            result.memorySegment()
-        );
+    	getNormalizedPerpendicular(
+    		v.memorySegment(),
+    		result.memorySegment()
+    	);
     }
     
+    /// @see #x()
     public Vec3 x(float x) {
-        X_HANDLE.set(segment, 0L, x);
-        return this;
+    	X_HANDLE.set(segment, 0L, x);
+    	return this;
     }
     
     public float x() {
-        return (float) X_HANDLE.get(segment, 0L);
+    	return (float) X_HANDLE.get(segment, 0L);
     }
     
+    /// @see #y()
     public Vec3 y(float y) {
-        Y_HANDLE.set(segment, 0L, y);
-        return this;
+    	Y_HANDLE.set(segment, 0L, y);
+    	return this;
     }
     
     public float y() {
-        return (float) Y_HANDLE.get(segment, 0L);
+    	return (float) Y_HANDLE.get(segment, 0L);
     }
     
+    /// @see #z()
     public Vec3 z(float z) {
-        Z_HANDLE.set(segment, 0L, z);
-        return this;
+    	Z_HANDLE.set(segment, 0L, z);
+    	return this;
     }
     
     public float z() {
-        return (float) Z_HANDLE.get(segment, 0L);
+    	return (float) Z_HANDLE.get(segment, 0L);
     }
     
     @Override

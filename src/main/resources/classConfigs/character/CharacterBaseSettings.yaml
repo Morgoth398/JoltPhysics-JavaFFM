@@ -36,6 +36,6 @@ excluded-function-name-postfixes:
 constructors:
 struct:
   name: JPH_CharacterBaseSettings
-  template: /constructor/OnlySegmentStructConstructorTemplate.ftl
+  template: OnlySegmentRecordConstructorTemplate.ftl
 native-functions:
 native-function-pointers:

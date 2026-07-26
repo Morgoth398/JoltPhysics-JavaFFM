@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.broadPhaseLayerInterface;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -11,9 +10,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class BroadPhaseLayerInterfaceMask extends BroadPhaseLayerInterface {
 
     private static final LazyConstant<MethodHandle> JPH_BROAD_PHASE_LAYER_INTERFACE_MASK_CREATE;
@@ -37,69 +33,73 @@ public final class BroadPhaseLayerInterfaceMask extends BroadPhaseLayerInterface
         );
     }
     
+    /// Typed method of [#create].
     public BroadPhaseLayerInterfaceMask(
-        Arena arena,
-        int numBroadPhaseLayers
+    	Arena arena,
+    	int numBroadPhaseLayers
     ) {
-         MemorySegment segment = create(
-            numBroadPhaseLayers
-         );
+    	MemorySegment segment = create(
+    		numBroadPhaseLayers
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public BroadPhaseLayerInterfaceMask(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        int numBroadPhaseLayers
+    	int numBroadPhaseLayers
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_MASK_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                numBroadPhaseLayers
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_MASK_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			numBroadPhaseLayers
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void configureLayer(
-        MemorySegment bpInterface, 
-        byte broadPhaseLayer, 
-        int groupsToInclude, 
-        int groupsToExclude
+    	MemorySegment bpInterface,
+    	byte broadPhaseLayer,
+    	int groupsToInclude,
+    	int groupsToExclude
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_MASK_CONFIGURE_LAYER.get();
-        try {
-            method.invokeExact(
-                bpInterface, 
-                broadPhaseLayer, 
-                groupsToInclude, 
-                groupsToExclude
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_MASK_CONFIGURE_LAYER.get();
+    	try {
+    		 method.invokeExact(
+    			bpInterface,
+    			broadPhaseLayer,
+    			groupsToInclude,
+    			groupsToExclude
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #configureLayer}.
-     */
+    /// Typed method of [#configureLayer].
     public final void configureLayer(
-        byte broadPhaseLayer, 
-        int groupsToInclude, 
-        int groupsToExclude
+    	byte broadPhaseLayer,
+    	int groupsToInclude,
+    	int groupsToExclude
     ) {
-        configureLayer(
-            this.segment, 
-            broadPhaseLayer, 
-            groupsToInclude, 
-            groupsToExclude
-        );
+    	configureLayer(
+    		this.segment,
+    		broadPhaseLayer,
+    		groupsToInclude,
+    		groupsToExclude
+    	);
     }
     
     public MemorySegment memorySegment() {

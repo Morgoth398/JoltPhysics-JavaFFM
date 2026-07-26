@@ -13,8 +13,6 @@ class-description:
   instance-parameter: properties
 
 imports:
-  - volucris.bindings.jolt.math.Vec3
-  - volucris.bindings.jolt.math.Mat4
 static-imports:
   - java.lang.foreign.ValueLayout.*
   - volucris.bindings.core.FFMUtils.*

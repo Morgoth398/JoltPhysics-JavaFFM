@@ -14,9 +14,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class SupportingFace
 		implements Struct<SupportingFace> {
 
@@ -56,7 +53,6 @@ public final class SupportingFace
     public SupportingFace(MemorySegment segment) {
         this.segment = segment;
     
-    
         vertices = new Vec3[32];
         for (int i = 0; i < 32; i++) {
             long offset = VERTICES_BYTE_OFFSET + i * Vec3.LAYOUT.byteSize();
@@ -65,27 +61,30 @@ public final class SupportingFace
     
     }
 
+    /// @see #count()
     public SupportingFace count(int count) {
-        COUNT_HANDLE.set(segment, 0L, count);
-        return this;
+    	COUNT_HANDLE.set(segment, 0L, count);
+    	return this;
     }
     
     public int count() {
-        return (int) COUNT_HANDLE.get(segment, 0L);
+    	return (int) COUNT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #vertices(int)
     public SupportingFace vertices(Consumer<Vec3> consumer, int index) {
-        consumer.accept(vertices[index]);
-        return this;
+    	consumer.accept(vertices[index]);
+    	return this;
     }
     
+    /// @see #vertices(int)
     public SupportingFace vertices(Vec3 other, int index) {
-        vertices[index].set(other);
-        return this;
+    	vertices[index].set(other);
+    	return this;
     }
     
     public Vec3 vertices(int index) {
-        return vertices[index];
+    	return vertices[index];
     }
     
     @Override

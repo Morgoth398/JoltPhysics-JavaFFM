@@ -14,9 +14,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SoftBodyCreationSettings {
 
     private static final LazyConstant<MethodHandle> JPH_SOFT_BODY_CREATION_SETTINGS_CREATE;
@@ -106,1006 +103,967 @@ public final class SoftBodyCreationSettings {
     }
 
     public SoftBodyCreationSettings() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public SoftBodyCreationSettings(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public SoftBodyCreationSettings(
-        SoftBodySharedSettings settings, 
-        Vec3 position, 
-        Quat rotation, 
+        SoftBodySharedSettings settings,
+        Vec3 position,
+        Quat rotation,
         int objectLayer
     ) {
         this(
             Arena.ofAuto(),
-            settings, 
-            position, 
-            rotation, 
+            settings,
+            position,
+            rotation,
             objectLayer
         );
     }
     
+    /// Typed method of [#create2].
     public SoftBodyCreationSettings(
-        Arena arena,
-        SoftBodySharedSettings settings, 
-        Vec3 position, 
-        Quat rotation, 
-        int objectLayer
+    	Arena arena,
+    	SoftBodySharedSettings settings,
+    	Vec3 position,
+    	Quat rotation,
+    	int objectLayer
     ) {
-         MemorySegment segment = create2(
-            settings.memorySegment(), 
-            position.memorySegment(), 
-            rotation.memorySegment(), 
-            objectLayer
-         );
+    	MemorySegment segment = create2(
+    		settings.memorySegment(),
+    		position.memorySegment(),
+    		rotation.memorySegment(),
+    		objectLayer
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public SoftBodyCreationSettings(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create2(
-        MemorySegment settings, 
-        MemorySegment position, 
-        MemorySegment rotation, 
-        int objectLayer
+    	MemorySegment settings,
+    	MemorySegment position,
+    	MemorySegment rotation,
+    	int objectLayer
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_CREATE2.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings, 
-                position, 
-                rotation, 
-                objectLayer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_CREATE2.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings,
+    			position,
+    			rotation,
+    			objectLayer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_DESTROY.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment getSettings(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_SETTINGS.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_SETTINGS.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
-    public final @Nullable SoftBodySharedSettings getSettings(
-    ) {
-        MemorySegment segment = getSettings(
-            this.segment
-        );
+    /// Typed method of [#getSettings].
+    public final @Nullable SoftBodySharedSettings getSettings() {
+    	MemorySegment segment = getSettings(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new SoftBodySharedSettings(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new SoftBodySharedSettings(segment);
     }
+    
     
     public static void setSettings(
-        MemorySegment settings, 
-        MemorySegment sharedSettings
+    	MemorySegment settings,
+    	MemorySegment sharedSettings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_SETTINGS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                sharedSettings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			sharedSettings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSettings}.
-     */
+    /// Typed method of [#setSettings].
     public final void setSettings(
-        SoftBodySharedSettings sharedSettings
+    	SoftBodySharedSettings sharedSettings
     ) {
-        setSettings(
-            this.segment, 
-            sharedSettings.memorySegment()
-        );
+    	setSettings(
+    		this.segment,
+    		sharedSettings.memorySegment()
+    	);
     }
+    
     
     public static void getPosition(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_POSITION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPosition}.
-     */
+    /// Typed method of [#getPosition].
     public final void getPosition(
-        Vec3 result
+    	Vec3 result
     ) {
-        getPosition(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getPosition(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setPosition(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_POSITION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPosition}.
-     */
+    /// Typed method of [#setPosition].
     public final void setPosition(
-        Vec3 value
+    	Vec3 value
     ) {
-        setPosition(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setPosition(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getRotation(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_ROTATION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotation}.
-     */
+    /// Typed method of [#getRotation].
     public final void getRotation(
-        Quat result
+    	Quat result
     ) {
-        getRotation(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getRotation(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setRotation(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_ROTATION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRotation}.
-     */
+    /// Typed method of [#setRotation].
     public final void setRotation(
-        Quat value
+    	Quat value
     ) {
-        setRotation(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setRotation(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static long getUserData(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_USER_DATA.get();
-        try {
-            return (long) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_USER_DATA.get();
+    	try {
+    		return (long)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUserData}.
-     */
-    public final long getUserData(
-    ) {
-        return (long) getUserData(
-            this.segment
-        );
+    /// Typed method of [#getUserData].
+    public final long getUserData() {
+    	return (long) getUserData(
+    		this.segment
+    	);
     }
+    
     
     public static void setUserData(
-        MemorySegment settings, 
-        long userData
+    	MemorySegment settings,
+    	long userData
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_USER_DATA.get();
-        try {
-            method.invokeExact(
-                settings, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_USER_DATA.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUserData}.
-     */
+    /// Typed method of [#setUserData].
     public final void setUserData(
-        long userData
+    	long userData
     ) {
-        setUserData(
-            this.segment, 
-            userData
-        );
+    	setUserData(
+    		this.segment,
+    		userData
+    	);
     }
+    
     
     public static int getObjectLayer(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_OBJECT_LAYER.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_OBJECT_LAYER.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getObjectLayer}.
-     */
-    public final int getObjectLayer(
-    ) {
-        return (int) getObjectLayer(
-            this.segment
-        );
+    /// Typed method of [#getObjectLayer].
+    public final int getObjectLayer() {
+    	return (int) getObjectLayer(
+    		this.segment
+    	);
     }
+    
     
     public static void setObjectLayer(
-        MemorySegment settings, 
-        int value
+    	MemorySegment settings,
+    	int value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_OBJECT_LAYER.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_OBJECT_LAYER.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setObjectLayer}.
-     */
+    /// Typed method of [#setObjectLayer].
     public final void setObjectLayer(
-        int value
+    	int value
     ) {
-        setObjectLayer(
-            this.segment, 
-            value
-        );
+    	setObjectLayer(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static void getCollisionGroup(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_COLLISION_GROUP.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_COLLISION_GROUP.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCollisionGroup}.
-     */
+    /// Typed method of [#getCollisionGroup].
     public final void getCollisionGroup(
-        CollisionGroup result
+    	CollisionGroup result
     ) {
-        getCollisionGroup(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getCollisionGroup(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setCollisionGroup(
-        MemorySegment settings, 
-        MemorySegment group
+    	MemorySegment settings,
+    	MemorySegment group
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_COLLISION_GROUP.get();
-        try {
-            method.invokeExact(
-                settings, 
-                group
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_COLLISION_GROUP.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			group
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setCollisionGroup}.
-     */
+    /// Typed method of [#setCollisionGroup].
     public final void setCollisionGroup(
-        CollisionGroup group
+    	CollisionGroup group
     ) {
-        setCollisionGroup(
-            this.segment, 
-            group.memorySegment()
-        );
+    	setCollisionGroup(
+    		this.segment,
+    		group.memorySegment()
+    	);
     }
+    
     
     public static int getNumIterations(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_NUM_ITERATIONS.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_NUM_ITERATIONS.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumIterations}.
-     */
-    public final int getNumIterations(
-    ) {
-        return (int) getNumIterations(
-            this.segment
-        );
+    /// Typed method of [#getNumIterations].
+    public final int getNumIterations() {
+    	return (int) getNumIterations(
+    		this.segment
+    	);
     }
+    
     
     public static void setNumIterations(
-        MemorySegment settings, 
-        int iterations
+    	MemorySegment settings,
+    	int iterations
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_NUM_ITERATIONS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                iterations
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_NUM_ITERATIONS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			iterations
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setNumIterations}.
-     */
+    /// Typed method of [#setNumIterations].
     public final void setNumIterations(
-        int iterations
+    	int iterations
     ) {
-        setNumIterations(
-            this.segment, 
-            iterations
-        );
+    	setNumIterations(
+    		this.segment,
+    		iterations
+    	);
     }
+    
     
     public static float getLinearDamping(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_LINEAR_DAMPING.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_LINEAR_DAMPING.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLinearDamping}.
-     */
-    public final float getLinearDamping(
-    ) {
-        return (float) getLinearDamping(
-            this.segment
-        );
+    /// Typed method of [#getLinearDamping].
+    public final float getLinearDamping() {
+    	return (float) getLinearDamping(
+    		this.segment
+    	);
     }
+    
     
     public static void setLinearDamping(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_LINEAR_DAMPING.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_LINEAR_DAMPING.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLinearDamping}.
-     */
+    /// Typed method of [#setLinearDamping].
     public final void setLinearDamping(
-        float value
+    	float value
     ) {
-        setLinearDamping(
-            this.segment, 
-            value
-        );
+    	setLinearDamping(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getMaxLinearVelocity(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_MAX_LINEAR_VELOCITY.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_MAX_LINEAR_VELOCITY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxLinearVelocity}.
-     */
-    public final float getMaxLinearVelocity(
-    ) {
-        return (float) getMaxLinearVelocity(
-            this.segment
-        );
+    /// Typed method of [#getMaxLinearVelocity].
+    public final float getMaxLinearVelocity() {
+    	return (float) getMaxLinearVelocity(
+    		this.segment
+    	);
     }
+    
     
     public static void setMaxLinearVelocity(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_MAX_LINEAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_MAX_LINEAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMaxLinearVelocity}.
-     */
+    /// Typed method of [#setMaxLinearVelocity].
     public final void setMaxLinearVelocity(
-        float value
+    	float value
     ) {
-        setMaxLinearVelocity(
-            this.segment, 
-            value
-        );
+    	setMaxLinearVelocity(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getRestitution(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_RESTITUTION.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_RESTITUTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRestitution}.
-     */
-    public final float getRestitution(
-    ) {
-        return (float) getRestitution(
-            this.segment
-        );
+    /// Typed method of [#getRestitution].
+    public final float getRestitution() {
+    	return (float) getRestitution(
+    		this.segment
+    	);
     }
+    
     
     public static void setRestitution(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_RESTITUTION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_RESTITUTION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRestitution}.
-     */
+    /// Typed method of [#setRestitution].
     public final void setRestitution(
-        float value
+    	float value
     ) {
-        setRestitution(
-            this.segment, 
-            value
-        );
+    	setRestitution(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getFriction(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_FRICTION.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_FRICTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getFriction}.
-     */
-    public final float getFriction(
-    ) {
-        return (float) getFriction(
-            this.segment
-        );
+    /// Typed method of [#getFriction].
+    public final float getFriction() {
+    	return (float) getFriction(
+    		this.segment
+    	);
     }
+    
     
     public static void setFriction(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_FRICTION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_FRICTION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setFriction}.
-     */
+    /// Typed method of [#setFriction].
     public final void setFriction(
-        float value
+    	float value
     ) {
-        setFriction(
-            this.segment, 
-            value
-        );
+    	setFriction(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getPressure(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_PRESSURE.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_PRESSURE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPressure}.
-     */
-    public final float getPressure(
-    ) {
-        return (float) getPressure(
-            this.segment
-        );
+    /// Typed method of [#getPressure].
+    public final float getPressure() {
+    	return (float) getPressure(
+    		this.segment
+    	);
     }
+    
     
     public static void setPressure(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_PRESSURE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_PRESSURE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPressure}.
-     */
+    /// Typed method of [#setPressure].
     public final void setPressure(
-        float value
+    	float value
     ) {
-        setPressure(
-            this.segment, 
-            value
-        );
+    	setPressure(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getGravityFactor(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_GRAVITY_FACTOR.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_GRAVITY_FACTOR.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getGravityFactor}.
-     */
-    public final float getGravityFactor(
-    ) {
-        return (float) getGravityFactor(
-            this.segment
-        );
+    /// Typed method of [#getGravityFactor].
+    public final float getGravityFactor() {
+    	return (float) getGravityFactor(
+    		this.segment
+    	);
     }
+    
     
     public static void setGravityFactor(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_GRAVITY_FACTOR.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_GRAVITY_FACTOR.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setGravityFactor}.
-     */
+    /// Typed method of [#setGravityFactor].
     public final void setGravityFactor(
-        float value
+    	float value
     ) {
-        setGravityFactor(
-            this.segment, 
-            value
-        );
+    	setGravityFactor(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getVertexRadius(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_VERTEX_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_VERTEX_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVertexRadius}.
-     */
-    public final float getVertexRadius(
-    ) {
-        return (float) getVertexRadius(
-            this.segment
-        );
+    /// Typed method of [#getVertexRadius].
+    public final float getVertexRadius() {
+    	return (float) getVertexRadius(
+    		this.segment
+    	);
     }
+    
     
     public static void setVertexRadius(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_VERTEX_RADIUS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_VERTEX_RADIUS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setVertexRadius}.
-     */
+    /// Typed method of [#setVertexRadius].
     public final void setVertexRadius(
-        float value
+    	float value
     ) {
-        setVertexRadius(
-            this.segment, 
-            value
-        );
+    	setVertexRadius(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getUpdatePosition(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_UPDATE_POSITION.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_UPDATE_POSITION.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUpdatePosition}.
-     */
-    public final boolean getUpdatePosition(
-    ) {
-        return (boolean) getUpdatePosition(
-            this.segment
-        );
+    /// Typed method of [#getUpdatePosition].
+    public final boolean getUpdatePosition() {
+    	return (boolean) getUpdatePosition(
+    		this.segment
+    	);
     }
+    
     
     public static void setUpdatePosition(
-        MemorySegment settings, 
-        boolean value
+    	MemorySegment settings,
+    	boolean value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_UPDATE_POSITION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_UPDATE_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUpdatePosition}.
-     */
+    /// Typed method of [#setUpdatePosition].
     public final void setUpdatePosition(
-        boolean value
+    	boolean value
     ) {
-        setUpdatePosition(
-            this.segment, 
-            value
-        );
+    	setUpdatePosition(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getMakeRotationIdentity(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_MAKE_ROTATION_IDENTITY.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_MAKE_ROTATION_IDENTITY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMakeRotationIdentity}.
-     */
-    public final boolean getMakeRotationIdentity(
-    ) {
-        return (boolean) getMakeRotationIdentity(
-            this.segment
-        );
+    /// Typed method of [#getMakeRotationIdentity].
+    public final boolean getMakeRotationIdentity() {
+    	return (boolean) getMakeRotationIdentity(
+    		this.segment
+    	);
     }
+    
     
     public static void setMakeRotationIdentity(
-        MemorySegment settings, 
-        boolean value
+    	MemorySegment settings,
+    	boolean value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_MAKE_ROTATION_IDENTITY.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_MAKE_ROTATION_IDENTITY.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMakeRotationIdentity}.
-     */
+    /// Typed method of [#setMakeRotationIdentity].
     public final void setMakeRotationIdentity(
-        boolean value
+    	boolean value
     ) {
-        setMakeRotationIdentity(
-            this.segment, 
-            value
-        );
+    	setMakeRotationIdentity(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getAllowSleeping(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_ALLOW_SLEEPING.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_ALLOW_SLEEPING.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAllowSleeping}.
-     */
-    public final boolean getAllowSleeping(
-    ) {
-        return (boolean) getAllowSleeping(
-            this.segment
-        );
+    /// Typed method of [#getAllowSleeping].
+    public final boolean getAllowSleeping() {
+    	return (boolean) getAllowSleeping(
+    		this.segment
+    	);
     }
+    
     
     public static void setAllowSleeping(
-        MemorySegment settings, 
-        boolean value
+    	MemorySegment settings,
+    	boolean value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_ALLOW_SLEEPING.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_ALLOW_SLEEPING.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setAllowSleeping}.
-     */
+    /// Typed method of [#setAllowSleeping].
     public final void setAllowSleeping(
-        boolean value
+    	boolean value
     ) {
-        setAllowSleeping(
-            this.segment, 
-            value
-        );
+    	setAllowSleeping(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getFacesDoubleSided(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_FACES_DOUBLE_SIDED.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_GET_FACES_DOUBLE_SIDED.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getFacesDoubleSided}.
-     */
-    public final boolean getFacesDoubleSided(
-    ) {
-        return (boolean) getFacesDoubleSided(
-            this.segment
-        );
+    /// Typed method of [#getFacesDoubleSided].
+    public final boolean getFacesDoubleSided() {
+    	return (boolean) getFacesDoubleSided(
+    		this.segment
+    	);
     }
+    
     
     public static void setFacesDoubleSided(
-        MemorySegment settings, 
-        boolean value
+    	MemorySegment settings,
+    	boolean value
     ) {
-        MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_FACES_DOUBLE_SIDED.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_CREATION_SETTINGS_SET_FACES_DOUBLE_SIDED.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setFacesDoubleSided}.
-     */
+    /// Typed method of [#setFacesDoubleSided].
     public final void setFacesDoubleSided(
-        boolean value
+    	boolean value
     ) {
-        setFacesDoubleSided(
-            this.segment, 
-            value
-        );
+    	setFacesDoubleSided(
+    		this.segment,
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

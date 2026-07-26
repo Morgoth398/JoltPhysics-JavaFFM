@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.filter;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -46,7 +45,7 @@ public abstract class SimShapeFilter {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("shouldCollide")
+            UNBOUNDED_ADDRESS.withName("ShouldCollide")
         ).withName("JPH_SimShapeFilter_Procs").withByteAlignment(8);
 
         JPH_SIM_SHAPE_FILTER_SET_PROCS = downcallHandleVoid("JPH_SimShapeFilter_SetProcs", UNBOUNDED_ADDRESS);
@@ -58,17 +57,17 @@ public abstract class SimShapeFilter {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             SHOULD_COLLIDE_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -76,7 +75,7 @@ public abstract class SimShapeFilter {
 
             SHOULD_COLLIDE_ADDRESS = linker.upcallStub(SHOULD_COLLIDE_HANDLE, SHOULD_COLLIDE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("shouldCollide")), SHOULD_COLLIDE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("ShouldCollide")), SHOULD_COLLIDE_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -97,43 +96,46 @@ public abstract class SimShapeFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_SIM_SHAPE_FILTER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIM_SHAPE_FILTER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_SIM_SHAPE_FILTER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIM_SHAPE_FILTER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment filter
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_SIM_SHAPE_FILTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIM_SHAPE_FILTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -163,35 +165,34 @@ public abstract class SimShapeFilter {
     }
 
     public boolean shouldCollide(
-        MemorySegment body1, 
-        MemorySegment shape1, 
-        MemorySegment subShapeIDOfShape1, 
-        MemorySegment body2, 
-        MemorySegment shape2, 
+        MemorySegment body1,
+        MemorySegment shape1,
+        MemorySegment subShapeIDOfShape1,
+        MemorySegment body2,
+        MemorySegment shape2,
         MemorySegment subShapeIDOfShape2
     ) {
-        return (boolean) shouldCollide(
-            new Body(body1), 
-            new Shape(shape1), 
-            new NativeIntArray(subShapeIDOfShape1), 
-            new Body(body2), 
-            new Shape(shape2), 
+        return shouldCollide(
+            new Body(body1),
+            new Shape(shape1),
+            new NativeIntArray(subShapeIDOfShape1),
+            new Body(body2),
+            new Shape(shape2),
             new NativeIntArray(subShapeIDOfShape2)
         );
     }
 
     public boolean shouldCollide(
-        Body body1, 
-        Shape shape1, 
-        NativeIntArray subShapeIDOfShape1, 
-        Body body2, 
-        Shape shape2, 
+        Body body1,
+        Shape shape1,
+        NativeIntArray subShapeIDOfShape1,
+        Body body2,
+        Shape shape2,
         NativeIntArray subShapeIDOfShape2
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for shouldCollide."
+            "Override either the typed or raw callback method in SimShapeFilter."
         );
-    }
-
+    };
 
 }

@@ -11,9 +11,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class MotionProperties {
 
     private static final LazyConstant<MethodHandle> JPH_MOTION_PROPERTIES_GET_ALLOWED_DOFS;
@@ -49,323 +46,307 @@ public final class MotionProperties {
     }
 
     public MotionProperties(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static int getAllowedDOFs(
-        MemorySegment properties
+    	MemorySegment properties
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_GET_ALLOWED_DOFS.get();
-        try {
-            return (int) method.invokeExact(
-                properties
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_GET_ALLOWED_DOFS.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			properties
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAllowedDOFs}.
-     */
-    public final int getAllowedDOFs(
-    ) {
-        return (int) getAllowedDOFs(
-            this.segment
-        );
+    /// Typed method of [#getAllowedDOFs].
+    public final int getAllowedDOFs() {
+    	return (int) getAllowedDOFs(
+    		this.segment
+    	);
     }
+    
     
     public static void setLinearDamping(
-        MemorySegment properties, 
-        float damping
+    	MemorySegment properties,
+    	float damping
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_SET_LINEAR_DAMPING.get();
-        try {
-            method.invokeExact(
-                properties, 
-                damping
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_SET_LINEAR_DAMPING.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			damping
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLinearDamping}.
-     */
+    /// Typed method of [#setLinearDamping].
     public final void setLinearDamping(
-        float damping
+    	float damping
     ) {
-        setLinearDamping(
-            this.segment, 
-            damping
-        );
+    	setLinearDamping(
+    		this.segment,
+    		damping
+    	);
     }
+    
     
     public static float getLinearDamping(
-        MemorySegment properties
+    	MemorySegment properties
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_GET_LINEAR_DAMPING.get();
-        try {
-            return (float) method.invokeExact(
-                properties
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_GET_LINEAR_DAMPING.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			properties
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLinearDamping}.
-     */
-    public final float getLinearDamping(
-    ) {
-        return (float) getLinearDamping(
-            this.segment
-        );
+    /// Typed method of [#getLinearDamping].
+    public final float getLinearDamping() {
+    	return (float) getLinearDamping(
+    		this.segment
+    	);
     }
+    
     
     public static void setAngularDamping(
-        MemorySegment properties, 
-        float damping
+    	MemorySegment properties,
+    	float damping
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_SET_ANGULAR_DAMPING.get();
-        try {
-            method.invokeExact(
-                properties, 
-                damping
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_SET_ANGULAR_DAMPING.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			damping
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setAngularDamping}.
-     */
+    /// Typed method of [#setAngularDamping].
     public final void setAngularDamping(
-        float damping
+    	float damping
     ) {
-        setAngularDamping(
-            this.segment, 
-            damping
-        );
+    	setAngularDamping(
+    		this.segment,
+    		damping
+    	);
     }
+    
     
     public static float getAngularDamping(
-        MemorySegment properties
+    	MemorySegment properties
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_GET_ANGULAR_DAMPING.get();
-        try {
-            return (float) method.invokeExact(
-                properties
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_GET_ANGULAR_DAMPING.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			properties
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAngularDamping}.
-     */
-    public final float getAngularDamping(
-    ) {
-        return (float) getAngularDamping(
-            this.segment
-        );
+    /// Typed method of [#getAngularDamping].
+    public final float getAngularDamping() {
+    	return (float) getAngularDamping(
+    		this.segment
+    	);
     }
+    
     
     public static void setMassProperties(
-        MemorySegment properties, 
-        int allowedDOFs, 
-        MemorySegment massProperties
+    	MemorySegment properties,
+    	int allowedDOFs,
+    	MemorySegment massProperties
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_SET_MASS_PROPERTIES.get();
-        try {
-            method.invokeExact(
-                properties, 
-                allowedDOFs, 
-                massProperties
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_SET_MASS_PROPERTIES.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			allowedDOFs,
+    			massProperties
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMassProperties}.
-     */
+    /// Typed method of [#setMassProperties].
     public final void setMassProperties(
-        int allowedDOFs, 
-        MassProperties massProperties
+    	int allowedDOFs,
+    	MassProperties massProperties
     ) {
-        setMassProperties(
-            this.segment, 
-            allowedDOFs, 
-            massProperties.memorySegment()
-        );
+    	setMassProperties(
+    		this.segment,
+    		allowedDOFs,
+    		massProperties.memorySegment()
+    	);
     }
+    
     
     public static float getInverseMassUnchecked(
-        MemorySegment properties
+    	MemorySegment properties
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_GET_INVERSE_MASS_UNCHECKED.get();
-        try {
-            return (float) method.invokeExact(
-                properties
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_GET_INVERSE_MASS_UNCHECKED.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			properties
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInverseMassUnchecked}.
-     */
-    public final float getInverseMassUnchecked(
-    ) {
-        return (float) getInverseMassUnchecked(
-            this.segment
-        );
+    /// Typed method of [#getInverseMassUnchecked].
+    public final float getInverseMassUnchecked() {
+    	return (float) getInverseMassUnchecked(
+    		this.segment
+    	);
     }
+    
     
     public static void setInverseMass(
-        MemorySegment properties, 
-        float inverseMass
+    	MemorySegment properties,
+    	float inverseMass
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_SET_INVERSE_MASS.get();
-        try {
-            method.invokeExact(
-                properties, 
-                inverseMass
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_SET_INVERSE_MASS.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			inverseMass
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setInverseMass}.
-     */
+    /// Typed method of [#setInverseMass].
     public final void setInverseMass(
-        float inverseMass
+    	float inverseMass
     ) {
-        setInverseMass(
-            this.segment, 
-            inverseMass
-        );
+    	setInverseMass(
+    		this.segment,
+    		inverseMass
+    	);
     }
+    
     
     public static void getInverseInertiaDiagonal(
-        MemorySegment properties, 
-        MemorySegment result
+    	MemorySegment properties,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_GET_INVERSE_INERTIA_DIAGONAL.get();
-        try {
-            method.invokeExact(
-                properties, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_GET_INVERSE_INERTIA_DIAGONAL.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInverseInertiaDiagonal}.
-     */
+    /// Typed method of [#getInverseInertiaDiagonal].
     public final void getInverseInertiaDiagonal(
-        Vec3 result
+    	Vec3 result
     ) {
-        getInverseInertiaDiagonal(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getInverseInertiaDiagonal(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getInertiaRotation(
-        MemorySegment properties, 
-        MemorySegment result
+    	MemorySegment properties,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_GET_INERTIA_ROTATION.get();
-        try {
-            method.invokeExact(
-                properties, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_GET_INERTIA_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInertiaRotation}.
-     */
+    /// Typed method of [#getInertiaRotation].
     public final void getInertiaRotation(
-        Quat result
+    	Quat result
     ) {
-        getInertiaRotation(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getInertiaRotation(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setInverseInertia(
-        MemorySegment properties, 
-        MemorySegment diagonal, 
-        MemorySegment rot
+    	MemorySegment properties,
+    	MemorySegment diagonal,
+    	MemorySegment rot
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_SET_INVERSE_INERTIA.get();
-        try {
-            method.invokeExact(
-                properties, 
-                diagonal, 
-                rot
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_SET_INVERSE_INERTIA.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			diagonal,
+    			rot
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setInverseInertia}.
-     */
+    /// Typed method of [#setInverseInertia].
     public final void setInverseInertia(
-        Vec3 diagonal, 
-        Quat rot
+    	Vec3 diagonal,
+    	Quat rot
     ) {
-        setInverseInertia(
-            this.segment, 
-            diagonal.memorySegment(), 
-            rot.memorySegment()
-        );
+    	setInverseInertia(
+    		this.segment,
+    		diagonal.memorySegment(),
+    		rot.memorySegment()
+    	);
     }
+    
     
     public static void scaleToMass(
-        MemorySegment properties, 
-        float mass
+    	MemorySegment properties,
+    	float mass
     ) {
-        MethodHandle method = JPH_MOTION_PROPERTIES_SCALE_TO_MASS.get();
-        try {
-            method.invokeExact(
-                properties, 
-                mass
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTION_PROPERTIES_SCALE_TO_MASS.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			mass
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #scaleToMass}.
-     */
+    /// Typed method of [#scaleToMass].
     public final void scaleToMass(
-        float mass
+    	float mass
     ) {
-        scaleToMass(
-            this.segment, 
-            mass
-        );
+    	scaleToMass(
+    		this.segment,
+    		mass
+    	);
     }
     
     public MemorySegment memorySegment() {

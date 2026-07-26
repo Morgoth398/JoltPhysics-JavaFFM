@@ -17,9 +17,6 @@ import volucris.bindings.jolt.vehicle.Wheel;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleConstraint extends Constraint {
 
     private static final LazyConstant<MethodHandle> JPH_VEHICLE_CONSTRAINT_CREATE;
@@ -67,524 +64,509 @@ public final class VehicleConstraint extends Constraint {
     }
 
     public VehicleConstraint(
-        Body body, 
+        Body body,
         VehicleConstraintSettings settings
     ) {
         this(
             Arena.ofAuto(),
-            body, 
+            body,
             settings
         );
     }
     
+    /// Typed method of [#create].
     public VehicleConstraint(
-        Arena arena,
-        Body body, 
-        VehicleConstraintSettings settings
+    	Arena arena,
+    	Body body,
+    	VehicleConstraintSettings settings
     ) {
-         MemorySegment segment = create(
-            body.memorySegment(), 
-            settings.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		body.memorySegment(),
+    		settings.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public VehicleConstraint(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment body, 
-        MemorySegment settings
+    	MemorySegment body,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                body, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			body,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment asPhysicsStepListener(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_AS_PHYSICS_STEP_LISTENER.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_AS_PHYSICS_STEP_LISTENER.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void setMaxPitchRollAngle(
-        MemorySegment constraint, 
-        float maxPitchRollAngle
+    	MemorySegment constraint,
+    	float maxPitchRollAngle
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_SET_MAX_PITCH_ROLL_ANGLE.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                maxPitchRollAngle
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_SET_MAX_PITCH_ROLL_ANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			maxPitchRollAngle
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMaxPitchRollAngle}.
-     */
+    /// Typed method of [#setMaxPitchRollAngle].
     public final void setMaxPitchRollAngle(
-        float maxPitchRollAngle
+    	float maxPitchRollAngle
     ) {
-        setMaxPitchRollAngle(
-            this.segment, 
-            maxPitchRollAngle
-        );
+    	setMaxPitchRollAngle(
+    		this.segment,
+    		maxPitchRollAngle
+    	);
     }
+    
     
     public static void setVehicleCollisionTester(
-        MemorySegment constraint, 
-        MemorySegment tester
+    	MemorySegment constraint,
+    	MemorySegment tester
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_SET_VEHICLE_COLLISION_TESTER.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                tester
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_SET_VEHICLE_COLLISION_TESTER.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			tester
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setVehicleCollisionTester}.
-     */
+    /// Typed method of [#setVehicleCollisionTester].
     public final void setVehicleCollisionTester(
-        VehicleCollisionTester tester
+    	VehicleCollisionTester tester
     ) {
-        setVehicleCollisionTester(
-            this.segment, 
-            tester.memorySegment()
-        );
+    	setVehicleCollisionTester(
+    		this.segment,
+    		tester.memorySegment()
+    	);
     }
+    
     
     public static void overrideGravity(
-        MemorySegment constraint, 
-        MemorySegment value
+    	MemorySegment constraint,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_OVERRIDE_GRAVITY.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_OVERRIDE_GRAVITY.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #overrideGravity}.
-     */
+    /// Typed method of [#overrideGravity].
     public final void overrideGravity(
-        Vec3 value
+    	Vec3 value
     ) {
-        overrideGravity(
-            this.segment, 
-            value.memorySegment()
-        );
+    	overrideGravity(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static boolean isGravityOverridden(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_IS_GRAVITY_OVERRIDDEN.get();
-        try {
-            return (boolean) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_IS_GRAVITY_OVERRIDDEN.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isGravityOverridden}.
-     */
-    public final boolean isGravityOverridden(
-    ) {
-        return (boolean) isGravityOverridden(
-            this.segment
-        );
+    /// Typed method of [#isGravityOverridden].
+    public final boolean isGravityOverridden() {
+    	return (boolean) isGravityOverridden(
+    		this.segment
+    	);
     }
+    
     
     public static void getGravityOverride(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_GRAVITY_OVERRIDE.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_GRAVITY_OVERRIDE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getGravityOverride}.
-     */
+    /// Typed method of [#getGravityOverride].
     public final void getGravityOverride(
-        Vec3 result
+    	Vec3 result
     ) {
-        getGravityOverride(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getGravityOverride(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void resetGravityOverride(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_RESET_GRAVITY_OVERRIDE.get();
-        try {
-            method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_RESET_GRAVITY_OVERRIDE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #resetGravityOverride}.
-     */
-    public final void resetGravityOverride(
-    ) {
-        resetGravityOverride(
-            this.segment
-        );
+    /// Typed method of [#resetGravityOverride].
+    public final void resetGravityOverride() {
+    	resetGravityOverride(
+    		this.segment
+    	);
     }
+    
     
     public static void getLocalForward(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_LOCAL_FORWARD.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_LOCAL_FORWARD.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLocalForward}.
-     */
+    /// Typed method of [#getLocalForward].
     public final void getLocalForward(
-        Vec3 result
+    	Vec3 result
     ) {
-        getLocalForward(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getLocalForward(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getLocalUp(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_LOCAL_UP.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_LOCAL_UP.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLocalUp}.
-     */
+    /// Typed method of [#getLocalUp].
     public final void getLocalUp(
-        Vec3 result
+    	Vec3 result
     ) {
-        getLocalUp(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getLocalUp(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getWorldUp(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WORLD_UP.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WORLD_UP.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldUp}.
-     */
+    /// Typed method of [#getWorldUp].
     public final void getWorldUp(
-        Vec3 result
+    	Vec3 result
     ) {
-        getWorldUp(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getWorldUp(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getVehicleBody(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_VEHICLE_BODY.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_VEHICLE_BODY.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVehicleBody}.
-     */
-    public final @Nullable Body getVehicleBody(
-    ) {
-        MemorySegment segment = getVehicleBody(
-            this.segment
-        );
+    /// Typed method of [#getVehicleBody].
+    public final @Nullable Body getVehicleBody() {
+    	MemorySegment segment = getVehicleBody(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Body(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Body(segment);
     }
+    
     
     public static MemorySegment getController(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_CONTROLLER.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_CONTROLLER.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getController}.
-     */
-    public final @Nullable VehicleController getController(
-    ) {
-        MemorySegment segment = getController(
-            this.segment
-        );
+    /// Typed method of [#getController].
+    public final @Nullable VehicleController getController() {
+    	MemorySegment segment = getController(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleController(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleController(segment);
     }
+    
     
     public static int getWheelsCount(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEELS_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEELS_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheelsCount}.
-     */
-    public final int getWheelsCount(
-    ) {
-        return (int) getWheelsCount(
-            this.segment
-        );
+    /// Typed method of [#getWheelsCount].
+    public final int getWheelsCount() {
+    	return (int) getWheelsCount(
+    		this.segment
+    	);
     }
+    
     
     public static MemorySegment getWheel(
-        MemorySegment constraint, 
-        int index
+    	MemorySegment constraint,
+    	int index
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                constraint, 
-                index
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			constraint,
+    			index
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheel}.
-     */
+    /// Typed method of [#getWheel].
     public final @Nullable Wheel getWheel(
-        int index
+    	int index
     ) {
-        MemorySegment segment = getWheel(
-            this.segment, 
-            index
-        );
+    	MemorySegment segment = getWheel(
+    		this.segment,
+    		index
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Wheel(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Wheel(segment);
     }
+    
     
     public static void getWheelLocalBasis(
-        MemorySegment constraint, 
-        MemorySegment wheel, 
-        MemorySegment outForward, 
-        MemorySegment outUp, 
-        MemorySegment outRight
+    	MemorySegment constraint,
+    	MemorySegment wheel,
+    	MemorySegment outForward,
+    	MemorySegment outUp,
+    	MemorySegment outRight
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL_LOCAL_BASIS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                wheel, 
-                outForward, 
-                outUp, 
-                outRight
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL_LOCAL_BASIS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			wheel,
+    			outForward,
+    			outUp,
+    			outRight
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheelLocalBasis}.
-     */
+    /// Typed method of [#getWheelLocalBasis].
     public final void getWheelLocalBasis(
-        Wheel wheel, 
-        Vec3 outForward, 
-        Vec3 outUp, 
-        Vec3 outRight
+    	Wheel wheel,
+    	Vec3 outForward,
+    	Vec3 outUp,
+    	Vec3 outRight
     ) {
-        getWheelLocalBasis(
-            this.segment, 
-            wheel.memorySegment(), 
-            outForward.memorySegment(), 
-            outUp.memorySegment(), 
-            outRight.memorySegment()
-        );
+    	getWheelLocalBasis(
+    		this.segment,
+    		wheel.memorySegment(),
+    		outForward.memorySegment(),
+    		outUp.memorySegment(),
+    		outRight.memorySegment()
+    	);
     }
+    
     
     public static void getWheelLocalTransform(
-        MemorySegment constraint, 
-        int wheelIndex, 
-        MemorySegment wheelRight, 
-        MemorySegment wheelUp, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	int wheelIndex,
+    	MemorySegment wheelRight,
+    	MemorySegment wheelUp,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL_LOCAL_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                wheelIndex, 
-                wheelRight, 
-                wheelUp, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL_LOCAL_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			wheelIndex,
+    			wheelRight,
+    			wheelUp,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheelLocalTransform}.
-     */
+    /// Typed method of [#getWheelLocalTransform].
     public final void getWheelLocalTransform(
-        int wheelIndex, 
-        Vec3 wheelRight, 
-        Vec3 wheelUp, 
-        Mat4 result
+    	int wheelIndex,
+    	Vec3 wheelRight,
+    	Vec3 wheelUp,
+    	Mat4 result
     ) {
-        getWheelLocalTransform(
-            this.segment, 
-            wheelIndex, 
-            wheelRight.memorySegment(), 
-            wheelUp.memorySegment(), 
-            result.memorySegment()
-        );
+    	getWheelLocalTransform(
+    		this.segment,
+    		wheelIndex,
+    		wheelRight.memorySegment(),
+    		wheelUp.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getWheelWorldTransform(
-        MemorySegment constraint, 
-        int wheelIndex, 
-        MemorySegment wheelRight, 
-        MemorySegment wheelUp, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	int wheelIndex,
+    	MemorySegment wheelRight,
+    	MemorySegment wheelUp,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL_WORLD_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                wheelIndex, 
-                wheelRight, 
-                wheelUp, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL_WORLD_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			wheelIndex,
+    			wheelRight,
+    			wheelUp,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheelWorldTransform}.
-     */
+    /// Typed method of [#getWheelWorldTransform].
     public final void getWheelWorldTransform(
-        int wheelIndex, 
-        Vec3 wheelRight, 
-        Vec3 wheelUp, 
-        Mat4 result
+    	int wheelIndex,
+    	Vec3 wheelRight,
+    	Vec3 wheelUp,
+    	Mat4 result
     ) {
-        getWheelWorldTransform(
-            this.segment, 
-            wheelIndex, 
-            wheelRight.memorySegment(), 
-            wheelUp.memorySegment(), 
-            result.memorySegment()
-        );
+    	getWheelWorldTransform(
+    		this.segment,
+    		wheelIndex,
+    		wheelRight.memorySegment(),
+    		wheelUp.memorySegment(),
+    		result.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

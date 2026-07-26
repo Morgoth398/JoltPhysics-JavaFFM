@@ -9,9 +9,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class VehicleCollisionTester
 		permits VehicleCollisionTesterRay,
 		VehicleCollisionTesterCastCylinder,
@@ -32,72 +29,71 @@ public sealed class VehicleCollisionTester
     }
 
     public VehicleCollisionTester(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment tester
+    	MemorySegment tester
     ) {
-        MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                tester
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			tester
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static int getObjectLayer(
-        MemorySegment tester
+    	MemorySegment tester
     ) {
-        MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_GET_OBJECT_LAYER.get();
-        try {
-            return (int) method.invokeExact(
-                tester
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_GET_OBJECT_LAYER.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			tester
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getObjectLayer}.
-     */
+    /// Typed method of [#getObjectLayer].
     public final int getObjectLayer(
-        VehicleCollisionTester tester
+    	VehicleCollisionTester tester
     ) {
-        return (int) getObjectLayer(
-            tester.memorySegment()
-        );
+    	return (int) getObjectLayer(
+    		tester.memorySegment()
+    	);
     }
+    
     
     public static void setObjectLayer(
-        MemorySegment tester, 
-        int value
+    	MemorySegment tester,
+    	int value
     ) {
-        MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_SET_OBJECT_LAYER.get();
-        try {
-            method.invokeExact(
-                tester, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_SET_OBJECT_LAYER.get();
+    	try {
+    		 method.invokeExact(
+    			tester,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setObjectLayer}.
-     */
+    /// Typed method of [#setObjectLayer].
     public final void setObjectLayer(
-        VehicleCollisionTester tester, 
-        int value
+    	VehicleCollisionTester tester,
+    	int value
     ) {
-        setObjectLayer(
-            tester.memorySegment(), 
-            value
-        );
+    	setObjectLayer(
+    		tester.memorySegment(),
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

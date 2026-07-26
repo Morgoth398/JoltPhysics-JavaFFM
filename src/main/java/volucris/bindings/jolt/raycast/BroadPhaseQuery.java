@@ -13,9 +13,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public class BroadPhaseQuery {
 
     private static final LazyConstant<MethodHandle> JPH_BROAD_PHASE_QUERY_CAST_RAY;
@@ -37,238 +34,233 @@ public class BroadPhaseQuery {
     }
 
     public BroadPhaseQuery(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static boolean castRay(
-        MemorySegment query, 
-        MemorySegment origin, 
-        MemorySegment direction, 
-        MemorySegment callback, 
-        MemorySegment userData, 
-        MemorySegment broadPhaseLayerFilter, 
-        MemorySegment objectLayerFilter
+    	MemorySegment query,
+    	MemorySegment origin,
+    	MemorySegment direction,
+    	MemorySegment callback,
+    	MemorySegment userData,
+    	MemorySegment broadPhaseLayerFilter,
+    	MemorySegment objectLayerFilter
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY.get();
-        try {
-            return (boolean) method.invokeExact(
-                query, 
-                origin, 
-                direction, 
-                callback, 
-                userData, 
-                broadPhaseLayerFilter, 
-                objectLayerFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			query,
+    			origin,
+    			direction,
+    			callback,
+    			userData,
+    			broadPhaseLayerFilter,
+    			objectLayerFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #castRay}.
-     */
+    /// Typed method of [#castRay].
     public final boolean castRay(
-        Vec3 origin, 
-        Vec3 direction, 
-        RayCastBodyCollectorCallback callback, 
-        MemorySegment userData, 
-        BroadPhaseLayerFilter broadPhaseLayerFilter, 
-        ObjectLayerFilter objectLayerFilter
+    	Vec3 origin,
+    	Vec3 direction,
+    	RayCastBodyCollectorCallback callback,
+    	MemorySegment userData,
+    	BroadPhaseLayerFilter broadPhaseLayerFilter,
+    	ObjectLayerFilter objectLayerFilter
     ) {
-        return (boolean) castRay(
-            this.segment, 
-            origin.memorySegment(), 
-            direction.memorySegment(), 
-            callback.memorySegment(), 
-            userData, 
-            broadPhaseLayerFilter.memorySegment(), 
-            objectLayerFilter.memorySegment()
-        );
+    	return (boolean) castRay(
+    		this.segment,
+    		origin.memorySegment(),
+    		direction.memorySegment(),
+    		callback.memorySegment(),
+    		userData,
+    		broadPhaseLayerFilter.memorySegment(),
+    		objectLayerFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean castRay2(
-        MemorySegment query, 
-        MemorySegment origin, 
-        MemorySegment direction, 
-        int collectorType, 
-        MemorySegment callback, 
-        MemorySegment userData, 
-        MemorySegment broadPhaseLayerFilter, 
-        MemorySegment objectLayerFilter
+    	MemorySegment query,
+    	MemorySegment origin,
+    	MemorySegment direction,
+    	int collectorType,
+    	MemorySegment callback,
+    	MemorySegment userData,
+    	MemorySegment broadPhaseLayerFilter,
+    	MemorySegment objectLayerFilter
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY2.get();
-        try {
-            return (boolean) method.invokeExact(
-                query, 
-                origin, 
-                direction, 
-                collectorType, 
-                callback, 
-                userData, 
-                broadPhaseLayerFilter, 
-                objectLayerFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY2.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			query,
+    			origin,
+    			direction,
+    			collectorType,
+    			callback,
+    			userData,
+    			broadPhaseLayerFilter,
+    			objectLayerFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #castRay2}.
-     */
+    /// Typed method of [#castRay2].
     public final boolean castRay2(
-        Vec3 origin, 
-        Vec3 direction, 
-        int collectorType, 
-        RayCastBodyResultCallback callback, 
-        MemorySegment userData, 
-        BroadPhaseLayerFilter broadPhaseLayerFilter, 
-        ObjectLayerFilter objectLayerFilter
+    	Vec3 origin,
+    	Vec3 direction,
+    	int collectorType,
+    	RayCastBodyResultCallback callback,
+    	MemorySegment userData,
+    	BroadPhaseLayerFilter broadPhaseLayerFilter,
+    	ObjectLayerFilter objectLayerFilter
     ) {
-        return (boolean) castRay2(
-            this.segment, 
-            origin.memorySegment(), 
-            direction.memorySegment(), 
-            collectorType, 
-            callback.memorySegment(), 
-            userData, 
-            broadPhaseLayerFilter.memorySegment(), 
-            objectLayerFilter.memorySegment()
-        );
+    	return (boolean) castRay2(
+    		this.segment,
+    		origin.memorySegment(),
+    		direction.memorySegment(),
+    		collectorType,
+    		callback.memorySegment(),
+    		userData,
+    		broadPhaseLayerFilter.memorySegment(),
+    		objectLayerFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean collideAABox(
-        MemorySegment query, 
-        MemorySegment box, 
-        MemorySegment callback, 
-        MemorySegment userData, 
-        MemorySegment broadPhaseLayerFilter, 
-        MemorySegment objectLayerFilter
+    	MemorySegment query,
+    	MemorySegment box,
+    	MemorySegment callback,
+    	MemorySegment userData,
+    	MemorySegment broadPhaseLayerFilter,
+    	MemorySegment objectLayerFilter
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_AABOX.get();
-        try {
-            return (boolean) method.invokeExact(
-                query, 
-                box, 
-                callback, 
-                userData, 
-                broadPhaseLayerFilter, 
-                objectLayerFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_AABOX.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			query,
+    			box,
+    			callback,
+    			userData,
+    			broadPhaseLayerFilter,
+    			objectLayerFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #collideAABox}.
-     */
+    /// Typed method of [#collideAABox].
     public final boolean collideAABox(
-        AABox box, 
-        CollideShapeBodyCollectorCallback callback, 
-        MemorySegment userData, 
-        BroadPhaseLayerFilter broadPhaseLayerFilter, 
-        ObjectLayerFilter objectLayerFilter
+    	AABox box,
+    	CollideShapeBodyCollectorCallback callback,
+    	MemorySegment userData,
+    	BroadPhaseLayerFilter broadPhaseLayerFilter,
+    	ObjectLayerFilter objectLayerFilter
     ) {
-        return (boolean) collideAABox(
-            this.segment, 
-            box.memorySegment(), 
-            callback.memorySegment(), 
-            userData, 
-            broadPhaseLayerFilter.memorySegment(), 
-            objectLayerFilter.memorySegment()
-        );
+    	return (boolean) collideAABox(
+    		this.segment,
+    		box.memorySegment(),
+    		callback.memorySegment(),
+    		userData,
+    		broadPhaseLayerFilter.memorySegment(),
+    		objectLayerFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean collideSphere(
-        MemorySegment query, 
-        MemorySegment center, 
-        float radius, 
-        MemorySegment callback, 
-        MemorySegment userData, 
-        MemorySegment broadPhaseLayerFilter, 
-        MemorySegment objectLayerFilter
+    	MemorySegment query,
+    	MemorySegment center,
+    	float radius,
+    	MemorySegment callback,
+    	MemorySegment userData,
+    	MemorySegment broadPhaseLayerFilter,
+    	MemorySegment objectLayerFilter
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_SPHERE.get();
-        try {
-            return (boolean) method.invokeExact(
-                query, 
-                center, 
-                radius, 
-                callback, 
-                userData, 
-                broadPhaseLayerFilter, 
-                objectLayerFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_SPHERE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			query,
+    			center,
+    			radius,
+    			callback,
+    			userData,
+    			broadPhaseLayerFilter,
+    			objectLayerFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #collideSphere}.
-     */
+    /// Typed method of [#collideSphere].
     public final boolean collideSphere(
-        Vec3 center, 
-        float radius, 
-        CollideShapeBodyCollectorCallback callback, 
-        MemorySegment userData, 
-        BroadPhaseLayerFilter broadPhaseLayerFilter, 
-        ObjectLayerFilter objectLayerFilter
+    	Vec3 center,
+    	float radius,
+    	CollideShapeBodyCollectorCallback callback,
+    	MemorySegment userData,
+    	BroadPhaseLayerFilter broadPhaseLayerFilter,
+    	ObjectLayerFilter objectLayerFilter
     ) {
-        return (boolean) collideSphere(
-            this.segment, 
-            center.memorySegment(), 
-            radius, 
-            callback.memorySegment(), 
-            userData, 
-            broadPhaseLayerFilter.memorySegment(), 
-            objectLayerFilter.memorySegment()
-        );
+    	return (boolean) collideSphere(
+    		this.segment,
+    		center.memorySegment(),
+    		radius,
+    		callback.memorySegment(),
+    		userData,
+    		broadPhaseLayerFilter.memorySegment(),
+    		objectLayerFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean collidePoint(
-        MemorySegment query, 
-        MemorySegment point, 
-        MemorySegment callback, 
-        MemorySegment userData, 
-        MemorySegment broadPhaseLayerFilter, 
-        MemorySegment objectLayerFilter
+    	MemorySegment query,
+    	MemorySegment point,
+    	MemorySegment callback,
+    	MemorySegment userData,
+    	MemorySegment broadPhaseLayerFilter,
+    	MemorySegment objectLayerFilter
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_POINT.get();
-        try {
-            return (boolean) method.invokeExact(
-                query, 
-                point, 
-                callback, 
-                userData, 
-                broadPhaseLayerFilter, 
-                objectLayerFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_POINT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			query,
+    			point,
+    			callback,
+    			userData,
+    			broadPhaseLayerFilter,
+    			objectLayerFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #collidePoint}.
-     */
+    /// Typed method of [#collidePoint].
     public final boolean collidePoint(
-        Vec3 point, 
-        CollideShapeBodyCollectorCallback callback, 
-        MemorySegment userData, 
-        BroadPhaseLayerFilter broadPhaseLayerFilter, 
-        ObjectLayerFilter objectLayerFilter
+    	Vec3 point,
+    	CollideShapeBodyCollectorCallback callback,
+    	MemorySegment userData,
+    	BroadPhaseLayerFilter broadPhaseLayerFilter,
+    	ObjectLayerFilter objectLayerFilter
     ) {
-        return (boolean) collidePoint(
-            this.segment, 
-            point.memorySegment(), 
-            callback.memorySegment(), 
-            userData, 
-            broadPhaseLayerFilter.memorySegment(), 
-            objectLayerFilter.memorySegment()
-        );
+    	return (boolean) collidePoint(
+    		this.segment,
+    		point.memorySegment(),
+    		callback.memorySegment(),
+    		userData,
+    		broadPhaseLayerFilter.memorySegment(),
+    		objectLayerFilter.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

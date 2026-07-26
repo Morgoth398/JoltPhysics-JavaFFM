@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.constraint;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -12,9 +11,6 @@ import volucris.bindings.jolt.body.Body;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class GearConstraint extends TwoBodyConstraint {
 
     private static final LazyConstant<MethodHandle> JPH_GEAR_CONSTRAINT_CREATE;
@@ -34,135 +30,136 @@ public final class GearConstraint extends TwoBodyConstraint {
     }
 
     public GearConstraint(
-        GearConstraintSettings settings, 
-        Body body1, 
+        GearConstraintSettings settings,
+        Body body1,
         Body body2
     ) {
         this(
             Arena.ofAuto(),
-            settings, 
-            body1, 
+            settings,
+            body1,
             body2
         );
     }
     
+    /// Typed method of [#create].
     public GearConstraint(
-        Arena arena,
-        GearConstraintSettings settings, 
-        Body body1, 
-        Body body2
+    	Arena arena,
+    	GearConstraintSettings settings,
+    	Body body1,
+    	Body body2
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment(), 
-            body1.memorySegment(), 
-            body2.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment(),
+    		body1.memorySegment(),
+    		body2.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public GearConstraint(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings, 
-        MemorySegment body1, 
-        MemorySegment body2
+    	MemorySegment settings,
+    	MemorySegment body1,
+    	MemorySegment body2
     ) {
-        MethodHandle method = JPH_GEAR_CONSTRAINT_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings, 
-                body1, 
-                body2
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_GEAR_CONSTRAINT_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings,
+    			body1,
+    			body2
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getSettings(
-        MemorySegment constraint, 
-        MemorySegment settings
+    	MemorySegment constraint,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_GEAR_CONSTRAINT_GET_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_GEAR_CONSTRAINT_GET_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
+    /// Typed method of [#getSettings].
     public final void getSettings(
-        GearConstraintSettings settings
+    	GearConstraintSettings settings
     ) {
-        getSettings(
-            this.segment, 
-            settings.memorySegment()
-        );
+    	getSettings(
+    		this.segment,
+    		settings.memorySegment()
+    	);
     }
+    
     
     public static void setConstraints(
-        MemorySegment constraint, 
-        MemorySegment gear1, 
-        MemorySegment gear2
+    	MemorySegment constraint,
+    	MemorySegment gear1,
+    	MemorySegment gear2
     ) {
-        MethodHandle method = JPH_GEAR_CONSTRAINT_SET_CONSTRAINTS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                gear1, 
-                gear2
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_GEAR_CONSTRAINT_SET_CONSTRAINTS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			gear1,
+    			gear2
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setConstraints}.
-     */
+    /// Typed method of [#setConstraints].
     public final void setConstraints(
-        Constraint gear1, 
-        Constraint gear2
+    	Constraint gear1,
+    	Constraint gear2
     ) {
-        setConstraints(
-            this.segment, 
-            gear1.memorySegment(), 
-            gear2.memorySegment()
-        );
+    	setConstraints(
+    		this.segment,
+    		gear1.memorySegment(),
+    		gear2.memorySegment()
+    	);
     }
+    
     
     public static float getTotalLambda(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_GEAR_CONSTRAINT_GET_TOTAL_LAMBDA.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_GEAR_CONSTRAINT_GET_TOTAL_LAMBDA.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambda}.
-     */
-    public final float getTotalLambda(
-    ) {
-        return (float) getTotalLambda(
-            this.segment
-        );
+    /// Typed method of [#getTotalLambda].
+    public final float getTotalLambda() {
+    	return (float) getTotalLambda(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

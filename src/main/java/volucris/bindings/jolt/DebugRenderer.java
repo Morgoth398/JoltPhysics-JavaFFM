@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -15,6 +14,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import volucris.bindings.core.NativeByteArray;
 import volucris.bindings.jolt.math.AABox;
 import volucris.bindings.jolt.math.Mat4;
 import volucris.bindings.jolt.math.Vec3;
@@ -74,9 +74,9 @@ public abstract class DebugRenderer {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("drawLine"), 
-            UNBOUNDED_ADDRESS.withName("drawTriangle"), 
-            UNBOUNDED_ADDRESS.withName("drawText3D")
+            UNBOUNDED_ADDRESS.withName("DrawLine"),
+            UNBOUNDED_ADDRESS.withName("DrawTriangle"),
+            UNBOUNDED_ADDRESS.withName("DrawText3D")
         ).withName("JPH_DebugRenderer_Procs").withByteAlignment(8);
 
         JPH_DEBUG_RENDERER_SET_PROCS = downcallHandleVoid("JPH_DebugRenderer_SetProcs", UNBOUNDED_ADDRESS);
@@ -110,13 +110,13 @@ public abstract class DebugRenderer {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             DRAW_LINE_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 JAVA_INT
             );
 
@@ -124,14 +124,14 @@ public abstract class DebugRenderer {
 
             DRAW_LINE_ADDRESS = linker.upcallStub(DRAW_LINE_HANDLE, DRAW_LINE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("drawLine")), DRAW_LINE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("DrawLine")), DRAW_LINE_ADDRESS);
             
             DRAW_TRIANGLE_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
                 JAVA_INT
             );
 
@@ -139,13 +139,13 @@ public abstract class DebugRenderer {
 
             DRAW_TRIANGLE_ADDRESS = linker.upcallStub(DRAW_TRIANGLE_HANDLE, DRAW_TRIANGLE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("drawTriangle")), DRAW_TRIANGLE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("DrawTriangle")), DRAW_TRIANGLE_ADDRESS);
             
             DRAW_TEXT3_D_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
                 JAVA_FLOAT
             );
 
@@ -153,7 +153,7 @@ public abstract class DebugRenderer {
 
             DRAW_TEXT3_D_ADDRESS = linker.upcallStub(DRAW_TEXT3_D_HANDLE, DRAW_TEXT3_D_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("drawText3D")), DRAW_TEXT3_D_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("DrawText3D")), DRAW_TEXT3_D_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -174,953 +174,933 @@ public abstract class DebugRenderer {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment renderer
+    	MemorySegment renderer
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DESTROY.get();
-        try {
-            method.invokeExact(
-                renderer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			renderer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void nextFrame(
-        MemorySegment renderer
+    	MemorySegment renderer
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_NEXT_FRAME.get();
-        try {
-            method.invokeExact(
-                renderer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_NEXT_FRAME.get();
+    	try {
+    		 method.invokeExact(
+    			renderer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #nextFrame}.
-     */
-    public final void nextFrame(
-    ) {
-        nextFrame(
-            this.segment
-        );
+    /// Typed method of [#nextFrame].
+    public final void nextFrame() {
+    	nextFrame(
+    		this.segment
+    	);
     }
+    
     
     public static void setCameraPos(
-        MemorySegment renderer, 
-        MemorySegment position
+    	MemorySegment renderer,
+    	MemorySegment position
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_SET_CAMERA_POS.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                position
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_SET_CAMERA_POS.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			position
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setCameraPos}.
-     */
+    /// Typed method of [#setCameraPos].
     public final void setCameraPos(
-        Vec3 position
+    	Vec3 position
     ) {
-        setCameraPos(
-            this.segment, 
-            position.memorySegment()
-        );
+    	setCameraPos(
+    		this.segment,
+    		position.memorySegment()
+    	);
     }
+    
     
     public static void drawWireBox(
-        MemorySegment renderer, 
-        MemorySegment box, 
-        int color
+    	MemorySegment renderer,
+    	MemorySegment box,
+    	int color
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_BOX.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                box, 
-                color
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_BOX.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			box,
+    			color
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawWireBox}.
-     */
+    /// Typed method of [#drawWireBox].
     public final void drawWireBox(
-        AABox box, 
-        int color
+    	AABox box,
+    	int color
     ) {
-        drawWireBox(
-            this.segment, 
-            box.memorySegment(), 
-            color
-        );
+    	drawWireBox(
+    		this.segment,
+    		box.memorySegment(),
+    		color
+    	);
     }
+    
     
     public static void drawWireBox2(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        MemorySegment box, 
-        int color
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	MemorySegment box,
+    	int color
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_BOX2.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                box, 
-                color
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_BOX2.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			box,
+    			color
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawWireBox2}.
-     */
+    /// Typed method of [#drawWireBox2].
     public final void drawWireBox2(
-        Mat4 matrix, 
-        AABox box, 
-        int color
+    	Mat4 matrix,
+    	AABox box,
+    	int color
     ) {
-        drawWireBox2(
-            this.segment, 
-            matrix.memorySegment(), 
-            box.memorySegment(), 
-            color
-        );
+    	drawWireBox2(
+    		this.segment,
+    		matrix.memorySegment(),
+    		box.memorySegment(),
+    		color
+    	);
     }
+    
     
     public static void drawMarker(
-        MemorySegment renderer, 
-        MemorySegment position, 
-        int color, 
-        float size
+    	MemorySegment renderer,
+    	MemorySegment position,
+    	int color,
+    	float size
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_MARKER.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                position, 
-                color, 
-                size
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_MARKER.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			position,
+    			color,
+    			size
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawMarker}.
-     */
+    /// Typed method of [#drawMarker].
     public final void drawMarker(
-        Vec3 position, 
-        int color, 
-        float size
+    	Vec3 position,
+    	int color,
+    	float size
     ) {
-        drawMarker(
-            this.segment, 
-            position.memorySegment(), 
-            color, 
-            size
-        );
+    	drawMarker(
+    		this.segment,
+    		position.memorySegment(),
+    		color,
+    		size
+    	);
     }
+    
     
     public static void drawArrow(
-        MemorySegment renderer, 
-        MemorySegment from, 
-        MemorySegment to, 
-        int color, 
-        float size
+    	MemorySegment renderer,
+    	MemorySegment from,
+    	MemorySegment to,
+    	int color,
+    	float size
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_ARROW.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                from, 
-                to, 
-                color, 
-                size
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_ARROW.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			from,
+    			to,
+    			color,
+    			size
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawArrow}.
-     */
+    /// Typed method of [#drawArrow].
     public final void drawArrow(
-        Vec3 from, 
-        Vec3 to, 
-        int color, 
-        float size
+    	Vec3 from,
+    	Vec3 to,
+    	int color,
+    	float size
     ) {
-        drawArrow(
-            this.segment, 
-            from.memorySegment(), 
-            to.memorySegment(), 
-            color, 
-            size
-        );
+    	drawArrow(
+    		this.segment,
+    		from.memorySegment(),
+    		to.memorySegment(),
+    		color,
+    		size
+    	);
     }
+    
     
     public static void drawCoordinateSystem(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        float size
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	float size
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_COORDINATE_SYSTEM.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                size
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_COORDINATE_SYSTEM.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			size
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawCoordinateSystem}.
-     */
+    /// Typed method of [#drawCoordinateSystem].
     public final void drawCoordinateSystem(
-        Mat4 matrix, 
-        float size
+    	Mat4 matrix,
+    	float size
     ) {
-        drawCoordinateSystem(
-            this.segment, 
-            matrix.memorySegment(), 
-            size
-        );
+    	drawCoordinateSystem(
+    		this.segment,
+    		matrix.memorySegment(),
+    		size
+    	);
     }
+    
     
     public static void drawPlane(
-        MemorySegment renderer, 
-        MemorySegment point, 
-        MemorySegment normal, 
-        int color, 
-        float size
+    	MemorySegment renderer,
+    	MemorySegment point,
+    	MemorySegment normal,
+    	int color,
+    	float size
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_PLANE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                point, 
-                normal, 
-                color, 
-                size
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_PLANE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			point,
+    			normal,
+    			color,
+    			size
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawPlane}.
-     */
+    /// Typed method of [#drawPlane].
     public final void drawPlane(
-        Vec3 point, 
-        Vec3 normal, 
-        int color, 
-        float size
+    	Vec3 point,
+    	Vec3 normal,
+    	int color,
+    	float size
     ) {
-        drawPlane(
-            this.segment, 
-            point.memorySegment(), 
-            normal.memorySegment(), 
-            color, 
-            size
-        );
+    	drawPlane(
+    		this.segment,
+    		point.memorySegment(),
+    		normal.memorySegment(),
+    		color,
+    		size
+    	);
     }
+    
     
     public static void drawWireTriangle(
-        MemorySegment renderer, 
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment v3, 
-        int color
+    	MemorySegment renderer,
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment v3,
+    	int color
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_TRIANGLE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                v1, 
-                v2, 
-                v3, 
-                color
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_TRIANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			v1,
+    			v2,
+    			v3,
+    			color
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawWireTriangle}.
-     */
+    /// Typed method of [#drawWireTriangle].
     public final void drawWireTriangle(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 v3, 
-        int color
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 v3,
+    	int color
     ) {
-        drawWireTriangle(
-            this.segment, 
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            v3.memorySegment(), 
-            color
-        );
+    	drawWireTriangle(
+    		this.segment,
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		v3.memorySegment(),
+    		color
+    	);
     }
+    
     
     public static void drawWireSphere(
-        MemorySegment renderer, 
-        MemorySegment center, 
-        float radius, 
-        int color, 
-        int level
+    	MemorySegment renderer,
+    	MemorySegment center,
+    	float radius,
+    	int color,
+    	int level
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_SPHERE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                center, 
-                radius, 
-                color, 
-                level
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_SPHERE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			center,
+    			radius,
+    			color,
+    			level
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawWireSphere}.
-     */
+    /// Typed method of [#drawWireSphere].
     public final void drawWireSphere(
-        Vec3 center, 
-        float radius, 
-        int color, 
-        int level
+    	Vec3 center,
+    	float radius,
+    	int color,
+    	int level
     ) {
-        drawWireSphere(
-            this.segment, 
-            center.memorySegment(), 
-            radius, 
-            color, 
-            level
-        );
+    	drawWireSphere(
+    		this.segment,
+    		center.memorySegment(),
+    		radius,
+    		color,
+    		level
+    	);
     }
+    
     
     public static void drawWireUnitSphere(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        int color, 
-        int level
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	int color,
+    	int level
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_UNIT_SPHERE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                color, 
-                level
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_WIRE_UNIT_SPHERE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			color,
+    			level
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawWireUnitSphere}.
-     */
+    /// Typed method of [#drawWireUnitSphere].
     public final void drawWireUnitSphere(
-        Mat4 matrix, 
-        int color, 
-        int level
+    	Mat4 matrix,
+    	int color,
+    	int level
     ) {
-        drawWireUnitSphere(
-            this.segment, 
-            matrix.memorySegment(), 
-            color, 
-            level
-        );
+    	drawWireUnitSphere(
+    		this.segment,
+    		matrix.memorySegment(),
+    		color,
+    		level
+    	);
     }
+    
     
     public static void drawBox(
-        MemorySegment renderer, 
-        MemorySegment box, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment box,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_BOX.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                box, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_BOX.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			box,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawBox}.
-     */
+    /// Typed method of [#drawBox].
     public final void drawBox(
-        AABox box, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	AABox box,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawBox(
-            this.segment, 
-            box.memorySegment(), 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawBox(
+    		this.segment,
+    		box.memorySegment(),
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawBox2(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        MemorySegment box, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	MemorySegment box,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_BOX2.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                box, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_BOX2.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			box,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawBox2}.
-     */
+    /// Typed method of [#drawBox2].
     public final void drawBox2(
-        Mat4 matrix, 
-        AABox box, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Mat4 matrix,
+    	AABox box,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawBox2(
-            this.segment, 
-            matrix.memorySegment(), 
-            box.memorySegment(), 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawBox2(
+    		this.segment,
+    		matrix.memorySegment(),
+    		box.memorySegment(),
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawSphere(
-        MemorySegment renderer, 
-        MemorySegment center, 
-        float radius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment center,
+    	float radius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SPHERE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                center, 
-                radius, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SPHERE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			center,
+    			radius,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawSphere}.
-     */
+    /// Typed method of [#drawSphere].
     public final void drawSphere(
-        Vec3 center, 
-        float radius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Vec3 center,
+    	float radius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawSphere(
-            this.segment, 
-            center.memorySegment(), 
-            radius, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawSphere(
+    		this.segment,
+    		center.memorySegment(),
+    		radius,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawUnitSphere(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_UNIT_SPHERE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_UNIT_SPHERE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawUnitSphere}.
-     */
+    /// Typed method of [#drawUnitSphere].
     public final void drawUnitSphere(
-        Mat4 matrix, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Mat4 matrix,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawUnitSphere(
-            this.segment, 
-            matrix.memorySegment(), 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawUnitSphere(
+    		this.segment,
+    		matrix.memorySegment(),
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawCapsule(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        float halfHeightOfCylinder, 
-        float radius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	float halfHeightOfCylinder,
+    	float radius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_CAPSULE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                halfHeightOfCylinder, 
-                radius, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_CAPSULE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			halfHeightOfCylinder,
+    			radius,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawCapsule}.
-     */
+    /// Typed method of [#drawCapsule].
     public final void drawCapsule(
-        Mat4 matrix, 
-        float halfHeightOfCylinder, 
-        float radius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Mat4 matrix,
+    	float halfHeightOfCylinder,
+    	float radius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawCapsule(
-            this.segment, 
-            matrix.memorySegment(), 
-            halfHeightOfCylinder, 
-            radius, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawCapsule(
+    		this.segment,
+    		matrix.memorySegment(),
+    		halfHeightOfCylinder,
+    		radius,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawCylinder(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        float halfHeight, 
-        float radius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	float halfHeight,
+    	float radius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_CYLINDER.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                halfHeight, 
-                radius, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_CYLINDER.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			halfHeight,
+    			radius,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawCylinder}.
-     */
+    /// Typed method of [#drawCylinder].
     public final void drawCylinder(
-        Mat4 matrix, 
-        float halfHeight, 
-        float radius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Mat4 matrix,
+    	float halfHeight,
+    	float radius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawCylinder(
-            this.segment, 
-            matrix.memorySegment(), 
-            halfHeight, 
-            radius, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawCylinder(
+    		this.segment,
+    		matrix.memorySegment(),
+    		halfHeight,
+    		radius,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawOpenCone(
-        MemorySegment renderer, 
-        MemorySegment top, 
-        MemorySegment axis, 
-        MemorySegment perpendicular, 
-        float halfAngle, 
-        float length, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment top,
+    	MemorySegment axis,
+    	MemorySegment perpendicular,
+    	float halfAngle,
+    	float length,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_OPEN_CONE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                top, 
-                axis, 
-                perpendicular, 
-                halfAngle, 
-                length, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_OPEN_CONE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			top,
+    			axis,
+    			perpendicular,
+    			halfAngle,
+    			length,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawOpenCone}.
-     */
+    /// Typed method of [#drawOpenCone].
     public final void drawOpenCone(
-        Vec3 top, 
-        Vec3 axis, 
-        Vec3 perpendicular, 
-        float halfAngle, 
-        float length, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Vec3 top,
+    	Vec3 axis,
+    	Vec3 perpendicular,
+    	float halfAngle,
+    	float length,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawOpenCone(
-            this.segment, 
-            top.memorySegment(), 
-            axis.memorySegment(), 
-            perpendicular.memorySegment(), 
-            halfAngle, 
-            length, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawOpenCone(
+    		this.segment,
+    		top.memorySegment(),
+    		axis.memorySegment(),
+    		perpendicular.memorySegment(),
+    		halfAngle,
+    		length,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawSwingConeLimits(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        float swingYHalfAngle, 
-        float swingZHalfAngle, 
-        float edgeLength, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	float swingYHalfAngle,
+    	float swingZHalfAngle,
+    	float edgeLength,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SWING_CONE_LIMITS.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                swingYHalfAngle, 
-                swingZHalfAngle, 
-                edgeLength, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SWING_CONE_LIMITS.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			swingYHalfAngle,
+    			swingZHalfAngle,
+    			edgeLength,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawSwingConeLimits}.
-     */
+    /// Typed method of [#drawSwingConeLimits].
     public final void drawSwingConeLimits(
-        Mat4 matrix, 
-        float swingYHalfAngle, 
-        float swingZHalfAngle, 
-        float edgeLength, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Mat4 matrix,
+    	float swingYHalfAngle,
+    	float swingZHalfAngle,
+    	float edgeLength,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawSwingConeLimits(
-            this.segment, 
-            matrix.memorySegment(), 
-            swingYHalfAngle, 
-            swingZHalfAngle, 
-            edgeLength, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawSwingConeLimits(
+    		this.segment,
+    		matrix.memorySegment(),
+    		swingYHalfAngle,
+    		swingZHalfAngle,
+    		edgeLength,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawSwingPyramidLimits(
-        MemorySegment renderer, 
-        MemorySegment matrix, 
-        float minSwingYAngle, 
-        float maxSwingYAngle, 
-        float minSwingZAngle, 
-        float maxSwingZAngle, 
-        float edgeLength, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment matrix,
+    	float minSwingYAngle,
+    	float maxSwingYAngle,
+    	float minSwingZAngle,
+    	float maxSwingZAngle,
+    	float edgeLength,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SWING_PYRAMID_LIMITS.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                matrix, 
-                minSwingYAngle, 
-                maxSwingYAngle, 
-                minSwingZAngle, 
-                maxSwingZAngle, 
-                edgeLength, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_SWING_PYRAMID_LIMITS.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			matrix,
+    			minSwingYAngle,
+    			maxSwingYAngle,
+    			minSwingZAngle,
+    			maxSwingZAngle,
+    			edgeLength,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawSwingPyramidLimits}.
-     */
+    /// Typed method of [#drawSwingPyramidLimits].
     public final void drawSwingPyramidLimits(
-        Mat4 matrix, 
-        float minSwingYAngle, 
-        float maxSwingYAngle, 
-        float minSwingZAngle, 
-        float maxSwingZAngle, 
-        float edgeLength, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Mat4 matrix,
+    	float minSwingYAngle,
+    	float maxSwingYAngle,
+    	float minSwingZAngle,
+    	float maxSwingZAngle,
+    	float edgeLength,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawSwingPyramidLimits(
-            this.segment, 
-            matrix.memorySegment(), 
-            minSwingYAngle, 
-            maxSwingYAngle, 
-            minSwingZAngle, 
-            maxSwingZAngle, 
-            edgeLength, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawSwingPyramidLimits(
+    		this.segment,
+    		matrix.memorySegment(),
+    		minSwingYAngle,
+    		maxSwingYAngle,
+    		minSwingZAngle,
+    		maxSwingZAngle,
+    		edgeLength,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawPie(
-        MemorySegment renderer, 
-        MemorySegment center, 
-        float radius, 
-        MemorySegment normal, 
-        MemorySegment axis, 
-        float minAngle, 
-        float maxAngle, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment center,
+    	float radius,
+    	MemorySegment normal,
+    	MemorySegment axis,
+    	float minAngle,
+    	float maxAngle,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_PIE.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                center, 
-                radius, 
-                normal, 
-                axis, 
-                minAngle, 
-                maxAngle, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_PIE.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			center,
+    			radius,
+    			normal,
+    			axis,
+    			minAngle,
+    			maxAngle,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawPie}.
-     */
+    /// Typed method of [#drawPie].
     public final void drawPie(
-        Vec3 center, 
-        float radius, 
-        Vec3 normal, 
-        Vec3 axis, 
-        float minAngle, 
-        float maxAngle, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Vec3 center,
+    	float radius,
+    	Vec3 normal,
+    	Vec3 axis,
+    	float minAngle,
+    	float maxAngle,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawPie(
-            this.segment, 
-            center.memorySegment(), 
-            radius, 
-            normal.memorySegment(), 
-            axis.memorySegment(), 
-            minAngle, 
-            maxAngle, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawPie(
+    		this.segment,
+    		center.memorySegment(),
+    		radius,
+    		normal.memorySegment(),
+    		axis.memorySegment(),
+    		minAngle,
+    		maxAngle,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
+    
     
     public static void drawTaperedCylinder(
-        MemorySegment renderer, 
-        MemorySegment inMatrix, 
-        float top, 
-        float bottom, 
-        float topRadius, 
-        float bottomRadius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	MemorySegment renderer,
+    	MemorySegment inMatrix,
+    	float top,
+    	float bottom,
+    	float topRadius,
+    	float bottomRadius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        MethodHandle method = JPH_DEBUG_RENDERER_DRAW_TAPERED_CYLINDER.get();
-        try {
-            method.invokeExact(
-                renderer, 
-                inMatrix, 
-                top, 
-                bottom, 
-                topRadius, 
-                bottomRadius, 
-                color, 
-                castShadow, 
-                drawMode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DEBUG_RENDERER_DRAW_TAPERED_CYLINDER.get();
+    	try {
+    		 method.invokeExact(
+    			renderer,
+    			inMatrix,
+    			top,
+    			bottom,
+    			topRadius,
+    			bottomRadius,
+    			color,
+    			castShadow,
+    			drawMode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #drawTaperedCylinder}.
-     */
+    /// Typed method of [#drawTaperedCylinder].
     public final void drawTaperedCylinder(
-        Mat4 inMatrix, 
-        float top, 
-        float bottom, 
-        float topRadius, 
-        float bottomRadius, 
-        int color, 
-        int castShadow, 
-        int drawMode
+    	Mat4 inMatrix,
+    	float top,
+    	float bottom,
+    	float topRadius,
+    	float bottomRadius,
+    	int color,
+    	int castShadow,
+    	int drawMode
     ) {
-        drawTaperedCylinder(
-            this.segment, 
-            inMatrix.memorySegment(), 
-            top, 
-            bottom, 
-            topRadius, 
-            bottomRadius, 
-            color, 
-            castShadow, 
-            drawMode
-        );
+    	drawTaperedCylinder(
+    		this.segment,
+    		inMatrix.memorySegment(),
+    		top,
+    		bottom,
+    		topRadius,
+    		bottomRadius,
+    		color,
+    		castShadow,
+    		drawMode
+    	);
     }
     
     public MemorySegment memorySegment() {
@@ -1144,27 +1124,26 @@ public abstract class DebugRenderer {
     }
 
     public void drawLine(
-        MemorySegment from, 
-        MemorySegment to, 
+        MemorySegment from,
+        MemorySegment to,
         int color
     ) {
         drawLine(
-            new Vec3(from), 
-            new Vec3(to), 
-            color
+            new Vec3(from),
+            new Vec3(to),
+		    color
         );
     }
 
     public void drawLine(
-        Vec3 from, 
-        Vec3 to, 
+        Vec3 from,
+        Vec3 to,
         int color
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for drawLine."
+            "Override either the typed or raw callback method in DebugRenderer."
         );
-    }
-
+    };
 
     public static void drawTriangle(
         MemorySegment userData, 
@@ -1186,33 +1165,32 @@ public abstract class DebugRenderer {
     }
 
     public void drawTriangle(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment v3, 
-        int color, 
+        MemorySegment v1,
+        MemorySegment v2,
+        MemorySegment v3,
+        int color,
         int castShadow
     ) {
         drawTriangle(
-            new Vec3(v1), 
-            new Vec3(v2), 
-            new Vec3(v3), 
-            color, 
-            castShadow
+            new Vec3(v1),
+            new Vec3(v2),
+            new Vec3(v3),
+		    color,
+		    castShadow
         );
     }
 
     public void drawTriangle(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 v3, 
-        int color, 
+        Vec3 v1,
+        Vec3 v2,
+        Vec3 v3,
+        int color,
         int castShadow
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for drawTriangle."
+            "Override either the typed or raw callback method in DebugRenderer."
         );
-    }
-
+    };
 
     public static void drawText3D(
         MemorySegment userData, 
@@ -1232,29 +1210,28 @@ public abstract class DebugRenderer {
     }
 
     public void drawText3D(
-        MemorySegment position, 
-        MemorySegment str, 
-        int color, 
+        MemorySegment position,
+        MemorySegment str,
+        int color,
         float height
     ) {
         drawText3D(
-            new Vec3(position), 
-            str.getString(0), 
-            color, 
-            height
+            new Vec3(position),
+            new NativeByteArray(str),
+		    color,
+		    height
         );
     }
 
     public void drawText3D(
-        Vec3 position, 
-        String str, 
-        int color, 
+        Vec3 position,
+        NativeByteArray str,
+        int color,
         float height
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for drawText3D."
+            "Override either the typed or raw callback method in DebugRenderer."
         );
-    }
-
+    };
 
 }

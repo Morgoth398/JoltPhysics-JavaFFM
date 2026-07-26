@@ -15,9 +15,6 @@ import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class ShapeCastResult
 		implements Struct<ShapeCastResult> {
 
@@ -96,100 +93,112 @@ public final class ShapeCastResult
         penetrationAxis = new Vec3(segment.asSlice(PENETRATION_AXIS_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #penetrationDepth()
     public ShapeCastResult penetrationDepth(float penetrationDepth) {
-        PENETRATION_DEPTH_HANDLE.set(segment, 0L, penetrationDepth);
-        return this;
+    	PENETRATION_DEPTH_HANDLE.set(segment, 0L, penetrationDepth);
+    	return this;
     }
     
     public float penetrationDepth() {
-        return (float) PENETRATION_DEPTH_HANDLE.get(segment, 0L);
+    	return (float) PENETRATION_DEPTH_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID1()
     public ShapeCastResult subShapeID1(int subShapeID1) {
-        SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
-        return this;
+    	SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
+    	return this;
     }
     
     public int subShapeID1() {
-        return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID2()
     public ShapeCastResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
-        return this;
+    	SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
+    	return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #bodyID2()
     public ShapeCastResult bodyID2(int bodyID2) {
-        BODY_ID2_HANDLE.set(segment, 0L, bodyID2);
-        return this;
+    	BODY_ID2_HANDLE.set(segment, 0L, bodyID2);
+    	return this;
     }
     
     public int bodyID2() {
-        return (int) BODY_ID2_HANDLE.get(segment, 0L);
+    	return (int) BODY_ID2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #fraction()
     public ShapeCastResult fraction(float fraction) {
-        FRACTION_HANDLE.set(segment, 0L, fraction);
-        return this;
+    	FRACTION_HANDLE.set(segment, 0L, fraction);
+    	return this;
     }
     
     public float fraction() {
-        return (float) FRACTION_HANDLE.get(segment, 0L);
+    	return (float) FRACTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #isBackFaceHit()
     public ShapeCastResult isBackFaceHit(boolean isBackFaceHit) {
-        IS_BACK_FACE_HIT_HANDLE.set(segment, 0L, isBackFaceHit);
-        return this;
+    	IS_BACK_FACE_HIT_HANDLE.set(segment, 0L, isBackFaceHit);
+    	return this;
     }
     
     public boolean isBackFaceHit() {
-        return (boolean) IS_BACK_FACE_HIT_HANDLE.get(segment, 0L);
+    	return (boolean) IS_BACK_FACE_HIT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #contactPointOn1()
     public ShapeCastResult contactPointOn1(Consumer<Vec3> consumer) {
-        consumer.accept(contactPointOn1);
-        return this;
+    	consumer.accept(contactPointOn1);
+    	return this;
     }
     
+    /// @see #contactPointOn1()
     public ShapeCastResult contactPointOn1(Vec3 other) {
-        contactPointOn1.set(other);
-        return this;
+    	contactPointOn1.set(other);
+    	return this;
     }
     
     public Vec3 contactPointOn1() {
-        return contactPointOn1;
+    	return contactPointOn1;
     }
     
+    /// @see #contactPointOn2()
     public ShapeCastResult contactPointOn2(Consumer<Vec3> consumer) {
-        consumer.accept(contactPointOn2);
-        return this;
+    	consumer.accept(contactPointOn2);
+    	return this;
     }
     
+    /// @see #contactPointOn2()
     public ShapeCastResult contactPointOn2(Vec3 other) {
-        contactPointOn2.set(other);
-        return this;
+    	contactPointOn2.set(other);
+    	return this;
     }
     
     public Vec3 contactPointOn2() {
-        return contactPointOn2;
+    	return contactPointOn2;
     }
     
+    /// @see #penetrationAxis()
     public ShapeCastResult penetrationAxis(Consumer<Vec3> consumer) {
-        consumer.accept(penetrationAxis);
-        return this;
+    	consumer.accept(penetrationAxis);
+    	return this;
     }
     
+    /// @see #penetrationAxis()
     public ShapeCastResult penetrationAxis(Vec3 other) {
-        penetrationAxis.set(other);
-        return this;
+    	penetrationAxis.set(other);
+    	return this;
     }
     
     public Vec3 penetrationAxis() {
-        return penetrationAxis;
+    	return penetrationAxis;
     }
     
     @Override

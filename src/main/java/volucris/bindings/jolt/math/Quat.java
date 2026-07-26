@@ -16,9 +16,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class Quat
 		implements Struct<Quat> {
 
@@ -118,748 +115,729 @@ public final class Quat
     
     }
 
+    
     public static void fromTo(
-        MemorySegment from, 
-        MemorySegment to, 
-        MemorySegment quat
+    	MemorySegment from,
+    	MemorySegment to,
+    	MemorySegment quat
     ) {
-        MethodHandle method = JPH_QUAT_FROM_TO.get();
-        try {
-            method.invokeExact(
-                from, 
-                to, 
-                quat
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_FROM_TO.get();
+    	try {
+    		 method.invokeExact(
+    			from,
+    			to,
+    			quat
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #fromTo}.
-     */
+    /// Typed method of [#fromTo].
     public static void fromTo(
-        Vec3 from, 
-        Vec3 to, 
-        Quat quat
+    	Vec3 from,
+    	Vec3 to,
+    	Quat quat
     ) {
-        fromTo(
-            from.memorySegment(), 
-            to.memorySegment(), 
-            quat.memorySegment()
-        );
+    	fromTo(
+    		from.memorySegment(),
+    		to.memorySegment(),
+    		quat.memorySegment()
+    	);
     }
+    
     
     public static void getAxisAngle(
-        MemorySegment quat, 
-        MemorySegment outAxis, 
-        MemorySegment outAngle
+    	MemorySegment quat,
+    	MemorySegment outAxis,
+    	MemorySegment outAngle
     ) {
-        MethodHandle method = JPH_QUAT_GET_AXIS_ANGLE.get();
-        try {
-            method.invokeExact(
-                quat, 
-                outAxis, 
-                outAngle
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_GET_AXIS_ANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			outAxis,
+    			outAngle
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAxisAngle}.
-     */
+    /// Typed method of [#getAxisAngle].
     public static void getAxisAngle(
-        Quat quat, 
-        Vec3 outAxis, 
-        NativeFloatArray outAngle
+    	Quat quat,
+    	Vec3 outAxis,
+    	NativeFloatArray outAngle
     ) {
-        getAxisAngle(
-            quat.memorySegment(), 
-            outAxis.memorySegment(), 
-            outAngle.memorySegment()
-        );
+    	getAxisAngle(
+    		quat.memorySegment(),
+    		outAxis.memorySegment(),
+    		outAngle.memorySegment()
+    	);
     }
+    
     
     public static void getEulerAngles(
-        MemorySegment quat, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_GET_EULER_ANGLES.get();
-        try {
-            method.invokeExact(
-                quat, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_GET_EULER_ANGLES.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEulerAngles}.
-     */
+    /// Typed method of [#getEulerAngles].
     public static void getEulerAngles(
-        Quat quat, 
-        Vec3 result
+    	Quat quat,
+    	Vec3 result
     ) {
-        getEulerAngles(
-            quat.memorySegment(), 
-            result.memorySegment()
-        );
+    	getEulerAngles(
+    		quat.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void rotateAxisX(
-        MemorySegment quat, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_ROTATE_AXIS_X.get();
-        try {
-            method.invokeExact(
-                quat, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_ROTATE_AXIS_X.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #rotateAxisX}.
-     */
+    /// Typed method of [#rotateAxisX].
     public static void rotateAxisX(
-        Quat quat, 
-        Vec3 result
+    	Quat quat,
+    	Vec3 result
     ) {
-        rotateAxisX(
-            quat.memorySegment(), 
-            result.memorySegment()
-        );
+    	rotateAxisX(
+    		quat.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void rotateAxisY(
-        MemorySegment quat, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_ROTATE_AXIS_Y.get();
-        try {
-            method.invokeExact(
-                quat, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_ROTATE_AXIS_Y.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #rotateAxisY}.
-     */
+    /// Typed method of [#rotateAxisY].
     public static void rotateAxisY(
-        Quat quat, 
-        Vec3 result
+    	Quat quat,
+    	Vec3 result
     ) {
-        rotateAxisY(
-            quat.memorySegment(), 
-            result.memorySegment()
-        );
+    	rotateAxisY(
+    		quat.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void rotateAxisZ(
-        MemorySegment quat, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_ROTATE_AXIS_Z.get();
-        try {
-            method.invokeExact(
-                quat, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_ROTATE_AXIS_Z.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #rotateAxisZ}.
-     */
+    /// Typed method of [#rotateAxisZ].
     public static void rotateAxisZ(
-        Quat quat, 
-        Vec3 result
+    	Quat quat,
+    	Vec3 result
     ) {
-        rotateAxisZ(
-            quat.memorySegment(), 
-            result.memorySegment()
-        );
+    	rotateAxisZ(
+    		quat.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void inversed(
-        MemorySegment quat, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_INVERSED.get();
-        try {
-            method.invokeExact(
-                quat, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_INVERSED.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #inversed}.
-     */
+    /// Typed method of [#inversed].
     public static void inversed(
-        Quat quat, 
-        Quat result
+    	Quat quat,
+    	Quat result
     ) {
-        inversed(
-            quat.memorySegment(), 
-            result.memorySegment()
-        );
+    	inversed(
+    		quat.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getPerpendicular(
-        MemorySegment quat, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_GET_PERPENDICULAR.get();
-        try {
-            method.invokeExact(
-                quat, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_GET_PERPENDICULAR.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPerpendicular}.
-     */
+    /// Typed method of [#getPerpendicular].
     public static void getPerpendicular(
-        Quat quat, 
-        Quat result
+    	Quat quat,
+    	Quat result
     ) {
-        getPerpendicular(
-            quat.memorySegment(), 
-            result.memorySegment()
-        );
+    	getPerpendicular(
+    		quat.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float getRotationAngle(
-        MemorySegment quat, 
-        MemorySegment axis
+    	MemorySegment quat,
+    	MemorySegment axis
     ) {
-        MethodHandle method = JPH_QUAT_GET_ROTATION_ANGLE.get();
-        try {
-            return (float) method.invokeExact(
-                quat, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_GET_ROTATION_ANGLE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			quat,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotationAngle}.
-     */
+    /// Typed method of [#getRotationAngle].
     public static float getRotationAngle(
-        Quat quat, 
-        Vec3 axis
+    	Quat quat,
+    	Vec3 axis
     ) {
-        return (float) getRotationAngle(
-            quat.memorySegment(), 
-            axis.memorySegment()
-        );
+    	return (float) getRotationAngle(
+    		quat.memorySegment(),
+    		axis.memorySegment()
+    	);
     }
+    
     
     public static void fromEulerAngles(
-        MemorySegment angles, 
-        MemorySegment result
+    	MemorySegment angles,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_FROM_EULER_ANGLES.get();
-        try {
-            method.invokeExact(
-                angles, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_FROM_EULER_ANGLES.get();
+    	try {
+    		 method.invokeExact(
+    			angles,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #fromEulerAngles}.
-     */
+    /// Typed method of [#fromEulerAngles].
     public static void fromEulerAngles(
-        Vec3 angles, 
-        Quat result
+    	Vec3 angles,
+    	Quat result
     ) {
-        fromEulerAngles(
-            angles.memorySegment(), 
-            result.memorySegment()
-        );
+    	fromEulerAngles(
+    		angles.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void add(
-        MemorySegment q1, 
-        MemorySegment q2, 
-        MemorySegment result
+    	MemorySegment q1,
+    	MemorySegment q2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_ADD.get();
-        try {
-            method.invokeExact(
-                q1, 
-                q2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_ADD.get();
+    	try {
+    		 method.invokeExact(
+    			q1,
+    			q2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #add}.
-     */
+    /// Typed method of [#add].
     public static void add(
-        Quat q1, 
-        Quat q2, 
-        Quat result
+    	Quat q1,
+    	Quat q2,
+    	Quat result
     ) {
-        add(
-            q1.memorySegment(), 
-            q2.memorySegment(), 
-            result.memorySegment()
-        );
+    	add(
+    		q1.memorySegment(),
+    		q2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void subtract(
-        MemorySegment q1, 
-        MemorySegment q2, 
-        MemorySegment result
+    	MemorySegment q1,
+    	MemorySegment q2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_SUBTRACT.get();
-        try {
-            method.invokeExact(
-                q1, 
-                q2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_SUBTRACT.get();
+    	try {
+    		 method.invokeExact(
+    			q1,
+    			q2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #subtract}.
-     */
+    /// Typed method of [#subtract].
     public static void subtract(
-        Quat q1, 
-        Quat q2, 
-        Quat result
+    	Quat q1,
+    	Quat q2,
+    	Quat result
     ) {
-        subtract(
-            q1.memorySegment(), 
-            q2.memorySegment(), 
-            result.memorySegment()
-        );
+    	subtract(
+    		q1.memorySegment(),
+    		q2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void multiply(
-        MemorySegment q1, 
-        MemorySegment q2, 
-        MemorySegment result
+    	MemorySegment q1,
+    	MemorySegment q2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_MULTIPLY.get();
-        try {
-            method.invokeExact(
-                q1, 
-                q2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_MULTIPLY.get();
+    	try {
+    		 method.invokeExact(
+    			q1,
+    			q2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #multiply}.
-     */
+    /// Typed method of [#multiply].
     public static void multiply(
-        Quat q1, 
-        Quat q2, 
-        Quat result
+    	Quat q1,
+    	Quat q2,
+    	Quat result
     ) {
-        multiply(
-            q1.memorySegment(), 
-            q2.memorySegment(), 
-            result.memorySegment()
-        );
+    	multiply(
+    		q1.memorySegment(),
+    		q2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void multiplyScalar(
-        MemorySegment q, 
-        float scalar, 
-        MemorySegment result
+    	MemorySegment q,
+    	float scalar,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_MULTIPLY_SCALAR.get();
-        try {
-            method.invokeExact(
-                q, 
-                scalar, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_MULTIPLY_SCALAR.get();
+    	try {
+    		 method.invokeExact(
+    			q,
+    			scalar,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #multiplyScalar}.
-     */
+    /// Typed method of [#multiplyScalar].
     public static void multiplyScalar(
-        Quat q, 
-        float scalar, 
-        Quat result
+    	Quat q,
+    	float scalar,
+    	Quat result
     ) {
-        multiplyScalar(
-            q.memorySegment(), 
-            scalar, 
-            result.memorySegment()
-        );
+    	multiplyScalar(
+    		q.memorySegment(),
+    		scalar,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void divideScalar(
-        MemorySegment q, 
-        float scalar, 
-        MemorySegment result
+    	MemorySegment q,
+    	float scalar,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_DIVIDE_SCALAR.get();
-        try {
-            method.invokeExact(
-                q, 
-                scalar, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_DIVIDE_SCALAR.get();
+    	try {
+    		 method.invokeExact(
+    			q,
+    			scalar,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #divideScalar}.
-     */
+    /// Typed method of [#divideScalar].
     public static void divideScalar(
-        Quat q, 
-        float scalar, 
-        Quat result
+    	Quat q,
+    	float scalar,
+    	Quat result
     ) {
-        divideScalar(
-            q.memorySegment(), 
-            scalar, 
-            result.memorySegment()
-        );
+    	divideScalar(
+    		q.memorySegment(),
+    		scalar,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void dot(
-        MemorySegment q1, 
-        MemorySegment q2, 
-        MemorySegment result
+    	MemorySegment q1,
+    	MemorySegment q2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_DOT.get();
-        try {
-            method.invokeExact(
-                q1, 
-                q2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_DOT.get();
+    	try {
+    		 method.invokeExact(
+    			q1,
+    			q2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #dot}.
-     */
+    /// Typed method of [#dot].
     public static void dot(
-        Quat q1, 
-        Quat q2, 
-        NativeFloatArray result
+    	Quat q1,
+    	Quat q2,
+    	NativeFloatArray result
     ) {
-        dot(
-            q1.memorySegment(), 
-            q2.memorySegment(), 
-            result.memorySegment()
-        );
+    	dot(
+    		q1.memorySegment(),
+    		q2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void conjugated(
-        MemorySegment quat, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_CONJUGATED.get();
-        try {
-            method.invokeExact(
-                quat, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_CONJUGATED.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #conjugated}.
-     */
+    /// Typed method of [#conjugated].
     public static void conjugated(
-        Quat quat, 
-        Quat result
+    	Quat quat,
+    	Quat result
     ) {
-        conjugated(
-            quat.memorySegment(), 
-            result.memorySegment()
-        );
+    	conjugated(
+    		quat.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getTwist(
-        MemorySegment quat, 
-        MemorySegment axis, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment axis,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_GET_TWIST.get();
-        try {
-            method.invokeExact(
-                quat, 
-                axis, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_GET_TWIST.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			axis,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTwist}.
-     */
+    /// Typed method of [#getTwist].
     public static void getTwist(
-        Quat quat, 
-        Vec3 axis, 
-        Quat result
+    	Quat quat,
+    	Vec3 axis,
+    	Quat result
     ) {
-        getTwist(
-            quat.memorySegment(), 
-            axis.memorySegment(), 
-            result.memorySegment()
-        );
+    	getTwist(
+    		quat.memorySegment(),
+    		axis.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getSwingTwist(
-        MemorySegment quat, 
-        MemorySegment outSwing, 
-        MemorySegment outTwist
+    	MemorySegment quat,
+    	MemorySegment outSwing,
+    	MemorySegment outTwist
     ) {
-        MethodHandle method = JPH_QUAT_GET_SWING_TWIST.get();
-        try {
-            method.invokeExact(
-                quat, 
-                outSwing, 
-                outTwist
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_GET_SWING_TWIST.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			outSwing,
+    			outTwist
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSwingTwist}.
-     */
+    /// Typed method of [#getSwingTwist].
     public static void getSwingTwist(
-        Quat quat, 
-        Quat outSwing, 
-        Quat outTwist
+    	Quat quat,
+    	Quat outSwing,
+    	Quat outTwist
     ) {
-        getSwingTwist(
-            quat.memorySegment(), 
-            outSwing.memorySegment(), 
-            outTwist.memorySegment()
-        );
+    	getSwingTwist(
+    		quat.memorySegment(),
+    		outSwing.memorySegment(),
+    		outTwist.memorySegment()
+    	);
     }
+    
     
     public static void lerp(
-        MemorySegment from, 
-        MemorySegment to, 
-        float fraction, 
-        MemorySegment result
+    	MemorySegment from,
+    	MemorySegment to,
+    	float fraction,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_LERP.get();
-        try {
-            method.invokeExact(
-                from, 
-                to, 
-                fraction, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_LERP.get();
+    	try {
+    		 method.invokeExact(
+    			from,
+    			to,
+    			fraction,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #lerp}.
-     */
+    /// Typed method of [#lerp].
     public static void lerp(
-        Quat from, 
-        Quat to, 
-        float fraction, 
-        Quat result
+    	Quat from,
+    	Quat to,
+    	float fraction,
+    	Quat result
     ) {
-        lerp(
-            from.memorySegment(), 
-            to.memorySegment(), 
-            fraction, 
-            result.memorySegment()
-        );
+    	lerp(
+    		from.memorySegment(),
+    		to.memorySegment(),
+    		fraction,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void slerp(
-        MemorySegment from, 
-        MemorySegment to, 
-        float fraction, 
-        MemorySegment result
+    	MemorySegment from,
+    	MemorySegment to,
+    	float fraction,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_SLERP.get();
-        try {
-            method.invokeExact(
-                from, 
-                to, 
-                fraction, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_SLERP.get();
+    	try {
+    		 method.invokeExact(
+    			from,
+    			to,
+    			fraction,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #slerp}.
-     */
+    /// Typed method of [#slerp].
     public static void slerp(
-        Quat from, 
-        Quat to, 
-        float fraction, 
-        Quat result
+    	Quat from,
+    	Quat to,
+    	float fraction,
+    	Quat result
     ) {
-        slerp(
-            from.memorySegment(), 
-            to.memorySegment(), 
-            fraction, 
-            result.memorySegment()
-        );
+    	slerp(
+    		from.memorySegment(),
+    		to.memorySegment(),
+    		fraction,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void rotate(
-        MemorySegment quat, 
-        MemorySegment vec, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment vec,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_ROTATE.get();
-        try {
-            method.invokeExact(
-                quat, 
-                vec, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_ROTATE.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			vec,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #rotate}.
-     */
+    /// Typed method of [#rotate].
     public static void rotate(
-        Quat quat, 
-        Vec3 vec, 
-        Vec3 result
+    	Quat quat,
+    	Vec3 vec,
+    	Vec3 result
     ) {
-        rotate(
-            quat.memorySegment(), 
-            vec.memorySegment(), 
-            result.memorySegment()
-        );
+    	rotate(
+    		quat.memorySegment(),
+    		vec.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void inverseRotate(
-        MemorySegment quat, 
-        MemorySegment vec, 
-        MemorySegment result
+    	MemorySegment quat,
+    	MemorySegment vec,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_QUAT_INVERSE_ROTATE.get();
-        try {
-            method.invokeExact(
-                quat, 
-                vec, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_QUAT_INVERSE_ROTATE.get();
+    	try {
+    		 method.invokeExact(
+    			quat,
+    			vec,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #inverseRotate}.
-     */
+    /// Typed method of [#inverseRotate].
     public static void inverseRotate(
-        Quat quat, 
-        Vec3 vec, 
-        Vec3 result
+    	Quat quat,
+    	Vec3 vec,
+    	Vec3 result
     ) {
-        inverseRotate(
-            quat.memorySegment(), 
-            vec.memorySegment(), 
-            result.memorySegment()
-        );
+    	inverseRotate(
+    		quat.memorySegment(),
+    		vec.memorySegment(),
+    		result.memorySegment()
+    	);
     }
     
+    /// @see #x()
     public Quat x(float x) {
-        X_HANDLE.set(segment, 0L, x);
-        return this;
+    	X_HANDLE.set(segment, 0L, x);
+    	return this;
     }
     
     public float x() {
-        return (float) X_HANDLE.get(segment, 0L);
+    	return (float) X_HANDLE.get(segment, 0L);
     }
     
+    /// @see #y()
     public Quat y(float y) {
-        Y_HANDLE.set(segment, 0L, y);
-        return this;
+    	Y_HANDLE.set(segment, 0L, y);
+    	return this;
     }
     
     public float y() {
-        return (float) Y_HANDLE.get(segment, 0L);
+    	return (float) Y_HANDLE.get(segment, 0L);
     }
     
+    /// @see #z()
     public Quat z(float z) {
-        Z_HANDLE.set(segment, 0L, z);
-        return this;
+    	Z_HANDLE.set(segment, 0L, z);
+    	return this;
     }
     
     public float z() {
-        return (float) Z_HANDLE.get(segment, 0L);
+    	return (float) Z_HANDLE.get(segment, 0L);
     }
     
+    /// @see #w()
     public Quat w(float w) {
-        W_HANDLE.set(segment, 0L, w);
-        return this;
+    	W_HANDLE.set(segment, 0L, w);
+    	return this;
     }
     
     public float w() {
-        return (float) W_HANDLE.get(segment, 0L);
+    	return (float) W_HANDLE.get(segment, 0L);
     }
     
     @Override

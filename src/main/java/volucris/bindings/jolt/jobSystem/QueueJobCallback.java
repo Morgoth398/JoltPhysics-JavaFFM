@@ -3,6 +3,7 @@
  */
 package volucris.bindings.jolt.jobSystem;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -11,13 +12,13 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Map;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
 public abstract class QueueJobCallback {
 
-    private static final HashMap<Long, WeakReference<QueueJobCallback>> CACHE;
+    private static final Map<Long, WeakReference<QueueJobCallback>> CACHE;
 
     public static final FunctionDescriptor DESCRIPTION;
     public static final MethodHandle HANDLE;
@@ -51,20 +52,20 @@ public abstract class QueueJobCallback {
     }
 
     public void invoke(
-        MemorySegment context, 
-        MemorySegment job, 
+        MemorySegment context,
+        MemorySegment job,
         MemorySegment arg
     ) {
         invoke(
-            context, 
-            JobFunction.get(job), 
-            arg
+		    context,
+            JobFunction.get(job),
+		    arg
         );
     }
 
     public void invoke(
-        MemorySegment context, 
-        JobFunction job, 
+        MemorySegment context,
+        JobFunction job,
         MemorySegment arg
     ) {
         throw new UnsupportedOperationException(
@@ -72,12 +73,11 @@ public abstract class QueueJobCallback {
         );
     };
 
-
     public MemorySegment memorySegment() {
         return segment;
     }
 
-    public static QueueJobCallback get(MemorySegment segment) {
+    public static @Nullable QueueJobCallback get(MemorySegment segment) {
         WeakReference<QueueJobCallback> reference = CACHE.get(segment.address());
 
         if (reference == null)

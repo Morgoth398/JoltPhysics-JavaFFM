@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.constraint;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -12,9 +11,6 @@ import volucris.bindings.jolt.body.Body;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class DistanceConstraint extends TwoBodyConstraint {
 
     private static final LazyConstant<MethodHandle> JPH_DISTANCE_CONSTRAINT_CREATE;
@@ -42,235 +38,230 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     }
 
     public DistanceConstraint(
-        DistanceConstraintSettings settings, 
-        Body body1, 
+        DistanceConstraintSettings settings,
+        Body body1,
         Body body2
     ) {
         this(
             Arena.ofAuto(),
-            settings, 
-            body1, 
+            settings,
+            body1,
             body2
         );
     }
     
+    /// Typed method of [#create].
     public DistanceConstraint(
-        Arena arena,
-        DistanceConstraintSettings settings, 
-        Body body1, 
-        Body body2
+    	Arena arena,
+    	DistanceConstraintSettings settings,
+    	Body body1,
+    	Body body2
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment(), 
-            body1.memorySegment(), 
-            body2.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment(),
+    		body1.memorySegment(),
+    		body2.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public DistanceConstraint(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings, 
-        MemorySegment body1, 
-        MemorySegment body2
+    	MemorySegment settings,
+    	MemorySegment body1,
+    	MemorySegment body2
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings, 
-                body1, 
-                body2
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings,
+    			body1,
+    			body2
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getSettings(
-        MemorySegment constraint, 
-        MemorySegment settings
+    	MemorySegment constraint,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
+    /// Typed method of [#getSettings].
     public final void getSettings(
-        DistanceConstraintSettings settings
+    	DistanceConstraintSettings settings
     ) {
-        getSettings(
-            this.segment, 
-            settings.memorySegment()
-        );
+    	getSettings(
+    		this.segment,
+    		settings.memorySegment()
+    	);
     }
+    
     
     public static void setDistance(
-        MemorySegment constraint, 
-        float minDistance, 
-        float maxDistance
+    	MemorySegment constraint,
+    	float minDistance,
+    	float maxDistance
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_SET_DISTANCE.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                minDistance, 
-                maxDistance
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_SET_DISTANCE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			minDistance,
+    			maxDistance
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDistance}.
-     */
+    /// Typed method of [#setDistance].
     public final void setDistance(
-        float minDistance, 
-        float maxDistance
+    	float minDistance,
+    	float maxDistance
     ) {
-        setDistance(
-            this.segment, 
-            minDistance, 
-            maxDistance
-        );
+    	setDistance(
+    		this.segment,
+    		minDistance,
+    		maxDistance
+    	);
     }
+    
     
     public static float getMinDistance(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MIN_DISTANCE.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MIN_DISTANCE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMinDistance}.
-     */
-    public final float getMinDistance(
-    ) {
-        return (float) getMinDistance(
-            this.segment
-        );
+    /// Typed method of [#getMinDistance].
+    public final float getMinDistance() {
+    	return (float) getMinDistance(
+    		this.segment
+    	);
     }
+    
     
     public static float getMaxDistance(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MAX_DISTANCE.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MAX_DISTANCE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxDistance}.
-     */
-    public final float getMaxDistance(
-    ) {
-        return (float) getMaxDistance(
-            this.segment
-        );
+    /// Typed method of [#getMaxDistance].
+    public final float getMaxDistance() {
+    	return (float) getMaxDistance(
+    		this.segment
+    	);
     }
+    
     
     public static void getLimitsSpringSettings(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_LIMITS_SPRING_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_LIMITS_SPRING_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLimitsSpringSettings}.
-     */
+    /// Typed method of [#getLimitsSpringSettings].
     public final void getLimitsSpringSettings(
-        SpringSettings result
+    	SpringSettings result
     ) {
-        getLimitsSpringSettings(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getLimitsSpringSettings(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setLimitsSpringSettings(
-        MemorySegment constraint, 
-        MemorySegment settings
+    	MemorySegment constraint,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_SET_LIMITS_SPRING_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_SET_LIMITS_SPRING_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLimitsSpringSettings}.
-     */
+    /// Typed method of [#setLimitsSpringSettings].
     public final void setLimitsSpringSettings(
-        SpringSettings settings
+    	SpringSettings settings
     ) {
-        setLimitsSpringSettings(
-            this.segment, 
-            settings.memorySegment()
-        );
+    	setLimitsSpringSettings(
+    		this.segment,
+    		settings.memorySegment()
+    	);
     }
+    
     
     public static float getTotalLambdaPosition(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaPosition}.
-     */
-    public final float getTotalLambdaPosition(
-    ) {
-        return (float) getTotalLambdaPosition(
-            this.segment
-        );
+    /// Typed method of [#getTotalLambdaPosition].
+    public final float getTotalLambdaPosition() {
+    	return (float) getTotalLambdaPosition(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

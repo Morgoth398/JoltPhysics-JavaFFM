@@ -14,9 +14,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class MotorSettings
 		implements Struct<MotorSettings> {
 
@@ -74,54 +71,60 @@ public final class MotorSettings
         springSettings = new SpringSettings(segment.asSlice(SPRING_SETTINGS_BYTE_OFFSET, SpringSettings.LAYOUT));
     }
 
+    /// @see #minForceLimit()
     public MotorSettings minForceLimit(float minForceLimit) {
-        MIN_FORCE_LIMIT_HANDLE.set(segment, 0L, minForceLimit);
-        return this;
+    	MIN_FORCE_LIMIT_HANDLE.set(segment, 0L, minForceLimit);
+    	return this;
     }
     
     public float minForceLimit() {
-        return (float) MIN_FORCE_LIMIT_HANDLE.get(segment, 0L);
+    	return (float) MIN_FORCE_LIMIT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxForceLimit()
     public MotorSettings maxForceLimit(float maxForceLimit) {
-        MAX_FORCE_LIMIT_HANDLE.set(segment, 0L, maxForceLimit);
-        return this;
+    	MAX_FORCE_LIMIT_HANDLE.set(segment, 0L, maxForceLimit);
+    	return this;
     }
     
     public float maxForceLimit() {
-        return (float) MAX_FORCE_LIMIT_HANDLE.get(segment, 0L);
+    	return (float) MAX_FORCE_LIMIT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #minTorqueLimit()
     public MotorSettings minTorqueLimit(float minTorqueLimit) {
-        MIN_TORQUE_LIMIT_HANDLE.set(segment, 0L, minTorqueLimit);
-        return this;
+    	MIN_TORQUE_LIMIT_HANDLE.set(segment, 0L, minTorqueLimit);
+    	return this;
     }
     
     public float minTorqueLimit() {
-        return (float) MIN_TORQUE_LIMIT_HANDLE.get(segment, 0L);
+    	return (float) MIN_TORQUE_LIMIT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxTorqueLimit()
     public MotorSettings maxTorqueLimit(float maxTorqueLimit) {
-        MAX_TORQUE_LIMIT_HANDLE.set(segment, 0L, maxTorqueLimit);
-        return this;
+    	MAX_TORQUE_LIMIT_HANDLE.set(segment, 0L, maxTorqueLimit);
+    	return this;
     }
     
     public float maxTorqueLimit() {
-        return (float) MAX_TORQUE_LIMIT_HANDLE.get(segment, 0L);
+    	return (float) MAX_TORQUE_LIMIT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #springSettings()
     public MotorSettings springSettings(Consumer<SpringSettings> consumer) {
-        consumer.accept(springSettings);
-        return this;
+    	consumer.accept(springSettings);
+    	return this;
     }
     
+    /// @see #springSettings()
     public MotorSettings springSettings(SpringSettings other) {
-        springSettings.set(other);
-        return this;
+    	springSettings.set(other);
+    	return this;
     }
     
     public SpringSettings springSettings() {
-        return springSettings;
+    	return springSettings;
     }
     
     @Override

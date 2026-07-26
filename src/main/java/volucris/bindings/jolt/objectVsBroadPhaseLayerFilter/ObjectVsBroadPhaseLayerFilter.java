@@ -8,9 +8,6 @@ import java.lang.invoke.MethodHandle;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class ObjectVsBroadPhaseLayerFilter
 		permits ObjectVsBroadPhaseLayerFilterMask,
 		ObjectVsBroadPhaseLayerFilterTable {
@@ -26,20 +23,21 @@ public sealed class ObjectVsBroadPhaseLayerFilter
     }
 
     public ObjectVsBroadPhaseLayerFilter(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment filter
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

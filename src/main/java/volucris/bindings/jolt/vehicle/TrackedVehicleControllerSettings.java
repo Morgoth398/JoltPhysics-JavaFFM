@@ -7,14 +7,10 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class TrackedVehicleControllerSettings extends VehicleControllerSettings {
 
     private static final LazyConstant<MethodHandle> JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_CREATE;
@@ -38,167 +34,167 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
     }
 
     public TrackedVehicleControllerSettings() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public TrackedVehicleControllerSettings(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
-        super(segment);
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public TrackedVehicleControllerSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getEngine(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_GET_ENGINE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_GET_ENGINE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEngine}.
-     */
+    /// Typed method of [#getEngine].
     public final void getEngine(
-        VehicleEngineSettings result
+    	VehicleEngineSettings result
     ) {
-        getEngine(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getEngine(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setEngine(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_ENGINE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_ENGINE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setEngine}.
-     */
+    /// Typed method of [#setEngine].
     public final void setEngine(
-        VehicleEngineSettings value
+    	VehicleEngineSettings value
     ) {
-        setEngine(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setEngine(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getTransmission(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_GET_TRANSMISSION.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_GET_TRANSMISSION.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTransmission}.
-     */
-    public final @Nullable VehicleTransmissionSettings getTransmission(
-    ) {
-        MemorySegment segment = getTransmission(
-            this.segment
-        );
+    /// Typed method of [#getTransmission].
+    public final @Nullable VehicleTransmissionSettings getTransmission() {
+    	MemorySegment segment = getTransmission(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleTransmissionSettings(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleTransmissionSettings(segment);
     }
+    
     
     public static void setTransmission(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_TRANSMISSION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_TRANSMISSION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTransmission}.
-     */
+    /// Typed method of [#setTransmission].
     public final void setTransmission(
-        VehicleTransmissionSettings value
+    	VehicleTransmissionSettings value
     ) {
-        setTransmission(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setTransmission(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void setTrack(
-        MemorySegment settings, 
-        int index, 
-        MemorySegment track
+    	MemorySegment settings,
+    	int index,
+    	MemorySegment track
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_TRACK.get();
-        try {
-            method.invokeExact(
-                settings, 
-                index, 
-                track
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_SET_TRACK.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			index,
+    			track
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setTrack}.
-     */
+    /// Typed method of [#setTrack].
     public final void setTrack(
-        int index, 
-        VehicleTrackSettings track
+    	int index,
+    	VehicleTrackSettings track
     ) {
-        setTrack(
-            this.segment, 
-            index, 
-            track.memorySegment()
-        );
+    	setTrack(
+    		this.segment,
+    		index,
+    		track.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

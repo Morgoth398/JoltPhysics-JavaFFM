@@ -7,14 +7,10 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SphereShapeSettings extends ConvexShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_SPHERE_SHAPE_SETTINGS_CREATE;
@@ -42,112 +38,112 @@ public final class SphereShapeSettings extends ConvexShapeSettings {
         );
     }
     
+    /// Typed method of [#create].
     public SphereShapeSettings(
-        Arena arena,
-        float radius
+    	Arena arena,
+    	float radius
     ) {
-         MemorySegment segment = create(
-            radius
-         );
+    	MemorySegment segment = create(
+    		radius
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public SphereShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        float radius
+    	float radius
     ) {
-        MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                radius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			radius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable SphereShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable SphereShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new SphereShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new SphereShape(segment);
     }
+    
     
     public static float getRadius(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_GET_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_GET_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRadius}.
-     */
-    public final float getRadius(
-    ) {
-        return (float) getRadius(
-            this.segment
-        );
+    /// Typed method of [#getRadius].
+    public final float getRadius() {
+    	return (float) getRadius(
+    		this.segment
+    	);
     }
+    
     
     public static void setRadius(
-        MemorySegment settings, 
-        float radius
+    	MemorySegment settings,
+    	float radius
     ) {
-        MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_SET_RADIUS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                radius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_SET_RADIUS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			radius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRadius}.
-     */
+    /// Typed method of [#setRadius].
     public final void setRadius(
-        float radius
+    	float radius
     ) {
-        setRadius(
-            this.segment, 
-            radius
-        );
+    	setRadius(
+    		this.segment,
+    		radius
+    	);
     }
     
     public MemorySegment memorySegment() {

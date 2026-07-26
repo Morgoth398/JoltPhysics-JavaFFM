@@ -5,14 +5,9 @@ package volucris.bindings.jolt.vehicle;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class VehicleControllerSettings
 		permits WheeledVehicleControllerSettings,
 		TrackedVehicleControllerSettings {
@@ -28,30 +23,28 @@ public sealed class VehicleControllerSettings
     }
 
     public VehicleControllerSettings(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_CONTROLLER_SETTINGS_DESTROY.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONTROLLER_SETTINGS_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #destroy}.
-     */
-    public final void destroy(
-    ) {
-        destroy(
-            this.segment
-        );
+    /// Typed method of [#destroy].
+    public final void destroy() {
+    	destroy(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

@@ -16,7 +16,6 @@ imports:
   - volucris.bindings.jolt.math.Vec3
 static-imports:
   - java.lang.foreign.ValueLayout.*
-  - volucris.bindings.core.FFMUtils.*
 
 macro-name-prefixes:
 excluded-macro-name-prefixes:

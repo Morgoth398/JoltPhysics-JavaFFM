@@ -13,9 +13,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class CompoundShape extends Shape
 		permits MutableCompoundShape,
 		StaticCompoundShape {
@@ -35,105 +32,101 @@ public sealed class CompoundShape extends Shape
     }
 
     public CompoundShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static int getNumSubShapes(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_COMPOUND_SHAPE_GET_NUM_SUB_SHAPES.get();
-        try {
-            return (int) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_COMPOUND_SHAPE_GET_NUM_SUB_SHAPES.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumSubShapes}.
-     */
-    public final int getNumSubShapes(
-    ) {
-        return (int) getNumSubShapes(
-            this.segment
-        );
+    /// Typed method of [#getNumSubShapes].
+    public final int getNumSubShapes() {
+    	return (int) getNumSubShapes(
+    		this.segment
+    	);
     }
+    
     
     public static void getSubShape(
-        MemorySegment shape, 
-        int index, 
-        MemorySegment subShape, 
-        MemorySegment positionCOM, 
-        MemorySegment rotation, 
-        MemorySegment userData
+    	MemorySegment shape,
+    	int index,
+    	MemorySegment subShape,
+    	MemorySegment positionCOM,
+    	MemorySegment rotation,
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_COMPOUND_SHAPE_GET_SUB_SHAPE.get();
-        try {
-            method.invokeExact(
-                shape, 
-                index, 
-                subShape, 
-                positionCOM, 
-                rotation, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_COMPOUND_SHAPE_GET_SUB_SHAPE.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			index,
+    			subShape,
+    			positionCOM,
+    			rotation,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSubShape}.
-     */
+    /// Typed method of [#getSubShape].
     public final void getSubShape(
-        int index, 
-        NativePointerArray subShape, 
-        Vec3 positionCOM, 
-        Quat rotation, 
-        NativeIntArray userData
+    	int index,
+    	NativePointerArray subShape,
+    	Vec3 positionCOM,
+    	Quat rotation,
+    	NativeIntArray userData
     ) {
-        getSubShape(
-            this.segment, 
-            index, 
-            subShape.memorySegment(), 
-            positionCOM.memorySegment(), 
-            rotation.memorySegment(), 
-            userData.memorySegment()
-        );
+    	getSubShape(
+    		this.segment,
+    		index,
+    		subShape.memorySegment(),
+    		positionCOM.memorySegment(),
+    		rotation.memorySegment(),
+    		userData.memorySegment()
+    	);
     }
+    
     
     public static int getSubShapeIndexFromID(
-        MemorySegment shape, 
-        int id, 
-        MemorySegment remainder
+    	MemorySegment shape,
+    	int id,
+    	MemorySegment remainder
     ) {
-        MethodHandle method = JPH_COMPOUND_SHAPE_GET_SUB_SHAPE_INDEX_FROM_ID.get();
-        try {
-            return (int) method.invokeExact(
-                shape, 
-                id, 
-                remainder
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_COMPOUND_SHAPE_GET_SUB_SHAPE_INDEX_FROM_ID.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			shape,
+    			id,
+    			remainder
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSubShapeIndexFromID}.
-     */
+    /// Typed method of [#getSubShapeIndexFromID].
     public final int getSubShapeIndexFromID(
-        int id, 
-        NativeIntArray remainder
+    	int id,
+    	NativeIntArray remainder
     ) {
-        return (int) getSubShapeIndexFromID(
-            this.segment, 
-            id, 
-            remainder.memorySegment()
-        );
+    	return (int) getSubShapeIndexFromID(
+    		this.segment,
+    		id,
+    		remainder.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

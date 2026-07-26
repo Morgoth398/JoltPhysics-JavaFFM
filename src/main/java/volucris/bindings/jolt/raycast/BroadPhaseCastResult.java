@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class BroadPhaseCastResult
 		implements Struct<BroadPhaseCastResult> {
 
@@ -57,22 +54,24 @@ public final class BroadPhaseCastResult
     
     }
 
+    /// @see #bodyID()
     public BroadPhaseCastResult bodyID(int bodyID) {
-        BODY_ID_HANDLE.set(segment, 0L, bodyID);
-        return this;
+    	BODY_ID_HANDLE.set(segment, 0L, bodyID);
+    	return this;
     }
     
     public int bodyID() {
-        return (int) BODY_ID_HANDLE.get(segment, 0L);
+    	return (int) BODY_ID_HANDLE.get(segment, 0L);
     }
     
+    /// @see #fraction()
     public BroadPhaseCastResult fraction(float fraction) {
-        FRACTION_HANDLE.set(segment, 0L, fraction);
-        return this;
+    	FRACTION_HANDLE.set(segment, 0L, fraction);
+    	return this;
     }
     
     public float fraction() {
-        return (float) FRACTION_HANDLE.get(segment, 0L);
+    	return (float) FRACTION_HANDLE.get(segment, 0L);
     }
     
     @Override

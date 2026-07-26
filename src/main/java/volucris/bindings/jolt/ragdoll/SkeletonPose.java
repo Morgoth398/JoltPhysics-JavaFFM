@@ -14,9 +14,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public class SkeletonPose {
 
     private static final LazyConstant<MethodHandle> JPH_SKELETON_POSE_CREATE;
@@ -60,437 +57,426 @@ public class SkeletonPose {
     }
 
     public SkeletonPose() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public SkeletonPose(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public SkeletonPose(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_SKELETON_POSE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment pose
+    	MemorySegment pose
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_DESTROY.get();
-        try {
-            method.invokeExact(
-                pose
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			pose
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void setSkeleton(
-        MemorySegment pose, 
-        MemorySegment skeleton
+    	MemorySegment pose,
+    	MemorySegment skeleton
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_SET_SKELETON.get();
-        try {
-            method.invokeExact(
-                pose, 
-                skeleton
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_SET_SKELETON.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			skeleton
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSkeleton}.
-     */
+    /// Typed method of [#setSkeleton].
     public final void setSkeleton(
-        Skeleton skeleton
+    	Skeleton skeleton
     ) {
-        setSkeleton(
-            this.segment, 
-            skeleton.memorySegment()
-        );
+    	setSkeleton(
+    		this.segment,
+    		skeleton.memorySegment()
+    	);
     }
+    
     
     public static MemorySegment getSkeleton(
-        MemorySegment pose
+    	MemorySegment pose
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_GET_SKELETON.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                pose
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_GET_SKELETON.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			pose
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSkeleton}.
-     */
-    public final @Nullable Skeleton getSkeleton(
-    ) {
-        MemorySegment segment = getSkeleton(
-            this.segment
-        );
+    /// Typed method of [#getSkeleton].
+    public final @Nullable Skeleton getSkeleton() {
+    	MemorySegment segment = getSkeleton(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Skeleton(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Skeleton(segment);
     }
+    
     
     public static void setRootOffset(
-        MemorySegment pose, 
-        MemorySegment offset
+    	MemorySegment pose,
+    	MemorySegment offset
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_SET_ROOT_OFFSET.get();
-        try {
-            method.invokeExact(
-                pose, 
-                offset
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_SET_ROOT_OFFSET.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			offset
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRootOffset}.
-     */
+    /// Typed method of [#setRootOffset].
     public final void setRootOffset(
-        Vec3 offset
+    	Vec3 offset
     ) {
-        setRootOffset(
-            this.segment, 
-            offset.memorySegment()
-        );
+    	setRootOffset(
+    		this.segment,
+    		offset.memorySegment()
+    	);
     }
+    
     
     public static void getRootOffset(
-        MemorySegment pose, 
-        MemorySegment result
+    	MemorySegment pose,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_GET_ROOT_OFFSET.get();
-        try {
-            method.invokeExact(
-                pose, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_GET_ROOT_OFFSET.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRootOffset}.
-     */
+    /// Typed method of [#getRootOffset].
     public final void getRootOffset(
-        Vec3 result
+    	Vec3 result
     ) {
-        getRootOffset(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getRootOffset(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static int getJointCount(
-        MemorySegment pose
+    	MemorySegment pose
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                pose
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			pose
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getJointCount}.
-     */
-    public final int getJointCount(
-    ) {
-        return (int) getJointCount(
-            this.segment
-        );
+    /// Typed method of [#getJointCount].
+    public final int getJointCount() {
+    	return (int) getJointCount(
+    		this.segment
+    	);
     }
+    
     
     public static void getJointState(
-        MemorySegment pose, 
-        int index, 
-        MemorySegment outTranslation, 
-        MemorySegment outRotation
+    	MemorySegment pose,
+    	int index,
+    	MemorySegment outTranslation,
+    	MemorySegment outRotation
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_STATE.get();
-        try {
-            method.invokeExact(
-                pose, 
-                index, 
-                outTranslation, 
-                outRotation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_STATE.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			index,
+    			outTranslation,
+    			outRotation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getJointState}.
-     */
+    /// Typed method of [#getJointState].
     public final void getJointState(
-        int index, 
-        Vec3 outTranslation, 
-        Quat outRotation
+    	int index,
+    	Vec3 outTranslation,
+    	Quat outRotation
     ) {
-        getJointState(
-            this.segment, 
-            index, 
-            outTranslation.memorySegment(), 
-            outRotation.memorySegment()
-        );
+    	getJointState(
+    		this.segment,
+    		index,
+    		outTranslation.memorySegment(),
+    		outRotation.memorySegment()
+    	);
     }
+    
     
     public static void setJointState(
-        MemorySegment pose, 
-        int index, 
-        MemorySegment translation, 
-        MemorySegment rotation
+    	MemorySegment pose,
+    	int index,
+    	MemorySegment translation,
+    	MemorySegment rotation
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_STATE.get();
-        try {
-            method.invokeExact(
-                pose, 
-                index, 
-                translation, 
-                rotation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_STATE.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			index,
+    			translation,
+    			rotation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setJointState}.
-     */
+    /// Typed method of [#setJointState].
     public final void setJointState(
-        int index, 
-        Vec3 translation, 
-        Quat rotation
+    	int index,
+    	Vec3 translation,
+    	Quat rotation
     ) {
-        setJointState(
-            this.segment, 
-            index, 
-            translation.memorySegment(), 
-            rotation.memorySegment()
-        );
+    	setJointState(
+    		this.segment,
+    		index,
+    		translation.memorySegment(),
+    		rotation.memorySegment()
+    	);
     }
+    
     
     public static void getJointMatrix(
-        MemorySegment pose, 
-        int index, 
-        MemorySegment result
+    	MemorySegment pose,
+    	int index,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_MATRIX.get();
-        try {
-            method.invokeExact(
-                pose, 
-                index, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_MATRIX.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			index,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getJointMatrix}.
-     */
+    /// Typed method of [#getJointMatrix].
     public final void getJointMatrix(
-        int index, 
-        Mat4 result
+    	int index,
+    	Mat4 result
     ) {
-        getJointMatrix(
-            this.segment, 
-            index, 
-            result.memorySegment()
-        );
+    	getJointMatrix(
+    		this.segment,
+    		index,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setJointMatrix(
-        MemorySegment pose, 
-        int index, 
-        MemorySegment matrix
+    	MemorySegment pose,
+    	int index,
+    	MemorySegment matrix
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_MATRIX.get();
-        try {
-            method.invokeExact(
-                pose, 
-                index, 
-                matrix
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_MATRIX.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			index,
+    			matrix
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setJointMatrix}.
-     */
+    /// Typed method of [#setJointMatrix].
     public final void setJointMatrix(
-        int index, 
-        Mat4 matrix
+    	int index,
+    	Mat4 matrix
     ) {
-        setJointMatrix(
-            this.segment, 
-            index, 
-            matrix.memorySegment()
-        );
+    	setJointMatrix(
+    		this.segment,
+    		index,
+    		matrix.memorySegment()
+    	);
     }
+    
     
     public static void getJointMatrices(
-        MemorySegment pose, 
-        MemorySegment outMatrices, 
-        int count
+    	MemorySegment pose,
+    	MemorySegment outMatrices,
+    	int count
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_MATRICES.get();
-        try {
-            method.invokeExact(
-                pose, 
-                outMatrices, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_MATRICES.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			outMatrices,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getJointMatrices}.
-     */
+    /// Typed method of [#getJointMatrices].
     public final void getJointMatrices(
-        Mat4 outMatrices, 
-        int count
+    	Mat4 outMatrices,
+    	int count
     ) {
-        getJointMatrices(
-            this.segment, 
-            outMatrices.memorySegment(), 
-            count
-        );
+    	getJointMatrices(
+    		this.segment,
+    		outMatrices.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static void setJointMatrices(
-        MemorySegment pose, 
-        MemorySegment matrices, 
-        int count
+    	MemorySegment pose,
+    	MemorySegment matrices,
+    	int count
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_MATRICES.get();
-        try {
-            method.invokeExact(
-                pose, 
-                matrices, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_SET_JOINT_MATRICES.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			matrices,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setJointMatrices}.
-     */
+    /// Typed method of [#setJointMatrices].
     public final void setJointMatrices(
-        Mat4 matrices, 
-        int count
+    	Mat4 matrices,
+    	int count
     ) {
-        setJointMatrices(
-            this.segment, 
-            matrices.memorySegment(), 
-            count
-        );
+    	setJointMatrices(
+    		this.segment,
+    		matrices.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static void calculateJointMatrices(
-        MemorySegment pose
+    	MemorySegment pose
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_CALCULATE_JOINT_MATRICES.get();
-        try {
-            method.invokeExact(
-                pose
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_CALCULATE_JOINT_MATRICES.get();
+    	try {
+    		 method.invokeExact(
+    			pose
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #calculateJointMatrices}.
-     */
-    public final void calculateJointMatrices(
-    ) {
-        calculateJointMatrices(
-            this.segment
-        );
+    /// Typed method of [#calculateJointMatrices].
+    public final void calculateJointMatrices() {
+    	calculateJointMatrices(
+    		this.segment
+    	);
     }
+    
     
     public static void calculateJointStates(
-        MemorySegment pose
+    	MemorySegment pose
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_CALCULATE_JOINT_STATES.get();
-        try {
-            method.invokeExact(
-                pose
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_CALCULATE_JOINT_STATES.get();
+    	try {
+    		 method.invokeExact(
+    			pose
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #calculateJointStates}.
-     */
-    public final void calculateJointStates(
-    ) {
-        calculateJointStates(
-            this.segment
-        );
+    /// Typed method of [#calculateJointStates].
+    public final void calculateJointStates() {
+    	calculateJointStates(
+    		this.segment
+    	);
     }
+    
     
     public static void calculateLocalSpaceJointMatrices(
-        MemorySegment pose, 
-        MemorySegment outMatrices
+    	MemorySegment pose,
+    	MemorySegment outMatrices
     ) {
-        MethodHandle method = JPH_SKELETON_POSE_CALCULATE_LOCAL_SPACE_JOINT_MATRICES.get();
-        try {
-            method.invokeExact(
-                pose, 
-                outMatrices
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SKELETON_POSE_CALCULATE_LOCAL_SPACE_JOINT_MATRICES.get();
+    	try {
+    		 method.invokeExact(
+    			pose,
+    			outMatrices
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #calculateLocalSpaceJointMatrices}.
-     */
+    /// Typed method of [#calculateLocalSpaceJointMatrices].
     public final void calculateLocalSpaceJointMatrices(
-        Mat4 outMatrices
+    	Mat4 outMatrices
     ) {
-        calculateLocalSpaceJointMatrices(
-            this.segment, 
-            outMatrices.memorySegment()
-        );
+    	calculateLocalSpaceJointMatrices(
+    		this.segment,
+    		outMatrices.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

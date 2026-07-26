@@ -18,9 +18,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class MassProperties
 		implements Struct<MassProperties> {
 
@@ -71,117 +68,117 @@ public final class MassProperties
         inertia = new Mat4(segment.asSlice(INERTIA_BYTE_OFFSET, Mat4.LAYOUT));
     }
 
+    
     public static void decomposePrincipalMomentsOfInertia(
-        MemorySegment properties, 
-        MemorySegment rotation, 
-        MemorySegment diagonal
+    	MemorySegment properties,
+    	MemorySegment rotation,
+    	MemorySegment diagonal
     ) {
-        MethodHandle method = JPH_MASS_PROPERTIES_DECOMPOSE_PRINCIPAL_MOMENTS_OF_INERTIA.get();
-        try {
-            method.invokeExact(
-                properties, 
-                rotation, 
-                diagonal
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MASS_PROPERTIES_DECOMPOSE_PRINCIPAL_MOMENTS_OF_INERTIA.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			rotation,
+    			diagonal
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #decomposePrincipalMomentsOfInertia}.
-     */
+    /// Typed method of [#decomposePrincipalMomentsOfInertia].
     public final void decomposePrincipalMomentsOfInertia(
-        Mat4 rotation, 
-        Vec3 diagonal
+    	Mat4 rotation,
+    	Vec3 diagonal
     ) {
-        decomposePrincipalMomentsOfInertia(
-            this.segment, 
-            rotation.memorySegment(), 
-            diagonal.memorySegment()
-        );
+    	decomposePrincipalMomentsOfInertia(
+    		this.segment,
+    		rotation.memorySegment(),
+    		diagonal.memorySegment()
+    	);
     }
+    
     
     public static void scaleToMass(
-        MemorySegment properties, 
-        float mass
+    	MemorySegment properties,
+    	float mass
     ) {
-        MethodHandle method = JPH_MASS_PROPERTIES_SCALE_TO_MASS.get();
-        try {
-            method.invokeExact(
-                properties, 
-                mass
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MASS_PROPERTIES_SCALE_TO_MASS.get();
+    	try {
+    		 method.invokeExact(
+    			properties,
+    			mass
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #scaleToMass}.
-     */
+    /// Typed method of [#scaleToMass].
     public final void scaleToMass(
-        float mass
+    	float mass
     ) {
-        scaleToMass(
-            this.segment, 
-            mass
-        );
+    	scaleToMass(
+    		this.segment,
+    		mass
+    	);
     }
+    
     
     public static void getEquivalentSolidBoxSize(
-        float mass, 
-        MemorySegment inertiaDiagonal, 
-        MemorySegment result
+    	float mass,
+    	MemorySegment inertiaDiagonal,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MASS_PROPERTIES_GET_EQUIVALENT_SOLID_BOX_SIZE.get();
-        try {
-            method.invokeExact(
-                mass, 
-                inertiaDiagonal, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MASS_PROPERTIES_GET_EQUIVALENT_SOLID_BOX_SIZE.get();
+    	try {
+    		 method.invokeExact(
+    			mass,
+    			inertiaDiagonal,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEquivalentSolidBoxSize}.
-     */
+    /// Typed method of [#getEquivalentSolidBoxSize].
     public final void getEquivalentSolidBoxSize(
-        float mass, 
-        Vec3 inertiaDiagonal, 
-        Vec3 result
+    	float mass,
+    	Vec3 inertiaDiagonal,
+    	Vec3 result
     ) {
-        getEquivalentSolidBoxSize(
-            mass, 
-            inertiaDiagonal.memorySegment(), 
-            result.memorySegment()
-        );
+    	getEquivalentSolidBoxSize(
+    		mass,
+    		inertiaDiagonal.memorySegment(),
+    		result.memorySegment()
+    	);
     }
     
+    /// @see #mass()
     public MassProperties mass(float mass) {
-        MASS_HANDLE.set(segment, 0L, mass);
-        return this;
+    	MASS_HANDLE.set(segment, 0L, mass);
+    	return this;
     }
     
     public float mass() {
-        return (float) MASS_HANDLE.get(segment, 0L);
+    	return (float) MASS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #inertia()
     public MassProperties inertia(Consumer<Mat4> consumer) {
-        consumer.accept(inertia);
-        return this;
+    	consumer.accept(inertia);
+    	return this;
     }
     
+    /// @see #inertia()
     public MassProperties inertia(Mat4 other) {
-        inertia.set(other);
-        return this;
+    	inertia.set(other);
+    	return this;
     }
     
     public Mat4 inertia() {
-        return inertia;
+    	return inertia;
     }
     
     @Override

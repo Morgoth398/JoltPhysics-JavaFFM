@@ -17,9 +17,6 @@ import volucris.bindings.jolt.LinearCurve;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleEngineSettings
 		implements Struct<VehicleEngineSettings> {
 
@@ -88,86 +85,90 @@ public final class VehicleEngineSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_ENGINE_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ENGINE_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #maxTorque()
     public VehicleEngineSettings maxTorque(float maxTorque) {
-        MAX_TORQUE_HANDLE.set(segment, 0L, maxTorque);
-        return this;
+    	MAX_TORQUE_HANDLE.set(segment, 0L, maxTorque);
+    	return this;
     }
     
     public float maxTorque() {
-        return (float) MAX_TORQUE_HANDLE.get(segment, 0L);
+    	return (float) MAX_TORQUE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #minRPM()
     public VehicleEngineSettings minRPM(float minRPM) {
-        MIN_RPM_HANDLE.set(segment, 0L, minRPM);
-        return this;
+    	MIN_RPM_HANDLE.set(segment, 0L, minRPM);
+    	return this;
     }
     
     public float minRPM() {
-        return (float) MIN_RPM_HANDLE.get(segment, 0L);
+    	return (float) MIN_RPM_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxRPM()
     public VehicleEngineSettings maxRPM(float maxRPM) {
-        MAX_RPM_HANDLE.set(segment, 0L, maxRPM);
-        return this;
+    	MAX_RPM_HANDLE.set(segment, 0L, maxRPM);
+    	return this;
     }
     
     public float maxRPM() {
-        return (float) MAX_RPM_HANDLE.get(segment, 0L);
+    	return (float) MAX_RPM_HANDLE.get(segment, 0L);
     }
     
+    /// @see #normalizedTorque()
     public VehicleEngineSettings normalizedTorque(LinearCurve normalizedTorque) {
-        NORMALIZED_TORQUE_HANDLE.set(segment, 0L, normalizedTorque.memorySegment());
-        return this;
+    	NORMALIZED_TORQUE_HANDLE.set(segment, 0L, normalizedTorque.memorySegment());
+    	return this;
     }
     
     public @Nullable LinearCurve normalizedTorque() {
-        MemorySegment segment = (MemorySegment) NORMALIZED_TORQUE_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) NORMALIZED_TORQUE_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new LinearCurve(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new LinearCurve(segment);
     }
     
+    /// @see #inertia()
     public VehicleEngineSettings inertia(float inertia) {
-        INERTIA_HANDLE.set(segment, 0L, inertia);
-        return this;
+    	INERTIA_HANDLE.set(segment, 0L, inertia);
+    	return this;
     }
     
     public float inertia() {
-        return (float) INERTIA_HANDLE.get(segment, 0L);
+    	return (float) INERTIA_HANDLE.get(segment, 0L);
     }
     
+    /// @see #angularDamping()
     public VehicleEngineSettings angularDamping(float angularDamping) {
-        ANGULAR_DAMPING_HANDLE.set(segment, 0L, angularDamping);
-        return this;
+    	ANGULAR_DAMPING_HANDLE.set(segment, 0L, angularDamping);
+    	return this;
     }
     
     public float angularDamping() {
-        return (float) ANGULAR_DAMPING_HANDLE.get(segment, 0L);
+    	return (float) ANGULAR_DAMPING_HANDLE.get(segment, 0L);
     }
     
     @Override

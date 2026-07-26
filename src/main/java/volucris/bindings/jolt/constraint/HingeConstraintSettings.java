@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class HingeConstraintSettings
 		implements Struct<HingeConstraintSettings> {
 
@@ -123,189 +120,209 @@ public final class HingeConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HINGE_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HINGE_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #space()
     public HingeConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #limitsMin()
     public HingeConstraintSettings limitsMin(float limitsMin) {
-        LIMITS_MIN_HANDLE.set(segment, 0L, limitsMin);
-        return this;
+    	LIMITS_MIN_HANDLE.set(segment, 0L, limitsMin);
+    	return this;
     }
     
     public float limitsMin() {
-        return (float) LIMITS_MIN_HANDLE.get(segment, 0L);
+    	return (float) LIMITS_MIN_HANDLE.get(segment, 0L);
     }
     
+    /// @see #limitsMax()
     public HingeConstraintSettings limitsMax(float limitsMax) {
-        LIMITS_MAX_HANDLE.set(segment, 0L, limitsMax);
-        return this;
+    	LIMITS_MAX_HANDLE.set(segment, 0L, limitsMax);
+    	return this;
     }
     
     public float limitsMax() {
-        return (float) LIMITS_MAX_HANDLE.get(segment, 0L);
+    	return (float) LIMITS_MAX_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxFrictionTorque()
     public HingeConstraintSettings maxFrictionTorque(float maxFrictionTorque) {
-        MAX_FRICTION_TORQUE_HANDLE.set(segment, 0L, maxFrictionTorque);
-        return this;
+    	MAX_FRICTION_TORQUE_HANDLE.set(segment, 0L, maxFrictionTorque);
+    	return this;
     }
     
     public float maxFrictionTorque() {
-        return (float) MAX_FRICTION_TORQUE_HANDLE.get(segment, 0L);
+    	return (float) MAX_FRICTION_TORQUE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public HingeConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public HingeConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #point1()
     public HingeConstraintSettings point1(Consumer<Vec3> consumer) {
-        consumer.accept(point1);
-        return this;
+    	consumer.accept(point1);
+    	return this;
     }
     
+    /// @see #point1()
     public HingeConstraintSettings point1(Vec3 other) {
-        point1.set(other);
-        return this;
+    	point1.set(other);
+    	return this;
     }
     
     public Vec3 point1() {
-        return point1;
+    	return point1;
     }
     
+    /// @see #hingeAxis1()
     public HingeConstraintSettings hingeAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(hingeAxis1);
-        return this;
+    	consumer.accept(hingeAxis1);
+    	return this;
     }
     
+    /// @see #hingeAxis1()
     public HingeConstraintSettings hingeAxis1(Vec3 other) {
-        hingeAxis1.set(other);
-        return this;
+    	hingeAxis1.set(other);
+    	return this;
     }
     
     public Vec3 hingeAxis1() {
-        return hingeAxis1;
+    	return hingeAxis1;
     }
     
+    /// @see #normalAxis1()
     public HingeConstraintSettings normalAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(normalAxis1);
-        return this;
+    	consumer.accept(normalAxis1);
+    	return this;
     }
     
+    /// @see #normalAxis1()
     public HingeConstraintSettings normalAxis1(Vec3 other) {
-        normalAxis1.set(other);
-        return this;
+    	normalAxis1.set(other);
+    	return this;
     }
     
     public Vec3 normalAxis1() {
-        return normalAxis1;
+    	return normalAxis1;
     }
     
+    /// @see #point2()
     public HingeConstraintSettings point2(Consumer<Vec3> consumer) {
-        consumer.accept(point2);
-        return this;
+    	consumer.accept(point2);
+    	return this;
     }
     
+    /// @see #point2()
     public HingeConstraintSettings point2(Vec3 other) {
-        point2.set(other);
-        return this;
+    	point2.set(other);
+    	return this;
     }
     
     public Vec3 point2() {
-        return point2;
+    	return point2;
     }
     
+    /// @see #hingeAxis2()
     public HingeConstraintSettings hingeAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(hingeAxis2);
-        return this;
+    	consumer.accept(hingeAxis2);
+    	return this;
     }
     
+    /// @see #hingeAxis2()
     public HingeConstraintSettings hingeAxis2(Vec3 other) {
-        hingeAxis2.set(other);
-        return this;
+    	hingeAxis2.set(other);
+    	return this;
     }
     
     public Vec3 hingeAxis2() {
-        return hingeAxis2;
+    	return hingeAxis2;
     }
     
+    /// @see #normalAxis2()
     public HingeConstraintSettings normalAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(normalAxis2);
-        return this;
+    	consumer.accept(normalAxis2);
+    	return this;
     }
     
+    /// @see #normalAxis2()
     public HingeConstraintSettings normalAxis2(Vec3 other) {
-        normalAxis2.set(other);
-        return this;
+    	normalAxis2.set(other);
+    	return this;
     }
     
     public Vec3 normalAxis2() {
-        return normalAxis2;
+    	return normalAxis2;
     }
     
+    /// @see #limitsSpringSettings()
     public HingeConstraintSettings limitsSpringSettings(Consumer<SpringSettings> consumer) {
-        consumer.accept(limitsSpringSettings);
-        return this;
+    	consumer.accept(limitsSpringSettings);
+    	return this;
     }
     
+    /// @see #limitsSpringSettings()
     public HingeConstraintSettings limitsSpringSettings(SpringSettings other) {
-        limitsSpringSettings.set(other);
-        return this;
+    	limitsSpringSettings.set(other);
+    	return this;
     }
     
     public SpringSettings limitsSpringSettings() {
-        return limitsSpringSettings;
+    	return limitsSpringSettings;
     }
     
+    /// @see #motorSettings()
     public HingeConstraintSettings motorSettings(Consumer<MotorSettings> consumer) {
-        consumer.accept(motorSettings);
-        return this;
+    	consumer.accept(motorSettings);
+    	return this;
     }
     
+    /// @see #motorSettings()
     public HingeConstraintSettings motorSettings(MotorSettings other) {
-        motorSettings.set(other);
-        return this;
+    	motorSettings.set(other);
+    	return this;
     }
     
     public MotorSettings motorSettings() {
-        return motorSettings;
+    	return motorSettings;
     }
     
     @Override

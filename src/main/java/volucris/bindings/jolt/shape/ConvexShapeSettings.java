@@ -5,14 +5,10 @@ package volucris.bindings.jolt.shape;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class ConvexShapeSettings extends ShapeSettings
 		permits BoxShapeSettings,
 		CapsuleShapeSettings,
@@ -36,60 +32,58 @@ public sealed class ConvexShapeSettings extends ShapeSettings
     }
 
     public ConvexShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static float getDensity(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_CONVEX_SHAPE_SETTINGS_GET_DENSITY.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONVEX_SHAPE_SETTINGS_GET_DENSITY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDensity}.
-     */
+    /// Typed method of [#getDensity].
     public final float getDensity(
-        ConvexShapeSettings shape
+    	ConvexShapeSettings shape
     ) {
-        return (float) getDensity(
-            shape.memorySegment()
-        );
+    	return (float) getDensity(
+    		shape.memorySegment()
+    	);
     }
+    
     
     public static void setDensity(
-        MemorySegment shape, 
-        float value
+    	MemorySegment shape,
+    	float value
     ) {
-        MethodHandle method = JPH_CONVEX_SHAPE_SETTINGS_SET_DENSITY.get();
-        try {
-            method.invokeExact(
-                shape, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONVEX_SHAPE_SETTINGS_SET_DENSITY.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDensity}.
-     */
+    /// Typed method of [#setDensity].
     public final void setDensity(
-        ConvexShapeSettings shape, 
-        float value
+    	ConvexShapeSettings shape,
+    	float value
     ) {
-        setDensity(
-            shape.memorySegment(), 
-            value
-        );
+    	setDensity(
+    		shape.memorySegment(),
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

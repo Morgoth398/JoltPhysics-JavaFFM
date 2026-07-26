@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.filter;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -15,6 +14,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import volucris.bindings.jolt.body.Body;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
@@ -46,8 +46,8 @@ public abstract class BodyFilter {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("shouldCollide"), 
-            UNBOUNDED_ADDRESS.withName("shouldCollideLocked")
+            UNBOUNDED_ADDRESS.withName("ShouldCollide"),
+            UNBOUNDED_ADDRESS.withName("ShouldCollideLocked")
         ).withName("JPH_BodyFilter_Procs").withByteAlignment(8);
 
         JPH_BODY_FILTER_SET_PROCS = downcallHandleVoid("JPH_BodyFilter_SetProcs", UNBOUNDED_ADDRESS);
@@ -59,12 +59,12 @@ public abstract class BodyFilter {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             SHOULD_COLLIDE_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
                 JAVA_INT
             );
 
@@ -72,11 +72,11 @@ public abstract class BodyFilter {
 
             SHOULD_COLLIDE_ADDRESS = linker.upcallStub(SHOULD_COLLIDE_HANDLE, SHOULD_COLLIDE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("shouldCollide")), SHOULD_COLLIDE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("ShouldCollide")), SHOULD_COLLIDE_ADDRESS);
             
             SHOULD_COLLIDE_LOCKED_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -84,7 +84,7 @@ public abstract class BodyFilter {
 
             SHOULD_COLLIDE_LOCKED_ADDRESS = linker.upcallStub(SHOULD_COLLIDE_LOCKED_HANDLE, SHOULD_COLLIDE_LOCKED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("shouldCollideLocked")), SHOULD_COLLIDE_LOCKED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("ShouldCollideLocked")), SHOULD_COLLIDE_LOCKED_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -105,43 +105,46 @@ public abstract class BodyFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_BODY_FILTER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_FILTER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_BODY_FILTER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_FILTER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment filter
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_BODY_FILTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_FILTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -164,7 +167,7 @@ public abstract class BodyFilter {
         int bodyID
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for shouldCollide."
+            "Override either the typed or raw callback method in BodyFilter."
         );
     }
 
@@ -182,9 +185,17 @@ public abstract class BodyFilter {
     public boolean shouldCollideLocked(
         MemorySegment bodyID
     ) {
-        throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for shouldCollideLocked."
+        return shouldCollideLocked(
+            new Body(bodyID)
         );
     }
+
+    public boolean shouldCollideLocked(
+        Body bodyID
+    ) {
+        throw new UnsupportedOperationException(
+            "Override either the typed or raw callback method in BodyFilter."
+        );
+    };
 
 }

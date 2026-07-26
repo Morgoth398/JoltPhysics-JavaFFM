@@ -16,9 +16,6 @@ import volucris.bindings.jolt.physicsSystem.PhysicsSystem;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class PhysicsStepListenerContext
 		implements Struct<PhysicsStepListenerContext> {
 
@@ -71,45 +68,49 @@ public final class PhysicsStepListenerContext
     
     }
 
+    /// @see #deltaTime()
     public PhysicsStepListenerContext deltaTime(float deltaTime) {
-        DELTA_TIME_HANDLE.set(segment, 0L, deltaTime);
-        return this;
+    	DELTA_TIME_HANDLE.set(segment, 0L, deltaTime);
+    	return this;
     }
     
     public float deltaTime() {
-        return (float) DELTA_TIME_HANDLE.get(segment, 0L);
+    	return (float) DELTA_TIME_HANDLE.get(segment, 0L);
     }
     
+    /// @see #isFirstStep()
     public PhysicsStepListenerContext isFirstStep(int isFirstStep) {
-        IS_FIRST_STEP_HANDLE.set(segment, 0L, isFirstStep);
-        return this;
+    	IS_FIRST_STEP_HANDLE.set(segment, 0L, isFirstStep);
+    	return this;
     }
     
     public int isFirstStep() {
-        return (int) IS_FIRST_STEP_HANDLE.get(segment, 0L);
+    	return (int) IS_FIRST_STEP_HANDLE.get(segment, 0L);
     }
     
+    /// @see #isLastStep()
     public PhysicsStepListenerContext isLastStep(int isLastStep) {
-        IS_LAST_STEP_HANDLE.set(segment, 0L, isLastStep);
-        return this;
+    	IS_LAST_STEP_HANDLE.set(segment, 0L, isLastStep);
+    	return this;
     }
     
     public int isLastStep() {
-        return (int) IS_LAST_STEP_HANDLE.get(segment, 0L);
+    	return (int) IS_LAST_STEP_HANDLE.get(segment, 0L);
     }
     
+    /// @see #physicsSystem()
     public PhysicsStepListenerContext physicsSystem(PhysicsSystem physicsSystem) {
-        PHYSICS_SYSTEM_HANDLE.set(segment, 0L, physicsSystem.memorySegment());
-        return this;
+    	PHYSICS_SYSTEM_HANDLE.set(segment, 0L, physicsSystem.memorySegment());
+    	return this;
     }
     
     public @Nullable PhysicsSystem physicsSystem() {
-        MemorySegment segment = (MemorySegment) PHYSICS_SYSTEM_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) PHYSICS_SYSTEM_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new PhysicsSystem(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new PhysicsSystem(segment);
     }
     
     @Override

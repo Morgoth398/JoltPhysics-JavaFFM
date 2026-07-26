@@ -12,9 +12,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class BoxShapeSettings extends ConvexShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_BOX_SHAPE_SETTINGS_CREATE;
@@ -30,76 +27,79 @@ public final class BoxShapeSettings extends ConvexShapeSettings {
     }
 
     public BoxShapeSettings(
-        Vec3 halfExtent, 
+        Vec3 halfExtent,
         float convexRadius
     ) {
         this(
             Arena.ofAuto(),
-            halfExtent, 
+            halfExtent,
             convexRadius
         );
     }
     
+    /// Typed method of [#create].
     public BoxShapeSettings(
-        Arena arena,
-        Vec3 halfExtent, 
-        float convexRadius
+    	Arena arena,
+    	Vec3 halfExtent,
+    	float convexRadius
     ) {
-         MemorySegment segment = create(
-            halfExtent.memorySegment(), 
-            convexRadius
-         );
+    	MemorySegment segment = create(
+    		halfExtent.memorySegment(),
+    		convexRadius
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public BoxShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment halfExtent, 
-        float convexRadius
+    	MemorySegment halfExtent,
+    	float convexRadius
     ) {
-        MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                halfExtent, 
-                convexRadius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			halfExtent,
+    			convexRadius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BOX_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable BoxShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable BoxShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BoxShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BoxShape(segment);
     }
     
     public MemorySegment memorySegment() {

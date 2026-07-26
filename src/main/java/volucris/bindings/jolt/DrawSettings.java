@@ -12,11 +12,7 @@ import volucris.bindings.core.NativeStructArray;
 import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class DrawSettings
 		implements Struct<DrawSettings> {
 
@@ -155,193 +151,277 @@ public final class DrawSettings
     
     }
 
+    /// @see #drawGetSupportFunction()
     public DrawSettings drawGetSupportFunction(boolean drawGetSupportFunction) {
-        DRAW_GET_SUPPORT_FUNCTION_HANDLE.set(segment, 0L, drawGetSupportFunction);
-        return this;
+    	DRAW_GET_SUPPORT_FUNCTION_HANDLE.set(segment, 0L, drawGetSupportFunction);
+    	return this;
     }
     
+    /// ```
+    /// Draw the GetSupport() function, used for convex collision detection
+    /// ```
     public boolean drawGetSupportFunction() {
-        return (boolean) DRAW_GET_SUPPORT_FUNCTION_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_GET_SUPPORT_FUNCTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSupportDirection()
     public DrawSettings drawSupportDirection(boolean drawSupportDirection) {
-        DRAW_SUPPORT_DIRECTION_HANDLE.set(segment, 0L, drawSupportDirection);
-        return this;
+    	DRAW_SUPPORT_DIRECTION_HANDLE.set(segment, 0L, drawSupportDirection);
+    	return this;
     }
     
+    /// ```
+    /// When drawing the support function, also draw which direction mapped to a specific support point
+    /// ```
     public boolean drawSupportDirection() {
-        return (boolean) DRAW_SUPPORT_DIRECTION_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SUPPORT_DIRECTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawGetSupportingFace()
     public DrawSettings drawGetSupportingFace(boolean drawGetSupportingFace) {
-        DRAW_GET_SUPPORTING_FACE_HANDLE.set(segment, 0L, drawGetSupportingFace);
-        return this;
+    	DRAW_GET_SUPPORTING_FACE_HANDLE.set(segment, 0L, drawGetSupportingFace);
+    	return this;
     }
     
+    /// ```
+    /// Draw the faces that were found colliding during collision detection
+    /// ```
     public boolean drawGetSupportingFace() {
-        return (boolean) DRAW_GET_SUPPORTING_FACE_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_GET_SUPPORTING_FACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawShape()
     public DrawSettings drawShape(boolean drawShape) {
-        DRAW_SHAPE_HANDLE.set(segment, 0L, drawShape);
-        return this;
+    	DRAW_SHAPE_HANDLE.set(segment, 0L, drawShape);
+    	return this;
     }
     
+    /// ```
+    /// Draw the shapes of all bodies
+    /// ```
     public boolean drawShape() {
-        return (boolean) DRAW_SHAPE_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SHAPE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawShapeWireframe()
     public DrawSettings drawShapeWireframe(boolean drawShapeWireframe) {
-        DRAW_SHAPE_WIREFRAME_HANDLE.set(segment, 0L, drawShapeWireframe);
-        return this;
+    	DRAW_SHAPE_WIREFRAME_HANDLE.set(segment, 0L, drawShapeWireframe);
+    	return this;
     }
     
+    /// ```
+    /// When mDrawShape is true and this is true, the shapes will be drawn in wireframe instead of solid.
+    /// ```
     public boolean drawShapeWireframe() {
-        return (boolean) DRAW_SHAPE_WIREFRAME_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SHAPE_WIREFRAME_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawShapeColor()
     public DrawSettings drawShapeColor(int drawShapeColor) {
-        DRAW_SHAPE_COLOR_HANDLE.set(segment, 0L, drawShapeColor);
-        return this;
+    	DRAW_SHAPE_COLOR_HANDLE.set(segment, 0L, drawShapeColor);
+    	return this;
     }
     
+    /// ```
+    /// Coloring scheme to use for shapes
+    /// ```
     public int drawShapeColor() {
-        return (int) DRAW_SHAPE_COLOR_HANDLE.get(segment, 0L);
+    	return (int) DRAW_SHAPE_COLOR_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawBoundingBox()
     public DrawSettings drawBoundingBox(boolean drawBoundingBox) {
-        DRAW_BOUNDING_BOX_HANDLE.set(segment, 0L, drawBoundingBox);
-        return this;
+    	DRAW_BOUNDING_BOX_HANDLE.set(segment, 0L, drawBoundingBox);
+    	return this;
     }
     
+    /// ```
+    /// Draw a bounding box per body
+    /// ```
     public boolean drawBoundingBox() {
-        return (boolean) DRAW_BOUNDING_BOX_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_BOUNDING_BOX_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawCenterOfMassTransform()
     public DrawSettings drawCenterOfMassTransform(boolean drawCenterOfMassTransform) {
-        DRAW_CENTER_OF_MASS_TRANSFORM_HANDLE.set(segment, 0L, drawCenterOfMassTransform);
-        return this;
+    	DRAW_CENTER_OF_MASS_TRANSFORM_HANDLE.set(segment, 0L, drawCenterOfMassTransform);
+    	return this;
     }
     
+    /// ```
+    /// Draw the center of mass for each body
+    /// ```
     public boolean drawCenterOfMassTransform() {
-        return (boolean) DRAW_CENTER_OF_MASS_TRANSFORM_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_CENTER_OF_MASS_TRANSFORM_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawWorldTransform()
     public DrawSettings drawWorldTransform(boolean drawWorldTransform) {
-        DRAW_WORLD_TRANSFORM_HANDLE.set(segment, 0L, drawWorldTransform);
-        return this;
+    	DRAW_WORLD_TRANSFORM_HANDLE.set(segment, 0L, drawWorldTransform);
+    	return this;
     }
     
+    /// ```
+    /// Draw the world transform (which may differ from its center of mass) of each body
+    /// ```
     public boolean drawWorldTransform() {
-        return (boolean) DRAW_WORLD_TRANSFORM_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_WORLD_TRANSFORM_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawVelocity()
     public DrawSettings drawVelocity(boolean drawVelocity) {
-        DRAW_VELOCITY_HANDLE.set(segment, 0L, drawVelocity);
-        return this;
+    	DRAW_VELOCITY_HANDLE.set(segment, 0L, drawVelocity);
+    	return this;
     }
     
+    /// ```
+    /// Draw the velocity vector for each body
+    /// ```
     public boolean drawVelocity() {
-        return (boolean) DRAW_VELOCITY_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_VELOCITY_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawMassAndInertia()
     public DrawSettings drawMassAndInertia(boolean drawMassAndInertia) {
-        DRAW_MASS_AND_INERTIA_HANDLE.set(segment, 0L, drawMassAndInertia);
-        return this;
+    	DRAW_MASS_AND_INERTIA_HANDLE.set(segment, 0L, drawMassAndInertia);
+    	return this;
     }
     
+    /// ```
+    /// Draw the mass and inertia (as the box equivalent) for each body
+    /// ```
     public boolean drawMassAndInertia() {
-        return (boolean) DRAW_MASS_AND_INERTIA_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_MASS_AND_INERTIA_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSleepStats()
     public DrawSettings drawSleepStats(boolean drawSleepStats) {
-        DRAW_SLEEP_STATS_HANDLE.set(segment, 0L, drawSleepStats);
-        return this;
+    	DRAW_SLEEP_STATS_HANDLE.set(segment, 0L, drawSleepStats);
+    	return this;
     }
     
+    /// ```
+    /// Draw stats regarding the sleeping algorithm of each body
+    /// ```
     public boolean drawSleepStats() {
-        return (boolean) DRAW_SLEEP_STATS_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SLEEP_STATS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyVertices()
     public DrawSettings drawSoftBodyVertices(boolean drawSoftBodyVertices) {
-        DRAW_SOFT_BODY_VERTICES_HANDLE.set(segment, 0L, drawSoftBodyVertices);
-        return this;
+    	DRAW_SOFT_BODY_VERTICES_HANDLE.set(segment, 0L, drawSoftBodyVertices);
+    	return this;
     }
     
+    /// ```
+    /// Draw the vertices of soft bodies
+    /// ```
     public boolean drawSoftBodyVertices() {
-        return (boolean) DRAW_SOFT_BODY_VERTICES_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_VERTICES_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyVertexVelocities()
     public DrawSettings drawSoftBodyVertexVelocities(boolean drawSoftBodyVertexVelocities) {
-        DRAW_SOFT_BODY_VERTEX_VELOCITIES_HANDLE.set(segment, 0L, drawSoftBodyVertexVelocities);
-        return this;
+    	DRAW_SOFT_BODY_VERTEX_VELOCITIES_HANDLE.set(segment, 0L, drawSoftBodyVertexVelocities);
+    	return this;
     }
     
+    /// ```
+    /// Draw the velocities of the vertices of soft bodies
+    /// ```
     public boolean drawSoftBodyVertexVelocities() {
-        return (boolean) DRAW_SOFT_BODY_VERTEX_VELOCITIES_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_VERTEX_VELOCITIES_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyEdgeConstraints()
     public DrawSettings drawSoftBodyEdgeConstraints(boolean drawSoftBodyEdgeConstraints) {
-        DRAW_SOFT_BODY_EDGE_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyEdgeConstraints);
-        return this;
+    	DRAW_SOFT_BODY_EDGE_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyEdgeConstraints);
+    	return this;
     }
     
+    /// ```
+    /// Draw the edge constraints of soft bodies
+    /// ```
     public boolean drawSoftBodyEdgeConstraints() {
-        return (boolean) DRAW_SOFT_BODY_EDGE_CONSTRAINTS_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_EDGE_CONSTRAINTS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyBendConstraints()
     public DrawSettings drawSoftBodyBendConstraints(boolean drawSoftBodyBendConstraints) {
-        DRAW_SOFT_BODY_BEND_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyBendConstraints);
-        return this;
+    	DRAW_SOFT_BODY_BEND_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyBendConstraints);
+    	return this;
     }
     
+    /// ```
+    /// Draw the bend constraints of soft bodies
+    /// ```
     public boolean drawSoftBodyBendConstraints() {
-        return (boolean) DRAW_SOFT_BODY_BEND_CONSTRAINTS_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_BEND_CONSTRAINTS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyVolumeConstraints()
     public DrawSettings drawSoftBodyVolumeConstraints(boolean drawSoftBodyVolumeConstraints) {
-        DRAW_SOFT_BODY_VOLUME_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyVolumeConstraints);
-        return this;
+    	DRAW_SOFT_BODY_VOLUME_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyVolumeConstraints);
+    	return this;
     }
     
+    /// ```
+    /// Draw the volume constraints of soft bodies
+    /// ```
     public boolean drawSoftBodyVolumeConstraints() {
-        return (boolean) DRAW_SOFT_BODY_VOLUME_CONSTRAINTS_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_VOLUME_CONSTRAINTS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodySkinConstraints()
     public DrawSettings drawSoftBodySkinConstraints(boolean drawSoftBodySkinConstraints) {
-        DRAW_SOFT_BODY_SKIN_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodySkinConstraints);
-        return this;
+    	DRAW_SOFT_BODY_SKIN_CONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodySkinConstraints);
+    	return this;
     }
     
+    /// ```
+    /// Draw the skin constraints of soft bodies
+    /// ```
     public boolean drawSoftBodySkinConstraints() {
-        return (boolean) DRAW_SOFT_BODY_SKIN_CONSTRAINTS_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_SKIN_CONSTRAINTS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyLRAConstraints()
     public DrawSettings drawSoftBodyLRAConstraints(boolean drawSoftBodyLRAConstraints) {
-        DRAW_SOFT_BODY_LRACONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyLRAConstraints);
-        return this;
+    	DRAW_SOFT_BODY_LRACONSTRAINTS_HANDLE.set(segment, 0L, drawSoftBodyLRAConstraints);
+    	return this;
     }
     
+    /// ```
+    /// Draw the LRA constraints of soft bodies
+    /// ```
     public boolean drawSoftBodyLRAConstraints() {
-        return (boolean) DRAW_SOFT_BODY_LRACONSTRAINTS_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_LRACONSTRAINTS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyPredictedBounds()
     public DrawSettings drawSoftBodyPredictedBounds(boolean drawSoftBodyPredictedBounds) {
-        DRAW_SOFT_BODY_PREDICTED_BOUNDS_HANDLE.set(segment, 0L, drawSoftBodyPredictedBounds);
-        return this;
+    	DRAW_SOFT_BODY_PREDICTED_BOUNDS_HANDLE.set(segment, 0L, drawSoftBodyPredictedBounds);
+    	return this;
     }
     
+    /// ```
+    /// Draw the predicted bounds of soft bodies
+    /// ```
     public boolean drawSoftBodyPredictedBounds() {
-        return (boolean) DRAW_SOFT_BODY_PREDICTED_BOUNDS_HANDLE.get(segment, 0L);
+    	return (boolean) DRAW_SOFT_BODY_PREDICTED_BOUNDS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawSoftBodyConstraintColor()
     public DrawSettings drawSoftBodyConstraintColor(int drawSoftBodyConstraintColor) {
-        DRAW_SOFT_BODY_CONSTRAINT_COLOR_HANDLE.set(segment, 0L, drawSoftBodyConstraintColor);
-        return this;
+    	DRAW_SOFT_BODY_CONSTRAINT_COLOR_HANDLE.set(segment, 0L, drawSoftBodyConstraintColor);
+    	return this;
     }
     
+    /// ```
+    /// Coloring scheme to use for soft body constraints
+    /// ```
     public int drawSoftBodyConstraintColor() {
-        return (int) DRAW_SOFT_BODY_CONSTRAINT_COLOR_HANDLE.get(segment, 0L);
+    	return (int) DRAW_SOFT_BODY_CONSTRAINT_COLOR_HANDLE.get(segment, 0L);
     }
     
     @Override

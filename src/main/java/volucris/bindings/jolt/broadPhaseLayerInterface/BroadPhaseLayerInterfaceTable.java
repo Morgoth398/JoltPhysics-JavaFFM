@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.broadPhaseLayerInterface;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -11,9 +10,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class BroadPhaseLayerInterfaceTable extends BroadPhaseLayerInterface {
 
     private static final LazyConstant<MethodHandle> JPH_BROAD_PHASE_LAYER_INTERFACE_TABLE_CREATE;
@@ -29,79 +25,83 @@ public final class BroadPhaseLayerInterfaceTable extends BroadPhaseLayerInterfac
     }
 
     public BroadPhaseLayerInterfaceTable(
-        int numObjectLayers, 
+        int numObjectLayers,
         int numBroadPhaseLayers
     ) {
         this(
             Arena.ofAuto(),
-            numObjectLayers, 
+            numObjectLayers,
             numBroadPhaseLayers
         );
     }
     
+    /// Typed method of [#create].
     public BroadPhaseLayerInterfaceTable(
-        Arena arena,
-        int numObjectLayers, 
-        int numBroadPhaseLayers
+    	Arena arena,
+    	int numObjectLayers,
+    	int numBroadPhaseLayers
     ) {
-         MemorySegment segment = create(
-            numObjectLayers, 
-            numBroadPhaseLayers
-         );
+    	MemorySegment segment = create(
+    		numObjectLayers,
+    		numBroadPhaseLayers
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public BroadPhaseLayerInterfaceTable(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        int numObjectLayers, 
-        int numBroadPhaseLayers
+    	int numObjectLayers,
+    	int numBroadPhaseLayers
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_TABLE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                numObjectLayers, 
-                numBroadPhaseLayers
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_TABLE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			numObjectLayers,
+    			numBroadPhaseLayers
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void mapObjectToBroadPhaseLayer(
-        MemorySegment bpInterface, 
-        int objectLayer, 
-        byte broadPhaseLayer
+    	MemorySegment bpInterface,
+    	int objectLayer,
+    	byte broadPhaseLayer
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_TABLE_MAP_OBJECT_TO_BROAD_PHASE_LAYER.get();
-        try {
-            method.invokeExact(
-                bpInterface, 
-                objectLayer, 
-                broadPhaseLayer
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_TABLE_MAP_OBJECT_TO_BROAD_PHASE_LAYER.get();
+    	try {
+    		 method.invokeExact(
+    			bpInterface,
+    			objectLayer,
+    			broadPhaseLayer
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #mapObjectToBroadPhaseLayer}.
-     */
+    /// Typed method of [#mapObjectToBroadPhaseLayer].
     public final void mapObjectToBroadPhaseLayer(
-        int objectLayer, 
-        byte broadPhaseLayer
+    	int objectLayer,
+    	byte broadPhaseLayer
     ) {
-        mapObjectToBroadPhaseLayer(
-            this.segment, 
-            objectLayer, 
-            broadPhaseLayer
-        );
+    	mapObjectToBroadPhaseLayer(
+    		this.segment,
+    		objectLayer,
+    		broadPhaseLayer
+    	);
     }
     
     public MemorySegment memorySegment() {

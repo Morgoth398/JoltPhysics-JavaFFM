@@ -8,9 +8,6 @@ import java.lang.invoke.MethodHandle;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class BroadPhaseLayerInterface
 		permits BroadPhaseLayerInterfaceMask,
 		BroadPhaseLayerInterfaceTable {
@@ -26,20 +23,21 @@ public sealed class BroadPhaseLayerInterface
     }
 
     public BroadPhaseLayerInterface(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment bpInterface
+    	MemorySegment bpInterface
     ) {
-        MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_DESTROY.get();
-        try {
-            method.invokeExact(
-                bpInterface
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			bpInterface
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

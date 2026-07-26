@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class AABox
 		implements Struct<AABox> {
 
@@ -56,32 +53,36 @@ public final class AABox
         max = new Vec3(segment.asSlice(MAX_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #min()
     public AABox min(Consumer<Vec3> consumer) {
-        consumer.accept(min);
-        return this;
+    	consumer.accept(min);
+    	return this;
     }
     
+    /// @see #min()
     public AABox min(Vec3 other) {
-        min.set(other);
-        return this;
+    	min.set(other);
+    	return this;
     }
     
     public Vec3 min() {
-        return min;
+    	return min;
     }
     
+    /// @see #max()
     public AABox max(Consumer<Vec3> consumer) {
-        consumer.accept(max);
-        return this;
+    	consumer.accept(max);
+    	return this;
     }
     
+    /// @see #max()
     public AABox max(Vec3 other) {
-        max.set(other);
-        return this;
+    	max.set(other);
+    	return this;
     }
     
     public Vec3 max() {
-        return max;
+    	return max;
     }
     
     @Override

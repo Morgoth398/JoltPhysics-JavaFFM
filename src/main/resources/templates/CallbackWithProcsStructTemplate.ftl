@@ -44,7 +44,7 @@ public abstract class ${clazz.description.name}${clazz.classHeader} {
 
         LAYOUT = MemoryLayout.structLayout(
             <#list infos as info>
-            UNBOUNDED_ADDRESS.withName("${info.name}")<#sep>, </#sep>
+            UNBOUNDED_ADDRESS.withName("${info.fieldName}")<#sep>,</#sep>
             </#list>
         ).withName("${structName}").withByteAlignment(8);
 
@@ -57,18 +57,18 @@ public abstract class ${clazz.description.name}${clazz.classHeader} {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             <#list infos as info>
-            <#if info.hasReturnType>
+            <#if info.hasReturnType()>
             ${info.constantsName}_DESCRIPTION = FunctionDescriptor.of(
                 ${info.returnTypeLayout}, 
             <#else>
             ${info.constantsName}_DESCRIPTION = FunctionDescriptor.ofVoid(
             </#if>
                 <#list info.valueLayouts as layout>
-                ${layout}<#sep>, </#sep>
+                ${layout}<#sep>,</#sep>
                 </#list>
             );
 
@@ -76,7 +76,7 @@ public abstract class ${clazz.description.name}${clazz.classHeader} {
 
             ${info.constantsName}_ADDRESS = linker.upcallStub(${info.constantsName}_HANDLE, ${info.constantsName}_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("${info.name}")), ${info.constantsName}_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("${info.fieldName}")), ${info.constantsName}_ADDRESS);
             
             </#list>
         } catch (Exception e) {
@@ -108,92 +108,72 @@ public abstract class ${clazz.description.name}${clazz.classHeader} {
     </#list>
 
     <#list infos as info>
-    <#assign method = info.method>
+    <#assign filteredParameters = info.parameters?filter(p -> !p.name?contains("userData"))>
 
-    public static<#if !info.hasReturnType> void<#else><#if method.returnType.isPrimitive> ${method.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
-        <#list method.parameters as parameter>
-        <#if parameter.isPrimitive>${parameter.type}<#else>MemorySegment</#if> ${parameter.name}<#sep>, </#sep>
+    public static<#if !info.hasReturnType()> void<#else><#if info.returnType.isPrimitive()> ${info.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
+        <#list info.parameters as parameter>
+        <#if parameter.isPrimitive()>${parameter.type}<#else>MemorySegment</#if> ${parameter.name}<#sep>, </#sep>
         </#list>
     ) {
         ${clazz.description.name} callback = CACHE.get(userData.address()).get();
 
-        <#if info.hasReturnType && method.returnType.isPrimitive>
-        return (${method.returnType.type}) callback.${info.name}(
-        <#elseif info.hasReturnType && !method.returnType.isPrimitive>
+        <#if info.hasReturnType() && info.returnType.isPrimitive()>
+        return (${info.returnType.type}) callback.${info.name}(
+        <#elseif info.hasReturnType() && !info.returnType.isPrimitive()>
         MemorySegment segment = callback.${info.name}(
         <#else>
         callback.${info.name}(
         </#if>
-            <#list method.parameters?filter(p -> !p.name?contains("userData")) as parameter>
+            <#list filteredParameters as parameter>
             ${parameter.name}<#sep>, </#sep>
             </#list>
         );
     }
 
-    <#if info.description.addTypedMethod>
-    public<#if !info.hasReturnType> void<#else><#if method.returnType.isPrimitive> ${method.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
-        <#list method.parameters?filter(p -> !p.name?contains("userData")) as parameter>
-        <#if parameter.isPrimitive>${parameter.type}<#else>MemorySegment</#if> ${parameter.name}<#sep>, </#sep>
+    <#if info.addTypedMethod>
+    public<#if !info.hasReturnType()> void<#else><#if info.returnType.isPrimitive()> ${info.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
+        <#list filteredParameters as parameter>
+        <#if parameter.isPrimitive()>${parameter.type}<#else>MemorySegment</#if> ${parameter.name}<#sep>,</#sep>
         </#list>
     ) {
-        <#if info.hasReturnType && method.returnType.isPrimitive>
-        return (${method.returnType.type}) ${info.name}(
-        <#elseif info.hasReturnType && !method.returnType.isPrimitive>
-        MemorySegment segment = ${info.name}(
+        <#if info.hasReturnType()>
+        return ${info.name}(
         <#else>
         ${info.name}(
         </#if>
-            <#list method.parameters?filter(p -> !p.name?contains("userData")) as parameter>
-            <#if parameter.isPrimitive || parameter.isRawSegment>
-            ${parameter.name}<#sep>, </#sep>
-            <#elseif parameter.isFunctionPointer>
-            ${parameter.type}.get(${parameter.name})<#sep>, </#sep>
-            <#elseif parameter.isString>
-            ${parameter.name}.getString(0)<#sep>, </#sep>
-            <#elseif parameter.isStructArray>
-            ${parameter.typeName}.array(${parameter.name})<#sep>, </#sep>
+            <#list filteredParameters as parameter>
+            <#if parameter.isPrimitive() || parameter.isRawSegment()>
+		    ${parameter.name}<#sep>,</#sep>
+            <#elseif parameter.isFunctionPointer()>
+            ${parameter.type}.get(${parameter.name})<#sep>,</#sep>
+            <#elseif parameter.isString()>
+            ${parameter.name}.getString(0)<#sep>,</#sep>
+            <#elseif parameter.isStructArray()>
+            ${parameter.type}.array(${parameter.name})<#sep>,</#sep>
             <#else>
-            new ${parameter.type}(${parameter.name})<#sep>, </#sep>
+            new ${parameter.type}(${parameter.name})<#sep>,</#sep>
             </#if>
             </#list>
-        );
-        <#if info.hasReturnType && !method.returnType.isPrimitive>
-
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-
-        <#if method.returnType.isStructArray>
-        return ${method.returnType.typeName}.array(segment);
-        <#elseif method.returnType.isRawSegment>
-        return segment;
-        <#elseif method.returnType.isString>
-        return segment.getString(0);
-        <#elseif method.returnType.isFunctionPointer>
-        return ${method.returnType.type}.get(segment);
-        <#else>
-        return new ${method.returnType.type}(segment);
-        </#if>
-        </#if>
+        )<#if info.hasReturnType() && !(info.returnType.isPrimitive() || info.returnType.isRawSegment())>.memorySegment()</#if>;
     }
 
-    public<#if !info.hasReturnType> void<#else> ${method.returnType.type}</#if> ${info.name}(
-        <#list method.parameters?filter(p -> !p.name?contains("userData")) as parameter>
-        ${parameter.type} ${parameter.name}<#sep>, </#sep>
+    public<#if !info.hasReturnType()> void<#else> <#if info.returnType.isStructArray()>NativeStructArray<${info.returnType.type}><#else>${info.returnType.type}</#if></#if> ${info.name}(
+        <#list filteredParameters as parameter>
+        <#if parameter.isStructArray()>NativeStructArray<${parameter.type}> <#else>${parameter.type} </#if>${parameter.name}<#sep>,</#sep>
         </#list>
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for ${info.name}."
+            "Override either the typed or raw callback method in ${clazz.description.name}."
         );
-    }
-
+    };
     <#else>
-    public<#if !info.hasReturnType> void<#else><#if method.returnType.isPrimitive> ${method.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
-        <#list method.parameters?filter(p -> !p.name?contains("userData")) as parameter>
-        <#if parameter.isPrimitive>${parameter.type}<#else>MemorySegment</#if> ${parameter.name}<#sep>, </#sep>
+    public<#if !info.hasReturnType()> void<#else><#if info.returnType.isPrimitive()> ${info.returnType.type}<#else> MemorySegment</#if></#if> ${info.name}(
+        <#list filteredParameters as parameter>
+        <#if parameter.isPrimitive()>${parameter.type}<#else>MemorySegment</#if> ${parameter.name}<#sep>,</#sep>
         </#list>
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for ${info.name}."
+            "Override either the typed or raw callback method in ${clazz.description.name}."
         );
     }
     </#if>

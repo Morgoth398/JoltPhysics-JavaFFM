@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.constraint;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -13,9 +12,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SwingTwistConstraint extends TwoBodyConstraint {
 
     private static final LazyConstant<MethodHandle> JPH_SWING_TWIST_CONSTRAINT_CREATE;
@@ -43,227 +39,221 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     }
 
     public SwingTwistConstraint(
-        SwingTwistConstraintSettings settings, 
-        Body body1, 
+        SwingTwistConstraintSettings settings,
+        Body body1,
         Body body2
     ) {
         this(
             Arena.ofAuto(),
-            settings, 
-            body1, 
+            settings,
+            body1,
             body2
         );
     }
     
+    /// Typed method of [#create].
     public SwingTwistConstraint(
-        Arena arena,
-        SwingTwistConstraintSettings settings, 
-        Body body1, 
-        Body body2
+    	Arena arena,
+    	SwingTwistConstraintSettings settings,
+    	Body body1,
+    	Body body2
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment(), 
-            body1.memorySegment(), 
-            body2.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment(),
+    		body1.memorySegment(),
+    		body2.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public SwingTwistConstraint(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings, 
-        MemorySegment body1, 
-        MemorySegment body2
+    	MemorySegment settings,
+    	MemorySegment body1,
+    	MemorySegment body2
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings, 
-                body1, 
-                body2
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings,
+    			body1,
+    			body2
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getSettings(
-        MemorySegment constraint, 
-        MemorySegment settings
+    	MemorySegment constraint,
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_SETTINGS.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_SETTINGS.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
+    /// Typed method of [#getSettings].
     public final void getSettings(
-        SwingTwistConstraintSettings settings
+    	SwingTwistConstraintSettings settings
     ) {
-        getSettings(
-            this.segment, 
-            settings.memorySegment()
-        );
+    	getSettings(
+    		this.segment,
+    		settings.memorySegment()
+    	);
     }
+    
     
     public static float getNormalHalfConeAngle(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_NORMAL_HALF_CONE_ANGLE.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_NORMAL_HALF_CONE_ANGLE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNormalHalfConeAngle}.
-     */
-    public final float getNormalHalfConeAngle(
-    ) {
-        return (float) getNormalHalfConeAngle(
-            this.segment
-        );
+    /// Typed method of [#getNormalHalfConeAngle].
+    public final float getNormalHalfConeAngle() {
+    	return (float) getNormalHalfConeAngle(
+    		this.segment
+    	);
     }
+    
     
     public static void getTotalLambdaPosition(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaPosition}.
-     */
+    /// Typed method of [#getTotalLambdaPosition].
     public final void getTotalLambdaPosition(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTotalLambdaPosition(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTotalLambdaPosition(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float getTotalLambdaTwist(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_TWIST.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_TWIST.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaTwist}.
-     */
-    public final float getTotalLambdaTwist(
-    ) {
-        return (float) getTotalLambdaTwist(
-            this.segment
-        );
+    /// Typed method of [#getTotalLambdaTwist].
+    public final float getTotalLambdaTwist() {
+    	return (float) getTotalLambdaTwist(
+    		this.segment
+    	);
     }
+    
     
     public static float getTotalLambdaSwingY(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Y.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Y.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaSwingY}.
-     */
-    public final float getTotalLambdaSwingY(
-    ) {
-        return (float) getTotalLambdaSwingY(
-            this.segment
-        );
+    /// Typed method of [#getTotalLambdaSwingY].
+    public final float getTotalLambdaSwingY() {
+    	return (float) getTotalLambdaSwingY(
+    		this.segment
+    	);
     }
+    
     
     public static float getTotalLambdaSwingZ(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Z.get();
-        try {
-            return (float) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Z.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaSwingZ}.
-     */
-    public final float getTotalLambdaSwingZ(
-    ) {
-        return (float) getTotalLambdaSwingZ(
-            this.segment
-        );
+    /// Typed method of [#getTotalLambdaSwingZ].
+    public final float getTotalLambdaSwingZ() {
+    	return (float) getTotalLambdaSwingZ(
+    		this.segment
+    	);
     }
+    
     
     public static void getTotalLambdaMotor(
-        MemorySegment constraint, 
-        MemorySegment result
+    	MemorySegment constraint,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_MOTOR.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_MOTOR.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTotalLambdaMotor}.
-     */
+    /// Typed method of [#getTotalLambdaMotor].
     public final void getTotalLambdaMotor(
-        Vec3 result
+    	Vec3 result
     ) {
-        getTotalLambdaMotor(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getTotalLambdaMotor(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

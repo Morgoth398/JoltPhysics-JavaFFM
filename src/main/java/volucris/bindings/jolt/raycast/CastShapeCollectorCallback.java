@@ -3,6 +3,7 @@
  */
 package volucris.bindings.jolt.raycast;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -11,13 +12,14 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
 public abstract class CastShapeCollectorCallback {
 
-    private static final HashMap<Long, WeakReference<CastShapeCollectorCallback>> CACHE;
+    private static final Map<Long, WeakReference<CastShapeCollectorCallback>> CACHE;
 
     public static final FunctionDescriptor DESCRIPTION;
     public static final MethodHandle HANDLE;
@@ -51,17 +53,17 @@ public abstract class CastShapeCollectorCallback {
     }
 
     public float invoke(
-        MemorySegment context, 
+        MemorySegment context,
         MemorySegment result
     ) {
-        return (float) invoke(
-            context, 
+        return invoke(
+		    context,
             new ShapeCastResult(result)
         );
     }
 
     public float invoke(
-        MemorySegment context, 
+        MemorySegment context,
         ShapeCastResult result
     ) {
         throw new UnsupportedOperationException(
@@ -69,12 +71,11 @@ public abstract class CastShapeCollectorCallback {
         );
     };
 
-
     public MemorySegment memorySegment() {
         return segment;
     }
 
-    public static CastShapeCollectorCallback get(MemorySegment segment) {
+    public static @Nullable CastShapeCollectorCallback get(MemorySegment segment) {
         WeakReference<CastShapeCollectorCallback> reference = CACHE.get(segment.address());
 
         if (reference == null)

@@ -15,9 +15,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class Mat4
 		implements Struct<Mat4> {
 
@@ -90,7 +87,6 @@ public final class Mat4
     public Mat4(MemorySegment segment) {
         this.segment = segment;
     
-    
         column = new Vec4[4];
         for (int i = 0; i < 4; i++) {
             long offset = COLUMN_BYTE_OFFSET + i * Vec4.LAYOUT.byteSize();
@@ -99,570 +95,553 @@ public final class Mat4
     
     }
 
+    
     public static void add(
-        MemorySegment m1, 
-        MemorySegment m2, 
-        MemorySegment result
+    	MemorySegment m1,
+    	MemorySegment m2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_ADD.get();
-        try {
-            method.invokeExact(
-                m1, 
-                m2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_ADD.get();
+    	try {
+    		 method.invokeExact(
+    			m1,
+    			m2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #add}.
-     */
+    /// Typed method of [#add].
     public static void add(
-        Mat4 m1, 
-        Mat4 m2, 
-        Mat4 result
+    	Mat4 m1,
+    	Mat4 m2,
+    	Mat4 result
     ) {
-        add(
-            m1.memorySegment(), 
-            m2.memorySegment(), 
-            result.memorySegment()
-        );
+    	add(
+    		m1.memorySegment(),
+    		m2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void subtract(
-        MemorySegment m1, 
-        MemorySegment m2, 
-        MemorySegment result
+    	MemorySegment m1,
+    	MemorySegment m2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_SUBTRACT.get();
-        try {
-            method.invokeExact(
-                m1, 
-                m2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_SUBTRACT.get();
+    	try {
+    		 method.invokeExact(
+    			m1,
+    			m2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #subtract}.
-     */
+    /// Typed method of [#subtract].
     public static void subtract(
-        Mat4 m1, 
-        Mat4 m2, 
-        Mat4 result
+    	Mat4 m1,
+    	Mat4 m2,
+    	Mat4 result
     ) {
-        subtract(
-            m1.memorySegment(), 
-            m2.memorySegment(), 
-            result.memorySegment()
-        );
+    	subtract(
+    		m1.memorySegment(),
+    		m2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void multiply(
-        MemorySegment m1, 
-        MemorySegment m2, 
-        MemorySegment result
+    	MemorySegment m1,
+    	MemorySegment m2,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_MULTIPLY.get();
-        try {
-            method.invokeExact(
-                m1, 
-                m2, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_MULTIPLY.get();
+    	try {
+    		 method.invokeExact(
+    			m1,
+    			m2,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #multiply}.
-     */
+    /// Typed method of [#multiply].
     public static void multiply(
-        Mat4 m1, 
-        Mat4 m2, 
-        Mat4 result
+    	Mat4 m1,
+    	Mat4 m2,
+    	Mat4 result
     ) {
-        multiply(
-            m1.memorySegment(), 
-            m2.memorySegment(), 
-            result.memorySegment()
-        );
+    	multiply(
+    		m1.memorySegment(),
+    		m2.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void multiplyScalar(
-        MemorySegment m, 
-        float scalar, 
-        MemorySegment result
+    	MemorySegment m,
+    	float scalar,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_MULTIPLY_SCALAR.get();
-        try {
-            method.invokeExact(
-                m, 
-                scalar, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_MULTIPLY_SCALAR.get();
+    	try {
+    		 method.invokeExact(
+    			m,
+    			scalar,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #multiplyScalar}.
-     */
+    /// Typed method of [#multiplyScalar].
     public static void multiplyScalar(
-        Mat4 m, 
-        float scalar, 
-        Mat4 result
+    	Mat4 m,
+    	float scalar,
+    	Mat4 result
     ) {
-        multiplyScalar(
-            m.memorySegment(), 
-            scalar, 
-            result.memorySegment()
-        );
+    	multiplyScalar(
+    		m.memorySegment(),
+    		scalar,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void zero(
-        MemorySegment result
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_ZERO.get();
-        try {
-            method.invokeExact(
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_ZERO.get();
+    	try {
+    		 method.invokeExact(
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #zero}.
-     */
+    /// Typed method of [#zero].
     public static void zero(
-        Mat4 result
+    	Mat4 result
     ) {
-        zero(
-            result.memorySegment()
-        );
+    	zero(
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void identity(
-        MemorySegment result
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_IDENTITY.get();
-        try {
-            method.invokeExact(
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_IDENTITY.get();
+    	try {
+    		 method.invokeExact(
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #identity}.
-     */
+    /// Typed method of [#identity].
     public static void identity(
-        Mat4 result
+    	Mat4 result
     ) {
-        identity(
-            result.memorySegment()
-        );
+    	identity(
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void rotation(
-        MemorySegment result, 
-        MemorySegment rotation
+    	MemorySegment result,
+    	MemorySegment rotation
     ) {
-        MethodHandle method = JPH_MAT4_ROTATION.get();
-        try {
-            method.invokeExact(
-                result, 
-                rotation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			result,
+    			rotation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #rotation}.
-     */
+    /// Typed method of [#rotation].
     public static void rotation(
-        Mat4 result, 
-        Quat rotation
+    	Mat4 result,
+    	Quat rotation
     ) {
-        rotation(
-            result.memorySegment(), 
-            rotation.memorySegment()
-        );
+    	rotation(
+    		result.memorySegment(),
+    		rotation.memorySegment()
+    	);
     }
+    
     
     public static void rotation2(
-        MemorySegment result, 
-        MemorySegment axis, 
-        float angle
+    	MemorySegment result,
+    	MemorySegment axis,
+    	float angle
     ) {
-        MethodHandle method = JPH_MAT4_ROTATION2.get();
-        try {
-            method.invokeExact(
-                result, 
-                axis, 
-                angle
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_ROTATION2.get();
+    	try {
+    		 method.invokeExact(
+    			result,
+    			axis,
+    			angle
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #rotation2}.
-     */
+    /// Typed method of [#rotation2].
     public static void rotation2(
-        Mat4 result, 
-        Vec3 axis, 
-        float angle
+    	Mat4 result,
+    	Vec3 axis,
+    	float angle
     ) {
-        rotation2(
-            result.memorySegment(), 
-            axis.memorySegment(), 
-            angle
-        );
+    	rotation2(
+    		result.memorySegment(),
+    		axis.memorySegment(),
+    		angle
+    	);
     }
+    
     
     public static void translation(
-        MemorySegment result, 
-        MemorySegment translation
+    	MemorySegment result,
+    	MemorySegment translation
     ) {
-        MethodHandle method = JPH_MAT4_TRANSLATION.get();
-        try {
-            method.invokeExact(
-                result, 
-                translation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_TRANSLATION.get();
+    	try {
+    		 method.invokeExact(
+    			result,
+    			translation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #translation}.
-     */
+    /// Typed method of [#translation].
     public static void translation(
-        Mat4 result, 
-        Vec3 translation
+    	Mat4 result,
+    	Vec3 translation
     ) {
-        translation(
-            result.memorySegment(), 
-            translation.memorySegment()
-        );
+    	translation(
+    		result.memorySegment(),
+    		translation.memorySegment()
+    	);
     }
+    
     
     public static void rotationTranslation(
-        MemorySegment result, 
-        MemorySegment rotation, 
-        MemorySegment translation
+    	MemorySegment result,
+    	MemorySegment rotation,
+    	MemorySegment translation
     ) {
-        MethodHandle method = JPH_MAT4_ROTATION_TRANSLATION.get();
-        try {
-            method.invokeExact(
-                result, 
-                rotation, 
-                translation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_ROTATION_TRANSLATION.get();
+    	try {
+    		 method.invokeExact(
+    			result,
+    			rotation,
+    			translation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #rotationTranslation}.
-     */
+    /// Typed method of [#rotationTranslation].
     public static void rotationTranslation(
-        Mat4 result, 
-        Quat rotation, 
-        Vec3 translation
+    	Mat4 result,
+    	Quat rotation,
+    	Vec3 translation
     ) {
-        rotationTranslation(
-            result.memorySegment(), 
-            rotation.memorySegment(), 
-            translation.memorySegment()
-        );
+    	rotationTranslation(
+    		result.memorySegment(),
+    		rotation.memorySegment(),
+    		translation.memorySegment()
+    	);
     }
+    
     
     public static void inverseRotationTranslation(
-        MemorySegment result, 
-        MemorySegment rotation, 
-        MemorySegment translation
+    	MemorySegment result,
+    	MemorySegment rotation,
+    	MemorySegment translation
     ) {
-        MethodHandle method = JPH_MAT4_INVERSE_ROTATION_TRANSLATION.get();
-        try {
-            method.invokeExact(
-                result, 
-                rotation, 
-                translation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_INVERSE_ROTATION_TRANSLATION.get();
+    	try {
+    		 method.invokeExact(
+    			result,
+    			rotation,
+    			translation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #inverseRotationTranslation}.
-     */
+    /// Typed method of [#inverseRotationTranslation].
     public static void inverseRotationTranslation(
-        Mat4 result, 
-        Quat rotation, 
-        Vec3 translation
+    	Mat4 result,
+    	Quat rotation,
+    	Vec3 translation
     ) {
-        inverseRotationTranslation(
-            result.memorySegment(), 
-            rotation.memorySegment(), 
-            translation.memorySegment()
-        );
+    	inverseRotationTranslation(
+    		result.memorySegment(),
+    		rotation.memorySegment(),
+    		translation.memorySegment()
+    	);
     }
+    
     
     public static void scale(
-        MemorySegment result, 
-        MemorySegment scale
+    	MemorySegment result,
+    	MemorySegment scale
     ) {
-        MethodHandle method = JPH_MAT4_SCALE.get();
-        try {
-            method.invokeExact(
-                result, 
-                scale
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_SCALE.get();
+    	try {
+    		 method.invokeExact(
+    			result,
+    			scale
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #scale}.
-     */
+    /// Typed method of [#scale].
     public static void scale(
-        Mat4 result, 
-        Vec3 scale
+    	Mat4 result,
+    	Vec3 scale
     ) {
-        scale(
-            result.memorySegment(), 
-            scale.memorySegment()
-        );
+    	scale(
+    		result.memorySegment(),
+    		scale.memorySegment()
+    	);
     }
+    
     
     public static void transposed(
-        MemorySegment m, 
-        MemorySegment result
+    	MemorySegment m,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_TRANSPOSED.get();
-        try {
-            method.invokeExact(
-                m, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_TRANSPOSED.get();
+    	try {
+    		 method.invokeExact(
+    			m,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #transposed}.
-     */
+    /// Typed method of [#transposed].
     public static void transposed(
-        Mat4 m, 
-        Mat4 result
+    	Mat4 m,
+    	Mat4 result
     ) {
-        transposed(
-            m.memorySegment(), 
-            result.memorySegment()
-        );
+    	transposed(
+    		m.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void inversed(
-        MemorySegment matrix, 
-        MemorySegment result
+    	MemorySegment matrix,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_INVERSED.get();
-        try {
-            method.invokeExact(
-                matrix, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_INVERSED.get();
+    	try {
+    		 method.invokeExact(
+    			matrix,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #inversed}.
-     */
+    /// Typed method of [#inversed].
     public static void inversed(
-        Mat4 matrix, 
-        Mat4 result
+    	Mat4 matrix,
+    	Mat4 result
     ) {
-        inversed(
-            matrix.memorySegment(), 
-            result.memorySegment()
-        );
+    	inversed(
+    		matrix.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getAxisX(
-        MemorySegment matrix, 
-        MemorySegment result
+    	MemorySegment matrix,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_GET_AXIS_X.get();
-        try {
-            method.invokeExact(
-                matrix, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_GET_AXIS_X.get();
+    	try {
+    		 method.invokeExact(
+    			matrix,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAxisX}.
-     */
+    /// Typed method of [#getAxisX].
     public static void getAxisX(
-        Mat4 matrix, 
-        Vec3 result
+    	Mat4 matrix,
+    	Vec3 result
     ) {
-        getAxisX(
-            matrix.memorySegment(), 
-            result.memorySegment()
-        );
+    	getAxisX(
+    		matrix.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getAxisY(
-        MemorySegment matrix, 
-        MemorySegment result
+    	MemorySegment matrix,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_GET_AXIS_Y.get();
-        try {
-            method.invokeExact(
-                matrix, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_GET_AXIS_Y.get();
+    	try {
+    		 method.invokeExact(
+    			matrix,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAxisY}.
-     */
+    /// Typed method of [#getAxisY].
     public static void getAxisY(
-        Mat4 matrix, 
-        Vec3 result
+    	Mat4 matrix,
+    	Vec3 result
     ) {
-        getAxisY(
-            matrix.memorySegment(), 
-            result.memorySegment()
-        );
+    	getAxisY(
+    		matrix.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getAxisZ(
-        MemorySegment matrix, 
-        MemorySegment result
+    	MemorySegment matrix,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_GET_AXIS_Z.get();
-        try {
-            method.invokeExact(
-                matrix, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_GET_AXIS_Z.get();
+    	try {
+    		 method.invokeExact(
+    			matrix,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAxisZ}.
-     */
+    /// Typed method of [#getAxisZ].
     public static void getAxisZ(
-        Mat4 matrix, 
-        Vec3 result
+    	Mat4 matrix,
+    	Vec3 result
     ) {
-        getAxisZ(
-            matrix.memorySegment(), 
-            result.memorySegment()
-        );
+    	getAxisZ(
+    		matrix.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getTranslation(
-        MemorySegment matrix, 
-        MemorySegment result
+    	MemorySegment matrix,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_GET_TRANSLATION.get();
-        try {
-            method.invokeExact(
-                matrix, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_GET_TRANSLATION.get();
+    	try {
+    		 method.invokeExact(
+    			matrix,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTranslation}.
-     */
+    /// Typed method of [#getTranslation].
     public static void getTranslation(
-        Mat4 matrix, 
-        Vec3 result
+    	Mat4 matrix,
+    	Vec3 result
     ) {
-        getTranslation(
-            matrix.memorySegment(), 
-            result.memorySegment()
-        );
+    	getTranslation(
+    		matrix.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getQuaternion(
-        MemorySegment matrix, 
-        MemorySegment result
+    	MemorySegment matrix,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_MAT4_GET_QUATERNION.get();
-        try {
-            method.invokeExact(
-                matrix, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MAT4_GET_QUATERNION.get();
+    	try {
+    		 method.invokeExact(
+    			matrix,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getQuaternion}.
-     */
+    /// Typed method of [#getQuaternion].
     public static void getQuaternion(
-        Mat4 matrix, 
-        Quat result
+    	Mat4 matrix,
+    	Quat result
     ) {
-        getQuaternion(
-            matrix.memorySegment(), 
-            result.memorySegment()
-        );
+    	getQuaternion(
+    		matrix.memorySegment(),
+    		result.memorySegment()
+    	);
     }
     
+    /// @see #column(int)
     public Mat4 column(Consumer<Vec4> consumer, int index) {
-        consumer.accept(column[index]);
-        return this;
+    	consumer.accept(column[index]);
+    	return this;
     }
     
+    /// @see #column(int)
     public Mat4 column(Vec4 other, int index) {
-        column[index].set(other);
-        return this;
+    	column[index].set(other);
+    	return this;
     }
     
     public Vec4 column(int index) {
-        return column[index];
+    	return column[index];
     }
     
     @Override

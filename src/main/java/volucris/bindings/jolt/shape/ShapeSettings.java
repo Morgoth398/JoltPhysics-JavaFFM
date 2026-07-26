@@ -5,14 +5,10 @@ package volucris.bindings.jolt.shape;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class ShapeSettings
 		permits CompoundShapeSettings,
 		ConvexShapeSettings,
@@ -39,70 +35,68 @@ public sealed class ShapeSettings
     }
 
     public ShapeSettings(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SHAPE_SETTINGS_DESTROY.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_SETTINGS_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static long getUserData(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SHAPE_SETTINGS_GET_USER_DATA.get();
-        try {
-            return (long) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_SETTINGS_GET_USER_DATA.get();
+    	try {
+    		return (long)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUserData}.
-     */
-    public final long getUserData(
-    ) {
-        return (long) getUserData(
-            this.segment
-        );
+    /// Typed method of [#getUserData].
+    public final long getUserData() {
+    	return (long) getUserData(
+    		this.segment
+    	);
     }
+    
     
     public static void setUserData(
-        MemorySegment settings, 
-        long userData
+    	MemorySegment settings,
+    	long userData
     ) {
-        MethodHandle method = JPH_SHAPE_SETTINGS_SET_USER_DATA.get();
-        try {
-            method.invokeExact(
-                settings, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_SETTINGS_SET_USER_DATA.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUserData}.
-     */
+    /// Typed method of [#setUserData].
     public final void setUserData(
-        long userData
+    	long userData
     ) {
-        setUserData(
-            this.segment, 
-            userData
-        );
+    	setUserData(
+    		this.segment,
+    		userData
+    	);
     }
     
     public MemorySegment memorySegment() {

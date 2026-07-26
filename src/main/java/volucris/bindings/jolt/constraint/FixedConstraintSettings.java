@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class FixedConstraintSettings
 		implements Struct<FixedConstraintSettings> {
 
@@ -104,143 +101,157 @@ public final class FixedConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_FIXED_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_FIXED_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #space()
     public FixedConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #autoDetectPoint()
     public FixedConstraintSettings autoDetectPoint(boolean autoDetectPoint) {
-        AUTO_DETECT_POINT_HANDLE.set(segment, 0L, autoDetectPoint);
-        return this;
+    	AUTO_DETECT_POINT_HANDLE.set(segment, 0L, autoDetectPoint);
+    	return this;
     }
     
     public boolean autoDetectPoint() {
-        return (boolean) AUTO_DETECT_POINT_HANDLE.get(segment, 0L);
+    	return (boolean) AUTO_DETECT_POINT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public FixedConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public FixedConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #point1()
     public FixedConstraintSettings point1(Consumer<Vec3> consumer) {
-        consumer.accept(point1);
-        return this;
+    	consumer.accept(point1);
+    	return this;
     }
     
+    /// @see #point1()
     public FixedConstraintSettings point1(Vec3 other) {
-        point1.set(other);
-        return this;
+    	point1.set(other);
+    	return this;
     }
     
     public Vec3 point1() {
-        return point1;
+    	return point1;
     }
     
+    /// @see #axisX1()
     public FixedConstraintSettings axisX1(Consumer<Vec3> consumer) {
-        consumer.accept(axisX1);
-        return this;
+    	consumer.accept(axisX1);
+    	return this;
     }
     
+    /// @see #axisX1()
     public FixedConstraintSettings axisX1(Vec3 other) {
-        axisX1.set(other);
-        return this;
+    	axisX1.set(other);
+    	return this;
     }
     
     public Vec3 axisX1() {
-        return axisX1;
+    	return axisX1;
     }
     
+    /// @see #axisY1()
     public FixedConstraintSettings axisY1(Consumer<Vec3> consumer) {
-        consumer.accept(axisY1);
-        return this;
+    	consumer.accept(axisY1);
+    	return this;
     }
     
+    /// @see #axisY1()
     public FixedConstraintSettings axisY1(Vec3 other) {
-        axisY1.set(other);
-        return this;
+    	axisY1.set(other);
+    	return this;
     }
     
     public Vec3 axisY1() {
-        return axisY1;
+    	return axisY1;
     }
     
+    /// @see #point2()
     public FixedConstraintSettings point2(Consumer<Vec3> consumer) {
-        consumer.accept(point2);
-        return this;
+    	consumer.accept(point2);
+    	return this;
     }
     
+    /// @see #point2()
     public FixedConstraintSettings point2(Vec3 other) {
-        point2.set(other);
-        return this;
+    	point2.set(other);
+    	return this;
     }
     
     public Vec3 point2() {
-        return point2;
+    	return point2;
     }
     
+    /// @see #axisX2()
     public FixedConstraintSettings axisX2(Consumer<Vec3> consumer) {
-        consumer.accept(axisX2);
-        return this;
+    	consumer.accept(axisX2);
+    	return this;
     }
     
+    /// @see #axisX2()
     public FixedConstraintSettings axisX2(Vec3 other) {
-        axisX2.set(other);
-        return this;
+    	axisX2.set(other);
+    	return this;
     }
     
     public Vec3 axisX2() {
-        return axisX2;
+    	return axisX2;
     }
     
+    /// @see #axisY2()
     public FixedConstraintSettings axisY2(Consumer<Vec3> consumer) {
-        consumer.accept(axisY2);
-        return this;
+    	consumer.accept(axisY2);
+    	return this;
     }
     
+    /// @see #axisY2()
     public FixedConstraintSettings axisY2(Vec3 other) {
-        axisY2.set(other);
-        return this;
+    	axisY2.set(other);
+    	return this;
     }
     
     public Vec3 axisY2() {
-        return axisY2;
+    	return axisY2;
     }
     
     @Override

@@ -15,9 +15,6 @@ import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class CollideSettingsBase
 		implements Struct<CollideSettingsBase> {
 
@@ -75,54 +72,75 @@ public final class CollideSettingsBase
         activeEdgeMovementDirection = new Vec3(segment.asSlice(ACTIVE_EDGE_MOVEMENT_DIRECTION_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #activeEdgeMode()
     public CollideSettingsBase activeEdgeMode(int activeEdgeMode) {
-        ACTIVE_EDGE_MODE_HANDLE.set(segment, 0L, activeEdgeMode);
-        return this;
+    	ACTIVE_EDGE_MODE_HANDLE.set(segment, 0L, activeEdgeMode);
+    	return this;
     }
     
+    /// ```
+    /// How active edges (edges that a moving object should bump into) are handled
+    /// ```
     public int activeEdgeMode() {
-        return (int) ACTIVE_EDGE_MODE_HANDLE.get(segment, 0L);
+    	return (int) ACTIVE_EDGE_MODE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #collectFacesMode()
     public CollideSettingsBase collectFacesMode(int collectFacesMode) {
-        COLLECT_FACES_MODE_HANDLE.set(segment, 0L, collectFacesMode);
-        return this;
+    	COLLECT_FACES_MODE_HANDLE.set(segment, 0L, collectFacesMode);
+    	return this;
     }
     
+    /// ```
+    /// If colliding faces should be collected or only the collision point
+    /// ```
     public int collectFacesMode() {
-        return (int) COLLECT_FACES_MODE_HANDLE.get(segment, 0L);
+    	return (int) COLLECT_FACES_MODE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #collisionTolerance()
     public CollideSettingsBase collisionTolerance(float collisionTolerance) {
-        COLLISION_TOLERANCE_HANDLE.set(segment, 0L, collisionTolerance);
-        return this;
+    	COLLISION_TOLERANCE_HANDLE.set(segment, 0L, collisionTolerance);
+    	return this;
     }
     
+    /// ```
+    /// If objects are closer than this distance, they are considered to be colliding (used for GJK) (unit: meter)
+    /// ```
     public float collisionTolerance() {
-        return (float) COLLISION_TOLERANCE_HANDLE.get(segment, 0L);
+    	return (float) COLLISION_TOLERANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #penetrationTolerance()
     public CollideSettingsBase penetrationTolerance(float penetrationTolerance) {
-        PENETRATION_TOLERANCE_HANDLE.set(segment, 0L, penetrationTolerance);
-        return this;
+    	PENETRATION_TOLERANCE_HANDLE.set(segment, 0L, penetrationTolerance);
+    	return this;
     }
     
+    /// ```
+    /// A factor that determines the accuracy of the penetration depth calculation. If the change of the squared distance is less than tolerance * current_penetration_depth^2 the algorithm will terminate. (unit: dimensionless)
+    /// ```
     public float penetrationTolerance() {
-        return (float) PENETRATION_TOLERANCE_HANDLE.get(segment, 0L);
+    	return (float) PENETRATION_TOLERANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #activeEdgeMovementDirection()
     public CollideSettingsBase activeEdgeMovementDirection(Consumer<Vec3> consumer) {
-        consumer.accept(activeEdgeMovementDirection);
-        return this;
+    	consumer.accept(activeEdgeMovementDirection);
+    	return this;
     }
     
+    /// @see #activeEdgeMovementDirection()
     public CollideSettingsBase activeEdgeMovementDirection(Vec3 other) {
-        activeEdgeMovementDirection.set(other);
-        return this;
+    	activeEdgeMovementDirection.set(other);
+    	return this;
     }
     
+    /// ```
+    /// When mActiveEdgeMode is CollideOnlyWithActive a movement direction can be provided. When hitting an inactive edge, the system will select the triangle normal as penetration depth only if it impedes the movement less than with the calculated penetration depth.
+    /// ```
     public Vec3 activeEdgeMovementDirection() {
-        return activeEdgeMovementDirection;
+    	return activeEdgeMovementDirection;
     }
     
     @Override

@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.body;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -11,9 +10,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SoftBodySharedSettings {
 
     private static final LazyConstant<MethodHandle> JPH_SOFT_BODY_SHARED_SETTINGS_CREATE;
@@ -53,370 +49,362 @@ public final class SoftBodySharedSettings {
     }
 
     public SoftBodySharedSettings() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public SoftBodySharedSettings(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public SoftBodySharedSettings(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_DESTROY.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void addVertex(
-        MemorySegment settings, 
-        MemorySegment vertex
+    	MemorySegment settings,
+    	MemorySegment vertex
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_VERTEX.get();
-        try {
-            method.invokeExact(
-                settings, 
-                vertex
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_VERTEX.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			vertex
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addVertex}.
-     */
+    /// Typed method of [#addVertex].
     public final void addVertex(
-        SoftVertex vertex
+    	SoftVertex vertex
     ) {
-        addVertex(
-            this.segment, 
-            vertex.memorySegment()
-        );
+    	addVertex(
+    		this.segment,
+    		vertex.memorySegment()
+    	);
     }
+    
     
     public static void addVertices(
-        MemorySegment settings, 
-        MemorySegment vertices, 
-        int count
+    	MemorySegment settings,
+    	MemorySegment vertices,
+    	int count
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_VERTICES.get();
-        try {
-            method.invokeExact(
-                settings, 
-                vertices, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_VERTICES.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			vertices,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addVertices}.
-     */
+    /// Typed method of [#addVertices].
     public final void addVertices(
-        SoftVertex vertices, 
-        int count
+    	SoftVertex vertices,
+    	int count
     ) {
-        addVertices(
-            this.segment, 
-            vertices.memorySegment(), 
-            count
-        );
+    	addVertices(
+    		this.segment,
+    		vertices.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static boolean removeVertex(
-        MemorySegment settings, 
-        int index
+    	MemorySegment settings,
+    	int index
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_REMOVE_VERTEX.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings, 
-                index
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_REMOVE_VERTEX.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings,
+    			index
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #removeVertex}.
-     */
+    /// Typed method of [#removeVertex].
     public final boolean removeVertex(
-        int index
+    	int index
     ) {
-        return (boolean) removeVertex(
-            this.segment, 
-            index
-        );
+    	return (boolean) removeVertex(
+    		this.segment,
+    		index
+    	);
     }
+    
     
     public static int getVertexCount(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_VERTEX_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_VERTEX_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVertexCount}.
-     */
-    public final int getVertexCount(
-    ) {
-        return (int) getVertexCount(
-            this.segment
-        );
+    /// Typed method of [#getVertexCount].
+    public final int getVertexCount() {
+    	return (int) getVertexCount(
+    		this.segment
+    	);
     }
+    
     
     public static boolean getVertex(
-        MemorySegment settings, 
-        int index, 
-        MemorySegment outVertex
+    	MemorySegment settings,
+    	int index,
+    	MemorySegment outVertex
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_VERTEX.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings, 
-                index, 
-                outVertex
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_VERTEX.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings,
+    			index,
+    			outVertex
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVertex}.
-     */
+    /// Typed method of [#getVertex].
     public final boolean getVertex(
-        int index, 
-        SoftVertex outVertex
+    	int index,
+    	SoftVertex outVertex
     ) {
-        return (boolean) getVertex(
-            this.segment, 
-            index, 
-            outVertex.memorySegment()
-        );
+    	return (boolean) getVertex(
+    		this.segment,
+    		index,
+    		outVertex.memorySegment()
+    	);
     }
+    
     
     public static void addFace(
-        MemorySegment settings, 
-        MemorySegment face
+    	MemorySegment settings,
+    	MemorySegment face
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_FACE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                face
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_FACE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			face
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addFace}.
-     */
+    /// Typed method of [#addFace].
     public final void addFace(
-        SoftFace face
+    	SoftFace face
     ) {
-        addFace(
-            this.segment, 
-            face.memorySegment()
-        );
+    	addFace(
+    		this.segment,
+    		face.memorySegment()
+    	);
     }
+    
     
     public static void addFaces(
-        MemorySegment settings, 
-        MemorySegment faces, 
-        int count
+    	MemorySegment settings,
+    	MemorySegment faces,
+    	int count
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_FACES.get();
-        try {
-            method.invokeExact(
-                settings, 
-                faces, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_ADD_FACES.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			faces,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addFaces}.
-     */
+    /// Typed method of [#addFaces].
     public final void addFaces(
-        SoftFace faces, 
-        int count
+    	SoftFace faces,
+    	int count
     ) {
-        addFaces(
-            this.segment, 
-            faces.memorySegment(), 
-            count
-        );
+    	addFaces(
+    		this.segment,
+    		faces.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static boolean removeFace(
-        MemorySegment settings, 
-        int index
+    	MemorySegment settings,
+    	int index
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_REMOVE_FACE.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings, 
-                index
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_REMOVE_FACE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings,
+    			index
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #removeFace}.
-     */
+    /// Typed method of [#removeFace].
     public final boolean removeFace(
-        int index
+    	int index
     ) {
-        return (boolean) removeFace(
-            this.segment, 
-            index
-        );
+    	return (boolean) removeFace(
+    		this.segment,
+    		index
+    	);
     }
+    
     
     public static int getFaceCount(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_FACE_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_FACE_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getFaceCount}.
-     */
-    public final int getFaceCount(
-    ) {
-        return (int) getFaceCount(
-            this.segment
-        );
+    /// Typed method of [#getFaceCount].
+    public final int getFaceCount() {
+    	return (int) getFaceCount(
+    		this.segment
+    	);
     }
+    
     
     public static boolean getFace(
-        MemorySegment settings, 
-        int index, 
-        MemorySegment outFace
+    	MemorySegment settings,
+    	int index,
+    	MemorySegment outFace
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_FACE.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings, 
-                index, 
-                outFace
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_FACE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings,
+    			index,
+    			outFace
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getFace}.
-     */
+    /// Typed method of [#getFace].
     public final boolean getFace(
-        int index, 
-        SoftFace outFace
+    	int index,
+    	SoftFace outFace
     ) {
-        return (boolean) getFace(
-            this.segment, 
-            index, 
-            outFace.memorySegment()
-        );
+    	return (boolean) getFace(
+    		this.segment,
+    		index,
+    		outFace.memorySegment()
+    	);
     }
+    
     
     public static void createConstraints(
-        MemorySegment settings, 
-        float compliance, 
-        int bendType
+    	MemorySegment settings,
+    	float compliance,
+    	int bendType
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_CREATE_CONSTRAINTS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                compliance, 
-                bendType
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_CREATE_CONSTRAINTS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			compliance,
+    			bendType
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createConstraints}.
-     */
+    /// Typed method of [#createConstraints].
     public final void createConstraints(
-        float compliance, 
-        int bendType
+    	float compliance,
+    	int bendType
     ) {
-        createConstraints(
-            this.segment, 
-            compliance, 
-            bendType
-        );
+    	createConstraints(
+    		this.segment,
+    		compliance,
+    		bendType
+    	);
     }
+    
     
     public static void optimize(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_OPTIMIZE.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_OPTIMIZE.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #optimize}.
-     */
-    public final void optimize(
-    ) {
-        optimize(
-            this.segment
-        );
+    /// Typed method of [#optimize].
+    public final void optimize() {
+    	optimize(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

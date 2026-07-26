@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -55,10 +54,10 @@ public abstract class ContactListener {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("onContactValidate"), 
-            UNBOUNDED_ADDRESS.withName("onContactAdded"), 
-            UNBOUNDED_ADDRESS.withName("onContactPersisted"), 
-            UNBOUNDED_ADDRESS.withName("onContactRemoved")
+            UNBOUNDED_ADDRESS.withName("OnContactValidate"),
+            UNBOUNDED_ADDRESS.withName("OnContactAdded"),
+            UNBOUNDED_ADDRESS.withName("OnContactPersisted"),
+            UNBOUNDED_ADDRESS.withName("OnContactRemoved")
         ).withName("JPH_ContactListener_Procs").withByteAlignment(8);
 
         JPH_CONTACT_LISTENER_SET_PROCS = downcallHandleVoid("JPH_ContactListener_SetProcs", UNBOUNDED_ADDRESS);
@@ -70,15 +69,15 @@ public abstract class ContactListener {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             ON_CONTACT_VALIDATE_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_INT, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -86,13 +85,13 @@ public abstract class ContactListener {
 
             ON_CONTACT_VALIDATE_ADDRESS = linker.upcallStub(ON_CONTACT_VALIDATE_HANDLE, ON_CONTACT_VALIDATE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactValidate")), ON_CONTACT_VALIDATE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactValidate")), ON_CONTACT_VALIDATE_ADDRESS);
             
             ON_CONTACT_ADDED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -100,13 +99,13 @@ public abstract class ContactListener {
 
             ON_CONTACT_ADDED_ADDRESS = linker.upcallStub(ON_CONTACT_ADDED_HANDLE, ON_CONTACT_ADDED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactAdded")), ON_CONTACT_ADDED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactAdded")), ON_CONTACT_ADDED_ADDRESS);
             
             ON_CONTACT_PERSISTED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -114,10 +113,10 @@ public abstract class ContactListener {
 
             ON_CONTACT_PERSISTED_ADDRESS = linker.upcallStub(ON_CONTACT_PERSISTED_HANDLE, ON_CONTACT_PERSISTED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactPersisted")), ON_CONTACT_PERSISTED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactPersisted")), ON_CONTACT_PERSISTED_ADDRESS);
             
             ON_CONTACT_REMOVED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -125,7 +124,7 @@ public abstract class ContactListener {
 
             ON_CONTACT_REMOVED_ADDRESS = linker.upcallStub(ON_CONTACT_REMOVED_HANDLE, ON_CONTACT_REMOVED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactRemoved")), ON_CONTACT_REMOVED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactRemoved")), ON_CONTACT_REMOVED_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -146,43 +145,46 @@ public abstract class ContactListener {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_CONTACT_LISTENER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_LISTENER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_CONTACT_LISTENER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_LISTENER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment listener
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_CONTACT_LISTENER_DESTROY.get();
-        try {
-            method.invokeExact(
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONTACT_LISTENER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -208,30 +210,29 @@ public abstract class ContactListener {
     }
 
     public int onContactValidate(
-        MemorySegment body1, 
-        MemorySegment body2, 
-        MemorySegment baseOffset, 
+        MemorySegment body1,
+        MemorySegment body2,
+        MemorySegment baseOffset,
         MemorySegment collisionResult
     ) {
-        return (int) onContactValidate(
-            new Body(body1), 
-            new Body(body2), 
-            new Vec3(baseOffset), 
+        return onContactValidate(
+            new Body(body1),
+            new Body(body2),
+            new Vec3(baseOffset),
             new CollideShapeResult(collisionResult)
         );
     }
 
     public int onContactValidate(
-        Body body1, 
-        Body body2, 
-        Vec3 baseOffset, 
+        Body body1,
+        Body body2,
+        Vec3 baseOffset,
         CollideShapeResult collisionResult
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactValidate."
+            "Override either the typed or raw callback method in ContactListener."
         );
-    }
-
+    };
 
     public static void onContactAdded(
         MemorySegment userData, 
@@ -251,30 +252,29 @@ public abstract class ContactListener {
     }
 
     public void onContactAdded(
-        MemorySegment body1, 
-        MemorySegment body2, 
-        MemorySegment manifold, 
+        MemorySegment body1,
+        MemorySegment body2,
+        MemorySegment manifold,
         MemorySegment settings
     ) {
         onContactAdded(
-            new Body(body1), 
-            new Body(body2), 
-            new ContactManifold(manifold), 
+            new Body(body1),
+            new Body(body2),
+            new ContactManifold(manifold),
             new ContactSettings(settings)
         );
     }
 
     public void onContactAdded(
-        Body body1, 
-        Body body2, 
-        ContactManifold manifold, 
+        Body body1,
+        Body body2,
+        ContactManifold manifold,
         ContactSettings settings
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactAdded."
+            "Override either the typed or raw callback method in ContactListener."
         );
-    }
-
+    };
 
     public static void onContactPersisted(
         MemorySegment userData, 
@@ -294,30 +294,29 @@ public abstract class ContactListener {
     }
 
     public void onContactPersisted(
-        MemorySegment body1, 
-        MemorySegment body2, 
-        MemorySegment manifold, 
+        MemorySegment body1,
+        MemorySegment body2,
+        MemorySegment manifold,
         MemorySegment settings
     ) {
         onContactPersisted(
-            new Body(body1), 
-            new Body(body2), 
-            new ContactManifold(manifold), 
+            new Body(body1),
+            new Body(body2),
+            new ContactManifold(manifold),
             new ContactSettings(settings)
         );
     }
 
     public void onContactPersisted(
-        Body body1, 
-        Body body2, 
-        ContactManifold manifold, 
+        Body body1,
+        Body body2,
+        ContactManifold manifold,
         ContactSettings settings
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactPersisted."
+            "Override either the typed or raw callback method in ContactListener."
         );
-    }
-
+    };
 
     public static void onContactRemoved(
         MemorySegment userData, 
@@ -342,9 +341,8 @@ public abstract class ContactListener {
         SubShapeIDPair subShapePair
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactRemoved."
+            "Override either the typed or raw callback method in ContactListener."
         );
-    }
-
+    };
 
 }

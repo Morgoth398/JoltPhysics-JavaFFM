@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.character;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -18,9 +17,6 @@ import volucris.bindings.jolt.shape.Shape;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CharacterVirtual extends CharacterBase {
 
     private static final LazyConstant<MethodHandle> JPH_CHARACTER_VIRTUAL_CREATE;
@@ -128,1399 +124,1342 @@ public final class CharacterVirtual extends CharacterBase {
     }
 
     public CharacterVirtual(
-        CharacterVirtualSettings settings, 
-        Vec3 position, 
-        Quat rotation, 
-        long userData, 
+        CharacterVirtualSettings settings,
+        Vec3 position,
+        Quat rotation,
+        long userData,
         PhysicsSystem system
     ) {
         this(
             Arena.ofAuto(),
-            settings, 
-            position, 
-            rotation, 
-            userData, 
+            settings,
+            position,
+            rotation,
+            userData,
             system
         );
     }
     
+    /// Typed method of [#create].
     public CharacterVirtual(
-        Arena arena,
-        CharacterVirtualSettings settings, 
-        Vec3 position, 
-        Quat rotation, 
-        long userData, 
-        PhysicsSystem system
+    	Arena arena,
+    	CharacterVirtualSettings settings,
+    	Vec3 position,
+    	Quat rotation,
+    	long userData,
+    	PhysicsSystem system
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment(), 
-            position.memorySegment(), 
-            rotation.memorySegment(), 
-            userData, 
-            system.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment(),
+    		position.memorySegment(),
+    		rotation.memorySegment(),
+    		userData,
+    		system.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public CharacterVirtual(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings, 
-        MemorySegment position, 
-        MemorySegment rotation, 
-        long userData, 
-        MemorySegment system
+    	MemorySegment settings,
+    	MemorySegment position,
+    	MemorySegment rotation,
+    	long userData,
+    	MemorySegment system
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings, 
-                position, 
-                rotation, 
-                userData, 
-                system
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings,
+    			position,
+    			rotation,
+    			userData,
+    			system
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static int getID(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ID.get();
-        try {
-            return (int) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ID.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getID}.
-     */
-    public final int getID(
-    ) {
-        return (int) getID(
-            this.segment
-        );
+    /// Typed method of [#getID].
+    public final int getID() {
+    	return (int) getID(
+    		this.segment
+    	);
     }
+    
     
     public static void setListener(
-        MemorySegment character, 
-        MemorySegment listener
+    	MemorySegment character,
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_LISTENER.get();
-        try {
-            method.invokeExact(
-                character, 
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_LISTENER.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setListener}.
-     */
+    /// Typed method of [#setListener].
     public final void setListener(
-        CharacterContactListener listener
+    	CharacterContactListener listener
     ) {
-        setListener(
-            this.segment, 
-            listener.memorySegment()
-        );
+    	setListener(
+    		this.segment,
+    		listener.memorySegment()
+    	);
     }
+    
     
     public static void setCharacterVsCharacterCollision(
-        MemorySegment character, 
-        MemorySegment characterVsCharacterCollision
+    	MemorySegment character,
+    	MemorySegment characterVsCharacterCollision
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_CHARACTER_VS_CHARACTER_COLLISION.get();
-        try {
-            method.invokeExact(
-                character, 
-                characterVsCharacterCollision
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_CHARACTER_VS_CHARACTER_COLLISION.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			characterVsCharacterCollision
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setCharacterVsCharacterCollision}.
-     */
+    /// Typed method of [#setCharacterVsCharacterCollision].
     public final void setCharacterVsCharacterCollision(
-        CharacterVsCharacterCollision characterVsCharacterCollision
+    	CharacterVsCharacterCollision characterVsCharacterCollision
     ) {
-        setCharacterVsCharacterCollision(
-            this.segment, 
-            characterVsCharacterCollision.memorySegment()
-        );
+    	setCharacterVsCharacterCollision(
+    		this.segment,
+    		characterVsCharacterCollision.memorySegment()
+    	);
     }
+    
     
     public static void getLinearVelocity(
-        MemorySegment character, 
-        MemorySegment velocity
+    	MemorySegment character,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_LINEAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                character, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_LINEAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLinearVelocity}.
-     */
+    /// Typed method of [#getLinearVelocity].
     public final void getLinearVelocity(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        getLinearVelocity(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	getLinearVelocity(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void setLinearVelocity(
-        MemorySegment character, 
-        MemorySegment velocity
+    	MemorySegment character,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_LINEAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                character, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_LINEAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLinearVelocity}.
-     */
+    /// Typed method of [#setLinearVelocity].
     public final void setLinearVelocity(
-        Vec3 velocity
+    	Vec3 velocity
     ) {
-        setLinearVelocity(
-            this.segment, 
-            velocity.memorySegment()
-        );
+    	setLinearVelocity(
+    		this.segment,
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void getPosition(
-        MemorySegment character, 
-        MemorySegment position
+    	MemorySegment character,
+    	MemorySegment position
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_POSITION.get();
-        try {
-            method.invokeExact(
-                character, 
-                position
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			position
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPosition}.
-     */
+    /// Typed method of [#getPosition].
     public final void getPosition(
-        Vec3 position
+    	Vec3 position
     ) {
-        getPosition(
-            this.segment, 
-            position.memorySegment()
-        );
+    	getPosition(
+    		this.segment,
+    		position.memorySegment()
+    	);
     }
+    
     
     public static void setPosition(
-        MemorySegment character, 
-        MemorySegment position
+    	MemorySegment character,
+    	MemorySegment position
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_POSITION.get();
-        try {
-            method.invokeExact(
-                character, 
-                position
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			position
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPosition}.
-     */
+    /// Typed method of [#setPosition].
     public final void setPosition(
-        Vec3 position
+    	Vec3 position
     ) {
-        setPosition(
-            this.segment, 
-            position.memorySegment()
-        );
+    	setPosition(
+    		this.segment,
+    		position.memorySegment()
+    	);
     }
+    
     
     public static void getRotation(
-        MemorySegment character, 
-        MemorySegment rotation
+    	MemorySegment character,
+    	MemorySegment rotation
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ROTATION.get();
-        try {
-            method.invokeExact(
-                character, 
-                rotation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			rotation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotation}.
-     */
+    /// Typed method of [#getRotation].
     public final void getRotation(
-        Quat rotation
+    	Quat rotation
     ) {
-        getRotation(
-            this.segment, 
-            rotation.memorySegment()
-        );
+    	getRotation(
+    		this.segment,
+    		rotation.memorySegment()
+    	);
     }
+    
     
     public static void setRotation(
-        MemorySegment character, 
-        MemorySegment rotation
+    	MemorySegment character,
+    	MemorySegment rotation
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_ROTATION.get();
-        try {
-            method.invokeExact(
-                character, 
-                rotation
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_ROTATION.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			rotation
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRotation}.
-     */
+    /// Typed method of [#setRotation].
     public final void setRotation(
-        Quat rotation
+    	Quat rotation
     ) {
-        setRotation(
-            this.segment, 
-            rotation.memorySegment()
-        );
+    	setRotation(
+    		this.segment,
+    		rotation.memorySegment()
+    	);
     }
+    
     
     public static void getWorldTransform(
-        MemorySegment character, 
-        MemorySegment result
+    	MemorySegment character,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_WORLD_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                character, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_WORLD_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWorldTransform}.
-     */
+    /// Typed method of [#getWorldTransform].
     public final void getWorldTransform(
-        Mat4 result
+    	Mat4 result
     ) {
-        getWorldTransform(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getWorldTransform(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getCenterOfMassTransform(
-        MemorySegment character, 
-        MemorySegment result
+    	MemorySegment character,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_CENTER_OF_MASS_TRANSFORM.get();
-        try {
-            method.invokeExact(
-                character, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_CENTER_OF_MASS_TRANSFORM.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCenterOfMassTransform}.
-     */
+    /// Typed method of [#getCenterOfMassTransform].
     public final void getCenterOfMassTransform(
-        Mat4 result
+    	Mat4 result
     ) {
-        getCenterOfMassTransform(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getCenterOfMassTransform(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float getMass(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MASS.get();
-        try {
-            return (float) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MASS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMass}.
-     */
-    public final float getMass(
-    ) {
-        return (float) getMass(
-            this.segment
-        );
+    /// Typed method of [#getMass].
+    public final float getMass() {
+    	return (float) getMass(
+    		this.segment
+    	);
     }
+    
     
     public static void setMass(
-        MemorySegment character, 
-        float value
+    	MemorySegment character,
+    	float value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MASS.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MASS.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMass}.
-     */
+    /// Typed method of [#setMass].
     public final void setMass(
-        float value
+    	float value
     ) {
-        setMass(
-            this.segment, 
-            value
-        );
+    	setMass(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getMaxStrength(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_STRENGTH.get();
-        try {
-            return (float) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_STRENGTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxStrength}.
-     */
-    public final float getMaxStrength(
-    ) {
-        return (float) getMaxStrength(
-            this.segment
-        );
+    /// Typed method of [#getMaxStrength].
+    public final float getMaxStrength() {
+    	return (float) getMaxStrength(
+    		this.segment
+    	);
     }
+    
     
     public static void setMaxStrength(
-        MemorySegment character, 
-        float value
+    	MemorySegment character,
+    	float value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MAX_STRENGTH.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MAX_STRENGTH.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMaxStrength}.
-     */
+    /// Typed method of [#setMaxStrength].
     public final void setMaxStrength(
-        float value
+    	float value
     ) {
-        setMaxStrength(
-            this.segment, 
-            value
-        );
+    	setMaxStrength(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getPenetrationRecoverySpeed(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_PENETRATION_RECOVERY_SPEED.get();
-        try {
-            return (float) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_PENETRATION_RECOVERY_SPEED.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPenetrationRecoverySpeed}.
-     */
-    public final float getPenetrationRecoverySpeed(
-    ) {
-        return (float) getPenetrationRecoverySpeed(
-            this.segment
-        );
+    /// Typed method of [#getPenetrationRecoverySpeed].
+    public final float getPenetrationRecoverySpeed() {
+    	return (float) getPenetrationRecoverySpeed(
+    		this.segment
+    	);
     }
+    
     
     public static void setPenetrationRecoverySpeed(
-        MemorySegment character, 
-        float value
+    	MemorySegment character,
+    	float value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_PENETRATION_RECOVERY_SPEED.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_PENETRATION_RECOVERY_SPEED.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPenetrationRecoverySpeed}.
-     */
+    /// Typed method of [#setPenetrationRecoverySpeed].
     public final void setPenetrationRecoverySpeed(
-        float value
+    	float value
     ) {
-        setPenetrationRecoverySpeed(
-            this.segment, 
-            value
-        );
+    	setPenetrationRecoverySpeed(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getEnhancedInternalEdgeRemoval(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
-        try {
-            return (boolean) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEnhancedInternalEdgeRemoval}.
-     */
-    public final boolean getEnhancedInternalEdgeRemoval(
-    ) {
-        return (boolean) getEnhancedInternalEdgeRemoval(
-            this.segment
-        );
+    /// Typed method of [#getEnhancedInternalEdgeRemoval].
+    public final boolean getEnhancedInternalEdgeRemoval() {
+    	return (boolean) getEnhancedInternalEdgeRemoval(
+    		this.segment
+    	);
     }
+    
     
     public static void setEnhancedInternalEdgeRemoval(
-        MemorySegment character, 
-        boolean value
+    	MemorySegment character,
+    	boolean value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setEnhancedInternalEdgeRemoval}.
-     */
+    /// Typed method of [#setEnhancedInternalEdgeRemoval].
     public final void setEnhancedInternalEdgeRemoval(
-        boolean value
+    	boolean value
     ) {
-        setEnhancedInternalEdgeRemoval(
-            this.segment, 
-            value
-        );
+    	setEnhancedInternalEdgeRemoval(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getCharacterPadding(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_CHARACTER_PADDING.get();
-        try {
-            return (float) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_CHARACTER_PADDING.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCharacterPadding}.
-     */
-    public final float getCharacterPadding(
-    ) {
-        return (float) getCharacterPadding(
-            this.segment
-        );
+    /// Typed method of [#getCharacterPadding].
+    public final float getCharacterPadding() {
+    	return (float) getCharacterPadding(
+    		this.segment
+    	);
     }
+    
     
     public static int getMaxNumHits(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_NUM_HITS.get();
-        try {
-            return (int) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_NUM_HITS.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxNumHits}.
-     */
-    public final int getMaxNumHits(
-    ) {
-        return (int) getMaxNumHits(
-            this.segment
-        );
+    /// Typed method of [#getMaxNumHits].
+    public final int getMaxNumHits() {
+    	return (int) getMaxNumHits(
+    		this.segment
+    	);
     }
+    
     
     public static void setMaxNumHits(
-        MemorySegment character, 
-        int value
+    	MemorySegment character,
+    	int value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MAX_NUM_HITS.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_MAX_NUM_HITS.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMaxNumHits}.
-     */
+    /// Typed method of [#setMaxNumHits].
     public final void setMaxNumHits(
-        int value
+    	int value
     ) {
-        setMaxNumHits(
-            this.segment, 
-            value
-        );
+    	setMaxNumHits(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getHitReductionCosMaxAngle(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_HIT_REDUCTION_COS_MAX_ANGLE.get();
-        try {
-            return (float) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_HIT_REDUCTION_COS_MAX_ANGLE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getHitReductionCosMaxAngle}.
-     */
-    public final float getHitReductionCosMaxAngle(
-    ) {
-        return (float) getHitReductionCosMaxAngle(
-            this.segment
-        );
+    /// Typed method of [#getHitReductionCosMaxAngle].
+    public final float getHitReductionCosMaxAngle() {
+    	return (float) getHitReductionCosMaxAngle(
+    		this.segment
+    	);
     }
+    
     
     public static void setHitReductionCosMaxAngle(
-        MemorySegment character, 
-        float value
+    	MemorySegment character,
+    	float value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_HIT_REDUCTION_COS_MAX_ANGLE.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_HIT_REDUCTION_COS_MAX_ANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setHitReductionCosMaxAngle}.
-     */
+    /// Typed method of [#setHitReductionCosMaxAngle].
     public final void setHitReductionCosMaxAngle(
-        float value
+    	float value
     ) {
-        setHitReductionCosMaxAngle(
-            this.segment, 
-            value
-        );
+    	setHitReductionCosMaxAngle(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getMaxHitsExceeded(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_HITS_EXCEEDED.get();
-        try {
-            return (boolean) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_HITS_EXCEEDED.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxHitsExceeded}.
-     */
-    public final boolean getMaxHitsExceeded(
-    ) {
-        return (boolean) getMaxHitsExceeded(
-            this.segment
-        );
+    /// Typed method of [#getMaxHitsExceeded].
+    public final boolean getMaxHitsExceeded() {
+    	return (boolean) getMaxHitsExceeded(
+    		this.segment
+    	);
     }
+    
     
     public static void getShapeOffset(
-        MemorySegment character, 
-        MemorySegment result
+    	MemorySegment character,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_SHAPE_OFFSET.get();
-        try {
-            method.invokeExact(
-                character, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_SHAPE_OFFSET.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getShapeOffset}.
-     */
+    /// Typed method of [#getShapeOffset].
     public final void getShapeOffset(
-        Vec3 result
+    	Vec3 result
     ) {
-        getShapeOffset(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getShapeOffset(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setShapeOffset(
-        MemorySegment character, 
-        MemorySegment value
+    	MemorySegment character,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_SHAPE_OFFSET.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_SHAPE_OFFSET.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setShapeOffset}.
-     */
+    /// Typed method of [#setShapeOffset].
     public final void setShapeOffset(
-        Vec3 value
+    	Vec3 value
     ) {
-        setShapeOffset(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setShapeOffset(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static long getUserData(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_USER_DATA.get();
-        try {
-            return (long) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_USER_DATA.get();
+    	try {
+    		return (long)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUserData}.
-     */
-    public final long getUserData(
-    ) {
-        return (long) getUserData(
-            this.segment
-        );
+    /// Typed method of [#getUserData].
+    public final long getUserData() {
+    	return (long) getUserData(
+    		this.segment
+    	);
     }
+    
     
     public static void setUserData(
-        MemorySegment character, 
-        long value
+    	MemorySegment character,
+    	long value
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_USER_DATA.get();
-        try {
-            method.invokeExact(
-                character, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_USER_DATA.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUserData}.
-     */
+    /// Typed method of [#setUserData].
     public final void setUserData(
-        long value
+    	long value
     ) {
-        setUserData(
-            this.segment, 
-            value
-        );
+    	setUserData(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static int getInnerBodyID(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_INNER_BODY_ID.get();
-        try {
-            return (int) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_INNER_BODY_ID.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getInnerBodyID}.
-     */
-    public final int getInnerBodyID(
-    ) {
-        return (int) getInnerBodyID(
-            this.segment
-        );
+    /// Typed method of [#getInnerBodyID].
+    public final int getInnerBodyID() {
+    	return (int) getInnerBodyID(
+    		this.segment
+    	);
     }
+    
     
     public static void cancelVelocityTowardsSteepSlopes(
-        MemorySegment character, 
-        MemorySegment desiredVelocity, 
-        MemorySegment velocity
+    	MemorySegment character,
+    	MemorySegment desiredVelocity,
+    	MemorySegment velocity
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_CANCEL_VELOCITY_TOWARDS_STEEP_SLOPES.get();
-        try {
-            method.invokeExact(
-                character, 
-                desiredVelocity, 
-                velocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_CANCEL_VELOCITY_TOWARDS_STEEP_SLOPES.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			desiredVelocity,
+    			velocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #cancelVelocityTowardsSteepSlopes}.
-     */
+    /// Typed method of [#cancelVelocityTowardsSteepSlopes].
     public final void cancelVelocityTowardsSteepSlopes(
-        Vec3 desiredVelocity, 
-        Vec3 velocity
+    	Vec3 desiredVelocity,
+    	Vec3 velocity
     ) {
-        cancelVelocityTowardsSteepSlopes(
-            this.segment, 
-            desiredVelocity.memorySegment(), 
-            velocity.memorySegment()
-        );
+    	cancelVelocityTowardsSteepSlopes(
+    		this.segment,
+    		desiredVelocity.memorySegment(),
+    		velocity.memorySegment()
+    	);
     }
+    
     
     public static void startTrackingContactChanges(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_START_TRACKING_CONTACT_CHANGES.get();
-        try {
-            method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_START_TRACKING_CONTACT_CHANGES.get();
+    	try {
+    		 method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #startTrackingContactChanges}.
-     */
-    public final void startTrackingContactChanges(
-    ) {
-        startTrackingContactChanges(
-            this.segment
-        );
+    /// Typed method of [#startTrackingContactChanges].
+    public final void startTrackingContactChanges() {
+    	startTrackingContactChanges(
+    		this.segment
+    	);
     }
+    
     
     public static void finishTrackingContactChanges(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_FINISH_TRACKING_CONTACT_CHANGES.get();
-        try {
-            method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_FINISH_TRACKING_CONTACT_CHANGES.get();
+    	try {
+    		 method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #finishTrackingContactChanges}.
-     */
-    public final void finishTrackingContactChanges(
-    ) {
-        finishTrackingContactChanges(
-            this.segment
-        );
+    /// Typed method of [#finishTrackingContactChanges].
+    public final void finishTrackingContactChanges() {
+    	finishTrackingContactChanges(
+    		this.segment
+    	);
     }
+    
     
     public static void update(
-        MemorySegment character, 
-        float deltaTime, 
-        int layer, 
-        MemorySegment system, 
-        MemorySegment bodyFilter, 
-        MemorySegment shapeFilter
+    	MemorySegment character,
+    	float deltaTime,
+    	int layer,
+    	MemorySegment system,
+    	MemorySegment bodyFilter,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_UPDATE.get();
-        try {
-            method.invokeExact(
-                character, 
-                deltaTime, 
-                layer, 
-                system, 
-                bodyFilter, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_UPDATE.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			deltaTime,
+    			layer,
+    			system,
+    			bodyFilter,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #update}.
-     */
+    /// Typed method of [#update].
     public final void update(
-        float deltaTime, 
-        int layer, 
-        PhysicsSystem system, 
-        BodyFilter bodyFilter, 
-        ShapeFilter shapeFilter
+    	float deltaTime,
+    	int layer,
+    	PhysicsSystem system,
+    	BodyFilter bodyFilter,
+    	ShapeFilter shapeFilter
     ) {
-        update(
-            this.segment, 
-            deltaTime, 
-            layer, 
-            system.memorySegment(), 
-            bodyFilter.memorySegment(), 
-            shapeFilter.memorySegment()
-        );
+    	update(
+    		this.segment,
+    		deltaTime,
+    		layer,
+    		system.memorySegment(),
+    		bodyFilter.memorySegment(),
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static void extendedUpdate(
-        MemorySegment character, 
-        float deltaTime, 
-        MemorySegment settings, 
-        int layer, 
-        MemorySegment system, 
-        MemorySegment bodyFilter, 
-        MemorySegment shapeFilter
+    	MemorySegment character,
+    	float deltaTime,
+    	MemorySegment settings,
+    	int layer,
+    	MemorySegment system,
+    	MemorySegment bodyFilter,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_EXTENDED_UPDATE.get();
-        try {
-            method.invokeExact(
-                character, 
-                deltaTime, 
-                settings, 
-                layer, 
-                system, 
-                bodyFilter, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_EXTENDED_UPDATE.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			deltaTime,
+    			settings,
+    			layer,
+    			system,
+    			bodyFilter,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #extendedUpdate}.
-     */
+    /// Typed method of [#extendedUpdate].
     public final void extendedUpdate(
-        float deltaTime, 
-        ExtendedUpdateSettings settings, 
-        int layer, 
-        PhysicsSystem system, 
-        BodyFilter bodyFilter, 
-        ShapeFilter shapeFilter
+    	float deltaTime,
+    	ExtendedUpdateSettings settings,
+    	int layer,
+    	PhysicsSystem system,
+    	BodyFilter bodyFilter,
+    	ShapeFilter shapeFilter
     ) {
-        extendedUpdate(
-            this.segment, 
-            deltaTime, 
-            settings.memorySegment(), 
-            layer, 
-            system.memorySegment(), 
-            bodyFilter.memorySegment(), 
-            shapeFilter.memorySegment()
-        );
+    	extendedUpdate(
+    		this.segment,
+    		deltaTime,
+    		settings.memorySegment(),
+    		layer,
+    		system.memorySegment(),
+    		bodyFilter.memorySegment(),
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static void refreshContacts(
-        MemorySegment character, 
-        int layer, 
-        MemorySegment system, 
-        MemorySegment bodyFilter, 
-        MemorySegment shapeFilter
+    	MemorySegment character,
+    	int layer,
+    	MemorySegment system,
+    	MemorySegment bodyFilter,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_REFRESH_CONTACTS.get();
-        try {
-            method.invokeExact(
-                character, 
-                layer, 
-                system, 
-                bodyFilter, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_REFRESH_CONTACTS.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			layer,
+    			system,
+    			bodyFilter,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #refreshContacts}.
-     */
+    /// Typed method of [#refreshContacts].
     public final void refreshContacts(
-        int layer, 
-        PhysicsSystem system, 
-        BodyFilter bodyFilter, 
-        ShapeFilter shapeFilter
+    	int layer,
+    	PhysicsSystem system,
+    	BodyFilter bodyFilter,
+    	ShapeFilter shapeFilter
     ) {
-        refreshContacts(
-            this.segment, 
-            layer, 
-            system.memorySegment(), 
-            bodyFilter.memorySegment(), 
-            shapeFilter.memorySegment()
-        );
+    	refreshContacts(
+    		this.segment,
+    		layer,
+    		system.memorySegment(),
+    		bodyFilter.memorySegment(),
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean canWalkStairs(
-        MemorySegment character, 
-        MemorySegment linearVelocity
+    	MemorySegment character,
+    	MemorySegment linearVelocity
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_CAN_WALK_STAIRS.get();
-        try {
-            return (boolean) method.invokeExact(
-                character, 
-                linearVelocity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_CAN_WALK_STAIRS.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character,
+    			linearVelocity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #canWalkStairs}.
-     */
+    /// Typed method of [#canWalkStairs].
     public final boolean canWalkStairs(
-        Vec3 linearVelocity
+    	Vec3 linearVelocity
     ) {
-        return (boolean) canWalkStairs(
-            this.segment, 
-            linearVelocity.memorySegment()
-        );
+    	return (boolean) canWalkStairs(
+    		this.segment,
+    		linearVelocity.memorySegment()
+    	);
     }
+    
     
     public static boolean walkStairs(
-        MemorySegment character, 
-        float deltaTime, 
-        MemorySegment stepUp, 
-        MemorySegment stepForward, 
-        MemorySegment stepForwardTest, 
-        MemorySegment stepDownExtra, 
-        int layer, 
-        MemorySegment system, 
-        MemorySegment bodyFilter, 
-        MemorySegment shapeFilter
+    	MemorySegment character,
+    	float deltaTime,
+    	MemorySegment stepUp,
+    	MemorySegment stepForward,
+    	MemorySegment stepForwardTest,
+    	MemorySegment stepDownExtra,
+    	int layer,
+    	MemorySegment system,
+    	MemorySegment bodyFilter,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_WALK_STAIRS.get();
-        try {
-            return (boolean) method.invokeExact(
-                character, 
-                deltaTime, 
-                stepUp, 
-                stepForward, 
-                stepForwardTest, 
-                stepDownExtra, 
-                layer, 
-                system, 
-                bodyFilter, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_WALK_STAIRS.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character,
+    			deltaTime,
+    			stepUp,
+    			stepForward,
+    			stepForwardTest,
+    			stepDownExtra,
+    			layer,
+    			system,
+    			bodyFilter,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #walkStairs}.
-     */
+    /// Typed method of [#walkStairs].
     public final boolean walkStairs(
-        float deltaTime, 
-        Vec3 stepUp, 
-        Vec3 stepForward, 
-        Vec3 stepForwardTest, 
-        Vec3 stepDownExtra, 
-        int layer, 
-        PhysicsSystem system, 
-        BodyFilter bodyFilter, 
-        ShapeFilter shapeFilter
+    	float deltaTime,
+    	Vec3 stepUp,
+    	Vec3 stepForward,
+    	Vec3 stepForwardTest,
+    	Vec3 stepDownExtra,
+    	int layer,
+    	PhysicsSystem system,
+    	BodyFilter bodyFilter,
+    	ShapeFilter shapeFilter
     ) {
-        return (boolean) walkStairs(
-            this.segment, 
-            deltaTime, 
-            stepUp.memorySegment(), 
-            stepForward.memorySegment(), 
-            stepForwardTest.memorySegment(), 
-            stepDownExtra.memorySegment(), 
-            layer, 
-            system.memorySegment(), 
-            bodyFilter.memorySegment(), 
-            shapeFilter.memorySegment()
-        );
+    	return (boolean) walkStairs(
+    		this.segment,
+    		deltaTime,
+    		stepUp.memorySegment(),
+    		stepForward.memorySegment(),
+    		stepForwardTest.memorySegment(),
+    		stepDownExtra.memorySegment(),
+    		layer,
+    		system.memorySegment(),
+    		bodyFilter.memorySegment(),
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static boolean stickToFloor(
-        MemorySegment character, 
-        MemorySegment stepDown, 
-        int layer, 
-        MemorySegment system, 
-        MemorySegment bodyFilter, 
-        MemorySegment shapeFilter
+    	MemorySegment character,
+    	MemorySegment stepDown,
+    	int layer,
+    	MemorySegment system,
+    	MemorySegment bodyFilter,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_STICK_TO_FLOOR.get();
-        try {
-            return (boolean) method.invokeExact(
-                character, 
-                stepDown, 
-                layer, 
-                system, 
-                bodyFilter, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_STICK_TO_FLOOR.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character,
+    			stepDown,
+    			layer,
+    			system,
+    			bodyFilter,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #stickToFloor}.
-     */
+    /// Typed method of [#stickToFloor].
     public final boolean stickToFloor(
-        Vec3 stepDown, 
-        int layer, 
-        PhysicsSystem system, 
-        BodyFilter bodyFilter, 
-        ShapeFilter shapeFilter
+    	Vec3 stepDown,
+    	int layer,
+    	PhysicsSystem system,
+    	BodyFilter bodyFilter,
+    	ShapeFilter shapeFilter
     ) {
-        return (boolean) stickToFloor(
-            this.segment, 
-            stepDown.memorySegment(), 
-            layer, 
-            system.memorySegment(), 
-            bodyFilter.memorySegment(), 
-            shapeFilter.memorySegment()
-        );
+    	return (boolean) stickToFloor(
+    		this.segment,
+    		stepDown.memorySegment(),
+    		layer,
+    		system.memorySegment(),
+    		bodyFilter.memorySegment(),
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static void updateGroundVelocity(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_UPDATE_GROUND_VELOCITY.get();
-        try {
-            method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_UPDATE_GROUND_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #updateGroundVelocity}.
-     */
-    public final void updateGroundVelocity(
-    ) {
-        updateGroundVelocity(
-            this.segment
-        );
+    /// Typed method of [#updateGroundVelocity].
+    public final void updateGroundVelocity() {
+    	updateGroundVelocity(
+    		this.segment
+    	);
     }
+    
     
     public static boolean setShape(
-        MemorySegment character, 
-        MemorySegment shape, 
-        float maxPenetrationDepth, 
-        int layer, 
-        MemorySegment system, 
-        MemorySegment bodyFilter, 
-        MemorySegment shapeFilter
+    	MemorySegment character,
+    	MemorySegment shape,
+    	float maxPenetrationDepth,
+    	int layer,
+    	MemorySegment system,
+    	MemorySegment bodyFilter,
+    	MemorySegment shapeFilter
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_SHAPE.get();
-        try {
-            return (boolean) method.invokeExact(
-                character, 
-                shape, 
-                maxPenetrationDepth, 
-                layer, 
-                system, 
-                bodyFilter, 
-                shapeFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_SHAPE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character,
+    			shape,
+    			maxPenetrationDepth,
+    			layer,
+    			system,
+    			bodyFilter,
+    			shapeFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setShape}.
-     */
+    /// Typed method of [#setShape].
     public final boolean setShape(
-        Shape shape, 
-        float maxPenetrationDepth, 
-        int layer, 
-        PhysicsSystem system, 
-        BodyFilter bodyFilter, 
-        ShapeFilter shapeFilter
+    	Shape shape,
+    	float maxPenetrationDepth,
+    	int layer,
+    	PhysicsSystem system,
+    	BodyFilter bodyFilter,
+    	ShapeFilter shapeFilter
     ) {
-        return (boolean) setShape(
-            this.segment, 
-            shape.memorySegment(), 
-            maxPenetrationDepth, 
-            layer, 
-            system.memorySegment(), 
-            bodyFilter.memorySegment(), 
-            shapeFilter.memorySegment()
-        );
+    	return (boolean) setShape(
+    		this.segment,
+    		shape.memorySegment(),
+    		maxPenetrationDepth,
+    		layer,
+    		system.memorySegment(),
+    		bodyFilter.memorySegment(),
+    		shapeFilter.memorySegment()
+    	);
     }
+    
     
     public static void setInnerBodyShape(
-        MemorySegment character, 
-        MemorySegment shape
+    	MemorySegment character,
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_INNER_BODY_SHAPE.get();
-        try {
-            method.invokeExact(
-                character, 
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_INNER_BODY_SHAPE.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setInnerBodyShape}.
-     */
+    /// Typed method of [#setInnerBodyShape].
     public final void setInnerBodyShape(
-        Shape shape
+    	Shape shape
     ) {
-        setInnerBodyShape(
-            this.segment, 
-            shape.memorySegment()
-        );
+    	setInnerBodyShape(
+    		this.segment,
+    		shape.memorySegment()
+    	);
     }
+    
     
     public static int getNumActiveContacts(
-        MemorySegment character
+    	MemorySegment character
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_NUM_ACTIVE_CONTACTS.get();
-        try {
-            return (int) method.invokeExact(
-                character
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_NUM_ACTIVE_CONTACTS.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			character
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumActiveContacts}.
-     */
-    public final int getNumActiveContacts(
-    ) {
-        return (int) getNumActiveContacts(
-            this.segment
-        );
+    /// Typed method of [#getNumActiveContacts].
+    public final int getNumActiveContacts() {
+    	return (int) getNumActiveContacts(
+    		this.segment
+    	);
     }
+    
     
     public static void getActiveContact(
-        MemorySegment character, 
-        int index, 
-        MemorySegment result
+    	MemorySegment character,
+    	int index,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ACTIVE_CONTACT.get();
-        try {
-            method.invokeExact(
-                character, 
-                index, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ACTIVE_CONTACT.get();
+    	try {
+    		 method.invokeExact(
+    			character,
+    			index,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getActiveContact}.
-     */
+    /// Typed method of [#getActiveContact].
     public final void getActiveContact(
-        int index, 
-        CharacterContact result
+    	int index,
+    	CharacterContact result
     ) {
-        getActiveContact(
-            this.segment, 
-            index, 
-            result.memorySegment()
-        );
+    	getActiveContact(
+    		this.segment,
+    		index,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static boolean hasCollidedWithBody(
-        MemorySegment character, 
-        int body
+    	MemorySegment character,
+    	int body
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_BODY.get();
-        try {
-            return (boolean) method.invokeExact(
-                character, 
-                body
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_BODY.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character,
+    			body
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #hasCollidedWithBody}.
-     */
+    /// Typed method of [#hasCollidedWithBody].
     public final boolean hasCollidedWithBody(
-        int body
+    	int body
     ) {
-        return (boolean) hasCollidedWithBody(
-            this.segment, 
-            body
-        );
+    	return (boolean) hasCollidedWithBody(
+    		this.segment,
+    		body
+    	);
     }
+    
     
     public static boolean hasCollidedWith(
-        MemorySegment character, 
-        int other
+    	MemorySegment character,
+    	int other
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH.get();
-        try {
-            return (boolean) method.invokeExact(
-                character, 
-                other
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character,
+    			other
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #hasCollidedWith}.
-     */
+    /// Typed method of [#hasCollidedWith].
     public final boolean hasCollidedWith(
-        int other
+    	int other
     ) {
-        return (boolean) hasCollidedWith(
-            this.segment, 
-            other
-        );
+    	return (boolean) hasCollidedWith(
+    		this.segment,
+    		other
+    	);
     }
+    
     
     public static boolean hasCollidedWithCharacter(
-        MemorySegment character, 
-        MemorySegment other
+    	MemorySegment character,
+    	MemorySegment other
     ) {
-        MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_CHARACTER.get();
-        try {
-            return (boolean) method.invokeExact(
-                character, 
-                other
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_CHARACTER.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			character,
+    			other
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #hasCollidedWithCharacter}.
-     */
+    /// Typed method of [#hasCollidedWithCharacter].
     public final boolean hasCollidedWithCharacter(
-        CharacterVirtual other
+    	CharacterVirtual other
     ) {
-        return (boolean) hasCollidedWithCharacter(
-            this.segment, 
-            other.memorySegment()
-        );
+    	return (boolean) hasCollidedWithCharacter(
+    		this.segment,
+    		other.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

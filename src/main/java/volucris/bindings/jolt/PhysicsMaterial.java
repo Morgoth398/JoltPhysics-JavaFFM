@@ -8,15 +8,10 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 import volucris.bindings.core.NativeByteArray;
-import volucris.bindings.jolt.math.Mat4;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class PhysicsMaterial {
 
     private static final LazyConstant<MethodHandle> JPH_PHYSICS_MATERIAL_CREATE;
@@ -36,112 +31,116 @@ public final class PhysicsMaterial {
     }
 
     public PhysicsMaterial(
-        NativeByteArray name, 
+        NativeByteArray name,
         int color
     ) {
         this(
             Arena.ofAuto(),
-            name, 
+            name,
             color
         );
     }
     
+    /// Typed method of [#create].
     public PhysicsMaterial(
-        Arena arena,
-        NativeByteArray name, 
-        int color
+    	Arena arena,
+    	NativeByteArray name,
+    	int color
     ) {
-         MemorySegment segment = create(
-            name.memorySegment(), 
-            color
-         );
+    	MemorySegment segment = create(
+    		name.memorySegment(),
+    		color
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public PhysicsMaterial(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create(
-        MemorySegment name, 
-        int color
+    	MemorySegment name,
+    	int color
     ) {
-        MethodHandle method = JPH_PHYSICS_MATERIAL_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                name, 
-                color
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_MATERIAL_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			name,
+    			color
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment material
+    	MemorySegment material
     ) {
-        MethodHandle method = JPH_PHYSICS_MATERIAL_DESTROY.get();
-        try {
-            method.invokeExact(
-                material
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_MATERIAL_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			material
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment getDebugName(
-        MemorySegment material
+    	MemorySegment material
     ) {
-        MethodHandle method = JPH_PHYSICS_MATERIAL_GET_DEBUG_NAME.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                material
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_MATERIAL_GET_DEBUG_NAME.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			material
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDebugName}.
-     */
+    /// Typed method of [#getDebugName].
     public final @Nullable NativeByteArray getDebugName(
-        PhysicsMaterial material
+    	PhysicsMaterial material
     ) {
-        MemorySegment segment = getDebugName(
-            material.memorySegment()
-        );
+    	MemorySegment segment = getDebugName(
+    		material.memorySegment()
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NativeByteArray(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativeByteArray(segment);
     }
+    
     
     public static int getDebugColor(
-        MemorySegment material
+    	MemorySegment material
     ) {
-        MethodHandle method = JPH_PHYSICS_MATERIAL_GET_DEBUG_COLOR.get();
-        try {
-            return (int) method.invokeExact(
-                material
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_MATERIAL_GET_DEBUG_COLOR.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			material
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDebugColor}.
-     */
+    /// Typed method of [#getDebugColor].
     public final int getDebugColor(
-        PhysicsMaterial material
+    	PhysicsMaterial material
     ) {
-        return (int) getDebugColor(
-            material.memorySegment()
-        );
+    	return (int) getDebugColor(
+    		material.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

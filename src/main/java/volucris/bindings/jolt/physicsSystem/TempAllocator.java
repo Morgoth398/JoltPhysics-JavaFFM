@@ -3,17 +3,13 @@
  */
 package volucris.bindings.jolt.physicsSystem;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.bindings.core.FFMUtils.*;;
+import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class TempAllocator {
 
     private static final LazyConstant<MethodHandle> JPH_TEMP_ALLOCATOR_CREATE;
@@ -39,63 +35,75 @@ public final class TempAllocator {
         );
     }
     
+    /// Typed method of [#create].
     public TempAllocator(
-        Arena arena,
-        int size
+    	Arena arena,
+    	int size
     ) {
-         MemorySegment segment = create(
-            size
-         );
+    	MemorySegment segment = create(
+    		size
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public TempAllocator() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public TempAllocator(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public TempAllocator(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create(
-        int size
+    	int size
     ) {
-        MethodHandle method = JPH_TEMP_ALLOCATOR_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                size
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TEMP_ALLOCATOR_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			size
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create() {
-        MethodHandle method = JPH_TEMP_ALLOCATOR_MALLOC_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TEMP_ALLOCATOR_MALLOC_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment allocator
+    	MemorySegment allocator
     ) {
-        MethodHandle method = JPH_TEMP_ALLOCATOR_DESTROY.get();
-        try {
-            method.invokeExact(
-                allocator
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TEMP_ALLOCATOR_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			allocator
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

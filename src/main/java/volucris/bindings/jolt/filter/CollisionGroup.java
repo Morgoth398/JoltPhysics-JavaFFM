@@ -15,9 +15,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CollisionGroup
 		implements Struct<CollisionGroup> {
 
@@ -64,36 +61,39 @@ public final class CollisionGroup
     
     }
 
+    /// @see #groupFilter()
     public CollisionGroup groupFilter(GroupFilter groupFilter) {
-        GROUP_FILTER_HANDLE.set(segment, 0L, groupFilter.memorySegment());
-        return this;
+    	GROUP_FILTER_HANDLE.set(segment, 0L, groupFilter.memorySegment());
+    	return this;
     }
     
     public @Nullable GroupFilter groupFilter() {
-        MemorySegment segment = (MemorySegment) GROUP_FILTER_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) GROUP_FILTER_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new GroupFilter(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new GroupFilter(segment);
     }
     
+    /// @see #groupID()
     public CollisionGroup groupID(int groupID) {
-        GROUP_ID_HANDLE.set(segment, 0L, groupID);
-        return this;
+    	GROUP_ID_HANDLE.set(segment, 0L, groupID);
+    	return this;
     }
     
     public int groupID() {
-        return (int) GROUP_ID_HANDLE.get(segment, 0L);
+    	return (int) GROUP_ID_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subGroupID()
     public CollisionGroup subGroupID(int subGroupID) {
-        SUB_GROUP_ID_HANDLE.set(segment, 0L, subGroupID);
-        return this;
+    	SUB_GROUP_ID_HANDLE.set(segment, 0L, subGroupID);
+    	return this;
     }
     
     public int subGroupID() {
-        return (int) SUB_GROUP_ID_HANDLE.get(segment, 0L);
+    	return (int) SUB_GROUP_ID_HANDLE.get(segment, 0L);
     }
     
     @Override

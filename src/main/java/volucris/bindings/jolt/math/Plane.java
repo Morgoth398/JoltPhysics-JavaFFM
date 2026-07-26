@@ -14,9 +14,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class Plane
 		implements Struct<Plane> {
 
@@ -59,27 +56,30 @@ public final class Plane
         normal = new Vec3(segment.asSlice(NORMAL_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #distance()
     public Plane distance(float distance) {
-        DISTANCE_HANDLE.set(segment, 0L, distance);
-        return this;
+    	DISTANCE_HANDLE.set(segment, 0L, distance);
+    	return this;
     }
     
     public float distance() {
-        return (float) DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #normal()
     public Plane normal(Consumer<Vec3> consumer) {
-        consumer.accept(normal);
-        return this;
+    	consumer.accept(normal);
+    	return this;
     }
     
+    /// @see #normal()
     public Plane normal(Vec3 other) {
-        normal.set(other);
-        return this;
+    	normal.set(other);
+    	return this;
     }
     
     public Vec3 normal() {
-        return normal;
+    	return normal;
     }
     
     @Override

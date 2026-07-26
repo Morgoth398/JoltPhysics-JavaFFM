@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class CharacterContactSettings
 		implements Struct<CharacterContactSettings> {
 
@@ -57,22 +54,24 @@ public final class CharacterContactSettings
     
     }
 
+    /// @see #canPushCharacter()
     public CharacterContactSettings canPushCharacter(boolean canPushCharacter) {
-        CAN_PUSH_CHARACTER_HANDLE.set(segment, 0L, canPushCharacter);
-        return this;
+    	CAN_PUSH_CHARACTER_HANDLE.set(segment, 0L, canPushCharacter);
+    	return this;
     }
     
     public boolean canPushCharacter() {
-        return (boolean) CAN_PUSH_CHARACTER_HANDLE.get(segment, 0L);
+    	return (boolean) CAN_PUSH_CHARACTER_HANDLE.get(segment, 0L);
     }
     
+    /// @see #canReceiveImpulses()
     public CharacterContactSettings canReceiveImpulses(boolean canReceiveImpulses) {
-        CAN_RECEIVE_IMPULSES_HANDLE.set(segment, 0L, canReceiveImpulses);
-        return this;
+    	CAN_RECEIVE_IMPULSES_HANDLE.set(segment, 0L, canReceiveImpulses);
+    	return this;
     }
     
     public boolean canReceiveImpulses() {
-        return (boolean) CAN_RECEIVE_IMPULSES_HANDLE.get(segment, 0L);
+    	return (boolean) CAN_RECEIVE_IMPULSES_HANDLE.get(segment, 0L);
     }
     
     @Override

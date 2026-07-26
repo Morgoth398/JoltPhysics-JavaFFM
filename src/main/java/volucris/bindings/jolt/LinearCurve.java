@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -14,9 +13,6 @@ import volucris.bindings.jolt.math.Point;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class LinearCurve {
 
     private static final LazyConstant<MethodHandle> JPH_LINEAR_CURVE_CREATE;
@@ -52,300 +48,292 @@ public final class LinearCurve {
     }
 
     public LinearCurve() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public LinearCurve(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public LinearCurve(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_LINEAR_CURVE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment curve
+    	MemorySegment curve
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_DESTROY.get();
-        try {
-            method.invokeExact(
-                curve
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			curve
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void clear(
-        MemorySegment curve
+    	MemorySegment curve
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_CLEAR.get();
-        try {
-            method.invokeExact(
-                curve
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_CLEAR.get();
+    	try {
+    		 method.invokeExact(
+    			curve
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #clear}.
-     */
-    public final void clear(
-    ) {
-        clear(
-            this.segment
-        );
+    /// Typed method of [#clear].
+    public final void clear() {
+    	clear(
+    		this.segment
+    	);
     }
+    
     
     public static void reserve(
-        MemorySegment curve, 
-        int numPoints
+    	MemorySegment curve,
+    	int numPoints
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_RESERVE.get();
-        try {
-            method.invokeExact(
-                curve, 
-                numPoints
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_RESERVE.get();
+    	try {
+    		 method.invokeExact(
+    			curve,
+    			numPoints
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #reserve}.
-     */
+    /// Typed method of [#reserve].
     public final void reserve(
-        int numPoints
+    	int numPoints
     ) {
-        reserve(
-            this.segment, 
-            numPoints
-        );
+    	reserve(
+    		this.segment,
+    		numPoints
+    	);
     }
+    
     
     public static void addPoint(
-        MemorySegment curve, 
-        float x, 
-        float y
+    	MemorySegment curve,
+    	float x,
+    	float y
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_ADD_POINT.get();
-        try {
-            method.invokeExact(
-                curve, 
-                x, 
-                y
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_ADD_POINT.get();
+    	try {
+    		 method.invokeExact(
+    			curve,
+    			x,
+    			y
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #addPoint}.
-     */
+    /// Typed method of [#addPoint].
     public final void addPoint(
-        float x, 
-        float y
+    	float x,
+    	float y
     ) {
-        addPoint(
-            this.segment, 
-            x, 
-            y
-        );
+    	addPoint(
+    		this.segment,
+    		x,
+    		y
+    	);
     }
+    
     
     public static void sort(
-        MemorySegment curve
+    	MemorySegment curve
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_SORT.get();
-        try {
-            method.invokeExact(
-                curve
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_SORT.get();
+    	try {
+    		 method.invokeExact(
+    			curve
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #sort}.
-     */
-    public final void sort(
-    ) {
-        sort(
-            this.segment
-        );
+    /// Typed method of [#sort].
+    public final void sort() {
+    	sort(
+    		this.segment
+    	);
     }
+    
     
     public static float getMinX(
-        MemorySegment curve
+    	MemorySegment curve
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_GET_MIN_X.get();
-        try {
-            return (float) method.invokeExact(
-                curve
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_GET_MIN_X.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			curve
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMinX}.
-     */
-    public final float getMinX(
-    ) {
-        return (float) getMinX(
-            this.segment
-        );
+    /// Typed method of [#getMinX].
+    public final float getMinX() {
+    	return (float) getMinX(
+    		this.segment
+    	);
     }
+    
     
     public static float getMaxX(
-        MemorySegment curve
+    	MemorySegment curve
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_GET_MAX_X.get();
-        try {
-            return (float) method.invokeExact(
-                curve
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_GET_MAX_X.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			curve
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxX}.
-     */
-    public final float getMaxX(
-    ) {
-        return (float) getMaxX(
-            this.segment
-        );
+    /// Typed method of [#getMaxX].
+    public final float getMaxX() {
+    	return (float) getMaxX(
+    		this.segment
+    	);
     }
+    
     
     public static float getValue(
-        MemorySegment curve, 
-        float x
+    	MemorySegment curve,
+    	float x
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_GET_VALUE.get();
-        try {
-            return (float) method.invokeExact(
-                curve, 
-                x
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_GET_VALUE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			curve,
+    			x
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getValue}.
-     */
+    /// Typed method of [#getValue].
     public final float getValue(
-        float x
+    	float x
     ) {
-        return (float) getValue(
-            this.segment, 
-            x
-        );
+    	return (float) getValue(
+    		this.segment,
+    		x
+    	);
     }
+    
     
     public static int getPointCount(
-        MemorySegment curve
+    	MemorySegment curve
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_GET_POINT_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                curve
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_GET_POINT_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			curve
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPointCount}.
-     */
-    public final int getPointCount(
-    ) {
-        return (int) getPointCount(
-            this.segment
-        );
+    /// Typed method of [#getPointCount].
+    public final int getPointCount() {
+    	return (int) getPointCount(
+    		this.segment
+    	);
     }
+    
     
     public static void getPoint(
-        MemorySegment curve, 
-        int index, 
-        MemorySegment result
+    	MemorySegment curve,
+    	int index,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_GET_POINT.get();
-        try {
-            method.invokeExact(
-                curve, 
-                index, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_GET_POINT.get();
+    	try {
+    		 method.invokeExact(
+    			curve,
+    			index,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPoint}.
-     */
+    /// Typed method of [#getPoint].
     public final void getPoint(
-        int index, 
-        Point result
+    	int index,
+    	Point result
     ) {
-        getPoint(
-            this.segment, 
-            index, 
-            result.memorySegment()
-        );
+    	getPoint(
+    		this.segment,
+    		index,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getPoints(
-        MemorySegment curve, 
-        MemorySegment points, 
-        MemorySegment count
+    	MemorySegment curve,
+    	MemorySegment points,
+    	MemorySegment count
     ) {
-        MethodHandle method = JPH_LINEAR_CURVE_GET_POINTS.get();
-        try {
-            method.invokeExact(
-                curve, 
-                points, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_LINEAR_CURVE_GET_POINTS.get();
+    	try {
+    		 method.invokeExact(
+    			curve,
+    			points,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPoints}.
-     */
+    /// Typed method of [#getPoints].
     public final void getPoints(
-        NativeStructArray<Point> points, 
-        NativeIntArray count
+    	NativeStructArray<Point> points,
+    	NativeIntArray count
     ) {
-        getPoints(
-            this.segment, 
-            points.memorySegment(), 
-            count.memorySegment()
-        );
+    	getPoints(
+    		this.segment,
+    		points.memorySegment(),
+    		count.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

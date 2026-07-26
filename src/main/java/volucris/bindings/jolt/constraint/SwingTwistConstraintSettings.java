@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SwingTwistConstraintSettings
 		implements Struct<SwingTwistConstraintSettings> {
 
@@ -139,216 +136,239 @@ public final class SwingTwistConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #space()
     public SwingTwistConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #swingType()
     public SwingTwistConstraintSettings swingType(int swingType) {
-        SWING_TYPE_HANDLE.set(segment, 0L, swingType);
-        return this;
+    	SWING_TYPE_HANDLE.set(segment, 0L, swingType);
+    	return this;
     }
     
     public int swingType() {
-        return (int) SWING_TYPE_HANDLE.get(segment, 0L);
+    	return (int) SWING_TYPE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #normalHalfConeAngle()
     public SwingTwistConstraintSettings normalHalfConeAngle(float normalHalfConeAngle) {
-        NORMAL_HALF_CONE_ANGLE_HANDLE.set(segment, 0L, normalHalfConeAngle);
-        return this;
+    	NORMAL_HALF_CONE_ANGLE_HANDLE.set(segment, 0L, normalHalfConeAngle);
+    	return this;
     }
     
     public float normalHalfConeAngle() {
-        return (float) NORMAL_HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) NORMAL_HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #planeHalfConeAngle()
     public SwingTwistConstraintSettings planeHalfConeAngle(float planeHalfConeAngle) {
-        PLANE_HALF_CONE_ANGLE_HANDLE.set(segment, 0L, planeHalfConeAngle);
-        return this;
+    	PLANE_HALF_CONE_ANGLE_HANDLE.set(segment, 0L, planeHalfConeAngle);
+    	return this;
     }
     
     public float planeHalfConeAngle() {
-        return (float) PLANE_HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) PLANE_HALF_CONE_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #twistMinAngle()
     public SwingTwistConstraintSettings twistMinAngle(float twistMinAngle) {
-        TWIST_MIN_ANGLE_HANDLE.set(segment, 0L, twistMinAngle);
-        return this;
+    	TWIST_MIN_ANGLE_HANDLE.set(segment, 0L, twistMinAngle);
+    	return this;
     }
     
     public float twistMinAngle() {
-        return (float) TWIST_MIN_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) TWIST_MIN_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #twistMaxAngle()
     public SwingTwistConstraintSettings twistMaxAngle(float twistMaxAngle) {
-        TWIST_MAX_ANGLE_HANDLE.set(segment, 0L, twistMaxAngle);
-        return this;
+    	TWIST_MAX_ANGLE_HANDLE.set(segment, 0L, twistMaxAngle);
+    	return this;
     }
     
     public float twistMaxAngle() {
-        return (float) TWIST_MAX_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) TWIST_MAX_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxFrictionTorque()
     public SwingTwistConstraintSettings maxFrictionTorque(float maxFrictionTorque) {
-        MAX_FRICTION_TORQUE_HANDLE.set(segment, 0L, maxFrictionTorque);
-        return this;
+    	MAX_FRICTION_TORQUE_HANDLE.set(segment, 0L, maxFrictionTorque);
+    	return this;
     }
     
     public float maxFrictionTorque() {
-        return (float) MAX_FRICTION_TORQUE_HANDLE.get(segment, 0L);
+    	return (float) MAX_FRICTION_TORQUE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public SwingTwistConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public SwingTwistConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #position1()
     public SwingTwistConstraintSettings position1(Consumer<Vec3> consumer) {
-        consumer.accept(position1);
-        return this;
+    	consumer.accept(position1);
+    	return this;
     }
     
+    /// @see #position1()
     public SwingTwistConstraintSettings position1(Vec3 other) {
-        position1.set(other);
-        return this;
+    	position1.set(other);
+    	return this;
     }
     
     public Vec3 position1() {
-        return position1;
+    	return position1;
     }
     
+    /// @see #twistAxis1()
     public SwingTwistConstraintSettings twistAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(twistAxis1);
-        return this;
+    	consumer.accept(twistAxis1);
+    	return this;
     }
     
+    /// @see #twistAxis1()
     public SwingTwistConstraintSettings twistAxis1(Vec3 other) {
-        twistAxis1.set(other);
-        return this;
+    	twistAxis1.set(other);
+    	return this;
     }
     
     public Vec3 twistAxis1() {
-        return twistAxis1;
+    	return twistAxis1;
     }
     
+    /// @see #planeAxis1()
     public SwingTwistConstraintSettings planeAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(planeAxis1);
-        return this;
+    	consumer.accept(planeAxis1);
+    	return this;
     }
     
+    /// @see #planeAxis1()
     public SwingTwistConstraintSettings planeAxis1(Vec3 other) {
-        planeAxis1.set(other);
-        return this;
+    	planeAxis1.set(other);
+    	return this;
     }
     
     public Vec3 planeAxis1() {
-        return planeAxis1;
+    	return planeAxis1;
     }
     
+    /// @see #position2()
     public SwingTwistConstraintSettings position2(Consumer<Vec3> consumer) {
-        consumer.accept(position2);
-        return this;
+    	consumer.accept(position2);
+    	return this;
     }
     
+    /// @see #position2()
     public SwingTwistConstraintSettings position2(Vec3 other) {
-        position2.set(other);
-        return this;
+    	position2.set(other);
+    	return this;
     }
     
     public Vec3 position2() {
-        return position2;
+    	return position2;
     }
     
+    /// @see #twistAxis2()
     public SwingTwistConstraintSettings twistAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(twistAxis2);
-        return this;
+    	consumer.accept(twistAxis2);
+    	return this;
     }
     
+    /// @see #twistAxis2()
     public SwingTwistConstraintSettings twistAxis2(Vec3 other) {
-        twistAxis2.set(other);
-        return this;
+    	twistAxis2.set(other);
+    	return this;
     }
     
     public Vec3 twistAxis2() {
-        return twistAxis2;
+    	return twistAxis2;
     }
     
+    /// @see #planeAxis2()
     public SwingTwistConstraintSettings planeAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(planeAxis2);
-        return this;
+    	consumer.accept(planeAxis2);
+    	return this;
     }
     
+    /// @see #planeAxis2()
     public SwingTwistConstraintSettings planeAxis2(Vec3 other) {
-        planeAxis2.set(other);
-        return this;
+    	planeAxis2.set(other);
+    	return this;
     }
     
     public Vec3 planeAxis2() {
-        return planeAxis2;
+    	return planeAxis2;
     }
     
+    /// @see #swingMotorSettings()
     public SwingTwistConstraintSettings swingMotorSettings(Consumer<MotorSettings> consumer) {
-        consumer.accept(swingMotorSettings);
-        return this;
+    	consumer.accept(swingMotorSettings);
+    	return this;
     }
     
+    /// @see #swingMotorSettings()
     public SwingTwistConstraintSettings swingMotorSettings(MotorSettings other) {
-        swingMotorSettings.set(other);
-        return this;
+    	swingMotorSettings.set(other);
+    	return this;
     }
     
     public MotorSettings swingMotorSettings() {
-        return swingMotorSettings;
+    	return swingMotorSettings;
     }
     
+    /// @see #twistMotorSettings()
     public SwingTwistConstraintSettings twistMotorSettings(Consumer<MotorSettings> consumer) {
-        consumer.accept(twistMotorSettings);
-        return this;
+    	consumer.accept(twistMotorSettings);
+    	return this;
     }
     
+    /// @see #twistMotorSettings()
     public SwingTwistConstraintSettings twistMotorSettings(MotorSettings other) {
-        twistMotorSettings.set(other);
-        return this;
+    	twistMotorSettings.set(other);
+    	return this;
     }
     
     public MotorSettings twistMotorSettings() {
-        return twistMotorSettings;
+    	return twistMotorSettings;
     }
     
     @Override

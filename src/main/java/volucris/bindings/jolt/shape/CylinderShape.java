@@ -3,18 +3,13 @@
  */
 package volucris.bindings.jolt.shape;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CylinderShape extends ConvexShape {
 
     private static final LazyConstant<MethodHandle> JPH_CYLINDER_SHAPE_CREATE;
@@ -32,94 +27,95 @@ public final class CylinderShape extends ConvexShape {
     }
 
     public CylinderShape(
-        float halfHeight, 
+        float halfHeight,
         float radius
     ) {
         this(
             Arena.ofAuto(),
-            halfHeight, 
+            halfHeight,
             radius
         );
     }
     
+    /// Typed method of [#create].
     public CylinderShape(
-        Arena arena,
-        float halfHeight, 
-        float radius
+    	Arena arena,
+    	float halfHeight,
+    	float radius
     ) {
-         MemorySegment segment = create(
-            halfHeight, 
-            radius
-         );
+    	MemorySegment segment = create(
+    		halfHeight,
+    		radius
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public CylinderShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        float halfHeight, 
-        float radius
+    	float halfHeight,
+    	float radius
     ) {
-        MethodHandle method = JPH_CYLINDER_SHAPE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                halfHeight, 
-                radius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CYLINDER_SHAPE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			halfHeight,
+    			radius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static float getRadius(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_CYLINDER_SHAPE_GET_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CYLINDER_SHAPE_GET_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRadius}.
-     */
-    public final float getRadius(
-    ) {
-        return (float) getRadius(
-            this.segment
-        );
+    /// Typed method of [#getRadius].
+    public final float getRadius() {
+    	return (float) getRadius(
+    		this.segment
+    	);
     }
+    
     
     public static float getHalfHeight(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_CYLINDER_SHAPE_GET_HALF_HEIGHT.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CYLINDER_SHAPE_GET_HALF_HEIGHT.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getHalfHeight}.
-     */
-    public final float getHalfHeight(
-    ) {
-        return (float) getHalfHeight(
-            this.segment
-        );
+    /// Typed method of [#getHalfHeight].
+    public final float getHalfHeight() {
+    	return (float) getHalfHeight(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

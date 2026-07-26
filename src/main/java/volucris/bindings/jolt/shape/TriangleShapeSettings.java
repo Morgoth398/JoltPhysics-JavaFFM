@@ -12,9 +12,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class TriangleShapeSettings extends ConvexShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_TRIANGLE_SHAPE_SETTINGS_CREATE;
@@ -30,88 +27,91 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
     }
 
     public TriangleShapeSettings(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 v3, 
+        Vec3 v1,
+        Vec3 v2,
+        Vec3 v3,
         float convexRadius
     ) {
         this(
             Arena.ofAuto(),
-            v1, 
-            v2, 
-            v3, 
+            v1,
+            v2,
+            v3,
             convexRadius
         );
     }
     
+    /// Typed method of [#create].
     public TriangleShapeSettings(
-        Arena arena,
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 v3, 
-        float convexRadius
+    	Arena arena,
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 v3,
+    	float convexRadius
     ) {
-         MemorySegment segment = create(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            v3.memorySegment(), 
-            convexRadius
-         );
+    	MemorySegment segment = create(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		v3.memorySegment(),
+    		convexRadius
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public TriangleShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment v3, 
-        float convexRadius
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment v3,
+    	float convexRadius
     ) {
-        MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                v1, 
-                v2, 
-                v3, 
-                convexRadius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			v1,
+    			v2,
+    			v3,
+    			convexRadius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable TriangleShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable TriangleShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new TriangleShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new TriangleShape(segment);
     }
     
     public MemorySegment memorySegment() {

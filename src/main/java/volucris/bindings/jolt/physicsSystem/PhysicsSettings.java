@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class PhysicsSettings
 		implements Struct<PhysicsSettings> {
 
@@ -178,238 +175,264 @@ public final class PhysicsSettings
     
     }
 
+    /// @see #maxInFlightBodyPairs()
     public PhysicsSettings maxInFlightBodyPairs(int maxInFlightBodyPairs) {
-        MAX_IN_FLIGHT_BODY_PAIRS_HANDLE.set(segment, 0L, maxInFlightBodyPairs);
-        return this;
+    	MAX_IN_FLIGHT_BODY_PAIRS_HANDLE.set(segment, 0L, maxInFlightBodyPairs);
+    	return this;
     }
     
     public int maxInFlightBodyPairs() {
-        return (int) MAX_IN_FLIGHT_BODY_PAIRS_HANDLE.get(segment, 0L);
+    	return (int) MAX_IN_FLIGHT_BODY_PAIRS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #stepListenersBatchSize()
     public PhysicsSettings stepListenersBatchSize(int stepListenersBatchSize) {
-        STEP_LISTENERS_BATCH_SIZE_HANDLE.set(segment, 0L, stepListenersBatchSize);
-        return this;
+    	STEP_LISTENERS_BATCH_SIZE_HANDLE.set(segment, 0L, stepListenersBatchSize);
+    	return this;
     }
     
     public int stepListenersBatchSize() {
-        return (int) STEP_LISTENERS_BATCH_SIZE_HANDLE.get(segment, 0L);
+    	return (int) STEP_LISTENERS_BATCH_SIZE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #stepListenerBatchesPerJob()
     public PhysicsSettings stepListenerBatchesPerJob(int stepListenerBatchesPerJob) {
-        STEP_LISTENER_BATCHES_PER_JOB_HANDLE.set(segment, 0L, stepListenerBatchesPerJob);
-        return this;
+    	STEP_LISTENER_BATCHES_PER_JOB_HANDLE.set(segment, 0L, stepListenerBatchesPerJob);
+    	return this;
     }
     
     public int stepListenerBatchesPerJob() {
-        return (int) STEP_LISTENER_BATCHES_PER_JOB_HANDLE.get(segment, 0L);
+    	return (int) STEP_LISTENER_BATCHES_PER_JOB_HANDLE.get(segment, 0L);
     }
     
+    /// @see #baumgarte()
     public PhysicsSettings baumgarte(float baumgarte) {
-        BAUMGARTE_HANDLE.set(segment, 0L, baumgarte);
-        return this;
+    	BAUMGARTE_HANDLE.set(segment, 0L, baumgarte);
+    	return this;
     }
     
     public float baumgarte() {
-        return (float) BAUMGARTE_HANDLE.get(segment, 0L);
+    	return (float) BAUMGARTE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #speculativeContactDistance()
     public PhysicsSettings speculativeContactDistance(float speculativeContactDistance) {
-        SPECULATIVE_CONTACT_DISTANCE_HANDLE.set(segment, 0L, speculativeContactDistance);
-        return this;
+    	SPECULATIVE_CONTACT_DISTANCE_HANDLE.set(segment, 0L, speculativeContactDistance);
+    	return this;
     }
     
     public float speculativeContactDistance() {
-        return (float) SPECULATIVE_CONTACT_DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) SPECULATIVE_CONTACT_DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #penetrationSlop()
     public PhysicsSettings penetrationSlop(float penetrationSlop) {
-        PENETRATION_SLOP_HANDLE.set(segment, 0L, penetrationSlop);
-        return this;
+    	PENETRATION_SLOP_HANDLE.set(segment, 0L, penetrationSlop);
+    	return this;
     }
     
     public float penetrationSlop() {
-        return (float) PENETRATION_SLOP_HANDLE.get(segment, 0L);
+    	return (float) PENETRATION_SLOP_HANDLE.get(segment, 0L);
     }
     
+    /// @see #linearCastThreshold()
     public PhysicsSettings linearCastThreshold(float linearCastThreshold) {
-        LINEAR_CAST_THRESHOLD_HANDLE.set(segment, 0L, linearCastThreshold);
-        return this;
+    	LINEAR_CAST_THRESHOLD_HANDLE.set(segment, 0L, linearCastThreshold);
+    	return this;
     }
     
     public float linearCastThreshold() {
-        return (float) LINEAR_CAST_THRESHOLD_HANDLE.get(segment, 0L);
+    	return (float) LINEAR_CAST_THRESHOLD_HANDLE.get(segment, 0L);
     }
     
+    /// @see #linearCastMaxPenetration()
     public PhysicsSettings linearCastMaxPenetration(float linearCastMaxPenetration) {
-        LINEAR_CAST_MAX_PENETRATION_HANDLE.set(segment, 0L, linearCastMaxPenetration);
-        return this;
+    	LINEAR_CAST_MAX_PENETRATION_HANDLE.set(segment, 0L, linearCastMaxPenetration);
+    	return this;
     }
     
     public float linearCastMaxPenetration() {
-        return (float) LINEAR_CAST_MAX_PENETRATION_HANDLE.get(segment, 0L);
+    	return (float) LINEAR_CAST_MAX_PENETRATION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #manifoldTolerance()
     public PhysicsSettings manifoldTolerance(float manifoldTolerance) {
-        MANIFOLD_TOLERANCE_HANDLE.set(segment, 0L, manifoldTolerance);
-        return this;
+    	MANIFOLD_TOLERANCE_HANDLE.set(segment, 0L, manifoldTolerance);
+    	return this;
     }
     
     public float manifoldTolerance() {
-        return (float) MANIFOLD_TOLERANCE_HANDLE.get(segment, 0L);
+    	return (float) MANIFOLD_TOLERANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxPenetrationDistance()
     public PhysicsSettings maxPenetrationDistance(float maxPenetrationDistance) {
-        MAX_PENETRATION_DISTANCE_HANDLE.set(segment, 0L, maxPenetrationDistance);
-        return this;
+    	MAX_PENETRATION_DISTANCE_HANDLE.set(segment, 0L, maxPenetrationDistance);
+    	return this;
     }
     
     public float maxPenetrationDistance() {
-        return (float) MAX_PENETRATION_DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) MAX_PENETRATION_DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #bodyPairCacheMaxDeltaPositionSq()
     public PhysicsSettings bodyPairCacheMaxDeltaPositionSq(float bodyPairCacheMaxDeltaPositionSq) {
-        BODY_PAIR_CACHE_MAX_DELTA_POSITION_SQ_HANDLE.set(segment, 0L, bodyPairCacheMaxDeltaPositionSq);
-        return this;
+    	BODY_PAIR_CACHE_MAX_DELTA_POSITION_SQ_HANDLE.set(segment, 0L, bodyPairCacheMaxDeltaPositionSq);
+    	return this;
     }
     
     public float bodyPairCacheMaxDeltaPositionSq() {
-        return (float) BODY_PAIR_CACHE_MAX_DELTA_POSITION_SQ_HANDLE.get(segment, 0L);
+    	return (float) BODY_PAIR_CACHE_MAX_DELTA_POSITION_SQ_HANDLE.get(segment, 0L);
     }
     
+    /// @see #bodyPairCacheCosMaxDeltaRotationDiv2()
     public PhysicsSettings bodyPairCacheCosMaxDeltaRotationDiv2(float bodyPairCacheCosMaxDeltaRotationDiv2) {
-        BODY_PAIR_CACHE_COS_MAX_DELTA_ROTATION_DIV2_HANDLE.set(segment, 0L, bodyPairCacheCosMaxDeltaRotationDiv2);
-        return this;
+    	BODY_PAIR_CACHE_COS_MAX_DELTA_ROTATION_DIV2_HANDLE.set(segment, 0L, bodyPairCacheCosMaxDeltaRotationDiv2);
+    	return this;
     }
     
     public float bodyPairCacheCosMaxDeltaRotationDiv2() {
-        return (float) BODY_PAIR_CACHE_COS_MAX_DELTA_ROTATION_DIV2_HANDLE.get(segment, 0L);
+    	return (float) BODY_PAIR_CACHE_COS_MAX_DELTA_ROTATION_DIV2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #contactNormalCosMaxDeltaRotation()
     public PhysicsSettings contactNormalCosMaxDeltaRotation(float contactNormalCosMaxDeltaRotation) {
-        CONTACT_NORMAL_COS_MAX_DELTA_ROTATION_HANDLE.set(segment, 0L, contactNormalCosMaxDeltaRotation);
-        return this;
+    	CONTACT_NORMAL_COS_MAX_DELTA_ROTATION_HANDLE.set(segment, 0L, contactNormalCosMaxDeltaRotation);
+    	return this;
     }
     
     public float contactNormalCosMaxDeltaRotation() {
-        return (float) CONTACT_NORMAL_COS_MAX_DELTA_ROTATION_HANDLE.get(segment, 0L);
+    	return (float) CONTACT_NORMAL_COS_MAX_DELTA_ROTATION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #contactPointPreserveLambdaMaxDistSq()
     public PhysicsSettings contactPointPreserveLambdaMaxDistSq(float contactPointPreserveLambdaMaxDistSq) {
-        CONTACT_POINT_PRESERVE_LAMBDA_MAX_DIST_SQ_HANDLE.set(segment, 0L, contactPointPreserveLambdaMaxDistSq);
-        return this;
+    	CONTACT_POINT_PRESERVE_LAMBDA_MAX_DIST_SQ_HANDLE.set(segment, 0L, contactPointPreserveLambdaMaxDistSq);
+    	return this;
     }
     
     public float contactPointPreserveLambdaMaxDistSq() {
-        return (float) CONTACT_POINT_PRESERVE_LAMBDA_MAX_DIST_SQ_HANDLE.get(segment, 0L);
+    	return (float) CONTACT_POINT_PRESERVE_LAMBDA_MAX_DIST_SQ_HANDLE.get(segment, 0L);
     }
     
+    /// @see #numVelocitySteps()
     public PhysicsSettings numVelocitySteps(int numVelocitySteps) {
-        NUM_VELOCITY_STEPS_HANDLE.set(segment, 0L, numVelocitySteps);
-        return this;
+    	NUM_VELOCITY_STEPS_HANDLE.set(segment, 0L, numVelocitySteps);
+    	return this;
     }
     
     public int numVelocitySteps() {
-        return (int) NUM_VELOCITY_STEPS_HANDLE.get(segment, 0L);
+    	return (int) NUM_VELOCITY_STEPS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #numPositionSteps()
     public PhysicsSettings numPositionSteps(int numPositionSteps) {
-        NUM_POSITION_STEPS_HANDLE.set(segment, 0L, numPositionSteps);
-        return this;
+    	NUM_POSITION_STEPS_HANDLE.set(segment, 0L, numPositionSteps);
+    	return this;
     }
     
     public int numPositionSteps() {
-        return (int) NUM_POSITION_STEPS_HANDLE.get(segment, 0L);
+    	return (int) NUM_POSITION_STEPS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #minVelocityForRestitution()
     public PhysicsSettings minVelocityForRestitution(float minVelocityForRestitution) {
-        MIN_VELOCITY_FOR_RESTITUTION_HANDLE.set(segment, 0L, minVelocityForRestitution);
-        return this;
+    	MIN_VELOCITY_FOR_RESTITUTION_HANDLE.set(segment, 0L, minVelocityForRestitution);
+    	return this;
     }
     
     public float minVelocityForRestitution() {
-        return (float) MIN_VELOCITY_FOR_RESTITUTION_HANDLE.get(segment, 0L);
+    	return (float) MIN_VELOCITY_FOR_RESTITUTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #timeBeforeSleep()
     public PhysicsSettings timeBeforeSleep(float timeBeforeSleep) {
-        TIME_BEFORE_SLEEP_HANDLE.set(segment, 0L, timeBeforeSleep);
-        return this;
+    	TIME_BEFORE_SLEEP_HANDLE.set(segment, 0L, timeBeforeSleep);
+    	return this;
     }
     
     public float timeBeforeSleep() {
-        return (float) TIME_BEFORE_SLEEP_HANDLE.get(segment, 0L);
+    	return (float) TIME_BEFORE_SLEEP_HANDLE.get(segment, 0L);
     }
     
+    /// @see #pointVelocitySleepThreshold()
     public PhysicsSettings pointVelocitySleepThreshold(float pointVelocitySleepThreshold) {
-        POINT_VELOCITY_SLEEP_THRESHOLD_HANDLE.set(segment, 0L, pointVelocitySleepThreshold);
-        return this;
+    	POINT_VELOCITY_SLEEP_THRESHOLD_HANDLE.set(segment, 0L, pointVelocitySleepThreshold);
+    	return this;
     }
     
     public float pointVelocitySleepThreshold() {
-        return (float) POINT_VELOCITY_SLEEP_THRESHOLD_HANDLE.get(segment, 0L);
+    	return (float) POINT_VELOCITY_SLEEP_THRESHOLD_HANDLE.get(segment, 0L);
     }
     
+    /// @see #deterministicSimulation()
     public PhysicsSettings deterministicSimulation(boolean deterministicSimulation) {
-        DETERMINISTIC_SIMULATION_HANDLE.set(segment, 0L, deterministicSimulation);
-        return this;
+    	DETERMINISTIC_SIMULATION_HANDLE.set(segment, 0L, deterministicSimulation);
+    	return this;
     }
     
     public boolean deterministicSimulation() {
-        return (boolean) DETERMINISTIC_SIMULATION_HANDLE.get(segment, 0L);
+    	return (boolean) DETERMINISTIC_SIMULATION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #constraintWarmStart()
     public PhysicsSettings constraintWarmStart(boolean constraintWarmStart) {
-        CONSTRAINT_WARM_START_HANDLE.set(segment, 0L, constraintWarmStart);
-        return this;
+    	CONSTRAINT_WARM_START_HANDLE.set(segment, 0L, constraintWarmStart);
+    	return this;
     }
     
     public boolean constraintWarmStart() {
-        return (boolean) CONSTRAINT_WARM_START_HANDLE.get(segment, 0L);
+    	return (boolean) CONSTRAINT_WARM_START_HANDLE.get(segment, 0L);
     }
     
+    /// @see #useBodyPairContactCache()
     public PhysicsSettings useBodyPairContactCache(boolean useBodyPairContactCache) {
-        USE_BODY_PAIR_CONTACT_CACHE_HANDLE.set(segment, 0L, useBodyPairContactCache);
-        return this;
+    	USE_BODY_PAIR_CONTACT_CACHE_HANDLE.set(segment, 0L, useBodyPairContactCache);
+    	return this;
     }
     
     public boolean useBodyPairContactCache() {
-        return (boolean) USE_BODY_PAIR_CONTACT_CACHE_HANDLE.get(segment, 0L);
+    	return (boolean) USE_BODY_PAIR_CONTACT_CACHE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #useManifoldReduction()
     public PhysicsSettings useManifoldReduction(boolean useManifoldReduction) {
-        USE_MANIFOLD_REDUCTION_HANDLE.set(segment, 0L, useManifoldReduction);
-        return this;
+    	USE_MANIFOLD_REDUCTION_HANDLE.set(segment, 0L, useManifoldReduction);
+    	return this;
     }
     
     public boolean useManifoldReduction() {
-        return (boolean) USE_MANIFOLD_REDUCTION_HANDLE.get(segment, 0L);
+    	return (boolean) USE_MANIFOLD_REDUCTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #useLargeIslandSplitter()
     public PhysicsSettings useLargeIslandSplitter(boolean useLargeIslandSplitter) {
-        USE_LARGE_ISLAND_SPLITTER_HANDLE.set(segment, 0L, useLargeIslandSplitter);
-        return this;
+    	USE_LARGE_ISLAND_SPLITTER_HANDLE.set(segment, 0L, useLargeIslandSplitter);
+    	return this;
     }
     
     public boolean useLargeIslandSplitter() {
-        return (boolean) USE_LARGE_ISLAND_SPLITTER_HANDLE.get(segment, 0L);
+    	return (boolean) USE_LARGE_ISLAND_SPLITTER_HANDLE.get(segment, 0L);
     }
     
+    /// @see #allowSleeping()
     public PhysicsSettings allowSleeping(boolean allowSleeping) {
-        ALLOW_SLEEPING_HANDLE.set(segment, 0L, allowSleeping);
-        return this;
+    	ALLOW_SLEEPING_HANDLE.set(segment, 0L, allowSleeping);
+    	return this;
     }
     
     public boolean allowSleeping() {
-        return (boolean) ALLOW_SLEEPING_HANDLE.get(segment, 0L);
+    	return (boolean) ALLOW_SLEEPING_HANDLE.get(segment, 0L);
     }
     
+    /// @see #checkActiveEdges()
     public PhysicsSettings checkActiveEdges(boolean checkActiveEdges) {
-        CHECK_ACTIVE_EDGES_HANDLE.set(segment, 0L, checkActiveEdges);
-        return this;
+    	CHECK_ACTIVE_EDGES_HANDLE.set(segment, 0L, checkActiveEdges);
+    	return this;
     }
     
     public boolean checkActiveEdges() {
-        return (boolean) CHECK_ACTIVE_EDGES_HANDLE.get(segment, 0L);
+    	return (boolean) CHECK_ACTIVE_EDGES_HANDLE.get(segment, 0L);
     }
     
     @Override

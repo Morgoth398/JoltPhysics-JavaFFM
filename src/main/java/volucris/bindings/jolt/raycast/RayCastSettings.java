@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class RayCastSettings
 		implements Struct<RayCastSettings> {
 
@@ -63,31 +60,43 @@ public final class RayCastSettings
     
     }
 
+    /// @see #backFaceModeTriangles()
     public RayCastSettings backFaceModeTriangles(int backFaceModeTriangles) {
-        BACK_FACE_MODE_TRIANGLES_HANDLE.set(segment, 0L, backFaceModeTriangles);
-        return this;
+    	BACK_FACE_MODE_TRIANGLES_HANDLE.set(segment, 0L, backFaceModeTriangles);
+    	return this;
     }
     
+    /// ```
+    /// How backfacing triangles should be treated (should we report back facing hits for triangle based shapes, e.g. MeshShape/HeightFieldShape?)
+    /// ```
     public int backFaceModeTriangles() {
-        return (int) BACK_FACE_MODE_TRIANGLES_HANDLE.get(segment, 0L);
+    	return (int) BACK_FACE_MODE_TRIANGLES_HANDLE.get(segment, 0L);
     }
     
+    /// @see #backFaceModeConvex()
     public RayCastSettings backFaceModeConvex(int backFaceModeConvex) {
-        BACK_FACE_MODE_CONVEX_HANDLE.set(segment, 0L, backFaceModeConvex);
-        return this;
+    	BACK_FACE_MODE_CONVEX_HANDLE.set(segment, 0L, backFaceModeConvex);
+    	return this;
     }
     
+    /// ```
+    /// How backfacing convex objects should be treated (should we report back facing hits for convex shapes?)
+    /// ```
     public int backFaceModeConvex() {
-        return (int) BACK_FACE_MODE_CONVEX_HANDLE.get(segment, 0L);
+    	return (int) BACK_FACE_MODE_CONVEX_HANDLE.get(segment, 0L);
     }
     
+    /// @see #treatConvexAsSolid()
     public RayCastSettings treatConvexAsSolid(boolean treatConvexAsSolid) {
-        TREAT_CONVEX_AS_SOLID_HANDLE.set(segment, 0L, treatConvexAsSolid);
-        return this;
+    	TREAT_CONVEX_AS_SOLID_HANDLE.set(segment, 0L, treatConvexAsSolid);
+    	return this;
     }
     
+    /// ```
+    /// If convex shapes should be treated as solid. When true, a ray starting inside a convex shape will generate a hit at fraction 0.
+    /// ```
     public boolean treatConvexAsSolid() {
-        return (boolean) TREAT_CONVEX_AS_SOLID_HANDLE.get(segment, 0L);
+    	return (boolean) TREAT_CONVEX_AS_SOLID_HANDLE.get(segment, 0L);
     }
     
     @Override

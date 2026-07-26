@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.character;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -50,8 +49,8 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("collideCharacter"), 
-            UNBOUNDED_ADDRESS.withName("castCharacter")
+            UNBOUNDED_ADDRESS.withName("CollideCharacter"),
+            UNBOUNDED_ADDRESS.withName("CastCharacter")
         ).withName("JPH_CharacterVsCharacterCollision_Procs").withByteAlignment(8);
 
         JPH_CHARACTER_VS_CHARACTER_COLLISION_SET_PROCS = downcallHandleVoid("JPH_CharacterVsCharacterCollision_SetProcs", UNBOUNDED_ADDRESS);
@@ -63,14 +62,14 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             COLLIDE_CHARACTER_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -78,14 +77,14 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
 
             COLLIDE_CHARACTER_ADDRESS = linker.upcallStub(COLLIDE_CHARACTER_HANDLE, COLLIDE_CHARACTER_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("collideCharacter")), COLLIDE_CHARACTER_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("CollideCharacter")), COLLIDE_CHARACTER_ADDRESS);
             
             CAST_CHARACTER_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -93,7 +92,7 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
 
             CAST_CHARACTER_ADDRESS = linker.upcallStub(CAST_CHARACTER_HANDLE, CAST_CHARACTER_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("castCharacter")), CAST_CHARACTER_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("CastCharacter")), CAST_CHARACTER_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -114,54 +113,55 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment listener
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_DESTROY.get();
-        try {
-            method.invokeExact(
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #destroy}.
-     */
+    /// Typed method of [#destroy].
     public final void destroy(
-        CharacterVsCharacterCollision listener
+    	CharacterVsCharacterCollision listener
     ) {
-        destroy(
-            listener.memorySegment()
-        );
+    	destroy(
+    		listener.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {
@@ -187,30 +187,29 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
     }
 
     public void collideCharacter(
-        MemorySegment character, 
-        MemorySegment centerOfMassTransform, 
-        MemorySegment collideShapeSettings, 
+        MemorySegment character,
+        MemorySegment centerOfMassTransform,
+        MemorySegment collideShapeSettings,
         MemorySegment baseOffset
     ) {
         collideCharacter(
-            new CharacterVirtual(character), 
-            new Mat4(centerOfMassTransform), 
-            new CollideShapeSettings(collideShapeSettings), 
+            new CharacterVirtual(character),
+            new Mat4(centerOfMassTransform),
+            new CollideShapeSettings(collideShapeSettings),
             new Vec3(baseOffset)
         );
     }
 
     public void collideCharacter(
-        CharacterVirtual character, 
-        Mat4 centerOfMassTransform, 
-        CollideShapeSettings collideShapeSettings, 
+        CharacterVirtual character,
+        Mat4 centerOfMassTransform,
+        CollideShapeSettings collideShapeSettings,
         Vec3 baseOffset
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for collideCharacter."
+            "Override either the typed or raw callback method in CharacterVsCharacterCollisionListener."
         );
-    }
-
+    };
 
     public static void castCharacter(
         MemorySegment userData, 
@@ -232,32 +231,31 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
     }
 
     public void castCharacter(
-        MemorySegment character, 
-        MemorySegment centerOfMassTransform, 
-        MemorySegment direction, 
-        MemorySegment shapeCastSettings, 
+        MemorySegment character,
+        MemorySegment centerOfMassTransform,
+        MemorySegment direction,
+        MemorySegment shapeCastSettings,
         MemorySegment baseOffset
     ) {
         castCharacter(
-            new CharacterVirtual(character), 
-            new Mat4(centerOfMassTransform), 
-            new Vec3(direction), 
-            new ShapeCastSettings(shapeCastSettings), 
+            new CharacterVirtual(character),
+            new Mat4(centerOfMassTransform),
+            new Vec3(direction),
+            new ShapeCastSettings(shapeCastSettings),
             new Vec3(baseOffset)
         );
     }
 
     public void castCharacter(
-        CharacterVirtual character, 
-        Mat4 centerOfMassTransform, 
-        Vec3 direction, 
-        ShapeCastSettings shapeCastSettings, 
+        CharacterVirtual character,
+        Mat4 centerOfMassTransform,
+        Vec3 direction,
+        ShapeCastSettings shapeCastSettings,
         Vec3 baseOffset
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for castCharacter."
+            "Override either the typed or raw callback method in CharacterVsCharacterCollisionListener."
         );
-    }
-
+    };
 
 }

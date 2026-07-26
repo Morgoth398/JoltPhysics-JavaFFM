@@ -7,14 +7,10 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.LinearCurve;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class WheelWV extends Wheel {
 
     private static final LazyConstant<MethodHandle> JPH_WHEEL_WV_CREATE;
@@ -40,93 +36,95 @@ public final class WheelWV extends Wheel {
         );
     }
     
+    /// Typed method of [#create].
     public WheelWV(
-        Arena arena,
-        WheelSettingsWV settings
+    	Arena arena,
+    	WheelSettingsWV settings
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public WheelWV(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_WV_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_WV_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment getSettings(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_WV_GET_SETTINGS.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_WV_GET_SETTINGS.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
-    public final @Nullable WheelSettingsWV getSettings(
-    ) {
-        MemorySegment segment = getSettings(
-            this.segment
-        );
+    /// Typed method of [#getSettings].
+    public final @Nullable WheelSettingsWV getSettings() {
+    	MemorySegment segment = getSettings(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new WheelSettingsWV(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new WheelSettingsWV(segment);
     }
+    
     
     public static void applyTorque(
-        MemorySegment wheel, 
-        float torque, 
-        float deltaTime
+    	MemorySegment wheel,
+    	float torque,
+    	float deltaTime
     ) {
-        MethodHandle method = JPH_WHEEL_WV_APPLY_TORQUE.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                torque, 
-                deltaTime
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_WV_APPLY_TORQUE.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			torque,
+    			deltaTime
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #applyTorque}.
-     */
+    /// Typed method of [#applyTorque].
     public final void applyTorque(
-        float torque, 
-        float deltaTime
+    	float torque,
+    	float deltaTime
     ) {
-        applyTorque(
-            this.segment, 
-            torque, 
-            deltaTime
-        );
+    	applyTorque(
+    		this.segment,
+    		torque,
+    		deltaTime
+    	);
     }
     
     public MemorySegment memorySegment() {

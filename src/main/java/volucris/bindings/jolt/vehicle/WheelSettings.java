@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.vehicle;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -13,9 +12,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class WheelSettings
 		permits WheelSettingsTV,
 		WheelSettingsWV {
@@ -85,716 +81,691 @@ public sealed class WheelSettings
     }
 
     public WheelSettings() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public WheelSettings(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public WheelSettings(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_WHEEL_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_DESTROY.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getPosition(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_POSITION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPosition}.
-     */
+    /// Typed method of [#getPosition].
     public final void getPosition(
-        Vec3 result
+    	Vec3 result
     ) {
-        getPosition(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getPosition(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setPosition(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_POSITION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPosition}.
-     */
+    /// Typed method of [#setPosition].
     public final void setPosition(
-        Vec3 value
+    	Vec3 value
     ) {
-        setPosition(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setPosition(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getSuspensionForcePoint(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_FORCE_POINT.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_FORCE_POINT.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionForcePoint}.
-     */
+    /// Typed method of [#getSuspensionForcePoint].
     public final void getSuspensionForcePoint(
-        Vec3 result
+    	Vec3 result
     ) {
-        getSuspensionForcePoint(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getSuspensionForcePoint(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setSuspensionForcePoint(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_FORCE_POINT.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_FORCE_POINT.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSuspensionForcePoint}.
-     */
+    /// Typed method of [#setSuspensionForcePoint].
     public final void setSuspensionForcePoint(
-        Vec3 value
+    	Vec3 value
     ) {
-        setSuspensionForcePoint(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setSuspensionForcePoint(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getSuspensionDirection(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_DIRECTION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_DIRECTION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionDirection}.
-     */
+    /// Typed method of [#getSuspensionDirection].
     public final void getSuspensionDirection(
-        Vec3 result
+    	Vec3 result
     ) {
-        getSuspensionDirection(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getSuspensionDirection(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setSuspensionDirection(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_DIRECTION.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_DIRECTION.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSuspensionDirection}.
-     */
+    /// Typed method of [#setSuspensionDirection].
     public final void setSuspensionDirection(
-        Vec3 value
+    	Vec3 value
     ) {
-        setSuspensionDirection(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setSuspensionDirection(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getSteeringAxis(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_STEERING_AXIS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_STEERING_AXIS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSteeringAxis}.
-     */
+    /// Typed method of [#getSteeringAxis].
     public final void getSteeringAxis(
-        Vec3 result
+    	Vec3 result
     ) {
-        getSteeringAxis(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getSteeringAxis(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setSteeringAxis(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_STEERING_AXIS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_STEERING_AXIS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSteeringAxis}.
-     */
+    /// Typed method of [#setSteeringAxis].
     public final void setSteeringAxis(
-        Vec3 value
+    	Vec3 value
     ) {
-        setSteeringAxis(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setSteeringAxis(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getWheelUp(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_WHEEL_UP.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_WHEEL_UP.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheelUp}.
-     */
+    /// Typed method of [#getWheelUp].
     public final void getWheelUp(
-        Vec3 result
+    	Vec3 result
     ) {
-        getWheelUp(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getWheelUp(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setWheelUp(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_WHEEL_UP.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_WHEEL_UP.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setWheelUp}.
-     */
+    /// Typed method of [#setWheelUp].
     public final void setWheelUp(
-        Vec3 value
+    	Vec3 value
     ) {
-        setWheelUp(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setWheelUp(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getWheelForward(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_WHEEL_FORWARD.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_WHEEL_FORWARD.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheelForward}.
-     */
+    /// Typed method of [#getWheelForward].
     public final void getWheelForward(
-        Vec3 result
+    	Vec3 result
     ) {
-        getWheelForward(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getWheelForward(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setWheelForward(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_WHEEL_FORWARD.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_WHEEL_FORWARD.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setWheelForward}.
-     */
+    /// Typed method of [#setWheelForward].
     public final void setWheelForward(
-        Vec3 value
+    	Vec3 value
     ) {
-        setWheelForward(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setWheelForward(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static float getSuspensionMinLength(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MIN_LENGTH.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MIN_LENGTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionMinLength}.
-     */
-    public final float getSuspensionMinLength(
-    ) {
-        return (float) getSuspensionMinLength(
-            this.segment
-        );
+    /// Typed method of [#getSuspensionMinLength].
+    public final float getSuspensionMinLength() {
+    	return (float) getSuspensionMinLength(
+    		this.segment
+    	);
     }
+    
     
     public static void setSuspensionMinLength(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_MIN_LENGTH.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_MIN_LENGTH.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSuspensionMinLength}.
-     */
+    /// Typed method of [#setSuspensionMinLength].
     public final void setSuspensionMinLength(
-        float value
+    	float value
     ) {
-        setSuspensionMinLength(
-            this.segment, 
-            value
-        );
+    	setSuspensionMinLength(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getSuspensionMaxLength(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MAX_LENGTH.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MAX_LENGTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionMaxLength}.
-     */
-    public final float getSuspensionMaxLength(
-    ) {
-        return (float) getSuspensionMaxLength(
-            this.segment
-        );
+    /// Typed method of [#getSuspensionMaxLength].
+    public final float getSuspensionMaxLength() {
+    	return (float) getSuspensionMaxLength(
+    		this.segment
+    	);
     }
+    
     
     public static void setSuspensionMaxLength(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_MAX_LENGTH.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_MAX_LENGTH.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSuspensionMaxLength}.
-     */
+    /// Typed method of [#setSuspensionMaxLength].
     public final void setSuspensionMaxLength(
-        float value
+    	float value
     ) {
-        setSuspensionMaxLength(
-            this.segment, 
-            value
-        );
+    	setSuspensionMaxLength(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getSuspensionPreloadLength(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_PRELOAD_LENGTH.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_PRELOAD_LENGTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionPreloadLength}.
-     */
-    public final float getSuspensionPreloadLength(
-    ) {
-        return (float) getSuspensionPreloadLength(
-            this.segment
-        );
+    /// Typed method of [#getSuspensionPreloadLength].
+    public final float getSuspensionPreloadLength() {
+    	return (float) getSuspensionPreloadLength(
+    		this.segment
+    	);
     }
+    
     
     public static void setSuspensionPreloadLength(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_PRELOAD_LENGTH.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_PRELOAD_LENGTH.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSuspensionPreloadLength}.
-     */
+    /// Typed method of [#setSuspensionPreloadLength].
     public final void setSuspensionPreloadLength(
-        float value
+    	float value
     ) {
-        setSuspensionPreloadLength(
-            this.segment, 
-            value
-        );
+    	setSuspensionPreloadLength(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static void getSuspensionSpring(
-        MemorySegment settings, 
-        MemorySegment result
+    	MemorySegment settings,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_SPRING.get();
-        try {
-            method.invokeExact(
-                settings, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_SPRING.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionSpring}.
-     */
+    /// Typed method of [#getSuspensionSpring].
     public final void getSuspensionSpring(
-        SpringSettings result
+    	SpringSettings result
     ) {
-        getSuspensionSpring(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getSuspensionSpring(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setSuspensionSpring(
-        MemorySegment settings, 
-        MemorySegment springSettings
+    	MemorySegment settings,
+    	MemorySegment springSettings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_SPRING.get();
-        try {
-            method.invokeExact(
-                settings, 
-                springSettings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_SUSPENSION_SPRING.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			springSettings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSuspensionSpring}.
-     */
+    /// Typed method of [#setSuspensionSpring].
     public final void setSuspensionSpring(
-        SpringSettings springSettings
+    	SpringSettings springSettings
     ) {
-        setSuspensionSpring(
-            this.segment, 
-            springSettings.memorySegment()
-        );
+    	setSuspensionSpring(
+    		this.segment,
+    		springSettings.memorySegment()
+    	);
     }
+    
     
     public static float getRadius(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRadius}.
-     */
-    public final float getRadius(
-    ) {
-        return (float) getRadius(
-            this.segment
-        );
+    /// Typed method of [#getRadius].
+    public final float getRadius() {
+    	return (float) getRadius(
+    		this.segment
+    	);
     }
+    
     
     public static void setRadius(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_RADIUS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_RADIUS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRadius}.
-     */
+    /// Typed method of [#setRadius].
     public final void setRadius(
-        float value
+    	float value
     ) {
-        setRadius(
-            this.segment, 
-            value
-        );
+    	setRadius(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getWidth(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_WIDTH.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_WIDTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWidth}.
-     */
-    public final float getWidth(
-    ) {
-        return (float) getWidth(
-            this.segment
-        );
+    /// Typed method of [#getWidth].
+    public final float getWidth() {
+    	return (float) getWidth(
+    		this.segment
+    	);
     }
+    
     
     public static void setWidth(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_WIDTH.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_WIDTH.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setWidth}.
-     */
+    /// Typed method of [#setWidth].
     public final void setWidth(
-        float value
+    	float value
     ) {
-        setWidth(
-            this.segment, 
-            value
-        );
+    	setWidth(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getEnableSuspensionForcePoint(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_GET_ENABLE_SUSPENSION_FORCE_POINT.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_GET_ENABLE_SUSPENSION_FORCE_POINT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEnableSuspensionForcePoint}.
-     */
-    public final boolean getEnableSuspensionForcePoint(
-    ) {
-        return (boolean) getEnableSuspensionForcePoint(
-            this.segment
-        );
+    /// Typed method of [#getEnableSuspensionForcePoint].
+    public final boolean getEnableSuspensionForcePoint() {
+    	return (boolean) getEnableSuspensionForcePoint(
+    		this.segment
+    	);
     }
+    
     
     public static void setEnableSuspensionForcePoint(
-        MemorySegment settings, 
-        boolean value
+    	MemorySegment settings,
+    	boolean value
     ) {
-        MethodHandle method = JPH_WHEEL_SETTINGS_SET_ENABLE_SUSPENSION_FORCE_POINT.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SETTINGS_SET_ENABLE_SUSPENSION_FORCE_POINT.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setEnableSuspensionForcePoint}.
-     */
+    /// Typed method of [#setEnableSuspensionForcePoint].
     public final void setEnableSuspensionForcePoint(
-        boolean value
+    	boolean value
     ) {
-        setEnableSuspensionForcePoint(
-            this.segment, 
-            value
-        );
+    	setEnableSuspensionForcePoint(
+    		this.segment,
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

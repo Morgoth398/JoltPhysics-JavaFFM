@@ -32,6 +32,6 @@ excluded-function-name-postfixes:
 constructors:
 struct:
   name: JPH_ConstraintSettings
-  template: /constructor/OnlySegmentStructConstructorTemplate.ftl
+  
 native-functions:
 native-function-pointers:

@@ -15,9 +15,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class MeshShapeSettings extends ShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_MESH_SHAPE_SETTINGS_CREATE;
@@ -53,351 +50,345 @@ public final class MeshShapeSettings extends ShapeSettings {
     }
 
     public MeshShapeSettings(
-        NativeStructArray<Triangle> triangles, 
+        NativeStructArray<Triangle> triangles,
         int triangleCount
     ) {
         this(
             Arena.ofAuto(),
-            triangles, 
+            triangles,
             triangleCount
         );
     }
     
+    /// Typed method of [#create].
     public MeshShapeSettings(
-        Arena arena,
-        NativeStructArray<Triangle> triangles, 
-        int triangleCount
+    	Arena arena,
+    	NativeStructArray<Triangle> triangles,
+    	int triangleCount
     ) {
-         MemorySegment segment = create(
-            triangles.memorySegment(), 
-            triangleCount
-         );
+    	MemorySegment segment = create(
+    		triangles.memorySegment(),
+    		triangleCount
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public MeshShapeSettings(
-        NativeStructArray<Vec3> vertices, 
-        int verticesCount, 
-        NativeStructArray<IndexedTriangle> triangles, 
+        NativeStructArray<Vec3> vertices,
+        int verticesCount,
+        NativeStructArray<IndexedTriangle> triangles,
         int triangleCount
     ) {
         this(
             Arena.ofAuto(),
-            vertices, 
-            verticesCount, 
-            triangles, 
+            vertices,
+            verticesCount,
+            triangles,
             triangleCount
         );
     }
     
+    /// Typed method of [#create2].
     public MeshShapeSettings(
-        Arena arena,
-        NativeStructArray<Vec3> vertices, 
-        int verticesCount, 
-        NativeStructArray<IndexedTriangle> triangles, 
-        int triangleCount
+    	Arena arena,
+    	NativeStructArray<Vec3> vertices,
+    	int verticesCount,
+    	NativeStructArray<IndexedTriangle> triangles,
+    	int triangleCount
     ) {
-         MemorySegment segment = create2(
-            vertices.memorySegment(), 
-            verticesCount, 
-            triangles.memorySegment(), 
-            triangleCount
-         );
+    	MemorySegment segment = create2(
+    		vertices.memorySegment(),
+    		verticesCount,
+    		triangles.memorySegment(),
+    		triangleCount
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public MeshShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment triangles, 
-        int triangleCount
+    	MemorySegment triangles,
+    	int triangleCount
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                triangles, 
-                triangleCount
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			triangles,
+    			triangleCount
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create2(
-        MemorySegment vertices, 
-        int verticesCount, 
-        MemorySegment triangles, 
-        int triangleCount
+    	MemorySegment vertices,
+    	int verticesCount,
+    	MemorySegment triangles,
+    	int triangleCount
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE2.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                vertices, 
-                verticesCount, 
-                triangles, 
-                triangleCount
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE2.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			vertices,
+    			verticesCount,
+    			triangles,
+    			triangleCount
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static int getMaxTrianglesPerLeaf(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_MAX_TRIANGLES_PER_LEAF.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_MAX_TRIANGLES_PER_LEAF.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxTrianglesPerLeaf}.
-     */
-    public final int getMaxTrianglesPerLeaf(
-    ) {
-        return (int) getMaxTrianglesPerLeaf(
-            this.segment
-        );
+    /// Typed method of [#getMaxTrianglesPerLeaf].
+    public final int getMaxTrianglesPerLeaf() {
+    	return (int) getMaxTrianglesPerLeaf(
+    		this.segment
+    	);
     }
+    
     
     public static void setMaxTrianglesPerLeaf(
-        MemorySegment settings, 
-        int value
+    	MemorySegment settings,
+    	int value
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_MAX_TRIANGLES_PER_LEAF.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_MAX_TRIANGLES_PER_LEAF.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMaxTrianglesPerLeaf}.
-     */
+    /// Typed method of [#setMaxTrianglesPerLeaf].
     public final void setMaxTrianglesPerLeaf(
-        int value
+    	int value
     ) {
-        setMaxTrianglesPerLeaf(
-            this.segment, 
-            value
-        );
+    	setMaxTrianglesPerLeaf(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getActiveEdgeCosThresholdAngle(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getActiveEdgeCosThresholdAngle}.
-     */
-    public final float getActiveEdgeCosThresholdAngle(
-    ) {
-        return (float) getActiveEdgeCosThresholdAngle(
-            this.segment
-        );
+    /// Typed method of [#getActiveEdgeCosThresholdAngle].
+    public final float getActiveEdgeCosThresholdAngle() {
+    	return (float) getActiveEdgeCosThresholdAngle(
+    		this.segment
+    	);
     }
+    
     
     public static void setActiveEdgeCosThresholdAngle(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setActiveEdgeCosThresholdAngle}.
-     */
+    /// Typed method of [#setActiveEdgeCosThresholdAngle].
     public final void setActiveEdgeCosThresholdAngle(
-        float value
+    	float value
     ) {
-        setActiveEdgeCosThresholdAngle(
-            this.segment, 
-            value
-        );
+    	setActiveEdgeCosThresholdAngle(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getPerTriangleUserData(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_PER_TRIANGLE_USER_DATA.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_PER_TRIANGLE_USER_DATA.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPerTriangleUserData}.
-     */
-    public final boolean getPerTriangleUserData(
-    ) {
-        return (boolean) getPerTriangleUserData(
-            this.segment
-        );
+    /// Typed method of [#getPerTriangleUserData].
+    public final boolean getPerTriangleUserData() {
+    	return (boolean) getPerTriangleUserData(
+    		this.segment
+    	);
     }
+    
     
     public static void setPerTriangleUserData(
-        MemorySegment settings, 
-        boolean value
+    	MemorySegment settings,
+    	boolean value
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_PER_TRIANGLE_USER_DATA.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_PER_TRIANGLE_USER_DATA.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setPerTriangleUserData}.
-     */
+    /// Typed method of [#setPerTriangleUserData].
     public final void setPerTriangleUserData(
-        boolean value
+    	boolean value
     ) {
-        setPerTriangleUserData(
-            this.segment, 
-            value
-        );
+    	setPerTriangleUserData(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static int getBuildQuality(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_BUILD_QUALITY.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_BUILD_QUALITY.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBuildQuality}.
-     */
-    public final int getBuildQuality(
-    ) {
-        return (int) getBuildQuality(
-            this.segment
-        );
+    /// Typed method of [#getBuildQuality].
+    public final int getBuildQuality() {
+    	return (int) getBuildQuality(
+    		this.segment
+    	);
     }
+    
     
     public static void setBuildQuality(
-        MemorySegment settings, 
-        int value
+    	MemorySegment settings,
+    	int value
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_BUILD_QUALITY.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SET_BUILD_QUALITY.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setBuildQuality}.
-     */
+    /// Typed method of [#setBuildQuality].
     public final void setBuildQuality(
-        int value
+    	int value
     ) {
-        setBuildQuality(
-            this.segment, 
-            value
-        );
+    	setBuildQuality(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static void sanitize(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SANITIZE.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_SANITIZE.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #sanitize}.
-     */
-    public final void sanitize(
-    ) {
-        sanitize(
-            this.segment
-        );
+    /// Typed method of [#sanitize].
+    public final void sanitize() {
+    	sanitize(
+    		this.segment
+    	);
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable MeshShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable MeshShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new MeshShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new MeshShape(segment);
     }
     
     public MemorySegment memorySegment() {

@@ -6,49 +6,42 @@
 //import java.nio.file.Path;
 //import java.nio.file.SimpleFileVisitor;
 //import java.nio.file.attribute.BasicFileAttributes;
-//import java.util.ArrayList;
+//import java.util.Collection;
+//import java.util.HashSet;
 //import java.util.List;
 //import java.util.Map;
 //
 //import freemarker.template.Template;
-//import volucris.bindings.generator.config.ClassConfig.NativeFunctionDescription;
 //import volucris.bindings.generator.config.GlobalConfig;
+//import volucris.bindings.generator.config.CallbacksConfig.CallbackConfig;
+//import volucris.bindings.generator.generation.CallbackBuilder;
 //import volucris.bindings.generator.generation.Generator;
 //import volucris.bindings.generator.generation.GeneratorUtils;
-//import volucris.bindings.generator.generation.methods.NativeFunctionMethod;
-//import volucris.bindings.generator.parsing.FunctionPointer;
 //import volucris.bindings.generator.parsing.HeaderFile;
-//import volucris.bindings.generator.parsing.Struct;
-//
-//import static volucris.bindings.generator.generation.GeneratorUtils.*;
+//import volucris.bindings.generator.parsing.NativeRecord;
+//import volucris.bindings.generator.parsing.NativeRecord.FunctionPointerField;
 //
 //public class JoltGenerator {
 //
-//	private static final Template CALLBACK_WITH_PROCS_STRUCT_TEMPLATE;
-//	
-//	static {
-//		try {
-//			CALLBACK_WITH_PROCS_STRUCT_TEMPLATE = Generator.FREE_MARKER_CONFIG
-//					.getTemplate("CallbackWithProcsStructTemplate.ftl");
-//		} catch (Exception e) {
-//			throw new RuntimeException(e.getMessage());
-//		}
-//	}
-//	
 //	public static void main(String[] args) {
 //
 //		HeaderFile headerFile = new HeaderFile("src/main/resources/headers/joltc.h");
 //
 //		Generator generator = new Generator("src/main/resources/globalConfig/globalConfig.yaml", headerFile);
-//		
+//
 //		try {
 //			Files.walkFileTree(Path.of("src/main/resources/classConfigs"), new SimpleFileVisitor<Path>() {
 //				@Override
 //				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 //					String path = file.toString();
-//					
-//					if (path.endsWith(".yaml"))
-//						generator.generate(file.toString());
+//
+//					try {
+//						if (path.endsWith(".yaml"))
+//							generator.generate(file.toString());
+//					} catch (Exception e) {
+//						System.err.println(path);
+//						e.printStackTrace();
+//					}
 //
 //					return FileVisitResult.CONTINUE;
 //				}
@@ -56,245 +49,198 @@
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-//		
+//
 //		generator.generateCallbacks("src/main/resources/callbacksConfig/callbacksConfig.yaml");
 //		generator.generateEnums("src/main/resources/enumsConfig/enumsConfig.yaml");
+//
+//		Template template = generator.getTemplate("CallbackWithProcsStructTemplate.ftl");
+//
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/ObjectLayerFilter.yaml",
+//				"JPH_ObjectLayerFilter_Procs",
+//				template
+//		);
 //		
-//		generateCallbackWithProcsStruct(headerFile, generator);
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/ShapeFilter.yaml",
+//				"JPH_ShapeFilter_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/SimShapeFilter.yaml",
+//				"JPH_SimShapeFilter_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/BroadPhaseLayerFilter.yaml",
+//				"JPH_BroadPhaseLayerFilter_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/BodyFilter.yaml",
+//				"JPH_BodyFilter_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/CharacterContactListener.yaml",
+//				"JPH_CharacterContactListener_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/CharacterVsCharacterCollisionListener.yaml",
+//				"JPH_CharacterVsCharacterCollision_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/PhysicsStepListener.yaml",
+//				"JPH_PhysicsStepListener_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/ContactListener.yaml",
+//				"JPH_ContactListener_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/BodyActivationListener.yaml",
+//				"JPH_BodyActivationListener_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/BodyDrawFilter.yaml",
+//				"JPH_BodyDrawFilter_Procs",
+//				template
+//		);
+//		
+//		generateCallbackWithProcsStruct(
+//				headerFile, generator,
+//				"src/main/resources/callbacksWithProcs/DebugRenderer.yaml",
+//				"JPH_DebugRenderer_Procs",
+//				template
+//		);
 //	}
 //
-//	private static void generateCallbackWithProcsStruct(HeaderFile headerFile, Generator generator) {
-//		Struct struct = headerFile.getStruct("JPH_ObjectLayerFilter_Procs");
-//		List<PerCallbackMethodInfo> infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			description.setTypedMethod(false);
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
+//	@SuppressWarnings("unchecked")
+//	private static void generateCallbackWithProcsStruct(
+//			HeaderFile headerFile,
+//			Generator generator,
+//			String config,
+//			String structName,
+//			Template template
+//	) {
+//		NativeRecord record = headerFile.getRecord(structName);
+//
+//		List<PerCallbackMethodInfo> infos = record.getFunctionPointerFields().stream().map(field -> {
+//			return new PerCallbackMethodInfo(generator.getGlobalConfig(), new CallbackConfig(), field);
 //		}).toList();
+//
+//		HashSet<String> imports = new HashSet<String>();
+//		infos.forEach(info -> imports.addAll((Collection<String>) info.getImports()));
 //		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/ObjectLayerFilter.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_ObjectLayerFilter_Procs"));
+//		HashSet<String> staticImports = new HashSet<String>();
+//		infos.forEach(info -> staticImports.addAll((Collection<String>) info.getStaticImports()));
 //		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_ShapeFilter_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), new NativeFunctionDescription());
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/ShapeFilter.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_ShapeFilter_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_SimShapeFilter_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), new NativeFunctionDescription());
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/SimShapeFilter.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_SimShapeFilter_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_BroadPhaseLayerFilter_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			description.setTypedMethod(false);
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/BroadPhaseLayerFilter.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_BroadPhaseLayerFilter_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_BodyFilter_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			description.setTypedMethod(false);
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/BodyFilter.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_BodyFilter_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_CharacterContactListener_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/CharacterContactListener.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_CharacterContactListener_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_CharacterVsCharacterCollision_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/CharacterVsCharacterCollisionListener.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_CharacterVsCharacterCollision_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_PhysicsStepListener_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/PhysicsStepListener.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_PhysicsStepListener_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_ContactListener_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/ContactListener.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_ContactListener_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_BodyActivationListener_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			description.setTypedMethod(false);
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/BodyActivationListener.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_BodyActivationListener_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_BodyDrawFilter_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/BodyDrawFilter.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_BodyDrawFilter_Procs"));
-//		
-//		//---------------------------------------------------------------------------------------------------------
-//		
-//		struct = headerFile.getStruct("JPH_DebugRenderer_Procs");
-//		infos = struct.getFunctionPointers().stream().map(f -> {
-//			NativeFunctionDescription description = new NativeFunctionDescription();
-//			
-//			if (f.getName().contains("Text3D"))
-//				description.getStringParameters().add("str");
-//			
-//			return new PerCallbackMethodInfo(f, generator.getGlobalConfig(), description);
-//		}).toList();
-//		
-//		generator.generate(
-//				"src/main/resources/callbacksWithProcs/DebugRenderer.yaml",
-//				CALLBACK_WITH_PROCS_STRUCT_TEMPLATE,
-//				Map.of("infos", infos, "structName", "JPH_DebugRenderer_Procs"));
+//		generator.generate(config, template, Map.of("infos", infos, "structName", structName), imports, staticImports);
 //	}
-//	
+//
 //	public static class PerCallbackMethodInfo {
 //
-//		private NativeFunctionMethod method;
-//		private NativeFunctionDescription description;
+//		private final Map<String, Object> dataModel;
 //
-//		private List<String> valueLayouts;
-//
-//		private String returnTypeLayout;
-//		private String constantsName;
-//		private String name;
-//
-//		private boolean hasReturnType;
+//		private final String fieldName;
+//		private final String name;
+//		private final String constantsName;
 //
 //		public PerCallbackMethodInfo(
-//				FunctionPointer functionPointer,
-//				GlobalConfig config,
-//				NativeFunctionDescription description) {
-//			
-//			this.description = description;
-//			
-//			method = new NativeFunctionMethod(
-//					config,
-//					functionPointer,
-//					description);
-//				
-//			valueLayouts = new ArrayList<String>();
-//			functionPointer.getParameters().forEach(parameter -> {
-//				String layout = GeneratorUtils.transformName(config, getLayoutString(parameter.getType()), false);
-//				valueLayouts.add(layout);
-//			});
+//				GlobalConfig globalConfig, CallbackConfig callbackConfig, FunctionPointerField field
+//		) {
 //
-//			returnTypeLayout = GeneratorUtils.transformName(
-//					config,
-//					getLayoutString(functionPointer.getReturnType().getType()),
-//					false);
+//			CallbackBuilder callbackBuilder = new CallbackBuilder(
+//					globalConfig, callbackConfig, field.getFunctionPointer()
+//			);
+//
+//			dataModel = callbackBuilder.getDataModel();
+//
+//			String functionPointerName = field.getFunctionPointer().getName();
 //			
-//			hasReturnType = !method.getReturnType().getIsVoid();
+//			String name = GeneratorUtils.applyTypeRename(globalConfig, functionPointerName, true);
 //			
-//			name = GeneratorUtils.transformName(config, functionPointer.getName(), true).replaceAll("\\*\\s*$", "").trim();
-//			constantsName = name.replaceAll("([\\p{Ll}\\p{Nd}])(\\p{Lu})", "$1_$2").toUpperCase();
+//			if (name.equals(Character.toLowerCase(functionPointerName.charAt(0)) + functionPointerName.substring(1)))
+//				name = GeneratorUtils.stripPrefixesAndPostfixes(globalConfig, functionPointerName, true);
+//			
+//			this.fieldName = field.getName();
+//			this.name = name;
+//			this.constantsName = name.replaceAll("([\\p{Ll}\\p{Nd}])(\\p{Lu})", "$1_$2").toUpperCase();
 //		}
 //
-//		public NativeFunctionMethod getMethod() {
-//			return method;
+//		public Object getParameters() {
+//			return dataModel.get("parameters");
 //		}
 //
-//		public List<String> getValueLayouts() {
-//			return valueLayouts;
+//		public Object getReturnType() {
+//			return dataModel.get("returnType");
 //		}
 //
-//		public String getReturnTypeLayout() {
-//			return returnTypeLayout;
+//		public boolean hasReturnType() {
+//			return getReturnType() != null;
+//		}
+//		
+//		public Object getValueLayouts() {
+//			return dataModel.get("valueLayouts");
+//		}
+//
+//		public Object getReturnTypeLayout() {
+//			return dataModel.get("returnTypeLayout");
+//		}
+//
+//		public Object getAddTypedMethod() {
+//			return dataModel.get("addTypedMethod");
+//		}
+//
+//		public Object getJavadoc() {
+//			return dataModel.get("javadoc");
+//		}
+//
+//		public Object getImports() {
+//			return dataModel.get("imports");
+//		}
+//		
+//		public Object getStaticImports() {
+//			return dataModel.get("staticImports");
+//		}
+//		
+//		public String getName() {
+//			return name;
 //		}
 //
 //		public String getConstantsName() {
 //			return constantsName;
 //		}
 //
-//		public String getName() {
-//			return name;
+//		public String getFieldName() {
+//			return fieldName;
 //		}
-//		
-//		public boolean getHasReturnType() {
-//			return hasReturnType;
-//		}
-//		
-//		public NativeFunctionDescription getDescription() {
-//			return description;
-//		}
-//		
+//
 //	}
 //
 //}

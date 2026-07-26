@@ -12,9 +12,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ConvexHullShapeSettings extends ConvexShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE;
@@ -30,82 +27,85 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
     }
 
     public ConvexHullShapeSettings(
-        Vec3 points, 
-        int pointsCount, 
+        Vec3 points,
+        int pointsCount,
         float maxConvexRadius
     ) {
         this(
             Arena.ofAuto(),
-            points, 
-            pointsCount, 
+            points,
+            pointsCount,
             maxConvexRadius
         );
     }
     
+    /// Typed method of [#create].
     public ConvexHullShapeSettings(
-        Arena arena,
-        Vec3 points, 
-        int pointsCount, 
-        float maxConvexRadius
+    	Arena arena,
+    	Vec3 points,
+    	int pointsCount,
+    	float maxConvexRadius
     ) {
-         MemorySegment segment = create(
-            points.memorySegment(), 
-            pointsCount, 
-            maxConvexRadius
-         );
+    	MemorySegment segment = create(
+    		points.memorySegment(),
+    		pointsCount,
+    		maxConvexRadius
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public ConvexHullShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment points, 
-        int pointsCount, 
-        float maxConvexRadius
+    	MemorySegment points,
+    	int pointsCount,
+    	float maxConvexRadius
     ) {
-        MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                points, 
-                pointsCount, 
-                maxConvexRadius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			points,
+    			pointsCount,
+    			maxConvexRadius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable ConvexHullShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable ConvexHullShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new ConvexHullShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new ConvexHullShape(segment);
     }
     
     public MemorySegment memorySegment() {

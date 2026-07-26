@@ -12,9 +12,6 @@ import volucris.bindings.core.NativeFloatArray;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleTransmissionSettings {
 
     private static final LazyConstant<MethodHandle> JPH_VEHICLE_TRANSMISSION_SETTINGS_CREATE;
@@ -78,668 +75,640 @@ public final class VehicleTransmissionSettings {
     }
 
     public VehicleTransmissionSettings() {
-        this(Arena.ofAuto());
+    	this(Arena.ofAuto());
     }
     
+    /// Typed method of [#create].
     public VehicleTransmissionSettings(Arena arena) {
-        MemorySegment segment = create();
-        this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	MemorySegment segment = create();
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public VehicleTransmissionSettings(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create() {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact();
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact();
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_DESTROY.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static int getMode(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_MODE.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_MODE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMode}.
-     */
-    public final int getMode(
-    ) {
-        return (int) getMode(
-            this.segment
-        );
+    /// Typed method of [#getMode].
+    public final int getMode() {
+    	return (int) getMode(
+    		this.segment
+    	);
     }
+    
     
     public static void setMode(
-        MemorySegment settings, 
-        int value
+    	MemorySegment settings,
+    	int value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_MODE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_MODE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMode}.
-     */
+    /// Typed method of [#setMode].
     public final void setMode(
-        int value
+    	int value
     ) {
-        setMode(
-            this.segment, 
-            value
-        );
+    	setMode(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static int getGearRatioCount(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getGearRatioCount}.
-     */
-    public final int getGearRatioCount(
-    ) {
-        return (int) getGearRatioCount(
-            this.segment
-        );
+    /// Typed method of [#getGearRatioCount].
+    public final int getGearRatioCount() {
+    	return (int) getGearRatioCount(
+    		this.segment
+    	);
     }
+    
     
     public static float getGearRatio(
-        MemorySegment settings, 
-        int index
+    	MemorySegment settings,
+    	int index
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO.get();
-        try {
-            return (float) method.invokeExact(
-                settings, 
-                index
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings,
+    			index
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getGearRatio}.
-     */
+    /// Typed method of [#getGearRatio].
     public final float getGearRatio(
-        int index
+    	int index
     ) {
-        return (float) getGearRatio(
-            this.segment, 
-            index
-        );
+    	return (float) getGearRatio(
+    		this.segment,
+    		index
+    	);
     }
+    
     
     public static void setGearRatio(
-        MemorySegment settings, 
-        int index, 
-        float value
+    	MemorySegment settings,
+    	int index,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_GEAR_RATIO.get();
-        try {
-            method.invokeExact(
-                settings, 
-                index, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_GEAR_RATIO.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			index,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setGearRatio}.
-     */
+    /// Typed method of [#setGearRatio].
     public final void setGearRatio(
-        int index, 
-        float value
+    	int index,
+    	float value
     ) {
-        setGearRatio(
-            this.segment, 
-            index, 
-            value
-        );
+    	setGearRatio(
+    		this.segment,
+    		index,
+    		value
+    	);
     }
+    
     
     public static MemorySegment getGearRatios(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIOS.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIOS.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getGearRatios}.
-     */
-    public final @Nullable NativeFloatArray getGearRatios(
-    ) {
-        MemorySegment segment = getGearRatios(
-            this.segment
-        );
+    /// Typed method of [#getGearRatios].
+    public final @Nullable NativeFloatArray getGearRatios() {
+    	MemorySegment segment = getGearRatios(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NativeFloatArray(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativeFloatArray(segment);
     }
+    
     
     public static void setGearRatios(
-        MemorySegment settings, 
-        MemorySegment values, 
-        int count
+    	MemorySegment settings,
+    	MemorySegment values,
+    	int count
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_GEAR_RATIOS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                values, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_GEAR_RATIOS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			values,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setGearRatios}.
-     */
+    /// Typed method of [#setGearRatios].
     public final void setGearRatios(
-        NativeFloatArray values, 
-        int count
+    	NativeFloatArray values,
+    	int count
     ) {
-        setGearRatios(
-            this.segment, 
-            values.memorySegment(), 
-            count
-        );
+    	setGearRatios(
+    		this.segment,
+    		values.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static int getReverseGearRatioCount(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getReverseGearRatioCount}.
-     */
-    public final int getReverseGearRatioCount(
-    ) {
-        return (int) getReverseGearRatioCount(
-            this.segment
-        );
+    /// Typed method of [#getReverseGearRatioCount].
+    public final int getReverseGearRatioCount() {
+    	return (int) getReverseGearRatioCount(
+    		this.segment
+    	);
     }
+    
     
     public static float getReverseGearRatio(
-        MemorySegment settings, 
-        int index
+    	MemorySegment settings,
+    	int index
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO.get();
-        try {
-            return (float) method.invokeExact(
-                settings, 
-                index
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings,
+    			index
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getReverseGearRatio}.
-     */
+    /// Typed method of [#getReverseGearRatio].
     public final float getReverseGearRatio(
-        int index
+    	int index
     ) {
-        return (float) getReverseGearRatio(
-            this.segment, 
-            index
-        );
+    	return (float) getReverseGearRatio(
+    		this.segment,
+    		index
+    	);
     }
+    
     
     public static void setReverseGearRatio(
-        MemorySegment settings, 
-        int index, 
-        float value
+    	MemorySegment settings,
+    	int index,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_REVERSE_GEAR_RATIO.get();
-        try {
-            method.invokeExact(
-                settings, 
-                index, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_REVERSE_GEAR_RATIO.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			index,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setReverseGearRatio}.
-     */
+    /// Typed method of [#setReverseGearRatio].
     public final void setReverseGearRatio(
-        int index, 
-        float value
+    	int index,
+    	float value
     ) {
-        setReverseGearRatio(
-            this.segment, 
-            index, 
-            value
-        );
+    	setReverseGearRatio(
+    		this.segment,
+    		index,
+    		value
+    	);
     }
+    
     
     public static MemorySegment getReverseGearRatios(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIOS.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIOS.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getReverseGearRatios}.
-     */
-    public final @Nullable NativeFloatArray getReverseGearRatios(
-    ) {
-        MemorySegment segment = getReverseGearRatios(
-            this.segment
-        );
+    /// Typed method of [#getReverseGearRatios].
+    public final @Nullable NativeFloatArray getReverseGearRatios() {
+    	MemorySegment segment = getReverseGearRatios(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NativeFloatArray(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativeFloatArray(segment);
     }
+    
     
     public static void setReverseGearRatios(
-        MemorySegment settings, 
-        MemorySegment values, 
-        int count
+    	MemorySegment settings,
+    	MemorySegment values,
+    	int count
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_REVERSE_GEAR_RATIOS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                values, 
-                count
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_REVERSE_GEAR_RATIOS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			values,
+    			count
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setReverseGearRatios}.
-     */
+    /// Typed method of [#setReverseGearRatios].
     public final void setReverseGearRatios(
-        NativeFloatArray values, 
-        int count
+    	NativeFloatArray values,
+    	int count
     ) {
-        setReverseGearRatios(
-            this.segment, 
-            values.memorySegment(), 
-            count
-        );
+    	setReverseGearRatios(
+    		this.segment,
+    		values.memorySegment(),
+    		count
+    	);
     }
+    
     
     public static float getSwitchTime(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_TIME.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_TIME.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSwitchTime}.
-     */
-    public final float getSwitchTime(
-    ) {
-        return (float) getSwitchTime(
-            this.segment
-        );
+    /// Typed method of [#getSwitchTime].
+    public final float getSwitchTime() {
+    	return (float) getSwitchTime(
+    		this.segment
+    	);
     }
+    
     
     public static void setSwitchTime(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SWITCH_TIME.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SWITCH_TIME.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSwitchTime}.
-     */
+    /// Typed method of [#setSwitchTime].
     public final void setSwitchTime(
-        float value
+    	float value
     ) {
-        setSwitchTime(
-            this.segment, 
-            value
-        );
+    	setSwitchTime(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getClutchReleaseTime(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_RELEASE_TIME.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_RELEASE_TIME.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getClutchReleaseTime}.
-     */
-    public final float getClutchReleaseTime(
-    ) {
-        return (float) getClutchReleaseTime(
-            this.segment
-        );
+    /// Typed method of [#getClutchReleaseTime].
+    public final float getClutchReleaseTime() {
+    	return (float) getClutchReleaseTime(
+    		this.segment
+    	);
     }
+    
     
     public static void setClutchReleaseTime(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_CLUTCH_RELEASE_TIME.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_CLUTCH_RELEASE_TIME.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setClutchReleaseTime}.
-     */
+    /// Typed method of [#setClutchReleaseTime].
     public final void setClutchReleaseTime(
-        float value
+    	float value
     ) {
-        setClutchReleaseTime(
-            this.segment, 
-            value
-        );
+    	setClutchReleaseTime(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getSwitchLatency(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_LATENCY.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_LATENCY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSwitchLatency}.
-     */
-    public final float getSwitchLatency(
-    ) {
-        return (float) getSwitchLatency(
-            this.segment
-        );
+    /// Typed method of [#getSwitchLatency].
+    public final float getSwitchLatency() {
+    	return (float) getSwitchLatency(
+    		this.segment
+    	);
     }
+    
     
     public static void setSwitchLatency(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SWITCH_LATENCY.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SWITCH_LATENCY.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSwitchLatency}.
-     */
+    /// Typed method of [#setSwitchLatency].
     public final void setSwitchLatency(
-        float value
+    	float value
     ) {
-        setSwitchLatency(
-            this.segment, 
-            value
-        );
+    	setSwitchLatency(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getShiftUpRPM(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_UP_RPM.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_UP_RPM.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getShiftUpRPM}.
-     */
-    public final float getShiftUpRPM(
-    ) {
-        return (float) getShiftUpRPM(
-            this.segment
-        );
+    /// Typed method of [#getShiftUpRPM].
+    public final float getShiftUpRPM() {
+    	return (float) getShiftUpRPM(
+    		this.segment
+    	);
     }
+    
     
     public static void setShiftUpRPM(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SHIFT_UP_RPM.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SHIFT_UP_RPM.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setShiftUpRPM}.
-     */
+    /// Typed method of [#setShiftUpRPM].
     public final void setShiftUpRPM(
-        float value
+    	float value
     ) {
-        setShiftUpRPM(
-            this.segment, 
-            value
-        );
+    	setShiftUpRPM(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getShiftDownRPM(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_DOWN_RPM.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_DOWN_RPM.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getShiftDownRPM}.
-     */
-    public final float getShiftDownRPM(
-    ) {
-        return (float) getShiftDownRPM(
-            this.segment
-        );
+    /// Typed method of [#getShiftDownRPM].
+    public final float getShiftDownRPM() {
+    	return (float) getShiftDownRPM(
+    		this.segment
+    	);
     }
+    
     
     public static void setShiftDownRPM(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SHIFT_DOWN_RPM.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_SHIFT_DOWN_RPM.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setShiftDownRPM}.
-     */
+    /// Typed method of [#setShiftDownRPM].
     public final void setShiftDownRPM(
-        float value
+    	float value
     ) {
-        setShiftDownRPM(
-            this.segment, 
-            value
-        );
+    	setShiftDownRPM(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getClutchStrength(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_STRENGTH.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_STRENGTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getClutchStrength}.
-     */
-    public final float getClutchStrength(
-    ) {
-        return (float) getClutchStrength(
-            this.segment
-        );
+    /// Typed method of [#getClutchStrength].
+    public final float getClutchStrength() {
+    	return (float) getClutchStrength(
+    		this.segment
+    	);
     }
+    
     
     public static void setClutchStrength(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_CLUTCH_STRENGTH.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_SET_CLUTCH_STRENGTH.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setClutchStrength}.
-     */
+    /// Typed method of [#setClutchStrength].
     public final void setClutchStrength(
-        float value
+    	float value
     ) {
-        setClutchStrength(
-            this.segment, 
-            value
-        );
+    	setClutchStrength(
+    		this.segment,
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

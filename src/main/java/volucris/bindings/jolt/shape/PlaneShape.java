@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.shape;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
@@ -13,9 +12,6 @@ import volucris.bindings.jolt.math.Plane;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class PlaneShape extends Shape {
 
     private static final LazyConstant<MethodHandle> JPH_PLANE_SHAPE_CREATE;
@@ -33,104 +29,106 @@ public final class PlaneShape extends Shape {
     }
 
     public PlaneShape(
-        Plane plane, 
-        PhysicsMaterial material, 
+        Plane plane,
+        PhysicsMaterial material,
         float halfExtent
     ) {
         this(
             Arena.ofAuto(),
-            plane, 
-            material, 
+            plane,
+            material,
             halfExtent
         );
     }
     
+    /// Typed method of [#create].
     public PlaneShape(
-        Arena arena,
-        Plane plane, 
-        PhysicsMaterial material, 
-        float halfExtent
+    	Arena arena,
+    	Plane plane,
+    	PhysicsMaterial material,
+    	float halfExtent
     ) {
-         MemorySegment segment = create(
-            plane.memorySegment(), 
-            material.memorySegment(), 
-            halfExtent
-         );
+    	MemorySegment segment = create(
+    		plane.memorySegment(),
+    		material.memorySegment(),
+    		halfExtent
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public PlaneShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment plane, 
-        MemorySegment material, 
-        float halfExtent
+    	MemorySegment plane,
+    	MemorySegment material,
+    	float halfExtent
     ) {
-        MethodHandle method = JPH_PLANE_SHAPE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                plane, 
-                material, 
-                halfExtent
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PLANE_SHAPE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			plane,
+    			material,
+    			halfExtent
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getPlane(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_PLANE_SHAPE_GET_PLANE.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PLANE_SHAPE_GET_PLANE.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getPlane}.
-     */
+    /// Typed method of [#getPlane].
     public final void getPlane(
-        Plane result
+    	Plane result
     ) {
-        getPlane(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getPlane(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float getHalfExtent(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_PLANE_SHAPE_GET_HALF_EXTENT.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PLANE_SHAPE_GET_HALF_EXTENT.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getHalfExtent}.
-     */
-    public final float getHalfExtent(
-    ) {
-        return (float) getHalfExtent(
-            this.segment
-        );
+    /// Typed method of [#getHalfExtent].
+    public final float getHalfExtent() {
+    	return (float) getHalfExtent(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

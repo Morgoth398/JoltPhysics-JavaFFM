@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.filter;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -50,8 +49,8 @@ public abstract class ShapeFilter {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("shouldCollide"), 
-            UNBOUNDED_ADDRESS.withName("shouldCollide2")
+            UNBOUNDED_ADDRESS.withName("ShouldCollide"),
+            UNBOUNDED_ADDRESS.withName("ShouldCollide2")
         ).withName("JPH_ShapeFilter_Procs").withByteAlignment(8);
 
         JPH_SHAPE_FILTER_SET_PROCS = downcallHandleVoid("JPH_ShapeFilter_SetProcs", UNBOUNDED_ADDRESS);
@@ -65,13 +64,13 @@ public abstract class ShapeFilter {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             SHOULD_COLLIDE_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -79,14 +78,14 @@ public abstract class ShapeFilter {
 
             SHOULD_COLLIDE_ADDRESS = linker.upcallStub(SHOULD_COLLIDE_HANDLE, SHOULD_COLLIDE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("shouldCollide")), SHOULD_COLLIDE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("ShouldCollide")), SHOULD_COLLIDE_ADDRESS);
             
             SHOULD_COLLIDE2_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -94,7 +93,7 @@ public abstract class ShapeFilter {
 
             SHOULD_COLLIDE2_ADDRESS = linker.upcallStub(SHOULD_COLLIDE2_HANDLE, SHOULD_COLLIDE2_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("shouldCollide2")), SHOULD_COLLIDE2_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("ShouldCollide2")), SHOULD_COLLIDE2_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -115,93 +114,93 @@ public abstract class ShapeFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_SHAPE_FILTER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_FILTER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_SHAPE_FILTER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_FILTER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment filter
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_SHAPE_FILTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_FILTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static int getBodyID2(
-        MemorySegment filter
+    	MemorySegment filter
     ) {
-        MethodHandle method = JPH_SHAPE_FILTER_GET_BODY_ID2.get();
-        try {
-            return (int) method.invokeExact(
-                filter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_FILTER_GET_BODY_ID2.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			filter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBodyID2}.
-     */
-    public final int getBodyID2(
-    ) {
-        return (int) getBodyID2(
-            this.segment
-        );
+    /// Typed method of [#getBodyID2].
+    public final int getBodyID2() {
+    	return (int) getBodyID2(
+    		this.segment
+    	);
     }
+    
     
     public static void setBodyID2(
-        MemorySegment filter, 
-        int id
+    	MemorySegment filter,
+    	int id
     ) {
-        MethodHandle method = JPH_SHAPE_FILTER_SET_BODY_ID2.get();
-        try {
-            method.invokeExact(
-                filter, 
-                id
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SHAPE_FILTER_SET_BODY_ID2.get();
+    	try {
+    		 method.invokeExact(
+    			filter,
+    			id
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setBodyID2}.
-     */
+    /// Typed method of [#setBodyID2].
     public final void setBodyID2(
-        int id
+    	int id
     ) {
-        setBodyID2(
-            this.segment, 
-            id
-        );
+    	setBodyID2(
+    		this.segment,
+    		id
+    	);
     }
     
     public MemorySegment memorySegment() {
@@ -223,24 +222,23 @@ public abstract class ShapeFilter {
     }
 
     public boolean shouldCollide(
-        MemorySegment shape2, 
+        MemorySegment shape2,
         MemorySegment subShapeIDOfShape2
     ) {
-        return (boolean) shouldCollide(
-            new Shape(shape2), 
+        return shouldCollide(
+            new Shape(shape2),
             new NativeIntArray(subShapeIDOfShape2)
         );
     }
 
     public boolean shouldCollide(
-        Shape shape2, 
+        Shape shape2,
         NativeIntArray subShapeIDOfShape2
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for shouldCollide."
+            "Override either the typed or raw callback method in ShapeFilter."
         );
-    }
-
+    };
 
     public static boolean shouldCollide2(
         MemorySegment userData, 
@@ -260,29 +258,28 @@ public abstract class ShapeFilter {
     }
 
     public boolean shouldCollide2(
-        MemorySegment shape1, 
-        MemorySegment subShapeIDOfShape1, 
-        MemorySegment shape2, 
+        MemorySegment shape1,
+        MemorySegment subShapeIDOfShape1,
+        MemorySegment shape2,
         MemorySegment subShapeIDOfShape2
     ) {
-        return (boolean) shouldCollide2(
-            new Shape(shape1), 
-            new NativeIntArray(subShapeIDOfShape1), 
-            new Shape(shape2), 
+        return shouldCollide2(
+            new Shape(shape1),
+            new NativeIntArray(subShapeIDOfShape1),
+            new Shape(shape2),
             new NativeIntArray(subShapeIDOfShape2)
         );
     }
 
     public boolean shouldCollide2(
-        Shape shape1, 
-        NativeIntArray subShapeIDOfShape1, 
-        Shape shape2, 
+        Shape shape1,
+        NativeIntArray subShapeIDOfShape1,
+        Shape shape2,
         NativeIntArray subShapeIDOfShape2
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for shouldCollide2."
+            "Override either the typed or raw callback method in ShapeFilter."
         );
-    }
-
+    };
 
 }

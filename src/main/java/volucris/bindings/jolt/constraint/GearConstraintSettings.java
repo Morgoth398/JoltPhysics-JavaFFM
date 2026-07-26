@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class GearConstraintSettings
 		implements Struct<GearConstraintSettings> {
 
@@ -83,87 +80,93 @@ public final class GearConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_GEAR_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_GEAR_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #space()
     public GearConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #ratio()
     public GearConstraintSettings ratio(float ratio) {
-        RATIO_HANDLE.set(segment, 0L, ratio);
-        return this;
+    	RATIO_HANDLE.set(segment, 0L, ratio);
+    	return this;
     }
     
     public float ratio() {
-        return (float) RATIO_HANDLE.get(segment, 0L);
+    	return (float) RATIO_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public GearConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public GearConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #hingeAxis1()
     public GearConstraintSettings hingeAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(hingeAxis1);
-        return this;
+    	consumer.accept(hingeAxis1);
+    	return this;
     }
     
+    /// @see #hingeAxis1()
     public GearConstraintSettings hingeAxis1(Vec3 other) {
-        hingeAxis1.set(other);
-        return this;
+    	hingeAxis1.set(other);
+    	return this;
     }
     
     public Vec3 hingeAxis1() {
-        return hingeAxis1;
+    	return hingeAxis1;
     }
     
+    /// @see #hingeAxis2()
     public GearConstraintSettings hingeAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(hingeAxis2);
-        return this;
+    	consumer.accept(hingeAxis2);
+    	return this;
     }
     
+    /// @see #hingeAxis2()
     public GearConstraintSettings hingeAxis2(Vec3 other) {
-        hingeAxis2.set(other);
-        return this;
+    	hingeAxis2.set(other);
+    	return this;
     }
     
     public Vec3 hingeAxis2() {
-        return hingeAxis2;
+    	return hingeAxis2;
     }
     
     @Override

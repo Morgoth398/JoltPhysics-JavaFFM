@@ -3,16 +3,12 @@
  */
 package volucris.bindings.jolt.jobSystem;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class JobSystemCallback extends JobSystem {
 
     private static final LazyConstant<MethodHandle> JPH_JOB_SYSTEM_CALLBACK_CREATE;
@@ -34,34 +30,39 @@ public final class JobSystemCallback extends JobSystem {
         );
     }
     
+    /// Typed method of [#create].
     public JobSystemCallback(
-        Arena arena,
-        JobSystemConfig config
+    	Arena arena,
+    	JobSystemConfig config
     ) {
-         MemorySegment segment = create(
-            config.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		config.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public JobSystemCallback(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment config
+    	MemorySegment config
     ) {
-        MethodHandle method = JPH_JOB_SYSTEM_CALLBACK_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                config
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_JOB_SYSTEM_CALLBACK_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			config
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

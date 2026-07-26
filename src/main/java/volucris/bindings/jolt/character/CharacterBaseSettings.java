@@ -19,9 +19,6 @@ import volucris.bindings.jolt.shape.Shape;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CharacterBaseSettings
 		implements Struct<CharacterBaseSettings> {
 
@@ -72,64 +69,71 @@ public final class CharacterBaseSettings
         supportingVolume = new Plane(segment.asSlice(SUPPORTING_VOLUME_BYTE_OFFSET, Plane.LAYOUT));
     }
 
+    /// @see #maxSlopeAngle()
     public CharacterBaseSettings maxSlopeAngle(float maxSlopeAngle) {
-        MAX_SLOPE_ANGLE_HANDLE.set(segment, 0L, maxSlopeAngle);
-        return this;
+    	MAX_SLOPE_ANGLE_HANDLE.set(segment, 0L, maxSlopeAngle);
+    	return this;
     }
     
     public float maxSlopeAngle() {
-        return (float) MAX_SLOPE_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) MAX_SLOPE_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #enhancedInternalEdgeRemoval()
     public CharacterBaseSettings enhancedInternalEdgeRemoval(boolean enhancedInternalEdgeRemoval) {
-        ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE.set(segment, 0L, enhancedInternalEdgeRemoval);
-        return this;
+    	ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE.set(segment, 0L, enhancedInternalEdgeRemoval);
+    	return this;
     }
     
     public boolean enhancedInternalEdgeRemoval() {
-        return (boolean) ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE.get(segment, 0L);
+    	return (boolean) ENHANCED_INTERNAL_EDGE_REMOVAL_HANDLE.get(segment, 0L);
     }
     
+    /// @see #shape()
     public CharacterBaseSettings shape(Shape shape) {
-        SHAPE_HANDLE.set(segment, 0L, shape.memorySegment());
-        return this;
+    	SHAPE_HANDLE.set(segment, 0L, shape.memorySegment());
+    	return this;
     }
     
     public @Nullable Shape shape() {
-        MemorySegment segment = (MemorySegment) SHAPE_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) SHAPE_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Shape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Shape(segment);
     }
     
+    /// @see #up()
     public CharacterBaseSettings up(Consumer<Vec3> consumer) {
-        consumer.accept(up);
-        return this;
+    	consumer.accept(up);
+    	return this;
     }
     
+    /// @see #up()
     public CharacterBaseSettings up(Vec3 other) {
-        up.set(other);
-        return this;
+    	up.set(other);
+    	return this;
     }
     
     public Vec3 up() {
-        return up;
+    	return up;
     }
     
+    /// @see #supportingVolume()
     public CharacterBaseSettings supportingVolume(Consumer<Plane> consumer) {
-        consumer.accept(supportingVolume);
-        return this;
+    	consumer.accept(supportingVolume);
+    	return this;
     }
     
+    /// @see #supportingVolume()
     public CharacterBaseSettings supportingVolume(Plane other) {
-        supportingVolume.set(other);
-        return this;
+    	supportingVolume.set(other);
+    	return this;
     }
     
     public Plane supportingVolume() {
-        return supportingVolume;
+    	return supportingVolume;
     }
     
     @Override

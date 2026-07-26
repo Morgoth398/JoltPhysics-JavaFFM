@@ -9,9 +9,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class GroupFilter
 		permits GroupFilterTable {
 
@@ -28,51 +25,51 @@ public sealed class GroupFilter
     }
 
     public GroupFilter(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment groupFilter
+    	MemorySegment groupFilter
     ) {
-        MethodHandle method = JPH_GROUP_FILTER_DESTROY.get();
-        try {
-            method.invokeExact(
-                groupFilter
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_GROUP_FILTER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			groupFilter
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static boolean canCollide(
-        MemorySegment groupFilter, 
-        MemorySegment group1, 
-        MemorySegment group2
+    	MemorySegment groupFilter,
+    	MemorySegment group1,
+    	MemorySegment group2
     ) {
-        MethodHandle method = JPH_GROUP_FILTER_CAN_COLLIDE.get();
-        try {
-            return (boolean) method.invokeExact(
-                groupFilter, 
-                group1, 
-                group2
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_GROUP_FILTER_CAN_COLLIDE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			groupFilter,
+    			group1,
+    			group2
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #canCollide}.
-     */
+    /// Typed method of [#canCollide].
     public final boolean canCollide(
-        CollisionGroup group1, 
-        CollisionGroup group2
+    	CollisionGroup group1,
+    	CollisionGroup group2
     ) {
-        return (boolean) canCollide(
-            this.segment, 
-            group1.memorySegment(), 
-            group2.memorySegment()
-        );
+    	return (boolean) canCollide(
+    		this.segment,
+    		group1.memorySegment(),
+    		group2.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

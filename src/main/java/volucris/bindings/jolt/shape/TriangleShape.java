@@ -11,9 +11,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class TriangleShape extends ConvexShape {
 
     private static final LazyConstant<MethodHandle> JPH_TRIANGLE_SHAPE_CREATE;
@@ -35,153 +32,147 @@ public final class TriangleShape extends ConvexShape {
     }
 
     public TriangleShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment v1, 
-        MemorySegment v2, 
-        MemorySegment v3, 
-        float convexRadius
+    	MemorySegment v1,
+    	MemorySegment v2,
+    	MemorySegment v3,
+    	float convexRadius
     ) {
-        MethodHandle method = JPH_TRIANGLE_SHAPE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                v1, 
-                v2, 
-                v3, 
-                convexRadius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRIANGLE_SHAPE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			v1,
+    			v2,
+    			v3,
+    			convexRadius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #create}.
-     */
+    /// Typed method of [#create].
     public final @Nullable TriangleShape create(
-        Vec3 v1, 
-        Vec3 v2, 
-        Vec3 v3, 
-        float convexRadius
+    	Vec3 v1,
+    	Vec3 v2,
+    	Vec3 v3,
+    	float convexRadius
     ) {
-        MemorySegment segment = create(
-            v1.memorySegment(), 
-            v2.memorySegment(), 
-            v3.memorySegment(), 
-            convexRadius
-        );
+    	MemorySegment segment = create(
+    		v1.memorySegment(),
+    		v2.memorySegment(),
+    		v3.memorySegment(),
+    		convexRadius
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new TriangleShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new TriangleShape(segment);
     }
+    
     
     public static float getConvexRadius(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_TRIANGLE_SHAPE_GET_CONVEX_RADIUS.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRIANGLE_SHAPE_GET_CONVEX_RADIUS.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getConvexRadius}.
-     */
-    public final float getConvexRadius(
-    ) {
-        return (float) getConvexRadius(
-            this.segment
-        );
+    /// Typed method of [#getConvexRadius].
+    public final float getConvexRadius() {
+    	return (float) getConvexRadius(
+    		this.segment
+    	);
     }
+    
     
     public static void getVertex1(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_TRIANGLE_SHAPE_GET_VERTEX1.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRIANGLE_SHAPE_GET_VERTEX1.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVertex1}.
-     */
+    /// Typed method of [#getVertex1].
     public final void getVertex1(
-        Vec3 result
+    	Vec3 result
     ) {
-        getVertex1(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getVertex1(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getVertex2(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_TRIANGLE_SHAPE_GET_VERTEX2.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRIANGLE_SHAPE_GET_VERTEX2.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVertex2}.
-     */
+    /// Typed method of [#getVertex2].
     public final void getVertex2(
-        Vec3 result
+    	Vec3 result
     ) {
-        getVertex2(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getVertex2(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getVertex3(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_TRIANGLE_SHAPE_GET_VERTEX3.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRIANGLE_SHAPE_GET_VERTEX3.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getVertex3}.
-     */
+    /// Typed method of [#getVertex3].
     public final void getVertex3(
-        Vec3 result
+    	Vec3 result
     ) {
-        getVertex3(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getVertex3(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

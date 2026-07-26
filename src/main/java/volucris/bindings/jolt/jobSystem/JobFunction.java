@@ -3,6 +3,7 @@
  */
 package volucris.bindings.jolt.jobSystem;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -11,13 +12,13 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Map;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
 public abstract class JobFunction {
 
-    private static final HashMap<Long, WeakReference<JobFunction>> CACHE;
+    private static final Map<Long, WeakReference<JobFunction>> CACHE;
 
     public static final FunctionDescriptor DESCRIPTION;
     public static final MethodHandle HANDLE;
@@ -60,7 +61,7 @@ public abstract class JobFunction {
         return segment;
     }
 
-    public static JobFunction get(MemorySegment segment) {
+    public static @Nullable JobFunction get(MemorySegment segment) {
         WeakReference<JobFunction> reference = CACHE.get(segment.address());
 
         if (reference == null)

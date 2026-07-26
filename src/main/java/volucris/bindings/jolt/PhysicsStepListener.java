@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -43,7 +42,7 @@ public abstract class PhysicsStepListener {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("onStep")
+            UNBOUNDED_ADDRESS.withName("OnStep")
         ).withName("JPH_PhysicsStepListener_Procs").withByteAlignment(8);
 
         JPH_PHYSICS_STEP_LISTENER_SET_PROCS = downcallHandleVoid("JPH_PhysicsStepListener_SetProcs", UNBOUNDED_ADDRESS);
@@ -55,11 +54,11 @@ public abstract class PhysicsStepListener {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             ON_STEP_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -67,7 +66,7 @@ public abstract class PhysicsStepListener {
 
             ON_STEP_ADDRESS = linker.upcallStub(ON_STEP_HANDLE, ON_STEP_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onStep")), ON_STEP_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnStep")), ON_STEP_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -88,43 +87,46 @@ public abstract class PhysicsStepListener {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_PHYSICS_STEP_LISTENER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_STEP_LISTENER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_PHYSICS_STEP_LISTENER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_STEP_LISTENER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment listener
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_PHYSICS_STEP_LISTENER_DESTROY.get();
-        try {
-            method.invokeExact(
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_PHYSICS_STEP_LISTENER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -155,9 +157,8 @@ public abstract class PhysicsStepListener {
         PhysicsStepListenerContext context
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onStep."
+            "Override either the typed or raw callback method in PhysicsStepListener."
         );
-    }
-
+    };
 
 }

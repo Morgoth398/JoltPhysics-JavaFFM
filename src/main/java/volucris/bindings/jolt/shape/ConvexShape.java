@@ -5,14 +5,10 @@ package volucris.bindings.jolt.shape;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class ConvexShape extends Shape
 		permits BoxShape,
 		CapsuleShape,
@@ -36,58 +32,55 @@ public sealed class ConvexShape extends Shape
     }
 
     public ConvexShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static float getDensity(
-        MemorySegment shape
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_CONVEX_SHAPE_GET_DENSITY.get();
-        try {
-            return (float) method.invokeExact(
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONVEX_SHAPE_GET_DENSITY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getDensity}.
-     */
-    public final float getDensity(
-    ) {
-        return (float) getDensity(
-            this.segment
-        );
+    /// Typed method of [#getDensity].
+    public final float getDensity() {
+    	return (float) getDensity(
+    		this.segment
+    	);
     }
+    
     
     public static void setDensity(
-        MemorySegment shape, 
-        float inDensity
+    	MemorySegment shape,
+    	float inDensity
     ) {
-        MethodHandle method = JPH_CONVEX_SHAPE_SET_DENSITY.get();
-        try {
-            method.invokeExact(
-                shape, 
-                inDensity
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONVEX_SHAPE_SET_DENSITY.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			inDensity
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDensity}.
-     */
+    /// Typed method of [#setDensity].
     public final void setDensity(
-        float inDensity
+    	float inDensity
     ) {
-        setDensity(
-            this.segment, 
-            inDensity
-        );
+    	setDensity(
+    		this.segment,
+    		inDensity
+    	);
     }
     
     public MemorySegment memorySegment() {

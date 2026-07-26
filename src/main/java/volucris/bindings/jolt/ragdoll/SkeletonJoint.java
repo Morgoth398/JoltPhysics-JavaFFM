@@ -9,15 +9,13 @@ import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.StructLayout;
 import java.lang.invoke.VarHandle;
+import volucris.bindings.core.NativeByteArray;
 import volucris.bindings.core.NativeStructArray;
 import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public class SkeletonJoint
 		implements Struct<SkeletonJoint> {
 
@@ -65,41 +63,44 @@ public class SkeletonJoint
     
     }
 
-    public SkeletonJoint name(Arena arena, String name) {
-        NAME_HANDLE.set(segment, 0L, arena.allocateFrom(name));
-        return this;
+    /// @see #name()
+    public SkeletonJoint name(NativeByteArray name) {
+    	NAME_HANDLE.set(segment, 0L, name.memorySegment());
+    	return this;
     }
     
-    public @Nullable String name() {
-        MemorySegment segment = (MemorySegment) NAME_HANDLE.get(this.segment, 0L);
+    public @Nullable NativeByteArray name() {
+    	MemorySegment segment = (MemorySegment) NAME_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return segment.getString(0);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativeByteArray(segment);
     }
     
-    public SkeletonJoint parentName(Arena arena, String parentName) {
-        PARENT_NAME_HANDLE.set(segment, 0L, arena.allocateFrom(parentName));
-        return this;
+    /// @see #parentName()
+    public SkeletonJoint parentName(NativeByteArray parentName) {
+    	PARENT_NAME_HANDLE.set(segment, 0L, parentName.memorySegment());
+    	return this;
     }
     
-    public @Nullable String parentName() {
-        MemorySegment segment = (MemorySegment) PARENT_NAME_HANDLE.get(this.segment, 0L);
+    public @Nullable NativeByteArray parentName() {
+    	MemorySegment segment = (MemorySegment) PARENT_NAME_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return segment.getString(0);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativeByteArray(segment);
     }
     
+    /// @see #parentJointIndex()
     public SkeletonJoint parentJointIndex(int parentJointIndex) {
-        PARENT_JOINT_INDEX_HANDLE.set(segment, 0L, parentJointIndex);
-        return this;
+    	PARENT_JOINT_INDEX_HANDLE.set(segment, 0L, parentJointIndex);
+    	return this;
     }
     
     public int parentJointIndex() {
-        return (int) PARENT_JOINT_INDEX_HANDLE.get(segment, 0L);
+    	return (int) PARENT_JOINT_INDEX_HANDLE.get(segment, 0L);
     }
     
     @Override

@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SliderConstraintSettings
 		implements Struct<SliderConstraintSettings> {
 
@@ -132,225 +129,245 @@ public final class SliderConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SLIDER_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SLIDER_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
+    
     
     public static void setSliderAxis(
-        MemorySegment settings, 
-        MemorySegment axis
+    	MemorySegment settings,
+    	MemorySegment axis
     ) {
-        MethodHandle method = JPH_SLIDER_CONSTRAINT_SETTINGS_SET_SLIDER_AXIS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SLIDER_CONSTRAINT_SETTINGS_SET_SLIDER_AXIS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSliderAxis}.
-     */
+    /// Typed method of [#setSliderAxis].
     public final void setSliderAxis(
-        Vec3 axis
+    	Vec3 axis
     ) {
-        setSliderAxis(
-            this.segment, 
-            axis.memorySegment()
-        );
+    	setSliderAxis(
+    		this.segment,
+    		axis.memorySegment()
+    	);
     }
     
+    /// @see #space()
     public SliderConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #autoDetectPoint()
     public SliderConstraintSettings autoDetectPoint(boolean autoDetectPoint) {
-        AUTO_DETECT_POINT_HANDLE.set(segment, 0L, autoDetectPoint);
-        return this;
+    	AUTO_DETECT_POINT_HANDLE.set(segment, 0L, autoDetectPoint);
+    	return this;
     }
     
     public boolean autoDetectPoint() {
-        return (boolean) AUTO_DETECT_POINT_HANDLE.get(segment, 0L);
+    	return (boolean) AUTO_DETECT_POINT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #limitsMin()
     public SliderConstraintSettings limitsMin(float limitsMin) {
-        LIMITS_MIN_HANDLE.set(segment, 0L, limitsMin);
-        return this;
+    	LIMITS_MIN_HANDLE.set(segment, 0L, limitsMin);
+    	return this;
     }
     
     public float limitsMin() {
-        return (float) LIMITS_MIN_HANDLE.get(segment, 0L);
+    	return (float) LIMITS_MIN_HANDLE.get(segment, 0L);
     }
     
+    /// @see #limitsMax()
     public SliderConstraintSettings limitsMax(float limitsMax) {
-        LIMITS_MAX_HANDLE.set(segment, 0L, limitsMax);
-        return this;
+    	LIMITS_MAX_HANDLE.set(segment, 0L, limitsMax);
+    	return this;
     }
     
     public float limitsMax() {
-        return (float) LIMITS_MAX_HANDLE.get(segment, 0L);
+    	return (float) LIMITS_MAX_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxFrictionForce()
     public SliderConstraintSettings maxFrictionForce(float maxFrictionForce) {
-        MAX_FRICTION_FORCE_HANDLE.set(segment, 0L, maxFrictionForce);
-        return this;
+    	MAX_FRICTION_FORCE_HANDLE.set(segment, 0L, maxFrictionForce);
+    	return this;
     }
     
     public float maxFrictionForce() {
-        return (float) MAX_FRICTION_FORCE_HANDLE.get(segment, 0L);
+    	return (float) MAX_FRICTION_FORCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public SliderConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public SliderConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #point1()
     public SliderConstraintSettings point1(Consumer<Vec3> consumer) {
-        consumer.accept(point1);
-        return this;
+    	consumer.accept(point1);
+    	return this;
     }
     
+    /// @see #point1()
     public SliderConstraintSettings point1(Vec3 other) {
-        point1.set(other);
-        return this;
+    	point1.set(other);
+    	return this;
     }
     
     public Vec3 point1() {
-        return point1;
+    	return point1;
     }
     
+    /// @see #sliderAxis1()
     public SliderConstraintSettings sliderAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(sliderAxis1);
-        return this;
+    	consumer.accept(sliderAxis1);
+    	return this;
     }
     
+    /// @see #sliderAxis1()
     public SliderConstraintSettings sliderAxis1(Vec3 other) {
-        sliderAxis1.set(other);
-        return this;
+    	sliderAxis1.set(other);
+    	return this;
     }
     
     public Vec3 sliderAxis1() {
-        return sliderAxis1;
+    	return sliderAxis1;
     }
     
+    /// @see #normalAxis1()
     public SliderConstraintSettings normalAxis1(Consumer<Vec3> consumer) {
-        consumer.accept(normalAxis1);
-        return this;
+    	consumer.accept(normalAxis1);
+    	return this;
     }
     
+    /// @see #normalAxis1()
     public SliderConstraintSettings normalAxis1(Vec3 other) {
-        normalAxis1.set(other);
-        return this;
+    	normalAxis1.set(other);
+    	return this;
     }
     
     public Vec3 normalAxis1() {
-        return normalAxis1;
+    	return normalAxis1;
     }
     
+    /// @see #point2()
     public SliderConstraintSettings point2(Consumer<Vec3> consumer) {
-        consumer.accept(point2);
-        return this;
+    	consumer.accept(point2);
+    	return this;
     }
     
+    /// @see #point2()
     public SliderConstraintSettings point2(Vec3 other) {
-        point2.set(other);
-        return this;
+    	point2.set(other);
+    	return this;
     }
     
     public Vec3 point2() {
-        return point2;
+    	return point2;
     }
     
+    /// @see #sliderAxis2()
     public SliderConstraintSettings sliderAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(sliderAxis2);
-        return this;
+    	consumer.accept(sliderAxis2);
+    	return this;
     }
     
+    /// @see #sliderAxis2()
     public SliderConstraintSettings sliderAxis2(Vec3 other) {
-        sliderAxis2.set(other);
-        return this;
+    	sliderAxis2.set(other);
+    	return this;
     }
     
     public Vec3 sliderAxis2() {
-        return sliderAxis2;
+    	return sliderAxis2;
     }
     
+    /// @see #normalAxis2()
     public SliderConstraintSettings normalAxis2(Consumer<Vec3> consumer) {
-        consumer.accept(normalAxis2);
-        return this;
+    	consumer.accept(normalAxis2);
+    	return this;
     }
     
+    /// @see #normalAxis2()
     public SliderConstraintSettings normalAxis2(Vec3 other) {
-        normalAxis2.set(other);
-        return this;
+    	normalAxis2.set(other);
+    	return this;
     }
     
     public Vec3 normalAxis2() {
-        return normalAxis2;
+    	return normalAxis2;
     }
     
+    /// @see #limitsSpringSettings()
     public SliderConstraintSettings limitsSpringSettings(Consumer<SpringSettings> consumer) {
-        consumer.accept(limitsSpringSettings);
-        return this;
+    	consumer.accept(limitsSpringSettings);
+    	return this;
     }
     
+    /// @see #limitsSpringSettings()
     public SliderConstraintSettings limitsSpringSettings(SpringSettings other) {
-        limitsSpringSettings.set(other);
-        return this;
+    	limitsSpringSettings.set(other);
+    	return this;
     }
     
     public SpringSettings limitsSpringSettings() {
-        return limitsSpringSettings;
+    	return limitsSpringSettings;
     }
     
+    /// @see #motorSettings()
     public SliderConstraintSettings motorSettings(Consumer<MotorSettings> consumer) {
-        consumer.accept(motorSettings);
-        return this;
+    	consumer.accept(motorSettings);
+    	return this;
     }
     
+    /// @see #motorSettings()
     public SliderConstraintSettings motorSettings(MotorSettings other) {
-        motorSettings.set(other);
-        return this;
+    	motorSettings.set(other);
+    	return this;
     }
     
     public MotorSettings motorSettings() {
-        return motorSettings;
+    	return motorSettings;
     }
     
     @Override

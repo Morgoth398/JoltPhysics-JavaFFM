@@ -3,18 +3,13 @@
  */
 package volucris.bindings.jolt.shape;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 import volucris.bindings.jolt.math.Vec3;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class OffsetCenterOfMassShape extends DecoratedShape {
 
     private static final LazyConstant<MethodHandle> JPH_OFFSET_CENTER_OF_MASS_SHAPE_CREATE;
@@ -30,75 +25,79 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
     }
 
     public OffsetCenterOfMassShape(
-        Vec3 offset, 
+        Vec3 offset,
         Shape shape
     ) {
         this(
             Arena.ofAuto(),
-            offset, 
+            offset,
             shape
         );
     }
     
+    /// Typed method of [#create].
     public OffsetCenterOfMassShape(
-        Arena arena,
-        Vec3 offset, 
-        Shape shape
+    	Arena arena,
+    	Vec3 offset,
+    	Shape shape
     ) {
-         MemorySegment segment = create(
-            offset.memorySegment(), 
-            shape.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		offset.memorySegment(),
+    		shape.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public OffsetCenterOfMassShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment offset, 
-        MemorySegment shape
+    	MemorySegment offset,
+    	MemorySegment shape
     ) {
-        MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                offset, 
-                shape
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			offset,
+    			shape
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getOffset(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_GET_OFFSET.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_GET_OFFSET.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getOffset}.
-     */
+    /// Typed method of [#getOffset].
     public final void getOffset(
-        Vec3 result
+    	Vec3 result
     ) {
-        getOffset(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getOffset(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

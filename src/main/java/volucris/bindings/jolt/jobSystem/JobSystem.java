@@ -8,9 +8,6 @@ import java.lang.invoke.MethodHandle;
 
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class JobSystem
 		permits JobSystemThreadPool,
 		JobSystemCallback {
@@ -26,20 +23,21 @@ public sealed class JobSystem
     }
 
     public JobSystem(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment jobSystem
+    	MemorySegment jobSystem
     ) {
-        MethodHandle method = JPH_JOB_SYSTEM_DESTROY.get();
-        try {
-            method.invokeExact(
-                jobSystem
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_JOB_SYSTEM_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			jobSystem
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {

@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SixDOFConstraintSettings
 		implements Struct<SixDOFConstraintSettings> {
 
@@ -133,13 +130,11 @@ public final class SixDOFConstraintSettings
         position2 = new Vec3(segment.asSlice(POSITION2_BYTE_OFFSET, Vec3.LAYOUT));
         axisX2 = new Vec3(segment.asSlice(AXIS_X2_BYTE_OFFSET, Vec3.LAYOUT));
         axisY2 = new Vec3(segment.asSlice(AXIS_Y2_BYTE_OFFSET, Vec3.LAYOUT));
-    
         limitsSpringSettings = new SpringSettings[3];
         for (int i = 0; i < 3; i++) {
             long offset = LIMITS_SPRING_SETTINGS_BYTE_OFFSET + i * SpringSettings.LAYOUT.byteSize();
             limitsSpringSettings[i] = new SpringSettings(segment.asSlice(offset, SpringSettings.LAYOUT));
         }
-    
     
         motorSettings = new MotorSettings[6];
         for (int i = 0; i < 6; i++) {
@@ -151,341 +146,357 @@ public final class SixDOFConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
+    
     
     public static void makeFreeAxis(
-        MemorySegment settings, 
-        int axis
+    	MemorySegment settings,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FREE_AXIS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FREE_AXIS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #makeFreeAxis}.
-     */
+    /// Typed method of [#makeFreeAxis].
     public final void makeFreeAxis(
-        int axis
+    	int axis
     ) {
-        makeFreeAxis(
-            this.segment, 
-            axis
-        );
+    	makeFreeAxis(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static boolean isFreeAxis(
-        MemorySegment settings, 
-        int axis
+    	MemorySegment settings,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FREE_AXIS.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FREE_AXIS.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isFreeAxis}.
-     */
+    /// Typed method of [#isFreeAxis].
     public final boolean isFreeAxis(
-        int axis
+    	int axis
     ) {
-        return (boolean) isFreeAxis(
-            this.segment, 
-            axis
-        );
+    	return (boolean) isFreeAxis(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static void makeFixedAxis(
-        MemorySegment settings, 
-        int axis
+    	MemorySegment settings,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FIXED_AXIS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_MAKE_FIXED_AXIS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #makeFixedAxis}.
-     */
+    /// Typed method of [#makeFixedAxis].
     public final void makeFixedAxis(
-        int axis
+    	int axis
     ) {
-        makeFixedAxis(
-            this.segment, 
-            axis
-        );
+    	makeFixedAxis(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static boolean isFixedAxis(
-        MemorySegment settings, 
-        int axis
+    	MemorySegment settings,
+    	int axis
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FIXED_AXIS.get();
-        try {
-            return (boolean) method.invokeExact(
-                settings, 
-                axis
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FIXED_AXIS.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			settings,
+    			axis
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isFixedAxis}.
-     */
+    /// Typed method of [#isFixedAxis].
     public final boolean isFixedAxis(
-        int axis
+    	int axis
     ) {
-        return (boolean) isFixedAxis(
-            this.segment, 
-            axis
-        );
+    	return (boolean) isFixedAxis(
+    		this.segment,
+    		axis
+    	);
     }
+    
     
     public static void setLimitedAxis(
-        MemorySegment settings, 
-        int axis, 
-        float min, 
-        float max
+    	MemorySegment settings,
+    	int axis,
+    	float min,
+    	float max
     ) {
-        MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_SET_LIMITED_AXIS.get();
-        try {
-            method.invokeExact(
-                settings, 
-                axis, 
-                min, 
-                max
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_SET_LIMITED_AXIS.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			axis,
+    			min,
+    			max
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLimitedAxis}.
-     */
+    /// Typed method of [#setLimitedAxis].
     public final void setLimitedAxis(
-        int axis, 
-        float min, 
-        float max
+    	int axis,
+    	float min,
+    	float max
     ) {
-        setLimitedAxis(
-            this.segment, 
-            axis, 
-            min, 
-            max
-        );
+    	setLimitedAxis(
+    		this.segment,
+    		axis,
+    		min,
+    		max
+    	);
     }
     
+    /// @see #space()
     public SixDOFConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
-    public SixDOFConstraintSettings maxFriction(float maxFriction, long index) {
-        MAX_FRICTION_HANDLE.set(segment, 0L, index, maxFriction);
-        return this;
+    /// @see #maxFriction(int)
+    public SixDOFConstraintSettings maxFriction(float maxFriction, int index0) {
+    	MAX_FRICTION_HANDLE.set(segment, 0L, index0, maxFriction);
+    	return this;
     }
     
-    public float maxFriction(long index) {
-        return (float) MAX_FRICTION_HANDLE.get(segment, 0L, index);
+    public float maxFriction(int index0) {
+    	return (float) MAX_FRICTION_HANDLE.get(segment, 0L, index0);
     }
     
+    /// @see #swingType()
     public SixDOFConstraintSettings swingType(int swingType) {
-        SWING_TYPE_HANDLE.set(segment, 0L, swingType);
-        return this;
+    	SWING_TYPE_HANDLE.set(segment, 0L, swingType);
+    	return this;
     }
     
     public int swingType() {
-        return (int) SWING_TYPE_HANDLE.get(segment, 0L);
+    	return (int) SWING_TYPE_HANDLE.get(segment, 0L);
     }
     
-    public SixDOFConstraintSettings limitMin(float limitMin, long index) {
-        LIMIT_MIN_HANDLE.set(segment, 0L, index, limitMin);
-        return this;
+    /// @see #limitMin(int)
+    public SixDOFConstraintSettings limitMin(float limitMin, int index0) {
+    	LIMIT_MIN_HANDLE.set(segment, 0L, index0, limitMin);
+    	return this;
     }
     
-    public float limitMin(long index) {
-        return (float) LIMIT_MIN_HANDLE.get(segment, 0L, index);
+    public float limitMin(int index0) {
+    	return (float) LIMIT_MIN_HANDLE.get(segment, 0L, index0);
     }
     
-    public SixDOFConstraintSettings limitMax(float limitMax, long index) {
-        LIMIT_MAX_HANDLE.set(segment, 0L, index, limitMax);
-        return this;
+    /// @see #limitMax(int)
+    public SixDOFConstraintSettings limitMax(float limitMax, int index0) {
+    	LIMIT_MAX_HANDLE.set(segment, 0L, index0, limitMax);
+    	return this;
     }
     
-    public float limitMax(long index) {
-        return (float) LIMIT_MAX_HANDLE.get(segment, 0L, index);
+    public float limitMax(int index0) {
+    	return (float) LIMIT_MAX_HANDLE.get(segment, 0L, index0);
     }
     
+    /// @see #base()
     public SixDOFConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public SixDOFConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #position1()
     public SixDOFConstraintSettings position1(Consumer<Vec3> consumer) {
-        consumer.accept(position1);
-        return this;
+    	consumer.accept(position1);
+    	return this;
     }
     
+    /// @see #position1()
     public SixDOFConstraintSettings position1(Vec3 other) {
-        position1.set(other);
-        return this;
+    	position1.set(other);
+    	return this;
     }
     
     public Vec3 position1() {
-        return position1;
+    	return position1;
     }
     
+    /// @see #axisX1()
     public SixDOFConstraintSettings axisX1(Consumer<Vec3> consumer) {
-        consumer.accept(axisX1);
-        return this;
+    	consumer.accept(axisX1);
+    	return this;
     }
     
+    /// @see #axisX1()
     public SixDOFConstraintSettings axisX1(Vec3 other) {
-        axisX1.set(other);
-        return this;
+    	axisX1.set(other);
+    	return this;
     }
     
     public Vec3 axisX1() {
-        return axisX1;
+    	return axisX1;
     }
     
+    /// @see #axisY1()
     public SixDOFConstraintSettings axisY1(Consumer<Vec3> consumer) {
-        consumer.accept(axisY1);
-        return this;
+    	consumer.accept(axisY1);
+    	return this;
     }
     
+    /// @see #axisY1()
     public SixDOFConstraintSettings axisY1(Vec3 other) {
-        axisY1.set(other);
-        return this;
+    	axisY1.set(other);
+    	return this;
     }
     
     public Vec3 axisY1() {
-        return axisY1;
+    	return axisY1;
     }
     
+    /// @see #position2()
     public SixDOFConstraintSettings position2(Consumer<Vec3> consumer) {
-        consumer.accept(position2);
-        return this;
+    	consumer.accept(position2);
+    	return this;
     }
     
+    /// @see #position2()
     public SixDOFConstraintSettings position2(Vec3 other) {
-        position2.set(other);
-        return this;
+    	position2.set(other);
+    	return this;
     }
     
     public Vec3 position2() {
-        return position2;
+    	return position2;
     }
     
+    /// @see #axisX2()
     public SixDOFConstraintSettings axisX2(Consumer<Vec3> consumer) {
-        consumer.accept(axisX2);
-        return this;
+    	consumer.accept(axisX2);
+    	return this;
     }
     
+    /// @see #axisX2()
     public SixDOFConstraintSettings axisX2(Vec3 other) {
-        axisX2.set(other);
-        return this;
+    	axisX2.set(other);
+    	return this;
     }
     
     public Vec3 axisX2() {
-        return axisX2;
+    	return axisX2;
     }
     
+    /// @see #axisY2()
     public SixDOFConstraintSettings axisY2(Consumer<Vec3> consumer) {
-        consumer.accept(axisY2);
-        return this;
+    	consumer.accept(axisY2);
+    	return this;
     }
     
+    /// @see #axisY2()
     public SixDOFConstraintSettings axisY2(Vec3 other) {
-        axisY2.set(other);
-        return this;
+    	axisY2.set(other);
+    	return this;
     }
     
     public Vec3 axisY2() {
-        return axisY2;
+    	return axisY2;
     }
     
+    /// @see #limitsSpringSettings(int)
     public SixDOFConstraintSettings limitsSpringSettings(Consumer<SpringSettings> consumer, int index) {
-        consumer.accept(limitsSpringSettings[index]);
-        return this;
+    	consumer.accept(limitsSpringSettings[index]);
+    	return this;
     }
     
+    /// @see #limitsSpringSettings(int)
     public SixDOFConstraintSettings limitsSpringSettings(SpringSettings other, int index) {
-        limitsSpringSettings[index].set(other);
-        return this;
+    	limitsSpringSettings[index].set(other);
+    	return this;
     }
     
     public SpringSettings limitsSpringSettings(int index) {
-        return limitsSpringSettings[index];
+    	return limitsSpringSettings[index];
     }
     
+    /// @see #motorSettings(int)
     public SixDOFConstraintSettings motorSettings(Consumer<MotorSettings> consumer, int index) {
-        consumer.accept(motorSettings[index]);
-        return this;
+    	consumer.accept(motorSettings[index]);
+    	return this;
     }
     
+    /// @see #motorSettings(int)
     public SixDOFConstraintSettings motorSettings(MotorSettings other, int index) {
-        motorSettings[index].set(other);
-        return this;
+    	motorSettings[index].set(other);
+    	return this;
     }
     
     public MotorSettings motorSettings(int index) {
-        return motorSettings[index];
+    	return motorSettings[index];
     }
     
     @Override

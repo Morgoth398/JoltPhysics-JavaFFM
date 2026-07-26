@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class CollidePointResult
 		implements Struct<CollidePointResult> {
 
@@ -57,22 +54,24 @@ public final class CollidePointResult
     
     }
 
+    /// @see #bodyID()
     public CollidePointResult bodyID(int bodyID) {
-        BODY_ID_HANDLE.set(segment, 0L, bodyID);
-        return this;
+    	BODY_ID_HANDLE.set(segment, 0L, bodyID);
+    	return this;
     }
     
     public int bodyID() {
-        return (int) BODY_ID_HANDLE.get(segment, 0L);
+    	return (int) BODY_ID_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID2()
     public CollidePointResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
-        return this;
+    	SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
+    	return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     @Override

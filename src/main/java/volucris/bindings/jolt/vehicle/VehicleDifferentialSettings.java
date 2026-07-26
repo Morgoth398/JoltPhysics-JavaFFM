@@ -15,9 +15,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleDifferentialSettings
 		implements Struct<VehicleDifferentialSettings> {
 
@@ -85,81 +82,85 @@ public final class VehicleDifferentialSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_DIFFERENTIAL_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_DIFFERENTIAL_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #leftWheel()
     public VehicleDifferentialSettings leftWheel(int leftWheel) {
-        LEFT_WHEEL_HANDLE.set(segment, 0L, leftWheel);
-        return this;
+    	LEFT_WHEEL_HANDLE.set(segment, 0L, leftWheel);
+    	return this;
     }
     
     public int leftWheel() {
-        return (int) LEFT_WHEEL_HANDLE.get(segment, 0L);
+    	return (int) LEFT_WHEEL_HANDLE.get(segment, 0L);
     }
     
+    /// @see #rightWheel()
     public VehicleDifferentialSettings rightWheel(int rightWheel) {
-        RIGHT_WHEEL_HANDLE.set(segment, 0L, rightWheel);
-        return this;
+    	RIGHT_WHEEL_HANDLE.set(segment, 0L, rightWheel);
+    	return this;
     }
     
     public int rightWheel() {
-        return (int) RIGHT_WHEEL_HANDLE.get(segment, 0L);
+    	return (int) RIGHT_WHEEL_HANDLE.get(segment, 0L);
     }
     
+    /// @see #differentialRatio()
     public VehicleDifferentialSettings differentialRatio(float differentialRatio) {
-        DIFFERENTIAL_RATIO_HANDLE.set(segment, 0L, differentialRatio);
-        return this;
+    	DIFFERENTIAL_RATIO_HANDLE.set(segment, 0L, differentialRatio);
+    	return this;
     }
     
     public float differentialRatio() {
-        return (float) DIFFERENTIAL_RATIO_HANDLE.get(segment, 0L);
+    	return (float) DIFFERENTIAL_RATIO_HANDLE.get(segment, 0L);
     }
     
+    /// @see #leftRightSplit()
     public VehicleDifferentialSettings leftRightSplit(float leftRightSplit) {
-        LEFT_RIGHT_SPLIT_HANDLE.set(segment, 0L, leftRightSplit);
-        return this;
+    	LEFT_RIGHT_SPLIT_HANDLE.set(segment, 0L, leftRightSplit);
+    	return this;
     }
     
     public float leftRightSplit() {
-        return (float) LEFT_RIGHT_SPLIT_HANDLE.get(segment, 0L);
+    	return (float) LEFT_RIGHT_SPLIT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #limitedSlipRatio()
     public VehicleDifferentialSettings limitedSlipRatio(float limitedSlipRatio) {
-        LIMITED_SLIP_RATIO_HANDLE.set(segment, 0L, limitedSlipRatio);
-        return this;
+    	LIMITED_SLIP_RATIO_HANDLE.set(segment, 0L, limitedSlipRatio);
+    	return this;
     }
     
     public float limitedSlipRatio() {
-        return (float) LIMITED_SLIP_RATIO_HANDLE.get(segment, 0L);
+    	return (float) LIMITED_SLIP_RATIO_HANDLE.get(segment, 0L);
     }
     
+    /// @see #engineTorqueRatio()
     public VehicleDifferentialSettings engineTorqueRatio(float engineTorqueRatio) {
-        ENGINE_TORQUE_RATIO_HANDLE.set(segment, 0L, engineTorqueRatio);
-        return this;
+    	ENGINE_TORQUE_RATIO_HANDLE.set(segment, 0L, engineTorqueRatio);
+    	return this;
     }
     
     public float engineTorqueRatio() {
-        return (float) ENGINE_TORQUE_RATIO_HANDLE.get(segment, 0L);
+    	return (float) ENGINE_TORQUE_RATIO_HANDLE.get(segment, 0L);
     }
     
     @Override

@@ -21,9 +21,6 @@ import volucris.bindings.jolt.vehicle.VehicleControllerSettings;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleConstraintSettings
 		implements Struct<VehicleConstraintSettings> {
 
@@ -108,138 +105,148 @@ public final class VehicleConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_VEHICLE_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #maxPitchRollAngle()
     public VehicleConstraintSettings maxPitchRollAngle(float maxPitchRollAngle) {
-        MAX_PITCH_ROLL_ANGLE_HANDLE.set(segment, 0L, maxPitchRollAngle);
-        return this;
+    	MAX_PITCH_ROLL_ANGLE_HANDLE.set(segment, 0L, maxPitchRollAngle);
+    	return this;
     }
     
     public float maxPitchRollAngle() {
-        return (float) MAX_PITCH_ROLL_ANGLE_HANDLE.get(segment, 0L);
+    	return (float) MAX_PITCH_ROLL_ANGLE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #wheelsCount()
     public VehicleConstraintSettings wheelsCount(int wheelsCount) {
-        WHEELS_COUNT_HANDLE.set(segment, 0L, wheelsCount);
-        return this;
+    	WHEELS_COUNT_HANDLE.set(segment, 0L, wheelsCount);
+    	return this;
     }
     
     public int wheelsCount() {
-        return (int) WHEELS_COUNT_HANDLE.get(segment, 0L);
+    	return (int) WHEELS_COUNT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #wheels()
     public VehicleConstraintSettings wheels(NativePointerArray wheels) {
-        WHEELS_HANDLE.set(segment, 0L, wheels.memorySegment());
-        return this;
+    	WHEELS_HANDLE.set(segment, 0L, wheels.memorySegment());
+    	return this;
     }
     
     public @Nullable NativePointerArray wheels() {
-        MemorySegment segment = (MemorySegment) WHEELS_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) WHEELS_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new NativePointerArray(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new NativePointerArray(segment);
     }
     
+    /// @see #antiRollBarsCount()
     public VehicleConstraintSettings antiRollBarsCount(int antiRollBarsCount) {
-        ANTI_ROLL_BARS_COUNT_HANDLE.set(segment, 0L, antiRollBarsCount);
-        return this;
+    	ANTI_ROLL_BARS_COUNT_HANDLE.set(segment, 0L, antiRollBarsCount);
+    	return this;
     }
     
     public int antiRollBarsCount() {
-        return (int) ANTI_ROLL_BARS_COUNT_HANDLE.get(segment, 0L);
+    	return (int) ANTI_ROLL_BARS_COUNT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #antiRollBars()
     public VehicleConstraintSettings antiRollBars(VehicleAntiRollBar antiRollBars) {
-        ANTI_ROLL_BARS_HANDLE.set(segment, 0L, antiRollBars.memorySegment());
-        return this;
+    	ANTI_ROLL_BARS_HANDLE.set(segment, 0L, antiRollBars.memorySegment());
+    	return this;
     }
     
     public @Nullable VehicleAntiRollBar antiRollBars() {
-        MemorySegment segment = (MemorySegment) ANTI_ROLL_BARS_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) ANTI_ROLL_BARS_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleAntiRollBar(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleAntiRollBar(segment);
     }
     
+    /// @see #controller()
     public VehicleConstraintSettings controller(VehicleControllerSettings controller) {
-        CONTROLLER_HANDLE.set(segment, 0L, controller.memorySegment());
-        return this;
+    	CONTROLLER_HANDLE.set(segment, 0L, controller.memorySegment());
+    	return this;
     }
     
     public @Nullable VehicleControllerSettings controller() {
-        MemorySegment segment = (MemorySegment) CONTROLLER_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) CONTROLLER_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleControllerSettings(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleControllerSettings(segment);
     }
     
+    /// @see #base()
     public VehicleConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public VehicleConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #up()
     public VehicleConstraintSettings up(Consumer<Vec3> consumer) {
-        consumer.accept(up);
-        return this;
+    	consumer.accept(up);
+    	return this;
     }
     
+    /// @see #up()
     public VehicleConstraintSettings up(Vec3 other) {
-        up.set(other);
-        return this;
+    	up.set(other);
+    	return this;
     }
     
     public Vec3 up() {
-        return up;
+    	return up;
     }
     
+    /// @see #forward()
     public VehicleConstraintSettings forward(Consumer<Vec3> consumer) {
-        consumer.accept(forward);
-        return this;
+    	consumer.accept(forward);
+    	return this;
     }
     
+    /// @see #forward()
     public VehicleConstraintSettings forward(Vec3 other) {
-        forward.set(other);
-        return this;
+    	forward.set(other);
+    	return this;
     }
     
     public Vec3 forward() {
-        return forward;
+    	return forward;
     }
     
     @Override

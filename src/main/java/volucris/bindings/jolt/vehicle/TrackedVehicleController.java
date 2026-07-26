@@ -10,9 +10,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class TrackedVehicleController extends VehicleController {
 
     private static final LazyConstant<MethodHandle> JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK;
@@ -48,335 +45,317 @@ public final class TrackedVehicleController extends VehicleController {
     }
 
     public TrackedVehicleController(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment getTrack(
-        MemorySegment controller, 
-        int side
+    	MemorySegment controller,
+    	int side
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                controller, 
-                side
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			controller,
+    			side
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTrack}.
-     */
+    /// Typed method of [#getTrack].
     public final @Nullable VehicleTrack getTrack(
-        int side
+    	int side
     ) {
-        MemorySegment segment = getTrack(
-            this.segment, 
-            side
-        );
+    	MemorySegment segment = getTrack(
+    		this.segment,
+    		side
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleTrack(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleTrack(segment);
     }
+    
     
     public static void setDriverInput(
-        MemorySegment controller, 
-        float forward, 
-        float leftRatio, 
-        float rightRatio, 
-        float brake
+    	MemorySegment controller,
+    	float forward,
+    	float leftRatio,
+    	float rightRatio,
+    	float brake
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_DRIVER_INPUT.get();
-        try {
-            method.invokeExact(
-                controller, 
-                forward, 
-                leftRatio, 
-                rightRatio, 
-                brake
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_DRIVER_INPUT.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			forward,
+    			leftRatio,
+    			rightRatio,
+    			brake
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setDriverInput}.
-     */
+    /// Typed method of [#setDriverInput].
     public final void setDriverInput(
-        float forward, 
-        float leftRatio, 
-        float rightRatio, 
-        float brake
+    	float forward,
+    	float leftRatio,
+    	float rightRatio,
+    	float brake
     ) {
-        setDriverInput(
-            this.segment, 
-            forward, 
-            leftRatio, 
-            rightRatio, 
-            brake
-        );
+    	setDriverInput(
+    		this.segment,
+    		forward,
+    		leftRatio,
+    		rightRatio,
+    		brake
+    	);
     }
+    
     
     public static float getForwardInput(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_FORWARD_INPUT.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_FORWARD_INPUT.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getForwardInput}.
-     */
-    public final float getForwardInput(
-    ) {
-        return (float) getForwardInput(
-            this.segment
-        );
+    /// Typed method of [#getForwardInput].
+    public final float getForwardInput() {
+    	return (float) getForwardInput(
+    		this.segment
+    	);
     }
+    
     
     public static void setForwardInput(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_FORWARD_INPUT.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_FORWARD_INPUT.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setForwardInput}.
-     */
+    /// Typed method of [#setForwardInput].
     public final void setForwardInput(
-        float value
+    	float value
     ) {
-        setForwardInput(
-            this.segment, 
-            value
-        );
+    	setForwardInput(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getLeftRatio(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_LEFT_RATIO.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_LEFT_RATIO.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLeftRatio}.
-     */
-    public final float getLeftRatio(
-    ) {
-        return (float) getLeftRatio(
-            this.segment
-        );
+    /// Typed method of [#getLeftRatio].
+    public final float getLeftRatio() {
+    	return (float) getLeftRatio(
+    		this.segment
+    	);
     }
+    
     
     public static void setLeftRatio(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_LEFT_RATIO.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_LEFT_RATIO.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLeftRatio}.
-     */
+    /// Typed method of [#setLeftRatio].
     public final void setLeftRatio(
-        float value
+    	float value
     ) {
-        setLeftRatio(
-            this.segment, 
-            value
-        );
+    	setLeftRatio(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getRightRatio(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_RIGHT_RATIO.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_RIGHT_RATIO.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRightRatio}.
-     */
-    public final float getRightRatio(
-    ) {
-        return (float) getRightRatio(
-            this.segment
-        );
+    /// Typed method of [#getRightRatio].
+    public final float getRightRatio() {
+    	return (float) getRightRatio(
+    		this.segment
+    	);
     }
+    
     
     public static void setRightRatio(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_RIGHT_RATIO.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_RIGHT_RATIO.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRightRatio}.
-     */
+    /// Typed method of [#setRightRatio].
     public final void setRightRatio(
-        float value
+    	float value
     ) {
-        setRightRatio(
-            this.segment, 
-            value
-        );
+    	setRightRatio(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getBrakeInput(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_BRAKE_INPUT.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_BRAKE_INPUT.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBrakeInput}.
-     */
-    public final float getBrakeInput(
-    ) {
-        return (float) getBrakeInput(
-            this.segment
-        );
+    /// Typed method of [#getBrakeInput].
+    public final float getBrakeInput() {
+    	return (float) getBrakeInput(
+    		this.segment
+    	);
     }
+    
     
     public static void setBrakeInput(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_BRAKE_INPUT.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SET_BRAKE_INPUT.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setBrakeInput}.
-     */
+    /// Typed method of [#setBrakeInput].
     public final void setBrakeInput(
-        float value
+    	float value
     ) {
-        setBrakeInput(
-            this.segment, 
-            value
-        );
+    	setBrakeInput(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static MemorySegment getEngine(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_ENGINE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_ENGINE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEngine}.
-     */
-    public final @Nullable VehicleEngine getEngine(
-    ) {
-        MemorySegment segment = getEngine(
-            this.segment
-        );
+    /// Typed method of [#getEngine].
+    public final @Nullable VehicleEngine getEngine() {
+    	MemorySegment segment = getEngine(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleEngine(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleEngine(segment);
     }
+    
     
     public static MemorySegment getTransmission(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRANSMISSION.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRANSMISSION.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTransmission}.
-     */
-    public final @Nullable VehicleTransmission getTransmission(
-    ) {
-        MemorySegment segment = getTransmission(
-            this.segment
-        );
+    /// Typed method of [#getTransmission].
+    public final @Nullable VehicleTransmission getTransmission() {
+    	MemorySegment segment = getTransmission(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new VehicleTransmission(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new VehicleTransmission(segment);
     }
     
     public MemorySegment memorySegment() {

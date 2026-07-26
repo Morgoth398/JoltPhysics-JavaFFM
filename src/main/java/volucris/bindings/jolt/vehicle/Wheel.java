@@ -12,9 +12,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class Wheel
 		permits WheelTV,
 		WheelWV {
@@ -80,542 +77,516 @@ public sealed class Wheel
         );
     }
     
+    /// Typed method of [#create].
     public Wheel(
-        Arena arena,
-        WheelSettings settings
+    	Arena arena,
+    	WheelSettings settings
     ) {
-         MemorySegment segment = create(
-            settings.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		settings.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
     }
     
     public Wheel(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static MemorySegment create(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_WHEEL_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void destroy(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_DESTROY.get();
-        try {
-            method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment getSettings(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_SETTINGS.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_SETTINGS.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSettings}.
-     */
-    public @Nullable WheelSettings getSettings(
-    ) {
-        MemorySegment segment = getSettings(
-            this.segment
-        );
+    /// Typed method of [#getSettings].
+    public @Nullable WheelSettings getSettings() {
+    	MemorySegment segment = getSettings(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new WheelSettings(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new WheelSettings(segment);
     }
+    
     
     public static float getAngularVelocity(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_ANGULAR_VELOCITY.get();
-        try {
-            return (float) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_ANGULAR_VELOCITY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getAngularVelocity}.
-     */
-    public final float getAngularVelocity(
-    ) {
-        return (float) getAngularVelocity(
-            this.segment
-        );
+    /// Typed method of [#getAngularVelocity].
+    public final float getAngularVelocity() {
+    	return (float) getAngularVelocity(
+    		this.segment
+    	);
     }
+    
     
     public static void setAngularVelocity(
-        MemorySegment wheel, 
-        float value
+    	MemorySegment wheel,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SET_ANGULAR_VELOCITY.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SET_ANGULAR_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setAngularVelocity}.
-     */
+    /// Typed method of [#setAngularVelocity].
     public final void setAngularVelocity(
-        float value
+    	float value
     ) {
-        setAngularVelocity(
-            this.segment, 
-            value
-        );
+    	setAngularVelocity(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getRotationAngle(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_ROTATION_ANGLE.get();
-        try {
-            return (float) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_ROTATION_ANGLE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getRotationAngle}.
-     */
-    public final float getRotationAngle(
-    ) {
-        return (float) getRotationAngle(
-            this.segment
-        );
+    /// Typed method of [#getRotationAngle].
+    public final float getRotationAngle() {
+    	return (float) getRotationAngle(
+    		this.segment
+    	);
     }
+    
     
     public static void setRotationAngle(
-        MemorySegment wheel, 
-        float value
+    	MemorySegment wheel,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SET_ROTATION_ANGLE.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SET_ROTATION_ANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setRotationAngle}.
-     */
+    /// Typed method of [#setRotationAngle].
     public final void setRotationAngle(
-        float value
+    	float value
     ) {
-        setRotationAngle(
-            this.segment, 
-            value
-        );
+    	setRotationAngle(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getSteerAngle(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_STEER_ANGLE.get();
-        try {
-            return (float) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_STEER_ANGLE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSteerAngle}.
-     */
-    public final float getSteerAngle(
-    ) {
-        return (float) getSteerAngle(
-            this.segment
-        );
+    /// Typed method of [#getSteerAngle].
+    public final float getSteerAngle() {
+    	return (float) getSteerAngle(
+    		this.segment
+    	);
     }
+    
     
     public static void setSteerAngle(
-        MemorySegment wheel, 
-        float value
+    	MemorySegment wheel,
+    	float value
     ) {
-        MethodHandle method = JPH_WHEEL_SET_STEER_ANGLE.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_SET_STEER_ANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSteerAngle}.
-     */
+    /// Typed method of [#setSteerAngle].
     public final void setSteerAngle(
-        float value
+    	float value
     ) {
-        setSteerAngle(
-            this.segment, 
-            value
-        );
+    	setSteerAngle(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean hasContact(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_HAS_CONTACT.get();
-        try {
-            return (boolean) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_HAS_CONTACT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #hasContact}.
-     */
-    public final boolean hasContact(
-    ) {
-        return (boolean) hasContact(
-            this.segment
-        );
+    /// Typed method of [#hasContact].
+    public final boolean hasContact() {
+    	return (boolean) hasContact(
+    		this.segment
+    	);
     }
+    
     
     public static int getContactBodyID(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_CONTACT_BODY_ID.get();
-        try {
-            return (int) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_CONTACT_BODY_ID.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getContactBodyID}.
-     */
-    public final int getContactBodyID(
-    ) {
-        return (int) getContactBodyID(
-            this.segment
-        );
+    /// Typed method of [#getContactBodyID].
+    public final int getContactBodyID() {
+    	return (int) getContactBodyID(
+    		this.segment
+    	);
     }
+    
     
     public static int getContactSubShapeID(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_CONTACT_SUB_SHAPE_ID.get();
-        try {
-            return (int) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_CONTACT_SUB_SHAPE_ID.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getContactSubShapeID}.
-     */
-    public final int getContactSubShapeID(
-    ) {
-        return (int) getContactSubShapeID(
-            this.segment
-        );
+    /// Typed method of [#getContactSubShapeID].
+    public final int getContactSubShapeID() {
+    	return (int) getContactSubShapeID(
+    		this.segment
+    	);
     }
+    
     
     public static void getContactPosition(
-        MemorySegment wheel, 
-        MemorySegment result
+    	MemorySegment wheel,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_GET_CONTACT_POSITION.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_CONTACT_POSITION.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getContactPosition}.
-     */
+    /// Typed method of [#getContactPosition].
     public final void getContactPosition(
-        Vec3 result
+    	Vec3 result
     ) {
-        getContactPosition(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getContactPosition(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getContactPointVelocity(
-        MemorySegment wheel, 
-        MemorySegment result
+    	MemorySegment wheel,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_GET_CONTACT_POINT_VELOCITY.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_CONTACT_POINT_VELOCITY.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getContactPointVelocity}.
-     */
+    /// Typed method of [#getContactPointVelocity].
     public final void getContactPointVelocity(
-        Vec3 result
+    	Vec3 result
     ) {
-        getContactPointVelocity(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getContactPointVelocity(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getContactNormal(
-        MemorySegment wheel, 
-        MemorySegment result
+    	MemorySegment wheel,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_GET_CONTACT_NORMAL.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_CONTACT_NORMAL.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getContactNormal}.
-     */
+    /// Typed method of [#getContactNormal].
     public final void getContactNormal(
-        Vec3 result
+    	Vec3 result
     ) {
-        getContactNormal(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getContactNormal(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getContactLongitudinal(
-        MemorySegment wheel, 
-        MemorySegment result
+    	MemorySegment wheel,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_GET_CONTACT_LONGITUDINAL.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_CONTACT_LONGITUDINAL.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getContactLongitudinal}.
-     */
+    /// Typed method of [#getContactLongitudinal].
     public final void getContactLongitudinal(
-        Vec3 result
+    	Vec3 result
     ) {
-        getContactLongitudinal(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getContactLongitudinal(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void getContactLateral(
-        MemorySegment wheel, 
-        MemorySegment result
+    	MemorySegment wheel,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_WHEEL_GET_CONTACT_LATERAL.get();
-        try {
-            method.invokeExact(
-                wheel, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_CONTACT_LATERAL.get();
+    	try {
+    		 method.invokeExact(
+    			wheel,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getContactLateral}.
-     */
+    /// Typed method of [#getContactLateral].
     public final void getContactLateral(
-        Vec3 result
+    	Vec3 result
     ) {
-        getContactLateral(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getContactLateral(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
+    
     
     public static float getSuspensionLength(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LENGTH.get();
-        try {
-            return (float) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LENGTH.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionLength}.
-     */
-    public final float getSuspensionLength(
-    ) {
-        return (float) getSuspensionLength(
-            this.segment
-        );
+    /// Typed method of [#getSuspensionLength].
+    public final float getSuspensionLength() {
+    	return (float) getSuspensionLength(
+    		this.segment
+    	);
     }
+    
     
     public static float getSuspensionLambda(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LAMBDA.get();
-        try {
-            return (float) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LAMBDA.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSuspensionLambda}.
-     */
-    public final float getSuspensionLambda(
-    ) {
-        return (float) getSuspensionLambda(
-            this.segment
-        );
+    /// Typed method of [#getSuspensionLambda].
+    public final float getSuspensionLambda() {
+    	return (float) getSuspensionLambda(
+    		this.segment
+    	);
     }
+    
     
     public static float getLongitudinalLambda(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_LONGITUDINAL_LAMBDA.get();
-        try {
-            return (float) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_LONGITUDINAL_LAMBDA.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLongitudinalLambda}.
-     */
-    public final float getLongitudinalLambda(
-    ) {
-        return (float) getLongitudinalLambda(
-            this.segment
-        );
+    /// Typed method of [#getLongitudinalLambda].
+    public final float getLongitudinalLambda() {
+    	return (float) getLongitudinalLambda(
+    		this.segment
+    	);
     }
+    
     
     public static float getLateralLambda(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_GET_LATERAL_LAMBDA.get();
-        try {
-            return (float) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_GET_LATERAL_LAMBDA.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLateralLambda}.
-     */
-    public final float getLateralLambda(
-    ) {
-        return (float) getLateralLambda(
-            this.segment
-        );
+    /// Typed method of [#getLateralLambda].
+    public final float getLateralLambda() {
+    	return (float) getLateralLambda(
+    		this.segment
+    	);
     }
+    
     
     public static boolean hasHitHardPoint(
-        MemorySegment wheel
+    	MemorySegment wheel
     ) {
-        MethodHandle method = JPH_WHEEL_HAS_HIT_HARD_POINT.get();
-        try {
-            return (boolean) method.invokeExact(
-                wheel
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_WHEEL_HAS_HIT_HARD_POINT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			wheel
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #hasHitHardPoint}.
-     */
-    public final boolean hasHitHardPoint(
-    ) {
-        return (boolean) hasHitHardPoint(
-            this.segment
-        );
+    /// Typed method of [#hasHitHardPoint].
+    public final boolean hasHitHardPoint() {
+    	return (boolean) hasHitHardPoint(
+    		this.segment
+    	);
     }
     
     public MemorySegment memorySegment() {

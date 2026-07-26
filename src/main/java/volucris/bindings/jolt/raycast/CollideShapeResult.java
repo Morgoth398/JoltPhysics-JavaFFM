@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CollideShapeResult
 		implements Struct<CollideShapeResult> {
 
@@ -108,128 +105,142 @@ public final class CollideShapeResult
         penetrationAxis = new Vec3(segment.asSlice(PENETRATION_AXIS_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #penetrationDepth()
     public CollideShapeResult penetrationDepth(float penetrationDepth) {
-        PENETRATION_DEPTH_HANDLE.set(segment, 0L, penetrationDepth);
-        return this;
+    	PENETRATION_DEPTH_HANDLE.set(segment, 0L, penetrationDepth);
+    	return this;
     }
     
     public float penetrationDepth() {
-        return (float) PENETRATION_DEPTH_HANDLE.get(segment, 0L);
+    	return (float) PENETRATION_DEPTH_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID1()
     public CollideShapeResult subShapeID1(int subShapeID1) {
-        SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
-        return this;
+    	SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
+    	return this;
     }
     
     public int subShapeID1() {
-        return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID2()
     public CollideShapeResult subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
-        return this;
+    	SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
+    	return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #bodyID2()
     public CollideShapeResult bodyID2(int bodyID2) {
-        BODY_ID2_HANDLE.set(segment, 0L, bodyID2);
-        return this;
+    	BODY_ID2_HANDLE.set(segment, 0L, bodyID2);
+    	return this;
     }
     
     public int bodyID2() {
-        return (int) BODY_ID2_HANDLE.get(segment, 0L);
+    	return (int) BODY_ID2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #shape1FaceCount()
     public CollideShapeResult shape1FaceCount(int shape1FaceCount) {
-        SHAPE1_FACE_COUNT_HANDLE.set(segment, 0L, shape1FaceCount);
-        return this;
+    	SHAPE1_FACE_COUNT_HANDLE.set(segment, 0L, shape1FaceCount);
+    	return this;
     }
     
     public int shape1FaceCount() {
-        return (int) SHAPE1_FACE_COUNT_HANDLE.get(segment, 0L);
+    	return (int) SHAPE1_FACE_COUNT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #shape1Faces()
     public CollideShapeResult shape1Faces(Vec3 shape1Faces) {
-        SHAPE1_FACES_HANDLE.set(segment, 0L, shape1Faces.memorySegment());
-        return this;
+    	SHAPE1_FACES_HANDLE.set(segment, 0L, shape1Faces.memorySegment());
+    	return this;
     }
     
     public @Nullable Vec3 shape1Faces() {
-        MemorySegment segment = (MemorySegment) SHAPE1_FACES_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) SHAPE1_FACES_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Vec3(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Vec3(segment);
     }
     
+    /// @see #shape2FaceCount()
     public CollideShapeResult shape2FaceCount(int shape2FaceCount) {
-        SHAPE2_FACE_COUNT_HANDLE.set(segment, 0L, shape2FaceCount);
-        return this;
+    	SHAPE2_FACE_COUNT_HANDLE.set(segment, 0L, shape2FaceCount);
+    	return this;
     }
     
     public int shape2FaceCount() {
-        return (int) SHAPE2_FACE_COUNT_HANDLE.get(segment, 0L);
+    	return (int) SHAPE2_FACE_COUNT_HANDLE.get(segment, 0L);
     }
     
+    /// @see #shape2Faces()
     public CollideShapeResult shape2Faces(Vec3 shape2Faces) {
-        SHAPE2_FACES_HANDLE.set(segment, 0L, shape2Faces.memorySegment());
-        return this;
+    	SHAPE2_FACES_HANDLE.set(segment, 0L, shape2Faces.memorySegment());
+    	return this;
     }
     
     public @Nullable Vec3 shape2Faces() {
-        MemorySegment segment = (MemorySegment) SHAPE2_FACES_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) SHAPE2_FACES_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Vec3(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Vec3(segment);
     }
     
+    /// @see #contactPointOn1()
     public CollideShapeResult contactPointOn1(Consumer<Vec3> consumer) {
-        consumer.accept(contactPointOn1);
-        return this;
+    	consumer.accept(contactPointOn1);
+    	return this;
     }
     
+    /// @see #contactPointOn1()
     public CollideShapeResult contactPointOn1(Vec3 other) {
-        contactPointOn1.set(other);
-        return this;
+    	contactPointOn1.set(other);
+    	return this;
     }
     
     public Vec3 contactPointOn1() {
-        return contactPointOn1;
+    	return contactPointOn1;
     }
     
+    /// @see #contactPointOn2()
     public CollideShapeResult contactPointOn2(Consumer<Vec3> consumer) {
-        consumer.accept(contactPointOn2);
-        return this;
+    	consumer.accept(contactPointOn2);
+    	return this;
     }
     
+    /// @see #contactPointOn2()
     public CollideShapeResult contactPointOn2(Vec3 other) {
-        contactPointOn2.set(other);
-        return this;
+    	contactPointOn2.set(other);
+    	return this;
     }
     
     public Vec3 contactPointOn2() {
-        return contactPointOn2;
+    	return contactPointOn2;
     }
     
+    /// @see #penetrationAxis()
     public CollideShapeResult penetrationAxis(Consumer<Vec3> consumer) {
-        consumer.accept(penetrationAxis);
-        return this;
+    	consumer.accept(penetrationAxis);
+    	return this;
     }
     
+    /// @see #penetrationAxis()
     public CollideShapeResult penetrationAxis(Vec3 other) {
-        penetrationAxis.set(other);
-        return this;
+    	penetrationAxis.set(other);
+    	return this;
     }
     
     public Vec3 penetrationAxis() {
-        return penetrationAxis;
+    	return penetrationAxis;
     }
     
     @Override

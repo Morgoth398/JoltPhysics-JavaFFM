@@ -25,6 +25,7 @@ imports:
   - volucris.bindings.jolt.math.Mat4
   - volucris.bindings.jolt.math.Vec3
   - volucris.bindings.jolt.math.AABox
+  - volucris.bindings.core.NativeByteArray
 static-imports:
   - java.lang.foreign.ValueLayout.*
   - volucris.bindings.core.FFMUtils.*

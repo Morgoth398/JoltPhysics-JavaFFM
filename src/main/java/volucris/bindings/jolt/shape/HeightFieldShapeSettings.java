@@ -14,9 +14,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class HeightFieldShapeSettings extends ShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE;
@@ -68,566 +65,545 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     }
 
     public HeightFieldShapeSettings(
-        NativeFloatArray samples, 
-        Vec3 offset, 
-        Vec3 scale, 
-        int sampleCount, 
+        NativeFloatArray samples,
+        Vec3 offset,
+        Vec3 scale,
+        int sampleCount,
         NativeByteArray materialIndices
     ) {
         this(
             Arena.ofAuto(),
-            samples, 
-            offset, 
-            scale, 
-            sampleCount, 
+            samples,
+            offset,
+            scale,
+            sampleCount,
             materialIndices
         );
     }
     
+    /// Typed method of [#create].
     public HeightFieldShapeSettings(
-        Arena arena,
-        NativeFloatArray samples, 
-        Vec3 offset, 
-        Vec3 scale, 
-        int sampleCount, 
-        NativeByteArray materialIndices
+    	Arena arena,
+    	NativeFloatArray samples,
+    	Vec3 offset,
+    	Vec3 scale,
+    	int sampleCount,
+    	NativeByteArray materialIndices
     ) {
-         MemorySegment segment = create(
-            samples.memorySegment(), 
-            offset.memorySegment(), 
-            scale.memorySegment(), 
-            sampleCount, 
-            materialIndices.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		samples.memorySegment(),
+    		offset.memorySegment(),
+    		scale.memorySegment(),
+    		sampleCount,
+    		materialIndices.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public HeightFieldShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment samples, 
-        MemorySegment offset, 
-        MemorySegment scale, 
-        int sampleCount, 
-        MemorySegment materialIndices
+    	MemorySegment samples,
+    	MemorySegment offset,
+    	MemorySegment scale,
+    	int sampleCount,
+    	MemorySegment materialIndices
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                samples, 
-                offset, 
-                scale, 
-                sampleCount, 
-                materialIndices
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			samples,
+    			offset,
+    			scale,
+    			sampleCount,
+    			materialIndices
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void determineMinAndMaxSample(
-        MemorySegment settings, 
-        MemorySegment pOutMinValue, 
-        MemorySegment pOutMaxValue, 
-        MemorySegment pOutQuantizationScale
+    	MemorySegment settings,
+    	MemorySegment pOutMinValue,
+    	MemorySegment pOutMaxValue,
+    	MemorySegment pOutQuantizationScale
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_DETERMINE_MIN_AND_MAX_SAMPLE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                pOutMinValue, 
-                pOutMaxValue, 
-                pOutQuantizationScale
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_DETERMINE_MIN_AND_MAX_SAMPLE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			pOutMinValue,
+    			pOutMaxValue,
+    			pOutQuantizationScale
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #determineMinAndMaxSample}.
-     */
+    /// Typed method of [#determineMinAndMaxSample].
     public final void determineMinAndMaxSample(
-        NativeFloatArray pOutMinValue, 
-        NativeFloatArray pOutMaxValue, 
-        NativeFloatArray pOutQuantizationScale
+    	NativeFloatArray pOutMinValue,
+    	NativeFloatArray pOutMaxValue,
+    	NativeFloatArray pOutQuantizationScale
     ) {
-        determineMinAndMaxSample(
-            this.segment, 
-            pOutMinValue.memorySegment(), 
-            pOutMaxValue.memorySegment(), 
-            pOutQuantizationScale.memorySegment()
-        );
+    	determineMinAndMaxSample(
+    		this.segment,
+    		pOutMinValue.memorySegment(),
+    		pOutMaxValue.memorySegment(),
+    		pOutQuantizationScale.memorySegment()
+    	);
     }
+    
     
     public static int calculateBitsPerSampleForError(
-        MemorySegment settings, 
-        float maxError
+    	MemorySegment settings,
+    	float maxError
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CALCULATE_BITS_PER_SAMPLE_FOR_ERROR.get();
-        try {
-            return (int) method.invokeExact(
-                settings, 
-                maxError
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CALCULATE_BITS_PER_SAMPLE_FOR_ERROR.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings,
+    			maxError
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #calculateBitsPerSampleForError}.
-     */
+    /// Typed method of [#calculateBitsPerSampleForError].
     public final int calculateBitsPerSampleForError(
-        float maxError
+    	float maxError
     ) {
-        return (int) calculateBitsPerSampleForError(
-            this.segment, 
-            maxError
-        );
+    	return (int) calculateBitsPerSampleForError(
+    		this.segment,
+    		maxError
+    	);
     }
+    
     
     public static void getOffset(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_OFFSET.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_OFFSET.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getOffset}.
-     */
+    /// Typed method of [#getOffset].
     public final void getOffset(
-        HeightFieldShapeSettings shape, 
-        Vec3 result
+    	HeightFieldShapeSettings shape,
+    	Vec3 result
     ) {
-        getOffset(
-            shape.memorySegment(), 
-            result.memorySegment()
-        );
+    	getOffset(
+    		shape.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setOffset(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_OFFSET.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_OFFSET.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setOffset}.
-     */
+    /// Typed method of [#setOffset].
     public final void setOffset(
-        Vec3 value
+    	Vec3 value
     ) {
-        setOffset(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setOffset(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static void getScale(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_SCALE.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_SCALE.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getScale}.
-     */
+    /// Typed method of [#getScale].
     public final void getScale(
-        HeightFieldShapeSettings shape, 
-        Vec3 result
+    	HeightFieldShapeSettings shape,
+    	Vec3 result
     ) {
-        getScale(
-            shape.memorySegment(), 
-            result.memorySegment()
-        );
+    	getScale(
+    		shape.memorySegment(),
+    		result.memorySegment()
+    	);
     }
+    
     
     public static void setScale(
-        MemorySegment settings, 
-        MemorySegment value
+    	MemorySegment settings,
+    	MemorySegment value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_SCALE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_SCALE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setScale}.
-     */
+    /// Typed method of [#setScale].
     public final void setScale(
-        Vec3 value
+    	Vec3 value
     ) {
-        setScale(
-            this.segment, 
-            value.memorySegment()
-        );
+    	setScale(
+    		this.segment,
+    		value.memorySegment()
+    	);
     }
+    
     
     public static int getSampleCount(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_SAMPLE_COUNT.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_SAMPLE_COUNT.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSampleCount}.
-     */
-    public final int getSampleCount(
-    ) {
-        return (int) getSampleCount(
-            this.segment
-        );
+    /// Typed method of [#getSampleCount].
+    public final int getSampleCount() {
+    	return (int) getSampleCount(
+    		this.segment
+    	);
     }
+    
     
     public static void setSampleCount(
-        MemorySegment settings, 
-        int value
+    	MemorySegment settings,
+    	int value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_SAMPLE_COUNT.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_SAMPLE_COUNT.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setSampleCount}.
-     */
+    /// Typed method of [#setSampleCount].
     public final void setSampleCount(
-        int value
+    	int value
     ) {
-        setSampleCount(
-            this.segment, 
-            value
-        );
+    	setSampleCount(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getMinHeightValue(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MIN_HEIGHT_VALUE.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MIN_HEIGHT_VALUE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMinHeightValue}.
-     */
-    public final float getMinHeightValue(
-    ) {
-        return (float) getMinHeightValue(
-            this.segment
-        );
+    /// Typed method of [#getMinHeightValue].
+    public final float getMinHeightValue() {
+    	return (float) getMinHeightValue(
+    		this.segment
+    	);
     }
+    
     
     public static void setMinHeightValue(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_MIN_HEIGHT_VALUE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_MIN_HEIGHT_VALUE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMinHeightValue}.
-     */
+    /// Typed method of [#setMinHeightValue].
     public final void setMinHeightValue(
-        float value
+    	float value
     ) {
-        setMinHeightValue(
-            this.segment, 
-            value
-        );
+    	setMinHeightValue(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getMaxHeightValue(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MAX_HEIGHT_VALUE.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MAX_HEIGHT_VALUE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getMaxHeightValue}.
-     */
-    public final float getMaxHeightValue(
-    ) {
-        return (float) getMaxHeightValue(
-            this.segment
-        );
+    /// Typed method of [#getMaxHeightValue].
+    public final float getMaxHeightValue() {
+    	return (float) getMaxHeightValue(
+    		this.segment
+    	);
     }
+    
     
     public static void setMaxHeightValue(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_MAX_HEIGHT_VALUE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_MAX_HEIGHT_VALUE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMaxHeightValue}.
-     */
+    /// Typed method of [#setMaxHeightValue].
     public final void setMaxHeightValue(
-        float value
+    	float value
     ) {
-        setMaxHeightValue(
-            this.segment, 
-            value
-        );
+    	setMaxHeightValue(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static int getBlockSize(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BLOCK_SIZE.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BLOCK_SIZE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBlockSize}.
-     */
-    public final int getBlockSize(
-    ) {
-        return (int) getBlockSize(
-            this.segment
-        );
+    /// Typed method of [#getBlockSize].
+    public final int getBlockSize() {
+    	return (int) getBlockSize(
+    		this.segment
+    	);
     }
+    
     
     public static void setBlockSize(
-        MemorySegment settings, 
-        int value
+    	MemorySegment settings,
+    	int value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_BLOCK_SIZE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_BLOCK_SIZE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setBlockSize}.
-     */
+    /// Typed method of [#setBlockSize].
     public final void setBlockSize(
-        int value
+    	int value
     ) {
-        setBlockSize(
-            this.segment, 
-            value
-        );
+    	setBlockSize(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static int getBitsPerSample(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BITS_PER_SAMPLE.get();
-        try {
-            return (int) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BITS_PER_SAMPLE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getBitsPerSample}.
-     */
-    public final int getBitsPerSample(
-    ) {
-        return (int) getBitsPerSample(
-            this.segment
-        );
+    /// Typed method of [#getBitsPerSample].
+    public final int getBitsPerSample() {
+    	return (int) getBitsPerSample(
+    		this.segment
+    	);
     }
+    
     
     public static void setBitsPerSample(
-        MemorySegment settings, 
-        int value
+    	MemorySegment settings,
+    	int value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_BITS_PER_SAMPLE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_BITS_PER_SAMPLE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setBitsPerSample}.
-     */
+    /// Typed method of [#setBitsPerSample].
     public final void setBitsPerSample(
-        int value
+    	int value
     ) {
-        setBitsPerSample(
-            this.segment, 
-            value
-        );
+    	setBitsPerSample(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getActiveEdgeCosThresholdAngle(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
-        try {
-            return (float) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getActiveEdgeCosThresholdAngle}.
-     */
-    public final float getActiveEdgeCosThresholdAngle(
-    ) {
-        return (float) getActiveEdgeCosThresholdAngle(
-            this.segment
-        );
+    /// Typed method of [#getActiveEdgeCosThresholdAngle].
+    public final float getActiveEdgeCosThresholdAngle() {
+    	return (float) getActiveEdgeCosThresholdAngle(
+    		this.segment
+    	);
     }
+    
     
     public static void setActiveEdgeCosThresholdAngle(
-        MemorySegment settings, 
-        float value
+    	MemorySegment settings,
+    	float value
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
-        try {
-            method.invokeExact(
-                settings, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_SET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
+    	try {
+    		 method.invokeExact(
+    			settings,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setActiveEdgeCosThresholdAngle}.
-     */
+    /// Typed method of [#setActiveEdgeCosThresholdAngle].
     public final void setActiveEdgeCosThresholdAngle(
-        float value
+    	float value
     ) {
-        setActiveEdgeCosThresholdAngle(
-            this.segment, 
-            value
-        );
+    	setActiveEdgeCosThresholdAngle(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable HeightFieldShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable HeightFieldShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new HeightFieldShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new HeightFieldShape(segment);
     }
     
     public MemorySegment memorySegment() {

@@ -12,11 +12,7 @@ import volucris.bindings.core.NativeStructArray;
 import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class SubShapeIDPair
 		implements Struct<SubShapeIDPair> {
 
@@ -68,40 +64,44 @@ public final class SubShapeIDPair
     
     }
 
-    public SubShapeIDPair Body1ID(int Body1ID) {
-        BODY1_ID_HANDLE.set(segment, 0L, Body1ID);
-        return this;
+    /// @see #body1ID()
+    public SubShapeIDPair body1ID(int body1ID) {
+    	BODY1_ID_HANDLE.set(segment, 0L, body1ID);
+    	return this;
     }
     
-    public int Body1ID() {
-        return (int) BODY1_ID_HANDLE.get(segment, 0L);
+    public int body1ID() {
+    	return (int) BODY1_ID_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID1()
     public SubShapeIDPair subShapeID1(int subShapeID1) {
-        SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
-        return this;
+    	SUB_SHAPE_ID1_HANDLE.set(segment, 0L, subShapeID1);
+    	return this;
     }
     
     public int subShapeID1() {
-        return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID1_HANDLE.get(segment, 0L);
     }
     
-    public SubShapeIDPair Body2ID(int Body2ID) {
-        BODY2_ID_HANDLE.set(segment, 0L, Body2ID);
-        return this;
+    /// @see #body2ID()
+    public SubShapeIDPair body2ID(int body2ID) {
+    	BODY2_ID_HANDLE.set(segment, 0L, body2ID);
+    	return this;
     }
     
-    public int Body2ID() {
-        return (int) BODY2_ID_HANDLE.get(segment, 0L);
+    public int body2ID() {
+    	return (int) BODY2_ID_HANDLE.get(segment, 0L);
     }
     
+    /// @see #subShapeID2()
     public SubShapeIDPair subShapeID2(int subShapeID2) {
-        SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
-        return this;
+    	SUB_SHAPE_ID2_HANDLE.set(segment, 0L, subShapeID2);
+    	return this;
     }
     
     public int subShapeID2() {
-        return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
+    	return (int) SUB_SHAPE_ID2_HANDLE.get(segment, 0L);
     }
     
     @Override

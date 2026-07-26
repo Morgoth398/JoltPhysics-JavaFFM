@@ -36,7 +36,7 @@ excluded-function-name-postfixes:
 constructors:
   - native-function: JPH_SliderConstraint_Create
     destructor: JPH_Constraint_Destroy
-    template: /constructor/ConstructorMethodTemplateWithSuper.ftl
+    
 struct:
 native-functions:
 native-function-pointers:

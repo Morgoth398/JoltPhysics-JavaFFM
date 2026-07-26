@@ -9,9 +9,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleTransmission {
 
     private static final LazyConstant<MethodHandle> JPH_VEHICLE_TRANSMISSION_SET_MODE;
@@ -39,227 +36,219 @@ public final class VehicleTransmission {
     }
 
     public VehicleTransmission(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void setMode(
-        MemorySegment transmission, 
-        int mode
+    	MemorySegment transmission,
+    	int mode
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SET_MODE.get();
-        try {
-            method.invokeExact(
-                transmission, 
-                mode
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SET_MODE.get();
+    	try {
+    		 method.invokeExact(
+    			transmission,
+    			mode
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setMode}.
-     */
+    /// Typed method of [#setMode].
     public final void setMode(
-        VehicleTransmission transmission, 
-        int mode
+    	VehicleTransmission transmission,
+    	int mode
     ) {
-        setMode(
-            transmission.memorySegment(), 
-            mode
-        );
+    	setMode(
+    		transmission.memorySegment(),
+    		mode
+    	);
     }
+    
     
     public static void set(
-        MemorySegment transmission, 
-        int currentGear, 
-        float clutchFriction
+    	MemorySegment transmission,
+    	int currentGear,
+    	float clutchFriction
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_SET.get();
-        try {
-            method.invokeExact(
-                transmission, 
-                currentGear, 
-                clutchFriction
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SET.get();
+    	try {
+    		 method.invokeExact(
+    			transmission,
+    			currentGear,
+    			clutchFriction
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #set}.
-     */
+    /// Typed method of [#set].
     public final void set(
-        VehicleTransmission transmission, 
-        int currentGear, 
-        float clutchFriction
+    	VehicleTransmission transmission,
+    	int currentGear,
+    	float clutchFriction
     ) {
-        set(
-            transmission.memorySegment(), 
-            currentGear, 
-            clutchFriction
-        );
+    	set(
+    		transmission.memorySegment(),
+    		currentGear,
+    		clutchFriction
+    	);
     }
+    
     
     public static void update(
-        MemorySegment transmission, 
-        float deltaTime, 
-        float currentRPM, 
-        float forwardInput, 
-        boolean canShiftUp
+    	MemorySegment transmission,
+    	float deltaTime,
+    	float currentRPM,
+    	float forwardInput,
+    	boolean canShiftUp
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_UPDATE.get();
-        try {
-            method.invokeExact(
-                transmission, 
-                deltaTime, 
-                currentRPM, 
-                forwardInput, 
-                canShiftUp
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_UPDATE.get();
+    	try {
+    		 method.invokeExact(
+    			transmission,
+    			deltaTime,
+    			currentRPM,
+    			forwardInput,
+    			canShiftUp
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #update}.
-     */
+    /// Typed method of [#update].
     public final void update(
-        VehicleTransmission transmission, 
-        float deltaTime, 
-        float currentRPM, 
-        float forwardInput, 
-        boolean canShiftUp
+    	VehicleTransmission transmission,
+    	float deltaTime,
+    	float currentRPM,
+    	float forwardInput,
+    	boolean canShiftUp
     ) {
-        update(
-            transmission.memorySegment(), 
-            deltaTime, 
-            currentRPM, 
-            forwardInput, 
-            canShiftUp
-        );
+    	update(
+    		transmission.memorySegment(),
+    		deltaTime,
+    		currentRPM,
+    		forwardInput,
+    		canShiftUp
+    	);
     }
+    
     
     public static int getCurrentGear(
-        MemorySegment transmission
+    	MemorySegment transmission
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_GEAR.get();
-        try {
-            return (int) method.invokeExact(
-                transmission
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_GEAR.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			transmission
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCurrentGear}.
-     */
+    /// Typed method of [#getCurrentGear].
     public final int getCurrentGear(
-        VehicleTransmission transmission
+    	VehicleTransmission transmission
     ) {
-        return (int) getCurrentGear(
-            transmission.memorySegment()
-        );
+    	return (int) getCurrentGear(
+    		transmission.memorySegment()
+    	);
     }
+    
     
     public static float getClutchFriction(
-        MemorySegment transmission
+    	MemorySegment transmission
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CLUTCH_FRICTION.get();
-        try {
-            return (float) method.invokeExact(
-                transmission
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CLUTCH_FRICTION.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			transmission
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getClutchFriction}.
-     */
+    /// Typed method of [#getClutchFriction].
     public final float getClutchFriction(
-        VehicleTransmission transmission
+    	VehicleTransmission transmission
     ) {
-        return (float) getClutchFriction(
-            transmission.memorySegment()
-        );
+    	return (float) getClutchFriction(
+    		transmission.memorySegment()
+    	);
     }
+    
     
     public static boolean isSwitchingGear(
-        MemorySegment transmission
+    	MemorySegment transmission
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_IS_SWITCHING_GEAR.get();
-        try {
-            return (boolean) method.invokeExact(
-                transmission
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_IS_SWITCHING_GEAR.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			transmission
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isSwitchingGear}.
-     */
+    /// Typed method of [#isSwitchingGear].
     public final boolean isSwitchingGear(
-        VehicleTransmission transmission
+    	VehicleTransmission transmission
     ) {
-        return (boolean) isSwitchingGear(
-            transmission.memorySegment()
-        );
+    	return (boolean) isSwitchingGear(
+    		transmission.memorySegment()
+    	);
     }
+    
     
     public static float getCurrentRatio(
-        MemorySegment transmission
+    	MemorySegment transmission
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_RATIO.get();
-        try {
-            return (float) method.invokeExact(
-                transmission
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_RATIO.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			transmission
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getCurrentRatio}.
-     */
+    /// Typed method of [#getCurrentRatio].
     public final float getCurrentRatio(
-        VehicleTransmission transmission
+    	VehicleTransmission transmission
     ) {
-        return (float) getCurrentRatio(
-            transmission.memorySegment()
-        );
+    	return (float) getCurrentRatio(
+    		transmission.memorySegment()
+    	);
     }
+    
     
     public static boolean allowSleep(
-        MemorySegment transmission
+    	MemorySegment transmission
     ) {
-        MethodHandle method = JPH_VEHICLE_TRANSMISSION_ALLOW_SLEEP.get();
-        try {
-            return (boolean) method.invokeExact(
-                transmission
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_TRANSMISSION_ALLOW_SLEEP.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			transmission
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #allowSleep}.
-     */
+    /// Typed method of [#allowSleep].
     public final boolean allowSleep(
-        VehicleTransmission transmission
+    	VehicleTransmission transmission
     ) {
-        return (boolean) allowSleep(
-            transmission.memorySegment()
-        );
+    	return (boolean) allowSleep(
+    		transmission.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

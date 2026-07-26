@@ -10,9 +10,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public sealed class Constraint
 		permits TwoBodyConstraint,
 		VehicleConstraint {
@@ -66,505 +63,478 @@ public sealed class Constraint
     }
 
     public Constraint(MemorySegment segment) {
-        this.segment = segment;
+    	this.segment = segment;
     }
 
+    
     public static void destroy(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_DESTROY.get();
-        try {
-            method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static int getType(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_GET_TYPE.get();
-        try {
-            return (int) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_GET_TYPE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getType}.
-     */
-    public final int getType(
-    ) {
-        return (int) getType(
-            this.segment
-        );
+    /// Typed method of [#getType].
+    public final int getType() {
+    	return (int) getType(
+    		this.segment
+    	);
     }
+    
     
     public static int getSubType(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_GET_SUB_TYPE.get();
-        try {
-            return (int) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_GET_SUB_TYPE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getSubType}.
-     */
-    public final int getSubType(
-    ) {
-        return (int) getSubType(
-            this.segment
-        );
+    /// Typed method of [#getSubType].
+    public final int getSubType() {
+    	return (int) getSubType(
+    		this.segment
+    	);
     }
+    
     
     public static int getConstraintPriority(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_GET_CONSTRAINT_PRIORITY.get();
-        try {
-            return (int) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_GET_CONSTRAINT_PRIORITY.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getConstraintPriority}.
-     */
-    public final int getConstraintPriority(
-    ) {
-        return (int) getConstraintPriority(
-            this.segment
-        );
+    /// Typed method of [#getConstraintPriority].
+    public final int getConstraintPriority() {
+    	return (int) getConstraintPriority(
+    		this.segment
+    	);
     }
+    
     
     public static void setConstraintPriority(
-        MemorySegment constraint, 
-        int priority
+    	MemorySegment constraint,
+    	int priority
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SET_CONSTRAINT_PRIORITY.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                priority
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SET_CONSTRAINT_PRIORITY.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			priority
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setConstraintPriority}.
-     */
+    /// Typed method of [#setConstraintPriority].
     public final void setConstraintPriority(
-        int priority
+    	int priority
     ) {
-        setConstraintPriority(
-            this.segment, 
-            priority
-        );
+    	setConstraintPriority(
+    		this.segment,
+    		priority
+    	);
     }
+    
     
     public static int getNumVelocityStepsOverride(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_GET_NUM_VELOCITY_STEPS_OVERRIDE.get();
-        try {
-            return (int) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_GET_NUM_VELOCITY_STEPS_OVERRIDE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumVelocityStepsOverride}.
-     */
-    public final int getNumVelocityStepsOverride(
-    ) {
-        return (int) getNumVelocityStepsOverride(
-            this.segment
-        );
+    /// Typed method of [#getNumVelocityStepsOverride].
+    public final int getNumVelocityStepsOverride() {
+    	return (int) getNumVelocityStepsOverride(
+    		this.segment
+    	);
     }
+    
     
     public static void setNumVelocityStepsOverride(
-        MemorySegment constraint, 
-        int value
+    	MemorySegment constraint,
+    	int value
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SET_NUM_VELOCITY_STEPS_OVERRIDE.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SET_NUM_VELOCITY_STEPS_OVERRIDE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setNumVelocityStepsOverride}.
-     */
+    /// Typed method of [#setNumVelocityStepsOverride].
     public final void setNumVelocityStepsOverride(
-        int value
+    	int value
     ) {
-        setNumVelocityStepsOverride(
-            this.segment, 
-            value
-        );
+    	setNumVelocityStepsOverride(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static int getNumPositionStepsOverride(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_GET_NUM_POSITION_STEPS_OVERRIDE.get();
-        try {
-            return (int) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_GET_NUM_POSITION_STEPS_OVERRIDE.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getNumPositionStepsOverride}.
-     */
-    public final int getNumPositionStepsOverride(
-    ) {
-        return (int) getNumPositionStepsOverride(
-            this.segment
-        );
+    /// Typed method of [#getNumPositionStepsOverride].
+    public final int getNumPositionStepsOverride() {
+    	return (int) getNumPositionStepsOverride(
+    		this.segment
+    	);
     }
+    
     
     public static void setNumPositionStepsOverride(
-        MemorySegment constraint, 
-        int value
+    	MemorySegment constraint,
+    	int value
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SET_NUM_POSITION_STEPS_OVERRIDE.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SET_NUM_POSITION_STEPS_OVERRIDE.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setNumPositionStepsOverride}.
-     */
+    /// Typed method of [#setNumPositionStepsOverride].
     public final void setNumPositionStepsOverride(
-        int value
+    	int value
     ) {
-        setNumPositionStepsOverride(
-            this.segment, 
-            value
-        );
+    	setNumPositionStepsOverride(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean getEnabled(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_GET_ENABLED.get();
-        try {
-            return (boolean) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_GET_ENABLED.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getEnabled}.
-     */
-    public final boolean getEnabled(
-    ) {
-        return (boolean) getEnabled(
-            this.segment
-        );
+    /// Typed method of [#getEnabled].
+    public final boolean getEnabled() {
+    	return (boolean) getEnabled(
+    		this.segment
+    	);
     }
+    
     
     public static void setEnabled(
-        MemorySegment constraint, 
-        boolean enabled
+    	MemorySegment constraint,
+    	boolean enabled
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SET_ENABLED.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                enabled
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SET_ENABLED.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			enabled
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setEnabled}.
-     */
+    /// Typed method of [#setEnabled].
     public final void setEnabled(
-        boolean enabled
+    	boolean enabled
     ) {
-        setEnabled(
-            this.segment, 
-            enabled
-        );
+    	setEnabled(
+    		this.segment,
+    		enabled
+    	);
     }
+    
     
     public static long getUserData(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_GET_USER_DATA.get();
-        try {
-            return (long) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_GET_USER_DATA.get();
+    	try {
+    		return (long)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getUserData}.
-     */
-    public final long getUserData(
-    ) {
-        return (long) getUserData(
-            this.segment
-        );
+    /// Typed method of [#getUserData].
+    public final long getUserData() {
+    	return (long) getUserData(
+    		this.segment
+    	);
     }
+    
     
     public static void setUserData(
-        MemorySegment constraint, 
-        long userData
+    	MemorySegment constraint,
+    	long userData
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SET_USER_DATA.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SET_USER_DATA.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setUserData}.
-     */
+    /// Typed method of [#setUserData].
     public final void setUserData(
-        long userData
+    	long userData
     ) {
-        setUserData(
-            this.segment, 
-            userData
-        );
+    	setUserData(
+    		this.segment,
+    		userData
+    	);
     }
+    
     
     public static void notifyShapeChanged(
-        MemorySegment constraint, 
-        int bodyID, 
-        MemorySegment deltaCOM
+    	MemorySegment constraint,
+    	int bodyID,
+    	MemorySegment deltaCOM
     ) {
-        MethodHandle method = JPH_CONSTRAINT_NOTIFY_SHAPE_CHANGED.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                bodyID, 
-                deltaCOM
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_NOTIFY_SHAPE_CHANGED.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			bodyID,
+    			deltaCOM
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #notifyShapeChanged}.
-     */
+    /// Typed method of [#notifyShapeChanged].
     public final void notifyShapeChanged(
-        int bodyID, 
-        Vec3 deltaCOM
+    	int bodyID,
+    	Vec3 deltaCOM
     ) {
-        notifyShapeChanged(
-            this.segment, 
-            bodyID, 
-            deltaCOM.memorySegment()
-        );
+    	notifyShapeChanged(
+    		this.segment,
+    		bodyID,
+    		deltaCOM.memorySegment()
+    	);
     }
+    
     
     public static void resetWarmStart(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_RESET_WARM_START.get();
-        try {
-            method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_RESET_WARM_START.get();
+    	try {
+    		 method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #resetWarmStart}.
-     */
-    public final void resetWarmStart(
-    ) {
-        resetWarmStart(
-            this.segment
-        );
+    /// Typed method of [#resetWarmStart].
+    public final void resetWarmStart() {
+    	resetWarmStart(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isActive(
-        MemorySegment constraint
+    	MemorySegment constraint
     ) {
-        MethodHandle method = JPH_CONSTRAINT_IS_ACTIVE.get();
-        try {
-            return (boolean) method.invokeExact(
-                constraint
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_IS_ACTIVE.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			constraint
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isActive}.
-     */
-    public final boolean isActive(
-    ) {
-        return (boolean) isActive(
-            this.segment
-        );
+    /// Typed method of [#isActive].
+    public final boolean isActive() {
+    	return (boolean) isActive(
+    		this.segment
+    	);
     }
+    
     
     public static void setupVelocityConstraint(
-        MemorySegment constraint, 
-        float deltaTime
+    	MemorySegment constraint,
+    	float deltaTime
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SETUP_VELOCITY_CONSTRAINT.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                deltaTime
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SETUP_VELOCITY_CONSTRAINT.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			deltaTime
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setupVelocityConstraint}.
-     */
+    /// Typed method of [#setupVelocityConstraint].
     public final void setupVelocityConstraint(
-        float deltaTime
+    	float deltaTime
     ) {
-        setupVelocityConstraint(
-            this.segment, 
-            deltaTime
-        );
+    	setupVelocityConstraint(
+    		this.segment,
+    		deltaTime
+    	);
     }
+    
     
     public static void warmStartVelocityConstraint(
-        MemorySegment constraint, 
-        float warmStartImpulseRatio
+    	MemorySegment constraint,
+    	float warmStartImpulseRatio
     ) {
-        MethodHandle method = JPH_CONSTRAINT_WARM_START_VELOCITY_CONSTRAINT.get();
-        try {
-            method.invokeExact(
-                constraint, 
-                warmStartImpulseRatio
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_WARM_START_VELOCITY_CONSTRAINT.get();
+    	try {
+    		 method.invokeExact(
+    			constraint,
+    			warmStartImpulseRatio
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #warmStartVelocityConstraint}.
-     */
+    /// Typed method of [#warmStartVelocityConstraint].
     public final void warmStartVelocityConstraint(
-        float warmStartImpulseRatio
+    	float warmStartImpulseRatio
     ) {
-        warmStartVelocityConstraint(
-            this.segment, 
-            warmStartImpulseRatio
-        );
+    	warmStartVelocityConstraint(
+    		this.segment,
+    		warmStartImpulseRatio
+    	);
     }
+    
     
     public static boolean solveVelocityConstraint(
-        MemorySegment constraint, 
-        float deltaTime
+    	MemorySegment constraint,
+    	float deltaTime
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SOLVE_VELOCITY_CONSTRAINT.get();
-        try {
-            return (boolean) method.invokeExact(
-                constraint, 
-                deltaTime
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SOLVE_VELOCITY_CONSTRAINT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			constraint,
+    			deltaTime
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #solveVelocityConstraint}.
-     */
+    /// Typed method of [#solveVelocityConstraint].
     public final boolean solveVelocityConstraint(
-        float deltaTime
+    	float deltaTime
     ) {
-        return (boolean) solveVelocityConstraint(
-            this.segment, 
-            deltaTime
-        );
+    	return (boolean) solveVelocityConstraint(
+    		this.segment,
+    		deltaTime
+    	);
     }
+    
     
     public static boolean solvePositionConstraint(
-        MemorySegment constraint, 
-        float deltaTime, 
-        float baumgarte
+    	MemorySegment constraint,
+    	float deltaTime,
+    	float baumgarte
     ) {
-        MethodHandle method = JPH_CONSTRAINT_SOLVE_POSITION_CONSTRAINT.get();
-        try {
-            return (boolean) method.invokeExact(
-                constraint, 
-                deltaTime, 
-                baumgarte
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CONSTRAINT_SOLVE_POSITION_CONSTRAINT.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			constraint,
+    			deltaTime,
+    			baumgarte
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #solvePositionConstraint}.
-     */
+    /// Typed method of [#solvePositionConstraint].
     public final boolean solvePositionConstraint(
-        float deltaTime, 
-        float baumgarte
+    	float deltaTime,
+    	float baumgarte
     ) {
-        return (boolean) solvePositionConstraint(
-            this.segment, 
-            deltaTime, 
-            baumgarte
-        );
+    	return (boolean) solvePositionConstraint(
+    		this.segment,
+    		deltaTime,
+    		baumgarte
+    	);
     }
     
     public MemorySegment memorySegment() {

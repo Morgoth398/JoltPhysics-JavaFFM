@@ -22,6 +22,7 @@ imports:
   - java.lang.invoke.MethodHandles.Lookup
   - java.lang.foreign.Linker
   - java.lang.foreign.Arena
+  - volucris.bindings.jolt.body.Body
 static-imports:
   - java.lang.foreign.ValueLayout.*
   - volucris.bindings.core.FFMUtils.*

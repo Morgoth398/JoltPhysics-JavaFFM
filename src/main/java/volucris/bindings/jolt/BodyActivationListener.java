@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -46,8 +45,8 @@ public abstract class BodyActivationListener {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("onBodyActivated"), 
-            UNBOUNDED_ADDRESS.withName("onBodyDeactivated")
+            UNBOUNDED_ADDRESS.withName("OnBodyActivated"),
+            UNBOUNDED_ADDRESS.withName("OnBodyDeactivated")
         ).withName("JPH_BodyActivationListener_Procs").withByteAlignment(8);
 
         JPH_BODY_ACTIVATION_LISTENER_SET_PROCS = downcallHandleVoid("JPH_BodyActivationListener_SetProcs", UNBOUNDED_ADDRESS);
@@ -59,12 +58,12 @@ public abstract class BodyActivationListener {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             ON_BODY_ACTIVATED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
                 JAVA_LONG
             );
 
@@ -72,11 +71,11 @@ public abstract class BodyActivationListener {
 
             ON_BODY_ACTIVATED_ADDRESS = linker.upcallStub(ON_BODY_ACTIVATED_HANDLE, ON_BODY_ACTIVATED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onBodyActivated")), ON_BODY_ACTIVATED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnBodyActivated")), ON_BODY_ACTIVATED_ADDRESS);
             
             ON_BODY_DEACTIVATED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
                 JAVA_LONG
             );
 
@@ -84,7 +83,7 @@ public abstract class BodyActivationListener {
 
             ON_BODY_DEACTIVATED_ADDRESS = linker.upcallStub(ON_BODY_DEACTIVATED_HANDLE, ON_BODY_DEACTIVATED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onBodyDeactivated")), ON_BODY_DEACTIVATED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnBodyDeactivated")), ON_BODY_DEACTIVATED_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -105,43 +104,46 @@ public abstract class BodyActivationListener {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment listener
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_DESTROY.get();
-        try {
-            method.invokeExact(
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -163,11 +165,11 @@ public abstract class BodyActivationListener {
     }
 
     public void onBodyActivated(
-        int bodyID, 
+        int bodyID,
         long bodyUserData
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onBodyActivated."
+            "Override either the typed or raw callback method in BodyActivationListener."
         );
     }
 
@@ -185,11 +187,11 @@ public abstract class BodyActivationListener {
     }
 
     public void onBodyDeactivated(
-        int bodyID, 
+        int bodyID,
         long bodyUserData
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onBodyDeactivated."
+            "Override either the typed or raw callback method in BodyActivationListener."
         );
     }
 

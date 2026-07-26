@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class Vec4
 		implements Struct<Vec4> {
 
@@ -67,40 +64,44 @@ public final class Vec4
     
     }
 
+    /// @see #x()
     public Vec4 x(float x) {
-        X_HANDLE.set(segment, 0L, x);
-        return this;
+    	X_HANDLE.set(segment, 0L, x);
+    	return this;
     }
     
     public float x() {
-        return (float) X_HANDLE.get(segment, 0L);
+    	return (float) X_HANDLE.get(segment, 0L);
     }
     
+    /// @see #y()
     public Vec4 y(float y) {
-        Y_HANDLE.set(segment, 0L, y);
-        return this;
+    	Y_HANDLE.set(segment, 0L, y);
+    	return this;
     }
     
     public float y() {
-        return (float) Y_HANDLE.get(segment, 0L);
+    	return (float) Y_HANDLE.get(segment, 0L);
     }
     
+    /// @see #z()
     public Vec4 z(float z) {
-        Z_HANDLE.set(segment, 0L, z);
-        return this;
+    	Z_HANDLE.set(segment, 0L, z);
+    	return this;
     }
     
     public float z() {
-        return (float) Z_HANDLE.get(segment, 0L);
+    	return (float) Z_HANDLE.get(segment, 0L);
     }
     
+    /// @see #w()
     public Vec4 w(float w) {
-        W_HANDLE.set(segment, 0L, w);
-        return this;
+    	W_HANDLE.set(segment, 0L, w);
+    	return this;
     }
     
     public float w() {
-        return (float) W_HANDLE.get(segment, 0L);
+    	return (float) W_HANDLE.get(segment, 0L);
     }
     
     @Override

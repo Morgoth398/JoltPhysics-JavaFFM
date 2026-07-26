@@ -17,9 +17,6 @@ import volucris.bindings.jolt.math.Vec3;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class DistanceConstraintSettings
 		implements Struct<DistanceConstraintSettings> {
 
@@ -93,110 +90,119 @@ public final class DistanceConstraintSettings
         init();
     }
 
+    
     public static void init(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_DISTANCE_CONSTRAINT_SETTINGS_INIT.get();
-        try {
-            method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_DISTANCE_CONSTRAINT_SETTINGS_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #space()
     public DistanceConstraintSettings space(int space) {
-        SPACE_HANDLE.set(segment, 0L, space);
-        return this;
+    	SPACE_HANDLE.set(segment, 0L, space);
+    	return this;
     }
     
     public int space() {
-        return (int) SPACE_HANDLE.get(segment, 0L);
+    	return (int) SPACE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #minDistance()
     public DistanceConstraintSettings minDistance(float minDistance) {
-        MIN_DISTANCE_HANDLE.set(segment, 0L, minDistance);
-        return this;
+    	MIN_DISTANCE_HANDLE.set(segment, 0L, minDistance);
+    	return this;
     }
     
     public float minDistance() {
-        return (float) MIN_DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) MIN_DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxDistance()
     public DistanceConstraintSettings maxDistance(float maxDistance) {
-        MAX_DISTANCE_HANDLE.set(segment, 0L, maxDistance);
-        return this;
+    	MAX_DISTANCE_HANDLE.set(segment, 0L, maxDistance);
+    	return this;
     }
     
     public float maxDistance() {
-        return (float) MAX_DISTANCE_HANDLE.get(segment, 0L);
+    	return (float) MAX_DISTANCE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #base()
     public DistanceConstraintSettings base(Consumer<ConstraintSettings> consumer) {
-        consumer.accept(base);
-        return this;
+    	consumer.accept(base);
+    	return this;
     }
     
+    /// @see #base()
     public DistanceConstraintSettings base(ConstraintSettings other) {
-        base.set(other);
-        return this;
+    	base.set(other);
+    	return this;
     }
     
     public ConstraintSettings base() {
-        return base;
+    	return base;
     }
     
+    /// @see #point1()
     public DistanceConstraintSettings point1(Consumer<Vec3> consumer) {
-        consumer.accept(point1);
-        return this;
+    	consumer.accept(point1);
+    	return this;
     }
     
+    /// @see #point1()
     public DistanceConstraintSettings point1(Vec3 other) {
-        point1.set(other);
-        return this;
+    	point1.set(other);
+    	return this;
     }
     
     public Vec3 point1() {
-        return point1;
+    	return point1;
     }
     
+    /// @see #point2()
     public DistanceConstraintSettings point2(Consumer<Vec3> consumer) {
-        consumer.accept(point2);
-        return this;
+    	consumer.accept(point2);
+    	return this;
     }
     
+    /// @see #point2()
     public DistanceConstraintSettings point2(Vec3 other) {
-        point2.set(other);
-        return this;
+    	point2.set(other);
+    	return this;
     }
     
     public Vec3 point2() {
-        return point2;
+    	return point2;
     }
     
+    /// @see #limitsSpringSettings()
     public DistanceConstraintSettings limitsSpringSettings(Consumer<SpringSettings> consumer) {
-        consumer.accept(limitsSpringSettings);
-        return this;
+    	consumer.accept(limitsSpringSettings);
+    	return this;
     }
     
+    /// @see #limitsSpringSettings()
     public DistanceConstraintSettings limitsSpringSettings(SpringSettings other) {
-        limitsSpringSettings.set(other);
-        return this;
+    	limitsSpringSettings.set(other);
+    	return this;
     }
     
     public SpringSettings limitsSpringSettings() {
-        return limitsSpringSettings;
+    	return limitsSpringSettings;
     }
     
     @Override

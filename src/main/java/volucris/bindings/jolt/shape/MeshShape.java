@@ -5,14 +5,10 @@ package volucris.bindings.jolt.shape;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class MeshShape extends Shape {
 
     private static final LazyConstant<MethodHandle> JPH_MESH_SHAPE_GET_TRIANGLE_USER_DATA;
@@ -26,35 +22,34 @@ public final class MeshShape extends Shape {
     }
 
     public MeshShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static int getTriangleUserData(
-        MemorySegment shape, 
-        int id
+    	MemorySegment shape,
+    	int id
     ) {
-        MethodHandle method = JPH_MESH_SHAPE_GET_TRIANGLE_USER_DATA.get();
-        try {
-            return (int) method.invokeExact(
-                shape, 
-                id
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MESH_SHAPE_GET_TRIANGLE_USER_DATA.get();
+    	try {
+    		return (int)  method.invokeExact(
+    			shape,
+    			id
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getTriangleUserData}.
-     */
+    /// Typed method of [#getTriangleUserData].
     public final int getTriangleUserData(
-        int id
+    	int id
     ) {
-        return (int) getTriangleUserData(
-            this.segment, 
-            id
-        );
+    	return (int) getTriangleUserData(
+    		this.segment,
+    		id
+    	);
     }
     
     public MemorySegment memorySegment() {

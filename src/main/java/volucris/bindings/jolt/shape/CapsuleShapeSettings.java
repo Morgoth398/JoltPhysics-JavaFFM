@@ -7,14 +7,10 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
-import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class CapsuleShapeSettings extends ConvexShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_CAPSULE_SHAPE_SETTINGS_CREATE;
@@ -30,76 +26,79 @@ public final class CapsuleShapeSettings extends ConvexShapeSettings {
     }
 
     public CapsuleShapeSettings(
-        float halfHeightOfCylinder, 
+        float halfHeightOfCylinder,
         float radius
     ) {
         this(
             Arena.ofAuto(),
-            halfHeightOfCylinder, 
+            halfHeightOfCylinder,
             radius
         );
     }
     
+    /// Typed method of [#create].
     public CapsuleShapeSettings(
-        Arena arena,
-        float halfHeightOfCylinder, 
-        float radius
+    	Arena arena,
+    	float halfHeightOfCylinder,
+    	float radius
     ) {
-         MemorySegment segment = create(
-            halfHeightOfCylinder, 
-            radius
-         );
+    	MemorySegment segment = create(
+    		halfHeightOfCylinder,
+    		radius
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public CapsuleShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        float halfHeightOfCylinder, 
-        float radius
+    	float halfHeightOfCylinder,
+    	float radius
     ) {
-        MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                halfHeightOfCylinder, 
-                radius
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			halfHeightOfCylinder,
+    			radius
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable CapsuleShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable CapsuleShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new CapsuleShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new CapsuleShape(segment);
     }
     
     public MemorySegment memorySegment() {

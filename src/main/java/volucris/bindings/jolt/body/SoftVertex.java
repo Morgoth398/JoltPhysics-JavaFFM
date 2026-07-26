@@ -15,9 +15,6 @@ import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class SoftVertex
 		implements Struct<SoftVertex> {
 
@@ -65,41 +62,46 @@ public final class SoftVertex
         velocity = new Vec3(segment.asSlice(VELOCITY_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #invMass()
     public SoftVertex invMass(float invMass) {
-        INV_MASS_HANDLE.set(segment, 0L, invMass);
-        return this;
+    	INV_MASS_HANDLE.set(segment, 0L, invMass);
+    	return this;
     }
     
     public float invMass() {
-        return (float) INV_MASS_HANDLE.get(segment, 0L);
+    	return (float) INV_MASS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #position()
     public SoftVertex position(Consumer<Vec3> consumer) {
-        consumer.accept(position);
-        return this;
+    	consumer.accept(position);
+    	return this;
     }
     
+    /// @see #position()
     public SoftVertex position(Vec3 other) {
-        position.set(other);
-        return this;
+    	position.set(other);
+    	return this;
     }
     
     public Vec3 position() {
-        return position;
+    	return position;
     }
     
+    /// @see #velocity()
     public SoftVertex velocity(Consumer<Vec3> consumer) {
-        consumer.accept(velocity);
-        return this;
+    	consumer.accept(velocity);
+    	return this;
     }
     
+    /// @see #velocity()
     public SoftVertex velocity(Vec3 other) {
-        velocity.set(other);
-        return this;
+    	velocity.set(other);
+    	return this;
     }
     
     public Vec3 velocity() {
-        return velocity;
+    	return velocity;
     }
     
     @Override

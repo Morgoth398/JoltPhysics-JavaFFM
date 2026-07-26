@@ -40,7 +40,7 @@ excluded-function-name-postfixes:
 constructors:
   - native-function: JPH_VehicleConstraint_Create
     destructor: JPH_Constraint_Destroy
-    template: /constructor/ConstructorMethodTemplateWithSuper.ftl
+    
 struct:
 native-functions:
   - name: JPH_VehicleConstraint_AsPhysicsStepListener

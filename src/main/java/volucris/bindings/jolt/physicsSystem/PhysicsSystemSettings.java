@@ -16,11 +16,8 @@ import volucris.bindings.jolt.objectLayerPairFilter.ObjectLayerPairFilter;
 import volucris.bindings.jolt.objectVsBroadPhaseLayerFilter.ObjectVsBroadPhaseLayerFilter;
 
 import static java.lang.foreign.ValueLayout.*;
-import static volucris.bindings.core.FFMUtils.*;;
+import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class PhysicsSystemSettings
 		implements Struct<PhysicsSystemSettings> {
 
@@ -93,91 +90,99 @@ public final class PhysicsSystemSettings
     
     }
 
+    /// @see #maxBodies()
     public PhysicsSystemSettings maxBodies(int maxBodies) {
-        MAX_BODIES_HANDLE.set(segment, 0L, maxBodies);
-        return this;
+    	MAX_BODIES_HANDLE.set(segment, 0L, maxBodies);
+    	return this;
     }
     
     public int maxBodies() {
-        return (int) MAX_BODIES_HANDLE.get(segment, 0L);
+    	return (int) MAX_BODIES_HANDLE.get(segment, 0L);
     }
     
+    /// @see #numBodyMutexes()
     public PhysicsSystemSettings numBodyMutexes(int numBodyMutexes) {
-        NUM_BODY_MUTEXES_HANDLE.set(segment, 0L, numBodyMutexes);
-        return this;
+    	NUM_BODY_MUTEXES_HANDLE.set(segment, 0L, numBodyMutexes);
+    	return this;
     }
     
     public int numBodyMutexes() {
-        return (int) NUM_BODY_MUTEXES_HANDLE.get(segment, 0L);
+    	return (int) NUM_BODY_MUTEXES_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxBodyPairs()
     public PhysicsSystemSettings maxBodyPairs(int maxBodyPairs) {
-        MAX_BODY_PAIRS_HANDLE.set(segment, 0L, maxBodyPairs);
-        return this;
+    	MAX_BODY_PAIRS_HANDLE.set(segment, 0L, maxBodyPairs);
+    	return this;
     }
     
     public int maxBodyPairs() {
-        return (int) MAX_BODY_PAIRS_HANDLE.get(segment, 0L);
+    	return (int) MAX_BODY_PAIRS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #maxContactConstraints()
     public PhysicsSystemSettings maxContactConstraints(int maxContactConstraints) {
-        MAX_CONTACT_CONSTRAINTS_HANDLE.set(segment, 0L, maxContactConstraints);
-        return this;
+    	MAX_CONTACT_CONSTRAINTS_HANDLE.set(segment, 0L, maxContactConstraints);
+    	return this;
     }
     
     public int maxContactConstraints() {
-        return (int) MAX_CONTACT_CONSTRAINTS_HANDLE.get(segment, 0L);
+    	return (int) MAX_CONTACT_CONSTRAINTS_HANDLE.get(segment, 0L);
     }
     
+    /// @see #_padding()
     public PhysicsSystemSettings _padding(int _padding) {
-        _PADDING_HANDLE.set(segment, 0L, _padding);
-        return this;
+    	_PADDING_HANDLE.set(segment, 0L, _padding);
+    	return this;
     }
     
     public int _padding() {
-        return (int) _PADDING_HANDLE.get(segment, 0L);
+    	return (int) _PADDING_HANDLE.get(segment, 0L);
     }
     
+    /// @see #broadPhaseLayerInterface()
     public PhysicsSystemSettings broadPhaseLayerInterface(BroadPhaseLayerInterface broadPhaseLayerInterface) {
-        BROAD_PHASE_LAYER_INTERFACE_HANDLE.set(segment, 0L, broadPhaseLayerInterface.memorySegment());
-        return this;
+    	BROAD_PHASE_LAYER_INTERFACE_HANDLE.set(segment, 0L, broadPhaseLayerInterface.memorySegment());
+    	return this;
     }
     
     public @Nullable BroadPhaseLayerInterface broadPhaseLayerInterface() {
-        MemorySegment segment = (MemorySegment) BROAD_PHASE_LAYER_INTERFACE_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) BROAD_PHASE_LAYER_INTERFACE_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BroadPhaseLayerInterface(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BroadPhaseLayerInterface(segment);
     }
     
+    /// @see #objectLayerPairFilter()
     public PhysicsSystemSettings objectLayerPairFilter(ObjectLayerPairFilter objectLayerPairFilter) {
-        OBJECT_LAYER_PAIR_FILTER_HANDLE.set(segment, 0L, objectLayerPairFilter.memorySegment());
-        return this;
+    	OBJECT_LAYER_PAIR_FILTER_HANDLE.set(segment, 0L, objectLayerPairFilter.memorySegment());
+    	return this;
     }
     
     public @Nullable ObjectLayerPairFilter objectLayerPairFilter() {
-        MemorySegment segment = (MemorySegment) OBJECT_LAYER_PAIR_FILTER_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) OBJECT_LAYER_PAIR_FILTER_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new ObjectLayerPairFilter(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new ObjectLayerPairFilter(segment);
     }
     
+    /// @see #objectVsBroadPhaseLayerFilter()
     public PhysicsSystemSettings objectVsBroadPhaseLayerFilter(ObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter) {
-        OBJECT_VS_BROAD_PHASE_LAYER_FILTER_HANDLE.set(segment, 0L, objectVsBroadPhaseLayerFilter.memorySegment());
-        return this;
+    	OBJECT_VS_BROAD_PHASE_LAYER_FILTER_HANDLE.set(segment, 0L, objectVsBroadPhaseLayerFilter.memorySegment());
+    	return this;
     }
     
     public @Nullable ObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter() {
-        MemorySegment segment = (MemorySegment) OBJECT_VS_BROAD_PHASE_LAYER_FILTER_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) OBJECT_VS_BROAD_PHASE_LAYER_FILTER_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new ObjectVsBroadPhaseLayerFilter(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new ObjectVsBroadPhaseLayerFilter(segment);
     }
     
     @Override

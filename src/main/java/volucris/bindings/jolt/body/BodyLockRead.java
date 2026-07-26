@@ -15,9 +15,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class BodyLockRead
 		implements Struct<BodyLockRead> {
 
@@ -64,46 +61,49 @@ public final class BodyLockRead
     
     }
 
+    /// @see #lockInterface()
     public BodyLockRead lockInterface(BodyLockInterface lockInterface) {
-        LOCK_INTERFACE_HANDLE.set(segment, 0L, lockInterface.memorySegment());
-        return this;
+    	LOCK_INTERFACE_HANDLE.set(segment, 0L, lockInterface.memorySegment());
+    	return this;
     }
     
     public @Nullable BodyLockInterface lockInterface() {
-        MemorySegment segment = (MemorySegment) LOCK_INTERFACE_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) LOCK_INTERFACE_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new BodyLockInterface(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new BodyLockInterface(segment);
     }
     
+    /// @see #mutex()
     public BodyLockRead mutex(SharedMutex mutex) {
-        MUTEX_HANDLE.set(segment, 0L, mutex.memorySegment());
-        return this;
+    	MUTEX_HANDLE.set(segment, 0L, mutex.memorySegment());
+    	return this;
     }
     
     public @Nullable SharedMutex mutex() {
-        MemorySegment segment = (MemorySegment) MUTEX_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) MUTEX_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new SharedMutex(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new SharedMutex(segment);
     }
     
+    /// @see #body()
     public BodyLockRead body(Body body) {
-        BODY_HANDLE.set(segment, 0L, body.memorySegment());
-        return this;
+    	BODY_HANDLE.set(segment, 0L, body.memorySegment());
+    	return this;
     }
     
     public @Nullable Body body() {
-        MemorySegment segment = (MemorySegment) BODY_HANDLE.get(this.segment, 0L);
+    	MemorySegment segment = (MemorySegment) BODY_HANDLE.get(this.segment, 0L);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new Body(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Body(segment);
     }
     
     @Override

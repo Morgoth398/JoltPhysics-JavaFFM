@@ -12,9 +12,6 @@ import volucris.bindings.jolt.PhysicsMaterial;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
 
     private static final LazyConstant<MethodHandle> JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE;
@@ -30,94 +27,97 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
     }
 
     public TaperedCylinderShapeSettings(
-        float halfHeightOfTaperedCylinder, 
-        float topRadius, 
-        float bottomRadius, 
-        float convexRadius, 
+        float halfHeightOfTaperedCylinder,
+        float topRadius,
+        float bottomRadius,
+        float convexRadius,
         PhysicsMaterial material
     ) {
         this(
             Arena.ofAuto(),
-            halfHeightOfTaperedCylinder, 
-            topRadius, 
-            bottomRadius, 
-            convexRadius, 
+            halfHeightOfTaperedCylinder,
+            topRadius,
+            bottomRadius,
+            convexRadius,
             material
         );
     }
     
+    /// Typed method of [#create].
     public TaperedCylinderShapeSettings(
-        Arena arena,
-        float halfHeightOfTaperedCylinder, 
-        float topRadius, 
-        float bottomRadius, 
-        float convexRadius, 
-        PhysicsMaterial material
+    	Arena arena,
+    	float halfHeightOfTaperedCylinder,
+    	float topRadius,
+    	float bottomRadius,
+    	float convexRadius,
+    	PhysicsMaterial material
     ) {
-         MemorySegment segment = create(
-            halfHeightOfTaperedCylinder, 
-            topRadius, 
-            bottomRadius, 
-            convexRadius, 
-            material.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		halfHeightOfTaperedCylinder,
+    		topRadius,
+    		bottomRadius,
+    		convexRadius,
+    		material.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public TaperedCylinderShapeSettings(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        float halfHeightOfTaperedCylinder, 
-        float topRadius, 
-        float bottomRadius, 
-        float convexRadius, 
-        MemorySegment material
+    	float halfHeightOfTaperedCylinder,
+    	float topRadius,
+    	float bottomRadius,
+    	float convexRadius,
+    	MemorySegment material
     ) {
-        MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                halfHeightOfTaperedCylinder, 
-                topRadius, 
-                bottomRadius, 
-                convexRadius, 
-                material
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			halfHeightOfTaperedCylinder,
+    			topRadius,
+    			bottomRadius,
+    			convexRadius,
+    			material
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment createShape(
-        MemorySegment settings
+    	MemorySegment settings
     ) {
-        MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE_SHAPE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                settings
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE_SHAPE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			settings
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #createShape}.
-     */
-    public final @Nullable TaperedCylinderShape createShape(
-    ) {
-        MemorySegment segment = createShape(
-            this.segment
-        );
+    /// Typed method of [#createShape].
+    public final @Nullable TaperedCylinderShape createShape() {
+    	MemorySegment segment = createShape(
+    		this.segment
+    	);
     
-        if (segment.equals(MemorySegment.NULL))
-            return null;
-    
-        return new TaperedCylinderShape(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new TaperedCylinderShape(segment);
     }
     
     public MemorySegment memorySegment() {

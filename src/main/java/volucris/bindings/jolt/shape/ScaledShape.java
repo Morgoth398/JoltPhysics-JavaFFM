@@ -3,18 +3,13 @@
  */
 package volucris.bindings.jolt.shape;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 import volucris.bindings.jolt.math.Vec3;
 
-import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class ScaledShape extends DecoratedShape {
 
     private static final LazyConstant<MethodHandle> JPH_SCALED_SHAPE_CREATE;
@@ -30,75 +25,79 @@ public final class ScaledShape extends DecoratedShape {
     }
 
     public ScaledShape(
-        Shape shape, 
+        Shape shape,
         Vec3 scale
     ) {
         this(
             Arena.ofAuto(),
-            shape, 
+            shape,
             scale
         );
     }
     
+    /// Typed method of [#create].
     public ScaledShape(
-        Arena arena,
-        Shape shape, 
-        Vec3 scale
+    	Arena arena,
+    	Shape shape,
+    	Vec3 scale
     ) {
-         MemorySegment segment = create(
-            shape.memorySegment(), 
-            scale.memorySegment()
-         );
+    	MemorySegment segment = create(
+    		shape.memorySegment(),
+    		scale.memorySegment()
+    	);
     
-         this.segment = segment.reinterpret(arena, s -> destroy(s));
-         super(segment);
+    	if (segment.equals(MemorySegment.NULL))
+    		throw new NullPointerException("Created segment is NULL.");
+    
+    	this.segment = segment.reinterpret(arena, s -> destroy(s));
+    	super(segment);
     }
     
     public ScaledShape(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static MemorySegment create(
-        MemorySegment shape, 
-        MemorySegment scale
+    	MemorySegment shape,
+    	MemorySegment scale
     ) {
-        MethodHandle method = JPH_SCALED_SHAPE_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                shape, 
-                scale
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SCALED_SHAPE_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			shape,
+    			scale
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static void getScale(
-        MemorySegment shape, 
-        MemorySegment result
+    	MemorySegment shape,
+    	MemorySegment result
     ) {
-        MethodHandle method = JPH_SCALED_SHAPE_GET_SCALE.get();
-        try {
-            method.invokeExact(
-                shape, 
-                result
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_SCALED_SHAPE_GET_SCALE.get();
+    	try {
+    		 method.invokeExact(
+    			shape,
+    			result
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getScale}.
-     */
+    /// Typed method of [#getScale].
     public final void getScale(
-        Vec3 result
+    	Vec3 result
     ) {
-        getScale(
-            this.segment, 
-            result.memorySegment()
-        );
+    	getScale(
+    		this.segment,
+    		result.memorySegment()
+    	);
     }
     
     public MemorySegment memorySegment() {

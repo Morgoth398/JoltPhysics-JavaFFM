@@ -15,9 +15,6 @@ import volucris.bindings.core.Struct;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class VehicleAntiRollBar
 		implements Struct<VehicleAntiRollBar> {
 
@@ -70,54 +67,55 @@ public final class VehicleAntiRollBar
         init();
     }
 
+    
     public static void init(
-        MemorySegment antiRollBar
+    	MemorySegment antiRollBar
     ) {
-        MethodHandle method = JPH_VEHICLE_ANTI_ROLL_BAR_INIT.get();
-        try {
-            method.invokeExact(
-                antiRollBar
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_VEHICLE_ANTI_ROLL_BAR_INIT.get();
+    	try {
+    		 method.invokeExact(
+    			antiRollBar
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #init}.
-     */
-    public final void init(
-    ) {
-        init(
-            this.segment
-        );
+    /// Typed method of [#init].
+    public final void init() {
+    	init(
+    		this.segment
+    	);
     }
     
+    /// @see #leftWheel()
     public VehicleAntiRollBar leftWheel(int leftWheel) {
-        LEFT_WHEEL_HANDLE.set(segment, 0L, leftWheel);
-        return this;
+    	LEFT_WHEEL_HANDLE.set(segment, 0L, leftWheel);
+    	return this;
     }
     
     public int leftWheel() {
-        return (int) LEFT_WHEEL_HANDLE.get(segment, 0L);
+    	return (int) LEFT_WHEEL_HANDLE.get(segment, 0L);
     }
     
+    /// @see #rightWheel()
     public VehicleAntiRollBar rightWheel(int rightWheel) {
-        RIGHT_WHEEL_HANDLE.set(segment, 0L, rightWheel);
-        return this;
+    	RIGHT_WHEEL_HANDLE.set(segment, 0L, rightWheel);
+    	return this;
     }
     
     public int rightWheel() {
-        return (int) RIGHT_WHEEL_HANDLE.get(segment, 0L);
+    	return (int) RIGHT_WHEEL_HANDLE.get(segment, 0L);
     }
     
+    /// @see #stiffness()
     public VehicleAntiRollBar stiffness(float stiffness) {
-        STIFFNESS_HANDLE.set(segment, 0L, stiffness);
-        return this;
+    	STIFFNESS_HANDLE.set(segment, 0L, stiffness);
+    	return this;
     }
     
     public float stiffness() {
-        return (float) STIFFNESS_HANDLE.get(segment, 0L);
+    	return (float) STIFFNESS_HANDLE.get(segment, 0L);
     }
     
     @Override

@@ -13,9 +13,6 @@ import volucris.bindings.core.Struct;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class ConstraintSettings
 		implements Struct<ConstraintSettings> {
 
@@ -66,63 +63,77 @@ public final class ConstraintSettings
         //@formatter:on
     }
 
+    public ConstraintSettings() {
+        this(Arena.ofAuto());
+    }
+    
+    public ConstraintSettings(Arena arena) {
+        this(arena.allocate(LAYOUT));
+    }
+    
     public ConstraintSettings(MemorySegment segment) {
         this.segment = segment;
     
     }
 
+    /// @see #enabled()
     public ConstraintSettings enabled(boolean enabled) {
-        ENABLED_HANDLE.set(segment, 0L, enabled);
-        return this;
+    	ENABLED_HANDLE.set(segment, 0L, enabled);
+    	return this;
     }
     
     public boolean enabled() {
-        return (boolean) ENABLED_HANDLE.get(segment, 0L);
+    	return (boolean) ENABLED_HANDLE.get(segment, 0L);
     }
     
+    /// @see #constraintPriority()
     public ConstraintSettings constraintPriority(int constraintPriority) {
-        CONSTRAINT_PRIORITY_HANDLE.set(segment, 0L, constraintPriority);
-        return this;
+    	CONSTRAINT_PRIORITY_HANDLE.set(segment, 0L, constraintPriority);
+    	return this;
     }
     
     public int constraintPriority() {
-        return (int) CONSTRAINT_PRIORITY_HANDLE.get(segment, 0L);
+    	return (int) CONSTRAINT_PRIORITY_HANDLE.get(segment, 0L);
     }
     
+    /// @see #numVelocityStepsOverride()
     public ConstraintSettings numVelocityStepsOverride(int numVelocityStepsOverride) {
-        NUM_VELOCITY_STEPS_OVERRIDE_HANDLE.set(segment, 0L, numVelocityStepsOverride);
-        return this;
+    	NUM_VELOCITY_STEPS_OVERRIDE_HANDLE.set(segment, 0L, numVelocityStepsOverride);
+    	return this;
     }
     
     public int numVelocityStepsOverride() {
-        return (int) NUM_VELOCITY_STEPS_OVERRIDE_HANDLE.get(segment, 0L);
+    	return (int) NUM_VELOCITY_STEPS_OVERRIDE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #numPositionStepsOverride()
     public ConstraintSettings numPositionStepsOverride(int numPositionStepsOverride) {
-        NUM_POSITION_STEPS_OVERRIDE_HANDLE.set(segment, 0L, numPositionStepsOverride);
-        return this;
+    	NUM_POSITION_STEPS_OVERRIDE_HANDLE.set(segment, 0L, numPositionStepsOverride);
+    	return this;
     }
     
     public int numPositionStepsOverride() {
-        return (int) NUM_POSITION_STEPS_OVERRIDE_HANDLE.get(segment, 0L);
+    	return (int) NUM_POSITION_STEPS_OVERRIDE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #drawConstraintSize()
     public ConstraintSettings drawConstraintSize(float drawConstraintSize) {
-        DRAW_CONSTRAINT_SIZE_HANDLE.set(segment, 0L, drawConstraintSize);
-        return this;
+    	DRAW_CONSTRAINT_SIZE_HANDLE.set(segment, 0L, drawConstraintSize);
+    	return this;
     }
     
     public float drawConstraintSize() {
-        return (float) DRAW_CONSTRAINT_SIZE_HANDLE.get(segment, 0L);
+    	return (float) DRAW_CONSTRAINT_SIZE_HANDLE.get(segment, 0L);
     }
     
+    /// @see #userData()
     public ConstraintSettings userData(long userData) {
-        USER_DATA_HANDLE.set(segment, 0L, userData);
-        return this;
+    	USER_DATA_HANDLE.set(segment, 0L, userData);
+    	return this;
     }
     
     public long userData() {
-        return (long) USER_DATA_HANDLE.get(segment, 0L);
+    	return (long) USER_DATA_HANDLE.get(segment, 0L);
     }
     
     @Override

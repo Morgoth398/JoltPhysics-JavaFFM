@@ -9,9 +9,6 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
 
-/**
- * 
- */
 public final class MotorcycleController extends WheeledVehicleController {
 
     private static final LazyConstant<MethodHandle> JPH_MOTORCYCLE_CONTROLLER_GET_WHEEL_BASE;
@@ -53,381 +50,358 @@ public final class MotorcycleController extends WheeledVehicleController {
     }
 
     public MotorcycleController(MemorySegment segment) {
-        this.segment = segment;
-        super(segment);
+    	this.segment = segment;
+    	super(segment);
     }
 
+    
     public static float getWheelBase(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_WHEEL_BASE.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_WHEEL_BASE.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getWheelBase}.
-     */
-    public final float getWheelBase(
-    ) {
-        return (float) getWheelBase(
-            this.segment
-        );
+    /// Typed method of [#getWheelBase].
+    public final float getWheelBase() {
+    	return (float) getWheelBase(
+    		this.segment
+    	);
     }
+    
     
     public static boolean isLeanControllerEnabled(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_IS_LEAN_CONTROLLER_ENABLED.get();
-        try {
-            return (boolean) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_IS_LEAN_CONTROLLER_ENABLED.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isLeanControllerEnabled}.
-     */
-    public final boolean isLeanControllerEnabled(
-    ) {
-        return (boolean) isLeanControllerEnabled(
-            this.segment
-        );
+    /// Typed method of [#isLeanControllerEnabled].
+    public final boolean isLeanControllerEnabled() {
+    	return (boolean) isLeanControllerEnabled(
+    		this.segment
+    	);
     }
+    
     
     public static void enableLeanController(
-        MemorySegment controller, 
-        boolean value
+    	MemorySegment controller,
+    	boolean value
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_ENABLE_LEAN_CONTROLLER.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_ENABLE_LEAN_CONTROLLER.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #enableLeanController}.
-     */
+    /// Typed method of [#enableLeanController].
     public final void enableLeanController(
-        boolean value
+    	boolean value
     ) {
-        enableLeanController(
-            this.segment, 
-            value
-        );
+    	enableLeanController(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static boolean isLeanSteeringLimitEnabled(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_IS_LEAN_STEERING_LIMIT_ENABLED.get();
-        try {
-            return (boolean) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_IS_LEAN_STEERING_LIMIT_ENABLED.get();
+    	try {
+    		return (boolean)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #isLeanSteeringLimitEnabled}.
-     */
-    public final boolean isLeanSteeringLimitEnabled(
-    ) {
-        return (boolean) isLeanSteeringLimitEnabled(
-            this.segment
-        );
+    /// Typed method of [#isLeanSteeringLimitEnabled].
+    public final boolean isLeanSteeringLimitEnabled() {
+    	return (boolean) isLeanSteeringLimitEnabled(
+    		this.segment
+    	);
     }
+    
     
     public static void enableLeanSteeringLimit(
-        MemorySegment controller, 
-        boolean value
+    	MemorySegment controller,
+    	boolean value
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_ENABLE_LEAN_STEERING_LIMIT.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_ENABLE_LEAN_STEERING_LIMIT.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #enableLeanSteeringLimit}.
-     */
+    /// Typed method of [#enableLeanSteeringLimit].
     public final void enableLeanSteeringLimit(
-        boolean value
+    	boolean value
     ) {
-        enableLeanSteeringLimit(
-            this.segment, 
-            value
-        );
+    	enableLeanSteeringLimit(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getLeanSpringConstant(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_CONSTANT.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_CONSTANT.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLeanSpringConstant}.
-     */
-    public final float getLeanSpringConstant(
-    ) {
-        return (float) getLeanSpringConstant(
-            this.segment
-        );
+    /// Typed method of [#getLeanSpringConstant].
+    public final float getLeanSpringConstant() {
+    	return (float) getLeanSpringConstant(
+    		this.segment
+    	);
     }
+    
     
     public static void setLeanSpringConstant(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_CONSTANT.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_CONSTANT.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLeanSpringConstant}.
-     */
+    /// Typed method of [#setLeanSpringConstant].
     public final void setLeanSpringConstant(
-        float value
+    	float value
     ) {
-        setLeanSpringConstant(
-            this.segment, 
-            value
-        );
+    	setLeanSpringConstant(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getLeanSpringDamping(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_DAMPING.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_DAMPING.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLeanSpringDamping}.
-     */
-    public final float getLeanSpringDamping(
-    ) {
-        return (float) getLeanSpringDamping(
-            this.segment
-        );
+    /// Typed method of [#getLeanSpringDamping].
+    public final float getLeanSpringDamping() {
+    	return (float) getLeanSpringDamping(
+    		this.segment
+    	);
     }
+    
     
     public static void setLeanSpringDamping(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_DAMPING.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_DAMPING.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLeanSpringDamping}.
-     */
+    /// Typed method of [#setLeanSpringDamping].
     public final void setLeanSpringDamping(
-        float value
+    	float value
     ) {
-        setLeanSpringDamping(
-            this.segment, 
-            value
-        );
+    	setLeanSpringDamping(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getLeanSpringIntegrationCoefficient(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLeanSpringIntegrationCoefficient}.
-     */
-    public final float getLeanSpringIntegrationCoefficient(
-    ) {
-        return (float) getLeanSpringIntegrationCoefficient(
-            this.segment
-        );
+    /// Typed method of [#getLeanSpringIntegrationCoefficient].
+    public final float getLeanSpringIntegrationCoefficient() {
+    	return (float) getLeanSpringIntegrationCoefficient(
+    		this.segment
+    	);
     }
+    
     
     public static void setLeanSpringIntegrationCoefficient(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_INTEGRATION_COEFFICIENT.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_INTEGRATION_COEFFICIENT.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLeanSpringIntegrationCoefficient}.
-     */
+    /// Typed method of [#setLeanSpringIntegrationCoefficient].
     public final void setLeanSpringIntegrationCoefficient(
-        float value
+    	float value
     ) {
-        setLeanSpringIntegrationCoefficient(
-            this.segment, 
-            value
-        );
+    	setLeanSpringIntegrationCoefficient(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getLeanSpringIntegrationCoefficientDecay(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT_DECAY.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT_DECAY.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLeanSpringIntegrationCoefficientDecay}.
-     */
-    public final float getLeanSpringIntegrationCoefficientDecay(
-    ) {
-        return (float) getLeanSpringIntegrationCoefficientDecay(
-            this.segment
-        );
+    /// Typed method of [#getLeanSpringIntegrationCoefficientDecay].
+    public final float getLeanSpringIntegrationCoefficientDecay() {
+    	return (float) getLeanSpringIntegrationCoefficientDecay(
+    		this.segment
+    	);
     }
+    
     
     public static void setLeanSpringIntegrationCoefficientDecay(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_INTEGRATION_COEFFICIENT_DECAY.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SPRING_INTEGRATION_COEFFICIENT_DECAY.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLeanSpringIntegrationCoefficientDecay}.
-     */
+    /// Typed method of [#setLeanSpringIntegrationCoefficientDecay].
     public final void setLeanSpringIntegrationCoefficientDecay(
-        float value
+    	float value
     ) {
-        setLeanSpringIntegrationCoefficientDecay(
-            this.segment, 
-            value
-        );
+    	setLeanSpringIntegrationCoefficientDecay(
+    		this.segment,
+    		value
+    	);
     }
+    
     
     public static float getLeanSmoothingFactor(
-        MemorySegment controller
+    	MemorySegment controller
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SMOOTHING_FACTOR.get();
-        try {
-            return (float) method.invokeExact(
-                controller
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_GET_LEAN_SMOOTHING_FACTOR.get();
+    	try {
+    		return (float)  method.invokeExact(
+    			controller
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #getLeanSmoothingFactor}.
-     */
-    public final float getLeanSmoothingFactor(
-    ) {
-        return (float) getLeanSmoothingFactor(
-            this.segment
-        );
+    /// Typed method of [#getLeanSmoothingFactor].
+    public final float getLeanSmoothingFactor() {
+    	return (float) getLeanSmoothingFactor(
+    		this.segment
+    	);
     }
+    
     
     public static void setLeanSmoothingFactor(
-        MemorySegment controller, 
-        float value
+    	MemorySegment controller,
+    	float value
     ) {
-        MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SMOOTHING_FACTOR.get();
-        try {
-            method.invokeExact(
-                controller, 
-                value
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SET_LEAN_SMOOTHING_FACTOR.get();
+    	try {
+    		 method.invokeExact(
+    			controller,
+    			value
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
-    /**
-     * Typed method of {@link #setLeanSmoothingFactor}.
-     */
+    /// Typed method of [#setLeanSmoothingFactor].
     public final void setLeanSmoothingFactor(
-        float value
+    	float value
     ) {
-        setLeanSmoothingFactor(
-            this.segment, 
-            value
-        );
+    	setLeanSmoothingFactor(
+    		this.segment,
+    		value
+    	);
     }
     
     public MemorySegment memorySegment() {

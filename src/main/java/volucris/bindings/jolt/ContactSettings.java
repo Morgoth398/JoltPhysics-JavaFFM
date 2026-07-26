@@ -15,9 +15,6 @@ import volucris.bindings.jolt.math.Vec3;
 
 import static java.lang.foreign.ValueLayout.*;
 
-/**
- * 
- */
 public final class ContactSettings
 		implements Struct<ContactSettings> {
 
@@ -95,95 +92,106 @@ public final class ContactSettings
         relativeAngularSurfaceVelocity = new Vec3(segment.asSlice(RELATIVE_ANGULAR_SURFACE_VELOCITY_BYTE_OFFSET, Vec3.LAYOUT));
     }
 
+    /// @see #combinedFriction()
     public ContactSettings combinedFriction(float combinedFriction) {
-        COMBINED_FRICTION_HANDLE.set(segment, 0L, combinedFriction);
-        return this;
+    	COMBINED_FRICTION_HANDLE.set(segment, 0L, combinedFriction);
+    	return this;
     }
     
     public float combinedFriction() {
-        return (float) COMBINED_FRICTION_HANDLE.get(segment, 0L);
+    	return (float) COMBINED_FRICTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #combinedRestitution()
     public ContactSettings combinedRestitution(float combinedRestitution) {
-        COMBINED_RESTITUTION_HANDLE.set(segment, 0L, combinedRestitution);
-        return this;
+    	COMBINED_RESTITUTION_HANDLE.set(segment, 0L, combinedRestitution);
+    	return this;
     }
     
     public float combinedRestitution() {
-        return (float) COMBINED_RESTITUTION_HANDLE.get(segment, 0L);
+    	return (float) COMBINED_RESTITUTION_HANDLE.get(segment, 0L);
     }
     
+    /// @see #invMassScale1()
     public ContactSettings invMassScale1(float invMassScale1) {
-        INV_MASS_SCALE1_HANDLE.set(segment, 0L, invMassScale1);
-        return this;
+    	INV_MASS_SCALE1_HANDLE.set(segment, 0L, invMassScale1);
+    	return this;
     }
     
     public float invMassScale1() {
-        return (float) INV_MASS_SCALE1_HANDLE.get(segment, 0L);
+    	return (float) INV_MASS_SCALE1_HANDLE.get(segment, 0L);
     }
     
+    /// @see #invInertiaScale1()
     public ContactSettings invInertiaScale1(float invInertiaScale1) {
-        INV_INERTIA_SCALE1_HANDLE.set(segment, 0L, invInertiaScale1);
-        return this;
+    	INV_INERTIA_SCALE1_HANDLE.set(segment, 0L, invInertiaScale1);
+    	return this;
     }
     
     public float invInertiaScale1() {
-        return (float) INV_INERTIA_SCALE1_HANDLE.get(segment, 0L);
+    	return (float) INV_INERTIA_SCALE1_HANDLE.get(segment, 0L);
     }
     
+    /// @see #invMassScale2()
     public ContactSettings invMassScale2(float invMassScale2) {
-        INV_MASS_SCALE2_HANDLE.set(segment, 0L, invMassScale2);
-        return this;
+    	INV_MASS_SCALE2_HANDLE.set(segment, 0L, invMassScale2);
+    	return this;
     }
     
     public float invMassScale2() {
-        return (float) INV_MASS_SCALE2_HANDLE.get(segment, 0L);
+    	return (float) INV_MASS_SCALE2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #invInertiaScale2()
     public ContactSettings invInertiaScale2(float invInertiaScale2) {
-        INV_INERTIA_SCALE2_HANDLE.set(segment, 0L, invInertiaScale2);
-        return this;
+    	INV_INERTIA_SCALE2_HANDLE.set(segment, 0L, invInertiaScale2);
+    	return this;
     }
     
     public float invInertiaScale2() {
-        return (float) INV_INERTIA_SCALE2_HANDLE.get(segment, 0L);
+    	return (float) INV_INERTIA_SCALE2_HANDLE.get(segment, 0L);
     }
     
+    /// @see #isSensor()
     public ContactSettings isSensor(int isSensor) {
-        IS_SENSOR_HANDLE.set(segment, 0L, isSensor);
-        return this;
+    	IS_SENSOR_HANDLE.set(segment, 0L, isSensor);
+    	return this;
     }
     
     public int isSensor() {
-        return (int) IS_SENSOR_HANDLE.get(segment, 0L);
+    	return (int) IS_SENSOR_HANDLE.get(segment, 0L);
     }
     
+    /// @see #relativeLinearSurfaceVelocity()
     public ContactSettings relativeLinearSurfaceVelocity(Consumer<Vec3> consumer) {
-        consumer.accept(relativeLinearSurfaceVelocity);
-        return this;
+    	consumer.accept(relativeLinearSurfaceVelocity);
+    	return this;
     }
     
+    /// @see #relativeLinearSurfaceVelocity()
     public ContactSettings relativeLinearSurfaceVelocity(Vec3 other) {
-        relativeLinearSurfaceVelocity.set(other);
-        return this;
+    	relativeLinearSurfaceVelocity.set(other);
+    	return this;
     }
     
     public Vec3 relativeLinearSurfaceVelocity() {
-        return relativeLinearSurfaceVelocity;
+    	return relativeLinearSurfaceVelocity;
     }
     
+    /// @see #relativeAngularSurfaceVelocity()
     public ContactSettings relativeAngularSurfaceVelocity(Consumer<Vec3> consumer) {
-        consumer.accept(relativeAngularSurfaceVelocity);
-        return this;
+    	consumer.accept(relativeAngularSurfaceVelocity);
+    	return this;
     }
     
+    /// @see #relativeAngularSurfaceVelocity()
     public ContactSettings relativeAngularSurfaceVelocity(Vec3 other) {
-        relativeAngularSurfaceVelocity.set(other);
-        return this;
+    	relativeAngularSurfaceVelocity.set(other);
+    	return this;
     }
     
     public Vec3 relativeAngularSurfaceVelocity() {
-        return relativeAngularSurfaceVelocity;
+    	return relativeAngularSurfaceVelocity;
     }
     
     @Override

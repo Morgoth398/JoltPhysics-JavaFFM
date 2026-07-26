@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.character;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -76,17 +75,17 @@ public abstract class CharacterContactListener {
         CACHE = new HashMap<>();
 
         LAYOUT = MemoryLayout.structLayout(
-            UNBOUNDED_ADDRESS.withName("onAdjustBodyVelocity"), 
-            UNBOUNDED_ADDRESS.withName("onContactValidate"), 
-            UNBOUNDED_ADDRESS.withName("onCharacterContactValidate"), 
-            UNBOUNDED_ADDRESS.withName("onContactAdded"), 
-            UNBOUNDED_ADDRESS.withName("onContactPersisted"), 
-            UNBOUNDED_ADDRESS.withName("onContactRemoved"), 
-            UNBOUNDED_ADDRESS.withName("onCharacterContactAdded"), 
-            UNBOUNDED_ADDRESS.withName("onCharacterContactPersisted"), 
-            UNBOUNDED_ADDRESS.withName("onCharacterContactRemoved"), 
-            UNBOUNDED_ADDRESS.withName("onContactSolve"), 
-            UNBOUNDED_ADDRESS.withName("onCharacterContactSolve")
+            UNBOUNDED_ADDRESS.withName("OnAdjustBodyVelocity"),
+            UNBOUNDED_ADDRESS.withName("OnContactValidate"),
+            UNBOUNDED_ADDRESS.withName("OnCharacterContactValidate"),
+            UNBOUNDED_ADDRESS.withName("OnContactAdded"),
+            UNBOUNDED_ADDRESS.withName("OnContactPersisted"),
+            UNBOUNDED_ADDRESS.withName("OnContactRemoved"),
+            UNBOUNDED_ADDRESS.withName("OnCharacterContactAdded"),
+            UNBOUNDED_ADDRESS.withName("OnCharacterContactPersisted"),
+            UNBOUNDED_ADDRESS.withName("OnCharacterContactRemoved"),
+            UNBOUNDED_ADDRESS.withName("OnContactSolve"),
+            UNBOUNDED_ADDRESS.withName("OnCharacterContactSolve")
         ).withName("JPH_CharacterContactListener_Procs").withByteAlignment(8);
 
         JPH_CHARACTER_CONTACT_LISTENER_SET_PROCS = downcallHandleVoid("JPH_CharacterContactListener_SetProcs", UNBOUNDED_ADDRESS);
@@ -98,14 +97,14 @@ public abstract class CharacterContactListener {
 
         Arena arena = Arena.global();
 
-        PROCS = Arena.global().allocate(LAYOUT);
+        PROCS = arena.allocate(LAYOUT);
 
         try {
             ON_ADJUST_BODY_VELOCITY_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -113,12 +112,12 @@ public abstract class CharacterContactListener {
 
             ON_ADJUST_BODY_VELOCITY_ADDRESS = linker.upcallStub(ON_ADJUST_BODY_VELOCITY_HANDLE, ON_ADJUST_BODY_VELOCITY_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onAdjustBodyVelocity")), ON_ADJUST_BODY_VELOCITY_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnAdjustBodyVelocity")), ON_ADJUST_BODY_VELOCITY_ADDRESS);
             
             ON_CONTACT_VALIDATE_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -126,12 +125,12 @@ public abstract class CharacterContactListener {
 
             ON_CONTACT_VALIDATE_ADDRESS = linker.upcallStub(ON_CONTACT_VALIDATE_HANDLE, ON_CONTACT_VALIDATE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactValidate")), ON_CONTACT_VALIDATE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactValidate")), ON_CONTACT_VALIDATE_ADDRESS);
             
             ON_CHARACTER_CONTACT_VALIDATE_DESCRIPTION = FunctionDescriptor.of(
                 JAVA_BOOLEAN, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -139,12 +138,12 @@ public abstract class CharacterContactListener {
 
             ON_CHARACTER_CONTACT_VALIDATE_ADDRESS = linker.upcallStub(ON_CHARACTER_CONTACT_VALIDATE_HANDLE, ON_CHARACTER_CONTACT_VALIDATE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onCharacterContactValidate")), ON_CHARACTER_CONTACT_VALIDATE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnCharacterContactValidate")), ON_CHARACTER_CONTACT_VALIDATE_ADDRESS);
             
             ON_CONTACT_ADDED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -152,12 +151,12 @@ public abstract class CharacterContactListener {
 
             ON_CONTACT_ADDED_ADDRESS = linker.upcallStub(ON_CONTACT_ADDED_HANDLE, ON_CONTACT_ADDED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactAdded")), ON_CONTACT_ADDED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactAdded")), ON_CONTACT_ADDED_ADDRESS);
             
             ON_CONTACT_PERSISTED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -165,12 +164,12 @@ public abstract class CharacterContactListener {
 
             ON_CONTACT_PERSISTED_ADDRESS = linker.upcallStub(ON_CONTACT_PERSISTED_HANDLE, ON_CONTACT_PERSISTED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactPersisted")), ON_CONTACT_PERSISTED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactPersisted")), ON_CONTACT_PERSISTED_ADDRESS);
             
             ON_CONTACT_REMOVED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
                 JAVA_INT
             );
 
@@ -178,12 +177,12 @@ public abstract class CharacterContactListener {
 
             ON_CONTACT_REMOVED_ADDRESS = linker.upcallStub(ON_CONTACT_REMOVED_HANDLE, ON_CONTACT_REMOVED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactRemoved")), ON_CONTACT_REMOVED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactRemoved")), ON_CONTACT_REMOVED_ADDRESS);
             
             ON_CHARACTER_CONTACT_ADDED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -191,12 +190,12 @@ public abstract class CharacterContactListener {
 
             ON_CHARACTER_CONTACT_ADDED_ADDRESS = linker.upcallStub(ON_CHARACTER_CONTACT_ADDED_HANDLE, ON_CHARACTER_CONTACT_ADDED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onCharacterContactAdded")), ON_CHARACTER_CONTACT_ADDED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnCharacterContactAdded")), ON_CHARACTER_CONTACT_ADDED_ADDRESS);
             
             ON_CHARACTER_CONTACT_PERSISTED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -204,12 +203,12 @@ public abstract class CharacterContactListener {
 
             ON_CHARACTER_CONTACT_PERSISTED_ADDRESS = linker.upcallStub(ON_CHARACTER_CONTACT_PERSISTED_HANDLE, ON_CHARACTER_CONTACT_PERSISTED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onCharacterContactPersisted")), ON_CHARACTER_CONTACT_PERSISTED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnCharacterContactPersisted")), ON_CHARACTER_CONTACT_PERSISTED_ADDRESS);
             
             ON_CHARACTER_CONTACT_REMOVED_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
                 JAVA_INT
             );
 
@@ -217,18 +216,18 @@ public abstract class CharacterContactListener {
 
             ON_CHARACTER_CONTACT_REMOVED_ADDRESS = linker.upcallStub(ON_CHARACTER_CONTACT_REMOVED_HANDLE, ON_CHARACTER_CONTACT_REMOVED_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onCharacterContactRemoved")), ON_CHARACTER_CONTACT_REMOVED_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnCharacterContactRemoved")), ON_CHARACTER_CONTACT_REMOVED_ADDRESS);
             
             ON_CONTACT_SOLVE_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
-                JAVA_INT, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
+                JAVA_INT,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -236,18 +235,18 @@ public abstract class CharacterContactListener {
 
             ON_CONTACT_SOLVE_ADDRESS = linker.upcallStub(ON_CONTACT_SOLVE_HANDLE, ON_CONTACT_SOLVE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onContactSolve")), ON_CONTACT_SOLVE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnContactSolve")), ON_CONTACT_SOLVE_ADDRESS);
             
             ON_CHARACTER_CONTACT_SOLVE_DESCRIPTION = FunctionDescriptor.ofVoid(
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                JAVA_INT, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
-                UNBOUNDED_ADDRESS, 
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                JAVA_INT,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
+                UNBOUNDED_ADDRESS,
                 UNBOUNDED_ADDRESS
             );
 
@@ -255,7 +254,7 @@ public abstract class CharacterContactListener {
 
             ON_CHARACTER_CONTACT_SOLVE_ADDRESS = linker.upcallStub(ON_CHARACTER_CONTACT_SOLVE_HANDLE, ON_CHARACTER_CONTACT_SOLVE_DESCRIPTION, arena);
 
-            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("onCharacterContactSolve")), ON_CHARACTER_CONTACT_SOLVE_ADDRESS);
+            PROCS.set(UNBOUNDED_ADDRESS, LAYOUT.byteOffset(PathElement.groupElement("OnCharacterContactSolve")), ON_CHARACTER_CONTACT_SOLVE_ADDRESS);
             
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -276,43 +275,46 @@ public abstract class CharacterContactListener {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
+    
     public static void setProcs(
-        MemorySegment procs
+    	MemorySegment procs
     ) {
-        MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_SET_PROCS.get();
-        try {
-            method.invokeExact(
-                procs
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_SET_PROCS.get();
+    	try {
+    		 method.invokeExact(
+    			procs
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
+    
     
     public static MemorySegment create(
-        MemorySegment userData
+    	MemorySegment userData
     ) {
-        MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_CREATE.get();
-        try {
-            return (MemorySegment) method.invokeExact(
-                userData
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_CREATE.get();
+    	try {
+    		return (MemorySegment)  method.invokeExact(
+    			userData
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
+    
     public static void destroy(
-        MemorySegment listener
+    	MemorySegment listener
     ) {
-        MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_DESTROY.get();
-        try {
-            method.invokeExact(
-                listener
-            );
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    	MethodHandle method = JPH_CHARACTER_CONTACT_LISTENER_DESTROY.get();
+    	try {
+    		 method.invokeExact(
+    			listener
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
     }
     
     public MemorySegment memorySegment() {
@@ -338,30 +340,29 @@ public abstract class CharacterContactListener {
     }
 
     public void onAdjustBodyVelocity(
-        MemorySegment character, 
-        MemorySegment body2, 
-        MemorySegment ioLinearVelocity, 
+        MemorySegment character,
+        MemorySegment body2,
+        MemorySegment ioLinearVelocity,
         MemorySegment ioAngularVelocity
     ) {
         onAdjustBodyVelocity(
-            new CharacterVirtual(character), 
-            new Body(body2), 
-            new Vec3(ioLinearVelocity), 
+            new CharacterVirtual(character),
+            new Body(body2),
+            new Vec3(ioLinearVelocity),
             new Vec3(ioAngularVelocity)
         );
     }
 
     public void onAdjustBodyVelocity(
-        CharacterVirtual character, 
-        Body body2, 
-        Vec3 ioLinearVelocity, 
+        CharacterVirtual character,
+        Body body2,
+        Vec3 ioLinearVelocity,
         Vec3 ioAngularVelocity
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onAdjustBodyVelocity."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static boolean onContactValidate(
         MemorySegment userData, 
@@ -377,24 +378,23 @@ public abstract class CharacterContactListener {
     }
 
     public boolean onContactValidate(
-        MemorySegment character, 
+        MemorySegment character,
         MemorySegment contact
     ) {
-        return (boolean) onContactValidate(
-            new CharacterVirtual(character), 
+        return onContactValidate(
+            new CharacterVirtual(character),
             new CharacterContact(contact)
         );
     }
 
     public boolean onContactValidate(
-        CharacterVirtual character, 
+        CharacterVirtual character,
         CharacterContact contact
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactValidate."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static boolean onCharacterContactValidate(
         MemorySegment userData, 
@@ -410,24 +410,23 @@ public abstract class CharacterContactListener {
     }
 
     public boolean onCharacterContactValidate(
-        MemorySegment character, 
+        MemorySegment character,
         MemorySegment contact
     ) {
-        return (boolean) onCharacterContactValidate(
-            new CharacterVirtual(character), 
+        return onCharacterContactValidate(
+            new CharacterVirtual(character),
             new CharacterContact(contact)
         );
     }
 
     public boolean onCharacterContactValidate(
-        CharacterVirtual character, 
+        CharacterVirtual character,
         CharacterContact contact
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onCharacterContactValidate."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onContactAdded(
         MemorySegment userData, 
@@ -445,27 +444,26 @@ public abstract class CharacterContactListener {
     }
 
     public void onContactAdded(
-        MemorySegment character, 
-        MemorySegment contact, 
+        MemorySegment character,
+        MemorySegment contact,
         MemorySegment ioSettings
     ) {
         onContactAdded(
-            new CharacterVirtual(character), 
-            new CharacterContact(contact), 
+            new CharacterVirtual(character),
+            new CharacterContact(contact),
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onContactAdded(
-        CharacterVirtual character, 
-        CharacterContact contact, 
+        CharacterVirtual character,
+        CharacterContact contact,
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactAdded."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onContactPersisted(
         MemorySegment userData, 
@@ -483,27 +481,26 @@ public abstract class CharacterContactListener {
     }
 
     public void onContactPersisted(
-        MemorySegment character, 
-        MemorySegment contact, 
+        MemorySegment character,
+        MemorySegment contact,
         MemorySegment ioSettings
     ) {
         onContactPersisted(
-            new CharacterVirtual(character), 
-            new CharacterContact(contact), 
+            new CharacterVirtual(character),
+            new CharacterContact(contact),
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onContactPersisted(
-        CharacterVirtual character, 
-        CharacterContact contact, 
+        CharacterVirtual character,
+        CharacterContact contact,
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactPersisted."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onContactRemoved(
         MemorySegment userData, 
@@ -521,27 +518,26 @@ public abstract class CharacterContactListener {
     }
 
     public void onContactRemoved(
-        MemorySegment character, 
-        int bodyID2, 
+        MemorySegment character,
+        int bodyID2,
         int subShapeID2
     ) {
         onContactRemoved(
-            new CharacterVirtual(character), 
-            bodyID2, 
-            subShapeID2
+            new CharacterVirtual(character),
+		    bodyID2,
+		    subShapeID2
         );
     }
 
     public void onContactRemoved(
-        CharacterVirtual character, 
-        int bodyID2, 
+        CharacterVirtual character,
+        int bodyID2,
         int subShapeID2
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactRemoved."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onCharacterContactAdded(
         MemorySegment userData, 
@@ -559,27 +555,26 @@ public abstract class CharacterContactListener {
     }
 
     public void onCharacterContactAdded(
-        MemorySegment character, 
-        MemorySegment contact, 
+        MemorySegment character,
+        MemorySegment contact,
         MemorySegment ioSettings
     ) {
         onCharacterContactAdded(
-            new CharacterVirtual(character), 
-            new CharacterContact(contact), 
+            new CharacterVirtual(character),
+            new CharacterContact(contact),
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onCharacterContactAdded(
-        CharacterVirtual character, 
-        CharacterContact contact, 
+        CharacterVirtual character,
+        CharacterContact contact,
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onCharacterContactAdded."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onCharacterContactPersisted(
         MemorySegment userData, 
@@ -597,27 +592,26 @@ public abstract class CharacterContactListener {
     }
 
     public void onCharacterContactPersisted(
-        MemorySegment character, 
-        MemorySegment contact, 
+        MemorySegment character,
+        MemorySegment contact,
         MemorySegment ioSettings
     ) {
         onCharacterContactPersisted(
-            new CharacterVirtual(character), 
-            new CharacterContact(contact), 
+            new CharacterVirtual(character),
+            new CharacterContact(contact),
             new CharacterContactSettings(ioSettings)
         );
     }
 
     public void onCharacterContactPersisted(
-        CharacterVirtual character, 
-        CharacterContact contact, 
+        CharacterVirtual character,
+        CharacterContact contact,
         CharacterContactSettings ioSettings
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onCharacterContactPersisted."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onCharacterContactRemoved(
         MemorySegment userData, 
@@ -635,27 +629,26 @@ public abstract class CharacterContactListener {
     }
 
     public void onCharacterContactRemoved(
-        MemorySegment character, 
-        int otherCharacterID, 
+        MemorySegment character,
+        int otherCharacterID,
         int subShapeID2
     ) {
         onCharacterContactRemoved(
-            new CharacterVirtual(character), 
-            otherCharacterID, 
-            subShapeID2
+            new CharacterVirtual(character),
+		    otherCharacterID,
+		    subShapeID2
         );
     }
 
     public void onCharacterContactRemoved(
-        CharacterVirtual character, 
-        int otherCharacterID, 
+        CharacterVirtual character,
+        int otherCharacterID,
         int subShapeID2
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onCharacterContactRemoved."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onContactSolve(
         MemorySegment userData, 
@@ -685,45 +678,44 @@ public abstract class CharacterContactListener {
     }
 
     public void onContactSolve(
-        MemorySegment character, 
-        int bodyID2, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
-        MemorySegment contactVelocity, 
-        MemorySegment contactMaterial, 
-        MemorySegment characterVelocity, 
+        MemorySegment character,
+        int bodyID2,
+        int subShapeID2,
+        MemorySegment contactPosition,
+        MemorySegment contactNormal,
+        MemorySegment contactVelocity,
+        MemorySegment contactMaterial,
+        MemorySegment characterVelocity,
         MemorySegment newCharacterVelocity
     ) {
         onContactSolve(
-            new CharacterVirtual(character), 
-            bodyID2, 
-            subShapeID2, 
-            new Vec3(contactPosition), 
-            new Vec3(contactNormal), 
-            new Vec3(contactVelocity), 
-            new PhysicsMaterial(contactMaterial), 
-            new Vec3(characterVelocity), 
+            new CharacterVirtual(character),
+		    bodyID2,
+		    subShapeID2,
+            new Vec3(contactPosition),
+            new Vec3(contactNormal),
+            new Vec3(contactVelocity),
+            new PhysicsMaterial(contactMaterial),
+            new Vec3(characterVelocity),
             new Vec3(newCharacterVelocity)
         );
     }
 
     public void onContactSolve(
-        CharacterVirtual character, 
-        int bodyID2, 
-        int subShapeID2, 
-        Vec3 contactPosition, 
-        Vec3 contactNormal, 
-        Vec3 contactVelocity, 
-        PhysicsMaterial contactMaterial, 
-        Vec3 characterVelocity, 
+        CharacterVirtual character,
+        int bodyID2,
+        int subShapeID2,
+        Vec3 contactPosition,
+        Vec3 contactNormal,
+        Vec3 contactVelocity,
+        PhysicsMaterial contactMaterial,
+        Vec3 characterVelocity,
         Vec3 newCharacterVelocity
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onContactSolve."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
     public static void onCharacterContactSolve(
         MemorySegment userData, 
@@ -753,44 +745,43 @@ public abstract class CharacterContactListener {
     }
 
     public void onCharacterContactSolve(
-        MemorySegment character, 
-        MemorySegment otherCharacter, 
-        int subShapeID2, 
-        MemorySegment contactPosition, 
-        MemorySegment contactNormal, 
-        MemorySegment contactVelocity, 
-        MemorySegment contactMaterial, 
-        MemorySegment characterVelocity, 
+        MemorySegment character,
+        MemorySegment otherCharacter,
+        int subShapeID2,
+        MemorySegment contactPosition,
+        MemorySegment contactNormal,
+        MemorySegment contactVelocity,
+        MemorySegment contactMaterial,
+        MemorySegment characterVelocity,
         MemorySegment newCharacterVelocity
     ) {
         onCharacterContactSolve(
-            new CharacterVirtual(character), 
-            new CharacterVirtual(otherCharacter), 
-            subShapeID2, 
-            new Vec3(contactPosition), 
-            new Vec3(contactNormal), 
-            new Vec3(contactVelocity), 
-            new PhysicsMaterial(contactMaterial), 
-            new Vec3(characterVelocity), 
+            new CharacterVirtual(character),
+            new CharacterVirtual(otherCharacter),
+		    subShapeID2,
+            new Vec3(contactPosition),
+            new Vec3(contactNormal),
+            new Vec3(contactVelocity),
+            new PhysicsMaterial(contactMaterial),
+            new Vec3(characterVelocity),
             new Vec3(newCharacterVelocity)
         );
     }
 
     public void onCharacterContactSolve(
-        CharacterVirtual character, 
-        CharacterVirtual otherCharacter, 
-        int subShapeID2, 
-        Vec3 contactPosition, 
-        Vec3 contactNormal, 
-        Vec3 contactVelocity, 
-        PhysicsMaterial contactMaterial, 
-        Vec3 characterVelocity, 
+        CharacterVirtual character,
+        CharacterVirtual otherCharacter,
+        int subShapeID2,
+        Vec3 contactPosition,
+        Vec3 contactNormal,
+        Vec3 contactVelocity,
+        PhysicsMaterial contactMaterial,
+        Vec3 characterVelocity,
         Vec3 newCharacterVelocity
     ) {
         throw new UnsupportedOperationException(
-            "Override either the typed or raw callback method for onCharacterContactSolve."
+            "Override either the typed or raw callback method in CharacterContactListener."
         );
-    }
-
+    };
 
 }
