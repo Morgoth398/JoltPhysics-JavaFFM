@@ -87,7 +87,6 @@ public abstract class PhysicsStepListener {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
-    
     public static void setProcs(
     	MemorySegment procs
     ) {
@@ -101,20 +100,18 @@ public abstract class PhysicsStepListener {
     	}
     }
     
-    
     public static MemorySegment create(
     	MemorySegment userData
     ) {
     	MethodHandle method = JPH_PHYSICS_STEP_LISTENER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			userData
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment listener

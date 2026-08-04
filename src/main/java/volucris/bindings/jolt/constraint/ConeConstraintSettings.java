@@ -90,7 +90,6 @@ public final class ConeConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

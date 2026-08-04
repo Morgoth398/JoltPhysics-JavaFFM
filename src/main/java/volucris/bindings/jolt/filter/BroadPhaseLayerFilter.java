@@ -88,7 +88,6 @@ public abstract class BroadPhaseLayerFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
-    
     public static void setProcs(
     	MemorySegment procs
     ) {
@@ -102,20 +101,18 @@ public abstract class BroadPhaseLayerFilter {
     	}
     }
     
-    
     public static MemorySegment create(
     	MemorySegment userData
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_LAYER_FILTER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			userData
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment filter

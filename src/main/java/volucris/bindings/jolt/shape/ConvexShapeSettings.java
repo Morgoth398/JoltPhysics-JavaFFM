@@ -36,13 +36,12 @@ public sealed class ConvexShapeSettings extends ShapeSettings
     	super(segment);
     }
 
-    
     public static float getDensity(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_CONVEX_SHAPE_SETTINGS_GET_DENSITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -54,11 +53,10 @@ public sealed class ConvexShapeSettings extends ShapeSettings
     public final float getDensity(
     	ConvexShapeSettings shape
     ) {
-    	return (float) getDensity(
+    	return getDensity(
     		shape.memorySegment()
     	);
     }
-    
     
     public static void setDensity(
     	MemorySegment shape,

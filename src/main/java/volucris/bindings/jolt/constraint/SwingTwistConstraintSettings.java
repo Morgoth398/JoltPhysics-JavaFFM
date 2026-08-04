@@ -136,7 +136,6 @@ public final class SwingTwistConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

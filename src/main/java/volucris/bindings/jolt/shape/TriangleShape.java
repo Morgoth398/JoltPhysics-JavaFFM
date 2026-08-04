@@ -36,7 +36,6 @@ public final class TriangleShape extends ConvexShape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment v1,
     	MemorySegment v2,
@@ -45,7 +44,7 @@ public final class TriangleShape extends ConvexShape {
     ) {
     	MethodHandle method = JPH_TRIANGLE_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			v1,
     			v2,
     			v3,
@@ -76,13 +75,12 @@ public final class TriangleShape extends ConvexShape {
     	return new TriangleShape(segment);
     }
     
-    
     public static float getConvexRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TRIANGLE_SHAPE_GET_CONVEX_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -92,11 +90,10 @@ public final class TriangleShape extends ConvexShape {
     
     /// Typed method of [#getConvexRadius].
     public final float getConvexRadius() {
-    	return (float) getConvexRadius(
+    	return getConvexRadius(
     		this.segment
     	);
     }
-    
     
     public static void getVertex1(
     	MemorySegment shape,
@@ -123,7 +120,6 @@ public final class TriangleShape extends ConvexShape {
     	);
     }
     
-    
     public static void getVertex2(
     	MemorySegment shape,
     	MemorySegment result
@@ -148,7 +144,6 @@ public final class TriangleShape extends ConvexShape {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getVertex3(
     	MemorySegment shape,

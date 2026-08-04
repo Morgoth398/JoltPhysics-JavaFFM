@@ -28,7 +28,6 @@ public final class BodyLockMultiWrite {
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment ioLock
     ) {
@@ -49,14 +48,13 @@ public final class BodyLockMultiWrite {
     	);
     }
     
-    
     public static MemorySegment getBody(
     	MemorySegment ioLock,
     	int bodyIndex
     ) {
     	MethodHandle method = JPH_BODY_LOCK_MULTI_WRITE_GET_BODY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			ioLock,
     			bodyIndex
     		);

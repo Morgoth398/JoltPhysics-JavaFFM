@@ -26,14 +26,13 @@ public final class MeshShape extends Shape {
     	super(segment);
     }
 
-    
     public static int getTriangleUserData(
     	MemorySegment shape,
     	int id
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_GET_TRIANGLE_USER_DATA.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape,
     			id
     		);
@@ -46,7 +45,7 @@ public final class MeshShape extends Shape {
     public final int getTriangleUserData(
     	int id
     ) {
-    	return (int) getTriangleUserData(
+    	return getTriangleUserData(
     		this.segment,
     		id
     	);

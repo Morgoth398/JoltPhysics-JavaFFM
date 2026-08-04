@@ -58,16 +58,14 @@ public class Skeleton {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_SKELETON_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment skeleton
@@ -82,14 +80,13 @@ public class Skeleton {
     	}
     }
     
-    
     public static int addJoint(
     	MemorySegment skeleton,
     	MemorySegment name
     ) {
     	MethodHandle method = JPH_SKELETON_ADD_JOINT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			skeleton,
     			name
     		);
@@ -103,13 +100,12 @@ public class Skeleton {
     	String name
     ) {
     	try (Arena arena = Arena.ofConfined()) {
-    		return (int) addJoint(
+    		return addJoint(
     			this.segment,
     			arena.allocateFrom(name)
     		);
     	}
     }
-    
     
     public static int addJoint2(
     	MemorySegment skeleton,
@@ -118,7 +114,7 @@ public class Skeleton {
     ) {
     	MethodHandle method = JPH_SKELETON_ADD_JOINT2.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			skeleton,
     			name,
     			parentIndex
@@ -134,14 +130,13 @@ public class Skeleton {
     	int parentIndex
     ) {
     	try (Arena arena = Arena.ofConfined()) {
-    		return (int) addJoint2(
+    		return addJoint2(
     			this.segment,
     			arena.allocateFrom(name),
     			parentIndex
     		);
     	}
     }
-    
     
     public static int addJoint3(
     	MemorySegment skeleton,
@@ -150,7 +145,7 @@ public class Skeleton {
     ) {
     	MethodHandle method = JPH_SKELETON_ADD_JOINT3.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			skeleton,
     			name,
     			parentName
@@ -166,7 +161,7 @@ public class Skeleton {
     	String parentName
     ) {
     	try (Arena arena = Arena.ofConfined()) {
-    		return (int) addJoint3(
+    		return addJoint3(
     			this.segment,
     			arena.allocateFrom(name),
     			arena.allocateFrom(parentName)
@@ -174,13 +169,12 @@ public class Skeleton {
     	}
     }
     
-    
     public static int getJointCount(
     	MemorySegment skeleton
     ) {
     	MethodHandle method = JPH_SKELETON_GET_JOINT_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			skeleton
     		);
     	} catch (Throwable e) {
@@ -190,11 +184,10 @@ public class Skeleton {
     
     /// Typed method of [#getJointCount].
     public final int getJointCount() {
-    	return (int) getJointCount(
+    	return getJointCount(
     		this.segment
     	);
     }
-    
     
     public static void getJoint(
     	MemorySegment skeleton,
@@ -225,14 +218,13 @@ public class Skeleton {
     	);
     }
     
-    
     public static int getJointIndex(
     	MemorySegment skeleton,
     	MemorySegment name
     ) {
     	MethodHandle method = JPH_SKELETON_GET_JOINT_INDEX.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			skeleton,
     			name
     		);
@@ -246,13 +238,12 @@ public class Skeleton {
     	String name
     ) {
     	try (Arena arena = Arena.ofConfined()) {
-    		return (int) getJointIndex(
+    		return getJointIndex(
     			this.segment,
     			arena.allocateFrom(name)
     		);
     	}
     }
-    
     
     public static void calculateParentJointIndices(
     	MemorySegment skeleton
@@ -274,13 +265,12 @@ public class Skeleton {
     	);
     }
     
-    
     public static boolean areJointsCorrectlyOrdered(
     	MemorySegment skeleton
     ) {
     	MethodHandle method = JPH_SKELETON_ARE_JOINTS_CORRECTLY_ORDERED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			skeleton
     		);
     	} catch (Throwable e) {
@@ -290,7 +280,7 @@ public class Skeleton {
     
     /// Typed method of [#areJointsCorrectlyOrdered].
     public final boolean areJointsCorrectlyOrdered() {
-    	return (boolean) areJointsCorrectlyOrdered(
+    	return areJointsCorrectlyOrdered(
     		this.segment
     	);
     }

@@ -53,16 +53,14 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
     	super(segment);
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getEngine(
     	MemorySegment settings,
@@ -89,7 +87,6 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
     	);
     }
     
-    
     public static void setEngine(
     	MemorySegment settings,
     	MemorySegment value
@@ -115,13 +112,12 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
     	);
     }
     
-    
     public static MemorySegment getTransmission(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_SETTINGS_GET_TRANSMISSION.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -140,7 +136,6 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
     	
     	return new VehicleTransmissionSettings(segment);
     }
-    
     
     public static void setTransmission(
     	MemorySegment settings,
@@ -166,7 +161,6 @@ public final class TrackedVehicleControllerSettings extends VehicleControllerSet
     		value.memorySegment()
     	);
     }
-    
     
     public static void setTrack(
     	MemorySegment settings,

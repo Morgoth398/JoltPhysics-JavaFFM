@@ -147,7 +147,6 @@ public final class CharacterVirtualSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

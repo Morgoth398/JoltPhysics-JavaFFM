@@ -54,20 +54,18 @@ public final class BroadPhaseLayerInterfaceMask extends BroadPhaseLayerInterface
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	int numBroadPhaseLayers
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_MASK_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			numBroadPhaseLayers
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void configureLayer(
     	MemorySegment bpInterface,

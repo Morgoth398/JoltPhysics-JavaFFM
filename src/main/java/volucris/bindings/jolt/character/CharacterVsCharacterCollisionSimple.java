@@ -43,16 +43,14 @@ public final class CharacterVsCharacterCollisionSimple extends CharacterVsCharac
     	this.segment = segment;
     }
 
-    
     public static MemorySegment createSimple() {
     	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE_SIMPLE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void addCharacter(
     	MemorySegment characterVsCharacter,
@@ -78,7 +76,6 @@ public final class CharacterVsCharacterCollisionSimple extends CharacterVsCharac
     		character.memorySegment()
     	);
     }
-    
     
     public static void removeCharacter(
     	MemorySegment characterVsCharacter,

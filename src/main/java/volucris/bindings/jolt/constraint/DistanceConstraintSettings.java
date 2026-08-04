@@ -90,7 +90,6 @@ public final class DistanceConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

@@ -26,7 +26,6 @@ public sealed class ObjectLayerPairFilter
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment filter
     ) {

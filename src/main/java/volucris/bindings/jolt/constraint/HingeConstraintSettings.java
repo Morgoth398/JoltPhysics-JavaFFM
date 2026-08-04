@@ -120,7 +120,6 @@ public final class HingeConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

@@ -65,7 +65,6 @@ public final class VehicleCollisionTesterCastSphere extends VehicleCollisionTest
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	int layer,
     	float radius,
@@ -74,7 +73,7 @@ public final class VehicleCollisionTesterCastSphere extends VehicleCollisionTest
     ) {
     	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_CAST_SPHERE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			layer,
     			radius,
     			up,

@@ -52,13 +52,12 @@ public final class ObjectVsBroadPhaseLayerFilterMask extends ObjectVsBroadPhaseL
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment broadPhaseLayerInterface
     ) {
     	MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_MASK_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			broadPhaseLayerInterface
     		);
     	} catch (Throwable e) {

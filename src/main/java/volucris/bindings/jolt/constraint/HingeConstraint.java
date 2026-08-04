@@ -118,7 +118,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -126,7 +125,7 @@ public final class HingeConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -135,7 +134,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -162,7 +160,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getLocalSpacePoint1(
     	MemorySegment constraint,
     	MemorySegment result
@@ -187,7 +184,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getLocalSpacePoint2(
     	MemorySegment constraint,
@@ -214,7 +210,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getLocalSpaceHingeAxis1(
     	MemorySegment constraint,
     	MemorySegment result
@@ -239,7 +234,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getLocalSpaceHingeAxis2(
     	MemorySegment constraint,
@@ -266,7 +260,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getLocalSpaceNormalAxis1(
     	MemorySegment constraint,
     	MemorySegment result
@@ -291,7 +284,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getLocalSpaceNormalAxis2(
     	MemorySegment constraint,
@@ -318,13 +310,12 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getCurrentAngle(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_CURRENT_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -334,11 +325,10 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getCurrentAngle].
     public final float getCurrentAngle() {
-    	return (float) getCurrentAngle(
+    	return getCurrentAngle(
     		this.segment
     	);
     }
-    
     
     public static void setMaxFrictionTorque(
     	MemorySegment constraint,
@@ -365,13 +355,12 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getMaxFrictionTorque(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_MAX_FRICTION_TORQUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -381,11 +370,10 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getMaxFrictionTorque].
     public final float getMaxFrictionTorque() {
-    	return (float) getMaxFrictionTorque(
+    	return getMaxFrictionTorque(
     		this.segment
     	);
     }
-    
     
     public static void setMotorSettings(
     	MemorySegment constraint,
@@ -412,7 +400,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getMotorSettings(
     	MemorySegment constraint,
     	MemorySegment result
@@ -437,7 +424,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setMotorState(
     	MemorySegment constraint,
@@ -464,13 +450,12 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static int getMotorState(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_MOTOR_STATE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -480,11 +465,10 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getMotorState].
     public final int getMotorState() {
-    	return (int) getMotorState(
+    	return getMotorState(
     		this.segment
     	);
     }
-    
     
     public static void setTargetAngularVelocity(
     	MemorySegment constraint,
@@ -511,13 +495,12 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTargetAngularVelocity(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TARGET_ANGULAR_VELOCITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -527,11 +510,10 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTargetAngularVelocity].
     public final float getTargetAngularVelocity() {
-    	return (float) getTargetAngularVelocity(
+    	return getTargetAngularVelocity(
     		this.segment
     	);
     }
-    
     
     public static void setTargetAngle(
     	MemorySegment constraint,
@@ -558,13 +540,12 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTargetAngle(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TARGET_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -574,11 +555,10 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTargetAngle].
     public final float getTargetAngle() {
-    	return (float) getTargetAngle(
+    	return getTargetAngle(
     		this.segment
     	);
     }
-    
     
     public static void setLimits(
     	MemorySegment constraint,
@@ -609,13 +589,12 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getLimitsMin(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_LIMITS_MIN.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -625,18 +604,17 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getLimitsMin].
     public final float getLimitsMin() {
-    	return (float) getLimitsMin(
+    	return getLimitsMin(
     		this.segment
     	);
     }
-    
     
     public static float getLimitsMax(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_LIMITS_MAX.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -646,18 +624,17 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getLimitsMax].
     public final float getLimitsMax() {
-    	return (float) getLimitsMax(
+    	return getLimitsMax(
     		this.segment
     	);
     }
-    
     
     public static boolean hasLimits(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_HAS_LIMITS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -667,11 +644,10 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#hasLimits].
     public final boolean hasLimits() {
-    	return (boolean) hasLimits(
+    	return hasLimits(
     		this.segment
     	);
     }
-    
     
     public static void getLimitsSpringSettings(
     	MemorySegment constraint,
@@ -698,7 +674,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void setLimitsSpringSettings(
     	MemorySegment constraint,
     	MemorySegment settings
@@ -723,7 +698,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     		settings.memorySegment()
     	);
     }
-    
     
     public static void getTotalLambdaPosition(
     	MemorySegment constraint,
@@ -750,7 +724,6 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTotalLambdaRotation(
     	MemorySegment constraint,
     	MemorySegment rotation
@@ -776,13 +749,12 @@ public final class HingeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTotalLambdaRotationLimits(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TOTAL_LAMBDA_ROTATION_LIMITS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -792,18 +764,17 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaRotationLimits].
     public final float getTotalLambdaRotationLimits() {
-    	return (float) getTotalLambdaRotationLimits(
+    	return getTotalLambdaRotationLimits(
     		this.segment
     	);
     }
-    
     
     public static float getTotalLambdaMotor(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_HINGE_CONSTRAINT_GET_TOTAL_LAMBDA_MOTOR.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -813,7 +784,7 @@ public final class HingeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaMotor].
     public final float getTotalLambdaMotor() {
-    	return (float) getTotalLambdaMotor(
+    	return getTotalLambdaMotor(
     		this.segment
     	);
     }

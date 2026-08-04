@@ -74,16 +74,14 @@ public class SkeletonPose {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_SKELETON_POSE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment pose
@@ -97,7 +95,6 @@ public class SkeletonPose {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void setSkeleton(
     	MemorySegment pose,
@@ -124,13 +121,12 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static MemorySegment getSkeleton(
     	MemorySegment pose
     ) {
     	MethodHandle method = JPH_SKELETON_POSE_GET_SKELETON.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			pose
     		);
     	} catch (Throwable e) {
@@ -149,7 +145,6 @@ public class SkeletonPose {
     	
     	return new Skeleton(segment);
     }
-    
     
     public static void setRootOffset(
     	MemorySegment pose,
@@ -176,7 +171,6 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static void getRootOffset(
     	MemorySegment pose,
     	MemorySegment result
@@ -202,13 +196,12 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static int getJointCount(
     	MemorySegment pose
     ) {
     	MethodHandle method = JPH_SKELETON_POSE_GET_JOINT_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			pose
     		);
     	} catch (Throwable e) {
@@ -218,11 +211,10 @@ public class SkeletonPose {
     
     /// Typed method of [#getJointCount].
     public final int getJointCount() {
-    	return (int) getJointCount(
+    	return getJointCount(
     		this.segment
     	);
     }
-    
     
     public static void getJointState(
     	MemorySegment pose,
@@ -257,7 +249,6 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static void setJointState(
     	MemorySegment pose,
     	int index,
@@ -291,7 +282,6 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static void getJointMatrix(
     	MemorySegment pose,
     	int index,
@@ -320,7 +310,6 @@ public class SkeletonPose {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setJointMatrix(
     	MemorySegment pose,
@@ -351,7 +340,6 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static void getJointMatrices(
     	MemorySegment pose,
     	MemorySegment outMatrices,
@@ -380,7 +368,6 @@ public class SkeletonPose {
     		count
     	);
     }
-    
     
     public static void setJointMatrices(
     	MemorySegment pose,
@@ -411,7 +398,6 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static void calculateJointMatrices(
     	MemorySegment pose
     ) {
@@ -432,7 +418,6 @@ public class SkeletonPose {
     	);
     }
     
-    
     public static void calculateJointStates(
     	MemorySegment pose
     ) {
@@ -452,7 +437,6 @@ public class SkeletonPose {
     		this.segment
     	);
     }
-    
     
     public static void calculateLocalSpaceJointMatrices(
     	MemorySegment pose,

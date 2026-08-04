@@ -52,13 +52,12 @@ public final class JobSystemThreadPool extends JobSystem {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment config
     ) {
     	MethodHandle method = JPH_JOB_SYSTEM_THREAD_POOL_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			config
     		);
     	} catch (Throwable e) {

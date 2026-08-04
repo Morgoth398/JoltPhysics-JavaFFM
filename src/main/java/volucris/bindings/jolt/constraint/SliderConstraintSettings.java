@@ -129,7 +129,6 @@ public final class SliderConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {
@@ -149,7 +148,6 @@ public final class SliderConstraintSettings
     		this.segment
     	);
     }
-    
     
     public static void setSliderAxis(
     	MemorySegment settings,

@@ -66,7 +66,6 @@ public final class PlaneShape extends Shape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment plane,
     	MemorySegment material,
@@ -74,7 +73,7 @@ public final class PlaneShape extends Shape {
     ) {
     	MethodHandle method = JPH_PLANE_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			plane,
     			material,
     			halfExtent
@@ -83,7 +82,6 @@ public final class PlaneShape extends Shape {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getPlane(
     	MemorySegment shape,
@@ -110,13 +108,12 @@ public final class PlaneShape extends Shape {
     	);
     }
     
-    
     public static float getHalfExtent(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_PLANE_SHAPE_GET_HALF_EXTENT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -126,7 +123,7 @@ public final class PlaneShape extends Shape {
     
     /// Typed method of [#getHalfExtent].
     public final float getHalfExtent() {
-    	return (float) getHalfExtent(
+    	return getHalfExtent(
     		this.segment
     	);
     }

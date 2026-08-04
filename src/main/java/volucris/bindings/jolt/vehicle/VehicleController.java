@@ -28,13 +28,12 @@ public sealed class VehicleController
     	this.segment = segment;
     }
 
-    
     public static MemorySegment getConstraint(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_VEHICLE_CONTROLLER_GET_CONSTRAINT.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {

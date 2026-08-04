@@ -59,13 +59,12 @@ public final class SphereShapeSettings extends ConvexShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	float radius
     ) {
     	MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			radius
     		);
     	} catch (Throwable e) {
@@ -73,13 +72,12 @@ public final class SphereShapeSettings extends ConvexShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -99,13 +97,12 @@ public final class SphereShapeSettings extends ConvexShapeSettings {
     	return new SphereShape(segment);
     }
     
-    
     public static float getRadius(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_SPHERE_SHAPE_SETTINGS_GET_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -115,11 +112,10 @@ public final class SphereShapeSettings extends ConvexShapeSettings {
     
     /// Typed method of [#getRadius].
     public final float getRadius() {
-    	return (float) getRadius(
+    	return getRadius(
     		this.segment
     	);
     }
-    
     
     public static void setRadius(
     	MemorySegment settings,

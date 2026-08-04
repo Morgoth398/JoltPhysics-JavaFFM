@@ -67,7 +67,6 @@ public final class VehicleAntiRollBar
         init();
     }
 
-    
     public static void init(
     	MemorySegment antiRollBar
     ) {

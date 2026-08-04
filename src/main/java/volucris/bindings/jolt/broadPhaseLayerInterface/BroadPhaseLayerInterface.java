@@ -26,7 +26,6 @@ public sealed class BroadPhaseLayerInterface
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment bpInterface
     ) {

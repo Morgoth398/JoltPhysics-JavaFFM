@@ -110,7 +110,6 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment samples,
     	MemorySegment offset,
@@ -120,7 +119,7 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			samples,
     			offset,
     			scale,
@@ -131,7 +130,6 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void determineMinAndMaxSample(
     	MemorySegment settings,
@@ -166,14 +164,13 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static int calculateBitsPerSampleForError(
     	MemorySegment settings,
     	float maxError
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CALCULATE_BITS_PER_SAMPLE_FOR_ERROR.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings,
     			maxError
     		);
@@ -186,12 +183,11 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     public final int calculateBitsPerSampleForError(
     	float maxError
     ) {
-    	return (int) calculateBitsPerSampleForError(
+    	return calculateBitsPerSampleForError(
     		this.segment,
     		maxError
     	);
     }
-    
     
     public static void getOffset(
     	MemorySegment shape,
@@ -219,7 +215,6 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static void setOffset(
     	MemorySegment settings,
     	MemorySegment value
@@ -244,7 +239,6 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     		value.memorySegment()
     	);
     }
-    
     
     public static void getScale(
     	MemorySegment shape,
@@ -272,7 +266,6 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static void setScale(
     	MemorySegment settings,
     	MemorySegment value
@@ -298,13 +291,12 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static int getSampleCount(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_SAMPLE_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -314,11 +306,10 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getSampleCount].
     public final int getSampleCount() {
-    	return (int) getSampleCount(
+    	return getSampleCount(
     		this.segment
     	);
     }
-    
     
     public static void setSampleCount(
     	MemorySegment settings,
@@ -345,13 +336,12 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static float getMinHeightValue(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MIN_HEIGHT_VALUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -361,11 +351,10 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getMinHeightValue].
     public final float getMinHeightValue() {
-    	return (float) getMinHeightValue(
+    	return getMinHeightValue(
     		this.segment
     	);
     }
-    
     
     public static void setMinHeightValue(
     	MemorySegment settings,
@@ -392,13 +381,12 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static float getMaxHeightValue(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_MAX_HEIGHT_VALUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -408,11 +396,10 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getMaxHeightValue].
     public final float getMaxHeightValue() {
-    	return (float) getMaxHeightValue(
+    	return getMaxHeightValue(
     		this.segment
     	);
     }
-    
     
     public static void setMaxHeightValue(
     	MemorySegment settings,
@@ -439,13 +426,12 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static int getBlockSize(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BLOCK_SIZE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -455,11 +441,10 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getBlockSize].
     public final int getBlockSize() {
-    	return (int) getBlockSize(
+    	return getBlockSize(
     		this.segment
     	);
     }
-    
     
     public static void setBlockSize(
     	MemorySegment settings,
@@ -486,13 +471,12 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static int getBitsPerSample(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_BITS_PER_SAMPLE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -502,11 +486,10 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getBitsPerSample].
     public final int getBitsPerSample() {
-    	return (int) getBitsPerSample(
+    	return getBitsPerSample(
     		this.segment
     	);
     }
-    
     
     public static void setBitsPerSample(
     	MemorySegment settings,
@@ -533,13 +516,12 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static float getActiveEdgeCosThresholdAngle(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -549,11 +531,10 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getActiveEdgeCosThresholdAngle].
     public final float getActiveEdgeCosThresholdAngle() {
-    	return (float) getActiveEdgeCosThresholdAngle(
+    	return getActiveEdgeCosThresholdAngle(
     		this.segment
     	);
     }
-    
     
     public static void setActiveEdgeCosThresholdAngle(
     	MemorySegment settings,
@@ -580,13 +561,12 @@ public final class HeightFieldShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

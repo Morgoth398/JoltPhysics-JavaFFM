@@ -44,13 +44,12 @@ public final class HeightFieldShape extends Shape {
     	super(segment);
     }
 
-    
     public static int getSampleCount(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_SAMPLE_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -60,18 +59,17 @@ public final class HeightFieldShape extends Shape {
     
     /// Typed method of [#getSampleCount].
     public final int getSampleCount() {
-    	return (int) getSampleCount(
+    	return getSampleCount(
     		this.segment
     	);
     }
-    
     
     public static int getBlockSize(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_BLOCK_SIZE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -81,11 +79,10 @@ public final class HeightFieldShape extends Shape {
     
     /// Typed method of [#getBlockSize].
     public final int getBlockSize() {
-    	return (int) getBlockSize(
+    	return getBlockSize(
     		this.segment
     	);
     }
-    
     
     public static MemorySegment getMaterial(
     	MemorySegment shape,
@@ -94,7 +91,7 @@ public final class HeightFieldShape extends Shape {
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_MATERIAL.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape,
     			x,
     			y
@@ -120,7 +117,6 @@ public final class HeightFieldShape extends Shape {
     	
     	return new PhysicsMaterial(segment);
     }
-    
     
     public static void getPosition(
     	MemorySegment shape,
@@ -155,7 +151,6 @@ public final class HeightFieldShape extends Shape {
     	);
     }
     
-    
     public static boolean isNoCollision(
     	MemorySegment shape,
     	int x,
@@ -163,7 +158,7 @@ public final class HeightFieldShape extends Shape {
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_IS_NO_COLLISION.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape,
     			x,
     			y
@@ -178,13 +173,12 @@ public final class HeightFieldShape extends Shape {
     	int x,
     	int y
     ) {
-    	return (boolean) isNoCollision(
+    	return isNoCollision(
     		this.segment,
     		x,
     		y
     	);
     }
-    
     
     public static boolean projectOntoSurface(
     	MemorySegment shape,
@@ -194,7 +188,7 @@ public final class HeightFieldShape extends Shape {
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_PROJECT_ONTO_SURFACE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape,
     			localPosition,
     			outSurfacePosition,
@@ -211,7 +205,7 @@ public final class HeightFieldShape extends Shape {
     	Vec3 outSurfacePosition,
     	NativeIntArray outSubShapeID
     ) {
-    	return (boolean) projectOntoSurface(
+    	return projectOntoSurface(
     		this.segment,
     		localPosition.memorySegment(),
     		outSurfacePosition.memorySegment(),
@@ -219,13 +213,12 @@ public final class HeightFieldShape extends Shape {
     	);
     }
     
-    
     public static float getMinHeightValue(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_MIN_HEIGHT_VALUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -235,18 +228,17 @@ public final class HeightFieldShape extends Shape {
     
     /// Typed method of [#getMinHeightValue].
     public final float getMinHeightValue() {
-    	return (float) getMinHeightValue(
+    	return getMinHeightValue(
     		this.segment
     	);
     }
-    
     
     public static float getMaxHeightValue(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_HEIGHT_FIELD_SHAPE_GET_MAX_HEIGHT_VALUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -256,7 +248,7 @@ public final class HeightFieldShape extends Shape {
     
     /// Typed method of [#getMaxHeightValue].
     public final float getMaxHeightValue() {
-    	return (float) getMaxHeightValue(
+    	return getMaxHeightValue(
     		this.segment
     	);
     }

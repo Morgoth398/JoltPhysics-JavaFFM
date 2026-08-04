@@ -32,13 +32,12 @@ public final class TaperedCylinderShape extends ConvexShape {
     	super(segment);
     }
 
-    
     public static float getTopRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_GET_TOP_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -48,18 +47,17 @@ public final class TaperedCylinderShape extends ConvexShape {
     
     /// Typed method of [#getTopRadius].
     public final float getTopRadius() {
-    	return (float) getTopRadius(
+    	return getTopRadius(
     		this.segment
     	);
     }
-    
     
     public static float getBottomRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_GET_BOTTOM_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -69,18 +67,17 @@ public final class TaperedCylinderShape extends ConvexShape {
     
     /// Typed method of [#getBottomRadius].
     public final float getBottomRadius() {
-    	return (float) getBottomRadius(
+    	return getBottomRadius(
     		this.segment
     	);
     }
-    
     
     public static float getConvexRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_GET_CONVEX_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -90,18 +87,17 @@ public final class TaperedCylinderShape extends ConvexShape {
     
     /// Typed method of [#getConvexRadius].
     public final float getConvexRadius() {
-    	return (float) getConvexRadius(
+    	return getConvexRadius(
     		this.segment
     	);
     }
-    
     
     public static float getHalfHeight(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_GET_HALF_HEIGHT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -111,7 +107,7 @@ public final class TaperedCylinderShape extends ConvexShape {
     
     /// Typed method of [#getHalfHeight].
     public final float getHalfHeight() {
-    	return (float) getHalfHeight(
+    	return getHalfHeight(
     		this.segment
     	);
     }

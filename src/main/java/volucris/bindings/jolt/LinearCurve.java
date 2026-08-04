@@ -65,16 +65,14 @@ public final class LinearCurve {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_LINEAR_CURVE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment curve
@@ -88,7 +86,6 @@ public final class LinearCurve {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void clear(
     	MemorySegment curve
@@ -109,7 +106,6 @@ public final class LinearCurve {
     		this.segment
     	);
     }
-    
     
     public static void reserve(
     	MemorySegment curve,
@@ -135,7 +131,6 @@ public final class LinearCurve {
     		numPoints
     	);
     }
-    
     
     public static void addPoint(
     	MemorySegment curve,
@@ -166,7 +161,6 @@ public final class LinearCurve {
     	);
     }
     
-    
     public static void sort(
     	MemorySegment curve
     ) {
@@ -187,13 +181,12 @@ public final class LinearCurve {
     	);
     }
     
-    
     public static float getMinX(
     	MemorySegment curve
     ) {
     	MethodHandle method = JPH_LINEAR_CURVE_GET_MIN_X.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			curve
     		);
     	} catch (Throwable e) {
@@ -203,18 +196,17 @@ public final class LinearCurve {
     
     /// Typed method of [#getMinX].
     public final float getMinX() {
-    	return (float) getMinX(
+    	return getMinX(
     		this.segment
     	);
     }
-    
     
     public static float getMaxX(
     	MemorySegment curve
     ) {
     	MethodHandle method = JPH_LINEAR_CURVE_GET_MAX_X.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			curve
     		);
     	} catch (Throwable e) {
@@ -224,11 +216,10 @@ public final class LinearCurve {
     
     /// Typed method of [#getMaxX].
     public final float getMaxX() {
-    	return (float) getMaxX(
+    	return getMaxX(
     		this.segment
     	);
     }
-    
     
     public static float getValue(
     	MemorySegment curve,
@@ -236,7 +227,7 @@ public final class LinearCurve {
     ) {
     	MethodHandle method = JPH_LINEAR_CURVE_GET_VALUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			curve,
     			x
     		);
@@ -249,19 +240,18 @@ public final class LinearCurve {
     public final float getValue(
     	float x
     ) {
-    	return (float) getValue(
+    	return getValue(
     		this.segment,
     		x
     	);
     }
-    
     
     public static int getPointCount(
     	MemorySegment curve
     ) {
     	MethodHandle method = JPH_LINEAR_CURVE_GET_POINT_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			curve
     		);
     	} catch (Throwable e) {
@@ -271,11 +261,10 @@ public final class LinearCurve {
     
     /// Typed method of [#getPointCount].
     public final int getPointCount() {
-    	return (int) getPointCount(
+    	return getPointCount(
     		this.segment
     	);
     }
-    
     
     public static void getPoint(
     	MemorySegment curve,
@@ -305,7 +294,6 @@ public final class LinearCurve {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getPoints(
     	MemorySegment curve,

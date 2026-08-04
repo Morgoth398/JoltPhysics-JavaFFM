@@ -115,7 +115,6 @@ public final class Character extends CharacterBase {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment position,
@@ -125,7 +124,7 @@ public final class Character extends CharacterBase {
     ) {
     	MethodHandle method = JPH_CHARACTER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			position,
     			rotation,
@@ -136,7 +135,6 @@ public final class Character extends CharacterBase {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void addToPhysicsSystem(
     	MemorySegment character,
@@ -167,7 +165,6 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static void removeFromPhysicsSystem(
     	MemorySegment character,
     	boolean lockBodies
@@ -193,7 +190,6 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static void activate(
     	MemorySegment character,
     	boolean lockBodies
@@ -218,7 +214,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void postSimulation(
     	MemorySegment character,
@@ -248,7 +243,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void setLinearAndAngularVelocity(
     	MemorySegment character,
@@ -283,7 +277,6 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static void getLinearVelocity(
     	MemorySegment character,
     	MemorySegment result
@@ -308,7 +301,6 @@ public final class Character extends CharacterBase {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setLinearVelocity(
     	MemorySegment character,
@@ -339,7 +331,6 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static void addLinearVelocity(
     	MemorySegment character,
     	MemorySegment value,
@@ -368,7 +359,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void addImpulse(
     	MemorySegment character,
@@ -399,13 +389,12 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static int getBodyID(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_GET_BODY_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -415,11 +404,10 @@ public final class Character extends CharacterBase {
     
     /// Typed method of [#getBodyID].
     public final int getBodyID() {
-    	return (int) getBodyID(
+    	return getBodyID(
     		this.segment
     	);
     }
-    
     
     public static void getPositionAndRotation(
     	MemorySegment character,
@@ -453,7 +441,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void setPositionAndRotation(
     	MemorySegment character,
@@ -492,7 +479,6 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static void getPosition(
     	MemorySegment character,
     	MemorySegment position,
@@ -521,7 +507,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void setPosition(
     	MemorySegment character,
@@ -556,7 +541,6 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static void getRotation(
     	MemorySegment character,
     	MemorySegment rotation,
@@ -585,7 +569,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void setRotation(
     	MemorySegment character,
@@ -620,7 +603,6 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static void getCenterOfMassPosition(
     	MemorySegment character,
     	MemorySegment result,
@@ -649,7 +631,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void getWorldTransform(
     	MemorySegment character,
@@ -680,13 +661,12 @@ public final class Character extends CharacterBase {
     	);
     }
     
-    
     public static int getLayer(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_GET_LAYER.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -696,11 +676,10 @@ public final class Character extends CharacterBase {
     
     /// Typed method of [#getLayer].
     public final int getLayer() {
-    	return (int) getLayer(
+    	return getLayer(
     		this.segment
     	);
     }
-    
     
     public static void setLayer(
     	MemorySegment character,
@@ -730,7 +709,6 @@ public final class Character extends CharacterBase {
     		lockBodies
     	);
     }
-    
     
     public static void setShape(
     	MemorySegment character,

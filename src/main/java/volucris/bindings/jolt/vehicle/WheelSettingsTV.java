@@ -50,23 +50,21 @@ public final class WheelSettingsTV extends WheelSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_WHEEL_SETTINGS_TV_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static float getLongitudinalFriction(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LONGITUDINAL_FRICTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -76,11 +74,10 @@ public final class WheelSettingsTV extends WheelSettings {
     
     /// Typed method of [#getLongitudinalFriction].
     public final float getLongitudinalFriction() {
-    	return (float) getLongitudinalFriction(
+    	return getLongitudinalFriction(
     		this.segment
     	);
     }
-    
     
     public static void setLongitudinalFriction(
     	MemorySegment settings,
@@ -107,13 +104,12 @@ public final class WheelSettingsTV extends WheelSettings {
     	);
     }
     
-    
     public static float getLateralFriction(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_TV_GET_LATERAL_FRICTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -123,11 +119,10 @@ public final class WheelSettingsTV extends WheelSettings {
     
     /// Typed method of [#getLateralFriction].
     public final float getLateralFriction() {
-    	return (float) getLateralFriction(
+    	return getLateralFriction(
     		this.segment
     	);
     }
-    
     
     public static void setLateralFriction(
     	MemorySegment settings,

@@ -91,7 +91,6 @@ public final class VehicleTrackSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

@@ -65,7 +65,6 @@ public final class RotatedTranslatedShape extends DecoratedShape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment position,
     	MemorySegment rotation,
@@ -73,7 +72,7 @@ public final class RotatedTranslatedShape extends DecoratedShape {
     ) {
     	MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			position,
     			rotation,
     			shape
@@ -82,7 +81,6 @@ public final class RotatedTranslatedShape extends DecoratedShape {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getPosition(
     	MemorySegment shape,
@@ -108,7 +106,6 @@ public final class RotatedTranslatedShape extends DecoratedShape {
     		position.memorySegment()
     	);
     }
-    
     
     public static void getRotation(
     	MemorySegment shape,

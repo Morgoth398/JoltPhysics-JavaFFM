@@ -28,7 +28,6 @@ public sealed class GroupFilter
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment groupFilter
     ) {
@@ -42,7 +41,6 @@ public sealed class GroupFilter
     	}
     }
     
-    
     public static boolean canCollide(
     	MemorySegment groupFilter,
     	MemorySegment group1,
@@ -50,7 +48,7 @@ public sealed class GroupFilter
     ) {
     	MethodHandle method = JPH_GROUP_FILTER_CAN_COLLIDE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			groupFilter,
     			group1,
     			group2
@@ -65,7 +63,7 @@ public sealed class GroupFilter
     	CollisionGroup group1,
     	CollisionGroup group2
     ) {
-    	return (boolean) canCollide(
+    	return canCollide(
     		this.segment,
     		group1.memorySegment(),
     		group2.memorySegment()

@@ -61,7 +61,6 @@ public sealed class CharacterBase
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment character
     ) {
@@ -75,13 +74,12 @@ public sealed class CharacterBase
     	}
     }
     
-    
     public static float getCosMaxSlopeAngle(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_GET_COS_MAX_SLOPE_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -91,11 +89,10 @@ public sealed class CharacterBase
     
     /// Typed method of [#getCosMaxSlopeAngle].
     public final float getCosMaxSlopeAngle() {
-    	return (float) getCosMaxSlopeAngle(
+    	return getCosMaxSlopeAngle(
     		this.segment
     	);
     }
-    
     
     public static void setMaxSlopeAngle(
     	MemorySegment character,
@@ -122,7 +119,6 @@ public sealed class CharacterBase
     	);
     }
     
-    
     public static void getUp(
     	MemorySegment character,
     	MemorySegment result
@@ -147,7 +143,6 @@ public sealed class CharacterBase
     		result.memorySegment()
     	);
     }
-    
     
     public static void setUp(
     	MemorySegment character,
@@ -174,14 +169,13 @@ public sealed class CharacterBase
     	);
     }
     
-    
     public static boolean isSlopeTooSteep(
     	MemorySegment character,
     	MemorySegment value
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_IS_SLOPE_TOO_STEEP.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			value
     		);
@@ -194,19 +188,18 @@ public sealed class CharacterBase
     public final boolean isSlopeTooSteep(
     	Vec3 value
     ) {
-    	return (boolean) isSlopeTooSteep(
+    	return isSlopeTooSteep(
     		this.segment,
     		value.memorySegment()
     	);
     }
-    
     
     public static MemorySegment getShape(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_GET_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -226,13 +219,12 @@ public sealed class CharacterBase
     	return new Shape(segment);
     }
     
-    
     public static int getGroundState(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_STATE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -242,18 +234,17 @@ public sealed class CharacterBase
     
     /// Typed method of [#getGroundState].
     public final int getGroundState() {
-    	return (int) getGroundState(
+    	return getGroundState(
     		this.segment
     	);
     }
-    
     
     public static boolean isSupported(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_IS_SUPPORTED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -263,11 +254,10 @@ public sealed class CharacterBase
     
     /// Typed method of [#isSupported].
     public final boolean isSupported() {
-    	return (boolean) isSupported(
+    	return isSupported(
     		this.segment
     	);
     }
-    
     
     public static void getGroundPosition(
     	MemorySegment character,
@@ -294,7 +284,6 @@ public sealed class CharacterBase
     	);
     }
     
-    
     public static void getGroundNormal(
     	MemorySegment character,
     	MemorySegment normal
@@ -319,7 +308,6 @@ public sealed class CharacterBase
     		normal.memorySegment()
     	);
     }
-    
     
     public static void getGroundVelocity(
     	MemorySegment character,
@@ -346,13 +334,12 @@ public sealed class CharacterBase
     	);
     }
     
-    
     public static MemorySegment getGroundMaterial(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_MATERIAL.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -372,13 +359,12 @@ public sealed class CharacterBase
     	return new PhysicsMaterial(segment);
     }
     
-    
     public static int getGroundBodyId(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_BODY_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -388,18 +374,17 @@ public sealed class CharacterBase
     
     /// Typed method of [#getGroundBodyId].
     public final int getGroundBodyId() {
-    	return (int) getGroundBodyId(
+    	return getGroundBodyId(
     		this.segment
     	);
     }
-    
     
     public static int getGroundSubShapeId(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_SUB_SHAPE_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -409,18 +394,17 @@ public sealed class CharacterBase
     
     /// Typed method of [#getGroundSubShapeId].
     public final int getGroundSubShapeId() {
-    	return (int) getGroundSubShapeId(
+    	return getGroundSubShapeId(
     		this.segment
     	);
     }
-    
     
     public static long getGroundUserData(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_BASE_GET_GROUND_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -430,7 +414,7 @@ public sealed class CharacterBase
     
     /// Typed method of [#getGroundUserData].
     public final long getGroundUserData() {
-    	return (long) getGroundUserData(
+    	return getGroundUserData(
     		this.segment
     	);
     }

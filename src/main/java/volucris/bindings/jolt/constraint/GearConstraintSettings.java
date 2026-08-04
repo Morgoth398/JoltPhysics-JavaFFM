@@ -80,7 +80,6 @@ public final class GearConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

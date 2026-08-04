@@ -82,7 +82,6 @@ public final class VehicleDifferentialSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

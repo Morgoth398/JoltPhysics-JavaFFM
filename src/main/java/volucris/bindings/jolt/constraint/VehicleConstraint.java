@@ -97,14 +97,13 @@ public final class VehicleConstraint extends Constraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment body,
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			body,
     			settings
     		);
@@ -113,20 +112,18 @@ public final class VehicleConstraint extends Constraint {
     	}
     }
     
-    
     public static MemorySegment asPhysicsStepListener(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_VEHICLE_CONSTRAINT_AS_PHYSICS_STEP_LISTENER.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void setMaxPitchRollAngle(
     	MemorySegment constraint,
@@ -153,7 +150,6 @@ public final class VehicleConstraint extends Constraint {
     	);
     }
     
-    
     public static void setVehicleCollisionTester(
     	MemorySegment constraint,
     	MemorySegment tester
@@ -178,7 +174,6 @@ public final class VehicleConstraint extends Constraint {
     		tester.memorySegment()
     	);
     }
-    
     
     public static void overrideGravity(
     	MemorySegment constraint,
@@ -205,13 +200,12 @@ public final class VehicleConstraint extends Constraint {
     	);
     }
     
-    
     public static boolean isGravityOverridden(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_VEHICLE_CONSTRAINT_IS_GRAVITY_OVERRIDDEN.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -221,11 +215,10 @@ public final class VehicleConstraint extends Constraint {
     
     /// Typed method of [#isGravityOverridden].
     public final boolean isGravityOverridden() {
-    	return (boolean) isGravityOverridden(
+    	return isGravityOverridden(
     		this.segment
     	);
     }
-    
     
     public static void getGravityOverride(
     	MemorySegment constraint,
@@ -252,7 +245,6 @@ public final class VehicleConstraint extends Constraint {
     	);
     }
     
-    
     public static void resetGravityOverride(
     	MemorySegment constraint
     ) {
@@ -272,7 +264,6 @@ public final class VehicleConstraint extends Constraint {
     		this.segment
     	);
     }
-    
     
     public static void getLocalForward(
     	MemorySegment constraint,
@@ -299,7 +290,6 @@ public final class VehicleConstraint extends Constraint {
     	);
     }
     
-    
     public static void getLocalUp(
     	MemorySegment constraint,
     	MemorySegment result
@@ -324,7 +314,6 @@ public final class VehicleConstraint extends Constraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getWorldUp(
     	MemorySegment constraint,
@@ -351,13 +340,12 @@ public final class VehicleConstraint extends Constraint {
     	);
     }
     
-    
     public static MemorySegment getVehicleBody(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_VEHICLE_BODY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -377,13 +365,12 @@ public final class VehicleConstraint extends Constraint {
     	return new Body(segment);
     }
     
-    
     public static MemorySegment getController(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_CONTROLLER.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -403,13 +390,12 @@ public final class VehicleConstraint extends Constraint {
     	return new VehicleController(segment);
     }
     
-    
     public static int getWheelsCount(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEELS_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -419,11 +405,10 @@ public final class VehicleConstraint extends Constraint {
     
     /// Typed method of [#getWheelsCount].
     public final int getWheelsCount() {
-    	return (int) getWheelsCount(
+    	return getWheelsCount(
     		this.segment
     	);
     }
-    
     
     public static MemorySegment getWheel(
     	MemorySegment constraint,
@@ -431,7 +416,7 @@ public final class VehicleConstraint extends Constraint {
     ) {
     	MethodHandle method = JPH_VEHICLE_CONSTRAINT_GET_WHEEL.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			constraint,
     			index
     		);
@@ -454,7 +439,6 @@ public final class VehicleConstraint extends Constraint {
     	
     	return new Wheel(segment);
     }
-    
     
     public static void getWheelLocalBasis(
     	MemorySegment constraint,
@@ -493,7 +477,6 @@ public final class VehicleConstraint extends Constraint {
     	);
     }
     
-    
     public static void getWheelLocalTransform(
     	MemorySegment constraint,
     	int wheelIndex,
@@ -530,7 +513,6 @@ public final class VehicleConstraint extends Constraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getWheelWorldTransform(
     	MemorySegment constraint,

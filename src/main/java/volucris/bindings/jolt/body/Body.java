@@ -183,13 +183,12 @@ public final class Body {
     	this.segment = segment;
     }
 
-    
     public static int getID(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -199,18 +198,17 @@ public final class Body {
     
     /// Typed method of [#getID].
     public final int getID() {
-    	return (int) getID(
+    	return getID(
     		this.segment
     	);
     }
-    
     
     public static int getBodyType(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_BODY_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -220,18 +218,17 @@ public final class Body {
     
     /// Typed method of [#getBodyType].
     public final int getBodyType() {
-    	return (int) getBodyType(
+    	return getBodyType(
     		this.segment
     	);
     }
-    
     
     public static boolean isRigidBody(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_RIGID_BODY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -241,18 +238,17 @@ public final class Body {
     
     /// Typed method of [#isRigidBody].
     public final boolean isRigidBody() {
-    	return (boolean) isRigidBody(
+    	return isRigidBody(
     		this.segment
     	);
     }
-    
     
     public static boolean isSoftBody(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_SOFT_BODY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -262,18 +258,17 @@ public final class Body {
     
     /// Typed method of [#isSoftBody].
     public final boolean isSoftBody() {
-    	return (boolean) isSoftBody(
+    	return isSoftBody(
     		this.segment
     	);
     }
-    
     
     public static boolean isActive(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_ACTIVE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -283,18 +278,17 @@ public final class Body {
     
     /// Typed method of [#isActive].
     public final boolean isActive() {
-    	return (boolean) isActive(
+    	return isActive(
     		this.segment
     	);
     }
-    
     
     public static boolean isStatic(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_STATIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -304,18 +298,17 @@ public final class Body {
     
     /// Typed method of [#isStatic].
     public final boolean isStatic() {
-    	return (boolean) isStatic(
+    	return isStatic(
     		this.segment
     	);
     }
-    
     
     public static boolean isKinematic(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_KINEMATIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -325,18 +318,17 @@ public final class Body {
     
     /// Typed method of [#isKinematic].
     public final boolean isKinematic() {
-    	return (boolean) isKinematic(
+    	return isKinematic(
     		this.segment
     	);
     }
-    
     
     public static boolean isDynamic(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_DYNAMIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -346,18 +338,17 @@ public final class Body {
     
     /// Typed method of [#isDynamic].
     public final boolean isDynamic() {
-    	return (boolean) isDynamic(
+    	return isDynamic(
     		this.segment
     	);
     }
-    
     
     public static boolean canBeKinematicOrDynamic(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_CAN_BE_KINEMATIC_OR_DYNAMIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -367,11 +358,10 @@ public final class Body {
     
     /// Typed method of [#canBeKinematicOrDynamic].
     public final boolean canBeKinematicOrDynamic() {
-    	return (boolean) canBeKinematicOrDynamic(
+    	return canBeKinematicOrDynamic(
     		this.segment
     	);
     }
-    
     
     public static void setIsSensor(
     	MemorySegment body,
@@ -398,13 +388,12 @@ public final class Body {
     	);
     }
     
-    
     public static boolean isSensor(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_SENSOR.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -414,11 +403,10 @@ public final class Body {
     
     /// Typed method of [#isSensor].
     public final boolean isSensor() {
-    	return (boolean) isSensor(
+    	return isSensor(
     		this.segment
     	);
     }
-    
     
     public static void setCollideKinematicVsNonDynamic(
     	MemorySegment body,
@@ -445,13 +433,12 @@ public final class Body {
     	);
     }
     
-    
     public static boolean getCollideKinematicVsNonDynamic(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -461,11 +448,10 @@ public final class Body {
     
     /// Typed method of [#getCollideKinematicVsNonDynamic].
     public final boolean getCollideKinematicVsNonDynamic() {
-    	return (boolean) getCollideKinematicVsNonDynamic(
+    	return getCollideKinematicVsNonDynamic(
     		this.segment
     	);
     }
-    
     
     public static void setUseManifoldReduction(
     	MemorySegment body,
@@ -492,13 +478,12 @@ public final class Body {
     	);
     }
     
-    
     public static boolean getUseManifoldReduction(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_USE_MANIFOLD_REDUCTION.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -508,11 +493,10 @@ public final class Body {
     
     /// Typed method of [#getUseManifoldReduction].
     public final boolean getUseManifoldReduction() {
-    	return (boolean) getUseManifoldReduction(
+    	return getUseManifoldReduction(
     		this.segment
     	);
     }
-    
     
     public static boolean getUseManifoldReductionWithBody(
     	MemorySegment body,
@@ -520,7 +504,7 @@ public final class Body {
     ) {
     	MethodHandle method = JPH_BODY_GET_USE_MANIFOLD_REDUCTION_WITH_BODY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body,
     			other
     		);
@@ -533,12 +517,11 @@ public final class Body {
     public final boolean getUseManifoldReductionWithBody(
     	Body other
     ) {
-    	return (boolean) getUseManifoldReductionWithBody(
+    	return getUseManifoldReductionWithBody(
     		this.segment,
     		other.memorySegment()
     	);
     }
-    
     
     public static void setApplyGyroscopicForce(
     	MemorySegment body,
@@ -565,13 +548,12 @@ public final class Body {
     	);
     }
     
-    
     public static boolean getApplyGyroscopicForce(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_APPLY_GYROSCOPIC_FORCE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -581,11 +563,10 @@ public final class Body {
     
     /// Typed method of [#getApplyGyroscopicForce].
     public final boolean getApplyGyroscopicForce() {
-    	return (boolean) getApplyGyroscopicForce(
+    	return getApplyGyroscopicForce(
     		this.segment
     	);
     }
-    
     
     public static void setEnhancedInternalEdgeRemoval(
     	MemorySegment body,
@@ -612,13 +593,12 @@ public final class Body {
     	);
     }
     
-    
     public static boolean getEnhancedInternalEdgeRemoval(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -628,11 +608,10 @@ public final class Body {
     
     /// Typed method of [#getEnhancedInternalEdgeRemoval].
     public final boolean getEnhancedInternalEdgeRemoval() {
-    	return (boolean) getEnhancedInternalEdgeRemoval(
+    	return getEnhancedInternalEdgeRemoval(
     		this.segment
     	);
     }
-    
     
     public static boolean getEnhancedInternalEdgeRemovalWithBody(
     	MemorySegment body,
@@ -640,7 +619,7 @@ public final class Body {
     ) {
     	MethodHandle method = JPH_BODY_GET_ENHANCED_INTERNAL_EDGE_REMOVAL_WITH_BODY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body,
     			other
     		);
@@ -653,19 +632,18 @@ public final class Body {
     public final boolean getEnhancedInternalEdgeRemovalWithBody(
     	Body other
     ) {
-    	return (boolean) getEnhancedInternalEdgeRemovalWithBody(
+    	return getEnhancedInternalEdgeRemovalWithBody(
     		this.segment,
     		other.memorySegment()
     	);
     }
-    
     
     public static int getMotionType(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_MOTION_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -675,11 +653,10 @@ public final class Body {
     
     /// Typed method of [#getMotionType].
     public final int getMotionType() {
-    	return (int) getMotionType(
+    	return getMotionType(
     		this.segment
     	);
     }
-    
     
     public static void setMotionType(
     	MemorySegment body,
@@ -706,13 +683,12 @@ public final class Body {
     	);
     }
     
-    
     public static byte getBroadPhaseLayer(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_BROAD_PHASE_LAYER.get();
     	try {
-    		return (byte)  method.invokeExact(
+    		return (byte) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -722,18 +698,17 @@ public final class Body {
     
     /// Typed method of [#getBroadPhaseLayer].
     public final byte getBroadPhaseLayer() {
-    	return (byte) getBroadPhaseLayer(
+    	return getBroadPhaseLayer(
     		this.segment
     	);
     }
-    
     
     public static int getObjectLayer(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_OBJECT_LAYER.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -743,11 +718,10 @@ public final class Body {
     
     /// Typed method of [#getObjectLayer].
     public final int getObjectLayer() {
-    	return (int) getObjectLayer(
+    	return getObjectLayer(
     		this.segment
     	);
     }
-    
     
     public static void getCollisionGroup(
     	MemorySegment body,
@@ -774,7 +748,6 @@ public final class Body {
     	);
     }
     
-    
     public static void setCollisionGroup(
     	MemorySegment body,
     	MemorySegment value
@@ -800,13 +773,12 @@ public final class Body {
     	);
     }
     
-    
     public static boolean getAllowSleeping(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_ALLOW_SLEEPING.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -816,11 +788,10 @@ public final class Body {
     
     /// Typed method of [#getAllowSleeping].
     public final boolean getAllowSleeping() {
-    	return (boolean) getAllowSleeping(
+    	return getAllowSleeping(
     		this.segment
     	);
     }
-    
     
     public static void setAllowSleeping(
     	MemorySegment body,
@@ -847,7 +818,6 @@ public final class Body {
     	);
     }
     
-    
     public static void resetSleepTimer(
     	MemorySegment body
     ) {
@@ -868,13 +838,12 @@ public final class Body {
     	);
     }
     
-    
     public static float getFriction(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_FRICTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -884,11 +853,10 @@ public final class Body {
     
     /// Typed method of [#getFriction].
     public final float getFriction() {
-    	return (float) getFriction(
+    	return getFriction(
     		this.segment
     	);
     }
-    
     
     public static void setFriction(
     	MemorySegment body,
@@ -915,13 +883,12 @@ public final class Body {
     	);
     }
     
-    
     public static float getRestitution(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_RESTITUTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -931,11 +898,10 @@ public final class Body {
     
     /// Typed method of [#getRestitution].
     public final float getRestitution() {
-    	return (float) getRestitution(
+    	return getRestitution(
     		this.segment
     	);
     }
-    
     
     public static void setRestitution(
     	MemorySegment body,
@@ -962,7 +928,6 @@ public final class Body {
     	);
     }
     
-    
     public static void getLinearVelocity(
     	MemorySegment body,
     	MemorySegment velocity
@@ -987,7 +952,6 @@ public final class Body {
     		velocity.memorySegment()
     	);
     }
-    
     
     public static void setLinearVelocity(
     	MemorySegment body,
@@ -1014,7 +978,6 @@ public final class Body {
     	);
     }
     
-    
     public static void setLinearVelocityClamped(
     	MemorySegment body,
     	MemorySegment velocity
@@ -1039,7 +1002,6 @@ public final class Body {
     		velocity.memorySegment()
     	);
     }
-    
     
     public static void getAngularVelocity(
     	MemorySegment body,
@@ -1066,7 +1028,6 @@ public final class Body {
     	);
     }
     
-    
     public static void setAngularVelocity(
     	MemorySegment body,
     	MemorySegment velocity
@@ -1092,7 +1053,6 @@ public final class Body {
     	);
     }
     
-    
     public static void setAngularVelocityClamped(
     	MemorySegment body,
     	MemorySegment velocity
@@ -1117,7 +1077,6 @@ public final class Body {
     		velocity.memorySegment()
     	);
     }
-    
     
     public static void getPointVelocityCOM(
     	MemorySegment body,
@@ -1148,7 +1107,6 @@ public final class Body {
     	);
     }
     
-    
     public static void getPointVelocity(
     	MemorySegment body,
     	MemorySegment point,
@@ -1178,7 +1136,6 @@ public final class Body {
     	);
     }
     
-    
     public static void addForce(
     	MemorySegment body,
     	MemorySegment force
@@ -1203,7 +1160,6 @@ public final class Body {
     		force.memorySegment()
     	);
     }
-    
     
     public static void addForceAtPosition(
     	MemorySegment body,
@@ -1234,7 +1190,6 @@ public final class Body {
     	);
     }
     
-    
     public static void addTorque(
     	MemorySegment body,
     	MemorySegment force
@@ -1259,7 +1214,6 @@ public final class Body {
     		force.memorySegment()
     	);
     }
-    
     
     public static void getAccumulatedForce(
     	MemorySegment body,
@@ -1286,7 +1240,6 @@ public final class Body {
     	);
     }
     
-    
     public static void getAccumulatedTorque(
     	MemorySegment body,
     	MemorySegment force
@@ -1312,7 +1265,6 @@ public final class Body {
     	);
     }
     
-    
     public static void resetForce(
     	MemorySegment body
     ) {
@@ -1332,7 +1284,6 @@ public final class Body {
     		this.segment
     	);
     }
-    
     
     public static void resetTorque(
     	MemorySegment body
@@ -1354,7 +1305,6 @@ public final class Body {
     	);
     }
     
-    
     public static void resetMotion(
     	MemorySegment body
     ) {
@@ -1374,7 +1324,6 @@ public final class Body {
     		this.segment
     	);
     }
-    
     
     public static void getInverseInertia(
     	MemorySegment body,
@@ -1401,7 +1350,6 @@ public final class Body {
     	);
     }
     
-    
     public static void addImpulse(
     	MemorySegment body,
     	MemorySegment impulse
@@ -1426,7 +1374,6 @@ public final class Body {
     		impulse.memorySegment()
     	);
     }
-    
     
     public static void addImpulseAtPosition(
     	MemorySegment body,
@@ -1457,7 +1404,6 @@ public final class Body {
     	);
     }
     
-    
     public static void addAngularImpulse(
     	MemorySegment body,
     	MemorySegment angularImpulse
@@ -1482,7 +1428,6 @@ public final class Body {
     		angularImpulse.memorySegment()
     	);
     }
-    
     
     public static void moveKinematic(
     	MemorySegment body,
@@ -1517,7 +1462,6 @@ public final class Body {
     	);
     }
     
-    
     public static boolean applyBuoyancyImpulse(
     	MemorySegment body,
     	MemorySegment surfacePosition,
@@ -1531,7 +1475,7 @@ public final class Body {
     ) {
     	MethodHandle method = JPH_BODY_APPLY_BUOYANCY_IMPULSE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body,
     			surfacePosition,
     			surfaceNormal,
@@ -1558,7 +1502,7 @@ public final class Body {
     	Vec3 gravity,
     	float deltaTime
     ) {
-    	return (boolean) applyBuoyancyImpulse(
+    	return applyBuoyancyImpulse(
     		this.segment,
     		surfacePosition.memorySegment(),
     		surfaceNormal.memorySegment(),
@@ -1571,13 +1515,12 @@ public final class Body {
     	);
     }
     
-    
     public static boolean isInBroadPhase(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_IN_BROAD_PHASE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -1587,18 +1530,17 @@ public final class Body {
     
     /// Typed method of [#isInBroadPhase].
     public final boolean isInBroadPhase() {
-    	return (boolean) isInBroadPhase(
+    	return isInBroadPhase(
     		this.segment
     	);
     }
-    
     
     public static boolean isCollisionCacheInvalid(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_IS_COLLISION_CACHE_INVALID.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -1608,18 +1550,17 @@ public final class Body {
     
     /// Typed method of [#isCollisionCacheInvalid].
     public final boolean isCollisionCacheInvalid() {
-    	return (boolean) isCollisionCacheInvalid(
+    	return isCollisionCacheInvalid(
     		this.segment
     	);
     }
-    
     
     public static MemorySegment getShape(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -1638,7 +1579,6 @@ public final class Body {
     	
     	return new Shape(segment);
     }
-    
     
     public static void getPosition(
     	MemorySegment body,
@@ -1665,7 +1605,6 @@ public final class Body {
     	);
     }
     
-    
     public static void getRotation(
     	MemorySegment body,
     	MemorySegment result
@@ -1690,7 +1629,6 @@ public final class Body {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getWorldTransform(
     	MemorySegment body,
@@ -1717,7 +1655,6 @@ public final class Body {
     	);
     }
     
-    
     public static void getCenterOfMassPosition(
     	MemorySegment body,
     	MemorySegment result
@@ -1742,7 +1679,6 @@ public final class Body {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getCenterOfMassTransform(
     	MemorySegment body,
@@ -1769,7 +1705,6 @@ public final class Body {
     	);
     }
     
-    
     public static void getInverseCenterOfMassTransform(
     	MemorySegment body,
     	MemorySegment result
@@ -1795,7 +1730,6 @@ public final class Body {
     	);
     }
     
-    
     public static void getWorldSpaceBounds(
     	MemorySegment body,
     	MemorySegment result
@@ -1820,7 +1754,6 @@ public final class Body {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getWorldSpaceSurfaceNormal(
     	MemorySegment body,
@@ -1855,13 +1788,12 @@ public final class Body {
     	);
     }
     
-    
     public static MemorySegment getMotionProperties(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_MOTION_PROPERTIES.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -1881,13 +1813,12 @@ public final class Body {
     	return new MotionProperties(segment);
     }
     
-    
     public static MemorySegment getMotionPropertiesUnchecked(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_MOTION_PROPERTIES_UNCHECKED.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -1906,7 +1837,6 @@ public final class Body {
     	
     	return new MotionProperties(segment);
     }
-    
     
     public static void setUserData(
     	MemorySegment body,
@@ -1933,13 +1863,12 @@ public final class Body {
     	);
     }
     
-    
     public static long getUserData(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -1949,16 +1878,15 @@ public final class Body {
     
     /// Typed method of [#getUserData].
     public final long getUserData() {
-    	return (long) getUserData(
+    	return getUserData(
     		this.segment
     	);
     }
     
-    
     public static MemorySegment ngetFixedToWorldBody() {
     	MethodHandle method = JPH_BODY_GET_FIXED_TO_WORLD_BODY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
@@ -1974,13 +1902,12 @@ public final class Body {
     	return new Body(segment);
     }
     
-    
     public static int getSoftBodyVertexCount(
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_GET_SOFT_BODY_VERTEX_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			body
     		);
     	} catch (Throwable e) {
@@ -1990,11 +1917,10 @@ public final class Body {
     
     /// Typed method of [#getSoftBodyVertexCount].
     public final int getSoftBodyVertexCount() {
-    	return (int) getSoftBodyVertexCount(
+    	return getSoftBodyVertexCount(
     		this.segment
     	);
     }
-    
     
     public static void getSoftBodyVertexPosition(
     	MemorySegment body,
@@ -2024,7 +1950,6 @@ public final class Body {
     		outPos.memorySegment()
     	);
     }
-    
     
     public static void getSoftBodyVertexPositions(
     	MemorySegment body,

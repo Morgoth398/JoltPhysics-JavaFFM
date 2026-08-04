@@ -68,7 +68,6 @@ public final class MassProperties
         inertia = new Mat4(segment.asSlice(INERTIA_BYTE_OFFSET, Mat4.LAYOUT));
     }
 
-    
     public static void decomposePrincipalMomentsOfInertia(
     	MemorySegment properties,
     	MemorySegment rotation,
@@ -98,7 +97,6 @@ public final class MassProperties
     	);
     }
     
-    
     public static void scaleToMass(
     	MemorySegment properties,
     	float mass
@@ -123,7 +121,6 @@ public final class MassProperties
     		mass
     	);
     }
-    
     
     public static void getEquivalentSolidBoxSize(
     	float mass,

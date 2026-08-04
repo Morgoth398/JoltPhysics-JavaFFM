@@ -39,7 +39,6 @@ public final class VehicleTransmission {
     	this.segment = segment;
     }
 
-    
     public static void setMode(
     	MemorySegment transmission,
     	int mode
@@ -65,7 +64,6 @@ public final class VehicleTransmission {
     		mode
     	);
     }
-    
     
     public static void set(
     	MemorySegment transmission,
@@ -96,7 +94,6 @@ public final class VehicleTransmission {
     		clutchFriction
     	);
     }
-    
     
     public static void update(
     	MemorySegment transmission,
@@ -136,13 +133,12 @@ public final class VehicleTransmission {
     	);
     }
     
-    
     public static int getCurrentGear(
     	MemorySegment transmission
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_GEAR.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			transmission
     		);
     	} catch (Throwable e) {
@@ -154,18 +150,17 @@ public final class VehicleTransmission {
     public final int getCurrentGear(
     	VehicleTransmission transmission
     ) {
-    	return (int) getCurrentGear(
+    	return getCurrentGear(
     		transmission.memorySegment()
     	);
     }
-    
     
     public static float getClutchFriction(
     	MemorySegment transmission
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CLUTCH_FRICTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			transmission
     		);
     	} catch (Throwable e) {
@@ -177,18 +172,17 @@ public final class VehicleTransmission {
     public final float getClutchFriction(
     	VehicleTransmission transmission
     ) {
-    	return (float) getClutchFriction(
+    	return getClutchFriction(
     		transmission.memorySegment()
     	);
     }
-    
     
     public static boolean isSwitchingGear(
     	MemorySegment transmission
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_IS_SWITCHING_GEAR.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			transmission
     		);
     	} catch (Throwable e) {
@@ -200,18 +194,17 @@ public final class VehicleTransmission {
     public final boolean isSwitchingGear(
     	VehicleTransmission transmission
     ) {
-    	return (boolean) isSwitchingGear(
+    	return isSwitchingGear(
     		transmission.memorySegment()
     	);
     }
-    
     
     public static float getCurrentRatio(
     	MemorySegment transmission
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_GET_CURRENT_RATIO.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			transmission
     		);
     	} catch (Throwable e) {
@@ -223,18 +216,17 @@ public final class VehicleTransmission {
     public final float getCurrentRatio(
     	VehicleTransmission transmission
     ) {
-    	return (float) getCurrentRatio(
+    	return getCurrentRatio(
     		transmission.memorySegment()
     	);
     }
-    
     
     public static boolean allowSleep(
     	MemorySegment transmission
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_ALLOW_SLEEP.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			transmission
     		);
     	} catch (Throwable e) {
@@ -246,7 +238,7 @@ public final class VehicleTransmission {
     public final boolean allowSleep(
     	VehicleTransmission transmission
     ) {
-    	return (boolean) allowSleep(
+    	return allowSleep(
     		transmission.memorySegment()
     	);
     }

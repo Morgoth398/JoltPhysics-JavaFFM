@@ -48,16 +48,14 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
     	super(segment);
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_MASK_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static int getObjectLayer(
     	int group,
@@ -65,7 +63,7 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
     ) {
     	MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_MASK_GET_OBJECT_LAYER.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			group,
     			mask
     		);
@@ -74,13 +72,12 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
     	}
     }
     
-    
     public static int getGroup(
     	int layer
     ) {
     	MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_MASK_GET_GROUP.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			layer
     		);
     	} catch (Throwable e) {
@@ -88,13 +85,12 @@ public final class ObjectLayerPairFilterMask extends ObjectLayerPairFilter {
     	}
     }
     
-    
     public static int getMask(
     	int layer
     ) {
     	MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_MASK_GET_MASK.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			layer
     		);
     	} catch (Throwable e) {

@@ -54,13 +54,12 @@ public final class WheelTV extends Wheel {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_TV_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -68,13 +67,12 @@ public final class WheelTV extends Wheel {
     	}
     }
     
-    
     public static MemorySegment getSettings(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_TV_GET_SETTINGS.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {

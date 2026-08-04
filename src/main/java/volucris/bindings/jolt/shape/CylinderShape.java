@@ -60,14 +60,13 @@ public final class CylinderShape extends ConvexShape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	float halfHeight,
     	float radius
     ) {
     	MethodHandle method = JPH_CYLINDER_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			halfHeight,
     			radius
     		);
@@ -76,13 +75,12 @@ public final class CylinderShape extends ConvexShape {
     	}
     }
     
-    
     public static float getRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_CYLINDER_SHAPE_GET_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -92,18 +90,17 @@ public final class CylinderShape extends ConvexShape {
     
     /// Typed method of [#getRadius].
     public final float getRadius() {
-    	return (float) getRadius(
+    	return getRadius(
     		this.segment
     	);
     }
-    
     
     public static float getHalfHeight(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_CYLINDER_SHAPE_GET_HALF_HEIGHT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -113,7 +110,7 @@ public final class CylinderShape extends ConvexShape {
     
     /// Typed method of [#getHalfHeight].
     public final float getHalfHeight() {
-    	return (float) getHalfHeight(
+    	return getHalfHeight(
     		this.segment
     	);
     }

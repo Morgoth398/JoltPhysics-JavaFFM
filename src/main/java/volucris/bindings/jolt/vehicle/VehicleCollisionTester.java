@@ -32,7 +32,6 @@ public sealed class VehicleCollisionTester
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment tester
     ) {
@@ -46,13 +45,12 @@ public sealed class VehicleCollisionTester
     	}
     }
     
-    
     public static int getObjectLayer(
     	MemorySegment tester
     ) {
     	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_GET_OBJECT_LAYER.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			tester
     		);
     	} catch (Throwable e) {
@@ -64,11 +62,10 @@ public sealed class VehicleCollisionTester
     public final int getObjectLayer(
     	VehicleCollisionTester tester
     ) {
-    	return (int) getObjectLayer(
+    	return getObjectLayer(
     		tester.memorySegment()
     	);
     }
-    
     
     public static void setObjectLayer(
     	MemorySegment tester,

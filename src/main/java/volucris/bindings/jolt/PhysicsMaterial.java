@@ -62,14 +62,13 @@ public final class PhysicsMaterial {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create(
     	MemorySegment name,
     	int color
     ) {
     	MethodHandle method = JPH_PHYSICS_MATERIAL_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			name,
     			color
     		);
@@ -77,7 +76,6 @@ public final class PhysicsMaterial {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment material
@@ -92,13 +90,12 @@ public final class PhysicsMaterial {
     	}
     }
     
-    
     public static MemorySegment getDebugName(
     	MemorySegment material
     ) {
     	MethodHandle method = JPH_PHYSICS_MATERIAL_GET_DEBUG_NAME.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			material
     		);
     	} catch (Throwable e) {
@@ -120,13 +117,12 @@ public final class PhysicsMaterial {
     	return new NativeByteArray(segment);
     }
     
-    
     public static int getDebugColor(
     	MemorySegment material
     ) {
     	MethodHandle method = JPH_PHYSICS_MATERIAL_GET_DEBUG_COLOR.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			material
     		);
     	} catch (Throwable e) {
@@ -138,7 +134,7 @@ public final class PhysicsMaterial {
     public final int getDebugColor(
     	PhysicsMaterial material
     ) {
-    	return (int) getDebugColor(
+    	return getDebugColor(
     		material.memorySegment()
     	);
     }

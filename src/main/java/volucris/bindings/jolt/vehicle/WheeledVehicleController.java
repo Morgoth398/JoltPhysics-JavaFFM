@@ -52,7 +52,6 @@ public sealed class WheeledVehicleController extends VehicleController
     	super(segment);
     }
 
-    
     public static void setDriverInput(
     	MemorySegment controller,
     	float forward,
@@ -90,7 +89,6 @@ public sealed class WheeledVehicleController extends VehicleController
     	);
     }
     
-    
     public static void setForwardInput(
     	MemorySegment controller,
     	float forward
@@ -116,13 +114,12 @@ public sealed class WheeledVehicleController extends VehicleController
     	);
     }
     
-    
     public static float getForwardInput(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_FORWARD_INPUT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -132,11 +129,10 @@ public sealed class WheeledVehicleController extends VehicleController
     
     /// Typed method of [#getForwardInput].
     public final float getForwardInput() {
-    	return (float) getForwardInput(
+    	return getForwardInput(
     		this.segment
     	);
     }
-    
     
     public static void setRightInput(
     	MemorySegment controller,
@@ -163,13 +159,12 @@ public sealed class WheeledVehicleController extends VehicleController
     	);
     }
     
-    
     public static float getRightInput(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_RIGHT_INPUT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -179,11 +174,10 @@ public sealed class WheeledVehicleController extends VehicleController
     
     /// Typed method of [#getRightInput].
     public final float getRightInput() {
-    	return (float) getRightInput(
+    	return getRightInput(
     		this.segment
     	);
     }
-    
     
     public static void setBrakeInput(
     	MemorySegment controller,
@@ -210,13 +204,12 @@ public sealed class WheeledVehicleController extends VehicleController
     	);
     }
     
-    
     public static float getBrakeInput(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_BRAKE_INPUT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -226,11 +219,10 @@ public sealed class WheeledVehicleController extends VehicleController
     
     /// Typed method of [#getBrakeInput].
     public final float getBrakeInput() {
-    	return (float) getBrakeInput(
+    	return getBrakeInput(
     		this.segment
     	);
     }
-    
     
     public static void setHandBrakeInput(
     	MemorySegment controller,
@@ -257,13 +249,12 @@ public sealed class WheeledVehicleController extends VehicleController
     	);
     }
     
-    
     public static float getHandBrakeInput(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_HAND_BRAKE_INPUT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -273,18 +264,17 @@ public sealed class WheeledVehicleController extends VehicleController
     
     /// Typed method of [#getHandBrakeInput].
     public final float getHandBrakeInput() {
-    	return (float) getHandBrakeInput(
+    	return getHandBrakeInput(
     		this.segment
     	);
     }
-    
     
     public static float getWheelSpeedAtClutch(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_WHEEL_SPEED_AT_CLUTCH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -294,11 +284,10 @@ public sealed class WheeledVehicleController extends VehicleController
     
     /// Typed method of [#getWheelSpeedAtClutch].
     public final float getWheelSpeedAtClutch() {
-    	return (float) getWheelSpeedAtClutch(
+    	return getWheelSpeedAtClutch(
     		this.segment
     	);
     }
-    
     
     public static void setTireMaxImpulseCallback(
     	MemorySegment controller,
@@ -329,13 +318,12 @@ public sealed class WheeledVehicleController extends VehicleController
     	);
     }
     
-    
     public static MemorySegment getEngine(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_ENGINE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -355,13 +343,12 @@ public sealed class WheeledVehicleController extends VehicleController
     	return new VehicleEngine(segment);
     }
     
-    
     public static MemorySegment getTransmission(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_GET_TRANSMISSION.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {

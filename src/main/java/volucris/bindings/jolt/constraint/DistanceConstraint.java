@@ -75,7 +75,6 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -83,7 +82,7 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_DISTANCE_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -92,7 +91,6 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -118,7 +116,6 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     		settings.memorySegment()
     	);
     }
-    
     
     public static void setDistance(
     	MemorySegment constraint,
@@ -149,13 +146,12 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getMinDistance(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MIN_DISTANCE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -165,18 +161,17 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getMinDistance].
     public final float getMinDistance() {
-    	return (float) getMinDistance(
+    	return getMinDistance(
     		this.segment
     	);
     }
-    
     
     public static float getMaxDistance(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_MAX_DISTANCE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -186,11 +181,10 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getMaxDistance].
     public final float getMaxDistance() {
-    	return (float) getMaxDistance(
+    	return getMaxDistance(
     		this.segment
     	);
     }
-    
     
     public static void getLimitsSpringSettings(
     	MemorySegment constraint,
@@ -217,7 +211,6 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void setLimitsSpringSettings(
     	MemorySegment constraint,
     	MemorySegment settings
@@ -243,13 +236,12 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTotalLambdaPosition(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_DISTANCE_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -259,7 +251,7 @@ public final class DistanceConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaPosition].
     public final float getTotalLambdaPosition() {
-    	return (float) getTotalLambdaPosition(
+    	return getTotalLambdaPosition(
     		this.segment
     	);
     }

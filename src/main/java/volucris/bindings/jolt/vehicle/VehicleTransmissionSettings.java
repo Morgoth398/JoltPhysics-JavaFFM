@@ -92,16 +92,14 @@ public final class VehicleTransmissionSettings {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment settings
@@ -116,13 +114,12 @@ public final class VehicleTransmissionSettings {
     	}
     }
     
-    
     public static int getMode(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_MODE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -132,11 +129,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getMode].
     public final int getMode() {
-    	return (int) getMode(
+    	return getMode(
     		this.segment
     	);
     }
-    
     
     public static void setMode(
     	MemorySegment settings,
@@ -163,13 +159,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static int getGearRatioCount(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -179,11 +174,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getGearRatioCount].
     public final int getGearRatioCount() {
-    	return (int) getGearRatioCount(
+    	return getGearRatioCount(
     		this.segment
     	);
     }
-    
     
     public static float getGearRatio(
     	MemorySegment settings,
@@ -191,7 +185,7 @@ public final class VehicleTransmissionSettings {
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIO.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings,
     			index
     		);
@@ -204,12 +198,11 @@ public final class VehicleTransmissionSettings {
     public final float getGearRatio(
     	int index
     ) {
-    	return (float) getGearRatio(
+    	return getGearRatio(
     		this.segment,
     		index
     	);
     }
-    
     
     public static void setGearRatio(
     	MemorySegment settings,
@@ -240,13 +233,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static MemorySegment getGearRatios(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_GEAR_RATIOS.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -265,7 +257,6 @@ public final class VehicleTransmissionSettings {
     	
     	return new NativeFloatArray(segment);
     }
-    
     
     public static void setGearRatios(
     	MemorySegment settings,
@@ -296,13 +287,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static int getReverseGearRatioCount(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -312,11 +302,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getReverseGearRatioCount].
     public final int getReverseGearRatioCount() {
-    	return (int) getReverseGearRatioCount(
+    	return getReverseGearRatioCount(
     		this.segment
     	);
     }
-    
     
     public static float getReverseGearRatio(
     	MemorySegment settings,
@@ -324,7 +313,7 @@ public final class VehicleTransmissionSettings {
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIO.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings,
     			index
     		);
@@ -337,12 +326,11 @@ public final class VehicleTransmissionSettings {
     public final float getReverseGearRatio(
     	int index
     ) {
-    	return (float) getReverseGearRatio(
+    	return getReverseGearRatio(
     		this.segment,
     		index
     	);
     }
-    
     
     public static void setReverseGearRatio(
     	MemorySegment settings,
@@ -373,13 +361,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static MemorySegment getReverseGearRatios(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_REVERSE_GEAR_RATIOS.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -398,7 +385,6 @@ public final class VehicleTransmissionSettings {
     	
     	return new NativeFloatArray(segment);
     }
-    
     
     public static void setReverseGearRatios(
     	MemorySegment settings,
@@ -429,13 +415,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static float getSwitchTime(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_TIME.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -445,11 +430,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getSwitchTime].
     public final float getSwitchTime() {
-    	return (float) getSwitchTime(
+    	return getSwitchTime(
     		this.segment
     	);
     }
-    
     
     public static void setSwitchTime(
     	MemorySegment settings,
@@ -476,13 +460,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static float getClutchReleaseTime(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_RELEASE_TIME.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -492,11 +475,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getClutchReleaseTime].
     public final float getClutchReleaseTime() {
-    	return (float) getClutchReleaseTime(
+    	return getClutchReleaseTime(
     		this.segment
     	);
     }
-    
     
     public static void setClutchReleaseTime(
     	MemorySegment settings,
@@ -523,13 +505,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static float getSwitchLatency(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SWITCH_LATENCY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -539,11 +520,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getSwitchLatency].
     public final float getSwitchLatency() {
-    	return (float) getSwitchLatency(
+    	return getSwitchLatency(
     		this.segment
     	);
     }
-    
     
     public static void setSwitchLatency(
     	MemorySegment settings,
@@ -570,13 +550,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static float getShiftUpRPM(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_UP_RPM.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -586,11 +565,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getShiftUpRPM].
     public final float getShiftUpRPM() {
-    	return (float) getShiftUpRPM(
+    	return getShiftUpRPM(
     		this.segment
     	);
     }
-    
     
     public static void setShiftUpRPM(
     	MemorySegment settings,
@@ -617,13 +595,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static float getShiftDownRPM(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_SHIFT_DOWN_RPM.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -633,11 +610,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getShiftDownRPM].
     public final float getShiftDownRPM() {
-    	return (float) getShiftDownRPM(
+    	return getShiftDownRPM(
     		this.segment
     	);
     }
-    
     
     public static void setShiftDownRPM(
     	MemorySegment settings,
@@ -664,13 +640,12 @@ public final class VehicleTransmissionSettings {
     	);
     }
     
-    
     public static float getClutchStrength(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_VEHICLE_TRANSMISSION_SETTINGS_GET_CLUTCH_STRENGTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -680,11 +655,10 @@ public final class VehicleTransmissionSettings {
     
     /// Typed method of [#getClutchStrength].
     public final float getClutchStrength() {
-    	return (float) getClutchStrength(
+    	return getClutchStrength(
     		this.segment
     	);
     }
-    
     
     public static void setClutchStrength(
     	MemorySegment settings,

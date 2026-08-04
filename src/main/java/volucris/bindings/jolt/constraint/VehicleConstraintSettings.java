@@ -105,7 +105,6 @@ public final class VehicleConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

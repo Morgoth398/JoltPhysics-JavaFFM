@@ -123,7 +123,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -131,7 +130,7 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -140,7 +139,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -167,14 +165,13 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getLimitsMin(
     	MemorySegment constraint,
     	int axis
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_MIN.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint,
     			axis
     		);
@@ -187,12 +184,11 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     public final float getLimitsMin(
     	int axis
     ) {
-    	return (float) getLimitsMin(
+    	return getLimitsMin(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static float getLimitsMax(
     	MemorySegment constraint,
@@ -200,7 +196,7 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_LIMITS_MAX.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint,
     			axis
     		);
@@ -213,12 +209,11 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     public final float getLimitsMax(
     	int axis
     ) {
-    	return (float) getLimitsMax(
+    	return getLimitsMax(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static void getTotalLambdaPosition(
     	MemorySegment constraint,
@@ -245,7 +240,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTotalLambdaRotation(
     	MemorySegment constraint,
     	MemorySegment result
@@ -270,7 +264,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getTotalLambdaMotorTranslation(
     	MemorySegment constraint,
@@ -297,7 +290,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTotalLambdaMotorRotation(
     	MemorySegment constraint,
     	MemorySegment result
@@ -322,7 +314,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getTranslationLimitsMin(
     	MemorySegment constraint,
@@ -349,7 +340,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTranslationLimitsMax(
     	MemorySegment constraint,
     	MemorySegment result
@@ -374,7 +364,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getRotationLimitsMin(
     	MemorySegment constraint,
@@ -401,7 +390,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getRotationLimitsMax(
     	MemorySegment constraint,
     	MemorySegment result
@@ -427,14 +415,13 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static boolean isFixedAxis(
     	MemorySegment constraint,
     	int axis
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_IS_FIXED_AXIS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint,
     			axis
     		);
@@ -447,12 +434,11 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     public final boolean isFixedAxis(
     	int axis
     ) {
-    	return (boolean) isFixedAxis(
+    	return isFixedAxis(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static boolean isFreeAxis(
     	MemorySegment constraint,
@@ -460,7 +446,7 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_IS_FREE_AXIS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint,
     			axis
     		);
@@ -473,12 +459,11 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     public final boolean isFreeAxis(
     	int axis
     ) {
-    	return (boolean) isFreeAxis(
+    	return isFreeAxis(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static void getLimitsSpringSettings(
     	MemorySegment constraint,
@@ -509,7 +494,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void setLimitsSpringSettings(
     	MemorySegment constraint,
     	MemorySegment settings,
@@ -538,7 +522,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		axis
     	);
     }
-    
     
     public static void setMaxFriction(
     	MemorySegment constraint,
@@ -569,14 +552,13 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getMaxFriction(
     	MemorySegment constraint,
     	int axis
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MAX_FRICTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint,
     			axis
     		);
@@ -589,12 +571,11 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     public final float getMaxFriction(
     	int axis
     ) {
-    	return (float) getMaxFriction(
+    	return getMaxFriction(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static void getRotationInConstraintSpace(
     	MemorySegment constraint,
@@ -620,7 +601,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getMotorSettings(
     	MemorySegment constraint,
@@ -651,7 +631,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void setMotorState(
     	MemorySegment constraint,
     	int axis,
@@ -681,14 +660,13 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static int getMotorState(
     	MemorySegment constraint,
     	int axis
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_GET_MOTOR_STATE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint,
     			axis
     		);
@@ -701,12 +679,11 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     public final int getMotorState(
     	int axis
     ) {
-    	return (int) getMotorState(
+    	return getMotorState(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static void setTargetVelocityCS(
     	MemorySegment constraint,
@@ -733,7 +710,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTargetVelocityCS(
     	MemorySegment constraint,
     	MemorySegment result
@@ -758,7 +734,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setTargetAngularVelocityCS(
     	MemorySegment constraint,
@@ -785,7 +760,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTargetAngularVelocityCS(
     	MemorySegment constraint,
     	MemorySegment result
@@ -810,7 +784,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setTargetPositionCS(
     	MemorySegment constraint,
@@ -837,7 +810,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTargetPositionCS(
     	MemorySegment constraint,
     	MemorySegment result
@@ -862,7 +834,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setTargetOrientationCS(
     	MemorySegment constraint,
@@ -889,7 +860,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTargetOrientationCS(
     	MemorySegment constraint,
     	MemorySegment result
@@ -914,7 +884,6 @@ public final class SixDOFConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setTargetOrientationBS(
     	MemorySegment constraint,

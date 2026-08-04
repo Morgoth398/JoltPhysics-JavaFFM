@@ -57,7 +57,7 @@ public abstract class CastShapeCollectorCallback {
         MemorySegment result
     ) {
         return invoke(
-		    context,
+            context,
             new ShapeCastResult(result)
         );
     }

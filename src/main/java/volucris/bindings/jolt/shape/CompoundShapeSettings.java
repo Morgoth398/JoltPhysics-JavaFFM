@@ -32,7 +32,6 @@ public sealed class CompoundShapeSettings extends ShapeSettings
     	super(segment);
     }
 
-    
     public static void addShape(
     	MemorySegment settings,
     	MemorySegment position,
@@ -69,7 +68,6 @@ public sealed class CompoundShapeSettings extends ShapeSettings
     		userData
     	);
     }
-    
     
     public static void addShape2(
     	MemorySegment settings,

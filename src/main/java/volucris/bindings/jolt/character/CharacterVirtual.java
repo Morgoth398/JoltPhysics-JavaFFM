@@ -169,7 +169,6 @@ public final class CharacterVirtual extends CharacterBase {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment position,
@@ -179,7 +178,7 @@ public final class CharacterVirtual extends CharacterBase {
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			position,
     			rotation,
@@ -191,13 +190,12 @@ public final class CharacterVirtual extends CharacterBase {
     	}
     }
     
-    
     public static int getID(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -207,11 +205,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getID].
     public final int getID() {
-    	return (int) getID(
+    	return getID(
     		this.segment
     	);
     }
-    
     
     public static void setListener(
     	MemorySegment character,
@@ -238,7 +235,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void setCharacterVsCharacterCollision(
     	MemorySegment character,
     	MemorySegment characterVsCharacterCollision
@@ -263,7 +259,6 @@ public final class CharacterVirtual extends CharacterBase {
     		characterVsCharacterCollision.memorySegment()
     	);
     }
-    
     
     public static void getLinearVelocity(
     	MemorySegment character,
@@ -290,7 +285,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void setLinearVelocity(
     	MemorySegment character,
     	MemorySegment velocity
@@ -315,7 +309,6 @@ public final class CharacterVirtual extends CharacterBase {
     		velocity.memorySegment()
     	);
     }
-    
     
     public static void getPosition(
     	MemorySegment character,
@@ -342,7 +335,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void setPosition(
     	MemorySegment character,
     	MemorySegment position
@@ -367,7 +359,6 @@ public final class CharacterVirtual extends CharacterBase {
     		position.memorySegment()
     	);
     }
-    
     
     public static void getRotation(
     	MemorySegment character,
@@ -394,7 +385,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void setRotation(
     	MemorySegment character,
     	MemorySegment rotation
@@ -419,7 +409,6 @@ public final class CharacterVirtual extends CharacterBase {
     		rotation.memorySegment()
     	);
     }
-    
     
     public static void getWorldTransform(
     	MemorySegment character,
@@ -446,7 +435,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void getCenterOfMassTransform(
     	MemorySegment character,
     	MemorySegment result
@@ -472,13 +460,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static float getMass(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MASS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -488,11 +475,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getMass].
     public final float getMass() {
-    	return (float) getMass(
+    	return getMass(
     		this.segment
     	);
     }
-    
     
     public static void setMass(
     	MemorySegment character,
@@ -519,13 +505,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static float getMaxStrength(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_STRENGTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -535,11 +520,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getMaxStrength].
     public final float getMaxStrength() {
-    	return (float) getMaxStrength(
+    	return getMaxStrength(
     		this.segment
     	);
     }
-    
     
     public static void setMaxStrength(
     	MemorySegment character,
@@ -566,13 +550,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static float getPenetrationRecoverySpeed(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_PENETRATION_RECOVERY_SPEED.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -582,11 +565,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getPenetrationRecoverySpeed].
     public final float getPenetrationRecoverySpeed() {
-    	return (float) getPenetrationRecoverySpeed(
+    	return getPenetrationRecoverySpeed(
     		this.segment
     	);
     }
-    
     
     public static void setPenetrationRecoverySpeed(
     	MemorySegment character,
@@ -613,13 +595,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static boolean getEnhancedInternalEdgeRemoval(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -629,11 +610,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getEnhancedInternalEdgeRemoval].
     public final boolean getEnhancedInternalEdgeRemoval() {
-    	return (boolean) getEnhancedInternalEdgeRemoval(
+    	return getEnhancedInternalEdgeRemoval(
     		this.segment
     	);
     }
-    
     
     public static void setEnhancedInternalEdgeRemoval(
     	MemorySegment character,
@@ -660,13 +640,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static float getCharacterPadding(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_CHARACTER_PADDING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -676,18 +655,17 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getCharacterPadding].
     public final float getCharacterPadding() {
-    	return (float) getCharacterPadding(
+    	return getCharacterPadding(
     		this.segment
     	);
     }
-    
     
     public static int getMaxNumHits(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_NUM_HITS.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -697,11 +675,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getMaxNumHits].
     public final int getMaxNumHits() {
-    	return (int) getMaxNumHits(
+    	return getMaxNumHits(
     		this.segment
     	);
     }
-    
     
     public static void setMaxNumHits(
     	MemorySegment character,
@@ -728,13 +705,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static float getHitReductionCosMaxAngle(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_HIT_REDUCTION_COS_MAX_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -744,11 +720,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getHitReductionCosMaxAngle].
     public final float getHitReductionCosMaxAngle() {
-    	return (float) getHitReductionCosMaxAngle(
+    	return getHitReductionCosMaxAngle(
     		this.segment
     	);
     }
-    
     
     public static void setHitReductionCosMaxAngle(
     	MemorySegment character,
@@ -775,13 +750,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static boolean getMaxHitsExceeded(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_MAX_HITS_EXCEEDED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -791,11 +765,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getMaxHitsExceeded].
     public final boolean getMaxHitsExceeded() {
-    	return (boolean) getMaxHitsExceeded(
+    	return getMaxHitsExceeded(
     		this.segment
     	);
     }
-    
     
     public static void getShapeOffset(
     	MemorySegment character,
@@ -822,7 +795,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void setShapeOffset(
     	MemorySegment character,
     	MemorySegment value
@@ -848,13 +820,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static long getUserData(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -864,11 +835,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getUserData].
     public final long getUserData() {
-    	return (long) getUserData(
+    	return getUserData(
     		this.segment
     	);
     }
-    
     
     public static void setUserData(
     	MemorySegment character,
@@ -895,13 +865,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static int getInnerBodyID(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_INNER_BODY_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -911,11 +880,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getInnerBodyID].
     public final int getInnerBodyID() {
-    	return (int) getInnerBodyID(
+    	return getInnerBodyID(
     		this.segment
     	);
     }
-    
     
     public static void cancelVelocityTowardsSteepSlopes(
     	MemorySegment character,
@@ -946,7 +914,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void startTrackingContactChanges(
     	MemorySegment character
     ) {
@@ -967,7 +934,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void finishTrackingContactChanges(
     	MemorySegment character
     ) {
@@ -987,7 +953,6 @@ public final class CharacterVirtual extends CharacterBase {
     		this.segment
     	);
     }
-    
     
     public static void update(
     	MemorySegment character,
@@ -1029,7 +994,6 @@ public final class CharacterVirtual extends CharacterBase {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static void extendedUpdate(
     	MemorySegment character,
@@ -1076,7 +1040,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static void refreshContacts(
     	MemorySegment character,
     	int layer,
@@ -1114,14 +1077,13 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static boolean canWalkStairs(
     	MemorySegment character,
     	MemorySegment linearVelocity
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_CAN_WALK_STAIRS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			linearVelocity
     		);
@@ -1134,12 +1096,11 @@ public final class CharacterVirtual extends CharacterBase {
     public final boolean canWalkStairs(
     	Vec3 linearVelocity
     ) {
-    	return (boolean) canWalkStairs(
+    	return canWalkStairs(
     		this.segment,
     		linearVelocity.memorySegment()
     	);
     }
-    
     
     public static boolean walkStairs(
     	MemorySegment character,
@@ -1155,7 +1116,7 @@ public final class CharacterVirtual extends CharacterBase {
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_WALK_STAIRS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			deltaTime,
     			stepUp,
@@ -1184,7 +1145,7 @@ public final class CharacterVirtual extends CharacterBase {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) walkStairs(
+    	return walkStairs(
     		this.segment,
     		deltaTime,
     		stepUp.memorySegment(),
@@ -1198,7 +1159,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static boolean stickToFloor(
     	MemorySegment character,
     	MemorySegment stepDown,
@@ -1209,7 +1169,7 @@ public final class CharacterVirtual extends CharacterBase {
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_STICK_TO_FLOOR.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			stepDown,
     			layer,
@@ -1230,7 +1190,7 @@ public final class CharacterVirtual extends CharacterBase {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) stickToFloor(
+    	return stickToFloor(
     		this.segment,
     		stepDown.memorySegment(),
     		layer,
@@ -1239,7 +1199,6 @@ public final class CharacterVirtual extends CharacterBase {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static void updateGroundVelocity(
     	MemorySegment character
@@ -1261,7 +1220,6 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static boolean setShape(
     	MemorySegment character,
     	MemorySegment shape,
@@ -1273,7 +1231,7 @@ public final class CharacterVirtual extends CharacterBase {
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_SET_SHAPE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			shape,
     			maxPenetrationDepth,
@@ -1296,7 +1254,7 @@ public final class CharacterVirtual extends CharacterBase {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) setShape(
+    	return setShape(
     		this.segment,
     		shape.memorySegment(),
     		maxPenetrationDepth,
@@ -1306,7 +1264,6 @@ public final class CharacterVirtual extends CharacterBase {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static void setInnerBodyShape(
     	MemorySegment character,
@@ -1333,13 +1290,12 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static int getNumActiveContacts(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_GET_NUM_ACTIVE_CONTACTS.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -1349,11 +1305,10 @@ public final class CharacterVirtual extends CharacterBase {
     
     /// Typed method of [#getNumActiveContacts].
     public final int getNumActiveContacts() {
-    	return (int) getNumActiveContacts(
+    	return getNumActiveContacts(
     		this.segment
     	);
     }
-    
     
     public static void getActiveContact(
     	MemorySegment character,
@@ -1384,14 +1339,13 @@ public final class CharacterVirtual extends CharacterBase {
     	);
     }
     
-    
     public static boolean hasCollidedWithBody(
     	MemorySegment character,
     	int body
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_BODY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			body
     		);
@@ -1404,12 +1358,11 @@ public final class CharacterVirtual extends CharacterBase {
     public final boolean hasCollidedWithBody(
     	int body
     ) {
-    	return (boolean) hasCollidedWithBody(
+    	return hasCollidedWithBody(
     		this.segment,
     		body
     	);
     }
-    
     
     public static boolean hasCollidedWith(
     	MemorySegment character,
@@ -1417,7 +1370,7 @@ public final class CharacterVirtual extends CharacterBase {
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			other
     		);
@@ -1430,12 +1383,11 @@ public final class CharacterVirtual extends CharacterBase {
     public final boolean hasCollidedWith(
     	int other
     ) {
-    	return (boolean) hasCollidedWith(
+    	return hasCollidedWith(
     		this.segment,
     		other
     	);
     }
-    
     
     public static boolean hasCollidedWithCharacter(
     	MemorySegment character,
@@ -1443,7 +1395,7 @@ public final class CharacterVirtual extends CharacterBase {
     ) {
     	MethodHandle method = JPH_CHARACTER_VIRTUAL_HAS_COLLIDED_WITH_CHARACTER.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			character,
     			other
     		);
@@ -1456,7 +1408,7 @@ public final class CharacterVirtual extends CharacterBase {
     public final boolean hasCollidedWithCharacter(
     	CharacterVirtual other
     ) {
-    	return (boolean) hasCollidedWithCharacter(
+    	return hasCollidedWithCharacter(
     		this.segment,
     		other.memorySegment()
     	);

@@ -55,7 +55,7 @@ public abstract class CastRayResultCallback {
         MemorySegment result
     ) {
         invoke(
-		    context,
+            context,
             new RayCastResult(result)
         );
     }

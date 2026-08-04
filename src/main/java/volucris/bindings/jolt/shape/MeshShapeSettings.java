@@ -120,14 +120,13 @@ public final class MeshShapeSettings extends ShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment triangles,
     	int triangleCount
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			triangles,
     			triangleCount
     		);
@@ -135,7 +134,6 @@ public final class MeshShapeSettings extends ShapeSettings {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static MemorySegment create2(
     	MemorySegment vertices,
@@ -145,7 +143,7 @@ public final class MeshShapeSettings extends ShapeSettings {
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE2.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			vertices,
     			verticesCount,
     			triangles,
@@ -156,13 +154,12 @@ public final class MeshShapeSettings extends ShapeSettings {
     	}
     }
     
-    
     public static int getMaxTrianglesPerLeaf(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_MAX_TRIANGLES_PER_LEAF.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -172,11 +169,10 @@ public final class MeshShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getMaxTrianglesPerLeaf].
     public final int getMaxTrianglesPerLeaf() {
-    	return (int) getMaxTrianglesPerLeaf(
+    	return getMaxTrianglesPerLeaf(
     		this.segment
     	);
     }
-    
     
     public static void setMaxTrianglesPerLeaf(
     	MemorySegment settings,
@@ -203,13 +199,12 @@ public final class MeshShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static float getActiveEdgeCosThresholdAngle(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_ACTIVE_EDGE_COS_THRESHOLD_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -219,11 +214,10 @@ public final class MeshShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getActiveEdgeCosThresholdAngle].
     public final float getActiveEdgeCosThresholdAngle() {
-    	return (float) getActiveEdgeCosThresholdAngle(
+    	return getActiveEdgeCosThresholdAngle(
     		this.segment
     	);
     }
-    
     
     public static void setActiveEdgeCosThresholdAngle(
     	MemorySegment settings,
@@ -250,13 +244,12 @@ public final class MeshShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static boolean getPerTriangleUserData(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_PER_TRIANGLE_USER_DATA.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -266,11 +259,10 @@ public final class MeshShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getPerTriangleUserData].
     public final boolean getPerTriangleUserData() {
-    	return (boolean) getPerTriangleUserData(
+    	return getPerTriangleUserData(
     		this.segment
     	);
     }
-    
     
     public static void setPerTriangleUserData(
     	MemorySegment settings,
@@ -297,13 +289,12 @@ public final class MeshShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static int getBuildQuality(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_GET_BUILD_QUALITY.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -313,11 +304,10 @@ public final class MeshShapeSettings extends ShapeSettings {
     
     /// Typed method of [#getBuildQuality].
     public final int getBuildQuality() {
-    	return (int) getBuildQuality(
+    	return getBuildQuality(
     		this.segment
     	);
     }
-    
     
     public static void setBuildQuality(
     	MemorySegment settings,
@@ -344,7 +334,6 @@ public final class MeshShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static void sanitize(
     	MemorySegment settings
     ) {
@@ -365,13 +354,12 @@ public final class MeshShapeSettings extends ShapeSettings {
     	);
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MESH_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

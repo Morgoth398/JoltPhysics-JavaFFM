@@ -37,7 +37,6 @@ public final class BodyLockInterface {
     	this.segment = segment;
     }
 
-    
     public static void lockRead(
     	MemorySegment lockInterface,
     	int bodyID,
@@ -67,7 +66,6 @@ public final class BodyLockInterface {
     	);
     }
     
-    
     public static void unlockRead(
     	MemorySegment lockInterface,
     	MemorySegment ioLock
@@ -92,7 +90,6 @@ public final class BodyLockInterface {
     		ioLock.memorySegment()
     	);
     }
-    
     
     public static void lockWrite(
     	MemorySegment lockInterface,
@@ -123,7 +120,6 @@ public final class BodyLockInterface {
     	);
     }
     
-    
     public static void unlockWrite(
     	MemorySegment lockInterface,
     	MemorySegment ioLock
@@ -149,7 +145,6 @@ public final class BodyLockInterface {
     	);
     }
     
-    
     public static MemorySegment lockMultiRead(
     	MemorySegment lockInterface,
     	MemorySegment bodyIDs,
@@ -157,7 +152,7 @@ public final class BodyLockInterface {
     ) {
     	MethodHandle method = JPH_BODY_LOCK_INTERFACE_LOCK_MULTI_READ.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			lockInterface,
     			bodyIDs,
     			count
@@ -184,7 +179,6 @@ public final class BodyLockInterface {
     	return new BodyLockMultiRead(segment);
     }
     
-    
     public static MemorySegment lockMultiWrite(
     	MemorySegment lockInterface,
     	MemorySegment bodyIDs,
@@ -192,7 +186,7 @@ public final class BodyLockInterface {
     ) {
     	MethodHandle method = JPH_BODY_LOCK_INTERFACE_LOCK_MULTI_WRITE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			lockInterface,
     			bodyIDs,
     			count

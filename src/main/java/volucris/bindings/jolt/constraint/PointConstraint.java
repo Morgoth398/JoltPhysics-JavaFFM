@@ -74,7 +74,6 @@ public final class PointConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -82,7 +81,7 @@ public final class PointConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_POINT_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -91,7 +90,6 @@ public final class PointConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -117,7 +115,6 @@ public final class PointConstraint extends TwoBodyConstraint {
     		settings.memorySegment()
     	);
     }
-    
     
     public static void setPoint1(
     	MemorySegment constraint,
@@ -148,7 +145,6 @@ public final class PointConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void setPoint2(
     	MemorySegment constraint,
     	int space,
@@ -178,7 +174,6 @@ public final class PointConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getLocalSpacePoint1(
     	MemorySegment constraint,
     	MemorySegment result
@@ -204,7 +199,6 @@ public final class PointConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getLocalSpacePoint2(
     	MemorySegment constraint,
     	MemorySegment result
@@ -229,7 +223,6 @@ public final class PointConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getTotalLambdaPosition(
     	MemorySegment constraint,

@@ -26,7 +26,6 @@ public sealed class VehicleControllerSettings
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment settings
     ) {

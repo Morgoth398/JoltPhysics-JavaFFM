@@ -147,20 +147,18 @@ public final class PhysicsSystem {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment system
@@ -174,7 +172,6 @@ public final class PhysicsSystem {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void setPhysicsSettings(
     	MemorySegment system,
@@ -201,7 +198,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void getPhysicsSettings(
     	MemorySegment system,
     	MemorySegment result
@@ -227,7 +223,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void optimizeBroadPhase(
     	MemorySegment system
     ) {
@@ -248,7 +243,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static int update(
     	MemorySegment system,
     	float deltaTime,
@@ -257,7 +251,7 @@ public final class PhysicsSystem {
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_UPDATE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			system,
     			deltaTime,
     			collisionSteps,
@@ -274,7 +268,7 @@ public final class PhysicsSystem {
     	int collisionSteps,
     	JobSystem jobSystem
     ) {
-    	return (int) update(
+    	return update(
     		this.segment,
     		deltaTime,
     		collisionSteps,
@@ -282,13 +276,12 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static MemorySegment getBodyInterface(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -308,13 +301,12 @@ public final class PhysicsSystem {
     	return new BodyInterface(segment);
     }
     
-    
     public static MemorySegment getBodyInterfaceNoLock(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_INTERFACE_NO_LOCK.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -334,13 +326,12 @@ public final class PhysicsSystem {
     	return new BodyInterface(segment);
     }
     
-    
     public static MemorySegment getBodyLockInterface(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_LOCK_INTERFACE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -360,13 +351,12 @@ public final class PhysicsSystem {
     	return new BodyLockInterface(segment);
     }
     
-    
     public static MemorySegment getBodyLockInterfaceNoLock(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_LOCK_INTERFACE_NO_LOCK.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -386,13 +376,12 @@ public final class PhysicsSystem {
     	return new BodyLockInterface(segment);
     }
     
-    
     public static MemorySegment getBroadPhaseQuery(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BROAD_PHASE_QUERY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -412,13 +401,12 @@ public final class PhysicsSystem {
     	return new BroadPhaseQuery(segment);
     }
     
-    
     public static MemorySegment getNarrowPhaseQuery(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -438,13 +426,12 @@ public final class PhysicsSystem {
     	return new NarrowPhaseQuery(segment);
     }
     
-    
     public static MemorySegment getNarrowPhaseQueryNoLock(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NARROW_PHASE_QUERY_NO_LOCK.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -463,7 +450,6 @@ public final class PhysicsSystem {
     	
     	return new NarrowPhaseQuery(segment);
     }
-    
     
     public static void setContactListener(
     	MemorySegment system,
@@ -490,7 +476,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void setBodyActivationListener(
     	MemorySegment system,
     	MemorySegment listener
@@ -515,7 +500,6 @@ public final class PhysicsSystem {
     		listener.memorySegment()
     	);
     }
-    
     
     public static void setSimShapeFilter(
     	MemorySegment system,
@@ -542,7 +526,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static boolean wereBodiesInContact(
     	MemorySegment system,
     	int body1,
@@ -550,7 +533,7 @@ public final class PhysicsSystem {
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_WERE_BODIES_IN_CONTACT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			system,
     			body1,
     			body2
@@ -565,20 +548,19 @@ public final class PhysicsSystem {
     	int body1,
     	int body2
     ) {
-    	return (boolean) wereBodiesInContact(
+    	return wereBodiesInContact(
     		this.segment,
     		body1,
     		body2
     	);
     }
     
-    
     public static int getNumBodies(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_BODIES.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -588,11 +570,10 @@ public final class PhysicsSystem {
     
     /// Typed method of [#getNumBodies].
     public final int getNumBodies() {
-    	return (int) getNumBodies(
+    	return getNumBodies(
     		this.segment
     	);
     }
-    
     
     public static int getNumActiveBodies(
     	MemorySegment system,
@@ -600,7 +581,7 @@ public final class PhysicsSystem {
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_ACTIVE_BODIES.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			system,
     			type
     		);
@@ -613,19 +594,18 @@ public final class PhysicsSystem {
     public final int getNumActiveBodies(
     	int type
     ) {
-    	return (int) getNumActiveBodies(
+    	return getNumActiveBodies(
     		this.segment,
     		type
     	);
     }
-    
     
     public static int getMaxBodies(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_MAX_BODIES.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -635,18 +615,17 @@ public final class PhysicsSystem {
     
     /// Typed method of [#getMaxBodies].
     public final int getMaxBodies() {
-    	return (int) getMaxBodies(
+    	return getMaxBodies(
     		this.segment
     	);
     }
-    
     
     public static int getNumConstraints(
     	MemorySegment system
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_NUM_CONSTRAINTS.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			system
     		);
     	} catch (Throwable e) {
@@ -656,11 +635,10 @@ public final class PhysicsSystem {
     
     /// Typed method of [#getNumConstraints].
     public final int getNumConstraints() {
-    	return (int) getNumConstraints(
+    	return getNumConstraints(
     		this.segment
     	);
     }
-    
     
     public static void setGravity(
     	MemorySegment system,
@@ -687,7 +665,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void getGravity(
     	MemorySegment system,
     	MemorySegment result
@@ -712,7 +689,6 @@ public final class PhysicsSystem {
     		result.memorySegment()
     	);
     }
-    
     
     public static void addConstraint(
     	MemorySegment system,
@@ -739,7 +715,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void removeConstraint(
     	MemorySegment system,
     	MemorySegment constraint
@@ -764,7 +739,6 @@ public final class PhysicsSystem {
     		constraint.memorySegment()
     	);
     }
-    
     
     public static void addConstraints(
     	MemorySegment system,
@@ -795,7 +769,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void removeConstraints(
     	MemorySegment system,
     	MemorySegment constraints,
@@ -825,7 +798,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void addStepListener(
     	MemorySegment system,
     	MemorySegment listener
@@ -851,7 +823,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void removeStepListener(
     	MemorySegment system,
     	MemorySegment listener
@@ -876,7 +847,6 @@ public final class PhysicsSystem {
     		listener.memorySegment()
     	);
     }
-    
     
     public static void getBodies(
     	MemorySegment system,
@@ -906,7 +876,6 @@ public final class PhysicsSystem {
     		count
     	);
     }
-    
     
     public static void getActiveBodies(
     	MemorySegment system,
@@ -941,14 +910,13 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static MemorySegment getActiveBodiesUnsafe(
     	MemorySegment system,
     	int type
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_ACTIVE_BODIES_UNSAFE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system,
     			type
     		);
@@ -971,7 +939,6 @@ public final class PhysicsSystem {
     	
     	return new NativeIntArray(segment);
     }
-    
     
     public static void getConstraints(
     	MemorySegment system,
@@ -1002,7 +969,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void activateBodiesInAABox(
     	MemorySegment system,
     	MemorySegment box,
@@ -1031,7 +997,6 @@ public final class PhysicsSystem {
     		layer
     	);
     }
-    
     
     public static void drawBodies(
     	MemorySegment system,
@@ -1066,7 +1031,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void drawConstraints(
     	MemorySegment system,
     	MemorySegment renderer
@@ -1091,7 +1055,6 @@ public final class PhysicsSystem {
     		renderer.memorySegment()
     	);
     }
-    
     
     public static void drawConstraintLimits(
     	MemorySegment system,
@@ -1118,7 +1081,6 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static void drawConstraintReferenceFrame(
     	MemorySegment system,
     	MemorySegment renderer
@@ -1144,14 +1106,13 @@ public final class PhysicsSystem {
     	);
     }
     
-    
     public static MemorySegment getBodyPtr(
     	MemorySegment system,
     	int bodyID
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_GET_BODY_PTR.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			system,
     			bodyID
     		);
@@ -1175,7 +1136,6 @@ public final class PhysicsSystem {
     	return new Body(segment);
     }
     
-    
     public static int update2(
     	MemorySegment system,
     	float deltaTime,
@@ -1185,7 +1145,7 @@ public final class PhysicsSystem {
     ) {
     	MethodHandle method = JPH_PHYSICS_SYSTEM_UPDATE2.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			system,
     			deltaTime,
     			collisionSteps,
@@ -1204,7 +1164,7 @@ public final class PhysicsSystem {
     	TempAllocator tempAllocator,
     	JobSystem jobSystem
     ) {
-    	return (int) update2(
+    	return update2(
     		this.segment,
     		deltaTime,
     		collisionSteps,

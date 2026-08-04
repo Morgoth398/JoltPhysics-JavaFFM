@@ -49,13 +49,12 @@ public final class MotionProperties {
     	this.segment = segment;
     }
 
-    
     public static int getAllowedDOFs(
     	MemorySegment properties
     ) {
     	MethodHandle method = JPH_MOTION_PROPERTIES_GET_ALLOWED_DOFS.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			properties
     		);
     	} catch (Throwable e) {
@@ -65,11 +64,10 @@ public final class MotionProperties {
     
     /// Typed method of [#getAllowedDOFs].
     public final int getAllowedDOFs() {
-    	return (int) getAllowedDOFs(
+    	return getAllowedDOFs(
     		this.segment
     	);
     }
-    
     
     public static void setLinearDamping(
     	MemorySegment properties,
@@ -96,13 +94,12 @@ public final class MotionProperties {
     	);
     }
     
-    
     public static float getLinearDamping(
     	MemorySegment properties
     ) {
     	MethodHandle method = JPH_MOTION_PROPERTIES_GET_LINEAR_DAMPING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			properties
     		);
     	} catch (Throwable e) {
@@ -112,11 +109,10 @@ public final class MotionProperties {
     
     /// Typed method of [#getLinearDamping].
     public final float getLinearDamping() {
-    	return (float) getLinearDamping(
+    	return getLinearDamping(
     		this.segment
     	);
     }
-    
     
     public static void setAngularDamping(
     	MemorySegment properties,
@@ -143,13 +139,12 @@ public final class MotionProperties {
     	);
     }
     
-    
     public static float getAngularDamping(
     	MemorySegment properties
     ) {
     	MethodHandle method = JPH_MOTION_PROPERTIES_GET_ANGULAR_DAMPING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			properties
     		);
     	} catch (Throwable e) {
@@ -159,11 +154,10 @@ public final class MotionProperties {
     
     /// Typed method of [#getAngularDamping].
     public final float getAngularDamping() {
-    	return (float) getAngularDamping(
+    	return getAngularDamping(
     		this.segment
     	);
     }
-    
     
     public static void setMassProperties(
     	MemorySegment properties,
@@ -194,13 +188,12 @@ public final class MotionProperties {
     	);
     }
     
-    
     public static float getInverseMassUnchecked(
     	MemorySegment properties
     ) {
     	MethodHandle method = JPH_MOTION_PROPERTIES_GET_INVERSE_MASS_UNCHECKED.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			properties
     		);
     	} catch (Throwable e) {
@@ -210,11 +203,10 @@ public final class MotionProperties {
     
     /// Typed method of [#getInverseMassUnchecked].
     public final float getInverseMassUnchecked() {
-    	return (float) getInverseMassUnchecked(
+    	return getInverseMassUnchecked(
     		this.segment
     	);
     }
-    
     
     public static void setInverseMass(
     	MemorySegment properties,
@@ -241,7 +233,6 @@ public final class MotionProperties {
     	);
     }
     
-    
     public static void getInverseInertiaDiagonal(
     	MemorySegment properties,
     	MemorySegment result
@@ -267,7 +258,6 @@ public final class MotionProperties {
     	);
     }
     
-    
     public static void getInertiaRotation(
     	MemorySegment properties,
     	MemorySegment result
@@ -292,7 +282,6 @@ public final class MotionProperties {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setInverseInertia(
     	MemorySegment properties,
@@ -322,7 +311,6 @@ public final class MotionProperties {
     		rot.memorySegment()
     	);
     }
-    
     
     public static void scaleToMass(
     	MemorySegment properties,

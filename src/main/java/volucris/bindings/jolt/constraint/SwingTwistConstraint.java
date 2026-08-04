@@ -76,7 +76,6 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -84,7 +83,7 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -93,7 +92,6 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -120,13 +118,12 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getNormalHalfConeAngle(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_NORMAL_HALF_CONE_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -136,11 +133,10 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getNormalHalfConeAngle].
     public final float getNormalHalfConeAngle() {
-    	return (float) getNormalHalfConeAngle(
+    	return getNormalHalfConeAngle(
     		this.segment
     	);
     }
-    
     
     public static void getTotalLambdaPosition(
     	MemorySegment constraint,
@@ -167,13 +163,12 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTotalLambdaTwist(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_TWIST.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -183,18 +178,17 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaTwist].
     public final float getTotalLambdaTwist() {
-    	return (float) getTotalLambdaTwist(
+    	return getTotalLambdaTwist(
     		this.segment
     	);
     }
-    
     
     public static float getTotalLambdaSwingY(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Y.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -204,18 +198,17 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaSwingY].
     public final float getTotalLambdaSwingY() {
-    	return (float) getTotalLambdaSwingY(
+    	return getTotalLambdaSwingY(
     		this.segment
     	);
     }
-    
     
     public static float getTotalLambdaSwingZ(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SWING_TWIST_CONSTRAINT_GET_TOTAL_LAMBDA_SWING_Z.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -225,11 +218,10 @@ public final class SwingTwistConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaSwingZ].
     public final float getTotalLambdaSwingZ() {
-    	return (float) getTotalLambdaSwingZ(
+    	return getTotalLambdaSwingZ(
     		this.segment
     	);
     }
-    
     
     public static void getTotalLambdaMotor(
     	MemorySegment constraint,

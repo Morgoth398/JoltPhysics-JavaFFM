@@ -37,13 +37,12 @@ public final class VehicleTrack {
     	this.segment = segment;
     }
 
-    
     public static float getAngularVelocity(
     	MemorySegment track
     ) {
     	MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_VELOCITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			track
     		);
     	} catch (Throwable e) {
@@ -53,11 +52,10 @@ public final class VehicleTrack {
     
     /// Typed method of [#getAngularVelocity].
     public final float getAngularVelocity() {
-    	return (float) getAngularVelocity(
+    	return getAngularVelocity(
     		this.segment
     	);
     }
-    
     
     public static void setAngularVelocity(
     	MemorySegment track,
@@ -84,13 +82,12 @@ public final class VehicleTrack {
     	);
     }
     
-    
     public static int getDrivenWheel(
     	MemorySegment track
     ) {
     	MethodHandle method = JPH_VEHICLE_TRACK_GET_DRIVEN_WHEEL.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			track
     		);
     	} catch (Throwable e) {
@@ -100,18 +97,17 @@ public final class VehicleTrack {
     
     /// Typed method of [#getDrivenWheel].
     public final int getDrivenWheel() {
-    	return (int) getDrivenWheel(
+    	return getDrivenWheel(
     		this.segment
     	);
     }
-    
     
     public static float getInertia(
     	MemorySegment track
     ) {
     	MethodHandle method = JPH_VEHICLE_TRACK_GET_INERTIA.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			track
     		);
     	} catch (Throwable e) {
@@ -121,18 +117,17 @@ public final class VehicleTrack {
     
     /// Typed method of [#getInertia].
     public final float getInertia() {
-    	return (float) getInertia(
+    	return getInertia(
     		this.segment
     	);
     }
-    
     
     public static float getAngularDamping(
     	MemorySegment track
     ) {
     	MethodHandle method = JPH_VEHICLE_TRACK_GET_ANGULAR_DAMPING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			track
     		);
     	} catch (Throwable e) {
@@ -142,18 +137,17 @@ public final class VehicleTrack {
     
     /// Typed method of [#getAngularDamping].
     public final float getAngularDamping() {
-    	return (float) getAngularDamping(
+    	return getAngularDamping(
     		this.segment
     	);
     }
-    
     
     public static float getMaxBrakeTorque(
     	MemorySegment track
     ) {
     	MethodHandle method = JPH_VEHICLE_TRACK_GET_MAX_BRAKE_TORQUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			track
     		);
     	} catch (Throwable e) {
@@ -163,18 +157,17 @@ public final class VehicleTrack {
     
     /// Typed method of [#getMaxBrakeTorque].
     public final float getMaxBrakeTorque() {
-    	return (float) getMaxBrakeTorque(
+    	return getMaxBrakeTorque(
     		this.segment
     	);
     }
-    
     
     public static float getDifferentialRatio(
     	MemorySegment track
     ) {
     	MethodHandle method = JPH_VEHICLE_TRACK_GET_DIFFERENTIAL_RATIO.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			track
     		);
     	} catch (Throwable e) {
@@ -184,7 +177,7 @@ public final class VehicleTrack {
     
     /// Typed method of [#getDifferentialRatio].
     public final float getDifferentialRatio() {
-    	return (float) getDifferentialRatio(
+    	return getDifferentialRatio(
     		this.segment
     	);
     }

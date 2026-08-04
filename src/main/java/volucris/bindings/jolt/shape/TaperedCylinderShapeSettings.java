@@ -72,7 +72,6 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	float halfHeightOfTaperedCylinder,
     	float topRadius,
@@ -82,7 +81,7 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
     ) {
     	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			halfHeightOfTaperedCylinder,
     			topRadius,
     			bottomRadius,
@@ -94,13 +93,12 @@ public final class TaperedCylinderShapeSettings extends ConvexShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_TAPERED_CYLINDER_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

@@ -55,13 +55,12 @@ public final class EmptyShapeSettings extends ShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment centerOfMass
     ) {
     	MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			centerOfMass
     		);
     	} catch (Throwable e) {
@@ -69,13 +68,12 @@ public final class EmptyShapeSettings extends ShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_EMPTY_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

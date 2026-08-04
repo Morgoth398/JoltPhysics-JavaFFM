@@ -96,20 +96,18 @@ public sealed class Wheel
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment wheel
@@ -124,13 +122,12 @@ public sealed class Wheel
     	}
     }
     
-    
     public static MemorySegment getSettings(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_SETTINGS.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -150,13 +147,12 @@ public sealed class Wheel
     	return new WheelSettings(segment);
     }
     
-    
     public static float getAngularVelocity(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_ANGULAR_VELOCITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -166,11 +162,10 @@ public sealed class Wheel
     
     /// Typed method of [#getAngularVelocity].
     public final float getAngularVelocity() {
-    	return (float) getAngularVelocity(
+    	return getAngularVelocity(
     		this.segment
     	);
     }
-    
     
     public static void setAngularVelocity(
     	MemorySegment wheel,
@@ -197,13 +192,12 @@ public sealed class Wheel
     	);
     }
     
-    
     public static float getRotationAngle(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_ROTATION_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -213,11 +207,10 @@ public sealed class Wheel
     
     /// Typed method of [#getRotationAngle].
     public final float getRotationAngle() {
-    	return (float) getRotationAngle(
+    	return getRotationAngle(
     		this.segment
     	);
     }
-    
     
     public static void setRotationAngle(
     	MemorySegment wheel,
@@ -244,13 +237,12 @@ public sealed class Wheel
     	);
     }
     
-    
     public static float getSteerAngle(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_STEER_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -260,11 +252,10 @@ public sealed class Wheel
     
     /// Typed method of [#getSteerAngle].
     public final float getSteerAngle() {
-    	return (float) getSteerAngle(
+    	return getSteerAngle(
     		this.segment
     	);
     }
-    
     
     public static void setSteerAngle(
     	MemorySegment wheel,
@@ -291,13 +282,12 @@ public sealed class Wheel
     	);
     }
     
-    
     public static boolean hasContact(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_HAS_CONTACT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -307,18 +297,17 @@ public sealed class Wheel
     
     /// Typed method of [#hasContact].
     public final boolean hasContact() {
-    	return (boolean) hasContact(
+    	return hasContact(
     		this.segment
     	);
     }
-    
     
     public static int getContactBodyID(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_CONTACT_BODY_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -328,18 +317,17 @@ public sealed class Wheel
     
     /// Typed method of [#getContactBodyID].
     public final int getContactBodyID() {
-    	return (int) getContactBodyID(
+    	return getContactBodyID(
     		this.segment
     	);
     }
-    
     
     public static int getContactSubShapeID(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_CONTACT_SUB_SHAPE_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -349,11 +337,10 @@ public sealed class Wheel
     
     /// Typed method of [#getContactSubShapeID].
     public final int getContactSubShapeID() {
-    	return (int) getContactSubShapeID(
+    	return getContactSubShapeID(
     		this.segment
     	);
     }
-    
     
     public static void getContactPosition(
     	MemorySegment wheel,
@@ -380,7 +367,6 @@ public sealed class Wheel
     	);
     }
     
-    
     public static void getContactPointVelocity(
     	MemorySegment wheel,
     	MemorySegment result
@@ -405,7 +391,6 @@ public sealed class Wheel
     		result.memorySegment()
     	);
     }
-    
     
     public static void getContactNormal(
     	MemorySegment wheel,
@@ -432,7 +417,6 @@ public sealed class Wheel
     	);
     }
     
-    
     public static void getContactLongitudinal(
     	MemorySegment wheel,
     	MemorySegment result
@@ -457,7 +441,6 @@ public sealed class Wheel
     		result.memorySegment()
     	);
     }
-    
     
     public static void getContactLateral(
     	MemorySegment wheel,
@@ -484,13 +467,12 @@ public sealed class Wheel
     	);
     }
     
-    
     public static float getSuspensionLength(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LENGTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -500,18 +482,17 @@ public sealed class Wheel
     
     /// Typed method of [#getSuspensionLength].
     public final float getSuspensionLength() {
-    	return (float) getSuspensionLength(
+    	return getSuspensionLength(
     		this.segment
     	);
     }
-    
     
     public static float getSuspensionLambda(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_SUSPENSION_LAMBDA.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -521,18 +502,17 @@ public sealed class Wheel
     
     /// Typed method of [#getSuspensionLambda].
     public final float getSuspensionLambda() {
-    	return (float) getSuspensionLambda(
+    	return getSuspensionLambda(
     		this.segment
     	);
     }
-    
     
     public static float getLongitudinalLambda(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_LONGITUDINAL_LAMBDA.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -542,18 +522,17 @@ public sealed class Wheel
     
     /// Typed method of [#getLongitudinalLambda].
     public final float getLongitudinalLambda() {
-    	return (float) getLongitudinalLambda(
+    	return getLongitudinalLambda(
     		this.segment
     	);
     }
-    
     
     public static float getLateralLambda(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_GET_LATERAL_LAMBDA.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -563,18 +542,17 @@ public sealed class Wheel
     
     /// Typed method of [#getLateralLambda].
     public final float getLateralLambda() {
-    	return (float) getLateralLambda(
+    	return getLateralLambda(
     		this.segment
     	);
     }
-    
     
     public static boolean hasHitHardPoint(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_HAS_HIT_HARD_POINT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -584,7 +562,7 @@ public sealed class Wheel
     
     /// Typed method of [#hasHitHardPoint].
     public final boolean hasHitHardPoint() {
-    	return (boolean) hasHitHardPoint(
+    	return hasHitHardPoint(
     		this.segment
     	);
     }

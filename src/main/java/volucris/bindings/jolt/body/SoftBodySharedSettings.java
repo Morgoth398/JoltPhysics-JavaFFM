@@ -66,16 +66,14 @@ public final class SoftBodySharedSettings {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment settings
@@ -89,7 +87,6 @@ public final class SoftBodySharedSettings {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void addVertex(
     	MemorySegment settings,
@@ -115,7 +112,6 @@ public final class SoftBodySharedSettings {
     		vertex.memorySegment()
     	);
     }
-    
     
     public static void addVertices(
     	MemorySegment settings,
@@ -146,14 +142,13 @@ public final class SoftBodySharedSettings {
     	);
     }
     
-    
     public static boolean removeVertex(
     	MemorySegment settings,
     	int index
     ) {
     	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_REMOVE_VERTEX.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings,
     			index
     		);
@@ -166,19 +161,18 @@ public final class SoftBodySharedSettings {
     public final boolean removeVertex(
     	int index
     ) {
-    	return (boolean) removeVertex(
+    	return removeVertex(
     		this.segment,
     		index
     	);
     }
-    
     
     public static int getVertexCount(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_VERTEX_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -188,11 +182,10 @@ public final class SoftBodySharedSettings {
     
     /// Typed method of [#getVertexCount].
     public final int getVertexCount() {
-    	return (int) getVertexCount(
+    	return getVertexCount(
     		this.segment
     	);
     }
-    
     
     public static boolean getVertex(
     	MemorySegment settings,
@@ -201,7 +194,7 @@ public final class SoftBodySharedSettings {
     ) {
     	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_VERTEX.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings,
     			index,
     			outVertex
@@ -216,13 +209,12 @@ public final class SoftBodySharedSettings {
     	int index,
     	SoftVertex outVertex
     ) {
-    	return (boolean) getVertex(
+    	return getVertex(
     		this.segment,
     		index,
     		outVertex.memorySegment()
     	);
     }
-    
     
     public static void addFace(
     	MemorySegment settings,
@@ -248,7 +240,6 @@ public final class SoftBodySharedSettings {
     		face.memorySegment()
     	);
     }
-    
     
     public static void addFaces(
     	MemorySegment settings,
@@ -279,14 +270,13 @@ public final class SoftBodySharedSettings {
     	);
     }
     
-    
     public static boolean removeFace(
     	MemorySegment settings,
     	int index
     ) {
     	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_REMOVE_FACE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings,
     			index
     		);
@@ -299,19 +289,18 @@ public final class SoftBodySharedSettings {
     public final boolean removeFace(
     	int index
     ) {
-    	return (boolean) removeFace(
+    	return removeFace(
     		this.segment,
     		index
     	);
     }
-    
     
     public static int getFaceCount(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_FACE_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -321,11 +310,10 @@ public final class SoftBodySharedSettings {
     
     /// Typed method of [#getFaceCount].
     public final int getFaceCount() {
-    	return (int) getFaceCount(
+    	return getFaceCount(
     		this.segment
     	);
     }
-    
     
     public static boolean getFace(
     	MemorySegment settings,
@@ -334,7 +322,7 @@ public final class SoftBodySharedSettings {
     ) {
     	MethodHandle method = JPH_SOFT_BODY_SHARED_SETTINGS_GET_FACE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings,
     			index,
     			outFace
@@ -349,13 +337,12 @@ public final class SoftBodySharedSettings {
     	int index,
     	SoftFace outFace
     ) {
-    	return (boolean) getFace(
+    	return getFace(
     		this.segment,
     		index,
     		outFace.memorySegment()
     	);
     }
-    
     
     public static void createConstraints(
     	MemorySegment settings,
@@ -385,7 +372,6 @@ public final class SoftBodySharedSettings {
     		bendType
     	);
     }
-    
     
     public static void optimize(
     	MemorySegment settings

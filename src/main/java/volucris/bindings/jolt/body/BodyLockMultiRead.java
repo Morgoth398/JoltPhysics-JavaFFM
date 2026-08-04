@@ -28,7 +28,6 @@ public final class BodyLockMultiRead {
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment ioLock
     ) {
@@ -49,14 +48,13 @@ public final class BodyLockMultiRead {
     	);
     }
     
-    
     public static MemorySegment getBody(
     	MemorySegment ioLock,
     	int bodyIndex
     ) {
     	MethodHandle method = JPH_BODY_LOCK_MULTI_READ_GET_BODY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			ioLock,
     			bodyIndex
     		);

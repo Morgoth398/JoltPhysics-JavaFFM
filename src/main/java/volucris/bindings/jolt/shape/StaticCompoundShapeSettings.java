@@ -41,11 +41,10 @@ public final class StaticCompoundShapeSettings extends CompoundShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_STATIC_COMPOUND_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}

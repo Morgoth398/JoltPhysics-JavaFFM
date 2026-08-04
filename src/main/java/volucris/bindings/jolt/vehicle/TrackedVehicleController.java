@@ -49,14 +49,13 @@ public final class TrackedVehicleController extends VehicleController {
     	super(segment);
     }
 
-    
     public static MemorySegment getTrack(
     	MemorySegment controller,
     	int side
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRACK.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			controller,
     			side
     		);
@@ -79,7 +78,6 @@ public final class TrackedVehicleController extends VehicleController {
     	
     	return new VehicleTrack(segment);
     }
-    
     
     public static void setDriverInput(
     	MemorySegment controller,
@@ -118,13 +116,12 @@ public final class TrackedVehicleController extends VehicleController {
     	);
     }
     
-    
     public static float getForwardInput(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_FORWARD_INPUT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -134,11 +131,10 @@ public final class TrackedVehicleController extends VehicleController {
     
     /// Typed method of [#getForwardInput].
     public final float getForwardInput() {
-    	return (float) getForwardInput(
+    	return getForwardInput(
     		this.segment
     	);
     }
-    
     
     public static void setForwardInput(
     	MemorySegment controller,
@@ -165,13 +161,12 @@ public final class TrackedVehicleController extends VehicleController {
     	);
     }
     
-    
     public static float getLeftRatio(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_LEFT_RATIO.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -181,11 +176,10 @@ public final class TrackedVehicleController extends VehicleController {
     
     /// Typed method of [#getLeftRatio].
     public final float getLeftRatio() {
-    	return (float) getLeftRatio(
+    	return getLeftRatio(
     		this.segment
     	);
     }
-    
     
     public static void setLeftRatio(
     	MemorySegment controller,
@@ -212,13 +206,12 @@ public final class TrackedVehicleController extends VehicleController {
     	);
     }
     
-    
     public static float getRightRatio(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_RIGHT_RATIO.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -228,11 +221,10 @@ public final class TrackedVehicleController extends VehicleController {
     
     /// Typed method of [#getRightRatio].
     public final float getRightRatio() {
-    	return (float) getRightRatio(
+    	return getRightRatio(
     		this.segment
     	);
     }
-    
     
     public static void setRightRatio(
     	MemorySegment controller,
@@ -259,13 +251,12 @@ public final class TrackedVehicleController extends VehicleController {
     	);
     }
     
-    
     public static float getBrakeInput(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_BRAKE_INPUT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -275,11 +266,10 @@ public final class TrackedVehicleController extends VehicleController {
     
     /// Typed method of [#getBrakeInput].
     public final float getBrakeInput() {
-    	return (float) getBrakeInput(
+    	return getBrakeInput(
     		this.segment
     	);
     }
-    
     
     public static void setBrakeInput(
     	MemorySegment controller,
@@ -306,13 +296,12 @@ public final class TrackedVehicleController extends VehicleController {
     	);
     }
     
-    
     public static MemorySegment getEngine(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_ENGINE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {
@@ -332,13 +321,12 @@ public final class TrackedVehicleController extends VehicleController {
     	return new VehicleEngine(segment);
     }
     
-    
     public static MemorySegment getTransmission(
     	MemorySegment controller
     ) {
     	MethodHandle method = JPH_TRACKED_VEHICLE_CONTROLLER_GET_TRANSMISSION.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			controller
     		);
     	} catch (Throwable e) {

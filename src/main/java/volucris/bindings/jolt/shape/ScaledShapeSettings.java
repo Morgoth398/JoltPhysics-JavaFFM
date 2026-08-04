@@ -90,14 +90,13 @@ public final class ScaledShapeSettings extends ShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment shapeSettings,
     	MemorySegment scale
     ) {
     	MethodHandle method = JPH_SCALED_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shapeSettings,
     			scale
     		);
@@ -106,14 +105,13 @@ public final class ScaledShapeSettings extends ShapeSettings {
     	}
     }
     
-    
     public static MemorySegment create2(
     	MemorySegment shape,
     	MemorySegment scale
     ) {
     	MethodHandle method = JPH_SCALED_SHAPE_SETTINGS_CREATE2.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape,
     			scale
     		);
@@ -122,13 +120,12 @@ public final class ScaledShapeSettings extends ShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_SCALED_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

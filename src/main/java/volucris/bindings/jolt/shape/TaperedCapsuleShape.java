@@ -30,13 +30,12 @@ public final class TaperedCapsuleShape extends ConvexShape {
     	super(segment);
     }
 
-    
     public static float getTopRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_TOP_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -46,18 +45,17 @@ public final class TaperedCapsuleShape extends ConvexShape {
     
     /// Typed method of [#getTopRadius].
     public final float getTopRadius() {
-    	return (float) getTopRadius(
+    	return getTopRadius(
     		this.segment
     	);
     }
-    
     
     public static float getBottomRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_BOTTOM_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -67,18 +65,17 @@ public final class TaperedCapsuleShape extends ConvexShape {
     
     /// Typed method of [#getBottomRadius].
     public final float getBottomRadius() {
-    	return (float) getBottomRadius(
+    	return getBottomRadius(
     		this.segment
     	);
     }
-    
     
     public static float getHalfHeight(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_TAPERED_CAPSULE_SHAPE_GET_HALF_HEIGHT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -88,7 +85,7 @@ public final class TaperedCapsuleShape extends ConvexShape {
     
     /// Typed method of [#getHalfHeight].
     public final float getHalfHeight() {
-    	return (float) getHalfHeight(
+    	return getHalfHeight(
     		this.segment
     	);
     }

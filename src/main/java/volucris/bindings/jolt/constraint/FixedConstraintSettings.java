@@ -101,7 +101,6 @@ public final class FixedConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

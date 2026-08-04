@@ -65,7 +65,6 @@ public final class PlaneShapeSettings extends ShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment plane,
     	MemorySegment material,
@@ -73,7 +72,7 @@ public final class PlaneShapeSettings extends ShapeSettings {
     ) {
     	MethodHandle method = JPH_PLANE_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			plane,
     			material,
     			halfExtent
@@ -83,13 +82,12 @@ public final class PlaneShapeSettings extends ShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_PLANE_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

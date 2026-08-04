@@ -99,7 +99,6 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment position,
     	MemorySegment rotation,
@@ -107,7 +106,7 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
     ) {
     	MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			position,
     			rotation,
     			shapeSettings
@@ -117,7 +116,6 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
     	}
     }
     
-    
     public static MemorySegment create2(
     	MemorySegment position,
     	MemorySegment rotation,
@@ -125,7 +123,7 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
     ) {
     	MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE2.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			position,
     			rotation,
     			shape
@@ -135,13 +133,12 @@ public final class RotatedTranslatedShapeSettings extends ShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_ROTATED_TRANSLATED_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

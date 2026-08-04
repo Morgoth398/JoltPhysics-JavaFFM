@@ -67,7 +67,6 @@ public final class GearConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -75,7 +74,7 @@ public final class GearConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_GEAR_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -84,7 +83,6 @@ public final class GearConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -110,7 +108,6 @@ public final class GearConstraint extends TwoBodyConstraint {
     		settings.memorySegment()
     	);
     }
-    
     
     public static void setConstraints(
     	MemorySegment constraint,
@@ -141,13 +138,12 @@ public final class GearConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTotalLambda(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_GEAR_CONSTRAINT_GET_TOTAL_LAMBDA.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -157,7 +153,7 @@ public final class GearConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambda].
     public final float getTotalLambda() {
-    	return (float) getTotalLambda(
+    	return getTotalLambda(
     		this.segment
     	);
     }

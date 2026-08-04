@@ -51,13 +51,12 @@ public final class JobSystemCallback extends JobSystem {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment config
     ) {
     	MethodHandle method = JPH_JOB_SYSTEM_CALLBACK_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			config
     		);
     	} catch (Throwable e) {

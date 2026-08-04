@@ -80,7 +80,6 @@ public final class ShapeCastSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

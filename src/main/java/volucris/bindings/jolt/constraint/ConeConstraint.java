@@ -72,7 +72,6 @@ public final class ConeConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -80,7 +79,7 @@ public final class ConeConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_CONE_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -89,7 +88,6 @@ public final class ConeConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -116,7 +114,6 @@ public final class ConeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void setHalfConeAngle(
     	MemorySegment constraint,
     	float halfConeAngle
@@ -142,13 +139,12 @@ public final class ConeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getCosHalfConeAngle(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONE_CONSTRAINT_GET_COS_HALF_CONE_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -158,11 +154,10 @@ public final class ConeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getCosHalfConeAngle].
     public final float getCosHalfConeAngle() {
-    	return (float) getCosHalfConeAngle(
+    	return getCosHalfConeAngle(
     		this.segment
     	);
     }
-    
     
     public static void getTotalLambdaPosition(
     	MemorySegment constraint,
@@ -189,13 +184,12 @@ public final class ConeConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTotalLambdaRotation(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONE_CONSTRAINT_GET_TOTAL_LAMBDA_ROTATION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -205,7 +199,7 @@ public final class ConeConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaRotation].
     public final float getTotalLambdaRotation() {
-    	return (float) getTotalLambdaRotation(
+    	return getTotalLambdaRotation(
     		this.segment
     	);
     }

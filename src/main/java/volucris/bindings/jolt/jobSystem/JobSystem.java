@@ -26,7 +26,6 @@ public sealed class JobSystem
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment jobSystem
     ) {

@@ -56,14 +56,13 @@ public final class VehicleCollisionTesterCastCylinder extends VehicleCollisionTe
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	int layer,
     	float convexRadiusFraction
     ) {
     	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_CAST_CYLINDER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			layer,
     			convexRadiusFraction
     		);

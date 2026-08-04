@@ -58,14 +58,13 @@ public final class ScaledShape extends DecoratedShape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment shape,
     	MemorySegment scale
     ) {
     	MethodHandle method = JPH_SCALED_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape,
     			scale
     		);
@@ -73,7 +72,6 @@ public final class ScaledShape extends DecoratedShape {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getScale(
     	MemorySegment shape,

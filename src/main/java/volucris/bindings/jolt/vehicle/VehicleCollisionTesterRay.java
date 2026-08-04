@@ -61,7 +61,6 @@ public final class VehicleCollisionTesterRay extends VehicleCollisionTester {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	int layer,
     	MemorySegment up,
@@ -69,7 +68,7 @@ public final class VehicleCollisionTesterRay extends VehicleCollisionTester {
     ) {
     	MethodHandle method = JPH_VEHICLE_COLLISION_TESTER_RAY_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			layer,
     			up,
     			maxSlopeAngle

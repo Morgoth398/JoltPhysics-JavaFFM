@@ -68,16 +68,14 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	super(segment);
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getEngine(
     	MemorySegment settings,
@@ -104,7 +102,6 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	);
     }
     
-    
     public static void setEngine(
     	MemorySegment settings,
     	MemorySegment value
@@ -130,13 +127,12 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	);
     }
     
-    
     public static MemorySegment getTransmission(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_TRANSMISSION.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -155,7 +151,6 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	
     	return new VehicleTransmissionSettings(segment);
     }
-    
     
     public static void setTransmission(
     	MemorySegment settings,
@@ -182,13 +177,12 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	);
     }
     
-    
     public static int getDifferentialsCount(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIALS_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -198,11 +192,10 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     
     /// Typed method of [#getDifferentialsCount].
     public final int getDifferentialsCount() {
-    	return (int) getDifferentialsCount(
+    	return getDifferentialsCount(
     		this.segment
     	);
     }
-    
     
     public static void setDifferentialsCount(
     	MemorySegment settings,
@@ -228,7 +221,6 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     		count
     	);
     }
-    
     
     public static void getDifferential(
     	MemorySegment settings,
@@ -259,7 +251,6 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	);
     }
     
-    
     public static void setDifferential(
     	MemorySegment settings,
     	int index,
@@ -288,7 +279,6 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     		value.memorySegment()
     	);
     }
-    
     
     public static void setDifferentials(
     	MemorySegment settings,
@@ -319,7 +309,6 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	);
     }
     
-    
     public static void addDifferential(
     	MemorySegment settings,
     	int leftWheel,
@@ -349,13 +338,12 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     	);
     }
     
-    
     public static float getDifferentialLimitedSlipRatio(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEELED_VEHICLE_CONTROLLER_SETTINGS_GET_DIFFERENTIAL_LIMITED_SLIP_RATIO.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -365,11 +353,10 @@ public sealed class WheeledVehicleControllerSettings extends VehicleControllerSe
     
     /// Typed method of [#getDifferentialLimitedSlipRatio].
     public final float getDifferentialLimitedSlipRatio() {
-    	return (float) getDifferentialLimitedSlipRatio(
+    	return getDifferentialLimitedSlipRatio(
     		this.segment
     	);
     }
-    
     
     public static void setDifferentialLimitedSlipRatio(
     	MemorySegment settings,

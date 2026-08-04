@@ -248,16 +248,14 @@ public final class BodyCreationSettings {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static MemorySegment create2(
     	MemorySegment settings,
@@ -268,7 +266,7 @@ public final class BodyCreationSettings {
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_CREATE2.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			position,
     			rotation,
@@ -280,7 +278,6 @@ public final class BodyCreationSettings {
     	}
     }
     
-    
     public static MemorySegment create3(
     	MemorySegment shape,
     	MemorySegment position,
@@ -290,7 +287,7 @@ public final class BodyCreationSettings {
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_CREATE3.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape,
     			position,
     			rotation,
@@ -301,7 +298,6 @@ public final class BodyCreationSettings {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment settings
@@ -315,7 +311,6 @@ public final class BodyCreationSettings {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getPosition(
     	MemorySegment settings,
@@ -342,7 +337,6 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static void setPosition(
     	MemorySegment settings,
     	MemorySegment value
@@ -367,7 +361,6 @@ public final class BodyCreationSettings {
     		value.memorySegment()
     	);
     }
-    
     
     public static void getRotation(
     	MemorySegment settings,
@@ -394,7 +387,6 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static void setRotation(
     	MemorySegment settings,
     	MemorySegment value
@@ -419,7 +411,6 @@ public final class BodyCreationSettings {
     		value.memorySegment()
     	);
     }
-    
     
     public static void getLinearVelocity(
     	MemorySegment settings,
@@ -446,7 +437,6 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static void setLinearVelocity(
     	MemorySegment settings,
     	MemorySegment velocity
@@ -471,7 +461,6 @@ public final class BodyCreationSettings {
     		velocity.memorySegment()
     	);
     }
-    
     
     public static void getAngularVelocity(
     	MemorySegment settings,
@@ -498,7 +487,6 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static void setAngularVelocity(
     	MemorySegment settings,
     	MemorySegment velocity
@@ -524,13 +512,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static long getUserData(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -540,11 +527,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getUserData].
     public final long getUserData() {
-    	return (long) getUserData(
+    	return getUserData(
     		this.segment
     	);
     }
-    
     
     public static void setUserData(
     	MemorySegment settings,
@@ -571,13 +557,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static int getObjectLayer(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_OBJECT_LAYER.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -587,11 +572,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getObjectLayer].
     public final int getObjectLayer() {
-    	return (int) getObjectLayer(
+    	return getObjectLayer(
     		this.segment
     	);
     }
-    
     
     public static void setObjectLayer(
     	MemorySegment settings,
@@ -618,7 +602,6 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static void getCollisionGroup(
     	MemorySegment settings,
     	MemorySegment result
@@ -643,7 +626,6 @@ public final class BodyCreationSettings {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setCollisionGroup(
     	MemorySegment settings,
@@ -670,13 +652,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static int getMotionType(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_MOTION_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -686,11 +667,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getMotionType].
     public final int getMotionType() {
-    	return (int) getMotionType(
+    	return getMotionType(
     		this.segment
     	);
     }
-    
     
     public static void setMotionType(
     	MemorySegment settings,
@@ -717,13 +697,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static int getAllowedDOFs(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ALLOWED_DOFS.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -733,11 +712,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getAllowedDOFs].
     public final int getAllowedDOFs() {
-    	return (int) getAllowedDOFs(
+    	return getAllowedDOFs(
     		this.segment
     	);
     }
-    
     
     public static void setAllowedDOFs(
     	MemorySegment settings,
@@ -764,13 +742,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static boolean getAllowDynamicOrKinematic(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ALLOW_DYNAMIC_OR_KINEMATIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -780,11 +757,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getAllowDynamicOrKinematic].
     public final boolean getAllowDynamicOrKinematic() {
-    	return (boolean) getAllowDynamicOrKinematic(
+    	return getAllowDynamicOrKinematic(
     		this.segment
     	);
     }
-    
     
     public static void setAllowDynamicOrKinematic(
     	MemorySegment settings,
@@ -811,13 +787,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static boolean getIsSensor(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_IS_SENSOR.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -827,11 +802,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getIsSensor].
     public final boolean getIsSensor() {
-    	return (boolean) getIsSensor(
+    	return getIsSensor(
     		this.segment
     	);
     }
-    
     
     public static void setIsSensor(
     	MemorySegment settings,
@@ -858,13 +832,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static boolean getCollideKinematicVsNonDynamic(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_COLLIDE_KINEMATIC_VS_NON_DYNAMIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -874,11 +847,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getCollideKinematicVsNonDynamic].
     public final boolean getCollideKinematicVsNonDynamic() {
-    	return (boolean) getCollideKinematicVsNonDynamic(
+    	return getCollideKinematicVsNonDynamic(
     		this.segment
     	);
     }
-    
     
     public static void setCollideKinematicVsNonDynamic(
     	MemorySegment settings,
@@ -905,13 +877,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static boolean getUseManifoldReduction(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_USE_MANIFOLD_REDUCTION.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -921,11 +892,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getUseManifoldReduction].
     public final boolean getUseManifoldReduction() {
-    	return (boolean) getUseManifoldReduction(
+    	return getUseManifoldReduction(
     		this.segment
     	);
     }
-    
     
     public static void setUseManifoldReduction(
     	MemorySegment settings,
@@ -952,13 +922,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static boolean getApplyGyroscopicForce(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_APPLY_GYROSCOPIC_FORCE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -968,11 +937,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getApplyGyroscopicForce].
     public final boolean getApplyGyroscopicForce() {
-    	return (boolean) getApplyGyroscopicForce(
+    	return getApplyGyroscopicForce(
     		this.segment
     	);
     }
-    
     
     public static void setApplyGyroscopicForce(
     	MemorySegment settings,
@@ -999,13 +967,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static int getMotionQuality(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_MOTION_QUALITY.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1015,11 +982,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getMotionQuality].
     public final int getMotionQuality() {
-    	return (int) getMotionQuality(
+    	return getMotionQuality(
     		this.segment
     	);
     }
-    
     
     public static void setMotionQuality(
     	MemorySegment settings,
@@ -1046,13 +1012,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static boolean getEnhancedInternalEdgeRemoval(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ENHANCED_INTERNAL_EDGE_REMOVAL.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1062,11 +1027,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getEnhancedInternalEdgeRemoval].
     public final boolean getEnhancedInternalEdgeRemoval() {
-    	return (boolean) getEnhancedInternalEdgeRemoval(
+    	return getEnhancedInternalEdgeRemoval(
     		this.segment
     	);
     }
-    
     
     public static void setEnhancedInternalEdgeRemoval(
     	MemorySegment settings,
@@ -1093,13 +1057,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static boolean getAllowSleeping(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ALLOW_SLEEPING.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1109,11 +1072,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getAllowSleeping].
     public final boolean getAllowSleeping() {
-    	return (boolean) getAllowSleeping(
+    	return getAllowSleeping(
     		this.segment
     	);
     }
-    
     
     public static void setAllowSleeping(
     	MemorySegment settings,
@@ -1140,13 +1102,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getFriction(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_FRICTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1156,11 +1117,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getFriction].
     public final float getFriction() {
-    	return (float) getFriction(
+    	return getFriction(
     		this.segment
     	);
     }
-    
     
     public static void setFriction(
     	MemorySegment settings,
@@ -1187,13 +1147,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getRestitution(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_RESTITUTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1203,11 +1162,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getRestitution].
     public final float getRestitution() {
-    	return (float) getRestitution(
+    	return getRestitution(
     		this.segment
     	);
     }
-    
     
     public static void setRestitution(
     	MemorySegment settings,
@@ -1234,13 +1192,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getLinearDamping(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_LINEAR_DAMPING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1250,11 +1207,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getLinearDamping].
     public final float getLinearDamping() {
-    	return (float) getLinearDamping(
+    	return getLinearDamping(
     		this.segment
     	);
     }
-    
     
     public static void setLinearDamping(
     	MemorySegment settings,
@@ -1281,13 +1237,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getAngularDamping(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_ANGULAR_DAMPING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1297,11 +1252,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getAngularDamping].
     public final float getAngularDamping() {
-    	return (float) getAngularDamping(
+    	return getAngularDamping(
     		this.segment
     	);
     }
-    
     
     public static void setAngularDamping(
     	MemorySegment settings,
@@ -1328,13 +1282,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getMaxLinearVelocity(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_MAX_LINEAR_VELOCITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1344,11 +1297,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getMaxLinearVelocity].
     public final float getMaxLinearVelocity() {
-    	return (float) getMaxLinearVelocity(
+    	return getMaxLinearVelocity(
     		this.segment
     	);
     }
-    
     
     public static void setMaxLinearVelocity(
     	MemorySegment settings,
@@ -1375,13 +1327,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getMaxAngularVelocity(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_MAX_ANGULAR_VELOCITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1391,11 +1342,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getMaxAngularVelocity].
     public final float getMaxAngularVelocity() {
-    	return (float) getMaxAngularVelocity(
+    	return getMaxAngularVelocity(
     		this.segment
     	);
     }
-    
     
     public static void setMaxAngularVelocity(
     	MemorySegment settings,
@@ -1422,13 +1372,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getGravityFactor(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_GRAVITY_FACTOR.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1438,11 +1387,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getGravityFactor].
     public final float getGravityFactor() {
-    	return (float) getGravityFactor(
+    	return getGravityFactor(
     		this.segment
     	);
     }
-    
     
     public static void setGravityFactor(
     	MemorySegment settings,
@@ -1469,13 +1417,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static int getNumVelocityStepsOverride(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_NUM_VELOCITY_STEPS_OVERRIDE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1485,11 +1432,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getNumVelocityStepsOverride].
     public final int getNumVelocityStepsOverride() {
-    	return (int) getNumVelocityStepsOverride(
+    	return getNumVelocityStepsOverride(
     		this.segment
     	);
     }
-    
     
     public static void setNumVelocityStepsOverride(
     	MemorySegment settings,
@@ -1516,13 +1462,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static int getNumPositionStepsOverride(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_NUM_POSITION_STEPS_OVERRIDE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1532,11 +1477,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getNumPositionStepsOverride].
     public final int getNumPositionStepsOverride() {
-    	return (int) getNumPositionStepsOverride(
+    	return getNumPositionStepsOverride(
     		this.segment
     	);
     }
-    
     
     public static void setNumPositionStepsOverride(
     	MemorySegment settings,
@@ -1563,13 +1507,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static int getOverrideMassProperties(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_OVERRIDE_MASS_PROPERTIES.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1579,11 +1522,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getOverrideMassProperties].
     public final int getOverrideMassProperties() {
-    	return (int) getOverrideMassProperties(
+    	return getOverrideMassProperties(
     		this.segment
     	);
     }
-    
     
     public static void setOverrideMassProperties(
     	MemorySegment settings,
@@ -1610,13 +1552,12 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static float getInertiaMultiplier(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_CREATION_SETTINGS_GET_INERTIA_MULTIPLIER.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -1626,11 +1567,10 @@ public final class BodyCreationSettings {
     
     /// Typed method of [#getInertiaMultiplier].
     public final float getInertiaMultiplier() {
-    	return (float) getInertiaMultiplier(
+    	return getInertiaMultiplier(
     		this.segment
     	);
     }
-    
     
     public static void setInertiaMultiplier(
     	MemorySegment settings,
@@ -1657,7 +1597,6 @@ public final class BodyCreationSettings {
     	);
     }
     
-    
     public static void getMassPropertiesOverride(
     	MemorySegment settings,
     	MemorySegment result
@@ -1682,7 +1621,6 @@ public final class BodyCreationSettings {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setMassPropertiesOverride(
     	MemorySegment settings,

@@ -58,20 +58,18 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	int numObjectLayers
     ) {
     	MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_TABLE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			numObjectLayers
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void disableCollision(
     	MemorySegment objectFilter,
@@ -102,7 +100,6 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
     	);
     }
     
-    
     public static void enableCollision(
     	MemorySegment objectFilter,
     	int layer1,
@@ -132,7 +129,6 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
     	);
     }
     
-    
     public static boolean shouldCollide(
     	MemorySegment objectFilter,
     	int layer1,
@@ -140,7 +136,7 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
     ) {
     	MethodHandle method = JPH_OBJECT_LAYER_PAIR_FILTER_TABLE_SHOULD_COLLIDE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			objectFilter,
     			layer1,
     			layer2
@@ -155,7 +151,7 @@ public final class ObjectLayerPairFilterTable extends ObjectLayerPairFilter {
     	int layer1,
     	int layer2
     ) {
-    	return (boolean) shouldCollide(
+    	return shouldCollide(
     		this.segment,
     		layer1,
     		layer2

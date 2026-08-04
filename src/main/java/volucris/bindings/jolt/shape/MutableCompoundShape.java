@@ -64,20 +64,18 @@ public final class MutableCompoundShape extends CompoundShape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static int addShape(
     	MemorySegment shape,
@@ -89,7 +87,7 @@ public final class MutableCompoundShape extends CompoundShape {
     ) {
     	MethodHandle method = JPH_MUTABLE_COMPOUND_SHAPE_ADD_SHAPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape,
     			position,
     			rotation,
@@ -110,7 +108,7 @@ public final class MutableCompoundShape extends CompoundShape {
     	int userData,
     	int index
     ) {
-    	return (int) addShape(
+    	return addShape(
     		this.segment,
     		position.memorySegment(),
     		rotation.memorySegment(),
@@ -119,7 +117,6 @@ public final class MutableCompoundShape extends CompoundShape {
     		index
     	);
     }
-    
     
     public static void removeShape(
     	MemorySegment shape,
@@ -145,7 +142,6 @@ public final class MutableCompoundShape extends CompoundShape {
     		index
     	);
     }
-    
     
     public static void modifyShape(
     	MemorySegment shape,
@@ -179,7 +175,6 @@ public final class MutableCompoundShape extends CompoundShape {
     		rotation.memorySegment()
     	);
     }
-    
     
     public static void modifyShape2(
     	MemorySegment shape,
@@ -217,7 +212,6 @@ public final class MutableCompoundShape extends CompoundShape {
     		newShape.memorySegment()
     	);
     }
-    
     
     public static void adjustCenterOfMass(
     	MemorySegment shape

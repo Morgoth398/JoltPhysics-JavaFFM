@@ -66,7 +66,6 @@ public sealed class Constraint
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment constraint
     ) {
@@ -80,13 +79,12 @@ public sealed class Constraint
     	}
     }
     
-    
     public static int getType(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_GET_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -96,18 +94,17 @@ public sealed class Constraint
     
     /// Typed method of [#getType].
     public final int getType() {
-    	return (int) getType(
+    	return getType(
     		this.segment
     	);
     }
-    
     
     public static int getSubType(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_GET_SUB_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -117,18 +114,17 @@ public sealed class Constraint
     
     /// Typed method of [#getSubType].
     public final int getSubType() {
-    	return (int) getSubType(
+    	return getSubType(
     		this.segment
     	);
     }
-    
     
     public static int getConstraintPriority(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_GET_CONSTRAINT_PRIORITY.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -138,11 +134,10 @@ public sealed class Constraint
     
     /// Typed method of [#getConstraintPriority].
     public final int getConstraintPriority() {
-    	return (int) getConstraintPriority(
+    	return getConstraintPriority(
     		this.segment
     	);
     }
-    
     
     public static void setConstraintPriority(
     	MemorySegment constraint,
@@ -169,13 +164,12 @@ public sealed class Constraint
     	);
     }
     
-    
     public static int getNumVelocityStepsOverride(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_GET_NUM_VELOCITY_STEPS_OVERRIDE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -185,11 +179,10 @@ public sealed class Constraint
     
     /// Typed method of [#getNumVelocityStepsOverride].
     public final int getNumVelocityStepsOverride() {
-    	return (int) getNumVelocityStepsOverride(
+    	return getNumVelocityStepsOverride(
     		this.segment
     	);
     }
-    
     
     public static void setNumVelocityStepsOverride(
     	MemorySegment constraint,
@@ -216,13 +209,12 @@ public sealed class Constraint
     	);
     }
     
-    
     public static int getNumPositionStepsOverride(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_GET_NUM_POSITION_STEPS_OVERRIDE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -232,11 +224,10 @@ public sealed class Constraint
     
     /// Typed method of [#getNumPositionStepsOverride].
     public final int getNumPositionStepsOverride() {
-    	return (int) getNumPositionStepsOverride(
+    	return getNumPositionStepsOverride(
     		this.segment
     	);
     }
-    
     
     public static void setNumPositionStepsOverride(
     	MemorySegment constraint,
@@ -263,13 +254,12 @@ public sealed class Constraint
     	);
     }
     
-    
     public static boolean getEnabled(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_GET_ENABLED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -279,11 +269,10 @@ public sealed class Constraint
     
     /// Typed method of [#getEnabled].
     public final boolean getEnabled() {
-    	return (boolean) getEnabled(
+    	return getEnabled(
     		this.segment
     	);
     }
-    
     
     public static void setEnabled(
     	MemorySegment constraint,
@@ -310,13 +299,12 @@ public sealed class Constraint
     	);
     }
     
-    
     public static long getUserData(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_GET_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -326,11 +314,10 @@ public sealed class Constraint
     
     /// Typed method of [#getUserData].
     public final long getUserData() {
-    	return (long) getUserData(
+    	return getUserData(
     		this.segment
     	);
     }
-    
     
     public static void setUserData(
     	MemorySegment constraint,
@@ -356,7 +343,6 @@ public sealed class Constraint
     		userData
     	);
     }
-    
     
     public static void notifyShapeChanged(
     	MemorySegment constraint,
@@ -387,7 +373,6 @@ public sealed class Constraint
     	);
     }
     
-    
     public static void resetWarmStart(
     	MemorySegment constraint
     ) {
@@ -408,13 +393,12 @@ public sealed class Constraint
     	);
     }
     
-    
     public static boolean isActive(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_IS_ACTIVE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -424,11 +408,10 @@ public sealed class Constraint
     
     /// Typed method of [#isActive].
     public final boolean isActive() {
-    	return (boolean) isActive(
+    	return isActive(
     		this.segment
     	);
     }
-    
     
     public static void setupVelocityConstraint(
     	MemorySegment constraint,
@@ -455,7 +438,6 @@ public sealed class Constraint
     	);
     }
     
-    
     public static void warmStartVelocityConstraint(
     	MemorySegment constraint,
     	float warmStartImpulseRatio
@@ -481,14 +463,13 @@ public sealed class Constraint
     	);
     }
     
-    
     public static boolean solveVelocityConstraint(
     	MemorySegment constraint,
     	float deltaTime
     ) {
     	MethodHandle method = JPH_CONSTRAINT_SOLVE_VELOCITY_CONSTRAINT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint,
     			deltaTime
     		);
@@ -501,12 +482,11 @@ public sealed class Constraint
     public final boolean solveVelocityConstraint(
     	float deltaTime
     ) {
-    	return (boolean) solveVelocityConstraint(
+    	return solveVelocityConstraint(
     		this.segment,
     		deltaTime
     	);
     }
-    
     
     public static boolean solvePositionConstraint(
     	MemorySegment constraint,
@@ -515,7 +495,7 @@ public sealed class Constraint
     ) {
     	MethodHandle method = JPH_CONSTRAINT_SOLVE_POSITION_CONSTRAINT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint,
     			deltaTime,
     			baumgarte
@@ -530,7 +510,7 @@ public sealed class Constraint
     	float deltaTime,
     	float baumgarte
     ) {
-    	return (boolean) solvePositionConstraint(
+    	return solvePositionConstraint(
     		this.segment,
     		deltaTime,
     		baumgarte

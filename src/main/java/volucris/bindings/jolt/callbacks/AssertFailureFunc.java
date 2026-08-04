@@ -13,7 +13,6 @@ import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
-import volucris.bindings.core.NativeByteArray;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
@@ -62,17 +61,17 @@ public abstract class AssertFailureFunc {
         int line
     ) {
         return invoke(
-            new NativeByteArray(expression),
-            new NativeByteArray(message),
-            new NativeByteArray(file),
-		    line
+            expression.getString(0),
+            message.getString(0),
+            file.getString(0),
+            line
         );
     }
 
     public boolean invoke(
-        NativeByteArray expression,
-        NativeByteArray message,
-        NativeByteArray file,
+        String expression,
+        String message,
+        String file,
         int line
     ) {
         throw new UnsupportedOperationException(

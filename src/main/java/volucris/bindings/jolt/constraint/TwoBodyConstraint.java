@@ -43,13 +43,12 @@ public sealed class TwoBodyConstraint extends Constraint
     	super(segment);
     }
 
-    
     public static MemorySegment getBody1(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_TWO_BODY_CONSTRAINT_GET_BODY1.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -69,13 +68,12 @@ public sealed class TwoBodyConstraint extends Constraint
     	return new Body(segment);
     }
     
-    
     public static MemorySegment getBody2(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_TWO_BODY_CONSTRAINT_GET_BODY2.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -94,7 +92,6 @@ public sealed class TwoBodyConstraint extends Constraint
     	
     	return new Body(segment);
     }
-    
     
     public static void getConstraintToBody1Matrix(
     	MemorySegment constraint,
@@ -120,7 +117,6 @@ public sealed class TwoBodyConstraint extends Constraint
     		result.memorySegment()
     	);
     }
-    
     
     public static void getConstraintToBody2Matrix(
     	MemorySegment constraint,

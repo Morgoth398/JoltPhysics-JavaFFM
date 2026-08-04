@@ -94,7 +94,6 @@ public sealed class Shape
     	this.segment = segment;
     }
 
-    
     public static void draw(
     	MemorySegment shape,
     	MemorySegment renderer,
@@ -140,7 +139,6 @@ public sealed class Shape
     	);
     }
     
-    
     public static void destroy(
     	MemorySegment shape
     ) {
@@ -161,13 +159,12 @@ public sealed class Shape
     	);
     }
     
-    
     public static int getType(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_SHAPE_GET_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -177,18 +174,17 @@ public sealed class Shape
     
     /// Typed method of [#getType].
     public final int getType() {
-    	return (int) getType(
+    	return getType(
     		this.segment
     	);
     }
-    
     
     public static int getSubType(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_SHAPE_GET_SUB_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -198,18 +194,17 @@ public sealed class Shape
     
     /// Typed method of [#getSubType].
     public final int getSubType() {
-    	return (int) getSubType(
+    	return getSubType(
     		this.segment
     	);
     }
-    
     
     public static long getUserData(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_SHAPE_GET_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -219,11 +214,10 @@ public sealed class Shape
     
     /// Typed method of [#getUserData].
     public final long getUserData() {
-    	return (long) getUserData(
+    	return getUserData(
     		this.segment
     	);
     }
-    
     
     public static void setUserData(
     	MemorySegment shape,
@@ -250,13 +244,12 @@ public sealed class Shape
     	);
     }
     
-    
     public static boolean mustBeStatic(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_SHAPE_MUST_BE_STATIC.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -266,11 +259,10 @@ public sealed class Shape
     
     /// Typed method of [#mustBeStatic].
     public final boolean mustBeStatic() {
-    	return (boolean) mustBeStatic(
+    	return mustBeStatic(
     		this.segment
     	);
     }
-    
     
     public static void getCenterOfMass(
     	MemorySegment shape,
@@ -297,7 +289,6 @@ public sealed class Shape
     	);
     }
     
-    
     public static void getLocalBounds(
     	MemorySegment shape,
     	MemorySegment result
@@ -323,13 +314,12 @@ public sealed class Shape
     	);
     }
     
-    
     public static int getSubShapeIDBitsRecursive(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_SHAPE_GET_SUB_SHAPE_IDBITS_RECURSIVE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -339,11 +329,10 @@ public sealed class Shape
     
     /// Typed method of [#getSubShapeIDBitsRecursive].
     public final int getSubShapeIDBitsRecursive() {
-    	return (int) getSubShapeIDBitsRecursive(
+    	return getSubShapeIDBitsRecursive(
     		this.segment
     	);
     }
-    
     
     public static void getWorldSpaceBounds(
     	MemorySegment shape,
@@ -378,13 +367,12 @@ public sealed class Shape
     	);
     }
     
-    
     public static float getInnerRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_SHAPE_GET_INNER_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -394,11 +382,10 @@ public sealed class Shape
     
     /// Typed method of [#getInnerRadius].
     public final float getInnerRadius() {
-    	return (float) getInnerRadius(
+    	return getInnerRadius(
     		this.segment
     	);
     }
-    
     
     public static void getMassProperties(
     	MemorySegment shape,
@@ -425,7 +412,6 @@ public sealed class Shape
     	);
     }
     
-    
     public static MemorySegment getLeafShape(
     	MemorySegment shape,
     	int subShapeID,
@@ -433,7 +419,7 @@ public sealed class Shape
     ) {
     	MethodHandle method = JPH_SHAPE_GET_LEAF_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape,
     			subShapeID,
     			remainder
@@ -460,14 +446,13 @@ public sealed class Shape
     	return new Shape(segment);
     }
     
-    
     public static MemorySegment getMaterial(
     	MemorySegment shape,
     	int subShapeID
     ) {
     	MethodHandle method = JPH_SHAPE_GET_MATERIAL.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape,
     			subShapeID
     		);
@@ -490,7 +475,6 @@ public sealed class Shape
     	
     	return new PhysicsMaterial(segment);
     }
-    
     
     public static void getSurfaceNormal(
     	MemorySegment shape,
@@ -524,7 +508,6 @@ public sealed class Shape
     		normal.memorySegment()
     	);
     }
-    
     
     public static void getSupportingFace(
     	MemorySegment shape,
@@ -567,13 +550,12 @@ public sealed class Shape
     	);
     }
     
-    
     public static float getVolume(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_SHAPE_GET_VOLUME.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -583,11 +565,10 @@ public sealed class Shape
     
     /// Typed method of [#getVolume].
     public final float getVolume() {
-    	return (float) getVolume(
+    	return getVolume(
     		this.segment
     	);
     }
-    
     
     public static boolean isValidScale(
     	MemorySegment shape,
@@ -595,7 +576,7 @@ public sealed class Shape
     ) {
     	MethodHandle method = JPH_SHAPE_IS_VALID_SCALE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape,
     			scale
     		);
@@ -608,12 +589,11 @@ public sealed class Shape
     public final boolean isValidScale(
     	Vec3 scale
     ) {
-    	return (boolean) isValidScale(
+    	return isValidScale(
     		this.segment,
     		scale.memorySegment()
     	);
     }
-    
     
     public static void makeScaleValid(
     	MemorySegment shape,
@@ -644,14 +624,13 @@ public sealed class Shape
     	);
     }
     
-    
     public static MemorySegment scaleShape(
     	MemorySegment shape,
     	MemorySegment scale
     ) {
     	MethodHandle method = JPH_SHAPE_SCALE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape,
     			scale
     		);
@@ -675,7 +654,6 @@ public sealed class Shape
     	return new Shape(segment);
     }
     
-    
     public static boolean castRay(
     	MemorySegment shape,
     	MemorySegment origin,
@@ -684,7 +662,7 @@ public sealed class Shape
     ) {
     	MethodHandle method = JPH_SHAPE_CAST_RAY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape,
     			origin,
     			direction,
@@ -701,14 +679,13 @@ public sealed class Shape
     	Vec3 direction,
     	RayCastResult hit
     ) {
-    	return (boolean) castRay(
+    	return castRay(
     		this.segment,
     		origin.memorySegment(),
     		direction.memorySegment(),
     		hit.memorySegment()
     	);
     }
-    
     
     public static boolean castRay2(
     	MemorySegment shape,
@@ -722,7 +699,7 @@ public sealed class Shape
     ) {
     	MethodHandle method = JPH_SHAPE_CAST_RAY2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape,
     			origin,
     			direction,
@@ -747,7 +724,7 @@ public sealed class Shape
     	MemorySegment userData,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) castRay2(
+    	return castRay2(
     		this.segment,
     		origin.memorySegment(),
     		direction.memorySegment(),
@@ -759,7 +736,6 @@ public sealed class Shape
     	);
     }
     
-    
     public static boolean collidePoint(
     	MemorySegment shape,
     	MemorySegment point,
@@ -767,7 +743,7 @@ public sealed class Shape
     ) {
     	MethodHandle method = JPH_SHAPE_COLLIDE_POINT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape,
     			point,
     			shapeFilter
@@ -782,13 +758,12 @@ public sealed class Shape
     	Vec3 point,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) collidePoint(
+    	return collidePoint(
     		this.segment,
     		point.memorySegment(),
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static boolean collidePoint2(
     	MemorySegment shape,
@@ -800,7 +775,7 @@ public sealed class Shape
     ) {
     	MethodHandle method = JPH_SHAPE_COLLIDE_POINT2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			shape,
     			point,
     			collectorType,
@@ -821,7 +796,7 @@ public sealed class Shape
     	MemorySegment userData,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) collidePoint2(
+    	return collidePoint2(
     		this.segment,
     		point.memorySegment(),
     		collectorType,

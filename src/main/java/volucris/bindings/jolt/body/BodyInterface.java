@@ -194,7 +194,6 @@ public final class BodyInterface {
     	this.segment = segment;
     }
 
-    
     public static void destroyBody(
     	MemorySegment bodyInterface,
     	int bodyID
@@ -220,7 +219,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static int createAndAddBody(
     	MemorySegment bodyInterface,
     	MemorySegment settings,
@@ -228,7 +226,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_AND_ADD_BODY.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			bodyInterface,
     			settings,
     			activationMode
@@ -243,13 +241,12 @@ public final class BodyInterface {
     	BodyCreationSettings settings,
     	int activationMode
     ) {
-    	return (int) createAndAddBody(
+    	return createAndAddBody(
     		this.segment,
     		settings.memorySegment(),
     		activationMode
     	);
     }
-    
     
     public static MemorySegment createBody(
     	MemorySegment bodyInterface,
@@ -257,7 +254,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_BODY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			settings
     		);
@@ -281,7 +278,6 @@ public final class BodyInterface {
     	return new Body(segment);
     }
     
-    
     public static MemorySegment createBodyWithID(
     	MemorySegment bodyInterface,
     	int bodyID,
@@ -289,7 +285,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_BODY_WITH_ID.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			bodyID,
     			settings
@@ -316,14 +312,13 @@ public final class BodyInterface {
     	return new Body(segment);
     }
     
-    
     public static MemorySegment createBodyWithoutID(
     	MemorySegment bodyInterface,
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_BODY_WITHOUT_ID.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			settings
     		);
@@ -346,7 +341,6 @@ public final class BodyInterface {
     	
     	return new Body(segment);
     }
-    
     
     public static void destroyBodyWithoutID(
     	MemorySegment bodyInterface,
@@ -373,14 +367,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static boolean assignBodyID(
     	MemorySegment bodyInterface,
     	MemorySegment body
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_ASSIGN_BODY_ID.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			bodyInterface,
     			body
     		);
@@ -393,12 +386,11 @@ public final class BodyInterface {
     public final boolean assignBodyID(
     	Body body
     ) {
-    	return (boolean) assignBodyID(
+    	return assignBodyID(
     		this.segment,
     		body.memorySegment()
     	);
     }
-    
     
     public static boolean assignBodyID2(
     	MemorySegment bodyInterface,
@@ -407,7 +399,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_ASSIGN_BODY_ID2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			bodyInterface,
     			body,
     			bodyID
@@ -422,13 +414,12 @@ public final class BodyInterface {
     	Body body,
     	int bodyID
     ) {
-    	return (boolean) assignBodyID2(
+    	return assignBodyID2(
     		this.segment,
     		body.memorySegment(),
     		bodyID
     	);
     }
-    
     
     public static MemorySegment unassignBodyID(
     	MemorySegment bodyInterface,
@@ -436,7 +427,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_UNASSIGN_BODY_ID.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			bodyID
     		);
@@ -460,14 +451,13 @@ public final class BodyInterface {
     	return new Body(segment);
     }
     
-    
     public static MemorySegment createSoftBody(
     	MemorySegment bodyInterface,
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_SOFT_BODY.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			settings
     		);
@@ -491,7 +481,6 @@ public final class BodyInterface {
     	return new Body(segment);
     }
     
-    
     public static MemorySegment createSoftBodyWithID(
     	MemorySegment bodyInterface,
     	int bodyID,
@@ -499,7 +488,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_SOFT_BODY_WITH_ID.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			bodyID,
     			settings
@@ -526,14 +515,13 @@ public final class BodyInterface {
     	return new Body(segment);
     }
     
-    
     public static MemorySegment createSoftBodyWithoutID(
     	MemorySegment bodyInterface,
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_SOFT_BODY_WITHOUT_ID.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			settings
     		);
@@ -557,7 +545,6 @@ public final class BodyInterface {
     	return new Body(segment);
     }
     
-    
     public static int createAndAddSoftBody(
     	MemorySegment bodyInterface,
     	MemorySegment settings,
@@ -565,7 +552,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_CREATE_AND_ADD_SOFT_BODY.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			bodyInterface,
     			settings,
     			activationMode
@@ -580,13 +567,12 @@ public final class BodyInterface {
     	SoftBodyCreationSettings settings,
     	int activationMode
     ) {
-    	return (int) createAndAddSoftBody(
+    	return createAndAddSoftBody(
     		this.segment,
     		settings.memorySegment(),
     		activationMode
     	);
     }
-    
     
     public static void addBody(
     	MemorySegment bodyInterface,
@@ -617,7 +603,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void removeBody(
     	MemorySegment bodyInterface,
     	int bodyID
@@ -642,7 +627,6 @@ public final class BodyInterface {
     		bodyID
     	);
     }
-    
     
     public static void removeAndDestroyBody(
     	MemorySegment bodyInterface,
@@ -669,14 +653,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static boolean isAdded(
     	MemorySegment bodyInterface,
     	int bodyID
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_IS_ADDED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			bodyInterface,
     			bodyID
     		);
@@ -689,12 +672,11 @@ public final class BodyInterface {
     public final boolean isAdded(
     	int bodyID
     ) {
-    	return (boolean) isAdded(
+    	return isAdded(
     		this.segment,
     		bodyID
     	);
     }
-    
     
     public static int getBodyType(
     	MemorySegment bodyInterface,
@@ -702,7 +684,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_BODY_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			bodyInterface,
     			bodyID
     		);
@@ -715,12 +697,11 @@ public final class BodyInterface {
     public final int getBodyType(
     	int bodyID
     ) {
-    	return (int) getBodyType(
+    	return getBodyType(
     		this.segment,
     		bodyID
     	);
     }
-    
     
     public static void setLinearVelocity(
     	MemorySegment bodyInterface,
@@ -751,7 +732,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getLinearVelocity(
     	MemorySegment bodyInterface,
     	int bodyID,
@@ -780,7 +760,6 @@ public final class BodyInterface {
     		velocity.memorySegment()
     	);
     }
-    
     
     public static void getCenterOfMassPosition(
     	MemorySegment bodyInterface,
@@ -811,14 +790,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static int getMotionType(
     	MemorySegment bodyInterface,
     	int bodyID
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_MOTION_TYPE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			bodyInterface,
     			bodyID
     		);
@@ -831,12 +809,11 @@ public final class BodyInterface {
     public final int getMotionType(
     	int bodyID
     ) {
-    	return (int) getMotionType(
+    	return getMotionType(
     		this.segment,
     		bodyID
     	);
     }
-    
     
     public static void setMotionType(
     	MemorySegment bodyInterface,
@@ -871,14 +848,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static float getRestitution(
     	MemorySegment bodyInterface,
     	int bodyID
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_RESTITUTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			bodyInterface,
     			bodyID
     		);
@@ -891,12 +867,11 @@ public final class BodyInterface {
     public final float getRestitution(
     	int bodyID
     ) {
-    	return (float) getRestitution(
+    	return getRestitution(
     		this.segment,
     		bodyID
     	);
     }
-    
     
     public static void setRestitution(
     	MemorySegment bodyInterface,
@@ -927,14 +902,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static float getFriction(
     	MemorySegment bodyInterface,
     	int bodyID
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_FRICTION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			bodyInterface,
     			bodyID
     		);
@@ -947,12 +921,11 @@ public final class BodyInterface {
     public final float getFriction(
     	int bodyID
     ) {
-    	return (float) getFriction(
+    	return getFriction(
     		this.segment,
     		bodyID
     	);
     }
-    
     
     public static void setFriction(
     	MemorySegment bodyInterface,
@@ -982,7 +955,6 @@ public final class BodyInterface {
     		friction
     	);
     }
-    
     
     public static void setPosition(
     	MemorySegment bodyInterface,
@@ -1017,7 +989,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getPosition(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1046,7 +1017,6 @@ public final class BodyInterface {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setRotation(
     	MemorySegment bodyInterface,
@@ -1081,7 +1051,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getRotation(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1110,7 +1079,6 @@ public final class BodyInterface {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setPositionAndRotation(
     	MemorySegment bodyInterface,
@@ -1149,7 +1117,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void setPositionAndRotationWhenChanged(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1187,7 +1154,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getPositionAndRotation(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1220,7 +1186,6 @@ public final class BodyInterface {
     		rotation.memorySegment()
     	);
     }
-    
     
     public static void setPositionRotationAndVelocity(
     	MemorySegment bodyInterface,
@@ -1263,7 +1228,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getCollisionGroup(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1292,7 +1256,6 @@ public final class BodyInterface {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setCollisionGroup(
     	MemorySegment bodyInterface,
@@ -1323,14 +1286,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static MemorySegment getShape(
     	MemorySegment bodyInterface,
     	int bodyId
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			bodyId
     		);
@@ -1353,7 +1315,6 @@ public final class BodyInterface {
     	
     	return new Shape(segment);
     }
-    
     
     public static void setShape(
     	MemorySegment bodyInterface,
@@ -1392,7 +1353,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void notifyShapeChanged(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1430,7 +1390,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void activateBody(
     	MemorySegment bodyInterface,
     	int bodyId
@@ -1455,7 +1414,6 @@ public final class BodyInterface {
     		bodyId
     	);
     }
-    
     
     public static void activateBodies(
     	MemorySegment bodyInterface,
@@ -1485,7 +1443,6 @@ public final class BodyInterface {
     		count
     	);
     }
-    
     
     public static void activateBodiesInAABox(
     	MemorySegment bodyInterface,
@@ -1520,7 +1477,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void deactivateBody(
     	MemorySegment bodyInterface,
     	int bodyId
@@ -1545,7 +1501,6 @@ public final class BodyInterface {
     		bodyId
     	);
     }
-    
     
     public static void deactivateBodies(
     	MemorySegment bodyInterface,
@@ -1576,14 +1531,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static boolean isActive(
     	MemorySegment bodyInterface,
     	int bodyID
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_IS_ACTIVE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			bodyInterface,
     			bodyID
     		);
@@ -1596,12 +1550,11 @@ public final class BodyInterface {
     public final boolean isActive(
     	int bodyID
     ) {
-    	return (boolean) isActive(
+    	return isActive(
     		this.segment,
     		bodyID
     	);
     }
-    
     
     public static void resetSleepTimer(
     	MemorySegment bodyInterface,
@@ -1628,14 +1581,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static int getObjectLayer(
     	MemorySegment bodyInterface,
     	int bodyId
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_OBJECT_LAYER.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			bodyInterface,
     			bodyId
     		);
@@ -1648,12 +1600,11 @@ public final class BodyInterface {
     public final int getObjectLayer(
     	int bodyId
     ) {
-    	return (int) getObjectLayer(
+    	return getObjectLayer(
     		this.segment,
     		bodyId
     	);
     }
-    
     
     public static void setObjectLayer(
     	MemorySegment bodyInterface,
@@ -1684,7 +1635,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getWorldTransform(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1714,7 +1664,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getCenterOfMassTransform(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1743,7 +1692,6 @@ public final class BodyInterface {
     		result.memorySegment()
     	);
     }
-    
     
     public static void moveKinematic(
     	MemorySegment bodyInterface,
@@ -1782,7 +1730,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static boolean applyBuoyancyImpulse(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1797,7 +1744,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_APPLY_BUOYANCY_IMPULSE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			bodyInterface,
     			bodyId,
     			surfacePosition,
@@ -1826,7 +1773,7 @@ public final class BodyInterface {
     	Vec3 gravity,
     	float deltaTime
     ) {
-    	return (boolean) applyBuoyancyImpulse(
+    	return applyBuoyancyImpulse(
     		this.segment,
     		bodyId,
     		surfacePosition.memorySegment(),
@@ -1839,7 +1786,6 @@ public final class BodyInterface {
     		deltaTime
     	);
     }
-    
     
     public static void setLinearAndAngularVelocity(
     	MemorySegment bodyInterface,
@@ -1874,7 +1820,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getLinearAndAngularVelocity(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1908,7 +1853,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void addLinearVelocity(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -1937,7 +1881,6 @@ public final class BodyInterface {
     		linearVelocity.memorySegment()
     	);
     }
-    
     
     public static void addLinearAndAngularVelocity(
     	MemorySegment bodyInterface,
@@ -1972,7 +1915,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void setAngularVelocity(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -2002,7 +1944,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void getAngularVelocity(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -2031,7 +1972,6 @@ public final class BodyInterface {
     		angularVelocity.memorySegment()
     	);
     }
-    
     
     public static void getPointVelocity(
     	MemorySegment bodyInterface,
@@ -2066,7 +2006,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void addForce(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -2095,7 +2034,6 @@ public final class BodyInterface {
     		force.memorySegment()
     	);
     }
-    
     
     public static void addForce2(
     	MemorySegment bodyInterface,
@@ -2130,7 +2068,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void addTorque(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -2159,7 +2096,6 @@ public final class BodyInterface {
     		torque.memorySegment()
     	);
     }
-    
     
     public static void addForceAndTorque(
     	MemorySegment bodyInterface,
@@ -2194,7 +2130,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void addImpulse(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -2223,7 +2158,6 @@ public final class BodyInterface {
     		impulse.memorySegment()
     	);
     }
-    
     
     public static void addImpulse2(
     	MemorySegment bodyInterface,
@@ -2258,7 +2192,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void addAngularImpulse(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -2287,7 +2220,6 @@ public final class BodyInterface {
     		angularImpulse.memorySegment()
     	);
     }
-    
     
     public static void setMotionQuality(
     	MemorySegment bodyInterface,
@@ -2318,14 +2250,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static int getMotionQuality(
     	MemorySegment bodyInterface,
     	int bodyId
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_MOTION_QUALITY.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			bodyInterface,
     			bodyId
     		);
@@ -2338,12 +2269,11 @@ public final class BodyInterface {
     public final int getMotionQuality(
     	int bodyId
     ) {
-    	return (int) getMotionQuality(
+    	return getMotionQuality(
     		this.segment,
     		bodyId
     	);
     }
-    
     
     public static void getInverseInertia(
     	MemorySegment bodyInterface,
@@ -2374,7 +2304,6 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static void setGravityFactor(
     	MemorySegment bodyInterface,
     	int bodyId,
@@ -2404,14 +2333,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static float getGravityFactor(
     	MemorySegment bodyInterface,
     	int bodyId
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_GRAVITY_FACTOR.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			bodyInterface,
     			bodyId
     		);
@@ -2424,12 +2352,11 @@ public final class BodyInterface {
     public final float getGravityFactor(
     	int bodyId
     ) {
-    	return (float) getGravityFactor(
+    	return getGravityFactor(
     		this.segment,
     		bodyId
     	);
     }
-    
     
     public static void setUseManifoldReduction(
     	MemorySegment bodyInterface,
@@ -2460,14 +2387,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static boolean getUseManifoldReduction(
     	MemorySegment bodyInterface,
     	int bodyId
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_USE_MANIFOLD_REDUCTION.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			bodyInterface,
     			bodyId
     		);
@@ -2480,12 +2406,11 @@ public final class BodyInterface {
     public final boolean getUseManifoldReduction(
     	int bodyId
     ) {
-    	return (boolean) getUseManifoldReduction(
+    	return getUseManifoldReduction(
     		this.segment,
     		bodyId
     	);
     }
-    
     
     public static void setUserData(
     	MemorySegment bodyInterface,
@@ -2516,14 +2441,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static long getUserData(
     	MemorySegment bodyInterface,
     	int bodyId
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			bodyInterface,
     			bodyId
     		);
@@ -2536,12 +2460,11 @@ public final class BodyInterface {
     public final long getUserData(
     	int bodyId
     ) {
-    	return (long) getUserData(
+    	return getUserData(
     		this.segment,
     		bodyId
     	);
     }
-    
     
     public static void setIsSensor(
     	MemorySegment bodyInterface,
@@ -2572,14 +2495,13 @@ public final class BodyInterface {
     	);
     }
     
-    
     public static boolean isSensor(
     	MemorySegment bodyInterface,
     	int bodyId
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_IS_SENSOR.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			bodyInterface,
     			bodyId
     		);
@@ -2592,12 +2514,11 @@ public final class BodyInterface {
     public final boolean isSensor(
     	int bodyId
     ) {
-    	return (boolean) isSensor(
+    	return isSensor(
     		this.segment,
     		bodyId
     	);
     }
-    
     
     public static MemorySegment getMaterial(
     	MemorySegment bodyInterface,
@@ -2606,7 +2527,7 @@ public final class BodyInterface {
     ) {
     	MethodHandle method = JPH_BODY_INTERFACE_GET_MATERIAL.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			bodyInterface,
     			bodyId,
     			subShapeID
@@ -2632,7 +2553,6 @@ public final class BodyInterface {
     	
     	return new PhysicsMaterial(segment);
     }
-    
     
     public static void invalidateContactCache(
     	MemorySegment bodyInterface,

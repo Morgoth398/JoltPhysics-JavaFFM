@@ -96,7 +96,6 @@ public abstract class SimShapeFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
-    
     public static void setProcs(
     	MemorySegment procs
     ) {
@@ -110,20 +109,18 @@ public abstract class SimShapeFilter {
     	}
     }
     
-    
     public static MemorySegment create(
     	MemorySegment userData
     ) {
     	MethodHandle method = JPH_SIM_SHAPE_FILTER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			userData
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment filter

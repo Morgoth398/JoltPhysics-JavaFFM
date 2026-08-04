@@ -61,14 +61,13 @@ public final class BoxShape extends ConvexShape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment halfExtent,
     	float convexRadius
     ) {
     	MethodHandle method = JPH_BOX_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			halfExtent,
     			convexRadius
     		);
@@ -76,7 +75,6 @@ public final class BoxShape extends ConvexShape {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getHalfExtent(
     	MemorySegment shape,
@@ -103,13 +101,12 @@ public final class BoxShape extends ConvexShape {
     	);
     }
     
-    
     public static float getConvexRadius(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_BOX_SHAPE_GET_CONVEX_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -119,7 +116,7 @@ public final class BoxShape extends ConvexShape {
     
     /// Typed method of [#getConvexRadius].
     public final float getConvexRadius() {
-    	return (float) getConvexRadius(
+    	return getConvexRadius(
     		this.segment
     	);
     }

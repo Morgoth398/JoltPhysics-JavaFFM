@@ -57,9 +57,9 @@ public abstract class QueueJobCallback {
         MemorySegment arg
     ) {
         invoke(
-		    context,
+            context,
             JobFunction.get(job),
-		    arg
+            arg
         );
     }
 

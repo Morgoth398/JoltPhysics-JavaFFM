@@ -48,7 +48,6 @@ public class NarrowPhaseQuery {
     	this.segment = segment;
     }
 
-    
     public static boolean castRay(
     	MemorySegment query,
     	MemorySegment origin,
@@ -60,7 +59,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_RAY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			origin,
     			direction,
@@ -83,7 +82,7 @@ public class NarrowPhaseQuery {
     	ObjectLayerFilter objectLayerFilter,
     	BodyFilter bodyFilter
     ) {
-    	return (boolean) castRay(
+    	return castRay(
     		this.segment,
     		origin.memorySegment(),
     		direction.memorySegment(),
@@ -93,7 +92,6 @@ public class NarrowPhaseQuery {
     		bodyFilter.memorySegment()
     	);
     }
-    
     
     public static boolean castRay2(
     	MemorySegment query,
@@ -109,7 +107,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_RAY2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			origin,
     			direction,
@@ -138,7 +136,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) castRay2(
+    	return castRay2(
     		this.segment,
     		origin.memorySegment(),
     		direction.memorySegment(),
@@ -151,7 +149,6 @@ public class NarrowPhaseQuery {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static boolean castRay3(
     	MemorySegment query,
@@ -168,7 +165,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_RAY3.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			origin,
     			direction,
@@ -199,7 +196,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) castRay3(
+    	return castRay3(
     		this.segment,
     		origin.memorySegment(),
     		direction.memorySegment(),
@@ -214,7 +211,6 @@ public class NarrowPhaseQuery {
     	);
     }
     
-    
     public static boolean collidePoint(
     	MemorySegment query,
     	MemorySegment point,
@@ -227,7 +223,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_COLLIDE_POINT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			point,
     			callback,
@@ -252,7 +248,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) collidePoint(
+    	return collidePoint(
     		this.segment,
     		point.memorySegment(),
     		callback.memorySegment(),
@@ -263,7 +259,6 @@ public class NarrowPhaseQuery {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static boolean collidePoint2(
     	MemorySegment query,
@@ -278,7 +273,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_COLLIDE_POINT2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			point,
     			collectorType,
@@ -305,7 +300,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) collidePoint2(
+    	return collidePoint2(
     		this.segment,
     		point.memorySegment(),
     		collectorType,
@@ -317,7 +312,6 @@ public class NarrowPhaseQuery {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static boolean collideShape(
     	MemorySegment query,
@@ -335,7 +329,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_COLLIDE_SHAPE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			shape,
     			scale,
@@ -368,7 +362,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) collideShape(
+    	return collideShape(
     		this.segment,
     		shape.memorySegment(),
     		scale.memorySegment(),
@@ -383,7 +377,6 @@ public class NarrowPhaseQuery {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static boolean collideShape2(
     	MemorySegment query,
@@ -402,7 +395,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_COLLIDE_SHAPE2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			shape,
     			scale,
@@ -437,7 +430,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) collideShape2(
+    	return collideShape2(
     		this.segment,
     		shape.memorySegment(),
     		scale.memorySegment(),
@@ -453,7 +446,6 @@ public class NarrowPhaseQuery {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static boolean castShape(
     	MemorySegment query,
@@ -471,7 +463,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_SHAPE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			shape,
     			worldTransform,
@@ -504,7 +496,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) castShape(
+    	return castShape(
     		this.segment,
     		shape.memorySegment(),
     		worldTransform.memorySegment(),
@@ -519,7 +511,6 @@ public class NarrowPhaseQuery {
     		shapeFilter.memorySegment()
     	);
     }
-    
     
     public static boolean castShape2(
     	MemorySegment query,
@@ -538,7 +529,7 @@ public class NarrowPhaseQuery {
     ) {
     	MethodHandle method = JPH_NARROW_PHASE_QUERY_CAST_SHAPE2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			shape,
     			worldTransform,
@@ -573,7 +564,7 @@ public class NarrowPhaseQuery {
     	BodyFilter bodyFilter,
     	ShapeFilter shapeFilter
     ) {
-    	return (boolean) castShape2(
+    	return castShape2(
     		this.segment,
     		shape.memorySegment(),
     		worldTransform.memorySegment(),

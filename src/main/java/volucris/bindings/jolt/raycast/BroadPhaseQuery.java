@@ -37,7 +37,6 @@ public class BroadPhaseQuery {
     	this.segment = segment;
     }
 
-    
     public static boolean castRay(
     	MemorySegment query,
     	MemorySegment origin,
@@ -49,7 +48,7 @@ public class BroadPhaseQuery {
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			origin,
     			direction,
@@ -72,7 +71,7 @@ public class BroadPhaseQuery {
     	BroadPhaseLayerFilter broadPhaseLayerFilter,
     	ObjectLayerFilter objectLayerFilter
     ) {
-    	return (boolean) castRay(
+    	return castRay(
     		this.segment,
     		origin.memorySegment(),
     		direction.memorySegment(),
@@ -82,7 +81,6 @@ public class BroadPhaseQuery {
     		objectLayerFilter.memorySegment()
     	);
     }
-    
     
     public static boolean castRay2(
     	MemorySegment query,
@@ -96,7 +94,7 @@ public class BroadPhaseQuery {
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_QUERY_CAST_RAY2.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			origin,
     			direction,
@@ -121,7 +119,7 @@ public class BroadPhaseQuery {
     	BroadPhaseLayerFilter broadPhaseLayerFilter,
     	ObjectLayerFilter objectLayerFilter
     ) {
-    	return (boolean) castRay2(
+    	return castRay2(
     		this.segment,
     		origin.memorySegment(),
     		direction.memorySegment(),
@@ -133,7 +131,6 @@ public class BroadPhaseQuery {
     	);
     }
     
-    
     public static boolean collideAABox(
     	MemorySegment query,
     	MemorySegment box,
@@ -144,7 +141,7 @@ public class BroadPhaseQuery {
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_AABOX.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			box,
     			callback,
@@ -165,7 +162,7 @@ public class BroadPhaseQuery {
     	BroadPhaseLayerFilter broadPhaseLayerFilter,
     	ObjectLayerFilter objectLayerFilter
     ) {
-    	return (boolean) collideAABox(
+    	return collideAABox(
     		this.segment,
     		box.memorySegment(),
     		callback.memorySegment(),
@@ -174,7 +171,6 @@ public class BroadPhaseQuery {
     		objectLayerFilter.memorySegment()
     	);
     }
-    
     
     public static boolean collideSphere(
     	MemorySegment query,
@@ -187,7 +183,7 @@ public class BroadPhaseQuery {
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_SPHERE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			center,
     			radius,
@@ -210,7 +206,7 @@ public class BroadPhaseQuery {
     	BroadPhaseLayerFilter broadPhaseLayerFilter,
     	ObjectLayerFilter objectLayerFilter
     ) {
-    	return (boolean) collideSphere(
+    	return collideSphere(
     		this.segment,
     		center.memorySegment(),
     		radius,
@@ -220,7 +216,6 @@ public class BroadPhaseQuery {
     		objectLayerFilter.memorySegment()
     	);
     }
-    
     
     public static boolean collidePoint(
     	MemorySegment query,
@@ -232,7 +227,7 @@ public class BroadPhaseQuery {
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_QUERY_COLLIDE_POINT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			query,
     			point,
     			callback,
@@ -253,7 +248,7 @@ public class BroadPhaseQuery {
     	BroadPhaseLayerFilter broadPhaseLayerFilter,
     	ObjectLayerFilter objectLayerFilter
     ) {
-    	return (boolean) collidePoint(
+    	return collidePoint(
     		this.segment,
     		point.memorySegment(),
     		callback.memorySegment(),

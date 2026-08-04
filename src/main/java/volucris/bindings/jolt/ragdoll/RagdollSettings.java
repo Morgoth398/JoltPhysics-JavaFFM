@@ -83,16 +83,14 @@ public class RagdollSettings {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_RAGDOLL_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment settings
@@ -107,13 +105,12 @@ public class RagdollSettings {
     	}
     }
     
-    
     public static MemorySegment getSkeleton(
     	MemorySegment character
     ) {
     	MethodHandle method = JPH_RAGDOLL_SETTINGS_GET_SKELETON.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			character
     		);
     	} catch (Throwable e) {
@@ -132,7 +129,6 @@ public class RagdollSettings {
     	
     	return new Skeleton(segment);
     }
-    
     
     public static void setSkeleton(
     	MemorySegment character,
@@ -159,13 +155,12 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static boolean stabilize(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_RAGDOLL_SETTINGS_STABILIZE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -175,11 +170,10 @@ public class RagdollSettings {
     
     /// Typed method of [#stabilize].
     public final boolean stabilize() {
-    	return (boolean) stabilize(
+    	return stabilize(
     		this.segment
     	);
     }
-    
     
     public static void disableParentChildCollisions(
     	MemorySegment settings,
@@ -210,7 +204,6 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static void calculateBodyIndexToConstraintIndex(
     	MemorySegment settings
     ) {
@@ -231,14 +224,13 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static int getConstraintIndexForBodyIndex(
     	MemorySegment settings,
     	int bodyIndex
     ) {
     	MethodHandle method = JPH_RAGDOLL_SETTINGS_GET_CONSTRAINT_INDEX_FOR_BODY_INDEX.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings,
     			bodyIndex
     		);
@@ -251,12 +243,11 @@ public class RagdollSettings {
     public final int getConstraintIndexForBodyIndex(
     	int bodyIndex
     ) {
-    	return (int) getConstraintIndexForBodyIndex(
+    	return getConstraintIndexForBodyIndex(
     		this.segment,
     		bodyIndex
     	);
     }
-    
     
     public static void calculateConstraintIndexToBodyIdxPair(
     	MemorySegment settings
@@ -277,7 +268,6 @@ public class RagdollSettings {
     		this.segment
     	);
     }
-    
     
     public static void resizeParts(
     	MemorySegment settings,
@@ -304,13 +294,12 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static int getPartCount(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_RAGDOLL_SETTINGS_GET_PART_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -320,11 +309,10 @@ public class RagdollSettings {
     
     /// Typed method of [#getPartCount].
     public final int getPartCount() {
-    	return (int) getPartCount(
+    	return getPartCount(
     		this.segment
     	);
     }
-    
     
     public static void setPartShape(
     	MemorySegment settings,
@@ -355,7 +343,6 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static void setPartPosition(
     	MemorySegment settings,
     	int partIndex,
@@ -384,7 +371,6 @@ public class RagdollSettings {
     		position.memorySegment()
     	);
     }
-    
     
     public static void setPartRotation(
     	MemorySegment settings,
@@ -415,7 +401,6 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static void setPartMotionType(
     	MemorySegment settings,
     	int partIndex,
@@ -444,7 +429,6 @@ public class RagdollSettings {
     		motionType
     	);
     }
-    
     
     public static void setPartObjectLayer(
     	MemorySegment settings,
@@ -475,7 +459,6 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static void setPartMassProperties(
     	MemorySegment settings,
     	int partIndex,
@@ -504,7 +487,6 @@ public class RagdollSettings {
     		mass
     	);
     }
-    
     
     public static void setPartToParent(
     	MemorySegment settings,
@@ -535,7 +517,6 @@ public class RagdollSettings {
     	);
     }
     
-    
     public static MemorySegment createRagdoll(
     	MemorySegment settings,
     	MemorySegment system,
@@ -544,7 +525,7 @@ public class RagdollSettings {
     ) {
     	MethodHandle method = JPH_RAGDOLL_SETTINGS_CREATE_RAGDOLL.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			system,
     			collisionGroup,

@@ -76,7 +76,6 @@ public final class PointConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

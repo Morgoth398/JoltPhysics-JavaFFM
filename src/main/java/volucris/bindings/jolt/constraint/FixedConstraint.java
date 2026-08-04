@@ -67,7 +67,6 @@ public final class FixedConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -75,7 +74,7 @@ public final class FixedConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_FIXED_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -84,7 +83,6 @@ public final class FixedConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -111,7 +109,6 @@ public final class FixedConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getTotalLambdaPosition(
     	MemorySegment constraint,
     	MemorySegment result
@@ -136,7 +133,6 @@ public final class FixedConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getTotalLambdaRotation(
     	MemorySegment constraint,

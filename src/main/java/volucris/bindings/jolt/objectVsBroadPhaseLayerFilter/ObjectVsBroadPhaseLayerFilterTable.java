@@ -66,7 +66,6 @@ public final class ObjectVsBroadPhaseLayerFilterTable extends ObjectVsBroadPhase
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment broadPhaseLayerInterface,
     	int numBroadPhaseLayers,
@@ -75,7 +74,7 @@ public final class ObjectVsBroadPhaseLayerFilterTable extends ObjectVsBroadPhase
     ) {
     	MethodHandle method = JPH_OBJECT_VS_BROAD_PHASE_LAYER_FILTER_TABLE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			broadPhaseLayerInterface,
     			numBroadPhaseLayers,
     			objectLayerPairFilter,

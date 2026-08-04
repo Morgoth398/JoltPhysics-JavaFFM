@@ -57,13 +57,12 @@ public final class WheelWV extends Wheel {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_WV_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -71,13 +70,12 @@ public final class WheelWV extends Wheel {
     	}
     }
     
-    
     public static MemorySegment getSettings(
     	MemorySegment wheel
     ) {
     	MethodHandle method = JPH_WHEEL_WV_GET_SETTINGS.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			wheel
     		);
     	} catch (Throwable e) {
@@ -96,7 +94,6 @@ public final class WheelWV extends Wheel {
     	
     	return new WheelSettingsWV(segment);
     }
-    
     
     public static void applyTorque(
     	MemorySegment wheel,

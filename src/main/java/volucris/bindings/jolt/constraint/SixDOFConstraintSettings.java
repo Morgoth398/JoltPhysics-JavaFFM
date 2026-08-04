@@ -146,7 +146,6 @@ public final class SixDOFConstraintSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {
@@ -166,7 +165,6 @@ public final class SixDOFConstraintSettings
     		this.segment
     	);
     }
-    
     
     public static void makeFreeAxis(
     	MemorySegment settings,
@@ -193,14 +191,13 @@ public final class SixDOFConstraintSettings
     	);
     }
     
-    
     public static boolean isFreeAxis(
     	MemorySegment settings,
     	int axis
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FREE_AXIS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings,
     			axis
     		);
@@ -213,12 +210,11 @@ public final class SixDOFConstraintSettings
     public final boolean isFreeAxis(
     	int axis
     ) {
-    	return (boolean) isFreeAxis(
+    	return isFreeAxis(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static void makeFixedAxis(
     	MemorySegment settings,
@@ -245,14 +241,13 @@ public final class SixDOFConstraintSettings
     	);
     }
     
-    
     public static boolean isFixedAxis(
     	MemorySegment settings,
     	int axis
     ) {
     	MethodHandle method = JPH_SIX_DOFCONSTRAINT_SETTINGS_IS_FIXED_AXIS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings,
     			axis
     		);
@@ -265,12 +260,11 @@ public final class SixDOFConstraintSettings
     public final boolean isFixedAxis(
     	int axis
     ) {
-    	return (boolean) isFixedAxis(
+    	return isFixedAxis(
     		this.segment,
     		axis
     	);
     }
-    
     
     public static void setLimitedAxis(
     	MemorySegment settings,

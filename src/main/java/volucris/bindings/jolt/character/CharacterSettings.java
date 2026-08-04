@@ -85,7 +85,6 @@ public final class CharacterSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

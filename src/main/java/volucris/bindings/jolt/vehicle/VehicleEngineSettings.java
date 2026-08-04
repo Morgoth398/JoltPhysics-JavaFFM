@@ -85,7 +85,6 @@ public final class VehicleEngineSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

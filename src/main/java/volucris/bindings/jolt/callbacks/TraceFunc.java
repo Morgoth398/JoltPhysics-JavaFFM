@@ -13,7 +13,6 @@ import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
-import volucris.bindings.core.NativeByteArray;
 
 import static volucris.bindings.core.FFMUtils.*;
 
@@ -54,12 +53,12 @@ public abstract class TraceFunc {
         MemorySegment message
     ) {
         invoke(
-            new NativeByteArray(message)
+            message.getString(0)
         );
     }
 
     public void invoke(
-        NativeByteArray message
+        String message
     ) {
         throw new UnsupportedOperationException(
             "Override either the typed or raw callback method in TraceFunc."

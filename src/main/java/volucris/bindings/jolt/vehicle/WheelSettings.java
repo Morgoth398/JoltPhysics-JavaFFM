@@ -98,16 +98,14 @@ public sealed class WheelSettings
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_WHEEL_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment settings
@@ -121,7 +119,6 @@ public sealed class WheelSettings
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getPosition(
     	MemorySegment settings,
@@ -148,7 +145,6 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static void setPosition(
     	MemorySegment settings,
     	MemorySegment value
@@ -173,7 +169,6 @@ public sealed class WheelSettings
     		value.memorySegment()
     	);
     }
-    
     
     public static void getSuspensionForcePoint(
     	MemorySegment settings,
@@ -200,7 +195,6 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static void setSuspensionForcePoint(
     	MemorySegment settings,
     	MemorySegment value
@@ -225,7 +219,6 @@ public sealed class WheelSettings
     		value.memorySegment()
     	);
     }
-    
     
     public static void getSuspensionDirection(
     	MemorySegment settings,
@@ -252,7 +245,6 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static void setSuspensionDirection(
     	MemorySegment settings,
     	MemorySegment value
@@ -277,7 +269,6 @@ public sealed class WheelSettings
     		value.memorySegment()
     	);
     }
-    
     
     public static void getSteeringAxis(
     	MemorySegment settings,
@@ -304,7 +295,6 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static void setSteeringAxis(
     	MemorySegment settings,
     	MemorySegment value
@@ -329,7 +319,6 @@ public sealed class WheelSettings
     		value.memorySegment()
     	);
     }
-    
     
     public static void getWheelUp(
     	MemorySegment settings,
@@ -356,7 +345,6 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static void setWheelUp(
     	MemorySegment settings,
     	MemorySegment value
@@ -381,7 +369,6 @@ public sealed class WheelSettings
     		value.memorySegment()
     	);
     }
-    
     
     public static void getWheelForward(
     	MemorySegment settings,
@@ -408,7 +395,6 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static void setWheelForward(
     	MemorySegment settings,
     	MemorySegment value
@@ -434,13 +420,12 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static float getSuspensionMinLength(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MIN_LENGTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -450,11 +435,10 @@ public sealed class WheelSettings
     
     /// Typed method of [#getSuspensionMinLength].
     public final float getSuspensionMinLength() {
-    	return (float) getSuspensionMinLength(
+    	return getSuspensionMinLength(
     		this.segment
     	);
     }
-    
     
     public static void setSuspensionMinLength(
     	MemorySegment settings,
@@ -481,13 +465,12 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static float getSuspensionMaxLength(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_MAX_LENGTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -497,11 +480,10 @@ public sealed class WheelSettings
     
     /// Typed method of [#getSuspensionMaxLength].
     public final float getSuspensionMaxLength() {
-    	return (float) getSuspensionMaxLength(
+    	return getSuspensionMaxLength(
     		this.segment
     	);
     }
-    
     
     public static void setSuspensionMaxLength(
     	MemorySegment settings,
@@ -528,13 +510,12 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static float getSuspensionPreloadLength(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_GET_SUSPENSION_PRELOAD_LENGTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -544,11 +525,10 @@ public sealed class WheelSettings
     
     /// Typed method of [#getSuspensionPreloadLength].
     public final float getSuspensionPreloadLength() {
-    	return (float) getSuspensionPreloadLength(
+    	return getSuspensionPreloadLength(
     		this.segment
     	);
     }
-    
     
     public static void setSuspensionPreloadLength(
     	MemorySegment settings,
@@ -575,7 +555,6 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static void getSuspensionSpring(
     	MemorySegment settings,
     	MemorySegment result
@@ -600,7 +579,6 @@ public sealed class WheelSettings
     		result.memorySegment()
     	);
     }
-    
     
     public static void setSuspensionSpring(
     	MemorySegment settings,
@@ -627,13 +605,12 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static float getRadius(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_GET_RADIUS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -643,11 +620,10 @@ public sealed class WheelSettings
     
     /// Typed method of [#getRadius].
     public final float getRadius() {
-    	return (float) getRadius(
+    	return getRadius(
     		this.segment
     	);
     }
-    
     
     public static void setRadius(
     	MemorySegment settings,
@@ -674,13 +650,12 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static float getWidth(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_GET_WIDTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -690,11 +665,10 @@ public sealed class WheelSettings
     
     /// Typed method of [#getWidth].
     public final float getWidth() {
-    	return (float) getWidth(
+    	return getWidth(
     		this.segment
     	);
     }
-    
     
     public static void setWidth(
     	MemorySegment settings,
@@ -721,13 +695,12 @@ public sealed class WheelSettings
     	);
     }
     
-    
     public static boolean getEnableSuspensionForcePoint(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_GET_ENABLE_SUSPENSION_FORCE_POINT.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -737,11 +710,10 @@ public sealed class WheelSettings
     
     /// Typed method of [#getEnableSuspensionForcePoint].
     public final boolean getEnableSuspensionForcePoint() {
-    	return (boolean) getEnableSuspensionForcePoint(
+    	return getEnableSuspensionForcePoint(
     		this.segment
     	);
     }
-    
     
     public static void setEnableSuspensionForcePoint(
     	MemorySegment settings,

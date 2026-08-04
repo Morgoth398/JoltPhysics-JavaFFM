@@ -104,7 +104,6 @@ public abstract class BodyActivationListener {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
-    
     public static void setProcs(
     	MemorySegment procs
     ) {
@@ -118,20 +117,18 @@ public abstract class BodyActivationListener {
     	}
     }
     
-    
     public static MemorySegment create(
     	MemorySegment userData
     ) {
     	MethodHandle method = JPH_BODY_ACTIVATION_LISTENER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			userData
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment listener

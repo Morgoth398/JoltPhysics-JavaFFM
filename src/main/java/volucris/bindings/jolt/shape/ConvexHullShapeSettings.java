@@ -64,7 +64,6 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment points,
     	int pointsCount,
@@ -72,7 +71,7 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
     ) {
     	MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			points,
     			pointsCount,
     			maxConvexRadius
@@ -82,13 +81,12 @@ public final class ConvexHullShapeSettings extends ConvexShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_CONVEX_HULL_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

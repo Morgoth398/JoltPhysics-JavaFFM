@@ -58,14 +58,13 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment offset,
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_OFFSET_CENTER_OF_MASS_SHAPE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			offset,
     			shape
     		);
@@ -73,7 +72,6 @@ public final class OffsetCenterOfMassShape extends DecoratedShape {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getOffset(
     	MemorySegment shape,

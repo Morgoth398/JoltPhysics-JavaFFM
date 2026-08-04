@@ -57,16 +57,14 @@ public class SkeletonMapper {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_SKELETON_MAPPER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment mapper
@@ -80,7 +78,6 @@ public class SkeletonMapper {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void initialize(
     	MemorySegment mapper,
@@ -119,7 +116,6 @@ public class SkeletonMapper {
     	);
     }
     
-    
     public static void lockAllTranslations(
     	MemorySegment mapper,
     	MemorySegment skeleton2,
@@ -148,7 +144,6 @@ public class SkeletonMapper {
     		neutralPose2.memorySegment()
     	);
     }
-    
     
     public static void lockTranslations(
     	MemorySegment mapper,
@@ -183,7 +178,6 @@ public class SkeletonMapper {
     	);
     }
     
-    
     public static void map(
     	MemorySegment mapper,
     	MemorySegment pose1ModelSpace,
@@ -217,7 +211,6 @@ public class SkeletonMapper {
     	);
     }
     
-    
     public static void mapReverse(
     	MemorySegment mapper,
     	MemorySegment pose2ModelSpace,
@@ -247,14 +240,13 @@ public class SkeletonMapper {
     	);
     }
     
-    
     public static int getMappedJointIndex(
     	MemorySegment mapper,
     	int joint1Index
     ) {
     	MethodHandle method = JPH_SKELETON_MAPPER_GET_MAPPED_JOINT_INDEX.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			mapper,
     			joint1Index
     		);
@@ -267,12 +259,11 @@ public class SkeletonMapper {
     public final int getMappedJointIndex(
     	int joint1Index
     ) {
-    	return (int) getMappedJointIndex(
+    	return getMappedJointIndex(
     		this.segment,
     		joint1Index
     	);
     }
-    
     
     public static boolean isJointTranslationLocked(
     	MemorySegment mapper,
@@ -280,7 +271,7 @@ public class SkeletonMapper {
     ) {
     	MethodHandle method = JPH_SKELETON_MAPPER_IS_JOINT_TRANSLATION_LOCKED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			mapper,
     			joint2Index
     		);
@@ -293,7 +284,7 @@ public class SkeletonMapper {
     public final boolean isJointTranslationLocked(
     	int joint2Index
     ) {
-    	return (boolean) isJointTranslationLocked(
+    	return isJointTranslationLocked(
     		this.segment,
     		joint2Index
     	);

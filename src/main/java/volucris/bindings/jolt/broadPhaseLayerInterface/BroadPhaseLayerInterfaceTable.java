@@ -58,14 +58,13 @@ public final class BroadPhaseLayerInterfaceTable extends BroadPhaseLayerInterfac
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	int numObjectLayers,
     	int numBroadPhaseLayers
     ) {
     	MethodHandle method = JPH_BROAD_PHASE_LAYER_INTERFACE_TABLE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			numObjectLayers,
     			numBroadPhaseLayers
     		);
@@ -73,7 +72,6 @@ public final class BroadPhaseLayerInterfaceTable extends BroadPhaseLayerInterfac
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void mapObjectToBroadPhaseLayer(
     	MemorySegment bpInterface,

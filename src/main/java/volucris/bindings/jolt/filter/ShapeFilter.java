@@ -114,7 +114,6 @@ public abstract class ShapeFilter {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
-    
     public static void setProcs(
     	MemorySegment procs
     ) {
@@ -128,20 +127,18 @@ public abstract class ShapeFilter {
     	}
     }
     
-    
     public static MemorySegment create(
     	MemorySegment userData
     ) {
     	MethodHandle method = JPH_SHAPE_FILTER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			userData
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment filter
@@ -156,13 +153,12 @@ public abstract class ShapeFilter {
     	}
     }
     
-    
     public static int getBodyID2(
     	MemorySegment filter
     ) {
     	MethodHandle method = JPH_SHAPE_FILTER_GET_BODY_ID2.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			filter
     		);
     	} catch (Throwable e) {
@@ -172,11 +168,10 @@ public abstract class ShapeFilter {
     
     /// Typed method of [#getBodyID2].
     public final int getBodyID2() {
-    	return (int) getBodyID2(
+    	return getBodyID2(
     		this.segment
     	);
     }
-    
     
     public static void setBodyID2(
     	MemorySegment filter,

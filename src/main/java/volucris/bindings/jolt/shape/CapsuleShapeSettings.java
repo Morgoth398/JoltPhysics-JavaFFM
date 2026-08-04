@@ -59,14 +59,13 @@ public final class CapsuleShapeSettings extends ConvexShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	float halfHeightOfCylinder,
     	float radius
     ) {
     	MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			halfHeightOfCylinder,
     			radius
     		);
@@ -75,13 +74,12 @@ public final class CapsuleShapeSettings extends ConvexShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_CAPSULE_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

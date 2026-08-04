@@ -38,7 +38,6 @@ public final class ContactManifold {
     	this.segment = segment;
     }
 
-    
     public static void getWorldSpaceNormal(
     	MemorySegment manifold,
     	MemorySegment result
@@ -64,13 +63,12 @@ public final class ContactManifold {
     	);
     }
     
-    
     public static float getPenetrationDepth(
     	MemorySegment manifold
     ) {
     	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_PENETRATION_DEPTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			manifold
     		);
     	} catch (Throwable e) {
@@ -80,18 +78,17 @@ public final class ContactManifold {
     
     /// Typed method of [#getPenetrationDepth].
     public final float getPenetrationDepth() {
-    	return (float) getPenetrationDepth(
+    	return getPenetrationDepth(
     		this.segment
     	);
     }
-    
     
     public static int getSubShapeID1(
     	MemorySegment manifold
     ) {
     	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID1.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			manifold
     		);
     	} catch (Throwable e) {
@@ -101,18 +98,17 @@ public final class ContactManifold {
     
     /// Typed method of [#getSubShapeID1].
     public final int getSubShapeID1() {
-    	return (int) getSubShapeID1(
+    	return getSubShapeID1(
     		this.segment
     	);
     }
-    
     
     public static int getSubShapeID2(
     	MemorySegment manifold
     ) {
     	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_SUB_SHAPE_ID2.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			manifold
     		);
     	} catch (Throwable e) {
@@ -122,18 +118,17 @@ public final class ContactManifold {
     
     /// Typed method of [#getSubShapeID2].
     public final int getSubShapeID2() {
-    	return (int) getSubShapeID2(
+    	return getSubShapeID2(
     		this.segment
     	);
     }
-    
     
     public static int getPointCount(
     	MemorySegment manifold
     ) {
     	MethodHandle method = JPH_CONTACT_MANIFOLD_GET_POINT_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			manifold
     		);
     	} catch (Throwable e) {
@@ -143,11 +138,10 @@ public final class ContactManifold {
     
     /// Typed method of [#getPointCount].
     public final int getPointCount() {
-    	return (int) getPointCount(
+    	return getPointCount(
     		this.segment
     	);
     }
-    
     
     public static void getWorldSpaceContactPointOn1(
     	MemorySegment manifold,
@@ -177,7 +171,6 @@ public final class ContactManifold {
     		result.memorySegment()
     	);
     }
-    
     
     public static void getWorldSpaceContactPointOn2(
     	MemorySegment manifold,

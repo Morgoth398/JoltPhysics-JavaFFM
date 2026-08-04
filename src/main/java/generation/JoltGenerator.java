@@ -11,6 +11,7 @@
 //import java.util.List;
 //import java.util.Map;
 //
+//import edu.umd.cs.findbugs.annotations.Nullable;
 //import freemarker.template.Template;
 //import volucris.bindings.generator.config.GlobalConfig;
 //import volucris.bindings.generator.config.CallbacksConfig.CallbackConfig;
@@ -156,6 +157,8 @@
 //
 //		HashSet<String> imports = new HashSet<String>();
 //		infos.forEach(info -> imports.addAll((Collection<String>) info.getImports()));
+//		imports.remove(Nullable.class.getCanonicalName());
+//		imports.remove(Map.class.getCanonicalName());
 //		
 //		HashSet<String> staticImports = new HashSet<String>();
 //		infos.forEach(info -> staticImports.addAll((Collection<String>) info.getStaticImports()));

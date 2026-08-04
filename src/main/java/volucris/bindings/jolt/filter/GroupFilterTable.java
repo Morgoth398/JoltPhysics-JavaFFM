@@ -58,20 +58,18 @@ public final class GroupFilterTable extends GroupFilter {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	int numSubGroups
     ) {
     	MethodHandle method = JPH_GROUP_FILTER_TABLE_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			numSubGroups
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void disableCollision(
     	MemorySegment table,
@@ -102,7 +100,6 @@ public final class GroupFilterTable extends GroupFilter {
     	);
     }
     
-    
     public static void enableCollision(
     	MemorySegment table,
     	int subGroup1,
@@ -132,7 +129,6 @@ public final class GroupFilterTable extends GroupFilter {
     	);
     }
     
-    
     public static boolean isCollisionEnabled(
     	MemorySegment table,
     	int subGroup1,
@@ -140,7 +136,7 @@ public final class GroupFilterTable extends GroupFilter {
     ) {
     	MethodHandle method = JPH_GROUP_FILTER_TABLE_IS_COLLISION_ENABLED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			table,
     			subGroup1,
     			subGroup2
@@ -155,7 +151,7 @@ public final class GroupFilterTable extends GroupFilter {
     	int subGroup1,
     	int subGroup2
     ) {
-    	return (boolean) isCollisionEnabled(
+    	return isCollisionEnabled(
     		this.segment,
     		subGroup1,
     		subGroup2

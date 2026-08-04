@@ -61,16 +61,14 @@ public class SkeletalAnimation {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_SKELETAL_ANIMATION_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment animation
@@ -85,13 +83,12 @@ public class SkeletalAnimation {
     	}
     }
     
-    
     public static float getDuration(
     	MemorySegment animation
     ) {
     	MethodHandle method = JPH_SKELETAL_ANIMATION_GET_DURATION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			animation
     		);
     	} catch (Throwable e) {
@@ -101,18 +98,17 @@ public class SkeletalAnimation {
     
     /// Typed method of [#getDuration].
     public final float getDuration() {
-    	return (float) getDuration(
+    	return getDuration(
     		this.segment
     	);
     }
-    
     
     public static boolean isLooping(
     	MemorySegment animation
     ) {
     	MethodHandle method = JPH_SKELETAL_ANIMATION_IS_LOOPING.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			animation
     		);
     	} catch (Throwable e) {
@@ -122,11 +118,10 @@ public class SkeletalAnimation {
     
     /// Typed method of [#isLooping].
     public final boolean isLooping() {
-    	return (boolean) isLooping(
+    	return isLooping(
     		this.segment
     	);
     }
-    
     
     public static void setIsLooping(
     	MemorySegment animation,
@@ -153,7 +148,6 @@ public class SkeletalAnimation {
     	);
     }
     
-    
     public static void scaleJoints(
     	MemorySegment animation,
     	float scale
@@ -178,7 +172,6 @@ public class SkeletalAnimation {
     		scale
     	);
     }
-    
     
     public static void sample(
     	MemorySegment animation,
@@ -209,13 +202,12 @@ public class SkeletalAnimation {
     	);
     }
     
-    
     public static int getAnimatedJointCount(
     	MemorySegment animation
     ) {
     	MethodHandle method = JPH_SKELETAL_ANIMATION_GET_ANIMATED_JOINT_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			animation
     		);
     	} catch (Throwable e) {
@@ -225,11 +217,10 @@ public class SkeletalAnimation {
     
     /// Typed method of [#getAnimatedJointCount].
     public final int getAnimatedJointCount() {
-    	return (int) getAnimatedJointCount(
+    	return getAnimatedJointCount(
     		this.segment
     	);
     }
-    
     
     public static void addAnimatedJoint(
     	MemorySegment animation,
@@ -255,7 +246,6 @@ public class SkeletalAnimation {
     		jointName.memorySegment()
     	);
     }
-    
     
     public static void addKeyframe(
     	MemorySegment animation,

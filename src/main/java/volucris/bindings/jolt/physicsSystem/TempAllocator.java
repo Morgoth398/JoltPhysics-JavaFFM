@@ -68,13 +68,12 @@ public final class TempAllocator {
     	this.segment = segment;
     }
 
-    
     public static MemorySegment create(
     	int size
     ) {
     	MethodHandle method = JPH_TEMP_ALLOCATOR_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			size
     		);
     	} catch (Throwable e) {
@@ -82,16 +81,14 @@ public final class TempAllocator {
     	}
     }
     
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_TEMP_ALLOCATOR_MALLOC_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment allocator

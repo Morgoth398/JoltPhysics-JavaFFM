@@ -69,7 +69,6 @@ public final class CollideShapeSettings
         init();
     }
 
-    
     public static void init(
     	MemorySegment settings
     ) {

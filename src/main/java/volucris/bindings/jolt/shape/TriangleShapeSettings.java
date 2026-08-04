@@ -68,7 +68,6 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment v1,
     	MemorySegment v2,
@@ -77,7 +76,7 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
     ) {
     	MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			v1,
     			v2,
     			v3,
@@ -88,13 +87,12 @@ public final class TriangleShapeSettings extends ConvexShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_TRIANGLE_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

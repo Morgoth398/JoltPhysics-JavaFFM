@@ -106,7 +106,6 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	MemorySegment settings,
     	MemorySegment body1,
@@ -114,7 +113,7 @@ public final class SliderConstraint extends TwoBodyConstraint {
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings,
     			body1,
     			body2
@@ -123,7 +122,6 @@ public final class SliderConstraint extends TwoBodyConstraint {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void getSettings(
     	MemorySegment constraint,
@@ -150,13 +148,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getCurrentPosition(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_CURRENT_POSITION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -166,11 +163,10 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getCurrentPosition].
     public final float getCurrentPosition() {
-    	return (float) getCurrentPosition(
+    	return getCurrentPosition(
     		this.segment
     	);
     }
-    
     
     public static void setMaxFrictionForce(
     	MemorySegment constraint,
@@ -197,13 +193,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getMaxFrictionForce(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_MAX_FRICTION_FORCE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -213,11 +208,10 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getMaxFrictionForce].
     public final float getMaxFrictionForce() {
-    	return (float) getMaxFrictionForce(
+    	return getMaxFrictionForce(
     		this.segment
     	);
     }
-    
     
     public static void setMotorSettings(
     	MemorySegment constraint,
@@ -244,7 +238,6 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void getMotorSettings(
     	MemorySegment constraint,
     	MemorySegment result
@@ -269,7 +262,6 @@ public final class SliderConstraint extends TwoBodyConstraint {
     		result.memorySegment()
     	);
     }
-    
     
     public static void setMotorState(
     	MemorySegment constraint,
@@ -296,13 +288,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static int getMotorState(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_MOTOR_STATE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -312,11 +303,10 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getMotorState].
     public final int getMotorState() {
-    	return (int) getMotorState(
+    	return getMotorState(
     		this.segment
     	);
     }
-    
     
     public static void setTargetVelocity(
     	MemorySegment constraint,
@@ -343,13 +333,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTargetVelocity(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TARGET_VELOCITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -359,11 +348,10 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTargetVelocity].
     public final float getTargetVelocity() {
-    	return (float) getTargetVelocity(
+    	return getTargetVelocity(
     		this.segment
     	);
     }
-    
     
     public static void setTargetPosition(
     	MemorySegment constraint,
@@ -390,13 +378,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTargetPosition(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TARGET_POSITION.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -406,11 +393,10 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTargetPosition].
     public final float getTargetPosition() {
-    	return (float) getTargetPosition(
+    	return getTargetPosition(
     		this.segment
     	);
     }
-    
     
     public static void setLimits(
     	MemorySegment constraint,
@@ -441,13 +427,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getLimitsMin(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_LIMITS_MIN.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -457,18 +442,17 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getLimitsMin].
     public final float getLimitsMin() {
-    	return (float) getLimitsMin(
+    	return getLimitsMin(
     		this.segment
     	);
     }
-    
     
     public static float getLimitsMax(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_LIMITS_MAX.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -478,18 +462,17 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getLimitsMax].
     public final float getLimitsMax() {
-    	return (float) getLimitsMax(
+    	return getLimitsMax(
     		this.segment
     	);
     }
-    
     
     public static boolean hasLimits(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_HAS_LIMITS.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -499,11 +482,10 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#hasLimits].
     public final boolean hasLimits() {
-    	return (boolean) hasLimits(
+    	return hasLimits(
     		this.segment
     	);
     }
-    
     
     public static void getLimitsSpringSettings(
     	MemorySegment constraint,
@@ -530,7 +512,6 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static void setLimitsSpringSettings(
     	MemorySegment constraint,
     	MemorySegment settings
@@ -555,7 +536,6 @@ public final class SliderConstraint extends TwoBodyConstraint {
     		settings.memorySegment()
     	);
     }
-    
     
     public static void getTotalLambdaPosition(
     	MemorySegment constraint,
@@ -582,13 +562,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTotalLambdaPositionLimits(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TOTAL_LAMBDA_POSITION_LIMITS.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -598,11 +577,10 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaPositionLimits].
     public final float getTotalLambdaPositionLimits() {
-    	return (float) getTotalLambdaPositionLimits(
+    	return getTotalLambdaPositionLimits(
     		this.segment
     	);
     }
-    
     
     public static void getTotalLambdaRotation(
     	MemorySegment constraint,
@@ -629,13 +607,12 @@ public final class SliderConstraint extends TwoBodyConstraint {
     	);
     }
     
-    
     public static float getTotalLambdaMotor(
     	MemorySegment constraint
     ) {
     	MethodHandle method = JPH_SLIDER_CONSTRAINT_GET_TOTAL_LAMBDA_MOTOR.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			constraint
     		);
     	} catch (Throwable e) {
@@ -645,7 +622,7 @@ public final class SliderConstraint extends TwoBodyConstraint {
     
     /// Typed method of [#getTotalLambdaMotor].
     public final float getTotalLambdaMotor() {
-    	return (float) getTotalLambdaMotor(
+    	return getTotalLambdaMotor(
     		this.segment
     	);
     }

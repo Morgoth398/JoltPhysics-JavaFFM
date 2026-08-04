@@ -72,23 +72,21 @@ public final class WheelSettingsWV extends WheelSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static float getInertia(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_INERTIA.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -98,11 +96,10 @@ public final class WheelSettingsWV extends WheelSettings {
     
     /// Typed method of [#getInertia].
     public final float getInertia() {
-    	return (float) getInertia(
+    	return getInertia(
     		this.segment
     	);
     }
-    
     
     public static void setInertia(
     	MemorySegment settings,
@@ -129,13 +126,12 @@ public final class WheelSettingsWV extends WheelSettings {
     	);
     }
     
-    
     public static float getAngularDamping(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_ANGULAR_DAMPING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -145,11 +141,10 @@ public final class WheelSettingsWV extends WheelSettings {
     
     /// Typed method of [#getAngularDamping].
     public final float getAngularDamping() {
-    	return (float) getAngularDamping(
+    	return getAngularDamping(
     		this.segment
     	);
     }
-    
     
     public static void setAngularDamping(
     	MemorySegment settings,
@@ -176,13 +171,12 @@ public final class WheelSettingsWV extends WheelSettings {
     	);
     }
     
-    
     public static float getMaxSteerAngle(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_MAX_STEER_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -192,11 +186,10 @@ public final class WheelSettingsWV extends WheelSettings {
     
     /// Typed method of [#getMaxSteerAngle].
     public final float getMaxSteerAngle() {
-    	return (float) getMaxSteerAngle(
+    	return getMaxSteerAngle(
     		this.segment
     	);
     }
-    
     
     public static void setMaxSteerAngle(
     	MemorySegment settings,
@@ -223,13 +216,12 @@ public final class WheelSettingsWV extends WheelSettings {
     	);
     }
     
-    
     public static MemorySegment getLongitudinalFriction(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_LONGITUDINAL_FRICTION.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -248,7 +240,6 @@ public final class WheelSettingsWV extends WheelSettings {
     	
     	return new LinearCurve(segment);
     }
-    
     
     public static void setLongitudinalFriction(
     	MemorySegment settings,
@@ -275,13 +266,12 @@ public final class WheelSettingsWV extends WheelSettings {
     	);
     }
     
-    
     public static MemorySegment getLateralFriction(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_LATERAL_FRICTION.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -300,7 +290,6 @@ public final class WheelSettingsWV extends WheelSettings {
     	
     	return new LinearCurve(segment);
     }
-    
     
     public static void setLateralFriction(
     	MemorySegment settings,
@@ -327,13 +316,12 @@ public final class WheelSettingsWV extends WheelSettings {
     	);
     }
     
-    
     public static float getMaxBrakeTorque(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_MAX_BRAKE_TORQUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -343,11 +331,10 @@ public final class WheelSettingsWV extends WheelSettings {
     
     /// Typed method of [#getMaxBrakeTorque].
     public final float getMaxBrakeTorque() {
-    	return (float) getMaxBrakeTorque(
+    	return getMaxBrakeTorque(
     		this.segment
     	);
     }
-    
     
     public static void setMaxBrakeTorque(
     	MemorySegment settings,
@@ -374,13 +361,12 @@ public final class WheelSettingsWV extends WheelSettings {
     	);
     }
     
-    
     public static float getMaxHandBrakeTorque(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_WHEEL_SETTINGS_WV_GET_MAX_HAND_BRAKE_TORQUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -390,11 +376,10 @@ public final class WheelSettingsWV extends WheelSettings {
     
     /// Typed method of [#getMaxHandBrakeTorque].
     public final float getMaxHandBrakeTorque() {
-    	return (float) getMaxHandBrakeTorque(
+    	return getMaxHandBrakeTorque(
     		this.segment
     	);
     }
-    
     
     public static void setMaxHandBrakeTorque(
     	MemorySegment settings,

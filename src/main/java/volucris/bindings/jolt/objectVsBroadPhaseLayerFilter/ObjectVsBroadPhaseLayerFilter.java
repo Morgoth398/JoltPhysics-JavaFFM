@@ -26,7 +26,6 @@ public sealed class ObjectVsBroadPhaseLayerFilter
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment filter
     ) {

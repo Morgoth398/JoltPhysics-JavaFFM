@@ -39,7 +39,6 @@ public final class VehicleEngine {
     	this.segment = segment;
     }
 
-    
     public static void clampRPM(
     	MemorySegment engine
     ) {
@@ -60,13 +59,12 @@ public final class VehicleEngine {
     	);
     }
     
-    
     public static float getCurrentRPM(
     	MemorySegment engine
     ) {
     	MethodHandle method = JPH_VEHICLE_ENGINE_GET_CURRENT_RPM.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			engine
     		);
     	} catch (Throwable e) {
@@ -76,11 +74,10 @@ public final class VehicleEngine {
     
     /// Typed method of [#getCurrentRPM].
     public final float getCurrentRPM() {
-    	return (float) getCurrentRPM(
+    	return getCurrentRPM(
     		this.segment
     	);
     }
-    
     
     public static void setCurrentRPM(
     	MemorySegment engine,
@@ -107,13 +104,12 @@ public final class VehicleEngine {
     	);
     }
     
-    
     public static float getAngularVelocity(
     	MemorySegment engine
     ) {
     	MethodHandle method = JPH_VEHICLE_ENGINE_GET_ANGULAR_VELOCITY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			engine
     		);
     	} catch (Throwable e) {
@@ -123,11 +119,10 @@ public final class VehicleEngine {
     
     /// Typed method of [#getAngularVelocity].
     public final float getAngularVelocity() {
-    	return (float) getAngularVelocity(
+    	return getAngularVelocity(
     		this.segment
     	);
     }
-    
     
     public static float getTorque(
     	MemorySegment engine,
@@ -135,7 +130,7 @@ public final class VehicleEngine {
     ) {
     	MethodHandle method = JPH_VEHICLE_ENGINE_GET_TORQUE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			engine,
     			acceleration
     		);
@@ -148,12 +143,11 @@ public final class VehicleEngine {
     public final float getTorque(
     	float acceleration
     ) {
-    	return (float) getTorque(
+    	return getTorque(
     		this.segment,
     		acceleration
     	);
     }
-    
     
     public static void applyTorque(
     	MemorySegment engine,
@@ -184,7 +178,6 @@ public final class VehicleEngine {
     	);
     }
     
-    
     public static void applyDamping(
     	MemorySegment engine,
     	float deltaTime
@@ -210,13 +203,12 @@ public final class VehicleEngine {
     	);
     }
     
-    
     public static boolean allowSleep(
     	MemorySegment engine
     ) {
     	MethodHandle method = JPH_VEHICLE_ENGINE_ALLOW_SLEEP.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			engine
     		);
     	} catch (Throwable e) {
@@ -226,7 +218,7 @@ public final class VehicleEngine {
     
     /// Typed method of [#allowSleep].
     public final boolean allowSleep() {
-    	return (boolean) allowSleep(
+    	return allowSleep(
     		this.segment
     	);
     }

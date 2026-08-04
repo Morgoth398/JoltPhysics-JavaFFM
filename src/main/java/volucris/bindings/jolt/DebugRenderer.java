@@ -174,7 +174,6 @@ public abstract class DebugRenderer {
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
-    
     public static void setProcs(
     	MemorySegment procs
     ) {
@@ -188,20 +187,18 @@ public abstract class DebugRenderer {
     	}
     }
     
-    
     public static MemorySegment create(
     	MemorySegment userData
     ) {
     	MethodHandle method = JPH_DEBUG_RENDERER_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			userData
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment renderer
@@ -215,7 +212,6 @@ public abstract class DebugRenderer {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void nextFrame(
     	MemorySegment renderer
@@ -236,7 +232,6 @@ public abstract class DebugRenderer {
     		this.segment
     	);
     }
-    
     
     public static void setCameraPos(
     	MemorySegment renderer,
@@ -262,7 +257,6 @@ public abstract class DebugRenderer {
     		position.memorySegment()
     	);
     }
-    
     
     public static void drawWireBox(
     	MemorySegment renderer,
@@ -292,7 +286,6 @@ public abstract class DebugRenderer {
     		color
     	);
     }
-    
     
     public static void drawWireBox2(
     	MemorySegment renderer,
@@ -327,7 +320,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawMarker(
     	MemorySegment renderer,
     	MemorySegment position,
@@ -360,7 +352,6 @@ public abstract class DebugRenderer {
     		size
     	);
     }
-    
     
     public static void drawArrow(
     	MemorySegment renderer,
@@ -399,7 +390,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawCoordinateSystem(
     	MemorySegment renderer,
     	MemorySegment matrix,
@@ -428,7 +418,6 @@ public abstract class DebugRenderer {
     		size
     	);
     }
-    
     
     public static void drawPlane(
     	MemorySegment renderer,
@@ -467,7 +456,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawWireTriangle(
     	MemorySegment renderer,
     	MemorySegment v1,
@@ -504,7 +492,6 @@ public abstract class DebugRenderer {
     		color
     	);
     }
-    
     
     public static void drawWireSphere(
     	MemorySegment renderer,
@@ -543,7 +530,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawWireUnitSphere(
     	MemorySegment renderer,
     	MemorySegment matrix,
@@ -576,7 +562,6 @@ public abstract class DebugRenderer {
     		level
     	);
     }
-    
     
     public static void drawBox(
     	MemorySegment renderer,
@@ -614,7 +599,6 @@ public abstract class DebugRenderer {
     		drawMode
     	);
     }
-    
     
     public static void drawBox2(
     	MemorySegment renderer,
@@ -657,7 +641,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawSphere(
     	MemorySegment renderer,
     	MemorySegment center,
@@ -699,7 +682,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawUnitSphere(
     	MemorySegment renderer,
     	MemorySegment matrix,
@@ -736,7 +718,6 @@ public abstract class DebugRenderer {
     		drawMode
     	);
     }
-    
     
     public static void drawCapsule(
     	MemorySegment renderer,
@@ -783,7 +764,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawCylinder(
     	MemorySegment renderer,
     	MemorySegment matrix,
@@ -828,7 +808,6 @@ public abstract class DebugRenderer {
     		drawMode
     	);
     }
-    
     
     public static void drawOpenCone(
     	MemorySegment renderer,
@@ -883,7 +862,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawSwingConeLimits(
     	MemorySegment renderer,
     	MemorySegment matrix,
@@ -932,7 +910,6 @@ public abstract class DebugRenderer {
     		drawMode
     	);
     }
-    
     
     public static void drawSwingPyramidLimits(
     	MemorySegment renderer,
@@ -991,7 +968,6 @@ public abstract class DebugRenderer {
     	);
     }
     
-    
     public static void drawPie(
     	MemorySegment renderer,
     	MemorySegment center,
@@ -1048,7 +1024,6 @@ public abstract class DebugRenderer {
     		drawMode
     	);
     }
-    
     
     public static void drawTaperedCylinder(
     	MemorySegment renderer,

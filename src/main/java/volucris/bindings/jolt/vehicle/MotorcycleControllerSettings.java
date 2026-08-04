@@ -66,23 +66,21 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     	super(segment);
     }
 
-    
     public static MemorySegment create() {
     	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact();
+    		return (MemorySegment) method.invokeExact();
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static float getMaxLeanAngle(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_MAX_LEAN_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -92,11 +90,10 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     
     /// Typed method of [#getMaxLeanAngle].
     public final float getMaxLeanAngle() {
-    	return (float) getMaxLeanAngle(
+    	return getMaxLeanAngle(
     		this.segment
     	);
     }
-    
     
     public static void setMaxLeanAngle(
     	MemorySegment settings,
@@ -123,13 +120,12 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     	);
     }
     
-    
     public static float getLeanSpringConstant(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_CONSTANT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -139,11 +135,10 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     
     /// Typed method of [#getLeanSpringConstant].
     public final float getLeanSpringConstant() {
-    	return (float) getLeanSpringConstant(
+    	return getLeanSpringConstant(
     		this.segment
     	);
     }
-    
     
     public static void setLeanSpringConstant(
     	MemorySegment settings,
@@ -170,13 +165,12 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     	);
     }
     
-    
     public static float getLeanSpringDamping(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_DAMPING.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -186,11 +180,10 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     
     /// Typed method of [#getLeanSpringDamping].
     public final float getLeanSpringDamping() {
-    	return (float) getLeanSpringDamping(
+    	return getLeanSpringDamping(
     		this.segment
     	);
     }
-    
     
     public static void setLeanSpringDamping(
     	MemorySegment settings,
@@ -217,13 +210,12 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     	);
     }
     
-    
     public static float getLeanSpringIntegrationCoefficient(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -233,11 +225,10 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     
     /// Typed method of [#getLeanSpringIntegrationCoefficient].
     public final float getLeanSpringIntegrationCoefficient() {
-    	return (float) getLeanSpringIntegrationCoefficient(
+    	return getLeanSpringIntegrationCoefficient(
     		this.segment
     	);
     }
-    
     
     public static void setLeanSpringIntegrationCoefficient(
     	MemorySegment settings,
@@ -264,13 +255,12 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     	);
     }
     
-    
     public static float getLeanSpringIntegrationCoefficientDecay(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SPRING_INTEGRATION_COEFFICIENT_DECAY.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -280,11 +270,10 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     
     /// Typed method of [#getLeanSpringIntegrationCoefficientDecay].
     public final float getLeanSpringIntegrationCoefficientDecay() {
-    	return (float) getLeanSpringIntegrationCoefficientDecay(
+    	return getLeanSpringIntegrationCoefficientDecay(
     		this.segment
     	);
     }
-    
     
     public static void setLeanSpringIntegrationCoefficientDecay(
     	MemorySegment settings,
@@ -311,13 +300,12 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     	);
     }
     
-    
     public static float getLeanSmoothingFactor(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_MOTORCYCLE_CONTROLLER_SETTINGS_GET_LEAN_SMOOTHING_FACTOR.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -327,11 +315,10 @@ public final class MotorcycleControllerSettings extends WheeledVehicleController
     
     /// Typed method of [#getLeanSmoothingFactor].
     public final float getLeanSmoothingFactor() {
-    	return (float) getLeanSmoothingFactor(
+    	return getLeanSmoothingFactor(
     		this.segment
     	);
     }
-    
     
     public static void setLeanSmoothingFactor(
     	MemorySegment settings,

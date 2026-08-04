@@ -64,7 +64,6 @@ public class Ragdoll {
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment ragdoll
     ) {
@@ -84,7 +83,6 @@ public class Ragdoll {
     		this.segment
     	);
     }
-    
     
     public static void addToPhysicsSystem(
     	MemorySegment ragdoll,
@@ -115,7 +113,6 @@ public class Ragdoll {
     	);
     }
     
-    
     public static void removeFromPhysicsSystem(
     	MemorySegment ragdoll,
     	boolean lockBodies
@@ -140,7 +137,6 @@ public class Ragdoll {
     		lockBodies
     	);
     }
-    
     
     public static void activate(
     	MemorySegment ragdoll,
@@ -167,14 +163,13 @@ public class Ragdoll {
     	);
     }
     
-    
     public static boolean isActive(
     	MemorySegment ragdoll,
     	boolean lockBodies
     ) {
     	MethodHandle method = JPH_RAGDOLL_IS_ACTIVE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			ragdoll,
     			lockBodies
     		);
@@ -187,12 +182,11 @@ public class Ragdoll {
     public final boolean isActive(
     	boolean lockBodies
     ) {
-    	return (boolean) isActive(
+    	return isActive(
     		this.segment,
     		lockBodies
     	);
     }
-    
     
     public static void resetWarmStart(
     	MemorySegment ragdoll
@@ -213,7 +207,6 @@ public class Ragdoll {
     		this.segment
     	);
     }
-    
     
     public static void setPose(
     	MemorySegment ragdoll,
@@ -243,7 +236,6 @@ public class Ragdoll {
     		lockBodies
     	);
     }
-    
     
     public static void setPose2(
     	MemorySegment ragdoll,
@@ -278,7 +270,6 @@ public class Ragdoll {
     	);
     }
     
-    
     public static void getPose(
     	MemorySegment ragdoll,
     	MemorySegment outPose,
@@ -307,7 +298,6 @@ public class Ragdoll {
     		lockBodies
     	);
     }
-    
     
     public static void getPose2(
     	MemorySegment ragdoll,
@@ -342,7 +332,6 @@ public class Ragdoll {
     	);
     }
     
-    
     public static void driveToPoseUsingMotors(
     	MemorySegment ragdoll,
     	MemorySegment pose
@@ -367,7 +356,6 @@ public class Ragdoll {
     		pose.memorySegment()
     	);
     }
-    
     
     public static void driveToPoseUsingKinematics(
     	MemorySegment ragdoll,
@@ -402,13 +390,12 @@ public class Ragdoll {
     	);
     }
     
-    
     public static int getBodyCount(
     	MemorySegment ragdoll
     ) {
     	MethodHandle method = JPH_RAGDOLL_GET_BODY_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			ragdoll
     		);
     	} catch (Throwable e) {
@@ -418,11 +405,10 @@ public class Ragdoll {
     
     /// Typed method of [#getBodyCount].
     public final int getBodyCount() {
-    	return (int) getBodyCount(
+    	return getBodyCount(
     		this.segment
     	);
     }
-    
     
     public static int getBodyID(
     	MemorySegment ragdoll,
@@ -430,7 +416,7 @@ public class Ragdoll {
     ) {
     	MethodHandle method = JPH_RAGDOLL_GET_BODY_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			ragdoll,
     			bodyIndex
     		);
@@ -443,19 +429,18 @@ public class Ragdoll {
     public final int getBodyID(
     	int bodyIndex
     ) {
-    	return (int) getBodyID(
+    	return getBodyID(
     		this.segment,
     		bodyIndex
     	);
     }
-    
     
     public static int getConstraintCount(
     	MemorySegment ragdoll
     ) {
     	MethodHandle method = JPH_RAGDOLL_GET_CONSTRAINT_COUNT.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			ragdoll
     		);
     	} catch (Throwable e) {
@@ -465,11 +450,10 @@ public class Ragdoll {
     
     /// Typed method of [#getConstraintCount].
     public final int getConstraintCount() {
-    	return (int) getConstraintCount(
+    	return getConstraintCount(
     		this.segment
     	);
     }
-    
     
     public static MemorySegment getConstraint(
     	MemorySegment ragdoll,
@@ -477,7 +461,7 @@ public class Ragdoll {
     ) {
     	MethodHandle method = JPH_RAGDOLL_GET_CONSTRAINT.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			ragdoll,
     			constraintIndex
     		);
@@ -500,7 +484,6 @@ public class Ragdoll {
     	
     	return new TwoBodyConstraint(segment);
     }
-    
     
     public static void getRootTransform(
     	MemorySegment ragdoll,
@@ -535,13 +518,12 @@ public class Ragdoll {
     	);
     }
     
-    
     public static MemorySegment getRagdollSettings(
     	MemorySegment ragdoll
     ) {
     	MethodHandle method = JPH_RAGDOLL_GET_RAGDOLL_SETTINGS.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			ragdoll
     		);
     	} catch (Throwable e) {

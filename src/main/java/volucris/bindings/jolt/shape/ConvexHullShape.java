@@ -36,13 +36,12 @@ public final class ConvexHullShape extends ConvexShape {
     	super(segment);
     }
 
-    
     public static int getNumPoints(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_CONVEX_HULL_SHAPE_GET_NUM_POINTS.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -52,11 +51,10 @@ public final class ConvexHullShape extends ConvexShape {
     
     /// Typed method of [#getNumPoints].
     public final int getNumPoints() {
-    	return (int) getNumPoints(
+    	return getNumPoints(
     		this.segment
     	);
     }
-    
     
     public static void getPoint(
     	MemorySegment shape,
@@ -87,13 +85,12 @@ public final class ConvexHullShape extends ConvexShape {
     	);
     }
     
-    
     public static int getNumFaces(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_CONVEX_HULL_SHAPE_GET_NUM_FACES.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -103,11 +100,10 @@ public final class ConvexHullShape extends ConvexShape {
     
     /// Typed method of [#getNumFaces].
     public final int getNumFaces() {
-    	return (int) getNumFaces(
+    	return getNumFaces(
     		this.segment
     	);
     }
-    
     
     public static int getNumVerticesInFace(
     	MemorySegment shape,
@@ -115,7 +111,7 @@ public final class ConvexHullShape extends ConvexShape {
     ) {
     	MethodHandle method = JPH_CONVEX_HULL_SHAPE_GET_NUM_VERTICES_IN_FACE.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape,
     			faceIndex
     		);
@@ -128,12 +124,11 @@ public final class ConvexHullShape extends ConvexShape {
     public final int getNumVerticesInFace(
     	int faceIndex
     ) {
-    	return (int) getNumVerticesInFace(
+    	return getNumVerticesInFace(
     		this.segment,
     		faceIndex
     	);
     }
-    
     
     public static int getFaceVertices(
     	MemorySegment shape,
@@ -143,7 +138,7 @@ public final class ConvexHullShape extends ConvexShape {
     ) {
     	MethodHandle method = JPH_CONVEX_HULL_SHAPE_GET_FACE_VERTICES.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape,
     			faceIndex,
     			maxVertices,
@@ -160,7 +155,7 @@ public final class ConvexHullShape extends ConvexShape {
     	int maxVertices,
     	NativeIntArray vertices
     ) {
-    	return (int) getFaceVertices(
+    	return getFaceVertices(
     		this.segment,
     		faceIndex,
     		maxVertices,

@@ -63,7 +63,6 @@ public final class CylinderShapeSettings extends ConvexShapeSettings {
     	super(segment);
     }
 
-    
     public static MemorySegment create(
     	float halfHeight,
     	float radius,
@@ -71,7 +70,7 @@ public final class CylinderShapeSettings extends ConvexShapeSettings {
     ) {
     	MethodHandle method = JPH_CYLINDER_SHAPE_SETTINGS_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			halfHeight,
     			radius,
     			convexRadius
@@ -81,13 +80,12 @@ public final class CylinderShapeSettings extends ConvexShapeSettings {
     	}
     }
     
-    
     public static MemorySegment createShape(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_CYLINDER_SHAPE_SETTINGS_CREATE_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {

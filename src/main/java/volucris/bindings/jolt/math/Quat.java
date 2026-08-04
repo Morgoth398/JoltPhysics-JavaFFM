@@ -115,7 +115,6 @@ public final class Quat
     
     }
 
-    
     public static void fromTo(
     	MemorySegment from,
     	MemorySegment to,
@@ -145,7 +144,6 @@ public final class Quat
     		quat.memorySegment()
     	);
     }
-    
     
     public static void getAxisAngle(
     	MemorySegment quat,
@@ -177,7 +175,6 @@ public final class Quat
     	);
     }
     
-    
     public static void getEulerAngles(
     	MemorySegment quat,
     	MemorySegment result
@@ -203,7 +200,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void rotateAxisX(
     	MemorySegment quat,
@@ -231,7 +227,6 @@ public final class Quat
     	);
     }
     
-    
     public static void rotateAxisY(
     	MemorySegment quat,
     	MemorySegment result
@@ -257,7 +252,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void rotateAxisZ(
     	MemorySegment quat,
@@ -285,7 +279,6 @@ public final class Quat
     	);
     }
     
-    
     public static void inversed(
     	MemorySegment quat,
     	MemorySegment result
@@ -311,7 +304,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void getPerpendicular(
     	MemorySegment quat,
@@ -339,14 +331,13 @@ public final class Quat
     	);
     }
     
-    
     public static float getRotationAngle(
     	MemorySegment quat,
     	MemorySegment axis
     ) {
     	MethodHandle method = JPH_QUAT_GET_ROTATION_ANGLE.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			quat,
     			axis
     		);
@@ -360,12 +351,11 @@ public final class Quat
     	Quat quat,
     	Vec3 axis
     ) {
-    	return (float) getRotationAngle(
+    	return getRotationAngle(
     		quat.memorySegment(),
     		axis.memorySegment()
     	);
     }
-    
     
     public static void fromEulerAngles(
     	MemorySegment angles,
@@ -392,7 +382,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void add(
     	MemorySegment q1,
@@ -424,7 +413,6 @@ public final class Quat
     	);
     }
     
-    
     public static void subtract(
     	MemorySegment q1,
     	MemorySegment q2,
@@ -454,7 +442,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void multiply(
     	MemorySegment q1,
@@ -486,7 +473,6 @@ public final class Quat
     	);
     }
     
-    
     public static void multiplyScalar(
     	MemorySegment q,
     	float scalar,
@@ -516,7 +502,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void divideScalar(
     	MemorySegment q,
@@ -548,7 +533,6 @@ public final class Quat
     	);
     }
     
-    
     public static void dot(
     	MemorySegment q1,
     	MemorySegment q2,
@@ -579,7 +563,6 @@ public final class Quat
     	);
     }
     
-    
     public static void conjugated(
     	MemorySegment quat,
     	MemorySegment result
@@ -605,7 +588,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void getTwist(
     	MemorySegment quat,
@@ -637,7 +619,6 @@ public final class Quat
     	);
     }
     
-    
     public static void getSwingTwist(
     	MemorySegment quat,
     	MemorySegment outSwing,
@@ -667,7 +648,6 @@ public final class Quat
     		outTwist.memorySegment()
     	);
     }
-    
     
     public static void lerp(
     	MemorySegment from,
@@ -703,7 +683,6 @@ public final class Quat
     	);
     }
     
-    
     public static void slerp(
     	MemorySegment from,
     	MemorySegment to,
@@ -738,7 +717,6 @@ public final class Quat
     	);
     }
     
-    
     public static void rotate(
     	MemorySegment quat,
     	MemorySegment vec,
@@ -768,7 +746,6 @@ public final class Quat
     		result.memorySegment()
     	);
     }
-    
     
     public static void inverseRotate(
     	MemorySegment quat,

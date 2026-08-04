@@ -36,13 +36,12 @@ public sealed class CompoundShape extends Shape
     	super(segment);
     }
 
-    
     public static int getNumSubShapes(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_COMPOUND_SHAPE_GET_NUM_SUB_SHAPES.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {
@@ -52,11 +51,10 @@ public sealed class CompoundShape extends Shape
     
     /// Typed method of [#getNumSubShapes].
     public final int getNumSubShapes() {
-    	return (int) getNumSubShapes(
+    	return getNumSubShapes(
     		this.segment
     	);
     }
-    
     
     public static void getSubShape(
     	MemorySegment shape,
@@ -99,7 +97,6 @@ public sealed class CompoundShape extends Shape
     	);
     }
     
-    
     public static int getSubShapeIndexFromID(
     	MemorySegment shape,
     	int id,
@@ -107,7 +104,7 @@ public sealed class CompoundShape extends Shape
     ) {
     	MethodHandle method = JPH_COMPOUND_SHAPE_GET_SUB_SHAPE_INDEX_FROM_ID.get();
     	try {
-    		return (int)  method.invokeExact(
+    		return (int) method.invokeExact(
     			shape,
     			id,
     			remainder
@@ -122,7 +119,7 @@ public sealed class CompoundShape extends Shape
     	int id,
     	NativeIntArray remainder
     ) {
-    	return (int) getSubShapeIndexFromID(
+    	return getSubShapeIndexFromID(
     		this.segment,
     		id,
     		remainder.memorySegment()

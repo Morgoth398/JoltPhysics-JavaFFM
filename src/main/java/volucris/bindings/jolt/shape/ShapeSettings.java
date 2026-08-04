@@ -38,7 +38,6 @@ public sealed class ShapeSettings
     	this.segment = segment;
     }
 
-    
     public static void destroy(
     	MemorySegment settings
     ) {
@@ -52,13 +51,12 @@ public sealed class ShapeSettings
     	}
     }
     
-    
     public static long getUserData(
     	MemorySegment settings
     ) {
     	MethodHandle method = JPH_SHAPE_SETTINGS_GET_USER_DATA.get();
     	try {
-    		return (long)  method.invokeExact(
+    		return (long) method.invokeExact(
     			settings
     		);
     	} catch (Throwable e) {
@@ -68,11 +66,10 @@ public sealed class ShapeSettings
     
     /// Typed method of [#getUserData].
     public final long getUserData() {
-    	return (long) getUserData(
+    	return getUserData(
     		this.segment
     	);
     }
-    
     
     public static void setUserData(
     	MemorySegment settings,

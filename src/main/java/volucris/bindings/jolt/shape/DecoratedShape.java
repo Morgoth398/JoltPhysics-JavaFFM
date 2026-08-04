@@ -29,13 +29,12 @@ public sealed class DecoratedShape extends Shape
     	super(segment);
     }
 
-    
     public static MemorySegment getInnerShape(
     	MemorySegment shape
     ) {
     	MethodHandle method = JPH_DECORATED_SHAPE_GET_INNER_SHAPE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			shape
     		);
     	} catch (Throwable e) {

@@ -113,7 +113,6 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
         CACHE.put(identifier.address(), new WeakReference<>(this));
     }
 
-    
     public static void setProcs(
     	MemorySegment procs
     ) {
@@ -127,20 +126,18 @@ public abstract class CharacterVsCharacterCollisionListener extends CharacterVsC
     	}
     }
     
-    
     public static MemorySegment create(
     	MemorySegment userData
     ) {
     	MethodHandle method = JPH_CHARACTER_VS_CHARACTER_COLLISION_CREATE.get();
     	try {
-    		return (MemorySegment)  method.invokeExact(
+    		return (MemorySegment) method.invokeExact(
     			userData
     		);
     	} catch (Throwable e) {
     		throw new RuntimeException(e);
     	}
     }
-    
     
     public static void destroy(
     	MemorySegment listener

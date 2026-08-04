@@ -110,7 +110,6 @@ public final class Vec3
     
     }
 
-    
     public static void axisX(
     	MemorySegment result
     ) {
@@ -132,7 +131,6 @@ public final class Vec3
     		result.memorySegment()
     	);
     }
-    
     
     public static void axisY(
     	MemorySegment result
@@ -156,7 +154,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void axisZ(
     	MemorySegment result
     ) {
@@ -179,7 +176,6 @@ public final class Vec3
     	);
     }
     
-    
     public static boolean isClose(
     	MemorySegment v1,
     	MemorySegment v2,
@@ -187,7 +183,7 @@ public final class Vec3
     ) {
     	MethodHandle method = JPH_VEC3_IS_CLOSE.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			v1,
     			v2,
     			maxDistSq
@@ -203,13 +199,12 @@ public final class Vec3
     	Vec3 v2,
     	float maxDistSq
     ) {
-    	return (boolean) isClose(
+    	return isClose(
     		v1.memorySegment(),
     		v2.memorySegment(),
     		maxDistSq
     	);
     }
-    
     
     public static boolean isNearZero(
     	MemorySegment v,
@@ -217,7 +212,7 @@ public final class Vec3
     ) {
     	MethodHandle method = JPH_VEC3_IS_NEAR_ZERO.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			v,
     			maxDistSq
     		);
@@ -231,12 +226,11 @@ public final class Vec3
     	Vec3 v,
     	float maxDistSq
     ) {
-    	return (boolean) isNearZero(
+    	return isNearZero(
     		v.memorySegment(),
     		maxDistSq
     	);
     }
-    
     
     public static boolean isNormalized(
     	MemorySegment v,
@@ -244,7 +238,7 @@ public final class Vec3
     ) {
     	MethodHandle method = JPH_VEC3_IS_NORMALIZED.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			v,
     			tolerance
     		);
@@ -258,19 +252,18 @@ public final class Vec3
     	Vec3 v,
     	float tolerance
     ) {
-    	return (boolean) isNormalized(
+    	return isNormalized(
     		v.memorySegment(),
     		tolerance
     	);
     }
-    
     
     public static boolean isNaN(
     	MemorySegment v
     ) {
     	MethodHandle method = JPH_VEC3_IS_NA_N.get();
     	try {
-    		return (boolean)  method.invokeExact(
+    		return (boolean) method.invokeExact(
     			v
     		);
     	} catch (Throwable e) {
@@ -282,11 +275,10 @@ public final class Vec3
     public static boolean isNaN(
     	Vec3 v
     ) {
-    	return (boolean) isNaN(
+    	return isNaN(
     		v.memorySegment()
     	);
     }
-    
     
     public static void negate(
     	MemorySegment v,
@@ -314,7 +306,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void normalized(
     	MemorySegment v,
     	MemorySegment result
@@ -340,7 +331,6 @@ public final class Vec3
     		result.memorySegment()
     	);
     }
-    
     
     public static void cross(
     	MemorySegment v1,
@@ -372,7 +362,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void abs(
     	MemorySegment v,
     	MemorySegment result
@@ -399,13 +388,12 @@ public final class Vec3
     	);
     }
     
-    
     public static float length(
     	MemorySegment v
     ) {
     	MethodHandle method = JPH_VEC3_LENGTH.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			v
     		);
     	} catch (Throwable e) {
@@ -417,18 +405,17 @@ public final class Vec3
     public static float length(
     	Vec3 v
     ) {
-    	return (float) length(
+    	return length(
     		v.memorySegment()
     	);
     }
-    
     
     public static float lengthSquared(
     	MemorySegment v
     ) {
     	MethodHandle method = JPH_VEC3_LENGTH_SQUARED.get();
     	try {
-    		return (float)  method.invokeExact(
+    		return (float) method.invokeExact(
     			v
     		);
     	} catch (Throwable e) {
@@ -440,11 +427,10 @@ public final class Vec3
     public static float lengthSquared(
     	Vec3 v
     ) {
-    	return (float) lengthSquared(
+    	return lengthSquared(
     		v.memorySegment()
     	);
     }
-    
     
     public static void dotProduct(
     	MemorySegment v1,
@@ -476,7 +462,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void normalize(
     	MemorySegment v,
     	MemorySegment result
@@ -502,7 +487,6 @@ public final class Vec3
     		result.memorySegment()
     	);
     }
-    
     
     public static void add(
     	MemorySegment v1,
@@ -534,7 +518,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void subtract(
     	MemorySegment v1,
     	MemorySegment v2,
@@ -564,7 +547,6 @@ public final class Vec3
     		result.memorySegment()
     	);
     }
-    
     
     public static void multiply(
     	MemorySegment v1,
@@ -596,7 +578,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void multiplyScalar(
     	MemorySegment v,
     	float scalar,
@@ -626,7 +607,6 @@ public final class Vec3
     		result.memorySegment()
     	);
     }
-    
     
     public static void multiplyMatrix(
     	MemorySegment left,
@@ -658,7 +638,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void divide(
     	MemorySegment v1,
     	MemorySegment v2,
@@ -689,7 +668,6 @@ public final class Vec3
     	);
     }
     
-    
     public static void divideScalar(
     	MemorySegment v,
     	float scalar,
@@ -719,7 +697,6 @@ public final class Vec3
     		result.memorySegment()
     	);
     }
-    
     
     public static void getNormalizedPerpendicular(
     	MemorySegment v,

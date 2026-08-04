@@ -95,7 +95,6 @@ public final class Mat4
     
     }
 
-    
     public static void add(
     	MemorySegment m1,
     	MemorySegment m2,
@@ -125,7 +124,6 @@ public final class Mat4
     		result.memorySegment()
     	);
     }
-    
     
     public static void subtract(
     	MemorySegment m1,
@@ -157,7 +155,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void multiply(
     	MemorySegment m1,
     	MemorySegment m2,
@@ -187,7 +184,6 @@ public final class Mat4
     		result.memorySegment()
     	);
     }
-    
     
     public static void multiplyScalar(
     	MemorySegment m,
@@ -219,7 +215,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void zero(
     	MemorySegment result
     ) {
@@ -242,7 +237,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void identity(
     	MemorySegment result
     ) {
@@ -264,7 +258,6 @@ public final class Mat4
     		result.memorySegment()
     	);
     }
-    
     
     public static void rotation(
     	MemorySegment result,
@@ -291,7 +284,6 @@ public final class Mat4
     		rotation.memorySegment()
     	);
     }
-    
     
     public static void rotation2(
     	MemorySegment result,
@@ -323,7 +315,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void translation(
     	MemorySegment result,
     	MemorySegment translation
@@ -349,7 +340,6 @@ public final class Mat4
     		translation.memorySegment()
     	);
     }
-    
     
     public static void rotationTranslation(
     	MemorySegment result,
@@ -381,7 +371,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void inverseRotationTranslation(
     	MemorySegment result,
     	MemorySegment rotation,
@@ -412,7 +401,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void scale(
     	MemorySegment result,
     	MemorySegment scale
@@ -438,7 +426,6 @@ public final class Mat4
     		scale.memorySegment()
     	);
     }
-    
     
     public static void transposed(
     	MemorySegment m,
@@ -466,7 +453,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void inversed(
     	MemorySegment matrix,
     	MemorySegment result
@@ -492,7 +478,6 @@ public final class Mat4
     		result.memorySegment()
     	);
     }
-    
     
     public static void getAxisX(
     	MemorySegment matrix,
@@ -520,7 +505,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void getAxisY(
     	MemorySegment matrix,
     	MemorySegment result
@@ -546,7 +530,6 @@ public final class Mat4
     		result.memorySegment()
     	);
     }
-    
     
     public static void getAxisZ(
     	MemorySegment matrix,
@@ -574,7 +557,6 @@ public final class Mat4
     	);
     }
     
-    
     public static void getTranslation(
     	MemorySegment matrix,
     	MemorySegment result
@@ -600,7 +582,6 @@ public final class Mat4
     		result.memorySegment()
     	);
     }
-    
     
     public static void getQuaternion(
     	MemorySegment matrix,
