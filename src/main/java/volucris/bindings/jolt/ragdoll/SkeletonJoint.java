@@ -9,7 +9,6 @@ import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.StructLayout;
 import java.lang.invoke.VarHandle;
-import volucris.bindings.core.NativeByteArray;
 import volucris.bindings.core.NativeStructArray;
 import volucris.bindings.core.Struct;
 
@@ -64,33 +63,33 @@ public class SkeletonJoint
     }
 
     /// @see #name()
-    public SkeletonJoint name(NativeByteArray name) {
-    	NAME_HANDLE.set(segment, 0L, name.memorySegment());
+    public SkeletonJoint name(Arena arena, String name) {
+    	NAME_HANDLE.set(segment, 0L, arena.allocateFrom(name));
     	return this;
     }
     
-    public @Nullable NativeByteArray name() {
+    public @Nullable String name() {
     	MemorySegment segment = (MemorySegment) NAME_HANDLE.get(this.segment, 0L);
     
     	if (segment.equals(MemorySegment.NULL))
     		return null;
     	
-    	return new NativeByteArray(segment);
+    	return segment.getString(0);
     }
     
     /// @see #parentName()
-    public SkeletonJoint parentName(NativeByteArray parentName) {
-    	PARENT_NAME_HANDLE.set(segment, 0L, parentName.memorySegment());
+    public SkeletonJoint parentName(Arena arena, String parentName) {
+    	PARENT_NAME_HANDLE.set(segment, 0L, arena.allocateFrom(parentName));
     	return this;
     }
     
-    public @Nullable NativeByteArray parentName() {
+    public @Nullable String parentName() {
     	MemorySegment segment = (MemorySegment) PARENT_NAME_HANDLE.get(this.segment, 0L);
     
     	if (segment.equals(MemorySegment.NULL))
     		return null;
     	
-    	return new NativeByteArray(segment);
+    	return segment.getString(0);
     }
     
     /// @see #parentJointIndex()

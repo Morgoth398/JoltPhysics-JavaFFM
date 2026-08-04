@@ -6,6 +6,7 @@ package volucris.bindings.jolt.ragdoll;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
+import volucris.bindings.core.MemoryStack;
 
 import static java.lang.foreign.ValueLayout.*;
 import static volucris.bindings.core.FFMUtils.*;
@@ -99,7 +100,7 @@ public class Skeleton {
     public final int addJoint(
     	String name
     ) {
-    	try (Arena arena = Arena.ofConfined()) {
+    	try (Arena arena = MemoryStack.stackPush()) {
     		return addJoint(
     			this.segment,
     			arena.allocateFrom(name)
@@ -129,7 +130,7 @@ public class Skeleton {
     	String name,
     	int parentIndex
     ) {
-    	try (Arena arena = Arena.ofConfined()) {
+    	try (Arena arena = MemoryStack.stackPush()) {
     		return addJoint2(
     			this.segment,
     			arena.allocateFrom(name),
@@ -160,7 +161,7 @@ public class Skeleton {
     	String name,
     	String parentName
     ) {
-    	try (Arena arena = Arena.ofConfined()) {
+    	try (Arena arena = MemoryStack.stackPush()) {
     		return addJoint3(
     			this.segment,
     			arena.allocateFrom(name),
@@ -237,7 +238,7 @@ public class Skeleton {
     public final int getJointIndex(
     	String name
     ) {
-    	try (Arena arena = Arena.ofConfined()) {
+    	try (Arena arena = MemoryStack.stackPush()) {
     		return getJointIndex(
     			this.segment,
     			arena.allocateFrom(name)
