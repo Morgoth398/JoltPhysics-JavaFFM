@@ -3,7 +3,6 @@
  */
 package volucris.bindings.jolt.jobSystem;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.Linker;
@@ -13,6 +12,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+import org.jspecify.annotations.Nullable;
 import volucris.bindings.core.NativePointerArray;
 
 import static java.lang.foreign.ValueLayout.*;

@@ -3,12 +3,12 @@
  */
 package volucris.bindings.jolt.physicsSystem;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemoryLayout;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.StructLayout;
 import java.lang.invoke.VarHandle;
+import org.jspecify.annotations.Nullable;
 import volucris.bindings.core.NativeStructArray;
 import volucris.bindings.core.Struct;
 import volucris.bindings.jolt.broadPhaseLayerInterface.BroadPhaseLayerInterface;

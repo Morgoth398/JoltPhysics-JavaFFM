@@ -3,9 +3,9 @@
  */
 package volucris.bindings.jolt.shape;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
+import org.jspecify.annotations.Nullable;
 
 import static volucris.bindings.core.FFMUtils.*;
 

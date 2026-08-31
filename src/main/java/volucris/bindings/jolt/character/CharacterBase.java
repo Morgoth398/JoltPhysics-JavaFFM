@@ -3,9 +3,9 @@
  */
 package volucris.bindings.jolt.character;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
+import org.jspecify.annotations.Nullable;
 import volucris.bindings.jolt.PhysicsMaterial;
 import volucris.bindings.jolt.math.Vec3;
 import volucris.bindings.jolt.shape.Shape;

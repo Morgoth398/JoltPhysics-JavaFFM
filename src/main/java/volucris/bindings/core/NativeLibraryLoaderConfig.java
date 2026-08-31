@@ -1,6 +1,6 @@
 package volucris.bindings.core;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public final class NativeLibraryLoaderConfig {
 

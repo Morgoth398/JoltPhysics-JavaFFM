@@ -3,10 +3,10 @@
  */
 package volucris.bindings.jolt.body;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
 import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
+import org.jspecify.annotations.Nullable;
 import volucris.bindings.jolt.filter.CollisionGroup;
 import volucris.bindings.jolt.math.Quat;
 import volucris.bindings.jolt.math.Vec3;
