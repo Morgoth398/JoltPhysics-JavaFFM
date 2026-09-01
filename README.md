@@ -233,3 +233,8 @@ This is a port of the [HelloWorld](https://github.com/jrouwe/JoltPhysics/blob/ma
 		Jolt.shutdown();
 	}
 ```
+
+
+# Other Bindings
+- [Box2D-JavaFFM](https://github.com/Morgoth398/Box2D-JavaFFM)
+- [Box3D-JavaFFM](https://github.com/Morgoth398/Box3D-JavaFFM)
