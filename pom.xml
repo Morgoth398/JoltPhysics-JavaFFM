@@ -2,10 +2,41 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>dev.morgoth398</groupId>
+	<groupId>io.github.morgoth398</groupId>
 	<artifactId>JoltPhysics-JavaFFM</artifactId>
-	<version>5.5.0</version>
+	<version>5.7.0</version>
+
+	<name>${project.artifactId}</name>
+	<description>Java bindings for Jolt Physics using the Java FFM API</description>
+	<url>https://github.com/Morgoth398/Box3D-JavaFFM</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Morgoth398</name>
+			<email>132191387+Morgoth398@users.noreply.github.com</email>
+		</developer>
+	</developers>
+
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>${project.basedir}</directory>
+				<includes>
+					<include>LICENSE</include>
+				</includes>
+				<targetPath>META-INF</targetPath>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -17,6 +48,19 @@
 					<compilerArgs>
 						<arg>--enable-preview</arg>
 					</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.5.0</version>
+				<configuration>
+					<excludes>
+						<exclude>configs/**</exclude>
+						<exclude>nativeSources/**</exclude>
+						<exclude>generation/**</exclude>
+						<exclude>natives/clang/**</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -65,6 +109,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>3.3.1</version>
+				<configuration>
+					<excludeResources>true</excludeResources>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -76,12 +123,26 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.github.morgoth398</groupId>
+				<artifactId>VolucrisBindings</artifactId>
+				<version>3.0.0</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>org.jspecify</groupId>
-			<artifactId>jspecify</artifactId>
-			<version>1.0.1</version>
-			<scope>compile</scope>
+			<groupId>io.github.morgoth398</groupId>
+			<artifactId>VolucrisBindings-Core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.morgoth398</groupId>
+			<artifactId>VolucrisBindings-Generator</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>
