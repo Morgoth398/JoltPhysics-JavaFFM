@@ -1,0 +1,123 @@
+name: JoltC_Debug
+
+on: workflow_dispatch
+
+env:
+  SOURCE_DIRECTORY: src/main/resources/nativeSources/
+  SHARED_LIBRARY_FILE_NAME: joltc
+
+jobs:
+  Linux_x64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+      - name: Get Latest CMake
+        uses: lukka/get-cmake@latest
+      - name: Configure CMake
+        run: cmake -S $SOURCE_DIRECTORY -B build -DCMAKE_BUILD_TYPE=Debug
+      - name: Build CMake
+        run: cmake --build build --config Debug
+      - name: Install CMake
+        run: cmake --install build --prefix install
+      - name: Find And Copy Real Files
+        run: |
+          mkdir -p binaries
+          find install -type f -exec cp {} binaries/ \;
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ github.workflow }}_Linux_x64_Artifacts
+          path: binaries/lib${{ env.SHARED_LIBRARY_FILE_NAME }}*.so*
+
+  Linux_Arm64:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+      - name: Get Latest CMake
+        uses: lukka/get-cmake@latest
+      - name: Configure CMake
+        run: cmake -S $SOURCE_DIRECTORY -B build -DCMAKE_BUILD_TYPE=Debug
+      - name: Build CMake
+        run: cmake --build build --config Debug
+      - name: Install CMake
+        run: cmake --install build --prefix install
+      - name: Find And Copy Real Files
+        run: |
+          mkdir -p binaries
+          find install -type f -exec cp {} binaries/ \;
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ github.workflow }}_Linux_Arm64_Artifacts
+          path: binaries/lib${{ env.SHARED_LIBRARY_FILE_NAME }}*.so*
+
+  macOs_Arm64:
+    runs-on: macos-26
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+      - name: Get Latest CMake
+        uses: lukka/get-cmake@latest
+      - name: Configure CMake
+        run: cmake -S $SOURCE_DIRECTORY -B build -DCMAKE_BUILD_TYPE=Debug
+      - name: Build CMake
+        run: cmake --build build --config Debug
+      - name: Install CMake
+        run: cmake --install build --prefix install
+      - name: Find And Copy Real Files
+        run: |
+          mkdir -p binaries
+          find install -type f -exec cp {} binaries/ \;
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ github.workflow }}_macOs_Arm64_Artifacts
+          path: binaries/lib${{ env.SHARED_LIBRARY_FILE_NAME }}*.dylib
+
+  Windows_x64:
+    runs-on: windows-2025
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+      - name: Get Latest CMake
+        uses: lukka/get-cmake@latest
+      - name: Configure CMake
+        run: cmake -S "${{ env.SOURCE_DIRECTORY }}" -B build -DCMAKE_BUILD_TYPE=Debug
+      - name: Build CMake
+        run: cmake --build build --config Debug
+      - name: Install CMake
+        run: cmake --install build --prefix install
+      - name: Copy Files
+        run: |
+          New-Item -ItemType Directory -Force binaries
+          Get-ChildItem install -Recurse -File | Copy-Item -Destination binaries
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ github.workflow }}_Windows_x64_Artifacts
+          path: binaries/${{ env.SHARED_LIBRARY_FILE_NAME }}*.dll
+
+  Combine_Artifacts:
+    needs: [Linux_x64, Linux_Arm64, macOs_Arm64, Windows_x64]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: combined_artifacts
+      - name: Upload Combined Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ github.workflow }}_Artifacts
+          path: combined_artifacts/
+      - name: Delete Individual Artifacts
+        uses: geekyeggo/delete-artifact@v6
+        with:
+          name: |
+            ${{ github.workflow }}_Linux_x64_Artifacts
+            ${{ github.workflow }}_Linux_Arm64_Artifacts
+            ${{ github.workflow }}_macOs_Arm64_Artifacts
+            ${{ github.workflow }}_macOs_x64_Artifacts
+            ${{ github.workflow }}_Windows_x64_Artifacts

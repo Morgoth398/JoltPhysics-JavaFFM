@@ -1,0 +1,33 @@
+// Jolt Physics Library (https://github.com/jrouwe/JoltPhysics)
+// SPDX-FileCopyrightText: 2025 Jorrit Rouwe
+// SPDX-License-Identifier: MIT
+
+#include <TestFramework.h>
+#include <Utils/AssetStream.h>
+#include <Utils/Log.h>
+
+#import <Foundation/Foundation.h>
+
+JPH_SUPPRESS_WARNINGS_STD_BEGIN
+#include <filesystem>
+JPH_SUPPRESS_WARNINGS_STD_END
+
+String AssetStream::sGetAssetsBasePath()
+{
+	NSBundle *bundle = [NSBundle mainBundle];
+	String path = [[[bundle resourceURL] path] cStringUsingEncoding: NSUTF8StringEncoding];
+	path += "/";
+	return path;
+}
+
+bool AssetStream::sExists(const String &inFileName)
+{
+	return std::filesystem::exists(sGetAssetsBasePath() + inFileName);
+}
+
+AssetStream::AssetStream(const char *inFileName, std::ios_base::openmode inOpenMode) :
+	mStream((sGetAssetsBasePath() + inFileName).c_str(), inOpenMode)
+{
+	if (!mStream.is_open())
+		FatalError("Failed to open file %s", inFileName);
+}

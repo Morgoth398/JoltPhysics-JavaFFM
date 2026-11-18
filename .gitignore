@@ -36,8 +36,4 @@ build/
 /bin1/
 java/build/**
 
-src/main/java/test
-*.tiled-session
-prefs/
-savegames/
-island/
+/natives/

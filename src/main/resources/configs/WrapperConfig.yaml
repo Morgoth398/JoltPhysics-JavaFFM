@@ -1,0 +1,2121 @@
+file-name: JoltC
+directory: src/main/resources/nativeSources/
+prefix: JPH_
+macros:
+system-includes:
+  - <stdbool.h>
+  - <stdint.h>
+includes: 
+source-includes:
+  - <Jolt/Jolt.h>
+  - <Jolt/RegisterTypes.h>
+  - <Jolt/Core/TickCounter.h>
+  - <Jolt/Physics/Collision/Shape/ScaleHelpers.h>
+typedefs:
+  uint: unsigned int
+  uint8: uint8_t
+  uint16: uint16_t
+  uint32: uint32_t
+  int32: int32_t
+  uint64: uint64_t
+  int64: int64_t
+  ObjectLayer: uint16
+  MutexMask: uint64
+  Type: uint8
+  GroupID: uint32
+  SubGroupID: uint32
+
+ignored-parents:
+  - JPH::NonCopyable
+  - JPH::SerializableObject
+skipped-functions:
+  - sCreateRTTI
+  - sRegister
+
+opaque-handles:
+  JPH::AABBTreeBuilder : AABBTreeBuilder
+  JPH::AABBTreeBuilder::Node : Node
+  JPH::AABBTreeBuilderStats : AABBTreeBuilderStats
+  JPH::AABox : AABox
+  JPH::AABoxCast : AABoxCast
+  JPH::AngleConstraintPart : AngleConstraintPart
+  JPH::Array<JPH::AABBTreeBuilder::Node> : NodeArray
+  JPH::Array<JPH::Body *> : BodyArray
+  JPH::Array<JPH::BodyCreationSettings> : BodyCreationSettingsArray
+  JPH::Array<JPH::BodyID> : BodyIDArray
+  JPH::Array<JPH::CharacterContact> : ContactList
+  JPH::Array<JPH::CharacterVirtual *> : CharacterVirtualArray
+  JPH::Array<JPH::CompoundShape::SubShape> : SubShapes
+  JPH::Array<JPH::CompoundShapeSettings::SubShapeSettings> : SubShapesSettings
+  JPH::Array<JPH::ConvexHullBuilder::Face *> : Faces
+  JPH::Array<JPH::DebugRenderer::LOD> : LODArray
+  JPH::Array<JPH::DebugRenderer::Triangle> : DebugRendererTriangleArray
+  JPH::Array<JPH::DebugRenderer::Vertex> : VertexArray
+  JPH::Array<JPH::DebugRendererRecorder::GeometryBlob> : GeometryBlobArray
+  JPH::Array<JPH::DebugRendererRecorder::LineBlob> : LineBlobArray
+  JPH::Array<JPH::DebugRendererRecorder::TextBlob> : TextBlobArray
+  JPH::Array<JPH::DebugRendererRecorder::TriangleBlob> : TriangleBlobArray
+  JPH::Array<JPH::Float3> : Float3Array
+  JPH::Array<JPH::HairSettings::Material> : MaterialArray
+  JPH::Array<JPH::HairSettings::RStrand> : RStrandArray
+  JPH::Array<JPH::HairSettings::RVertex> : RVertexArray
+  JPH::Array<JPH::HairSettings::SStrand> : SStrandArray
+  JPH::Array<JPH::HairSettings::SVertex> : SVertexArray
+  JPH::Array<JPH::HairSettings::SkinPoint> : SkinPointArray
+  JPH::Array<JPH::HairSettings::SkinWeight> : SkinWeightArray
+  JPH::Array<JPH::IndexedTriangle> : IndexedTriangleArray
+  JPH::Array<JPH::IndexedTriangleNoMaterial> : IndexedTriangleNoMaterialArray
+  JPH::Array<JPH::LinearCurve::Point> : LinearCurvePoints
+  JPH::Array<JPH::Mat44> : Mat44Array
+  JPH::Array<JPH::PhysicsScene::ConnectedConstraint> : ConnectedConstraintArray
+  JPH::Array<JPH::Plane> : PlaneArray
+  JPH::Array<JPH::QuadTree::Tracking> : QuadTreeTrackingArray
+  JPH::Array<JPH::RagdollSettings::AdditionalConstraint> : AdditionalConstraintArray
+  JPH::Array<JPH::RagdollSettings::Part> : PartArray
+  JPH::Array<JPH::Ref<JPH::Constraint>> : ConstraintArray
+  JPH::Array<JPH::Ref<JPH::GroupFilter>> : IDToGroupFilterMap
+  JPH::Array<JPH::Ref<JPH::PhysicsMaterial>> : IDToMaterialMap
+  JPH::Array<JPH::Ref<JPH::Shape>> : IDToShapeMap
+  JPH::Array<JPH::Ref<JPH::SoftBodySharedSettings>> : IDToSharedSettingsMap
+  JPH::Array<JPH::Ref<JPH::WheelSettings>> : WheelSettingsArray
+  JPH::Array<JPH::RefConst<JPH::PhysicsMaterial>> : PhysicsMaterialList
+  JPH::Array<JPH::RefConst<JPH::Shape>> : ShapeList
+  JPH::Array<JPH::SkeletalAnimation::AnimatedJoint> : AnimatedJointArray
+  JPH::Array<JPH::SkeletalAnimation::JointState> : JointStateArray
+  JPH::Array<JPH::Skeleton::Joint> : SkeletonJointArray
+  JPH::Array<JPH::SkeletonMapper::Chain> : SkeletonMapperChainArray
+  JPH::Array<JPH::SkeletonMapper::Locked> : SkeletonMapperLockedArray
+  JPH::Array<JPH::SkeletonMapper::Mapping> : SkeletonMapperMappingArray
+  JPH::Array<JPH::SkeletonMapper::Unmapped> : SkeletonMapperUnmappedArray
+  JPH::Array<JPH::SkeletalAnimation::Keyframe>: Keyframes
+  JPH::Array<JPH::SoftBodyCreationSettings> : SoftBodyCreationSettingsArray
+  JPH::Array<JPH::SoftBodySharedSettings::DihedralBend> : SoftBodySharedSettingsDihedralBendArray
+  JPH::Array<JPH::SoftBodySharedSettings::Edge> : SoftBodySharedSettingsEdgeArray
+  JPH::Array<JPH::SoftBodySharedSettings::Face> : SoftBodySharedSettingsFaceArray
+  JPH::Array<JPH::SoftBodySharedSettings::InvBind> : SoftBodySharedSettingsInvBindArray
+  JPH::Array<JPH::SoftBodySharedSettings::LRA> : SoftBodySharedSettingsLRAArray
+  JPH::Array<JPH::SoftBodySharedSettings::RodBendTwist> : SoftBodySharedSettingsRodBendTwistArray
+  JPH::Array<JPH::SoftBodySharedSettings::RodStretchShear> : SoftBodySharedSettingsRodStretchShearArray
+  JPH::Array<JPH::SoftBodySharedSettings::Skinned> : SoftBodySharedSettingsSkinnedArray
+  JPH::Array<JPH::SoftBodySharedSettings::Vertex> : SoftBodySharedSettingsVertexArray
+  JPH::Array<JPH::SoftBodySharedSettings::Volume> : SoftBodySharedSettingsVolumeArray
+  JPH::Array<JPH::SoftBodyVertex> : SoftBodyVertexArray
+  JPH::Array<JPH::Triangle> : TriangleArray
+  JPH::Array<JPH::Vec3> : Vec3Array
+  JPH::Array<JPH::VehicleAntiRollBar> : VehicleAntiRollBarArray
+  JPH::Array<JPH::VehicleDifferentialSettings> : VehicleDifferentialSettingsArray
+  JPH::Array<JPH::Wheel *> : WheelsArray
+  JPH::Array<const JPH::AABBTreeBuilder::Node *> : NodePointerArray
+  JPH::Array<const JPH::RTTI *> : RTTIArray
+  JPH::Array<float> : FloatArray
+  JPH::Array<int> : IntArray
+  JPH::Array<std::pair<int, int>> : IntIntPairArray
+  JPH::Array<unsigned char> : UnsignedCharArray
+  JPH::Array<unsigned int> : UnsignedIntArray
+  JPH::AxisConstraintPart : AxisConstraintPart
+  JPH::Body : Body
+  JPH::BodyActivationListener : BodyActivationListener
+  JPH::BodyCreationSettings : BodyCreationSettings
+  JPH::BodyDrawFilter : BodyDrawFilter
+  JPH::BodyFilter : BodyFilter
+  JPH::BodyID : BodyID
+  JPH::BodyInterface : BodyInterface
+  JPH::BodyLockBase<false, const JPH::Body> : BodyLockReadBase
+  JPH::BodyLockBase<true, JPH::Body> : BodyLockWriteBase
+  JPH::BodyLockInterface : BodyLockInterface
+  JPH::BodyLockInterfaceLocking : BodyLockInterfaceLocking
+  JPH::BodyLockInterfaceNoLock : BodyLockInterfaceNoLock
+  JPH::BodyLockMultiBase<false, const JPH::Body> : BodyLockMultiReadBase
+  JPH::BodyLockMultiBase<true, JPH::Body> : BodyLockMultiWriteBase
+  JPH::BodyLockMultiRead : BodyLockMultiRead
+  JPH::BodyLockMultiWrite : BodyLockMultiWrite
+  JPH::BodyLockRead : BodyLockRead
+  JPH::BodyLockWrite : BodyLockWrite
+  JPH::BodyManager : BodyManager
+  JPH::BodyManager::BodyStats : BodyStats
+  JPH::BodyManager::DrawSettings : DrawSettings
+  JPH::BodyPair : BodyPair
+  JPH::BoxShape : BoxShape
+  JPH::BoxShape::Box : Box
+  JPH::BoxShapeSettings : BoxShapeSettings
+  JPH::BroadPhase : BroadPhase
+  JPH::BroadPhase::UpdateState : UpdateState
+  JPH::BroadPhaseBruteForce : BroadPhaseBruteForce
+  JPH::BroadPhaseCastResult : BroadPhaseCastResult
+  JPH::BroadPhaseLayer : BroadPhaseLayer
+  JPH::BroadPhaseLayerFilter : BroadPhaseLayerFilter
+  JPH::BroadPhaseLayerInterface : BroadPhaseLayerInterface
+  JPH::BroadPhaseLayerInterfaceMask : BroadPhaseLayerInterfaceMask
+  JPH::BroadPhaseLayerInterfaceMask::Mapping : BroadPhaseLayerInterfaceMaskMapping
+  JPH::BroadPhaseLayerInterfaceTable : BroadPhaseLayerInterfaceTable
+  JPH::BroadPhaseQuadTree : BroadPhaseQuadTree
+  JPH::BroadPhaseQuadTree::LayerState : BroadPhaseQuadTreeLayerState
+  JPH::BroadPhaseQuadTree::UpdateStateImpl : BroadPhaseQuadTreeUpdateStateImpl
+  JPH::BroadPhaseQuery : BroadPhaseQuery
+  JPH::CalculateSolverSteps : CalculateSolverSteps
+  JPH::CapsuleShape : CapsuleShape
+  JPH::CapsuleShape::CapsuleNoConvex : CapsuleNoConvex
+  JPH::CapsuleShape::CapsuleWithConvex : CapsuleWithConvex
+  JPH::CapsuleShapeSettings : CapsuleShapeSettings
+  JPH::CastConvexVsTriangles : CastConvexVsTriangles
+  JPH::CastSphereVsTriangles : CastSphereVsTriangles
+  JPH::Character : Character
+  JPH::CharacterBase : CharacterBase
+  JPH::CharacterBaseSettings : CharacterBaseSettings
+  JPH::CharacterContact : CharacterContact
+  JPH::CharacterContactKey : CharacterContactKey
+  JPH::CharacterContactListener : CharacterContactListener
+  JPH::CharacterContactSettings : CharacterContactSettings
+  JPH::CharacterID : CharacterID
+  JPH::CharacterSettings : CharacterSettings
+  JPH::CharacterVirtual : CharacterVirtual
+  JPH::CharacterVirtual::Constraint : Constraint
+  JPH::CharacterVirtual::ContactCollector : ContactCollector
+  JPH::CharacterVirtual::ContactOrderingPredicate : ContactOrderingPredicate
+  JPH::CharacterVirtual::ExtendedUpdateSettings : ExtendedUpdateSettings
+  JPH::CharacterVirtual::ListenerContactValue : ListenerContactValue
+  JPH::CharacterVirtualSettings : CharacterVirtualSettings
+  JPH::CharacterVsCharacterCollision : CharacterVsCharacterCollision
+  JPH::CharacterVsCharacterCollisionSimple : CharacterVsCharacterCollisionSimple
+  JPH::CollideConvexVsTriangles : CollideConvexVsTriangles
+  JPH::CollidePointResult : CollidePointResult
+  JPH::CollideSettingsBase : CollideSettingsBase
+  JPH::CollideShapeResult : CollideShapeResult
+  JPH::CollideShapeSettings : CollideShapeSettings
+  JPH::CollideSoftBodyVertexIterator : CollideSoftBodyVertexIterator
+  JPH::CollideSoftBodyVerticesVsTriangles : CollideSoftBodyVerticesVsTriangles
+  JPH::CollideSphereVsTriangles : CollideSphereVsTriangles
+  JPH::CollisionCollector<JPH::BodyID, JPH::CollisionCollectorTraitsCollideShape> : CollideShapeBodyCollector
+  JPH::CollisionCollector<JPH::BodyPair, JPH::CollisionCollectorTraitsCollideShape> : BodyPairCollector
+  JPH::CollisionCollector<JPH::BroadPhaseCastResult, JPH::CollisionCollectorTraitsCastRay> : RayCastBodyCollector
+  JPH::CollisionCollector<JPH::BroadPhaseCastResult, JPH::CollisionCollectorTraitsCastShape> : CastShapeBodyCollector
+  JPH::CollisionCollector<JPH::CollidePointResult, JPH::CollisionCollectorTraitsCollideShape> : CollidePointCollector
+  JPH::CollisionCollector<JPH::CollideShapeResult, JPH::CollisionCollectorTraitsCollideShape> : CollideShapeCollector
+  JPH::CollisionCollector<JPH::RayCastResult, JPH::CollisionCollectorTraitsCastRay> : CastRayCollector
+  JPH::CollisionCollector<JPH::ShapeCastResult, JPH::CollisionCollectorTraitsCastShape> : CastShapeCollector
+  JPH::CollisionCollector<JPH::TransformedShape, JPH::CollisionCollectorTraitsCollideShape> : TransformedShapeCollector
+  JPH::CollisionCollectorTraitsCastRay : CollisionCollectorTraitsCastRay
+  JPH::CollisionCollectorTraitsCastShape : CollisionCollectorTraitsCastShape
+  JPH::CollisionCollectorTraitsCollideShape : CollisionCollectorTraitsCollideShape
+  JPH::CollisionDispatch : CollisionDispatch
+  JPH::CollisionEstimationResult : CollisionEstimationResult
+  JPH::CollisionGroup : CollisionGroup
+  JPH::Color : Color
+  JPH::CompoundShape : CompoundShape
+  JPH::CompoundShape::CastRayVisitor : CastRayVisitor
+  JPH::CompoundShape::CastRayVisitorCollector : CastRayVisitorCollector
+  JPH::CompoundShape::CastShapeVisitor : CastShapeVisitor
+  JPH::CompoundShape::CollectTransformedShapesVisitor : CollectTransformedShapesVisitor
+  JPH::CompoundShape::CollideCompoundVsShapeVisitor : CollideCompoundVsShapeVisitor
+  JPH::CompoundShape::CollidePointVisitor : CollidePointVisitor
+  JPH::CompoundShape::CollideShapeVsCompoundVisitor : CollideShapeVsCompoundVisitor
+  JPH::CompoundShape::SubShape : SubShape
+  JPH::CompoundShapeSettings : CompoundShapeSettings
+  JPH::CompoundShapeSettings::SubShapeSettings : SubShapeSettings
+  JPH::ComputeBuffer : ComputeBuffer
+  JPH::ComputeShader : ComputeShader
+  JPH::ComputeQueue : ComputeQueue
+  JPH::ComputeSystem : ComputeSystem
+  JPH::ConeConstraint : ConeConstraint
+  JPH::ConeConstraintSettings : ConeConstraintSettings
+  JPH::Constraint : Constraint
+  JPH::ConstraintManager : ConstraintManager
+  JPH::ConstraintSettings : ConstraintSettings
+  JPH::ContactConstraintManager : ContactConstraintManager
+  JPH::ContactConstraintManager::CachedBodyPair : CachedBodyPair
+  JPH::ContactConstraintManager::CachedContactPoint : CachedContactPoint
+  JPH::ContactConstraintManager::CachedManifold : CachedManifold
+  JPH::ContactConstraintManager::ContactAllocator : ContactAllocator
+  JPH::ContactConstraintManager::ContactConstraintBase : ContactConstraintBase
+  JPH::ContactConstraintManager::ManifoldCache : ManifoldCache
+  JPH::ContactListener : ContactListener
+  JPH::ContactManifold : ContactManifold
+  JPH::ContactSettings : ContactSettings
+  JPH::ConvexHullBuilder : ConvexHullBuilder
+  JPH::ConvexHullBuilder2D : ConvexHullBuilder2D
+  JPH::ConvexHullBuilder2D::Edge : ConvexHullBuilder2DEdge
+  JPH::ConvexHullBuilder::Coplanar : Coplanar
+  JPH::ConvexHullBuilder::Edge : ConvexHullBuilderEdge
+  JPH::ConvexHullBuilder::Face : ConvexHullBuilderFace
+  JPH::ConvexHullBuilder::FullEdge : FullEdge
+  JPH::ConvexHullShape : ConvexHullShape
+  JPH::ConvexHullShape::CHSGetTrianglesContext : CHSGetTrianglesContext
+  JPH::ConvexHullShape::Face : ConvexHullShapeFace
+  JPH::ConvexHullShape::HullNoConvex : HullNoConvex
+  JPH::ConvexHullShape::HullWithConvex : HullWithConvex
+  JPH::ConvexHullShape::HullWithConvexScaled : HullWithConvexScaled
+  JPH::ConvexHullShape::Point : ConvexHullShapePoint
+  JPH::ConvexHullShapeSettings : ConvexHullShapeSettings
+  JPH::ConvexShape : ConvexShape
+  JPH::ConvexShape::CSGetTrianglesContext : CSGetTrianglesContext
+  JPH::ConvexShape::Support : ConvexShapeSupport
+  JPH::ConvexShape::SupportBuffer : ConvexShapeSupportBuffer
+  JPH::ConvexShapeSettings : ConvexShapeSettings
+  JPH::CylinderShape : CylinderShape
+  JPH::CylinderShapeSettings : CylinderShapeSettings
+  JPH::DMat44 : DMat44
+  JPH::DVec3 : DVec3
+  JPH::DVec3::Type : DVec3Type
+  JPH::DebugRenderer : DebugRenderer
+  JPH::DebugRenderer::Geometry : Geometry
+  JPH::DebugRenderer::LOD : LOD
+  JPH::DebugRenderer::SwingConeLimits : SwingConeLimits
+  JPH::DebugRenderer::SwingConeLimitsHasher : SwingConeLimitsHasher
+  JPH::DebugRenderer::SwingPyramidLimits : SwingPyramidLimits
+  JPH::DebugRenderer::SwingPyramidLimitsHasher : SwingPyramidLimitsHasher
+  JPH::DebugRenderer::TaperedCylinder : TaperedCylinder
+  JPH::DebugRenderer::TaperedCylinderHasher : TaperedCylinderHasher
+  JPH::DebugRenderer::Triangle : DebugRendererTriangle
+  JPH::DebugRenderer::Vertex : DebugRendererVertex
+  JPH::DebugRendererPlayback : DebugRendererPlayback
+  JPH::DebugRendererRecorder : DebugRendererRecorder
+  JPH::DebugRendererRecorder::BatchImpl : BatchImpl
+  JPH::DebugRendererRecorder::Frame : Frame
+  JPH::DebugRendererRecorder::GeometryBlob : GeometryBlob
+  JPH::DebugRendererRecorder::LineBlob : LineBlob
+  JPH::DebugRendererRecorder::TextBlob : TextBlob
+  JPH::DebugRendererRecorder::TriangleBlob : TriangleBlob
+  JPH::DebugRendererSimple : DebugRendererSimple
+  JPH::DecoratedShape : DecoratedShape
+  JPH::DecoratedShapeSettings : DecoratedShapeSettings
+  JPH::DefaultBroadPhaseLayerFilter : DefaultBroadPhaseLayerFilter
+  JPH::DefaultObjectLayerFilter : DefaultObjectLayerFilter
+  JPH::DistanceConstraint : DistanceConstraint
+  JPH::DistanceConstraintSettings : DistanceConstraintSettings
+  JPH::Double3 : Double3
+  JPH::DualAxisConstraintPart : DualAxisConstraintPart
+  JPH::DynMatrix : DynMatrix
+  JPH::EPAConvexHullBuilder : EPAConvexHullBuilder
+  JPH::EPAConvexHullBuilder::Edge : EPAConvexHullBuilderEdge
+  JPH::EPAConvexHullBuilder::Points : EPAConvexHullBuilderPoints
+  JPH::EPAConvexHullBuilder::Triangle : EPAConvexHullBuilderTriangle
+  JPH::EPAConvexHullBuilder::TriangleFactory : EPAConvexHullBuilderTriangleFactory
+  JPH::EPAConvexHullBuilder::TriangleQueue : TriangleQueue
+  JPH::EPAPenetrationDepth : EPAPenetrationDepth
+  JPH::EPAPenetrationDepth::SupportPoints : SupportPoints
+  JPH::Ellipse : Ellipse
+  JPH::EmptyShape : EmptyShape
+  JPH::EmptyShapeSettings : EmptyShapeSettings
+  JPH::FPExceptionDisableDivByZero : FPExceptionDisableDivByZero
+  JPH::FPExceptionDisableInvalid : FPExceptionDisableInvalid
+  JPH::FPExceptionDisableOverflow : FPExceptionDisableOverflow
+  JPH::FPExceptionsEnable : FPExceptionsEnable
+  JPH::Factory : Factory
+  JPH::FixedConstraint : FixedConstraint
+  JPH::FixedConstraintSettings : FixedConstraintSettings
+  JPH::FixedSizeFreeList<JPH::QuadTree::Node> : QuadTreeNodeFreeList
+  JPH::Float2 : Float2
+  JPH::Float3 : Float3
+  JPH::Float4 : Float4
+  JPH::GJKClosestPoint : GJKClosestPoint
+  JPH::GearConstraint : GearConstraint
+  JPH::GearConstraintPart : GearConstraintPart
+  JPH::GearConstraintSettings : GearConstraintSettings
+  JPH::GetTrianglesContextMultiVertexList : GetTrianglesContextMultiVertexList
+  JPH::GetTrianglesContextMultiVertexList::Part : GetTrianglesContextMultiVertexListPart
+  JPH::GetTrianglesContextVertexList : GetTrianglesContextVertexList
+  JPH::GroupFilter : GroupFilter
+  JPH::GroupFilterTable : GroupFilterTable
+  JPH::Hair : Hair
+  JPH::Hair::DrawSettings : HairDrawSettings
+  JPH::Hair::LeafShape : HairLeafShape
+  JPH::Hair::UpdateContext : HairUpdateContext
+  JPH::HairSettings : HairSettings
+  JPH::HairSettings::Gradient : HairSettingsGradient
+  JPH::HairSettings::GradientSampler : GradientSampler
+  JPH::HairSettings::GridSampler : GridSampler
+  JPH::HairSettings::Material : HairSettingsMaterial
+  JPH::HairSettings::RStrand : RStrand
+  JPH::HairSettings::RVertex : HairSettingsRVertex
+  JPH::HairSettings::SStrand : HairSettingsSStrand
+  JPH::HairSettings::SVertex : HairSettingsSVertex
+  JPH::HairSettings::SVertexInfluence : SVertexInfluence
+  JPH::HairSettings::SkinPoint : HairSettingsSkinPoint
+  JPH::HairSettings::SkinWeight : HairSettingsSkinWeight
+  JPH::HairShaders : HairShaders
+  JPH::HeightFieldShape : HeightFieldShape
+  JPH::HeightFieldShape::RangeBlock : HeightFieldShapeRangeBlock
+  JPH::HeightFieldShapeSettings : HeightFieldShapeSettings
+  JPH::HingeConstraint : HingeConstraint
+  JPH::HingeConstraintSettings : HingeConstraintSettings
+  JPH::HingeRotationConstraintPart : HingeRotationConstraintPart
+  JPH::IgnoreMultipleBodiesFilter : IgnoreMultipleBodiesFilter
+  JPH::IgnoreSingleBodyFilter : IgnoreSingleBodyFilter
+  JPH::IgnoreSingleBodyFilterChained : IgnoreSingleBodyFilterChained
+  JPH::IndependentAxisConstraintPart : IndependentAxisConstraintPart
+  JPH::IndexedTriangle : IndexedTriangle
+  JPH::IndexedTriangleNoMaterial : IndexedTriangleNoMaterial
+  JPH::InternalEdgeRemovingCollector : InternalEdgeRemovingCollector
+  JPH::InternalEdgeRemovingCollector::Voided : InternalEdgeRemovingCollectorVoided
+  JPH::IslandBuilder : IslandBuilder
+  JPH::IslandBuilder::BodyLink : BodyLink
+  JPH::JobSystem : JobSystem
+  JPH::JobSystem::Barrier : JobSystemBarrier
+  JPH::JobSystem::Job : JobSystemJob
+  JPH::JobSystem::JobHandle : JobSystemJobHandle
+  JPH::JobSystemSingleThreaded : JobSystemSingleThreaded
+  JPH::JobSystemSingleThreaded::BarrierImpl : JobSystemSingleThreadedBarrierImpl
+  JPH::JobSystemThreadPool : JobSystemThreadPool
+  JPH::JobSystemThreadPool::Node : Node
+  JPH::JobSystemWithBarrier : JobSystemWithBarrier
+  JPH::JobSystemWithBarrier::BarrierImpl : JobSystemWithBarrierBarrierImpl
+  JPH::LFHMAllocator : LFHMAllocator
+  JPH::LFHMAllocatorContext : LFHMAllocatorContext
+  JPH::LargeIslandSplitter : LargeIslandSplitter
+  JPH::LargeIslandSplitter::Split : Split
+  JPH::LargeIslandSplitter::Splits : Splits
+  JPH::LinearCurve : LinearCurve
+  JPH::LinearCurve::Point : LinearCurvePoint
+  JPH::MassProperties : MassProperties
+  JPH::Mat44 : Matrix44
+  JPH::MeshShape : MeshShape
+  JPH::MeshShapeSettings : MeshShapeSettings
+  JPH::MortonCode : MortonCode
+  JPH::MotionProperties : MotionProperties
+  JPH::MotorSettings : MotorSettings
+  JPH::MotorcycleController : MotorcycleController
+  JPH::MotorcycleControllerSettings : MotorcycleControllerSettings
+  JPH::MutableCompoundShape : MutableCompoundShape
+  JPH::MutableCompoundShape::Bounds : MutableCompoundShapeBounds
+  JPH::MutableCompoundShapeSettings : MutableCompoundShapeSettings
+  JPH::NarrowPhaseQuery : NarrowPhaseQuery
+  JPH::NodeCodecQuadTreeHalfFloat : NodeCodecQuadTreeHalfFloat
+  JPH::NodeCodecQuadTreeHalfFloat::DecodingContext : NodeCodecQuadTreeHalfFloatDecodingContext
+  JPH::NodeCodecQuadTreeHalfFloat::EncodingContext : NodeCodecQuadTreeHalfFloatEncodingContext
+  JPH::NodeCodecQuadTreeHalfFloat::Header : NodeCodecQuadTreeHalfFloatHeader
+  JPH::NodeCodecQuadTreeHalfFloat::Node : NodeCodecQuadTreeHalfFloatNode
+  JPH::ObjectLayerFilter : ObjectLayerFilter
+  JPH::ObjectLayerPairFilter : ObjectLayerPairFilter
+  JPH::ObjectLayerPairFilterMask : ObjectLayerPairFilterMask
+  JPH::ObjectLayerPairFilterTable : ObjectLayerPairFilterTable
+  JPH::ObjectVsBroadPhaseLayerFilter : ObjectVsBroadPhaseLayerFilter
+  JPH::ObjectVsBroadPhaseLayerFilterMask : ObjectVsBroadPhaseLayerFilterMask
+  JPH::ObjectVsBroadPhaseLayerFilterTable : ObjectVsBroadPhaseLayerFilterTable
+  JPH::OffsetCenterOfMassShape : OffsetCenterOfMassShape
+  JPH::OffsetCenterOfMassShapeSettings : OffsetCenterOfMassShapeSettings
+  JPH::OrientedBox : OrientedBox
+  JPH::PathConstraint : PathConstraint
+  JPH::PathConstraintPath : PathConstraintPath
+  JPH::PathConstraintPathHermite : PathConstraintPathHermite
+  JPH::PathConstraintPathHermite::Point : PathConstraintPathHermitePoint
+  JPH::PathConstraintSettings : PathConstraintSettings
+  JPH::PhysicsLock : PhysicsLock
+  JPH::PhysicsMaterial : PhysicsMaterial
+  JPH::PhysicsMaterialSimple : PhysicsMaterialSimple
+  JPH::PhysicsScene : PhysicsScene
+  JPH::PhysicsScene::ConnectedConstraint : ConnectedConstraint
+  JPH::PhysicsSettings : PhysicsSettings
+  JPH::PhysicsStepListener : PhysicsStepListener
+  JPH::PhysicsStepListenerContext : PhysicsStepListenerContext
+  JPH::PhysicsSystem : PhysicsSystem
+  JPH::PhysicsUpdateContext : PhysicsUpdateContext
+  JPH::Plane : PlaneHandle
+  JPH::PlaneShape : PlaneShape
+  JPH::PlaneShapeSettings : PlaneShapeSettings
+  JPH::PointConstraint : PointConstraint
+  JPH::PointConstraintPart : PointConstraintPart
+  JPH::PointConstraintSettings : PointConstraintSettings
+  JPH::PointConvexSupport : PointConvexSupport
+  JPH::PolyhedronSubmergedVolumeCalculator : PolyhedronSubmergedVolumeCalculator
+  JPH::PolyhedronSubmergedVolumeCalculator::Point : PolyhedronSubmergedVolumeCalculatorPoint
+  JPH::PulleyConstraint : PulleyConstraint
+  JPH::PulleyConstraintSettings : PulleyConstraintSettings
+  JPH::QuadTree : QuadTree
+  JPH::QuadTree::AddState : QuadTreeAddState
+  JPH::QuadTree::AtomicNodeID : QuadTreeAtomicNodeID
+  JPH::QuadTree::Node : QuadTreeNode
+  JPH::QuadTree::NodeID : QuadTreeNodeID
+  JPH::QuadTree::RootNode : QuadTreeRootNode
+  JPH::QuadTree::Tracking : QuadTreeTracking
+  JPH::QuadTree::UpdateState : QuadTreeUpdateState
+  JPH::Quat : QuatHandle
+  JPH::RRayCast : RRayCast
+  JPH::RShapeCast : RShapeCast
+  JPH::RTTI : RTTI
+  JPH::RTTI::BaseClass : RTTIBaseClass
+  JPH::RackAndPinionConstraint : RackAndPinionConstraint
+  JPH::RackAndPinionConstraintPart : RackAndPinionConstraintPart
+  JPH::RackAndPinionConstraintSettings : RackAndPinionConstraintSettings
+  JPH::Ragdoll : Ragdoll
+  JPH::RagdollSettings : RagdollSettings
+  JPH::RagdollSettings::AdditionalConstraint : AdditionalConstraint
+  JPH::RagdollSettings::Part : RagdollSettingsPart
+  JPH::RayCast : RayCast
+  JPH::RayCastResult : RayCastResult
+  JPH::RayCastSettings : RayCastSettings
+  JPH::RayCastT<JPH::Vec3, JPH::Mat44, JPH::RRayCast> : RRayCastT
+  JPH::RayCastT<JPH::Vec3, JPH::Mat44, JPH::RayCast> : RayCastT
+  JPH::RayInvDirection : RayInvDirection
+  JPH::Ref<JPH::ComputeBuffer> : ComputeBufferRef
+  JPH::Ref<JPH::ComputeShader> : ComputeShaderRef
+  JPH::Ref<JPH::Constraint> : ConstraintRef
+  JPH::Ref<JPH::ConstraintSettings> : ConstraintSettingsRef
+  JPH::Ref<JPH::DebugRenderer::Geometry> : GeometryRef
+  JPH::Ref<JPH::GroupFilter> : GroupFilterRef
+  JPH::Ref<JPH::HeightFieldShape> : HeightFieldShapeRef
+  JPH::Ref<JPH::MutableCompoundShape> : MutableCompoundShapeRef
+  JPH::Ref<JPH::PathConstraintPath> : PathConstraintPathRef
+  JPH::Ref<JPH::PhysicsMaterial> : PhysicsMaterialRef
+  JPH::Ref<JPH::PhysicsScene> : PhysicsSceneRef
+  JPH::Ref<JPH::RagdollSettings> : RagdollSettingsRef
+  JPH::Ref<JPH::RefTargetVirtual> : RefTargetVirtualRef
+  JPH::Ref<JPH::Shape> : ShapeRef
+  JPH::Ref<JPH::Skeleton> : SkeletonRef
+  JPH::Ref<JPH::SkeletalAnimation> : SkeletalAnimationRef
+  JPH::Ref<JPH::SoftBodySharedSettings> : SoftBodySharedSettingsRef
+  JPH::Ref<JPH::VehicleControllerSettings> : VehicleControllerSettingsRef
+  JPH::Ref<JPH::WheelSettings>: WheelSettingsRef
+  JPH::Ref<JPH::TwoBodyConstraintSettings>: TwoBodyConstraintSettingsRef
+  JPH::RefConst<JPH::PathConstraintPath> : PathConstraintPathRefConst
+  JPH::RefConst<JPH::PhysicsMaterial> : PhysicsMaterialRefConst
+  JPH::RefConst<JPH::Shape> : ShapeRefConst
+  JPH::RefConst<JPH::ShapeSettings> : ShapeSettingsRefConst
+  JPH::RefConst<JPH::SoftBodySharedSettings> : SoftBodySharedSettingsRefConst
+  JPH::RefConst<JPH::TwoBodyConstraintSettings>: TwoBodyConstraintSettingsRefConst
+  JPH::RefTarget<JPH::CharacterBase> : CharacterBaseRefTarget
+  JPH::RefTarget<JPH::CharacterBaseSettings> : CharacterBaseSettingsRefTarget
+  JPH::RefTarget<JPH::Constraint> : ConstraintRefTarget
+  JPH::RefTarget<JPH::ConstraintSettings> : ConstraintSettingsRefTarget
+  JPH::RefTarget<JPH::DebugRenderer::Geometry> : GeometryRefTarget
+  JPH::RefTarget<JPH::GroupFilter> : GroupFilterRefTarget
+  JPH::RefTarget<JPH::HairSettings> : HairSettingsRefTarget
+  JPH::RefTarget<JPH::HairShaders> : HairShadersRefTarget
+  JPH::RefTarget<JPH::PathConstraintPath> : PathConstraintPathRefTarget
+  JPH::RefTarget<JPH::PhysicsMaterial> : PhysicsMaterialRefTarget
+  JPH::RefTarget<JPH::PhysicsScene> : PhysicsSceneRefTarget
+  JPH::RefTarget<JPH::Ragdoll> : RagdollRefTarget
+  JPH::RefTarget<JPH::RagdollSettings> : RagdollSettingsRefTarget
+  JPH::RefTarget<JPH::Shape> : ShapeRefTarget
+  JPH::RefTarget<JPH::ShapeSettings> : ShapeSettingsRefTarget
+  JPH::RefTarget<JPH::SkeletalAnimation> : SkeletalAnimationRefTarget
+  JPH::RefTarget<JPH::Skeleton> : SkeletonRefTarget
+  JPH::RefTarget<JPH::SkeletonMapper> : SkeletonMapperRefTarget
+  JPH::RefTarget<JPH::SoftBodySharedSettings> : SoftBodySharedSettingsRefTarget
+  JPH::RefTarget<JPH::VehicleCollisionTester> : VehicleCollisionTesterRefTarget
+  JPH::RefTarget<JPH::VehicleControllerSettings> : VehicleControllerSettingsRefTarget
+  JPH::RefTarget<JPH::WheelSettings> : WheelSettingsRefTarget
+  JPH::RefTargetVirtual : RefTargetVirtual
+  JPH::Result<JPH::BodyCreationSettings> : BCSResult
+  JPH::Result<JPH::Ref<JPH::ConstraintSettings>> : ConstraintSettingsResult
+  JPH::Result<JPH::Ref<JPH::GroupFilter>> : GroupFilterResult
+  JPH::Result<JPH::Ref<JPH::PathConstraintPath>> : PathConstraintPathResult
+  JPH::Result<JPH::Ref<JPH::PhysicsMaterial>> : PhysicsMaterialResult
+  JPH::Result<JPH::Ref<JPH::PhysicsScene>> : PhysicsSceneResult
+  JPH::Result<JPH::Ref<JPH::RagdollSettings>> : RagdollSettingsResult
+  JPH::Result<JPH::Ref<JPH::Shape>> : ShapeResult
+  JPH::Result<JPH::Ref<JPH::SkeletalAnimation>> : AnimationResult
+  JPH::Result<JPH::Ref<JPH::Skeleton>> : SkeletonResult
+  JPH::Result<JPH::Ref<JPH::SoftBodySharedSettings>> : SoftBodySharedSettingsResult
+  JPH::Result<JPH::SoftBodyCreationSettings> : SBCSResult
+  JPH::ReversedShapeFilter : ReversedShapeFilter
+  JPH::RotatedTranslatedShape : RotatedTranslatedShape
+  JPH::RotatedTranslatedShapeSettings : RotatedTranslatedShapeSettings
+  JPH::RotationEulerConstraintPart : RotationEulerConstraintPart
+  JPH::RotationQuatConstraintPart : RotationQuatConstraintPart
+  JPH::ScaledShape : ScaledShape
+  JPH::ScaledShapeSettings : ScaledShapeSettings
+  JPH::Semaphore : Semaphore
+  JPH::SerializableObject : SerializableObject
+  JPH::Shape : Shape
+  JPH::Shape::GetTrianglesContext : GetTrianglesContext
+  JPH::Shape::Stats : Stats
+  JPH::ShapeCast : ShapeCast
+  JPH::ShapeCastResult : ShapeCastResult
+  JPH::ShapeCastSettings : ShapeCastSettings
+  JPH::ShapeCastT<JPH::Vec3, JPH::Mat44, JPH::RShapeCast> : RShapeCastT
+  JPH::ShapeCastT<JPH::Vec3, JPH::Mat44, JPH::ShapeCast> : ShapeCastT
+  JPH::ShapeFilter : ShapeFilter
+  JPH::ShapeFunctions : ShapeFunctions
+  JPH::ShapeSettings : ShapeSettings
+  JPH::SimShapeFilter : SimShapeFilter
+  JPH::SimShapeFilterWrapper : SimShapeFilterWrapper
+  JPH::SixDOFConstraint : SixDOFConstraint
+  JPH::SixDOFConstraintSettings : SixDOFConstraintSettings
+  JPH::SkeletalAnimation : SkeletalAnimation
+  JPH::SkeletalAnimation::AnimatedJoint : AnimatedJoint
+  JPH::SkeletalAnimation::JointState : SkeletalAnimationJointState
+  JPH::SkeletalAnimation::Keyframe : SkeletalAnimationKeyframe
+  JPH::Skeleton : Skeleton
+  JPH::Skeleton::Joint : SkeletonJoint
+  JPH::SkeletonMapper : SkeletonMapper
+  JPH::SkeletonMapper::Chain : SkeletonMapperChain
+  JPH::SkeletonMapper::Locked : SkeletonMapperLocked
+  JPH::SkeletonMapper::Mapping : SkeletonMapperMapping
+  JPH::SkeletonMapper::Unmapped : SkeletonMapperUnmapped
+  JPH::SkeletonPose : SkeletonPose
+  JPH::SkeletonPose::DrawSettings : SkeletonPoseDrawSettings
+  JPH::SliderConstraint : SliderConstraint
+  JPH::SliderConstraintSettings : SliderConstraintSettings
+  JPH::SoftBodyContactListener : SoftBodyContactListener
+  JPH::SoftBodyContactSettings : SoftBodyContactSettings
+  JPH::SoftBodyCreationSettings : SoftBodyCreationSettings
+  JPH::SoftBodyManifold : SoftBodyManifold
+  JPH::SoftBodyMotionProperties : SoftBodyMotionProperties
+  JPH::SoftBodyMotionProperties::CollidingSensor : SoftBodyMotionPropertiesCollidingSensor
+  JPH::SoftBodyMotionProperties::CollidingShape : SoftBodyMotionPropertiesCollidingShape
+  JPH::SoftBodyMotionProperties::LeafShape : SoftBodyMotionPropertiesLeafShape
+  JPH::SoftBodyMotionProperties::RodState : SoftBodyMotionPropertiesRodState
+  JPH::SoftBodyMotionProperties::SkinState : SoftBodyMotionPropertiesSkinState
+  JPH::SoftBodyShape : SoftBodyShape
+  JPH::SoftBodySharedSettings : SoftBodySharedSettings
+  JPH::SoftBodySharedSettings::ClosestKinematic : SoftBodySharedSettingsClosestKinematic
+  JPH::SoftBodySharedSettings::DihedralBend : SoftBodySharedSettingsDihedralBend
+  JPH::SoftBodySharedSettings::Edge : SoftBodySharedSettingsEdge
+  JPH::SoftBodySharedSettings::Face : SoftBodySharedSettingsFace
+  JPH::SoftBodySharedSettings::InvBind : SoftBodySharedSettingsInvBind
+  JPH::SoftBodySharedSettings::LRA : SoftBodySharedSettingsLRA
+  JPH::SoftBodySharedSettings::OptimizationResults : SoftBodySharedSettingsOptimizationResults
+  JPH::SoftBodySharedSettings::RodBendTwist : SoftBodySharedSettingsRodBendTwist
+  JPH::SoftBodySharedSettings::RodStretchShear : SoftBodySharedSettingsRodStretchShear
+  JPH::SoftBodySharedSettings::SkinWeight : SoftBodySharedSettingsSkinWeight
+  JPH::SoftBodySharedSettings::Skinned : SoftBodySharedSettingsSkinned
+  JPH::SoftBodySharedSettings::UpdateGroup : SoftBodySharedSettingsUpdateGroup
+  JPH::SoftBodySharedSettings::Vertex : SoftBodySharedSettingsVertex
+  JPH::SoftBodySharedSettings::VertexAttributes : SoftBodySharedSettingsVertexAttributes
+  JPH::SoftBodySharedSettings::Volume : SoftBodySharedSettingsVolume
+  JPH::SoftBodyUpdateContext : SoftBodyUpdateContext
+  JPH::SoftBodyVertex : SoftBodyVertex
+  JPH::SpecifiedBroadPhaseLayerFilter : SpecifiedBroadPhaseLayerFilter
+  JPH::SpecifiedObjectLayerFilter : SpecifiedObjectLayerFilter
+  JPH::Sphere : Sphere
+  JPH::SphereShape : SphereShape
+  JPH::SphereShapeSettings : SphereShapeSettings
+  JPH::SpringPart : SpringPart
+  JPH::SpringSettings : SpringSettings
+  JPH::StateRecorder : StateRecorder
+  JPH::StateRecorderFilter : StateRecorderFilter
+  JPH::StateRecorderImpl : StateRecorderImpl
+  JPH::StaticArray<JPH::EPAConvexHullBuilder::Triangle *, 128> : StaticEPAConvexHullBuilderTriangleArray
+  JPH::StaticArray<JPH::Vec3, 1026> : UnitSphereVectors
+  JPH::StaticArray<JPH::Vec3, 32> : SupportingFace
+  JPH::StaticArray<JPH::Vec3, 64> : ContactPoints
+  JPH::StaticArray<float, 64> : ContactImpulse
+  JPH::StaticCompoundShape : StaticCompoundShape
+  JPH::StaticCompoundShape::Node : StaticCompoundShapeNode
+  JPH::StaticCompoundShapeSettings : StaticCompoundShapeSettings
+  JPH::StreamIn : StreamIn
+  JPH::StreamInWrapper : StreamInWrapper
+  JPH::StreamOut : StreamOut
+  JPH::StreamOutWrapper : StreamOutWrapper
+  JPH::StridedPtr<const JPH::Float3> : StridedPtr
+  JPH::StridedPtr<const JPH::Vec3> : Vec3StridedPtr
+  JPH::SubShapeID : SubShapeID
+  JPH::SubShapeIDCreator : SubShapeIDCreator
+  JPH::SubShapeIDPair : SubShapeIDPair
+  JPH::SwingTwistConstraint : SwingTwistConstraint
+  JPH::SwingTwistConstraintPart : SwingTwistConstraintPart
+  JPH::SwingTwistConstraintSettings : SwingTwistConstraintSettings
+  JPH::TaperedCapsuleShape : TaperedCapsuleShape
+  JPH::TaperedCapsuleShapeSettings : TaperedCapsuleShapeSettings
+  JPH::TaperedCylinderShape : TaperedCylinderShape
+  JPH::TaperedCylinderShapeSettings : TaperedCylinderShapeSettings
+  JPH::TempAllocator : TempAllocator
+  JPH::TempAllocatorImpl : TempAllocatorImpl
+  JPH::TempAllocatorImplWithMallocFallback : TempAllocatorImplWithMallocFallback
+  JPH::TempAllocatorMalloc : TempAllocatorMalloc
+  JPH::TrackedVehicleController : TrackedVehicleController
+  JPH::TrackedVehicleControllerSettings : TrackedVehicleControllerSettings
+  JPH::TransformedShape : TransformedShape
+  JPH::Triangle : Triangle
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags : TriangleCodecIndexed8BitPackSOA4Flags
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags::DecodingContext : DecodingContext
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags::EncodingContext : EncodingContext
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags::TriangleBlock : TriangleBlock
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags::TriangleBlockHeader : TriangleBlockHeader
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags::TriangleHeader : TriangleHeader
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags::ValidationContext : ValidationContext
+  JPH::TriangleCodecIndexed8BitPackSOA4Flags::VertexData : VertexData
+  JPH::TriangleConvexSupport : TriangleConvexSupport
+  JPH::TriangleShape : TriangleShape
+  JPH::TriangleShapeSettings : TriangleShapeSettings
+  JPH::TriangleSplitter : TriangleSplitter
+  JPH::TriangleSplitter::Range : TriangleSplitterRange
+  JPH::TriangleSplitter::Stats : Stats
+  JPH::TriangleSplitterBinning : TriangleSplitterBinning
+  JPH::TriangleSplitterBinning::Bin : TriangleSplitterBinningBin
+  JPH::TriangleSplitterMean : TriangleSplitterMean
+  JPH::TwoBodyConstraint : TwoBodyConstraint
+  JPH::TwoBodyConstraintSettings : TwoBodyConstraintSettings
+  JPH::UVec4 : UVec4
+  JPH::UnorderedMap<const JPH::GroupFilter *, unsigned int> : GroupFilterToIDMap
+  JPH::UnorderedMap<const JPH::PhysicsMaterial *, unsigned int> : MaterialToIDMap
+  JPH::UnorderedMap<const JPH::Shape *, unsigned int> : ShapeToIDMap
+  JPH::UnorderedMap<const JPH::SoftBodySharedSettings *, unsigned int> : SharedSettingsToIDMap
+  JPH::UnorderedSet<const JPH::Shape *> : VisitedShapes
+  JPH::Vec3 : Vec3
+  JPH::Vec4 : Vec4
+  JPH::Vector<2> : Vector2
+  JPH::VehicleAntiRollBar : VehicleAntiRollBar
+  JPH::VehicleCollisionTester : VehicleCollisionTester
+  JPH::VehicleCollisionTesterCastCylinder : VehicleCollisionTesterCastCylinder
+  JPH::VehicleCollisionTesterCastSphere : VehicleCollisionTesterCastSphere
+  JPH::VehicleCollisionTesterRay : VehicleCollisionTesterRay
+  JPH::VehicleConstraint : VehicleConstraint
+  JPH::VehicleConstraintSettings : VehicleConstraintSettings
+  JPH::VehicleController : VehicleController
+  JPH::VehicleControllerSettings : VehicleControllerSettings
+  JPH::VehicleDifferentialSettings : VehicleDifferentialSettings
+  JPH::VehicleEngine : VehicleEngine
+  JPH::VehicleEngineSettings : VehicleEngineSettings
+  JPH::VehicleTrack : VehicleTrack
+  JPH::VehicleTrackSettings : VehicleTrackSettings
+  JPH::VehicleTransmission : VehicleTransmission
+  JPH::VehicleTransmissionSettings : VehicleTransmissionSettings
+  JPH::Wheel : Wheel
+  JPH::WheelSettings : WheelSettings
+  JPH::WheelSettingsTV : WheelSettingsTV
+  JPH::WheelSettingsWV : WheelSettingsWV
+  JPH::WheelTV : WheelTV
+  JPH::WheelWV : WheelWV
+  JPH::WheeledVehicleController : WheeledVehicleController
+  JPH::WheeledVehicleControllerSettings : WheeledVehicleControllerSettings
+  std::basic_istream<char> : BaiscIstream
+  std::basic_ostream<char> : BaiscOstream
+  std::basic_string<char, std::char_traits<char>, JPH::STLAllocator<char>> : BasicString2
+  std::basic_string<char> : BasicString
+  std::basic_string_view<char> : StringView
+  std::function<JPH::Vec3 (JPH::Vec3)> : SupportFunction
+  std::function<bool (const JPH::Skeleton *, int, const JPH::Skeleton *, int)> : CanMapJoint
+  std::function<void ()> : JobFunction
+  std::function<void (JPH::ComputeBuffer *, JPH::Float3 *, unsigned int)> : RenderPositionsToFloat3
+  std::function<void (JPH::VehicleConstraint &, const JPH::PhysicsStepListenerContext &)> : StepCallback
+  std::function<void (const JPH::Body &, const JPH::Body &, const JPH::Mat44 &, const JPH::Mat44 &, JPH::CollideShapeSettings &, JPH::CollisionCollector<JPH::CollideShapeResult, JPH::CollisionCollectorTraitsCollideShape> &, const JPH::ShapeFilter &)> : SimCollideBodyVsBody
+  std::function<void (int)> : InitExitFunction
+  std::function<void (unsigned int, float &, float &, const JPH::Body &, const JPH::SubShapeID &)> : CombineFunction
+  std::function<void (unsigned int, float &, float &, float, float, float, float, float, float)> : TireMaxImpulseCallback
+  std::pair<int, int> : IntIntPair
+  std::shared_mutex : SharedMutex
+
+records:
+  # - name: AABBTreeBuilder
+  #   header-file: <Jolt/AABBTree/AABBTreeBuilder.h>
+  # - name: AABBTreeBuilder::Node
+  #   header-file: <Jolt/AABBTree/AABBTreeBuilder.h>
+  #   skipped-functions:
+  #     - GetChild
+  #     - SetChild
+  # - name: AABBTreeBuilderStats
+  #   header-file: <Jolt/AABBTree/AABBTreeBuilder.h>
+  - name: AABox
+    header-file: <Jolt/Geometry/AABox.h>
+  - name: AABoxCast
+    header-file: <Jolt/Physics/Collision/AABoxCast.h>
+  - name: AngleConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/AngleConstraintPart.h>
+  - name: AxisConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/AxisConstraintPart.h>
+
+  - name: Body
+    header-file: <Jolt/Physics/Body/Body.h>
+    ignored-parents:
+      - JPH::NonCopyable
+    skipped-functions:
+      - GetFixedToWorld
+      - SetFixedToWorld
+  - name: BodyCreationSettings
+    header-file: <Jolt/Physics/Body/BodyCreationSettings.h>
+  - name: BodyID
+    header-file: <Jolt/Physics/Body/BodyID.h>
+  - name: BodyInterface
+    header-file: <Jolt/Physics/Body/BodyInterface.h>
+    ignored-parents:
+      - JPH::NonCopyable
+  - name: BodyLockInterface
+    header-file: <Jolt/Physics/Body/BodyLockInterface.h>
+    skipped-functions:
+      - UnlockRead
+      - UnlockWrite
+  - name: BodyLockInterfaceLocking
+    header-file: <Jolt/Physics/Body/BodyLockInterface.h>
+    skipped-functions:
+      - Create
+  - name: BodyLockInterfaceNoLock
+    header-file: <Jolt/Physics/Body/BodyLockInterface.h>
+    skipped-functions:
+      - Create
+  - name: BodyLockMultiRead
+    header-file: <Jolt/Physics/Body/BodyLockMulti.h>
+    skipped-functions:
+      - Create
+  - name: BodyLockMultiWrite
+    header-file: <Jolt/Physics/Body/BodyLockMulti.h>
+    skipped-functions:
+      - Create
+  - name: BodyLockRead
+    header-file: <Jolt/Physics/Body/BodyLock.h>
+    skipped-functions:
+      - Create
+  - name: BodyLockWrite
+    header-file: <Jolt/Physics/Body/BodyLock.h>
+    skipped-functions:
+      - Create
+  # - name: BodyManager
+  #   header-file: <Jolt/Physics/Body/BodyManager.h>
+  - name: BodyManager::DrawSettings
+    header-file: <Jolt/Physics/Body/BodyManager.h>
+  - name: BodyManager::BodyStats
+    header-file: <Jolt/Physics/Body/BodyManager.h>
+  - name: BodyPair
+    header-file: <Jolt/Physics/Body/BodyPair.h>
+  - name: BoxShape
+    header-file: <Jolt/Physics/Collision/Shape/BoxShape.h>
+  - name: BoxShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/BoxShape.h>
+  # - name: BroadPhase
+  #   header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhase.h>
+  # - name: BroadPhase::UpdateState
+  #   header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhase.h>
+  - name: BroadPhaseBruteForce
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseBruteForce.h>
+  - name: BroadPhaseCastResult
+    header-file: <Jolt/Physics/Collision/CastResult.h>
+  - name: BroadPhaseLayer
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
+  - name: BroadPhaseLayerInterfaceMask
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceMask.h>
+  - name: BroadPhaseLayerInterfaceTable
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayerInterfaceTable.h>
+  # - name: BroadPhaseQuadTree
+  #   header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseQuadTree.h>
+  - name: BroadPhaseQuery
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseQuery.h>
+
+  # - name: CalculateSolverSteps
+  #   header-file: <Jolt/Physics/Constraints/CalculateSolverSteps.h>
+  - name: CapsuleShape
+    header-file: <Jolt/Physics/Collision/Shape/CapsuleShape.h>
+  - name: CapsuleShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/CapsuleShape.h>
+  - name: CastConvexVsTriangles
+    header-file: <Jolt/Physics/Collision/CastConvexVsTriangles.h>
+  - name: CastSphereVsTriangles
+    header-file: <Jolt/Physics/Collision/CastSphereVsTriangles.h>
+  - name: Character
+    header-file: <Jolt/Physics/Character/Character.h>
+  - name: CharacterBase
+    header-file: <Jolt/Physics/Character/CharacterBase.h>
+  - name: CharacterBaseSettings
+    header-file: <Jolt/Physics/Character/CharacterBase.h>
+  - name: CharacterContact
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CharacterContactKey
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CharacterContactSettings
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CharacterID
+    header-file: <Jolt/Physics/Character/CharacterID.h>
+  - name: CharacterSettings
+    header-file: <Jolt/Physics/Character/Character.h>
+  - name: CharacterVirtual
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CharacterVirtual::ExtendedUpdateSettings
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CharacterVirtualSettings
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CharacterVsCharacterCollisionSimple
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CollideConvexVsTriangles
+    header-file: <Jolt/Physics/Collision/CollideConvexVsTriangles.h>
+  - name: CollidePointResult
+    header-file: <Jolt/Physics/Collision/CollidePointResult.h>
+  - name: CollideSettingsBase
+    header-file: <Jolt/Physics/Collision/CollideShape.h>
+  - name: CollideShapeResult
+    header-file: <Jolt/Physics/Collision/CollideShape.h>
+  - name: CollideShapeSettings
+    header-file: <Jolt/Physics/Collision/CollideShape.h>
+  - name: CollideSoftBodyVerticesVsTriangles
+    header-file: <Jolt/Physics/Collision/CollideSoftBodyVerticesVsTriangles.h>
+  - name: CollideSphereVsTriangles
+    header-file: <Jolt/Physics/Collision/CollideSphereVsTriangles.h>
+  - name: CollisionCollectorTraitsCastRay
+    header-file: <Jolt/Physics/Collision/CollisionCollector.h>
+  - name: CollisionCollectorTraitsCastShape
+    header-file: <Jolt/Physics/Collision/CollisionCollector.h>
+  - name: CollisionCollectorTraitsCollideShape
+    header-file: <Jolt/Physics/Collision/CollisionCollector.h>
+  # - name: CollisionDispatch
+  #   header-file: <Jolt/Physics/Collision/CollisionDispatch.h>
+  - name: CollisionEstimationResult
+    header-file: <Jolt/Physics/Collision/EstimateCollisionResponse.h>
+  - name: CollisionGroup
+    header-file: <Jolt/Physics/Collision/CollisionGroup.h>
+  - name: Color
+    header-file: <Jolt/Core/Color.h>
+  - name: CompoundShape
+    header-file: <Jolt/Physics/Collision/Shape/CompoundShape.h>
+  - name: CompoundShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/CompoundShape.h>
+  - name: ConeConstraint
+    header-file: <Jolt/Physics/Constraints/ConeConstraint.h>
+  - name: ConeConstraintSettings
+    header-file: <Jolt/Physics/Constraints/ConeConstraint.h>
+  - name: Constraint
+    header-file: <Jolt/Physics/Constraints/Constraint.h>
+    skipped-functions:
+      - BuildIslands
+      - BuildIslandSplits
+  # - name: ConstraintManager
+  #   header-file: <Jolt/Physics/Constraints/ConstraintManager.h>
+  - name: ConstraintSettings
+    header-file: <Jolt/Physics/Constraints/Constraint.h>
+    ignored-parents:
+      - JPH::SerializableObject
+  # - name: ContactConstraintManager
+  #   header-file: <Jolt/Physics/Constraints/ContactConstraintManager.h>
+  #   skipped-functions:
+  #     - SetCombineFriction
+  #     - GetCombineFriction
+  #     - SetCombineRestitution
+  #     - GetCombineRestitution
+  #     - GetAffectedBodies
+  #     - GetContactAllocator
+  - name: ContactManifold
+    header-file: <Jolt/Physics/Collision/ContactListener.h>
+  - name: ContactSettings
+    header-file: <Jolt/Physics/Collision/ContactListener.h>
+  # - name: ConvexHullBuilder
+  #   header-file: <Jolt/Geometry/ConvexHullBuilder.h>
+  # - name: ConvexHullBuilder::Edge
+  #   header-file: <Jolt/Geometry/ConvexHullBuilder.h>
+  # - name: ConvexHullBuilder::Face
+  #   header-file: <Jolt/Geometry/ConvexHullBuilder.h>
+  # - name: ConvexHullBuilder2D
+  #   header-file: <Jolt/Geometry/ConvexHullBuilder2D.h>
+  - name: ConvexHullShape
+    header-file: <Jolt/Physics/Collision/Shape/ConvexHullShape.h>
+  - name: ConvexHullShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/ConvexHullShape.h>
+  - name: ConvexShape
+    header-file: <Jolt/Physics/Collision/Shape/ConvexShape.h>
+  - name: ConvexShape::Support
+    header-file: <Jolt/Physics/Collision/Shape/ConvexShape.h>
+  - name: ConvexShape::SupportBuffer
+    header-file: <Jolt/Physics/Collision/Shape/ConvexShape.h>
+    skipped-functions:
+      - SetData
+      - GetData
+  - name: ConvexShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/ConvexShape.h>
+  - name: CylinderShape
+    header-file: <Jolt/Physics/Collision/Shape/CylinderShape.h>
+  - name: CylinderShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/CylinderShape.h>
+
+  - name: DebugRenderer::Geometry
+    header-file: <Jolt/Renderer/DebugRenderer.h>
+  - name: DebugRenderer::LOD
+    header-file: <Jolt/Renderer/DebugRenderer.h>
+  - name: DebugRenderer::Triangle
+    header-file: <Jolt/Renderer/DebugRenderer.h>
+    skipped-functions:
+      - SetV
+      - GetV
+  - name: DebugRenderer::Vertex
+    header-file: <Jolt/Renderer/DebugRenderer.h>
+  - name: DebugRendererPlayback
+    header-file: <Jolt/Renderer/DebugRendererPlayback.h>
+  - name: DebugRendererRecorder
+    header-file: <Jolt/Renderer/DebugRendererRecorder.h>
+  - name: DebugRendererRecorder::Frame
+    header-file: <Jolt/Renderer/DebugRendererRecorder.h>
+  - name: DebugRendererRecorder::GeometryBlob
+    header-file: <Jolt/Renderer/DebugRendererRecorder.h>
+  - name: DebugRendererRecorder::LineBlob
+    header-file: <Jolt/Renderer/DebugRendererRecorder.h>
+  - name: DebugRendererRecorder::TextBlob
+    header-file: <Jolt/Renderer/DebugRendererRecorder.h>
+  - name: DebugRendererRecorder::TriangleBlob
+    header-file: <Jolt/Renderer/DebugRendererRecorder.h>
+  - name: DecoratedShape
+    header-file: <Jolt/Physics/Collision/Shape/DecoratedShape.h>
+  - name: DecoratedShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/DecoratedShape.h>
+  - name: DefaultBroadPhaseLayerFilter
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
+  - name: DefaultObjectLayerFilter
+    header-file: <Jolt/Physics/Collision/ObjectLayer.h>
+  - name: DistanceConstraint
+    header-file: <Jolt/Physics/Constraints/DistanceConstraint.h>
+  - name: DistanceConstraintSettings
+    header-file: <Jolt/Physics/Constraints/DistanceConstraint.h>
+  - name: DMat44
+    header-file: <Jolt/Math/DMat44.h>
+    skipped-functions:
+      - Create5
+  - name: Double3
+    header-file: <Jolt/Math/Double3.h>
+  - name: DualAxisConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/DualAxisConstraintPart.h>
+  - name: DVec3
+    header-file: <Jolt/Math/DVec3.h>
+    skipped-functions:
+      - Create4
+      - sFixW
+  - name: DynMatrix
+    header-file: <Jolt/Math/DynMatrix.h>
+
+  - name: Ellipse
+    header-file: <Jolt/Geometry/Ellipse.h>
+  - name: EmptyShape
+    header-file: <Jolt/Physics/Collision/Shape/EmptyShape.h>
+  - name: EmptyShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/EmptyShape.h>
+  # - name: EPAConvexHullBuilder
+  #   header-file: <Jolt/Geometry/EPAConvexHullBuilder.h>
+  # - name: EPAPenetrationDepth
+  #   header-file: <Jolt/Geometry/EPAPenetrationDepth.h>
+
+  - name: Factory
+    header-file: <Jolt/Core/Factory.h>
+  - name: FixedConstraint
+    header-file: <Jolt/Physics/Constraints/FixedConstraint.h>
+  - name: FixedConstraintSettings
+    header-file: <Jolt/Physics/Constraints/FixedConstraint.h>
+  - name: Float2
+    header-file: <Jolt/Math/Float2.h>
+  - name: Float3
+    header-file: <Jolt/Math/Float3.h>
+  - name: Float4
+    header-file: <Jolt/Math/Float4.h>
+  # - name: FPExceptionDisableDivByZero
+  #   header-file: <Jolt/Core/FPException.h>
+  # - name: FPExceptionDisableInvalid
+  #   header-file: <Jolt/Core/FPException.h>
+  # - name: FPExceptionDisableOverflow
+  #   header-file: <Jolt/Core/FPException.h>
+  # - name: FPExceptionsEnable
+  #   header-file: <Jolt/Core/FPException.h>
+
+  - name: GearConstraint
+    header-file: <Jolt/Physics/Constraints/GearConstraint.h>
+  - name: GearConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/GearConstraintPart.h>
+  - name: GearConstraintSettings
+    header-file: <Jolt/Physics/Constraints/GearConstraint.h>
+  # - name: GetTrianglesContextMultiVertexList TODO: Requires handwritten code
+  #   header-file: <Jolt/Physics/Collision/Shape/GetTrianglesContext.h>
+  # - name: GetTrianglesContextVertexList TODO: Requires handwritten code
+  #   header-file: <Jolt/Physics/Collision/Shape/GetTrianglesContext.h>
+  # - name: GJKClosestPoint
+  #   header-file: <Jolt/Geometry/GJKClosestPoint.h>
+  - name: GroupFilterTable
+    header-file: <Jolt/Physics/Collision/GroupFilterTable.h>
+
+  - name: Hair
+    header-file: <Jolt/Physics/Hair/Hair.h>
+  - name: HairSettings
+    header-file: <Jolt/Physics/Hair/HairSettings.h>
+  - name: HairShaders
+    header-file: <Jolt/Physics/Hair/HairShaders.h>
+  - name: HeightFieldShape
+    header-file: <Jolt/Physics/Collision/Shape/HeightFieldShape.h>
+  - name: HeightFieldShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/HeightFieldShape.h>
+  - name: HingeConstraint
+    header-file: <Jolt/Physics/Constraints/HingeConstraint.h>
+  - name: HingeConstraintSettings
+    header-file: <Jolt/Physics/Constraints/HingeConstraint.h>
+  - name: HingeRotationConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/HingeRotationConstraintPart.h>
+
+  - name: IgnoreMultipleBodiesFilter
+    header-file: <Jolt/Physics/Body/BodyFilter.h>
+  - name: IgnoreSingleBodyFilter
+    header-file: <Jolt/Physics/Body/BodyFilter.h>
+  - name: IgnoreSingleBodyFilterChained
+    header-file: <Jolt/Physics/Body/BodyFilter.h>
+  - name: IndependentAxisConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/IndependentAxisConstraintPart.h>
+  - name: IndexedTriangle
+    header-file: <Jolt/Geometry/IndexedTriangle.h>
+  - name: IndexedTriangleNoMaterial
+    header-file: <Jolt/Geometry/IndexedTriangle.h>
+    skipped-functions:
+      - GetIdx
+      - SetIdx
+  - name: InternalEdgeRemovingCollector
+    header-file: <Jolt/Physics/Collision/InternalEdgeRemovingCollector.h>
+  # - name: IObjectStreamIn
+  #   header-file: <Jolt/ObjectStream/ObjectStream.h>
+  # - name: IObjectStreamOut
+  #   header-file: <Jolt/ObjectStream/ObjectStream.h>
+  # - name: IslandBuilder
+  #   header-file: <Jolt/Physics/IslandBuilder.h>
+  #   ignored-parents:
+  #     - JPH::NonCopyable
+
+  # - name: JobSystem::Barrier
+  #   header-file: <Jolt/Core/JobSystem.h>
+  # - name: JobSystem::Job
+  #   header-file: <Jolt/Core/JobSystem.h>
+  # - name: JobSystem::JobHandle
+  #   header-file: <Jolt/Core/JobSystem.h>
+  - name: JobSystemSingleThreaded
+    header-file: <Jolt/Core/JobSystemSingleThreaded.h>
+  - name: JobSystemThreadPool
+    header-file: <Jolt/Core/JobSystemThreadPool.h>
+  - name: JobSystemWithBarrier
+    header-file: <Jolt/Core/JobSystemWithBarrier.h>
+
+  # - name: LargeIslandSplitter
+  #   header-file: <Jolt/Physics/LargeIslandSplitter.h>
+  #   skipped-functions:
+  #     - FetchNextBatch
+  # - name: LFHMAllocator
+  #   header-file: <Jolt/Core/LockFreeHashMap.h>
+  # - name: LFHMAllocatorContext
+  #   header-file: <Jolt/Core/LockFreeHashMap.h>
+  - name: LinearCurve
+    header-file: <Jolt/Core/LinearCurve.h>
+  - name: LinearCurve::Point
+    header-file: <Jolt/Core/LinearCurve.h>
+  - name: MassProperties
+    header-file: <Jolt/Physics/Body/MassProperties.h>
+
+  - name: Mat44
+    header-file: <Jolt/Math/Mat44.h>
+    skipped-functions:
+      - Create4
+  # - name: MemoryVK
+  #   header-file: <Jolt/Compute/VK/BufferVK.h>
+  - name: MeshShape
+    header-file: <Jolt/Physics/Collision/Shape/MeshShape.h>
+  - name: MeshShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/MeshShape.h>
+  - name: MortonCode
+    header-file: <Jolt/Geometry/MortonCode.h>
+  - name: MotionProperties
+    header-file: <Jolt/Physics/Body/MotionProperties.h>
+  - name: MotorcycleController
+    header-file: <Jolt/Physics/Vehicle/MotorcycleController.h>
+  - name: MotorcycleControllerSettings
+    header-file: <Jolt/Physics/Vehicle/MotorcycleController.h>
+  - name: MotorSettings
+    header-file: <Jolt/Physics/Constraints/MotorSettings.h>
+  - name: MutableCompoundShape
+    header-file: <Jolt/Physics/Collision/Shape/MutableCompoundShape.h>
+  - name: MutableCompoundShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/MutableCompoundShape.h>
+  # - name: Mutex
+  #   header-file: <Jolt/Core/Mutex.h>
+  # - name: MutexArray
+  #   header-file: <Jolt/Core/MutexArray.h>
+
+  - name: NarrowPhaseQuery
+    header-file: <Jolt/Physics/Collision/NarrowPhaseQuery.h>
+  - name: NodeCodecQuadTreeHalfFloat
+    header-file: <Jolt/AABBTree/NodeCodec/NodeCodecQuadTreeHalfFloat.h>
+
+  - name: ObjectLayerPairFilterMask
+    header-file: <Jolt/Physics/Collision/ObjectLayerPairFilterMask.h>
+  - name: ObjectLayerPairFilterTable
+    header-file: <Jolt/Physics/Collision/ObjectLayerPairFilterTable.h>
+  # - name: ObjectStream
+  #   header-file: <Jolt/ObjectStream/ObjectStream.h>
+  # - name: ObjectStreamBinaryIn
+  #   header-file: <Jolt/ObjectStream/ObjectStreamBinaryIn.h>
+  # - name: ObjectStreamBinaryOut
+  #   header-file: <Jolt/ObjectStream/ObjectStreamBinaryOut.h>
+  # - name: ObjectStreamIn
+  #   header-file: <Jolt/ObjectStream/ObjectStreamIn.h>
+  # - name: ObjectStreamOut
+  #   header-file: <Jolt/ObjectStream/ObjectStreamOut.h>
+  # - name: ObjectStreamTextIn
+  #   header-file: <Jolt/ObjectStream/ObjectStreamTextIn.h>
+  # - name: ObjectStreamTextOut
+  #   header-file: <Jolt/ObjectStream/ObjectStreamTextOut.h>
+  - name: ObjectVsBroadPhaseLayerFilterMask
+    header-file: <Jolt/Physics/Collision/BroadPhase/ObjectVsBroadPhaseLayerFilterMask.h>
+  - name: ObjectVsBroadPhaseLayerFilterTable
+    header-file: <Jolt/Physics/Collision/BroadPhase/ObjectVsBroadPhaseLayerFilterTable.h>
+  - name: OffsetCenterOfMassShape
+    header-file: <Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h>
+  - name: OffsetCenterOfMassShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/OffsetCenterOfMassShape.h>
+  - name: OrientedBox
+    header-file: <Jolt/Geometry/OrientedBox.h>
+
+  - name: PathConstraint
+    header-file: <Jolt/Physics/Constraints/PathConstraint.h>
+  - name: PathConstraintPath
+    header-file: <Jolt/Physics/Constraints/PathConstraintPath.h>
+  - name: PathConstraintPathHermite
+    header-file: <Jolt/Physics/Constraints/PathConstraintPathHermite.h>
+  - name: PathConstraintSettings
+    header-file: <Jolt/Physics/Constraints/PathConstraint.h>
+  # - name: PhysicsLock
+  #   header-file: <Jolt/Physics/PhysicsLock.h>
+  - name: PhysicsMaterial
+    header-file: <Jolt/Physics/Collision/PhysicsMaterial.h>
+  - name: PhysicsMaterialSimple
+    header-file: <Jolt/Physics/Collision/PhysicsMaterialSimple.h>
+  - name: PhysicsScene
+    header-file: <Jolt/Physics/PhysicsScene.h>
+  - name: PhysicsSettings
+    header-file: <Jolt/Physics/PhysicsSettings.h>
+  - name: PhysicsStepListenerContext
+    header-file: <Jolt/Physics/PhysicsStepListener.h>
+  - name: PhysicsSystem
+    header-file: <Jolt/Physics/PhysicsSystem.h>
+    skipped-functions:
+      - SetCombineFriction
+      - GetCombineFriction
+      - SetCombineRestitution
+      - GetCombineRestitution
+      - GetDefaultBroadPhaseLayerFilter
+      - GetDefaultLayerFilter
+  - name: PhysicsScene::ConnectedConstraint
+    header-file: <Jolt/Physics/PhysicsSystem.h>
+  - name: Plane
+    header-file: <Jolt/Geometry/Plane.h>
+  - name: PlaneShape
+    header-file: <Jolt/Physics/Collision/Shape/PlaneShape.h>
+  - name: PlaneShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/PlaneShape.h>
+  - name: PointConstraint
+    header-file: <Jolt/Physics/Constraints/PointConstraint.h>
+  - name: PointConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/PointConstraintPart.h>
+  - name: PointConstraintSettings
+    header-file: <Jolt/Physics/Constraints/PointConstraint.h>
+  - name: PointConvexSupport
+    header-file: <Jolt/Geometry/ConvexSupport.h>
+  # - name: PolyhedronSubmergedVolumeCalculator
+  #   header-file: <Jolt/Physics/Collision/Shape/PolyhedronSubmergedVolumeCalculator.h>
+  # - name: ProfileMeasurement
+  #   header-file: <Jolt/Core/Profiler.h>
+  # - name: Profiler
+  #   header-file: <Jolt/Core/Profiler.h>
+  # - name: ProfileSample
+  #   header-file: <Jolt/Core/Profiler.h>
+  # - name: ProfileThread
+  #   header-file: <Jolt/Core/Profiler.h>
+  - name: PulleyConstraint
+    header-file: <Jolt/Physics/Constraints/PulleyConstraint.h>
+  - name: PulleyConstraintSettings
+    header-file: <Jolt/Physics/Constraints/PulleyConstraint.h>
+
+  # - name: QuadTree
+  #   header-file: <Jolt/Physics/Collision/BroadPhase/QuadTree.h>
+  #   skipped-functions:
+  #     - Init
+  - name: Quat
+    header-file: <Jolt/Math/Quat.h>
+
+  - name: RackAndPinionConstraint
+    header-file: <Jolt/Physics/Constraints/RackAndPinionConstraint.h>
+  - name: RackAndPinionConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/RackAndPinionConstraintPart.h>
+  - name: RackAndPinionConstraintSettings
+    header-file: <Jolt/Physics/Constraints/RackAndPinionConstraint.h>
+  - name: Ragdoll
+    header-file: <Jolt/Physics/Ragdoll/Ragdoll.h>
+  - name: RagdollSettings
+    header-file: <Jolt/Physics/Ragdoll/Ragdoll.h>
+  - name: RagdollSettings::Part
+    header-file: <Jolt/Physics/Ragdoll/Ragdoll.h>
+  - name: RagdollSettings::AdditionalConstraint
+    header-file: <Jolt/Physics/Ragdoll/Ragdoll.h>
+    skipped-functions:
+      - SetBodyIdx
+      - GetBodyIdx
+  # - name: RayCast
+  #   header-file: <Jolt/Physics/Collision/RayCast.h>
+  - name: RayCastResult
+    header-file: <Jolt/Physics/Collision/CastResult.h>
+  - name: RayCastSettings
+    header-file: <Jolt/Physics/Collision/RayCast.h>
+  - name: RayInvDirection
+    header-file: <Jolt/Geometry/RayAABox.h>
+  - name: ReversedShapeFilter
+    header-file: <Jolt/Physics/Collision/ShapeFilter.h>
+  - name: RotatedTranslatedShape
+    header-file: <Jolt/Physics/Collision/Shape/RotatedTranslatedShape.h>
+  - name: RotatedTranslatedShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/RotatedTranslatedShape.h>
+  - name: RotationEulerConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/RotationEulerConstraintPart.h>
+  - name: RotationQuatConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/RotationQuatConstraintPart.h>
+  - name: RRayCast
+    header-file: <Jolt/Physics/Collision/RayCast.h>
+  - name: RShapeCast
+    header-file: <Jolt/Physics/Collision/ShapeCast.h>
+  # - name: RTTI
+  #   header-file: <Jolt/Core/RTTI.h>
+
+  - name: ScaledShape
+    header-file: <Jolt/Physics/Collision/Shape/ScaledShape.h>
+  - name: ScaledShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/ScaledShape.h>
+  - name: Semaphore
+    header-file: <Jolt/Core/Semaphore.h>
+  # - name: SerializableAttribute
+  #   header-file: <Jolt/ObjectStream/SerializableAttribute.h>
+  # - name: SerializableObject
+  #   header-file: <Jolt/ObjectStream/SerializableObject.h>
+  - name: Shape
+    header-file: <Jolt/Physics/Collision/Shape/Shape.h>
+  # - name: ShapeCast
+  #   header-file: <Jolt/Physics/Collision/ShapeCast.h>
+  #   skipped-functions:
+  #     - Create
+  - name: Shape::GetTrianglesContext
+    header-file: <Jolt/Physics/Collision/Shape/Shape.h>
+    skipped-functions:
+      - SetData
+      - GetData
+  - name: Shape::Stats
+    header-file: <Jolt/Physics/Collision/Shape/Shape.h>
+  - name: ShapeCastResult
+    header-file: <Jolt/Physics/Collision/ShapeCast.h>
+  - name: ShapeCastSettings
+    header-file: <Jolt/Physics/Collision/ShapeCast.h>
+  # - name: ShapeFunctions
+  #   header-file: <Jolt/Physics/Collision/Shape/Shape.h>
+  - name: ShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/Shape.h>
+  # - name: SharedMutex
+  #   header-file: <Jolt/Core/Mutex.h>
+  - name: SimShapeFilterWrapper
+    header-file: <Jolt/Physics/Collision/SimShapeFilterWrapper.h>
+  - name: SixDOFConstraint
+    header-file: <Jolt/Physics/Constraints/SixDOFConstraint.h>
+  - name: SixDOFConstraintSettings
+    header-file: <Jolt/Physics/Constraints/SixDOFConstraint.h>
+    skipped-functions:
+      - SetMaxFriction
+      - GetMaxFriction
+      - SetLimitMin
+      - GetLimitMin
+      - SetLimitMax
+      - GetLimitMax
+      - GetMotorSettings
+      - SetMotorSettings
+      - SetLimitsSpringSettings
+      - GetLimitsSpringSettings
+  - name: SkeletalAnimation
+    header-file: <Jolt/Skeleton/SkeletalAnimation.h>
+  - name: SkeletalAnimation::AnimatedJoint
+    header-file: <Jolt/Skeleton/SkeletalAnimation.h>
+  - name: SkeletalAnimation::JointState
+    header-file: <Jolt/Skeleton/SkeletalAnimation.h>
+  - name: SkeletalAnimation::Keyframe
+    header-file: <Jolt/Skeleton/SkeletalAnimation.h>
+  - name: Skeleton
+    header-file: <Jolt/Skeleton/Skeleton.h>
+  - name: Skeleton::Joint
+    header-file: <Jolt/Skeleton/Skeleton.h>
+  - name: SkeletonMapper
+    header-file: <Jolt/Skeleton/SkeletonMapper.h>
+  - name: SkeletonMapper::Chain
+    header-file: <Jolt/Skeleton/SkeletonMapper.h>
+    skipped-functions:
+      - Create1
+  - name: SkeletonMapper::Locked
+    header-file: <Jolt/Skeleton/SkeletonMapper.h>
+  - name: SkeletonMapper::Mapping
+    header-file: <Jolt/Skeleton/SkeletonMapper.h>
+  - name: SkeletonMapper::Unmapped
+    header-file: <Jolt/Skeleton/SkeletonMapper.h>
+  - name: SkeletonPose
+    header-file: <Jolt/Skeleton/SkeletonPose.h>
+  - name: SkeletonPose::DrawSettings
+    header-file: <Jolt/Skeleton/SkeletonPose.h>
+  - name: SliderConstraint
+    header-file: <Jolt/Physics/Constraints/SliderConstraint.h>
+  - name: SliderConstraintSettings
+    header-file: <Jolt/Physics/Constraints/SliderConstraint.h>
+  - name: SoftBodyContactSettings
+    header-file: <Jolt/Physics/SoftBody/SoftBodyContactListener.h>
+  - name: SoftBodyCreationSettings
+    header-file: <Jolt/Physics/SoftBody/SoftBodyCreationSettings.h>
+  - name: SoftBodyManifold
+    header-file: <Jolt/Physics/SoftBody/SoftBodyManifold.h>
+  - name: SoftBodyMotionProperties
+    header-file: <Jolt/Physics/SoftBody/SoftBodyMotionProperties.h>
+    skipped-functions: 
+      - InitializeUpdateContext
+      - DetermineCollidingShapes
+      - ParallelUpdate
+      - UpdateRigidBodyVelocities
+  - name: SoftBodyShape
+    header-file: <Jolt/Physics/SoftBody/SoftBodyShape.h>
+  - name: SoftBodySharedSettings
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+  - name: SoftBodySharedSettings::Face
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetVertex
+      - GetVertex
+  - name: SoftBodySharedSettings::Edge
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetVertex
+      - GetVertex
+  - name: SoftBodySharedSettings::DihedralBend
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetVertex
+      - GetVertex
+  - name: SoftBodySharedSettings::InvBind
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+  - name: SoftBodySharedSettings::LRA
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetVertex
+      - GetVertex
+  - name: SoftBodySharedSettings::RodBendTwist
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetRod
+      - GetRod
+  - name: SoftBodySharedSettings::OptimizationResults
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+  - name: SoftBodySharedSettings::RodStretchShear
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetVertex
+      - GetVertex
+  - name: SoftBodySharedSettings::Skinned
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetWeights
+      - GetWeights
+  - name: SoftBodySharedSettings::VertexAttributes
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+  - name: SoftBodySharedSettings::Volume
+    header-file: <Jolt/Physics/SoftBody/SoftBodySharedSettings.h>
+    skipped-functions:
+      - SetVertex
+      - GetVertex
+  - name: SoftBodyVertex
+    header-file: <Jolt/Physics/SoftBody/SoftBodyVertex.h>
+  - name: SpecifiedBroadPhaseLayerFilter
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
+  - name: SpecifiedObjectLayerFilter
+    header-file: <Jolt/Physics/Collision/ObjectLayer.h>
+  - name: Sphere
+    header-file: <Jolt/Geometry/Sphere.h>
+  - name: SphereShape
+    header-file: <Jolt/Physics/Collision/Shape/SphereShape.h>
+  - name: SphereShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/SphereShape.h>
+  - name: SpringPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/SpringPart.h>
+  - name: SpringSettings
+    header-file: <Jolt/Physics/Constraints/SpringSettings.h>
+  - name: StateRecorder
+    header-file: <Jolt/Physics/StateRecorder.h>
+  - name: StateRecorderImpl
+    header-file: <Jolt/Physics/StateRecorderImpl.h>
+    skipped-functions:
+      - Create1
+  - name: StaticCompoundShape
+    header-file: <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
+  - name: StaticCompoundShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>
+  # - name: StreamIn
+  #   header-file: <Jolt/Core/StreamIn.h>
+  # - name: StreamInWrapper
+  #   header-file: <Jolt/Core/StreamWrapper.h>
+  # - name: StreamOut
+  #   header-file: <Jolt/Core/StreamOut.h>
+  # - name: StreamOutWrapper
+  #   header-file: <Jolt/Core/StreamWrapper.h>
+  - name: CompoundShape::SubShape
+    header-file: <Jolt/Physics/Collision/Shape/CompoundShape.h>
+  - name: CompoundShapeSettings::SubShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/CompoundShape.h>
+  - name: SubShapeID
+    header-file: <Jolt/Physics/Collision/Shape/SubShapeID.h>
+  - name: SubShapeIDCreator
+    header-file: <Jolt/Physics/Collision/Shape/SubShapeID.h>
+  - name: SubShapeIDPair
+    header-file: <Jolt/Physics/Collision/Shape/SubShapeIDPair.h>
+  - name: SwingTwistConstraint
+    header-file: <Jolt/Physics/Constraints/SwingTwistConstraint.h>
+  - name: SwingTwistConstraintPart
+    header-file: <Jolt/Physics/Constraints/ConstraintPart/SwingTwistConstraintPart.h>
+  - name: SwingTwistConstraintSettings
+    header-file: <Jolt/Physics/Constraints/SwingTwistConstraint.h>
+
+  - name: TaperedCapsuleShape
+    header-file: <Jolt/Physics/Collision/Shape/TaperedCapsuleShape.h>
+  - name: TaperedCapsuleShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/TaperedCapsuleShape.h>
+  - name: TaperedCylinderShape
+    header-file: <Jolt/Physics/Collision/Shape/TaperedCylinderShape.h>
+  - name: TaperedCylinderShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/TaperedCylinderShape.h>
+  - name: TempAllocatorImpl
+    header-file: <Jolt/Core/TempAllocator.h>
+  - name: TempAllocatorImplWithMallocFallback
+    header-file: <Jolt/Core/TempAllocator.h>
+  - name: TempAllocatorMalloc
+    header-file: <Jolt/Core/TempAllocator.h>
+  - name: TrackedVehicleController
+    header-file: <Jolt/Physics/Vehicle/TrackedVehicleController.h>
+    skipped-functions:
+      - GetTracks
+  - name: TrackedVehicleControllerSettings
+    header-file: <Jolt/Physics/Vehicle/TrackedVehicleController.h>
+    skipped-functions:
+      - GetTracks
+      - SetTracks
+  - name: TransformedShape
+    header-file: <Jolt/Physics/Collision/TransformedShape.h>
+  - name: Triangle
+    header-file: <Jolt/Geometry/Triangle.h>
+    skipped-functions:
+      - SetV
+      - GetV
+  # - name: TriangleCodecIndexed8BitPackSOA4Flags
+  #   header-file: <Jolt/AABBTree/TriangleCodec/TriangleCodecIndexed8BitPackSOA4Flags.h>
+  - name: TriangleConvexSupport
+    header-file: <Jolt/Geometry/ConvexSupport.h>
+  - name: TriangleShape
+    header-file: <Jolt/Physics/Collision/Shape/TriangleShape.h>
+  - name: TriangleShapeSettings
+    header-file: <Jolt/Physics/Collision/Shape/TriangleShape.h>
+  # - name: TriangleSplitter
+  #   header-file: <Jolt/TriangleSplitter/TriangleSplitter.h>
+  # - name: TriangleSplitter::Range
+  #   header-file: <Jolt/TriangleSplitter/TriangleSplitter.h>
+  # - name: TriangleSplitterBinning
+  #   header-file: <Jolt/TriangleSplitter/TriangleSplitterBinning.h>
+  # - name: TriangleSplitterMean
+  #   header-file: <Jolt/TriangleSplitter/TriangleSplitterMean.h>
+  - name: TwoBodyConstraint
+    header-file: <Jolt/Physics/Constraints/TwoBodyConstraint.h>
+  - name: TwoBodyConstraintSettings
+    header-file: <Jolt/Physics/Constraints/TwoBodyConstraint.h>
+
+  - name: UVec4
+    header-file: <Jolt/Math/UVec4.h>
+    skipped-functions:
+      - Create2
+
+  - name: Vec3
+    header-file: <Jolt/Math/Vec3.h>
+    skipped-functions:
+      - Create3
+      - sFixW
+  - name: Vec4
+    header-file: <Jolt/Math/Vec4.h>
+    skipped-functions:
+      - Create4
+  - name: VehicleAntiRollBar
+    header-file: <Jolt/Physics/Vehicle/VehicleAntiRollBar.h>
+  - name: VehicleCollisionTesterCastCylinder
+    header-file: <Jolt/Physics/Vehicle/VehicleCollisionTester.h>
+  - name: VehicleCollisionTesterCastSphere
+    header-file: <Jolt/Physics/Vehicle/VehicleCollisionTester.h>
+  - name: VehicleCollisionTesterRay
+    header-file: <Jolt/Physics/Vehicle/VehicleCollisionTester.h>
+  - name: VehicleConstraint
+    header-file: <Jolt/Physics/Vehicle/VehicleConstraint.h>
+  - name: VehicleConstraintSettings
+    header-file: <Jolt/Physics/Vehicle/VehicleConstraint.h>
+  - name: VehicleController
+    header-file: <Jolt/Physics/Vehicle/VehicleController.h>
+  - name: VehicleControllerSettings
+    header-file: <Jolt/Physics/Vehicle/VehicleController.h>
+  - name: VehicleDifferentialSettings
+    header-file: <Jolt/Physics/Vehicle/VehicleDifferential.h>
+  - name: VehicleEngine
+    header-file: <Jolt/Physics/Vehicle/VehicleEngine.h>
+  - name: VehicleEngineSettings
+    header-file: <Jolt/Physics/Vehicle/VehicleEngine.h>
+  - name: VehicleTrack
+    header-file: <Jolt/Physics/Vehicle/VehicleTrack.h>
+  - name: VehicleTrackSettings
+    header-file: <Jolt/Physics/Vehicle/VehicleTrack.h>
+  - name: VehicleTransmission
+    header-file: <Jolt/Physics/Vehicle/VehicleTransmission.h>
+  - name: VehicleTransmissionSettings
+    header-file: <Jolt/Physics/Vehicle/VehicleTransmission.h>
+
+  - name: Wheel
+    header-file: <Jolt/Physics/Vehicle/Wheel.h>
+  - name: WheeledVehicleController
+    header-file: <Jolt/Physics/Vehicle/WheeledVehicleController.h>
+  - name: WheeledVehicleControllerSettings
+    header-file: <Jolt/Physics/Vehicle/WheeledVehicleController.h>
+  - name: WheelSettings
+    header-file: <Jolt/Physics/Vehicle/Wheel.h>
+  - name: WheelSettingsTV
+    header-file: <Jolt/Physics/Vehicle/TrackedVehicleController.h>
+  - name: WheelSettingsWV
+    header-file: <Jolt/Physics/Vehicle/WheeledVehicleController.h>
+  - name: WheelTV
+    header-file: <Jolt/Physics/Vehicle/TrackedVehicleController.h>
+  - name: WheelWV
+    header-file: <Jolt/Physics/Vehicle/WheeledVehicleController.h>
+
+template-classes:
+  - name: StaticArray
+    declaration-template: jolt/StaticArrayDeclarationsTemplate.ftl
+    definition-template: jolt/StaticArrayDefinitionsTemplate.ftl
+    header-file: <Jolt/Core/StaticArray.h>
+    instances:
+      - canonical-name: JPH::StaticArray<JPH::Vec3, 1026>
+        arguments:
+          - type: JPH::Vec3
+          - type: 1026
+            is-primitive: true
+      - canonical-name: JPH::StaticArray<JPH::Vec3, 32>
+        arguments:
+          - type: JPH::Vec3
+          - type: 32
+            is-primitive: true
+      - canonical-name: JPH::StaticArray<JPH::Vec3, 64>
+        arguments:
+          - type: JPH::Vec3
+          - type: 64
+            is-primitive: true
+      - canonical-name: JPH::StaticArray<float, 64>
+        arguments:
+          - type: float
+            is-primitive: true
+          - type: 64
+            is-primitive: true
+
+  - name: Result
+    header-file: <Jolt/Core/Result.h>
+    declaration-template: jolt/ResultDeclarationsTemplate.ftl
+    definition-template: jolt/ResultDefinitionsTemplate.ftl
+    instances:
+      - canonical-name: JPH::Result<JPH::BodyCreationSettings>
+        arguments:
+          - type: JPH::BodyCreationSettings
+      - canonical-name: JPH::Result<JPH::Ref<JPH::ConstraintSettings>>
+        arguments:
+          - type: JPH::Ref<JPH::ConstraintSettings>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::GroupFilter>>
+        arguments:
+          - type: JPH::Ref<JPH::GroupFilter>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::PathConstraintPath>>
+        arguments:
+          - type: JPH::Ref<JPH::PathConstraintPath>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::PhysicsMaterial>>
+        arguments:
+          - type: JPH::Ref<JPH::PhysicsMaterial>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::PhysicsScene>>
+        arguments:
+          - type: JPH::Ref<JPH::PhysicsScene>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::RagdollSettings>>
+        arguments:
+          - type: JPH::Ref<JPH::RagdollSettings>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::Shape>>
+        arguments:
+          - type: JPH::Ref<JPH::Shape>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::SkeletalAnimation>>
+        arguments:
+          - type: JPH::Ref<JPH::SkeletalAnimation>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::Skeleton>>
+        arguments:
+          - type: JPH::Ref<JPH::Skeleton>
+      - canonical-name: JPH::Result<JPH::Ref<JPH::SoftBodySharedSettings>>
+        arguments:
+          - type: JPH::Ref<JPH::SoftBodySharedSettings>
+      - canonical-name: JPH::Result<JPH::SoftBodyCreationSettings>
+        arguments:
+          - type: JPH::SoftBodyCreationSettings
+  - name: RefConst
+    header-file: <Jolt/Core/Reference.h>
+    declaration-template: jolt/RefConstDeclarationsTemplate.ftl
+    definition-template: jolt/RefConstDefinitionsTemplate.ftl
+    instances:
+      - canonical-name: JPH::RefConst<JPH::PathConstraintPath>
+        arguments:
+          - type: JPH::PathConstraintPath
+      - canonical-name: JPH::RefConst<JPH::PhysicsMaterial>
+        arguments:
+          - type: JPH::PhysicsMaterial
+      - canonical-name: JPH::RefConst<JPH::Shape>
+        arguments:
+          - type: JPH::Shape
+      - canonical-name: JPH::RefConst<JPH::ShapeSettings>
+        arguments:
+          - type: JPH::ShapeSettings
+      - canonical-name: JPH::RefConst<JPH::SoftBodySharedSettings>
+        arguments:
+          - type: JPH::SoftBodySharedSettings
+      - canonical-name: JPH::RefConst<JPH::TwoBodyConstraintSettings>
+        arguments:
+          - type: JPH::TwoBodyConstraintSettings
+  - name: Ref
+    header-file: <Jolt/Core/Reference.h>
+    declaration-template: jolt/RefDeclarationsTemplate.ftl
+    definition-template: jolt/RefDefinitionsTemplate.ftl
+    instances:
+      - canonical-name: JPH::Ref<JPH::TwoBodyConstraintSettings>
+        arguments:
+          - type: JPH::TwoBodyConstraintSettings
+      - canonical-name: JPH::Ref<JPH::PathConstraintPath>
+        arguments:
+          - type: JPH::PathConstraintPath
+      - canonical-name: JPH::Ref<JPH::ComputeBuffer>
+        arguments:
+          - type: JPH::ComputeBuffer
+      - canonical-name: JPH::Ref<JPH::ComputeShader>
+        arguments:
+          - type: JPH::ComputeShader
+      - canonical-name: JPH::Ref<JPH::ConstraintSettings>
+        arguments:
+          - type: JPH::ConstraintSettings
+      - canonical-name: JPH::Ref<JPH::DebugRenderer::Geometry>
+        arguments:
+          - type: JPH::DebugRenderer::Geometry
+      - canonical-name: JPH::Ref<JPH::GroupFilter>
+        arguments:
+          - type: JPH::GroupFilter
+      - canonical-name: JPH::Ref<JPH::HeightFieldShape>
+        arguments:
+          - type: JPH::HeightFieldShape
+      - canonical-name: JPH::Ref<JPH::MutableCompoundShape>
+        arguments:
+          - type: JPH::MutableCompoundShape
+      - canonical-name: JPH::Ref<JPH::PhysicsMaterial>
+        arguments:
+          - type: JPH::PhysicsMaterial
+      - canonical-name: JPH::Ref<JPH::RefTargetVirtual>
+        arguments:
+          - type: JPH::RefTargetVirtual
+      - canonical-name: JPH::Ref<JPH::Shape>
+        arguments:
+          - type: JPH::Shape
+      - canonical-name: JPH::Ref<JPH::Skeleton>
+        arguments:
+          - type: JPH::Skeleton
+      - canonical-name: JPH::Ref<JPH::SoftBodySharedSettings>
+        arguments:
+          - type: JPH::SoftBodySharedSettings
+      - canonical-name: JPH::Ref<JPH::VehicleControllerSettings>
+        arguments:
+          - type: JPH::VehicleControllerSettings
+      - canonical-name: JPH::Ref<JPH::Constraint>
+        arguments:
+          - type: JPH::Constraint
+      - canonical-name: JPH::Ref<JPH::WheelSettings>
+        arguments:
+          - type: JPH::WheelSettings
+  - name: RefTarget
+    header-file: <Jolt/Core/Reference.h>
+    declaration-template: jolt/RefTargetDeclarationsTemplate.ftl
+    definition-template: jolt/RefTargetDefinitionsTemplate.ftl
+    instances:
+      - canonical-name: JPH::RefTarget<JPH::CharacterBase>
+        arguments:
+          - type: JPH::CharacterBase
+      - canonical-name: JPH::RefTarget<JPH::CharacterBaseSettings>
+        arguments:
+          - type: JPH::CharacterBaseSettings
+      - canonical-name: JPH::RefTarget<JPH::Constraint>
+        arguments:
+          - type: JPH::Constraint
+      - canonical-name: JPH::RefTarget<JPH::ConstraintSettings>
+        arguments:
+          - type: JPH::ConstraintSettings
+      - canonical-name: JPH::RefTarget<JPH::DebugRenderer::Geometry>
+        arguments:
+          - type: JPH::DebugRenderer::Geometry
+      - canonical-name: JPH::RefTarget<JPH::GroupFilter>
+        arguments:
+          - type: JPH::GroupFilter
+      - canonical-name: JPH::RefTarget<JPH::HairSettings>
+        arguments:
+          - type: JPH::HairSettings
+      - canonical-name: JPH::RefTarget<JPH::HairShaders>
+        arguments:
+          - type: JPH::HairShaders
+      - canonical-name: JPH::RefTarget<JPH::PathConstraintPath>
+        arguments:
+          - type: JPH::PathConstraintPath
+      - canonical-name: JPH::RefTarget<JPH::PhysicsMaterial>
+        arguments:
+          - type: JPH::PhysicsMaterial
+      - canonical-name: JPH::RefTarget<JPH::PhysicsScene>
+        arguments:
+          - type: JPH::PhysicsScene
+      - canonical-name: JPH::RefTarget<JPH::Ragdoll>
+        arguments:
+          - type: JPH::Ragdoll
+      - canonical-name: JPH::RefTarget<JPH::RagdollSettings>
+        arguments:
+          - type: JPH::RagdollSettings
+      - canonical-name: JPH::RefTarget<JPH::Shape>
+        arguments:
+          - type: JPH::Shape
+      - canonical-name: JPH::RefTarget<JPH::ShapeSettings>
+        arguments:
+          - type: JPH::ShapeSettings
+      - canonical-name: JPH::RefTarget<JPH::SkeletalAnimation>
+        arguments:
+          - type: JPH::SkeletalAnimation
+      - canonical-name: JPH::RefTarget<JPH::Skeleton>
+        arguments:
+          - type: JPH::Skeleton
+      - canonical-name: JPH::RefTarget<JPH::SkeletonMapper>
+        arguments:
+          - type: JPH::SkeletonMapper
+      - canonical-name: JPH::RefTarget<JPH::SoftBodySharedSettings>
+        arguments:
+          - type: JPH::SoftBodySharedSettings
+      - canonical-name: JPH::RefTarget<JPH::VehicleCollisionTester>
+        arguments:
+          - type: JPH::VehicleCollisionTester
+      - canonical-name: JPH::RefTarget<JPH::VehicleControllerSettings>
+        arguments:
+          - type: JPH::VehicleControllerSettings
+      - canonical-name: JPH::RefTarget<JPH::WheelSettings>
+        arguments:
+          - type: JPH::WheelSettings
+  - name: Array
+    header-file: <Jolt/Core/Array.h>
+    declaration-template: jolt/ArrayDeclarationsTemplate.ftl
+    definition-template: jolt/ArrayDefinitionsTemplate.ftl
+    instances:
+      - canonical-name: JPH::Array<JPH::SkeletalAnimation::Keyframe>
+        arguments:
+          - type: JPH::SkeletalAnimation::Keyframe
+      - canonical-name: JPH::Array<JPH::AABBTreeBuilder::Node>
+        arguments:
+          - type: JPH::AABBTreeBuilder::Node
+      # - canonical-name: JPH::Array<JPH::Body *>
+      #   arguments:
+      #     - type: JPH::Body *
+      - canonical-name: JPH::Array<JPH::BodyCreationSettings>
+        arguments:
+          - type: JPH::BodyCreationSettings
+      - canonical-name: JPH::Array<JPH::BodyID>
+        arguments:
+          - type: JPH::BodyID
+      - canonical-name: JPH::Array<JPH::CharacterContact>
+        arguments:
+          - type: JPH::CharacterContact
+      # - canonical-name: JPH::Array<JPH::CharacterVirtual *>
+      #   arguments:
+      #     - type: JPH::CharacterVirtual *
+      - canonical-name: JPH::Array<JPH::CompoundShape::SubShape>
+        arguments:
+          - type: JPH::CompoundShape::SubShape
+      - canonical-name: JPH::Array<JPH::CompoundShapeSettings::SubShapeSettings>
+        arguments:
+          - type: JPH::CompoundShapeSettings::SubShapeSettings
+      # - canonical-name: JPH::Array<JPH::ConvexHullBuilder::Face *>
+      #   arguments:
+      #     - type: JPH::ConvexHullBuilder::Face *
+      - canonical-name: JPH::Array<JPH::DebugRenderer::LOD>
+        arguments:
+          - type: JPH::DebugRenderer::LOD
+      - canonical-name: JPH::Array<JPH::DebugRenderer::Triangle>
+        arguments:
+          - type: JPH::DebugRenderer::Triangle
+      - canonical-name: JPH::Array<JPH::DebugRenderer::Vertex>
+        arguments:
+          - type: JPH::DebugRenderer::Vertex
+      - canonical-name: JPH::Array<JPH::DebugRendererRecorder::GeometryBlob>
+        arguments:
+          - type: JPH::DebugRendererRecorder::GeometryBlob
+      - canonical-name: JPH::Array<JPH::DebugRendererRecorder::LineBlob>
+        arguments:
+          - type: JPH::DebugRendererRecorder::LineBlob
+      - canonical-name: JPH::Array<JPH::DebugRendererRecorder::TextBlob>
+        arguments:
+          - type: JPH::DebugRendererRecorder::TextBlob
+      - canonical-name: JPH::Array<JPH::DebugRendererRecorder::TriangleBlob>
+        arguments:
+          - type: JPH::DebugRendererRecorder::TriangleBlob
+      - canonical-name: JPH::Array<JPH::Float3>
+        arguments:
+          - type: JPH::Float3
+      - canonical-name: JPH::Array<JPH::HairSettings::Material>
+        arguments:
+          - type: JPH::HairSettings::Material
+      - canonical-name: JPH::Array<JPH::HairSettings::RStrand>
+        arguments:
+          - type: JPH::HairSettings::RStrand
+      - canonical-name: JPH::Array<JPH::HairSettings::RVertex>
+        arguments:
+          - type: JPH::HairSettings::RVertex
+      - canonical-name: JPH::Array<JPH::HairSettings::SStrand>
+        arguments:
+          - type: JPH::HairSettings::SStrand
+      - canonical-name: JPH::Array<JPH::HairSettings::SVertex>
+        arguments:
+          - type: JPH::HairSettings::SVertex
+      - canonical-name: JPH::Array<JPH::HairSettings::SkinPoint>
+        arguments:
+          - type: JPH::HairSettings::SkinPoint
+      - canonical-name: JPH::Array<JPH::HairSettings::SkinWeight>
+        arguments:
+          - type: JPH::HairSettings::SkinWeight
+      - canonical-name: JPH::Array<JPH::IndexedTriangle>
+        arguments:
+          - type: JPH::IndexedTriangle
+      - canonical-name: JPH::Array<JPH::IndexedTriangleNoMaterial>
+        arguments:
+          - type: JPH::IndexedTriangleNoMaterial
+      - canonical-name: JPH::Array<JPH::LinearCurve::Point>
+        arguments:
+          - type: JPH::LinearCurve::Point
+      - canonical-name: JPH::Array<JPH::Mat44>
+        arguments:
+          - type: JPH::Mat44
+      - canonical-name: JPH::Array<JPH::PhysicsScene::ConnectedConstraint>
+        arguments:
+          - type: JPH::PhysicsScene::ConnectedConstraint
+      - canonical-name: JPH::Array<JPH::Plane>
+        arguments:
+          - type: JPH::Plane
+      # - canonical-name: JPH::Array<JPH::QuadTree::Tracking>
+      #   arguments:
+      #     - type: JPH::QuadTree::Tracking
+      - canonical-name: JPH::Array<JPH::RagdollSettings::AdditionalConstraint>
+        arguments:
+          - type: JPH::RagdollSettings::AdditionalConstraint
+      - canonical-name: JPH::Array<JPH::RagdollSettings::Part>
+        arguments:
+          - type: JPH::RagdollSettings::Part
+      - canonical-name: JPH::Array<JPH::Ref<JPH::Constraint>>
+        arguments:
+          - type: JPH::Ref<JPH::Constraint>
+      - canonical-name: JPH::Array<JPH::Ref<JPH::GroupFilter>>
+        arguments:
+          - type: JPH::Ref<JPH::GroupFilter>
+      - canonical-name: JPH::Array<JPH::Ref<JPH::PhysicsMaterial>>
+        arguments:
+          - type: JPH::Ref<JPH::PhysicsMaterial>
+      - canonical-name: JPH::Array<JPH::Ref<JPH::Shape>>
+        arguments:
+          - type: JPH::Ref<JPH::Shape>
+      - canonical-name: JPH::Array<JPH::Ref<JPH::SoftBodySharedSettings>>
+        arguments:
+          - type: JPH::Ref<JPH::SoftBodySharedSettings>
+      - canonical-name: JPH::Array<JPH::Ref<JPH::WheelSettings>>
+        arguments:
+          - type: JPH::Ref<JPH::WheelSettings>
+      - canonical-name: JPH::Array<JPH::RefConst<JPH::PhysicsMaterial>>
+        arguments:
+          - type: JPH::RefConst<JPH::PhysicsMaterial>
+      - canonical-name: JPH::Array<JPH::RefConst<JPH::Shape>>
+        arguments:
+          - type: JPH::RefConst<JPH::Shape>
+      - canonical-name: JPH::Array<JPH::SkeletalAnimation::AnimatedJoint>
+        arguments:
+          - type: JPH::SkeletalAnimation::AnimatedJoint
+      - canonical-name: JPH::Array<JPH::SkeletalAnimation::JointState>
+        arguments:
+          - type: JPH::SkeletalAnimation::JointState
+      - canonical-name: JPH::Array<JPH::Skeleton::Joint>
+        arguments:
+          - type: JPH::Skeleton::Joint
+      - canonical-name: JPH::Array<JPH::SkeletonMapper::Chain>
+        arguments:
+          - type: JPH::SkeletonMapper::Chain
+      - canonical-name: JPH::Array<JPH::SkeletonMapper::Locked>
+        arguments:
+          - type: JPH::SkeletonMapper::Locked
+      - canonical-name: JPH::Array<JPH::SkeletonMapper::Mapping>
+        arguments:
+          - type: JPH::SkeletonMapper::Mapping
+      - canonical-name: JPH::Array<JPH::SkeletonMapper::Unmapped>
+        arguments:
+          - type: JPH::SkeletonMapper::Unmapped
+      - canonical-name: JPH::Array<JPH::SoftBodyCreationSettings>
+        arguments:
+          - type: JPH::SoftBodyCreationSettings
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::DihedralBend>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::DihedralBend
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::Edge>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::Edge
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::Face>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::Face
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::InvBind>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::InvBind
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::LRA>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::LRA
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::RodBendTwist>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::RodBendTwist
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::RodStretchShear>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::RodStretchShear
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::Skinned>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::Skinned
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::Vertex>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::Vertex
+      - canonical-name: JPH::Array<JPH::SoftBodySharedSettings::Volume>
+        arguments:
+          - type: JPH::SoftBodySharedSettings::Volume
+      - canonical-name: JPH::Array<JPH::SoftBodyVertex>
+        arguments:
+          - type: JPH::SoftBodyVertex
+      - canonical-name: JPH::Array<JPH::Triangle>
+        arguments:
+          - type: JPH::Triangle
+      - canonical-name: JPH::Array<JPH::Vec3>
+        arguments:
+          - type: JPH::Vec3
+      - canonical-name: JPH::Array<JPH::VehicleAntiRollBar>
+        arguments:
+          - type: JPH::VehicleAntiRollBar
+      - canonical-name: JPH::Array<JPH::VehicleDifferentialSettings>
+        arguments:
+          - type: JPH::VehicleDifferentialSettings
+      # - canonical-name: JPH::Array<JPH::Wheel *>
+      #   arguments:
+      #     - type: JPH::Wheel *
+      # - canonical-name: JPH::Array<const JPH::AABBTreeBuilder::Node *>
+      #   arguments:
+      #     - type: const JPH::AABBTreeBuilder::Node *
+      # - canonical-name: JPH::Array<const JPH::RTTI *>
+      #   arguments:
+      #     - type: const JPH::RTTI *
+      - canonical-name: JPH::Array<float>
+        arguments:
+          - type: float
+            is-primitive: true
+      - canonical-name: JPH::Array<int>
+        arguments:
+          - type: int
+            is-primitive: true
+      - canonical-name: JPH::Array<std::pair<int, int>>
+        arguments:
+          - type: std::pair<int, int>
+      - canonical-name: JPH::Array<unsigned char>
+        arguments:
+          - type: unsigned char
+            is-primitive: true
+      - canonical-name: JPH::Array<unsigned int>
+        arguments:
+          - type: unsigned int
+            is-primitive: true
+
+callbacks:
+  - name: BodyActivationListener
+    header-file: <Jolt/Physics/Body/BodyActivationListener.h>
+  - name: ContactListener
+    header-file: <Jolt/Physics/Collision/ContactListener.h>
+  - name: DebugRenderer
+    header-file: <Jolt/Renderer/DebugRenderer.h>
+    function-infos:
+      - name: CreateTriangleBatch
+        in-array-parameters:
+          - inTriangles
+      - name: CreateTriangleBatch
+        in-array-parameters:
+          - inVertices
+  - name: DebugRendererSimple
+    header-file: <Jolt/Renderer/DebugRendererSimple.h>
+    additional-methods:
+      - DrawLine
+      - DrawText3D
+  - name: CharacterContactListener
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: CharacterVsCharacterCollision
+    header-file: <Jolt/Physics/Character/CharacterVirtual.h>
+  - name: SoftBodyContactListener
+    header-file: <Jolt/Physics/SoftBody/SoftBodyContactListener.h>
+  - name: BroadPhaseLayerInterface
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
+  - name: ObjectLayerPairFilter
+    header-file: <Jolt/Physics/Collision/ObjectLayer.h>
+  - name: ObjectVsBroadPhaseLayerFilter
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
+  - name: BodyFilter
+    header-file: <Jolt/Physics/Body/BodyFilter.h>
+  - name: BodyDrawFilter
+    header-file: <Jolt/Physics/Body/BodyFilter.h>
+  - name: ShapeFilter
+    header-file: <Jolt/Physics/Collision/ShapeFilter.h>
+  - name: GroupFilter
+    header-file: <Jolt/Physics/Collision/GroupFilter.h>
+  - name: BroadPhaseLayerFilter
+    header-file: <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
+  - name: ObjectLayerFilter
+    header-file: <Jolt/Physics/Collision/ObjectLayer.h>
+  - name: JobSystem
+    header-file: <Jolt/Core/JobSystem.h>
+    function-infos:
+      - name: CreateJobs
+        out-array-parameters:
+          - outJobs
+    add-protected-methods: true
+  - name: PhysicsStepListener
+    header-file: <Jolt/Physics/PhysicsStepListener.h>
+  - name: RefTargetVirtual
+    header-file: <Jolt/Core/Reference.h>
+  - name: SimShapeFilter
+    header-file: <Jolt/Physics/Collision/SimShapeFilter.h>
+  - name: TempAllocator
+    header-file: <Jolt/Core/TempAllocator.h>
+  - name: VehicleCollisionTester
+    header-file: <Jolt/Physics/Vehicle/VehicleCollisionTester.h>
+  - name: StateRecorderFilter
+    header-file: <Jolt/Physics/StateRecorder.h>
+
+enums:
+  - EMotionType
+  - EShapeType
+  - EShapeSubType
+  - ESupportMode
+  - EOverrideMassProperties
+  - EMotionQuality
+  - EAllowedDOFs
+  - EBodyType
+  - ECanSleep
+  - ValidateResult
+  - ECastShadow
+  - EDrawMode
+  - ECullMode
+  - EActivation
+  - EGroundState
+  - EBackFaceMode
+  - EActiveEdgeMode
+  - ECollectFacesMode
+  - EConstraintSpace
+  - EConstraintType
+  - EConstraintSubType
+  - EResult
+  - EMotorState
+  - EBuildQuality
+  - ESpringMode
+  - EPathRotationConstraintType
+  - EPhysicsUpdateError
+  - EStateRecorderState
+  - EAxis
+  - ESwingType
+  - ESoftBodyConstraintColor
+  - EStatus
+  - EBendType
+  - ETransmissionMode
+  - SoftBodyValidateResult
+  - EShapeColor
+  - ELRAType
+
+functions:
+  - RegisterDefaultAllocator
+  - VerifyJoltVersionID
+  - RegisterTypes
+  - UnregisterTypes
+  - GetProcessorTickCount
+
+variables:
+  - cDefaultCollisionTolerance
+  - cDefaultPenetrationTolerance
+  - cDefaultConvexRadius
+  - cCapsuleProjectionSlop
+  - cDefaultInternalEdgeRemovalVertexToleranceSq
+  - cMaxPhysicsJobs
+  - cMaxPhysicsBarriers
