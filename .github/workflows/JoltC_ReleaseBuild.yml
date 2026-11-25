@@ -91,7 +91,7 @@ jobs:
       - name: Build CMake
         run: cmake --build build --config Release
       - name: Install CMake
-        run: cmake --install build --prefix install
+        run: cmake --install build --config Release --prefix install
       - name: Copy Files
         run: |
           New-Item -ItemType Directory -Force binaries
