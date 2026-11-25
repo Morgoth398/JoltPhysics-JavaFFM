@@ -2,12 +2,12 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "Overhaul" ]
+    branches: [ "Experimental" ]
     paths-ignore:
       - '**/nativeSources/**'
       - '.github/workflows/*_*Build.yml'
   pull_request:
-    branches: [ "Overhaul" ]
+    branches: [ "Experimental" ]
     paths-ignore:
       - '**/nativeSources/**'
       - '.github/workflows/*_*Build.yml'
