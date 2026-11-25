@@ -1,6 +1,9 @@
 name: JoltC_Release
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  push:
+    branches: ["Experimental"]
 
 env:
   SOURCE_DIRECTORY: src/main/resources/nativeSources/
