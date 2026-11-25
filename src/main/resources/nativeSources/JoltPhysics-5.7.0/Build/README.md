@@ -1,0 +1,345 @@
+# Building and Using Jolt Physics
+
+## Build Types
+
+Each platform supports multiple build targets
+
+- Debug - Debug version of the library, turns on asserts
+- Release - Release version of the library, no asserts but includes profiling support and can draw the world and simulation properties
+- ReleaseASAN - As Release but turns on Address Sanitizer (clang only) to find bugs
+- ReleaseUBSAN - As Release but turns on Undefined Behavior Sanitizer (clang only) to find bugs
+- ReleaseTSAN - As Release but turns on the Thread Sanitizer (clang only) to find bugs
+- ReleaseCoverage - As Release but turns on Coverage reporting (clang only) to find which areas of the code are not executed
+- Distribution - Shippable version of the library, turns off all debugging support
+
+## Includes
+
+The Jolt headers don't include Jolt/Jolt.h. Always include Jolt/Jolt.h before including any other Jolt header.
+You can use Jolt/Jolt.h in your precompiled header to speed up compilation.
+
+## Defines
+
+There are a number of user configurable C++ defines that turn on/off certain features. Many of them are controllable to similarly named cmake options:
+<details>
+	<summary>General Options (click to see more)</summary>
+	<ul>
+		<li>JPH_CROSS_PLATFORM_DETERMINISTIC - Turns on behavior to attempt cross platform determinism. If this is set, JPH_USE_FMADD is ignored.</li>
+		<li>JPH_DEBUG - Enables extra internal checking. On by default when NDEBUG is not set. Can be disabled by defining JPH_NO_DEBUG.</li>
+		<li>JPH_DEBUG_RENDERER - Adds support to draw lines and triangles, used to be able to debug draw the state of the world.</li>
+		<li>JPH_DEFAULT_ALLOCATE_ALIGNMENT - Indicates the default alignment of a memory allocation on this platform. Defaults to __STDCPP_DEFAULT_NEW_ALIGNMENT__.</li>
+		<li>JPH_DISABLE_CUSTOM_ALLOCATOR - Disables the ability to override the memory allocator.</li>
+		<li>JPH_DISABLE_TEMP_ALLOCATOR - Disables the temporary memory allocator, used mainly to allow ASAN to do its job.</li>
+		<li>JPH_DOUBLE_PRECISION - Compiles the library so that all positions are stored in doubles instead of floats. This makes larger worlds possible.</li>
+		<li>JPH_ENABLE_ASSERTS - Compiles the library so that it rises an assert in case of failures. The library ignores these failures otherwise.</li>
+		<li>JPH_ENABLE_DETERMINISM_LOG - Turn on a lot of extra logging to help debug determinism issues when JPH_CROSS_PLATFORM_DETERMINISTIC is turned on.</li>
+		<li>JPH_EXTERNAL_PROFILE - Turns on the internal profiler but forwards the information to a user defined external system (see Profiler.h). Use JPH_USE_EXTERNAL_PROFILE option to enable this from CMake config.</li>
+		<li>JPH_FLOATING_POINT_EXCEPTIONS_ENABLED - Turns on division by zero and invalid floating point exception support in order to detect bugs (Windows only).</li>
+		<li>JPH_NO_FORCE_INLINE - Don't use force inlining but fall back to a regular 'inline'.</li>
+		<li>JPH_OBJECT_LAYER_BITS - Defines the size of ObjectLayer, must be 16, 32 or 64 bits.</li>
+		<li>JPH_OBJECT_STREAM - Includes the code to serialize physics data in the ObjectStream format (mostly used by the examples).</li>
+		<li>JPH_PROFILE_ENABLED - Turns on the internal profiler.</li>
+		<li>JPH_SHARED_LIBRARY - Use the Jolt library as a shared library. Use JPH_BUILD_SHARED_LIBRARY to build Jolt as a shared library.</li>
+		<li>JPH_TRACK_BROADPHASE_STATS - Enables PhysicsSystem::ReportBroadphaseStats, which outputs stats to the TTY about the broad phase.</li>
+		<li>JPH_TRACK_NARROWPHASE_STATS - Enables NarrowPhaseStat::sReportStats(), which outputs stats to the TTY about the narrow phase.</li>
+		<li>JPH_TRACK_SIMULATION_STATS - Keeps track of how much time each body costs to simulate. Can be output to the TTY using PhysicsSystem::ReportSimulationStats but can also be accessed through MotionProperties::GetSimulationStats.</li>
+	</ul>
+</details>
+
+<details>
+	<summary>CPU Instruction Sets (click to see more)</summary>
+	<ul>
+		<li>JPH_USE_AVX - Enable AVX CPU instructions (default: on, x86/x64 only)</li>
+		<li>JPH_USE_AVX2 - Enable AVX2 CPU instructions (default: on, x86/x64 only)</li>
+		<li>JPH_USE_AVX512 - Enable AVX512F+AVX512VL CPU instructions (default: off, x86/x64 only)</li>
+		<li>JPH_USE_F16C - Enable half float CPU instructions (default: on, x86/x64 only)</li>
+		<li>JPH_USE_FMADD - Enable fused multiply add CPU instructions (default: on, x86/x64 only)</li>
+		<li>JPH_USE_LZCNT - Enable the lzcnt CPU instruction (default: on, x86/x64 only)</li>
+		<li>JPH_USE_NEON - Enable NEON on ARM (default: on for 64-bit ARM)</li>
+		<li>JPH_USE_RVV - Enable RVV on RISC-V (default: off)</li>
+		<li>JPH_USE_SSE - Use SSE2 instructions (enabled on x86/x64)</li>
+		<li>JPH_USE_SSE4_1 - Enable SSE4.1 CPU instructions (default: on, x86/x64 only)</li>
+		<li>JPH_USE_SSE4_2 - Enable SSE4.2 CPU instructions (default: on, x86/x64 only)</li>
+		<li>JPH_USE_TZCNT - Enable the tzcnt CPU instruction (default: on, x86/x64 only)</li>
+	</ul>
+</details>
+
+<details>
+	<summary>Compute backends. Used to perform computations on the GPU.</summary>
+	<ul>
+		<li>JPH_USE_CPU_COMPUTE - Implement the CPU fallback version of ComputeSystem (mainly for debugging purposes).</li>
+		<li>JPH_USE_DX12 - Implement the DX12 version of ComputeSystem.</li>
+		<li>JPH_USE_MTL - Implement the Metal version of ComputeSystem.</li>
+		<li>JPH_USE_VK - Implement the Vulkan version of ComputeSystem.</li>
+	</ul>
+</details>
+
+## Logging & Asserting
+
+To override the default trace and assert mechanism install your own custom handlers in Trace and AssertFailed (see IssueReporting.h).
+
+## Custom Memory Allocator
+
+To implement your custom memory allocator override Allocate, Free, Reallocate, AlignedAllocate and AlignedFree (see Memory.h).
+
+## Building
+
+<details>
+	<summary>Windows</summary>
+	<ul style="list-style: none"><li>
+		<details>
+			<summary>MSVC CL (default compiler)</summary>
+			<ul>
+				<li>Download Visual Studio 2026 (Community or other edition)</li>
+				<li>Download CMake 3.20+ (https://cmake.org/download/)</li>
+				<li>Run <code>cmake_vs2026_cl.bat</code></li>
+				<li>Open the resulting project file <code>VS2026_CL\JoltPhysics.sln</code></li>
+				<li>Compile and run either 'Samples' or 'UnitTests'</li>
+			</ul>
+		</details>
+		<details>
+			<summary>MSVC CL - 32 bit</summary>
+			<ul>
+				<li>Download Visual Studio 2026 (Community or other edition)</li>
+				<li>Download CMake 3.20+ (https://cmake.org/download/)</li>
+				<li>Run <code>cmake_vs2026_cl_32bit.bat</code></li>
+				<li>Open the resulting project file <code>VS2026_CL_32BIT\JoltPhysics.sln</code></li>
+				<li>Compile and run either 'Samples' or 'UnitTests'</li>
+			</ul>
+		</details>
+		<details>
+			<summary>MSVC Clang compiler</summary>
+			<ul>
+				<li>Download Visual Studio 2026 (Community or other edition)</li>
+				<li>Make sure to install "C++ Clang Compiler for Windows" and "MSBuild support for LLVM (clang-cl)" using the Visual Studio Installer</li>
+				<li>Download CMake 3.20+ (https://cmake.org/download/)</li>
+				<li>Run <code>cmake_vs2026_clang.bat</code></li>
+				<li>Open the resulting project file <code>VS2026_Clang\JoltPhysics.sln</code></li>
+				<li>Compile and run either 'Samples' or 'UnitTests'</li>
+			</ul>
+		</details>
+		<details>
+			<summary>MinGW</summary>
+			<ul>
+				<li>Follow download instructions for MSYS2 (https://www.msys2.org/)</li>
+				<li>From the MSYS2 UCRT64 terminal run: <code>pacman -Suy</code> and <code>pacman -S --needed mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake</code></li>
+				<li>In the <code>Build</code> folder run: <code>./cmake_windows_mingw.sh</code></li>
+				<li>Run: <code>cmake --build MinGW_Release</code></li>
+				<li>Run: <code>./MinGW_Release/Samples.exe</code> or <code>./MinGW_Release/UnitTests.exe</code></li>
+			</ul>
+		</details>
+	</li></ul>
+</details>
+
+<details>
+	<summary>Linux (Ubuntu)</summary>
+	<ul style="list-style: none"><li>
+		<details>
+			<summary>Using make</summary>
+			<ul>
+				<li>Install clang (<code>apt-get install clang</code>)</li>
+				<li>Install cmake (<code>apt-get install cmake</code>)</li>
+				<li>If you want to build the Samples, JoltViewer or use the ComputeSystem, install the <a href="https://vulkan.lunarg.com/sdk/home#linux">Vulkan SDK</a>. Note that the Vulkan development packages usually do not include dxc so install the full SDK. Jolt uses dxc to cross compile hlsl shaders to Vulkan. See the helper script <code>ubuntu26_install_vulkan_sdk.sh</code> in this folder.</li>
+				<li>Run: <code>./cmake_linux_clang_gcc.sh</code></li>
+				<li>Go to the <code>Linux_Debug</code> folder</li>
+				<li>Run: <code>make -j$(nproc) && ./UnitTests</code></li>
+				<li>If you built the samples you can run: <code>./Samples</code></li>
+			</ul>
+		</details>
+		<details>
+			<summary>Using ninja</summary>
+			<ul>
+				<li>Install clang (<code>apt-get install clang</code>)</li>
+				<li>Install cmake (<code>apt-get install cmake</code>)</li>
+				<li>Install ninja (<code>apt-get install ninja-build</code>)</li>
+				<li>If you want to build the Samples, JoltViewer or use the ComputeSystem, install the <a href="https://vulkan.lunarg.com/sdk/home#linux">Vulkan SDK</a>. Note that the Vulkan development packages usually do not include dxc so install the full SDK. Jolt uses dxc to cross compile hlsl shaders to Vulkan. See the helper script <code>ubuntu26_install_vulkan_sdk.sh</code> in this folder.</li>
+				<li>Run: <code>./cmake_ninja.sh</code></li>
+				<li>Go to the <code>Ninja_MultiConfig</code> folder</li>
+				<li>Run: <code>cmake --build . --config Debug && ./UnitTests</code></li>
+				<li>If you built the samples you can run: <code>./Debug/Samples</code></li>
+			</ul>
+		</details>
+	</li></ul>
+</details>
+
+<details>
+	<summary>Android</summary>
+	<ul>
+		<li>Install Android Studio (https://developer.android.com/studio/)</li>
+		<li>If you want to build the Samples, install the <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> (required to compile the shaders)</li>
+		<li>Open the 'Build/Android' folder in Android Studio and wait until gradle finishes</li>
+		<li>Select 'Run' and 'UnitTests', 'PerformanceTest' or 'Samples'</li>
+		<li>For the UnitTests: The application exits when the unit tests complete. Look at the Android logs to see if they succeeded or failed. You can also run Build/Android/run_unit_tests.sh</li>
+		<li>The Samples use Vulkan for rendering. Touch input is mapped to mouse and keyboard input:
+			<ul>
+				<li>One finger drag: Rotate the camera / interact with the menu (drag vertically to scroll long menus)</li>
+				<li>One finger long press: Hold Space (drag the object under the crosshair)</li>
+				<li>Two finger drag: Move the camera, the scene follows your fingers (drag down to move forward, drag right to move left)</li>
+				<li>Two finger tap or the back button / gesture: Open the menu / go back one level (Escape)</li>
+			</ul>
+			A hardware keyboard works as on the desktop. A hardware mouse acts as a single finger (left button only). The UI is scaled by a factor 3 to make it easier to touch, use the <code>-uiscale=&lt;scale&gt;</code> command line option to change this.
+			To start a specific test, use e.g.: <code>adb shell am start -n com.joltphysics.samples/android.app.NativeActivity -e args "HairTest"</code>
+		</li>
+	</ul>
+</details>
+
+<details>
+	<summary>macOS</summary>
+	<ul>
+		<li>Install XCode</li>
+		<li>If you want to build the Samples, JoltViewer or use the ComputeSystem, install the <a href="https://vulkan.lunarg.com/sdk/home#mac">Vulkan SDK</a> or the dxc and spirv-cross tools (required to cross compile hlsl shaders to Metal)</li>
+		<li>Download CMake 3.23+ (https://cmake.org/download/)</li>
+		<li>Run: <code>./cmake_xcode_macos.sh</code></li>
+		<li>This will open XCode with a newly generated project</li>
+		<li>Build and run the project</li>
+		<li>Note that you can also follow the steps in the 'Linux' section if you wish to build without XCode.</li>
+	</ul>
+</details>
+
+<details>
+	<summary>iOS</summary>
+	<ul>
+		<li>Install XCode</li>
+		<li>If you want to build the Samples, JoltViewer or use the ComputeSystem, install the <a href="https://vulkan.lunarg.com/sdk/home#mac">Vulkan SDK</a> or the dxc and spirv-cross tools (required to cross compile hlsl shaders to Metal)</li>
+		<li>Download CMake 3.23+ (https://cmake.org/download/)</li>
+		<li>Run: <code>./cmake_xcode_ios.sh</code></li>
+		<li>This will open XCode with a newly generated project</li>
+		<li>Build and run either 'Samples' or 'UnitTests' (note that this will only work in the simulator as the code signing information is not set up and the shaders are compiled for the simulator)</li>
+		<li>In the Samples, touch input is mapped to mouse and keyboard input:
+			<ul>
+				<li>One finger drag: Rotate the camera / interact with the menu (drag vertically to scroll long menus)</li>
+				<li>One finger long press: Hold Space (drag the object under the crosshair)</li>
+				<li>Two finger drag: Move the camera, the scene follows your fingers (drag down to move forward, drag right to move left)</li>
+				<li>Two finger tap: Open the menu / go back one level (Escape)</li>
+			</ul>
+			A hardware keyboard (or the Mac keyboard in the simulator) works as on macOS. A hardware mouse acts as a single finger (left button only). The UI is scaled by a factor 3 to make it easier to touch, use the <code>-uiscale=&lt;scale&gt;</code> command line option to change this.
+		</li>
+	</ul>
+</details>
+
+<details>
+	<summary>Emscripten (tested only on Linux)</summary>
+	<ul>
+		<li>Install Emscripten (https://emscripten.org/docs/getting_started/downloads.html)</li>
+		<li>Install nodejs (<code>apt-get install nodejs</code>)</li>
+		<li>Download CMake 3.23+ (https://cmake.org/download/)</li>
+		<li>Run: <code>./cmake_linux_emscripten.sh</code></li>
+		<li>Go to the <code>WASM_Debug</code> folder</li>
+		<li>Run: <code>make -j$(nproc) && node UnitTests.js</code></li>
+	</ul>
+</details>
+
+## Other Build Tools / Packages
+
+* A vcpkg package is available [here](https://github.com/microsoft/vcpkg/tree/master/ports/joltphysics).
+* A xmake package is available [here](https://github.com/xmake-io/xmake-repo/tree/dev/packages/j/joltphysics).
+* A conan package is available [here](https://conan.io/center/recipes/joltphysics).
+* A RHEL RPM package is available [here](https://github.com/alkontek/pkgspecs/tree/master/rpm/JoltPhysics).
+
+## Building as a Shared Library
+
+To build Jolt as a shared library, pass `-DJPH_BUILD_SHARED_LIBS=ON` to cmake.
+This will turn on the `JPH_SHARED_LIBRARY` define for Jolt and cmake projects linking against Jolt.
+It turns on `JPH_BUILD_SHARED_LIBRARY` for Jolt only to force it to build a shared library instead of a static library.
+
+If you're not using cmake to build your project, define `JPH_SHARED_LIBRARY` in your project to cause it to bind to the shared library.
+Don't define `JPH_BUILD_SHARED_LIBRARY` in your project.
+
+## Building Your Project Without CMake
+
+When you're not using cmake, be careful to mirror the defines (e.g. `JPH_DOUBLE_PRECISION`, `JPH_DEBUG_RENDERER`, ...) that Jolt was compiled with in your project.
+`RegisterTypes` will attempt to verify this and will `Trace` any mismatches and then call `std::abort`. Make sure you override `Trace` to see the error.
+
+Some mismatches can lead to compile errors because function signatures can change based on the defines (see the Errors section).
+
+If you configured cmake to create a `Makefile` you can find the defines by running `make clean` followed by `make -n`. This will print the compiler command. Search for `-DJPH_` and copy those defines into your own project.
+
+## Errors
+
+### Link Error: File Format Not Recognized
+
+If you receive the following error when linking:
+
+```
+/usr/bin/ld: libJolt.a: error adding symbols: file format not recognized
+```
+
+Then you have not enabled interprocedural optimizations (link time optimizations) for your own application. See the INTERPROCEDURAL_OPTIMIZATION option in CMakeLists.txt.
+
+### Unknown Header Error on Apple Platforms
+
+Apple's application bitcode workflow is deprecated, but the `-flto=thin` flag (which is what the `INTERPROCEDURAL_OPTIMIZATION` cmake flag enables in non-debug builds) still produces object files with LLVM bitcode.
+If you package Jolt's static library into an XCFramework, the embedded bitcode can cause errors such as:
+
+```
+Unknown header: 0xb17c0de
+```
+
+If you receive this error, disable interprocedural optimizations by turning the `INTERPROCEDURAL_OPTIMIZATION` cmake option `OFF`.
+This removes LLVM bitcode and produces regular object files instead. Disabling this option disables link-time and cross-translation-unit optimizations so may reduce performance.
+
+When directly linking Jolt's static library into your application, this error should not occur and you can leave the `INTERPROCEDURAL_OPTIMIZATION` option `ON`.
+
+### Link Error: Unresolved External Symbol
+
+If you receive a link error that looks like:
+
+```
+error LNK2001: unresolved external symbol "public: virtual void __cdecl JPH::ConvexShape::GetSubmergedVolume(...) const"
+```
+
+you have a mismatch in defines between your own code and the Jolt library. In this case the mismatch is in the define `JPH_DEBUG_RENDERER` which is most likely defined in `Jolt.lib` and not in your own project. In `Debug` and `Release` builds, Jolt by default has `JPH_DEBUG_RENDERER` defined, in `Distribution` it is not defined. The cmake options `DEBUG_RENDERER_IN_DEBUG_AND_RELEASE` and `DEBUG_RENDERER_IN_DISTRIBUTION` override this behavior.
+
+The `RegisterTypes` function (which you have to call to initialize the library) checks the other important defines and will trace and abort if there are more mismatches.
+
+### Link Error: Undefined Symbol
+
+If you receive a link error that looks like:
+
+```
+error: undefined symbol: typeinfo for JPH::DebugRenderer
+```
+
+you have a mismatch between RTTI settings (MSVC: `/GR`/`/GR-`, clang: `-frtti`/`-fno-rtti`). Jolt by default compiles without RTTI and if your project compiles with RTTI you can get this error. Either turn RTTI off for your project or turn it on for Jolt using the CPP_RTTI_ENABLED cmake option.
+
+### DirectX Error
+
+The samples use DirectX for the graphics implementation, when attempting to run the samples you may get a DirectX error pop-up which may say "The GPU device instance has been suspended", in your debugger you may see the message "Using the Redistributable D3D12 SDKLayers dll also requires that the latest SDKLayers for Windows 10 is installed.".
+
+Fix this by enabling "Graphics Tools" which is an optional Windows settings. To enable it you have to press the windows key, search for "Manage Optional Features", and then click "Add a Feature", and install "Graphics Tools".
+
+### Illegal Instruction Error
+
+If your CPU doesn't support all of the instructions you'll get an `Illegal instruction` exception.
+
+On Linux to see what instructions your CPU supports run `lscpu` and then look at the flags section, on Windows you can use a program like [`coreinfo`](https://learn.microsoft.com/en-us/sysinternals/downloads/coreinfo). Once you know what instructions your cpu supports you can configure the project through cmake and for example disable all special instructions:
+
+```
+./cmake_linux_clang_gcc.sh Release clang++ -DUSE_SSE4_1=OFF -DUSE_SSE4_2=OFF -DUSE_AVX=OFF -DUSE_AVX2=OFF -DUSE_AVX512=OFF -DUSE_LZCNT=OFF -DUSE_TZCNT=OFF -DUSE_F16C=OFF -DUSE_FMADD=OFF
+```
+
+Note that this example is for Linux but the cmake settings work on Windows too.
+
+### Thread Performance Checker Warnings on Apple Platforms
+
+When running under XCode with the Thread Performance Checker enabled (the default in a scheme's Diagnostics settings), you may see warnings like:
+
+```
+Thread Performance Checker: Thread running at User-interactive quality-of-service class waiting on a thread without a QoS class specified (base priority 0). Investigate ways to avoid priority inversions
+```
+
+The worker threads of `JobSystemThreadPool` run at the same quality-of-service (QoS) class as the thread that started them (the thread that constructed the job system or called `JobSystemThreadPool::Init` or `JobSystemThreadPool::SetNumThreads`), so the thread that waits for jobs (`JobSystem::WaitForJobs`) does not wait on lower priority threads. Idle worker threads wait on a `dispatch_semaphore` in `JobSystemThreadPool::ThreadMain`. The checker cannot determine which thread will signal this semaphore and can incorrectly report this as a priority inversion, even though all threads that signal it run at the same QoS class. To suppress only this false positive, set the environment variable `PERFC_SUPPRESSION_FILE` to the full path of `Build/macOS/ThreadPerformanceChecker.supp` (in XCode: Product > Scheme > Edit Scheme > Run > Arguments > Environment Variables). The XCode projects that cmake generates for `UnitTests` and `Samples` already do this.
+
+To run the checker from the command line, load it through `DYLD_INSERT_LIBRARIES`:
+
+```
+DYLD_INSERT_LIBRARIES=/usr/lib/libRPAC.dylib PERFC_SUPPRESSION_FILE=<path to>/Build/macOS/ThreadPerformanceChecker.supp ./UnitTests.app/Contents/MacOS/UnitTests
+```
+
+Note that the checker only reports an issue once per unique backtrace.
+
+## Doxygen on Windows
+
+Documentation can be generated through doxygen:
+
+- Install Doxygen (https://www.doxygen.nl/download.html)
+- Run: run_doxygen.bat
