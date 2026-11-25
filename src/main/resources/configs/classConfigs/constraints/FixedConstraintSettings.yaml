@@ -1,0 +1,42 @@
+class-description:
+  name: FixedConstraintSettings
+  package-name: volucris.bindings.jolt.constraints
+  directory: src/main/java/volucris/bindings/jolt/constraints
+  is-static: false
+  parent: TwoBodyConstraintSettings
+  parent-has-segment-constructor: true
+  parent-conversion-function: asTwoBodyConstraintSettings
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_FixedConstraintSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_FixedConstraintSettings_Create
+struct:
+native-functions:
+  - name: JPH_FixedConstraintSettings_AsTwoBodyConstraintSettings
+    add-typed-method: false
+  - name: JPH_FixedConstraintSettings_sCreateRTTI
+    is-static: true
+
+native-function-pointers:

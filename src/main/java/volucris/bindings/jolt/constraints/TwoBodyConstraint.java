@@ -1,0 +1,180 @@
+/*
+ * MACHINE GENERATED FILE, DO NOT EDIT.
+ */
+package volucris.bindings.jolt.constraints;
+
+import java.lang.foreign.MemorySegment;
+import java.lang.invoke.MethodHandle;
+import org.jspecify.annotations.Nullable;
+import volucris.bindings.jolt.body.Body;
+import volucris.bindings.jolt.math.Mat44;
+
+import static volucris.bindings.core.FFMUtils.*;
+
+public sealed class TwoBodyConstraint extends Constraint
+		permits ConeConstraint,
+		DistanceConstraint,
+		FixedConstraint,
+		GearConstraint,
+		HingeConstraint,
+		PathConstraint,
+		PointConstraint,
+		PulleyConstraint,
+		RackAndPinionConstraint,
+		SixDOFConstraint,
+		SliderConstraint,
+		SwingTwistConstraint {
+
+	private static final LazyConstant<MethodHandle> JPH_TWO_BODY_CONSTRAINT_AS_CONSTRAINT;
+	private static final LazyConstant<MethodHandle> JPH_TWO_BODY_CONSTRAINT_GET_BODY1;
+	private static final LazyConstant<MethodHandle> JPH_TWO_BODY_CONSTRAINT_GET_BODY2;
+	private static final LazyConstant<MethodHandle> JPH_TWO_BODY_CONSTRAINT_GET_CONSTRAINT_TO_BODY1_MATRIX;
+	private static final LazyConstant<MethodHandle> JPH_TWO_BODY_CONSTRAINT_GET_CONSTRAINT_TO_BODY2_MATRIX;
+
+	private final MemorySegment segment;
+
+	static {
+		//@formatter:off
+		JPH_TWO_BODY_CONSTRAINT_AS_CONSTRAINT = downcallHandle("JPH_TwoBodyConstraint_AsConstraint", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
+		JPH_TWO_BODY_CONSTRAINT_GET_BODY1 = downcallHandle("JPH_TwoBodyConstraint_GetBody1", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
+		JPH_TWO_BODY_CONSTRAINT_GET_BODY2 = downcallHandle("JPH_TwoBodyConstraint_GetBody2", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
+		JPH_TWO_BODY_CONSTRAINT_GET_CONSTRAINT_TO_BODY1_MATRIX = downcallHandleVoid("JPH_TwoBodyConstraint_GetConstraintToBody1Matrix", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
+		JPH_TWO_BODY_CONSTRAINT_GET_CONSTRAINT_TO_BODY2_MATRIX = downcallHandleVoid("JPH_TwoBodyConstraint_GetConstraintToBody2Matrix", UNBOUNDED_ADDRESS, UNBOUNDED_ADDRESS);
+		//@formatter:on
+	}
+
+	public TwoBodyConstraint(MemorySegment segment) {
+		this.segment = segment;
+		super(asConstraint(segment));
+	}
+
+    /// ```
+    /// WRAPPER INFO: Helper method for upcasting.
+    /// ```
+    public static MemorySegment asConstraint(
+    	MemorySegment self
+    ) {
+    	MethodHandle method = JPH_TWO_BODY_CONSTRAINT_AS_CONSTRAINT.get();
+    	try {
+    		return (MemorySegment) method.invokeExact(
+    			self
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
+    /// ```
+    /// Access to the connected bodies
+    /// ```
+    public static MemorySegment getBody1(
+    	MemorySegment self
+    ) {
+    	MethodHandle method = JPH_TWO_BODY_CONSTRAINT_GET_BODY1.get();
+    	try {
+    		return (MemorySegment) method.invokeExact(
+    			self
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
+    /// Typed method of [#getBody1].
+    public final @Nullable Body getBody1() {
+    	MemorySegment segment = getBody1(
+    		this.segment
+    	);
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Body(segment);
+    }
+    
+    public static MemorySegment getBody2(
+    	MemorySegment self
+    ) {
+    	MethodHandle method = JPH_TWO_BODY_CONSTRAINT_GET_BODY2.get();
+    	try {
+    		return (MemorySegment) method.invokeExact(
+    			self
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
+    /// Typed method of [#getBody2].
+    public final @Nullable Body getBody2() {
+    	MemorySegment segment = getBody2(
+    		this.segment
+    	);
+    
+    	if (segment.equals(MemorySegment.NULL))
+    		return null;
+    	
+    	return new Body(segment);
+    }
+    
+    /// ```
+    /// Calculates the transform that transforms from constraint space to body 1 space. The first column of the matrix is the primary constraint axis (e.g. the hinge axis / slider direction), second column the secondary etc.
+    /// ```
+    public static void getConstraintToBody1Matrix(
+    	MemorySegment self,
+    	MemorySegment outResult
+    ) {
+    	MethodHandle method = JPH_TWO_BODY_CONSTRAINT_GET_CONSTRAINT_TO_BODY1_MATRIX.get();
+    	try {
+    		 method.invokeExact(
+    			self,
+    			outResult
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
+    /// Typed method of [#getConstraintToBody1Matrix].
+    public final void getConstraintToBody1Matrix(
+    	Mat44 outResult
+    ) {
+    	getConstraintToBody1Matrix(
+    		this.segment,
+    		outResult.memorySegment()
+    	);
+    }
+    
+    /// ```
+    /// Calculates the transform that transforms from constraint space to body 2 space. The first column of the matrix is the primary constraint axis (e.g. the hinge axis / slider direction), second column the secondary etc.
+    /// ```
+    public static void getConstraintToBody2Matrix(
+    	MemorySegment self,
+    	MemorySegment outResult
+    ) {
+    	MethodHandle method = JPH_TWO_BODY_CONSTRAINT_GET_CONSTRAINT_TO_BODY2_MATRIX.get();
+    	try {
+    		 method.invokeExact(
+    			self,
+    			outResult
+    		);
+    	} catch (Throwable e) {
+    		throw new RuntimeException(e);
+    	}
+    }
+    
+    /// Typed method of [#getConstraintToBody2Matrix].
+    public final void getConstraintToBody2Matrix(
+    	Mat44 outResult
+    ) {
+    	getConstraintToBody2Matrix(
+    		this.segment,
+    		outResult.memorySegment()
+    	);
+    }
+    
+    public MemorySegment memorySegment() {
+    	return segment;
+    }
+
+}

@@ -1,0 +1,45 @@
+class-description:
+  name: WheelSettings
+  package-name: volucris.bindings.jolt.vehicle
+  directory: src/main/java/volucris/bindings/jolt/vehicle
+  is-static: false
+  parent: WheelSettingsRefTarget
+  parent-has-segment-constructor: true
+  parent-conversion-function: asRefTarget
+  interfaces: []
+  is-sealed: true
+  permits: [WheelSettingsTV, WheelSettingsWV]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+  cleanup-function: JPH_WheelSettings_Destroy
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_WheelSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_WheelSettings_Create
+struct:
+native-functions:
+  - name: JPH_WheelSettings_AsRefTarget
+    add-typed-method: false
+  - name: JPH_WheelSettings_AsSerializableObject
+    add-typed-method: false
+  - name: JPH_WheelSettings_sCreateRTTI
+    is-static: true
+
+native-function-pointers:

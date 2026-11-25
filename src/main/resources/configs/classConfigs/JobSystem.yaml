@@ -1,0 +1,42 @@
+class-description:
+  name: JobSystem
+  package-name: volucris.bindings.jolt
+  directory: src/main/java/volucris/bindings/jolt
+  is-static: false
+  parent:
+  parent-has-segment-constructor:
+  parent-conversion-function:
+  interfaces: []
+  is-sealed: true
+  permits: [JobSystemSingleThreaded, JobSystemWithBarrier]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+  cleanup-function: JPH_JobSystem_Destroy
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_JobSystem_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_JobSystem_Create
+    destructor: JPH_JobSystem_Destroy
+struct:
+native-functions:
+  - name: JPH_JobSystem_SetElementInOutJobs
+    is-static: true
+
+native-function-pointers:

@@ -1,0 +1,41 @@
+class-description:
+  name: DynMatrix
+  package-name: volucris.bindings.jolt.math
+  directory: src/main/java/volucris/bindings/jolt/math
+  is-static: false
+  parent:
+  parent-has-segment-constructor:
+  parent-conversion-function:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_DynMatrix_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_DynMatrix_Create
+    destructor: JPH_DynMatrix_Destroy
+  - native-function: JPH_DynMatrix_Create1
+    destructor: JPH_DynMatrix_Destroy
+struct:
+native-functions:
+
+native-function-pointers:

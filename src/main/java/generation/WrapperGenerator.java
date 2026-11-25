@@ -15,7 +15,7 @@
 //				"-Isrc/main/resources/nativeSources/JoltPhysics-5.7.0",
 //				"-DJPH_DEBUG_RENDERER"
 //		);
-//
+//		
 //		Generator generator = new Generator("src/main/resources/configs/WrapperConfig.yaml", headerFile);
 //		generator.generate();
 //	}

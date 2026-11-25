@@ -1,0 +1,40 @@
+class-description:
+  name: TempAllocatorImplWithMallocFallback
+  package-name: volucris.bindings.jolt
+  directory: src/main/java/volucris/bindings/jolt
+  is-static: false
+  parent: TempAllocator
+  parent-has-segment-constructor: true
+  parent-conversion-function: asTempAllocator
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_TempAllocatorImplWithMallocFallback_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_TempAllocatorImplWithMallocFallback_Create
+struct:
+native-functions:
+  - name: JPH_TempAllocatorImplWithMallocFallback_AsTempAllocator
+    add-typed-method: false
+
+native-function-pointers:

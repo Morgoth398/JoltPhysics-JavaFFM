@@ -1,0 +1,53 @@
+class-description:
+  name: Body
+  package-name: volucris.bindings.jolt.body
+  directory: src/main/java/volucris/bindings/jolt/body
+  is-static: false
+  parent:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+  - volucris.bindings.jolt.collision.broadPhase.BroadPhaseLayer
+  - volucris.bindings.jolt.collision.CollisionGroup
+  - volucris.bindings.jolt.math.Vec3
+  - volucris.bindings.jolt.math.Mat44
+  - volucris.bindings.jolt.math.Quat
+  - volucris.bindings.jolt.collision.shape.Shape
+  - volucris.bindings.jolt.geometry.AABox
+  - volucris.bindings.jolt.collision.shape.SubShapeID
+  - volucris.bindings.jolt.collision.TransformedShape
+  - volucris.bindings.jolt.collision.broadPhase.BroadPhaseLayerInterface
+  - volucris.bindings.jolt.softBody.SoftBodyCreationSettings
+  - volucris.bindings.jolt.StateRecorder
+
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_Body_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:    
+  - name: JPH_Body_GetInactiveIndex
+    is-static: true
+  - name: JPH_Body_sFindCollidingPairsCanCollide
+    is-static: true
+  - name: JPH_Body_GetFixedToWorld
+    is-static: true
+native-function-pointers:

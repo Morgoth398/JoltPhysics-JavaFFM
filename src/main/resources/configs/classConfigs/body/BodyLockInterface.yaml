@@ -1,0 +1,35 @@
+class-description:
+  name: BodyLockInterface
+  package-name: volucris.bindings.jolt.body
+  directory: src/main/java/volucris/bindings/jolt/body
+  is-static: false
+  parent:
+  interfaces: []
+  is-sealed: true
+  permits: [BodyLockInterfaceLocking, BodyLockInterfaceNoLock]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_BodyLockInterface_
+excluded-function-name-prefixes:
+  - JPH_BodyLockInterface_Destroy
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+native-function-pointers:

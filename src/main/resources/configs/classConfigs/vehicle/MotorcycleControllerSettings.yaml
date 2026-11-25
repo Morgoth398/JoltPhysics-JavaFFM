@@ -1,0 +1,42 @@
+class-description:
+  name: MotorcycleControllerSettings
+  package-name: volucris.bindings.jolt.vehicle
+  directory: src/main/java/volucris/bindings/jolt/vehicle
+  is-static: false
+  parent: WheeledVehicleControllerSettings
+  parent-has-segment-constructor: true
+  parent-conversion-function: asWheeledVehicleControllerSettings
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_MotorcycleControllerSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_MotorcycleControllerSettings_Create
+struct:
+native-functions:
+  - name: JPH_MotorcycleControllerSettings_AsWheeledVehicleControllerSettings
+    add-typed-method: false
+  - name: JPH_MotorcycleControllerSettings_sCreateRTTI
+    is-static: true
+
+native-function-pointers:

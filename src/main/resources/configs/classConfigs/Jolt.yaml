@@ -1,0 +1,47 @@
+class-description:
+  name: Jolt
+  package-name: volucris.bindings.jolt
+  directory: src/main/java/volucris/bindings/jolt
+  is-static: true
+  parent:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter:
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:    
+  - name: JPH_RegisterDefaultAllocator
+  - name: JPH_VerifyJoltVersionID
+  - name: JPH_RegisterTypes
+  - name: JPH_UnregisterTypes
+  - name: JPH_GetProcessorTickCount
+  - name: JPH_GetDefaultCollisionTolerance
+  - name: JPH_GetDefaultPenetrationTolerance
+  - name: JPH_GetDefaultConvexRadius
+  - name: JPH_GetCapsuleProjectionSlop
+  - name: JPH_GetDefaultInternalEdgeRemovalVertexToleranceSq
+  - name: JPH_GetMaxPhysicsJobs
+  - name: JPH_GetMaxPhysicsBarriers
+  - name: JPH_SetTraceFunction
+  - name: JPH_SetAssertFailureFunction
+native-function-pointers:

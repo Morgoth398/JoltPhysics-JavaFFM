@@ -1,0 +1,41 @@
+class-description:
+  name: DefaultObjectLayerFilter
+  package-name: volucris.bindings.jolt.collision
+  directory: src/main/java/volucris/bindings/jolt/collision
+  is-static: false
+  parent: ObjectLayerFilter
+  parent-has-segment-constructor: true
+  parent-conversion-function: asObjectLayerFilter
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_DefaultObjectLayerFilter_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_DefaultObjectLayerFilter_Create
+  - native-function: JPH_DefaultObjectLayerFilter_Create1
+struct:
+native-functions:
+  - name: JPH_DefaultObjectLayerFilter_AsObjectLayerFilter
+    add-typed-method: false
+
+native-function-pointers:

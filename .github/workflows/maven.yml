@@ -1,21 +1,20 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Java CI with Maven
 
 on:
   push:
     branches: [ "Overhaul" ]
+    paths-ignore:
+      - '**/nativeSources/**'
+      - '.github/workflows/*_*Build.yml'
   pull_request:
     branches: [ "Overhaul" ]
+    paths-ignore:
+      - '**/nativeSources/**'
+      - '.github/workflows/*_*Build.yml'
 
 env:
-  JAR_FILE: JoltPhysics-JavaFFM-5.5.0-jar-with-dependencies.jar
+  JAR_FILE: JoltPhysics-JavaFFM-5.7.0.jar
+  EXAMPLE_CLASS: volucris.bindings.jolt.HelloWorld
 
 jobs:
   Linux_x64:
@@ -33,13 +32,7 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
-    - name: Execute the HelloWorld app - Debug library
-      run: |
-        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
+          -cp target/$JAR_FILE $EXAMPLE_CLASS
 
   Linux_Arm64:
     runs-on: ubuntu-24.04-arm
@@ -56,13 +49,7 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
-    - name: Execute the HelloWorld app - Debug library
-      run: |
-        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
+          -cp target/$JAR_FILE $EXAMPLE_CLASS
 
   macOS_Arm64:
     runs-on: macos-26
@@ -79,36 +66,7 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
-    - name: Execute the HelloWorld app - Debug library
-      run: |
-        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
-          
-  macOS_x64:
-    runs-on: macos-26-intel
-    steps:
-    - uses: actions/checkout@v7
-    - name: Set up JDK 26
-      uses: actions/setup-java@v5
-      with:
-        java-version: '26'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - name: Execute the HelloWorld app
-      run: |
-        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
-    - name: Execute the HelloWorld app - Debug library
-      run: |
-        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
+          -cp target/$JAR_FILE $EXAMPLE_CLASS
 
   Windows_x64:
     runs-on: windows-2025
@@ -126,12 +84,5 @@ jobs:
     - name: Execute the HelloWorld app
       run: |
         $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
-      shell: bash
-    - name: Execute the HelloWorld app - Debug library
-      run: |
-        $JAVA_HOME/bin/java --enable-preview --enable-native-access=ALL-UNNAMED -Dload.debug.library=true \
-          -cp target/$JAR_FILE \
-          volucris.bindings.jolt.HelloWorld
+          -cp target/$JAR_FILE $EXAMPLE_CLASS
       shell: bash

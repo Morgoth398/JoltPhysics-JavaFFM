@@ -1,0 +1,238 @@
+package-name: volucris.bindings.jolt.enums
+directory: src/main/java/volucris/bindings/jolt/enums
+generate-all: true
+configs:
+  - name: JPH_EBackFaceMode
+    name-mappings:
+      JPH_EBackFaceMode_IgnoreBackFaces: IGNORE_BACK_FACES
+      JPH_EBackFaceMode_CollideWithBackFaces: COLLIDE_WITH_BACK_FACES
+  - name: JPH_EShapeType
+    name-mappings:
+      JPH_EShapeType_Convex: CONVEX
+      JPH_EShapeType_Compound: COMPOUND
+      JPH_EShapeType_Decorated: DECORATED
+      JPH_EShapeType_Mesh: MESH
+      JPH_EShapeType_HeightField: HEIGHT_FIELD
+      JPH_EShapeType_SoftBody: SOFT_BODY
+      JPH_EShapeType_User1: USER_1
+      JPH_EShapeType_User2: USER_2
+      JPH_EShapeType_User3: USER_3
+      JPH_EShapeType_User4: USER_4
+      JPH_EShapeType_Plane: PLANE
+      JPH_EShapeType_Empty: EMPTY
+  - name: JPH_EShapeSubType
+    name-mappings:
+      JPH_EShapeSubType_Sphere: SPHERE
+      JPH_EShapeSubType_Box: BOX
+      JPH_EShapeSubType_Triangle: TRIANGLE
+      JPH_EShapeSubType_Capsule: CAPSULE
+      JPH_EShapeSubType_TaperedCapsule: TAPERED_CAPSULE
+      JPH_EShapeSubType_Cylinder: CYLINDER
+      JPH_EShapeSubType_ConvexHull: CONVEX_HULL
+      JPH_EShapeSubType_StaticCompound: STATIC_COMPOUND
+      JPH_EShapeSubType_MutableCompound: MUTABLE_COMPOUND
+      JPH_EShapeSubType_RotatedTranslated: ROTATED_TRANSLATED
+      JPH_EShapeSubType_Scaled: SCALED
+      JPH_EShapeSubType_OffsetCenterOfMass: OFFSET_CENTER_OF_MASS
+      JPH_EShapeSubType_Mesh: MESH
+      JPH_EShapeSubType_HeightField: HEIGHT_FIELD
+      JPH_EShapeSubType_SoftBody: SOFT_BODY
+      JPH_EShapeSubType_User1: USER_1
+      JPH_EShapeSubType_User2: USER_2
+      JPH_EShapeSubType_User3: USER_3
+      JPH_EShapeSubType_User4: USER_4
+      JPH_EShapeSubType_User5: USER_5
+      JPH_EShapeSubType_User6: USER_6
+      JPH_EShapeSubType_User7: USER_7
+      JPH_EShapeSubType_User8: USER_8
+      JPH_EShapeSubType_UserConvex1: USER_CONVEX_1
+      JPH_EShapeSubType_UserConvex2: USER_CONVEX_2
+      JPH_EShapeSubType_UserConvex3: USER_CONVEX_3
+      JPH_EShapeSubType_UserConvex4: USER_CONVEX_4
+      JPH_EShapeSubType_UserConvex5: USER_CONVEX_5
+      JPH_EShapeSubType_UserConvex6: USER_CONVEX_6
+      JPH_EShapeSubType_UserConvex7: USER_CONVEX_7
+      JPH_EShapeSubType_UserConvex8: USER_CONVEX_8
+      JPH_EShapeSubType_Plane: PLANE
+      JPH_EShapeSubType_TaperedCylinder: TAPERED_CYLINDER
+      JPH_EShapeSubType_Empty: EMPTY
+  - name: JPH_EAllowedDOFs
+    name-mappings:
+      JPH_EAllowedDOFs_None: NONE
+      JPH_EAllowedDOFs_All: ALL
+      JPH_EAllowedDOFs_TranslationX: TRANSLATION_X
+      JPH_EAllowedDOFs_TranslationY: TRANSLATION_Y
+      JPH_EAllowedDOFs_TranslationZ: TRANSLATION_Z
+      JPH_EAllowedDOFs_RotationX: ROTATION_X
+      JPH_EAllowedDOFs_RotationY: ROTATION_Y
+      JPH_EAllowedDOFs_RotationZ: ROTATION_Z
+      JPH_EAllowedDOFs_Plane2D: PLANE_2D
+  - name: JPH_EMotionQuality
+    name-mappings:
+      JPH_EMotionQuality_Discrete: DISCRETE
+      JPH_EMotionQuality_LinearCast: LINEAR_CAST
+  - name: JPH_EMotionType
+    name-mappings:
+      JPH_EMotionType_Static: STATIC
+      JPH_EMotionType_Kinematic: KINEMATIC
+      JPH_EMotionType_Dynamic: DYNAMIC
+  - name: JPH_EBodyType
+    name-mappings:
+      JPH_EBodyType_RigidBody: RIGID_BODY
+      JPH_EBodyType_SoftBody: SOFT_BODY
+  - name: JPH_ECanSleep
+    name-mappings:
+      JPH_ECanSleep_CannotSleep: CANNOT_SLEEP
+      JPH_ECanSleep_CanSleep: CAN_SLEEP
+  - name: JPH_ESpringMode
+    name-mappings:
+      JPH_ESpringMode_FrequencyAndDamping: FREQUENCY_AND_DAMPING
+      JPH_ESpringMode_StiffnessAndDamping: STIFFNESS_AND_DAMPING
+      JPH_ESpringMode_MassNormalizedStiffnessAndDamping: MASS_NORMALIZED_STIFFNESS_AND_DAMPING
+  - name: JPH_EStateRecorderState
+    name-mappings:
+      JPH_EStateRecorderState_None: NONE
+      JPH_EStateRecorderState_Global: GLOBAL
+      JPH_EStateRecorderState_Bodies: BODIES
+      JPH_EStateRecorderState_Contacts: CONTACTS
+      JPH_EStateRecorderState_Constraints: CONSTRAINTS
+      JPH_EStateRecorderState_All: ALL
+  - name: JPH_EOverrideMassProperties
+    name-mappings:
+      JPH_EOverrideMassProperties_CalculateMassAndInertia: CALCULATE_MASS_AND_INERTIA
+      JPH_EOverrideMassProperties_CalculateInertia: CALCULATE_INERTIA
+      JPH_EOverrideMassProperties_MassAndInertiaProvided: MASS_AND_INERTIA_PROVIDED
+  - name: JPH_EActivation
+    name-mappings:
+      JPH_EActivation_Activate: ACTIVATE
+      JPH_EActivation_DontActivate: DONT_ACTIVATE
+  - name: JPH_ESoftBodyConstraintColor
+    name-mappings:
+      JPH_ESoftBodyConstraintColor_ConstraintType: CONSTRAINT_TYPE
+      JPH_ESoftBodyConstraintColor_ConstraintGroup: CONSTRAINT_GROUP
+      JPH_ESoftBodyConstraintColor_ConstraintOrder: CONSTRAINT_ORDER
+  - name: JPH_EActiveEdgeMode
+    name-mappings:
+      JPH_EActiveEdgeMode_CollideOnlyWithActive: COLLIDE_ONLY_WITH_ACTIVE
+      JPH_EActiveEdgeMode_CollideWithAll: COLLIDE_WITH_ALL
+  - name: JPH_ECollectFacesMode
+    name-mappings:
+      JPH_ECollectFacesMode_CollectFaces: COLLECT_FACES
+      JPH_ECollectFacesMode_NoFaces: NO_FACES
+  - name: JPH_ValidateResult
+    name-mappings:
+      JPH_ValidateResult_AcceptAllContactsForThisBodyPair: ACCEPT_ALL_CONTACTS_FOR_THIS_BODY_PAIR
+      JPH_ValidateResult_AcceptContact: ACCEPT_CONTACT
+      JPH_ValidateResult_RejectContact: REJECT_CONTACT
+      JPH_ValidateResult_RejectAllContactsForThisBodyPair: REJECT_ALL_CONTACTS_FOR_THIS_BODY_PAIR
+  - name: JPH_EConstraintType
+    name-mappings:
+      JPH_EConstraintType_Constraint: CONSTRAINT
+      JPH_EConstraintType_TwoBodyConstraint: TWO_BODY_CONSTRAINT
+  - name: JPH_EConstraintSubType
+    name-mappings:
+      JPH_EConstraintSubType_Fixed: FIXED
+      JPH_EConstraintSubType_Point: POINT
+      JPH_EConstraintSubType_Hinge: HINGE
+      JPH_EConstraintSubType_Slider: SLIDER
+      JPH_EConstraintSubType_Distance: DISTANCE
+      JPH_EConstraintSubType_Cone: CONE
+      JPH_EConstraintSubType_SwingTwist: SWING_TWIST
+      JPH_EConstraintSubType_SixDOF: SIX_DOF
+      JPH_EConstraintSubType_Path: PATH
+      JPH_EConstraintSubType_Vehicle: VEHICLE
+      JPH_EConstraintSubType_RackAndPinion: RACK_AND_PINION
+      JPH_EConstraintSubType_Gear: GEAR
+      JPH_EConstraintSubType_Pulley: PULLEY
+      JPH_EConstraintSubType_User1: USER_1
+      JPH_EConstraintSubType_User2: USER_2
+      JPH_EConstraintSubType_User3: USER_3
+      JPH_EConstraintSubType_User4: USER_4
+  - name: JPH_EConstraintSpace
+    name-mappings:
+      JPH_EConstraintSpace_LocalToBodyCOM: LOCAL_TO_BODY_COM
+      JPH_EConstraintSpace_WorldSpace: WORLD_SPACE
+  - name: JPH_EPhysicsUpdateError
+    name-mappings:
+      JPH_EPhysicsUpdateError_None: NONE
+      JPH_EPhysicsUpdateError_ManifoldCacheFull: MANIFOLD_CACHE_FULL
+      JPH_EPhysicsUpdateError_BodyPairCacheFull: BODY_PAIR_CACHE_FULL
+      JPH_EPhysicsUpdateError_ContactConstraintsFull: CONTACT_CONSTRAINTS_FULL
+  - name: JPH_EMotorState
+    name-mappings:
+      JPH_EMotorState_Off: OFF
+      JPH_EMotorState_Velocity: VELOCITY
+      JPH_EMotorState_Position: POSITION
+      JPH_EMotorState_PositionAndVelocity: POSITION_AND_VELOCITY
+  - name: JPH_ETransmissionMode
+    name-mappings:
+      JPH_ETransmissionMode_Auto: AUTO
+      JPH_ETransmissionMode_Manual: MANUAL
+  - name: JPH_ESwingType
+    name-mappings:
+      JPH_ESwingType_Cone: CONE
+      JPH_ESwingType_Pyramid: PYRAMID
+  - name: JPH_EPathRotationConstraintType
+    name-mappings:
+      JPH_EPathRotationConstraintType_Free: FREE
+      JPH_EPathRotationConstraintType_ConstrainAroundTangent: CONSTRAIN_AROUND_TANGENT
+      JPH_EPathRotationConstraintType_ConstrainAroundNormal: CONSTRAIN_AROUND_NORMAL
+      JPH_EPathRotationConstraintType_ConstrainAroundBinormal: CONSTRAIN_AROUND_BINORMAL
+      JPH_EPathRotationConstraintType_ConstrainToPath: CONSTRAIN_TO_PATH
+      JPH_EPathRotationConstraintType_FullyConstrained: FULLY_CONSTRAINED
+  - name: JPH_SoftBodyValidateResult
+    name-mappings:
+      JPH_SoftBodyValidateResult_AcceptContact: ACCEPT_CONTACT
+      JPH_SoftBodyValidateResult_RejectContact: REJECT_CONTACT
+  - name: JPH_ESupportMode
+    name-mappings:
+      JPH_ESupportMode_ExcludeConvexRadius: EXCLUDE_CONVEX_RADIUS
+      JPH_ESupportMode_IncludeConvexRadius: INCLUDE_CONVEX_RADIUS
+      JPH_ESupportMode_Default: DEFAULT
+  - name: JPH_EResult
+    name-mappings:
+      JPH_EResult_Success: SUCCESS
+      JPH_EResult_MaxVerticesReached: MAX_VERTICES_REACHED
+  - name: JPH_EGroundState
+    name-mappings:
+      JPH_EGroundState_OnGround: ON_GROUND
+      JPH_EGroundState_OnSteepGround: ON_STEEP_GROUND
+      JPH_EGroundState_NotSupported: NOT_SUPPORTED
+      JPH_EGroundState_InAir: IN_AIR
+  - name: JPH_ECullMode
+    name-mappings:
+      JPH_ECullMode_CullBackFace: CULL_BACK_FACE
+      JPH_ECullMode_CullFrontFace: CULL_FRONT_FACE
+      JPH_ECullMode_Off: OFF
+  - name: JPH_EDrawMode
+    name-mappings:
+      JPH_EDrawMode_Solid: SOLID
+      JPH_EDrawMode_Wireframe: WIREFRAME
+  - name: JPH_ECastShadow
+    name-mappings:
+      JPH_ECastShadow_On: ON
+      JPH_ECastShadow_Off: OFF
+  - name: JPH_EBendType
+    name-mappings:
+      JPH_EBendType_None: NONE
+      JPH_EBendType_Distance: DISTANCE
+      JPH_EBendType_Dihedral: DIHEDRAL
+  - name: JPH_EStatus
+    name-mappings:
+      JPH_EStatus_NoWork: NO_WORK
+      JPH_EStatus_DidWork: DID_WORK
+      JPH_EStatus_Done: DONE
+  - name: JPH_EBuildQuality
+    name-mappings:
+      JPH_EBuildQuality_FavorRuntimePerformance: FAVOR_RUNTIME_PERFORMANCE
+      JPH_EBuildQuality_FavorBuildSpeed: FAVOR_BUILD_SPEED
+  - name: JPH_EAxis
+    name-mappings:
+      JPH_EAxis_TranslationX: TRANSLATION_X
+      JPH_EAxis_TranslationY: TRANSLATION_Y
+      JPH_EAxis_TranslationZ: TRANSLATION_Z
+      JPH_EAxis_RotationX: ROTATION_X
+      JPH_EAxis_RotationY: ROTATION_Y
+      JPH_EAxis_RotationZ: ROTATION_Z
+      JPH_EAxis_Num: NUM
+      JPH_EAxis_NumTranslation: NUM_TRANSLATION

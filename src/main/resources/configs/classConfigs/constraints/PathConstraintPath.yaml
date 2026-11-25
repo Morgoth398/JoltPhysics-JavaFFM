@@ -1,0 +1,48 @@
+class-description:
+  name: PathConstraintPath
+  package-name: volucris.bindings.jolt.constraints
+  directory: src/main/java/volucris/bindings/jolt/constraints
+  is-static: false
+  parent: PathConstraintPathRefTarget
+  parent-has-segment-constructor: true
+  parent-conversion-function: asRefTarget
+  interfaces: []
+  is-sealed: true
+  permits: [PathConstraintPathHermite]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+  cleanup-function: JPH_PathConstraintPath_Destroy
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_PathConstraintPath_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_PathConstraintPath_Destroy
+    add-typed-method: false
+  - name: JPH_PathConstraintPath_AsRefTarget
+    add-typed-method: false
+  - name: JPH_PathConstraintPath_AsSerializableObject
+    add-typed-method: false
+  - name: JPH_PathConstraintPath_sCreateRTTI
+    is-static: true
+  - name: JPH_PathConstraintPath_sRestoreFromBinaryState
+    is-static: true
+
+native-function-pointers:

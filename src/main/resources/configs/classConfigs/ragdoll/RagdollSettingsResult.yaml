@@ -1,0 +1,37 @@
+class-description:
+  name: RagdollSettingsResult
+  package-name: volucris.bindings.jolt.ragdoll
+  directory: src/main/java/volucris/bindings/jolt/ragdoll
+  is-static: false
+  parent:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_RagdollSettingsResult_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_RagdollSettingsResult_Create
+    destructor: JPH_RagdollSettingsResult_Destroy
+struct:
+native-functions:
+  
+native-function-pointers:

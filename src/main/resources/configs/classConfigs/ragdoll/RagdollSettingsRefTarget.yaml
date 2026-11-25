@@ -1,0 +1,39 @@
+class-description:
+  name: RagdollSettingsRefTarget
+  package-name: volucris.bindings.jolt.ragdoll
+  directory: src/main/java/volucris/bindings/jolt/ragdoll
+  is-static: false
+  parent:
+  parent-has-segment-constructor:
+  parent-conversion-function:
+  interfaces: []
+  is-sealed: true
+  permits: [RagdollSettings]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_RagdollSettingsRefTarget_
+excluded-function-name-prefixes:
+  - JPH_RagdollSettingsRefTarget_Create
+  - JPH_RagdollSettingsRefTarget_Create1
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+
+native-function-pointers:

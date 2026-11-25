@@ -1,0 +1,97 @@
+class-description:
+  name: Vec4
+  package-name: volucris.bindings.jolt.math
+  directory: src/main/java/volucris/bindings/jolt/math
+  is-static: false
+  parent:
+  parent-has-segment-constructor:
+  parent-conversion-function:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_Vec4_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_Vec4_Create
+    destructor: JPH_Vec4_Destroy
+  - native-function: JPH_Vec4_Create1
+    destructor: JPH_Vec4_Destroy
+  - native-function: JPH_Vec4_Create2
+    destructor: JPH_Vec4_Destroy
+  - native-function: JPH_Vec4_Create3
+    destructor: JPH_Vec4_Destroy
+  - native-function: JPH_Vec4_Create5
+    destructor: JPH_Vec4_Destroy
+struct:
+native-functions:
+  - name: JPH_Vec4_Destroy
+    add-typed-method: false
+  - name: JPH_Vec4_sZero
+    is-static: true
+  - name: JPH_Vec4_sOne
+    is-static: true
+  - name: JPH_Vec4_sNaN
+    is-static: true
+  - name: JPH_Vec4_sReplicate
+    is-static: true
+  - name: JPH_Vec4_sLoadFloat4
+    is-static: true
+  - name: JPH_Vec4_sLoadFloat4Aligned
+    is-static: true
+  - name: JPH_Vec4_sMin
+    is-static: true
+  - name: JPH_Vec4_sMax
+    is-static: true
+  - name: JPH_Vec4_sClamp
+    is-static: true
+  - name: JPH_Vec4_sEquals
+    is-static: true
+  - name: JPH_Vec4_sLess
+    is-static: true
+  - name: JPH_Vec4_sLessOrEqual
+    is-static: true
+  - name: JPH_Vec4_sGreater
+    is-static: true
+  - name: JPH_Vec4_sGreaterOrEqual
+    is-static: true
+  - name: JPH_Vec4_sFusedMultiplyAdd
+    is-static: true
+  - name: JPH_Vec4_sSelect
+    is-static: true
+  - name: JPH_Vec4_sOr
+    is-static: true
+  - name: JPH_Vec4_sXor
+    is-static: true
+  - name: JPH_Vec4_sAnd
+    is-static: true
+  - name: JPH_Vec4_sSort4
+    is-static: true
+  - name: JPH_Vec4_sSort4Reverse
+    is-static: true
+  - name: JPH_Vec4_sDifferenceOfProducts
+    is-static: true
+  - name: JPH_Vec4_sATan2
+    is-static: true
+  - name: JPH_Vec4_sDecompressUnitVector
+    is-static: true
+
+native-function-pointers:

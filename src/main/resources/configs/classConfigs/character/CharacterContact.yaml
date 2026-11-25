@@ -1,0 +1,37 @@
+class-description:
+  name: CharacterContact
+  package-name: volucris.bindings.jolt.character
+  directory: src/main/java/volucris/bindings/jolt/character
+  is-static: false
+  parent: CharacterContactKey
+  parent-has-segment-constructor: true
+  parent-conversion-function: asCharacterContactKey
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_CharacterContact_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_CharacterContact_Create
+struct:
+native-functions:
+native-function-pointers:

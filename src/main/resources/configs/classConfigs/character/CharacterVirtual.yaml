@@ -1,0 +1,40 @@
+class-description:
+  name: CharacterVirtual
+  package-name: volucris.bindings.jolt.character
+  directory: src/main/java/volucris/bindings/jolt/character
+  is-static: false
+  parent: CharacterBase
+  parent-has-segment-constructor: true
+  parent-conversion-function: asCharacterBase
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_CharacterVirtual_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_CharacterVirtual_Create
+  - native-function: JPH_CharacterVirtual_Create1
+struct:
+native-functions:
+  - name: JPH_CharacterVirtual_AsCharacterBase
+    add-typed-method: false
+native-function-pointers:

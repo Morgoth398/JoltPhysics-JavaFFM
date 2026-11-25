@@ -1,0 +1,50 @@
+class-description:
+  name: Shape
+  package-name: volucris.bindings.jolt.collision.shape
+  directory: src/main/java/volucris/bindings/jolt/collision/shape
+  is-static: false
+  parent: ShapeRefTarget
+  parent-has-segment-constructor: true
+  parent-conversion-function: asRefTarget
+  interfaces: []
+  is-sealed: true
+  permits: [CompoundShape, ConvexShape, DecoratedShape, EmptyShape, HeightFieldShape, MeshShape, PlaneShape, SoftBodyShape]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+  cleanup-function: JPH_Shape_Destroy
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_Shape_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_Shape_AsRefTarget
+    add-typed-method: false
+  - name: JPH_Shape_GetGetTrianglesMinTrianglesRequested
+    is-static: true
+  - name: JPH_Shape_GetDrawSubmergedVolumes
+    is-static: true
+  - name: JPH_Shape_SetDrawSubmergedVolumes
+    is-static: true
+  - name: JPH_Shape_sRestoreFromBinaryState
+    is-static: true
+  - name: JPH_Shape_sRestoreWithChildren
+    is-static: true
+
+native-function-pointers:

@@ -1,0 +1,44 @@
+class-description:
+  name: VehicleControllerSettings
+  package-name: volucris.bindings.jolt.vehicle
+  directory: src/main/java/volucris/bindings/jolt/vehicle
+  is-static: false
+  parent: VehicleControllerSettingsRefTarget
+  parent-has-segment-constructor: true
+  parent-conversion-function: asRefTarget
+  interfaces: []
+  is-sealed: true
+  permits: [TrackedVehicleControllerSettings, WheeledVehicleControllerSettings]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+  cleanup-function: JPH_VehicleControllerSettings_Destroy
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_VehicleControllerSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_VehicleControllerSettings_AsRefTarget
+    add-typed-method: false
+  - name: JPH_VehicleControllerSettings_AsSerializableObject
+    add-typed-method: false
+  - name: JPH_VehicleControllerSettings_sCreateRTTI
+    is-static: true
+
+native-function-pointers:

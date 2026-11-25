@@ -1,0 +1,50 @@
+class-description:
+  name: ObjectLayerPairFilterMask
+  package-name: volucris.bindings.jolt.collision
+  directory: src/main/java/volucris/bindings/jolt/collision
+  is-static: false
+  parent: ObjectLayerPairFilter
+  parent-has-segment-constructor: true
+  parent-conversion-function: asObjectLayerPairFilter
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_ObjectLayerPairFilterMask_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_ObjectLayerPairFilterMask_Create
+struct:
+native-functions:
+  - name: JPH_ObjectLayerPairFilterMask_AsObjectLayerPairFilter
+    add-typed-method: false
+  - name: JPH_ObjectLayerPairFilterMask_GetNumBits
+    is-static: true
+  - name: JPH_ObjectLayerPairFilterMask_GetMask
+    is-static: true
+  - name: JPH_ObjectLayerPairFilterMask_sGetObjectLayer
+    is-static: true
+  - name: JPH_ObjectLayerPairFilterMask_sGetGroup
+    is-static: true
+  - name: JPH_ObjectLayerPairFilterMask_sGetMask
+    is-static: true
+
+native-function-pointers:

@@ -1,0 +1,40 @@
+class-description:
+  name: RayCastResult
+  package-name: volucris.bindings.jolt.collision
+  directory: src/main/java/volucris/bindings/jolt/collision
+  is-static: false
+  parent: BroadPhaseCastResult
+  parent-has-segment-constructor: true
+  parent-conversion-function: asBroadPhaseCastResult
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_RayCastResult_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_RayCastResult_Create
+struct:
+native-functions:
+  - name: JPH_RayCastResult_AsBroadPhaseCastResult
+    add-typed-method: false
+
+native-function-pointers:

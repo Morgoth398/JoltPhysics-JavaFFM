@@ -1,0 +1,39 @@
+class-description:
+  name: CompoundShape
+  package-name: volucris.bindings.jolt.collision.shape
+  directory: src/main/java/volucris/bindings/jolt/collision/shape
+  is-static: false
+  parent: Shape
+  parent-has-segment-constructor: true
+  parent-conversion-function: asShape
+  interfaces: []
+  is-sealed: true
+  permits: [MutableCompoundShape, StaticCompoundShape]
+  is-abstract: false
+  is-final:
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_CompoundShape_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_CompoundShape_AsShape
+    add-typed-method: false
+  
+native-function-pointers:

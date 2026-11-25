@@ -1,0 +1,37 @@
+class-description:
+  name: CollisionCollectorTraitsCastShape
+  package-name: volucris.bindings.jolt.collision
+  directory: src/main/java/volucris/bindings/jolt/collision
+  is-static: true
+  parent:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_CollisionCollectorTraitsCastShape_
+excluded-function-name-prefixes:
+  - JPH_CollisionCollectorTraitsCastShape_Create
+  - JPH_CollisionCollectorTraitsCastShape_Destroy
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  
+native-function-pointers:

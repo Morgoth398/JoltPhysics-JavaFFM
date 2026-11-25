@@ -1,0 +1,40 @@
+class-description:
+  name: TrackedVehicleController
+  package-name: volucris.bindings.jolt.vehicle
+  directory: src/main/java/volucris/bindings/jolt/vehicle
+  is-static: false
+  parent: VehicleController
+  parent-has-segment-constructor: true
+  parent-conversion-function: asVehicleController
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_TrackedVehicleController_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_TrackedVehicleController_Create
+struct:
+native-functions:
+  - name: JPH_TrackedVehicleController_AsVehicleController
+    add-typed-method: false
+
+native-function-pointers:

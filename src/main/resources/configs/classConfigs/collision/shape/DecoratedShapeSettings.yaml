@@ -1,0 +1,39 @@
+class-description:
+  name: DecoratedShapeSettings
+  package-name: volucris.bindings.jolt.collision.shape
+  directory: src/main/java/volucris/bindings/jolt/collision/shape
+  is-static: false
+  parent: ShapeSettings
+  parent-has-segment-constructor: true
+  parent-conversion-function: asShapeSettings
+  interfaces: []
+  is-sealed: true
+  permits: [OffsetCenterOfMassShapeSettings, RotatedTranslatedShapeSettings, ScaledShapeSettings]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_DecoratedShapeSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_DecoratedShapeSettings_AsShapeSettings
+    add-typed-method: false
+
+native-function-pointers:

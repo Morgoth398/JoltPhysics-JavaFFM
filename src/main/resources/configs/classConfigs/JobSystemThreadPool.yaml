@@ -1,0 +1,41 @@
+class-description:
+  name: JobSystemThreadPool
+  package-name: volucris.bindings.jolt
+  directory: src/main/java/volucris/bindings/jolt
+  is-static: false
+  parent: JobSystemWithBarrier
+  parent-has-segment-constructor: true
+  parent-conversion-function: asJobSystemWithBarrier
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_JobSystemThreadPool_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_JobSystemThreadPool_Create
+  - native-function: JPH_JobSystemThreadPool_Create1
+struct:
+native-functions:
+  - name: JPH_JobSystemThreadPool_AsJobSystemWithBarrier
+    add-typed-method: false
+
+native-function-pointers:

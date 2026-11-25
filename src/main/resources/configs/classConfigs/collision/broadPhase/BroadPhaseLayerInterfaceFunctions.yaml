@@ -1,0 +1,35 @@
+class-description:
+  name: BroadPhaseLayerInterfaceFunctions
+  package-name: volucris.bindings.jolt.collision.broadPhase
+  directory: src/main/java/volucris/bindings/jolt/collision/broadPhase
+  is-static: false
+  parent:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+  name: JPH_BroadPhaseLayerInterfaceFunctions
+native-functions:
+  
+native-function-pointers:

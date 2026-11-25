@@ -1,0 +1,45 @@
+class-description:
+  name: Skinned
+  package-name: volucris.bindings.jolt.softBody
+  directory: src/main/java/volucris/bindings/jolt/softBody
+  is-static: false
+  parent:
+  parent-has-segment-constructor:
+  parent-conversion-function:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_SoftBodySharedSettingsSkinned_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_SoftBodySharedSettingsSkinned_Create
+    destructor: JPH_SoftBodySharedSettingsSkinned_Destroy
+  - native-function: JPH_SoftBodySharedSettingsSkinned_Create1
+    destructor: JPH_SoftBodySharedSettingsSkinned_Destroy
+struct:
+native-functions:
+  - name: JPH_SoftBodySharedSettingsSkinned_Destroy
+    add-typed-method: false
+  - name: JPH_SoftBodySharedSettingsSkinned_GetMaxSkinWeights
+    is-static: true
+
+native-function-pointers:

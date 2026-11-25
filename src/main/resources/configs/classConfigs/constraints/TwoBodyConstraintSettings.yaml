@@ -1,0 +1,41 @@
+class-description:
+  name: TwoBodyConstraintSettings
+  package-name: volucris.bindings.jolt.constraints
+  directory: src/main/java/volucris/bindings/jolt/constraints
+  is-static: false
+  parent: ConstraintSettings
+  parent-has-segment-constructor: true
+  parent-conversion-function: asConstraintSettings
+  interfaces: []
+  is-sealed: true
+  permits: [ConeConstraintSettings, FixedConstraintSettings, GearConstraintSettings, HingeConstraintSettings, PathConstraintSettings, PointConstraintSettings, PulleyConstraintSettings, RackAndPinionConstraintSettings, SixDOFConstraintSettings, SliderConstraintSettings, SwingTwistConstraintSettings, DistanceConstraintSettings]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_TwoBodyConstraintSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_TwoBodyConstraintSettings_AsConstraintSettings
+    add-typed-method: false
+  - name: JPH_TwoBodyConstraintSettings_sCreateRTTI
+    is-static: true
+
+native-function-pointers:

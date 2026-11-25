@@ -1,0 +1,40 @@
+class-description:
+  name: RackAndPinionConstraint
+  package-name: volucris.bindings.jolt.constraints
+  directory: src/main/java/volucris/bindings/jolt/constraints
+  is-static: false
+  parent: TwoBodyConstraint
+  parent-has-segment-constructor: true
+  parent-conversion-function: asTwoBodyConstraint
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_RackAndPinionConstraint_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_RackAndPinionConstraint_Create
+struct:
+native-functions:
+  - name: JPH_RackAndPinionConstraint_AsTwoBodyConstraint
+    add-typed-method: false
+
+native-function-pointers:

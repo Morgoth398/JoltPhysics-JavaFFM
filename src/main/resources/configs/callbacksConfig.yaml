@@ -1,0 +1,216 @@
+callbacks:
+  - name: JPH_BodyActivationListenerFunctions_OnBodyActivated
+    package-name: volucris.bindings.jolt.body
+    directory: src/main/java/volucris/bindings/jolt/body
+  - name: JPH_BodyActivationListenerFunctions_OnBodyDeactivated
+    package-name: volucris.bindings.jolt.body
+    directory: src/main/java/volucris/bindings/jolt/body
+  - name: JPH_BodyDrawFilterFunctions_ShouldDraw
+    package-name: volucris.bindings.jolt.body
+    directory: src/main/java/volucris/bindings/jolt/body
+
+  - name: JPH_BodyFilterFunctions_ShouldCollide
+    package-name: volucris.bindings.jolt.body
+    directory: src/main/java/volucris/bindings/jolt/body
+  - name: JPH_BodyFilterFunctions_ShouldCollideLocked
+    package-name: volucris.bindings.jolt.body
+    directory: src/main/java/volucris/bindings/jolt/body
+
+  - name: JPH_BroadPhaseLayerFilterFunctions_ShouldCollide
+    package-name: volucris.bindings.jolt.collision.broadPhase
+    directory: src/main/java/volucris/bindings/jolt/collision/broadPhase
+
+  - name: JPH_BroadPhaseLayerInterfaceFunctions_GetNumBroadPhaseLayers
+    package-name: volucris.bindings.jolt.collision.broadPhase
+    directory: src/main/java/volucris/bindings/jolt/collision/broadPhase
+  - name: JPH_BroadPhaseLayerInterfaceFunctions_GetBroadPhaseLayer
+    package-name: volucris.bindings.jolt.collision.broadPhase
+    directory: src/main/java/volucris/bindings/jolt/collision/broadPhase
+
+  - name: JPH_ContactListenerFunctions_OnContactValidate
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_ContactListenerFunctions_OnContactAdded
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_ContactListenerFunctions_OnContactPersisted
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_ContactListenerFunctions_OnContactRemoved
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+    
+  - name: JPH_DebugRendererFunctions_DrawLine
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+  - name: JPH_DebugRendererFunctions_DrawTriangle
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+  - name: JPH_DebugRendererFunctions_CreateTriangleBatch
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+  - name: JPH_DebugRendererFunctions_CreateTriangleBatch1
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+  - name: JPH_DebugRendererFunctions_DrawGeometry
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+  - name: JPH_DebugRendererFunctions_DrawText3D
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+
+  - name: JPH_DebugRendererSimpleFunctions_DrawLine
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+  - name: JPH_DebugRendererSimpleFunctions_DrawText3D
+    package-name: volucris.bindings.jolt.renderer
+    directory: src/main/java/volucris/bindings/jolt/renderer
+
+  - name: JPH_ObjectLayerFilterFunctions_ShouldCollide
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_ObjectLayerPairFilterFunctions_ShouldCollide
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+
+  - name: JPH_GroupFilterFunctions_CanCollide
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_GroupFilterFunctions_SaveBinaryState
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_ObjectVsBroadPhaseLayerFilterFunctions_ShouldCollide
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_SimShapeFilterFunctions_ShouldCollide
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+
+  - name: JPH_ShapeFilterFunctions_ShouldCollide
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+  - name: JPH_ShapeFilterFunctions_ShouldCollide1
+    package-name: volucris.bindings.jolt.collision
+    directory: src/main/java/volucris/bindings/jolt/collision
+
+  - name: JPH_JobSystemFunctions_GetMaxConcurrency
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_CreateJob
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_CreateJobs
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_CreateBarrier
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_DestroyBarrier
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_WaitForJobs
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_QueueJob
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_QueueJobs
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_JobSystemFunctions_FreeJob
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+
+  - name: JPH_PhysicsStepListenerFunctions_OnStep
+    package-name: volucris.bindings.jolt.physics
+    directory: src/main/java/volucris/bindings/jolt/physics
+
+  - name: JPH_TempAllocatorFunctions_Allocate
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+  - name: JPH_TempAllocatorFunctions_Free
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+
+  - name: JPH_CharacterContactListenerFunctions_OnAdjustBodyVelocity
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnContactValidate
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnContactAdded
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnContactPersisted
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnContactRemoved
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnCharacterContactValidate
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnCharacterContactAdded
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnCharacterContactPersisted
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnCharacterContactRemoved
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnContactSolve
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterContactListenerFunctions_OnCharacterContactSolve
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterVsCharacterCollisionFunctions_CollideCharacter
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  - name: JPH_CharacterVsCharacterCollisionFunctions_CastCharacter
+    package-name: volucris.bindings.jolt.character
+    directory: src/main/java/volucris/bindings/jolt/character
+  
+  - name: JPH_VehicleCollisionTesterFunctions_Collide
+    package-name: volucris.bindings.jolt.vehicle
+    directory: src/main/java/volucris/bindings/jolt/vehicle
+  - name: JPH_VehicleCollisionTesterFunctions_PredictContactProperties
+    package-name: volucris.bindings.jolt.vehicle
+    directory: src/main/java/volucris/bindings/jolt/vehicle
+  - name: JPH_CombineFunctionCallback
+    package-name: volucris.bindings.jolt.vehicle
+    directory: src/main/java/volucris/bindings/jolt/vehicle
+
+  - name: JPH_SoftBodyContactListenerFunctions_OnSoftBodyContactValidate
+    package-name: volucris.bindings.jolt.softBody
+    directory: src/main/java/volucris/bindings/jolt/softBody
+  - name: JPH_SoftBodyContactListenerFunctions_OnSoftBodyContactAdded
+    package-name: volucris.bindings.jolt.softBody
+    directory: src/main/java/volucris/bindings/jolt/softBody
+
+  - name: JPH_StateRecorderFilterFunctions_ShouldSaveBody
+    package-name: volucris.bindings.jolt.physics
+    directory: src/main/java/volucris/bindings/jolt/physics
+  - name: JPH_StateRecorderFilterFunctions_ShouldSaveConstraint 
+    package-name: volucris.bindings.jolt.physics
+    directory: src/main/java/volucris/bindings/jolt/physics
+  - name: JPH_StateRecorderFilterFunctions_ShouldSaveContact
+    package-name: volucris.bindings.jolt.physics
+    directory: src/main/java/volucris/bindings/jolt/physics
+  - name: JPH_StateRecorderFilterFunctions_ShouldRestoreContact
+    package-name: volucris.bindings.jolt.physics
+    directory: src/main/java/volucris/bindings/jolt/physics
+
+  - name: JPH_TraceFunction
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+    string-parameters:
+      - message
+  - name: JPH_AssertFailureFunction
+    package-name: volucris.bindings.jolt
+    directory: src/main/java/volucris/bindings/jolt
+    string-parameters:
+      - expression
+      - message
+      - file

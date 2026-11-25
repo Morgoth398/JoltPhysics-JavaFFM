@@ -1,0 +1,40 @@
+class-description:
+  name: NarrowPhaseQuery
+  package-name: volucris.bindings.jolt.collision
+  directory: src/main/java/volucris/bindings/jolt/collision
+  is-static: false
+  parent:
+  parent-has-segment-constructor:
+  parent-conversion-function:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_NarrowPhaseQuery_
+excluded-function-name-prefixes:
+  - JPH_NarrowPhaseQuery_Create
+  - JPH_NarrowPhaseQuery_Destroy
+  - JPH_NarrowPhaseQuery_Init
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+
+native-function-pointers:

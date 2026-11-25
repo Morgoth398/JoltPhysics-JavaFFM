@@ -1,0 +1,44 @@
+class-description:
+  name: ShapeSettings
+  package-name: volucris.bindings.jolt.collision.shape
+  directory: src/main/java/volucris/bindings/jolt/collision/shape
+  is-static: false
+  parent: ShapeSettingsRefTarget
+  parent-has-segment-constructor: true
+  parent-conversion-function: asRefTarget
+  interfaces: []
+  is-sealed: true
+  permits: [CompoundShapeSettings, ConvexShapeSettings, DecoratedShapeSettings, EmptyShapeSettings, HeightFieldShapeSettings, MeshShapeSettings, PlaneShapeSettings]
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+  cleanup-function: JPH_ShapeSettings_Destroy
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_ShapeSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+  - name: JPH_ShapeSettings_AsRefTarget
+    add-typed-method: false
+  - name: JPH_ShapeSettings_AsSerializableObject
+    add-typed-method: false
+  - name: JPH_ShapeSettings_sCreateRTTI
+    is-static: true
+
+native-function-pointers:

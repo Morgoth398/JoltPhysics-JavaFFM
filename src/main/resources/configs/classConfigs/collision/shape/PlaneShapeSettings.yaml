@@ -1,0 +1,45 @@
+class-description:
+  name: PlaneShapeSettings
+  package-name: volucris.bindings.jolt.collision.shape
+  directory: src/main/java/volucris/bindings/jolt/collision/shape
+  is-static: false
+  parent: ShapeSettings
+  parent-has-segment-constructor: true
+  parent-conversion-function: asShapeSettings
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: true
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_PlaneShapeSettings_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_PlaneShapeSettings_Create
+  - native-function: JPH_PlaneShapeSettings_Create1
+struct:
+native-functions:
+  - name: JPH_PlaneShapeSettings_AsShapeSettings
+    add-typed-method: false
+  - name: JPH_PlaneShapeSettings_GetDefaultHalfExtent
+    is-static: true
+  - name: JPH_PlaneShapeSettings_sCreateRTTI
+    is-static: true
+
+native-function-pointers:

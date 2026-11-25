@@ -1,0 +1,43 @@
+class-description:
+  name: PathConstraintPathRef
+  package-name: volucris.bindings.jolt.constraints
+  directory: src/main/java/volucris/bindings/jolt/constraints
+  is-static: false
+  parent:
+  parent-has-segment-constructor:
+  parent-conversion-function:
+  interfaces: []
+  is-sealed: false
+  permits: []
+  is-abstract: false
+  is-final: false
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_PathConstraintPathRef_
+excluded-function-name-prefixes:
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+  - native-function: JPH_PathConstraintPathRef_Create
+    destructor: JPH_PathConstraintPathRef_Destroy
+  - native-function: JPH_PathConstraintPathRef_Create1
+    destructor: JPH_PathConstraintPathRef_Destroy
+  - native-function: JPH_PathConstraintPathRef_Create2
+    destructor: JPH_PathConstraintPathRef_Destroy
+struct:
+native-functions:
+
+native-function-pointers:

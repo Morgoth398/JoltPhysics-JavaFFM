@@ -1,0 +1,36 @@
+class-description:
+  name: CharacterBaseRefTarget
+  package-name: volucris.bindings.jolt.character
+  directory: src/main/java/volucris/bindings/jolt/character
+  is-static: false
+  parent:
+  interfaces: []
+  is-sealed: true
+  permits: [CharacterBase]
+  is-abstract: false
+  is-final:
+  instance-parameter: self
+
+imports:
+static-imports:
+
+macro-name-prefixes:
+excluded-macro-name-prefixes:
+macro-names:
+excluded-macro-names:
+
+symbol-prefixes:
+symbols:
+
+function-name-prefixes:
+  - JPH_CharacterBaseRefTarget_
+excluded-function-name-prefixes:
+  - JPH_CharacterBaseRefTarget_Create
+  - JPH_CharacterBaseRefTarget_Create1
+function-name-postfixes:
+excluded-function-name-postfixes:
+
+constructors:
+struct:
+native-functions:
+native-function-pointers:

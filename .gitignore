@@ -39,3 +39,5 @@ java/build/**
 /natives/
 
 !JoltPhysics-*/Build/
+
+dependency-reduced-pom.xml
